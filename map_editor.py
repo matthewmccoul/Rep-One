@@ -1,10 +1,25 @@
 import json
 import math
 import copy
-import tkinter as tk
-from tkinter import ttk, filedialog, messagebox, simpledialog
+import os
 from dataclasses import dataclass
 from typing import List, Optional, Tuple
+
+from kivy.app import App
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.widget import Widget
+from kivy.uix.scrollview import ScrollView
+from kivy.uix.label import Label
+from kivy.uix.button import Button
+from kivy.uix.spinner import Spinner
+from kivy.uix.textinput import TextInput
+from kivy.uix.popup import Popup
+from kivy.uix.filechooser import FileChooserListView
+from kivy.uix.dropdown import DropDown
+from kivy.graphics import Color, Rectangle, Line, InstructionGroup
+from kivy.core.text import Label as CoreLabel
+from kivy.metrics import dp
 
 
 @dataclass
@@ -102,190 +117,521 @@ class MapModel:
         self.data = list(snap)
 
 
-class MapEditorApp:
+# ---------- Dialog helpers ----------
+
+class AlertPopup(Popup):
+    @classmethod
+    def show(cls, title, message):
+        inst = cls(title=title, size_hint=(0.8, 0.4))
+        layout = BoxLayout(orientation='vertical', padding=dp(12), spacing=dp(8))
+        layout.add_widget(Label(text=message))
+        ok_btn = Button(text='OK', size_hint_y=None, height=dp(44))
+        ok_btn.bind(on_release=inst.dismiss)
+        layout.add_widget(ok_btn)
+        inst.content = layout
+        inst.open()
+
+
+class FileDialog(Popup):
+    def __init__(self, mode='load', on_select=None, **kwargs):
+        super().__init__(**kwargs)
+        self._mode = mode
+        self._on_select = on_select
+        self.title = 'Load Map' if mode == 'load' else 'Save Map'
+        self.size_hint = (0.95, 0.9)
+
+        start = '/sdcard/' if os.path.isdir('/sdcard/') else '/'
+
+        layout = BoxLayout(orientation='vertical', spacing=dp(4))
+        self._chooser = FileChooserListView(path=start, filters=['*.json'])
+        layout.add_widget(self._chooser)
+
+        if mode == 'save':
+            self._filename_input = TextInput(
+                text='Map.json', multiline=False,
+                size_hint_y=None, height=dp(44)
+            )
+            layout.add_widget(self._filename_input)
+
+        btn_row = BoxLayout(size_hint_y=None, height=dp(50), spacing=dp(4))
+        select_lbl = 'Select' if mode == 'load' else 'Save'
+        select_btn = Button(text=select_lbl)
+        cancel_btn = Button(text='Cancel')
+        select_btn.bind(on_release=self._do_select)
+        cancel_btn.bind(on_release=self.dismiss)
+        btn_row.add_widget(select_btn)
+        btn_row.add_widget(cancel_btn)
+        layout.add_widget(btn_row)
+        self.content = layout
+
+    def _do_select(self, *args):
+        if self._mode == 'load':
+            sel = self._chooser.selection
+            if not sel:
+                return
+            path = sel[0]
+        else:
+            filename = self._filename_input.text.strip()
+            if not filename:
+                return
+            path = os.path.join(self._chooser.path, filename)
+        self.dismiss()
+        if self._on_select:
+            self._on_select(path)
+
+
+class PasteDialog(Popup):
+    def __init__(self, model, clipboard, on_confirm=None, **kwargs):
+        super().__init__(title='Paste Clipboard', size_hint=(0.7, 0.55), **kwargs)
+        self._on_confirm = on_confirm
+        self._model = model
+
+        layout = BoxLayout(orientation='vertical', padding=dp(12), spacing=dp(8))
+        layout.add_widget(Label(
+            text=f'Clipboard: {clipboard.width}x{clipboard.height}  Map: {model.width}x{model.height}',
+            size_hint_y=None, height=dp(40)
+        ))
+
+        row_x = BoxLayout(size_hint_y=None, height=dp(44))
+        row_x.add_widget(Label(text='Tile X:', size_hint_x=0.4))
+        self._x_input = TextInput(text='0', multiline=False, input_filter='int')
+        row_x.add_widget(self._x_input)
+        layout.add_widget(row_x)
+
+        row_y = BoxLayout(size_hint_y=None, height=dp(44))
+        row_y.add_widget(Label(text='Tile Y:', size_hint_x=0.4))
+        self._y_input = TextInput(text='0', multiline=False, input_filter='int')
+        row_y.add_widget(self._y_input)
+        layout.add_widget(row_y)
+
+        btn_row = BoxLayout(size_hint_y=None, height=dp(50), spacing=dp(4))
+        paste_btn = Button(text='Paste')
+        cancel_btn = Button(text='Cancel')
+        paste_btn.bind(on_release=self._do_paste)
+        cancel_btn.bind(on_release=self.dismiss)
+        btn_row.add_widget(paste_btn)
+        btn_row.add_widget(cancel_btn)
+        layout.add_widget(btn_row)
+        self.content = layout
+
+    def _do_paste(self, *args):
+        try:
+            x = int(self._x_input.text)
+            y = int(self._y_input.text)
+        except ValueError:
+            AlertPopup.show('Error', 'X and Y must be integers.')
+            return
+        if not (0 <= x < self._model.width and 0 <= y < self._model.height):
+            AlertPopup.show('Error', f'Out of range (0..{self._model.width-1}, 0..{self._model.height-1}).')
+            return
+        self.dismiss()
+        if self._on_confirm:
+            self._on_confirm(x, y)
+
+
+# ---------- Map canvas widget ----------
+
+class MapWidget(Widget):
+    def __init__(self, root_layout, **kwargs):
+        super().__init__(**kwargs)
+        self.root_layout = root_layout
+        self.size_hint = (None, None)
+        self.size = (100, 100)
+        self._label_cache = {}
+
+        self.tile_group = InstructionGroup()
+        self.preview_group = InstructionGroup()
+        self.canvas.add(self.tile_group)
+        self.canvas.add(self.preview_group)
+
+        self.bind(size=self._on_size_change, pos=self._on_size_change)
+
+    def _on_size_change(self, *args):
+        self.update_canvas()
+
+    def _pos_to_tile(self, wx, wy):
+        rl = self.root_layout
+        if not rl.has_map():
+            return None
+        ts = rl.tile_size()
+        tx = int(wx / ts)
+        ty = rl.model.height - 1 - int(wy / ts)
+        if 0 <= tx < rl.model.width and 0 <= ty < rl.model.height:
+            return tx, ty
+        return None
+
+    def _get_label_texture(self, value, font_size):
+        key = (value, font_size)
+        if key not in self._label_cache:
+            lbl = CoreLabel(text=str(value), font_size=font_size)
+            lbl.refresh()
+            self._label_cache[key] = lbl.texture
+        return self._label_cache[key]
+
+    def update_canvas(self, *args):
+        rl = self.root_layout
+        self.tile_group.clear()
+
+        if self.width == 0 or self.height == 0:
+            return
+        if not rl.has_map():
+            return
+
+        model = rl.model
+        ts = rl.tile_size()
+        map_px_w = model.width * ts
+        map_px_h = model.height * ts
+
+        self.size = (map_px_w, map_px_h)
+
+        sv = rl.scroll_view
+        sv_w = max(sv.width, 1)
+        sv_h = max(sv.height, 1)
+        scroll_x_px = sv.scroll_x * max(0, map_px_w - sv_w)
+        scroll_y_px = sv.scroll_y * max(0, map_px_h - sv_h)
+
+        vp_left = scroll_x_px
+        vp_bottom = scroll_y_px
+        vp_right = vp_left + sv_w
+        vp_top = vp_bottom + sv_h
+
+        x_min = max(0, int(vp_left / ts))
+        x_max = min(model.width - 1, int(vp_right / ts) + 1)
+        map_y_min = max(0, model.height - 1 - int(vp_top / ts) - 1)
+        map_y_max = min(model.height - 1, model.height - 1 - int(vp_bottom / ts) + 1)
+
+        font_size = max(7, min(12, int(ts / 5)))
+
+        # Tile backgrounds
+        self.tile_group.add(Color(0.788, 0.862, 0.635, 1))
+        for map_y in range(map_y_min, map_y_max + 1):
+            for map_x in range(x_min, x_max + 1):
+                px = map_x * ts
+                py = (model.height - 1 - map_y) * ts
+                self.tile_group.add(Rectangle(pos=(px, py), size=(ts, ts)))
+
+        # Tile value labels
+        self.tile_group.add(Color(0.122, 0.122, 0.122, 1))
+        for map_y in range(map_y_min, map_y_max + 1):
+            for map_x in range(x_min, x_max + 1):
+                val = model.composite_tile_value(map_x, map_y)
+                tex = self._get_label_texture(val, font_size)
+                px = map_x * ts
+                py = (model.height - 1 - map_y) * ts
+                self.tile_group.add(Rectangle(
+                    texture=tex,
+                    pos=(px + ts / 2 - tex.width / 2, py + ts / 2 - tex.height / 2),
+                    size=(tex.width, tex.height)
+                ))
+
+        # Grid lines
+        if rl.show_grid:
+            self.tile_group.add(Color(0.565, 0.663, 0.490, 1))
+            for gx in range(x_min, x_max + 2):
+                px = gx * ts
+                self.tile_group.add(Line(
+                    points=[px, map_y_min * ts, px, (map_y_max + 1) * ts], width=1
+                ))
+            for map_y in range(map_y_min, map_y_max + 2):
+                py = (model.height - 1 - map_y) * ts
+                self.tile_group.add(Line(
+                    points=[x_min * ts, py, (x_max + 1) * ts, py], width=1
+                ))
+
+    def render_preview(self, start, end):
+        self.preview_group.clear()
+        rl = self.root_layout
+        ts = rl.tile_size()
+        model = rl.model
+        x1, y1, x2, y2 = rl.rect_bounds(start, end)
+        px1 = x1 * ts
+        py1 = (model.height - 1 - y2) * ts
+        pw = (x2 - x1 + 1) * ts
+        ph = (y2 - y1 + 1) * ts
+        self.preview_group.add(Color(0.816, 0.294, 0.294, 1))
+        self.preview_group.add(Line(rectangle=(px1, py1, pw, ph), dash_offset=0, dash_length=6, width=2))
+
+    def clear_preview(self):
+        self.preview_group.clear()
+
+    def on_touch_down(self, touch):
+        if not self.collide_point(*touch.pos):
+            return False
+        rl = self.root_layout
+        if rl.current_tool == 'pan':
+            return False
+        touch.grab(self)
+        wx, wy = self.to_local(*touch.pos)
+        tile = self._pos_to_tile(wx, wy)
+        if tile is None:
+            return True
+        rl.drag_start = tile
+        rl.drag_current = tile
+        rl.selection_anchor = tile
+        tool = rl.current_tool
+
+        if tool == 'sample':
+            val = rl.model.composite_tile_value(tile[0], tile[1])
+            rl.current_tile_value = str(val)
+            rl.tile_code_input.text = str(val)
+            rl._update_status(f'Sampled {val} at {tile[0]},{tile[1]}')
+            rl.current_tool = rl._prev_tool
+            rl.tool_spinner.text = rl._prev_tool
+            return True
+
+        try:
+            value = rl.get_draw_value()
+        except ValueError as e:
+            AlertPopup.show('Tile Code Error', str(e))
+            return True
+
+        if tool == 'pencil':
+            rl.push_undo()
+            rl.draw_point(tile[0], tile[1], value)
+            self.update_canvas()
+        elif tool == 'fill':
+            rl.push_undo()
+            rl.flood_fill(tile[0], tile[1], value)
+            self.update_canvas()
+        else:
+            self.render_preview(tile, tile)
+        return True
+
+    def on_touch_move(self, touch):
+        if touch.grab_current is not self:
+            return False
+        rl = self.root_layout
+        wx, wy = self.to_local(*touch.pos)
+        tile = self._pos_to_tile(wx, wy)
+        if tile is None or rl.drag_start is None:
+            return True
+        rl.drag_current = tile
+        tool = rl.current_tool
+        if tool == 'pencil':
+            try:
+                value = rl.get_draw_value()
+            except ValueError:
+                return True
+            rl.draw_point(tile[0], tile[1], value)
+            self.update_canvas()
+        elif tool in ('rectangle', 'ellipse'):
+            self.render_preview(rl.drag_start, tile)
+        return True
+
+    def on_touch_up(self, touch):
+        if touch.grab_current is not self:
+            return False
+        touch.ungrab(self)
+        rl = self.root_layout
+        wx, wy = self.to_local(*touch.pos)
+        tile = self._pos_to_tile(wx, wy)
+        if tile is None or rl.drag_start is None:
+            self.clear_preview()
+            rl.drag_start = None
+            rl.drag_current = None
+            return True
+        tool = rl.current_tool
+        try:
+            value = rl.get_draw_value()
+        except ValueError as e:
+            AlertPopup.show('Tile Code Error', str(e))
+            self.clear_preview()
+            rl.drag_start = None
+            rl.drag_current = None
+            return True
+        if tool in ('rectangle', 'ellipse'):
+            rl.push_undo()
+            if tool == 'rectangle':
+                rl.draw_rectangle(rl.drag_start, tile, value)
+            else:
+                rl.draw_ellipse(rl.drag_start, tile, value)
+            self.update_canvas()
+        self.clear_preview()
+        rl.drag_current = tile
+        rl._update_status(f'Tile {tile[0]},{tile[1]}')
+        rl.drag_start = None
+        return True
+
+
+# ---------- Layout ----------
+
+class RootLayout(BoxLayout):
     BASE_TILE_SIZE = 48
     MIN_ZOOM = 0.25
     MAX_ZOOM = 4.0
 
-    def __init__(self, root: tk.Tk) -> None:
-        self.root = root
-        self.root.title("Simple RPG Maker MV Map Editor")
-        self.root.geometry("1280x780")
+    def __init__(self, **kwargs):
+        super().__init__(orientation='vertical', **kwargs)
 
         self.model = MapModel()
-
         self.zoom = 1.0
         self.show_grid = True
-        self.current_tool = tk.StringVar(value="pencil")
-        self.current_layer = tk.IntVar(value=0)
-        self.current_tile_value = tk.StringVar(value="2816")
-        self.status_var = tk.StringVar(value="No map loaded")
-
+        self.current_tool = 'pencil'
+        self._prev_tool = 'pencil'
+        self.current_layer = 0
+        self.current_tile_value = '2816'
         self.undo_stack: List[List[int]] = []
         self.redo_stack: List[List[int]] = []
         self.clipboard: Optional[ClipboardData] = None
-
         self.drag_start: Optional[Tuple[int, int]] = None
         self.drag_current: Optional[Tuple[int, int]] = None
-        self.preview_id: Optional[int] = None
         self.selection_anchor: Optional[Tuple[int, int]] = None
 
         self._build_ui()
-        self._build_menus()
-        self._bind_shortcuts()
 
-    # ---------- UI ----------
+    def _build_ui(self):
+        self.add_widget(self._build_menu_bar())
 
-    def _build_ui(self) -> None:
-        outer = ttk.Frame(self.root)
-        outer.pack(fill="both", expand=True)
+        middle = BoxLayout(orientation='horizontal')
+        middle.add_widget(self._build_left_panel())
 
-        # Left toolbox
-        left = ttk.Frame(outer, padding=10)
-        left.pack(side="left", fill="y")
-
-        ttk.Label(left, text="Tools", font=("TkDefaultFont", 11, "bold")).pack(anchor="w")
-        ttk.Separator(left).pack(fill="x", pady=(4, 8))
-
-        ttk.Label(left, text="Draw Tool").pack(anchor="w")
-        tool_combo = ttk.Combobox(
-            left,
-            textvariable=self.current_tool,
-            state="readonly",
-            values=["pencil", "rectangle", "ellipse", "fill"],
-            width=16,
+        self.scroll_view = ScrollView(do_scroll_x=True, do_scroll_y=True)
+        self.map_widget = MapWidget(root_layout=self)
+        self.scroll_view.add_widget(self.map_widget)
+        self.scroll_view.bind(
+            scroll_x=self.map_widget.update_canvas,
+            scroll_y=self.map_widget.update_canvas,
         )
-        tool_combo.pack(anchor="w", pady=(2, 10))
-        tool_combo.bind("<<ComboboxSelected>>", lambda e: self._update_status())
+        middle.add_widget(self.scroll_view)
+        self.add_widget(middle)
 
-        ttk.Label(left, text="Edit Layer").pack(anchor="w")
-        layer_combo = ttk.Combobox(
-            left,
-            textvariable=self.current_layer,
-            state="readonly",
-            values=[0, 1, 2, 3],
-            width=16,
+        self.status_label = Label(
+            text='No map loaded',
+            size_hint_y=None, height=dp(28),
+            halign='left', valign='middle',
         )
-        layer_combo.pack(anchor="w", pady=(2, 10))
+        self.status_label.bind(size=self.status_label.setter('text_size'))
+        self.add_widget(self.status_label)
 
-        ttk.Label(left, text="Tile Code").pack(anchor="w")
-        tile_entry = ttk.Entry(left, textvariable=self.current_tile_value, width=18)
-        tile_entry.pack(anchor="w", pady=(2, 4))
+    def _build_menu_bar(self):
+        bar = BoxLayout(orientation='horizontal', size_hint_y=None, height=dp(44), spacing=dp(2))
+        menus = [
+            ('File', [
+                ('Load', self.load_map),
+                ('Save', self.save_map),
+                ('Exit', lambda: App.get_running_app().stop()),
+            ]),
+            ('Edit', [
+                ('Undo', self.undo),
+                ('Redo', self.redo),
+                ('Copy', self.copy_selection),
+                ('Paste', self.paste_at_prompt),
+            ]),
+            ('Draw', [
+                ('Pencil',    lambda: self.set_tool('pencil')),
+                ('Rectangle', lambda: self.set_tool('rectangle')),
+                ('Ellipse',   lambda: self.set_tool('ellipse')),
+                ('Fill',      lambda: self.set_tool('fill')),
+                ('Pan',       lambda: self.set_tool('pan')),
+                ('Sample',    lambda: self.set_tool('sample')),
+            ]),
+            ('View', [
+                ('Zoom In',     self.zoom_in),
+                ('Zoom Out',    self.zoom_out),
+                ('Default Zoom', self.default_zoom),
+                ('Grid On/Off', self.toggle_grid),
+            ]),
+        ]
+        for menu_name, items in menus:
+            dd = DropDown()
+            for label, cb in items:
+                btn = Button(text=label, size_hint_y=None, height=dp(44))
+                btn.bind(on_release=lambda b, c=cb, d=dd: (c(), d.dismiss()))
+                dd.add_widget(btn)
+            parent_btn = Button(text=menu_name, size_hint_x=None, width=dp(80))
+            parent_btn.bind(on_release=lambda b, d=dd: d.open(b))
+            bar.add_widget(parent_btn)
+        bar.add_widget(Label())  # spacer
+        return bar
 
-        ttk.Button(left, text="Use Selected Tile Code", command=self._use_clicked_tile_code).pack(
-            anchor="w", pady=(0, 10)
+    def _build_left_panel(self):
+        panel = BoxLayout(
+            orientation='vertical', size_hint_x=None, width=dp(200),
+            padding=dp(8), spacing=dp(6),
         )
 
-        ttk.Label(left, text="Quick Actions").pack(anchor="w")
-        quick = ttk.Frame(left)
-        quick.pack(anchor="w", pady=(4, 10))
-        ttk.Button(quick, text="Undo", command=self.undo, width=10).grid(row=0, column=0, padx=(0, 4), pady=2)
-        ttk.Button(quick, text="Redo", command=self.redo, width=10).grid(row=0, column=1, pady=2)
-        ttk.Button(quick, text="Copy", command=self.copy_selection, width=10).grid(row=1, column=0, padx=(0, 4), pady=2)
-        ttk.Button(quick, text="Paste", command=self.paste_at_prompt, width=10).grid(row=1, column=1, pady=2)
-
-        ttk.Label(left, text="View").pack(anchor="w")
-        view = ttk.Frame(left)
-        view.pack(anchor="w", pady=(4, 10))
-        ttk.Button(view, text="Zoom In", command=self.zoom_in, width=10).grid(row=0, column=0, padx=(0, 4), pady=2)
-        ttk.Button(view, text="Zoom Out", command=self.zoom_out, width=10).grid(row=0, column=1, pady=2)
-        ttk.Button(view, text="Reset Zoom", command=self.default_zoom, width=10).grid(row=1, column=0, padx=(0, 4), pady=2)
-        ttk.Button(view, text="Grid On/Off", command=self.toggle_grid, width=10).grid(row=1, column=1, pady=2)
-
-        help_text = (
-            "Left click draws.\n"
-            "Right click samples a visible tile code.\n"
-            "Rectangle and ellipse drag from start to end.\n"
-            "Copy/paste works on the current edit layer.\n"
-            "Shadows, regions, and events are preserved but not edited."
+        panel.add_widget(Label(text='Draw Tool', size_hint_y=None, height=dp(24), halign='left'))
+        self.tool_spinner = Spinner(
+            text='pencil',
+            values=['pencil', 'rectangle', 'ellipse', 'fill', 'pan', 'sample'],
+            size_hint_y=None, height=dp(40),
         )
-        ttk.Label(left, text=help_text, wraplength=220, justify="left").pack(anchor="w", pady=(10, 0))
+        self.tool_spinner.bind(text=self._on_tool_change)
+        panel.add_widget(self.tool_spinner)
 
-        # Right canvas area
-        right = ttk.Frame(outer, padding=(0, 10, 10, 10))
-        right.pack(side="left", fill="both", expand=True)
+        panel.add_widget(Label(text='Edit Layer', size_hint_y=None, height=dp(24), halign='left'))
+        self.layer_spinner = Spinner(
+            text='0', values=['0', '1', '2', '3'],
+            size_hint_y=None, height=dp(40),
+        )
+        self.layer_spinner.bind(text=self._on_layer_change)
+        panel.add_widget(self.layer_spinner)
 
-        self.canvas = tk.Canvas(right, background="#dde6c8", highlightthickness=1, highlightbackground="#888")
-        self.hbar = ttk.Scrollbar(right, orient="horizontal", command=self.canvas.xview)
-        self.vbar = ttk.Scrollbar(right, orient="vertical", command=self.canvas.yview)
-        self.canvas.configure(xscrollcommand=self.hbar.set, yscrollcommand=self.vbar.set)
+        panel.add_widget(Label(text='Tile Code', size_hint_y=None, height=dp(24), halign='left'))
+        self.tile_code_input = TextInput(
+            text='2816', multiline=False,
+            size_hint_y=None, height=dp(40),
+        )
+        self.tile_code_input.bind(text=self._on_tile_code_change)
+        panel.add_widget(self.tile_code_input)
 
-        self.canvas.grid(row=0, column=0, sticky="nsew")
-        self.vbar.grid(row=0, column=1, sticky="ns")
-        self.hbar.grid(row=1, column=0, sticky="ew")
+        use_btn = Button(text='Use Tile Code', size_hint_y=None, height=dp(40))
+        use_btn.bind(on_release=lambda b: self._update_status('Tile code ready'))
+        panel.add_widget(use_btn)
 
-        right.rowconfigure(0, weight=1)
-        right.columnconfigure(0, weight=1)
+        panel.add_widget(Label(text='Quick Actions', size_hint_y=None, height=dp(24), halign='left'))
+        quick = GridLayout(cols=2, size_hint_y=None, height=dp(88), spacing=dp(4))
+        for lbl, cmd in [('Undo', self.undo), ('Redo', self.redo),
+                         ('Copy', self.copy_selection), ('Paste', self.paste_at_prompt)]:
+            btn = Button(text=lbl)
+            btn.bind(on_release=lambda b, c=cmd: c())
+            quick.add_widget(btn)
+        panel.add_widget(quick)
 
-        status = ttk.Label(self.root, textvariable=self.status_var, anchor="w", relief="sunken")
-        status.pack(side="bottom", fill="x")
+        panel.add_widget(Label(text='View', size_hint_y=None, height=dp(24), halign='left'))
+        view = GridLayout(cols=2, size_hint_y=None, height=dp(88), spacing=dp(4))
+        for lbl, cmd in [('Zoom In', self.zoom_in), ('Zoom Out', self.zoom_out),
+                         ('Reset Zoom', self.default_zoom), ('Grid On/Off', self.toggle_grid)]:
+            btn = Button(text=lbl)
+            btn.bind(on_release=lambda b, c=cmd: c())
+            view.add_widget(btn)
+        panel.add_widget(view)
 
-        self.canvas.bind("<Button-1>", self.on_left_down)
-        self.canvas.bind("<B1-Motion>", self.on_left_drag)
-        self.canvas.bind("<ButtonRelease-1>", self.on_left_up)
-        self.canvas.bind("<Button-3>", self.on_right_click)
-        self.canvas.bind("<Motion>", self.on_mouse_move)
-        self.canvas.bind("<MouseWheel>", self.on_mousewheel)
+        panel.add_widget(Label(
+            text='Tap: draw\nSample tool: pick tile\nPan tool: scroll map\nRect/Ellipse: drag\nCopy needs a drag first',
+            halign='left', valign='top',
+        ))
+        return panel
 
-    def _build_menus(self) -> None:
-        menubar = tk.Menu(self.root)
+    # ---------- Spinner callbacks ----------
 
-        file_menu = tk.Menu(menubar, tearoff=0)
-        file_menu.add_command(label="Load", command=self.load_map)
-        file_menu.add_command(label="Save", command=self.save_map)
-        file_menu.add_separator()
-        file_menu.add_command(label="Exit", command=self.root.destroy)
-        menubar.add_cascade(label="File", menu=file_menu)
+    def _on_tool_change(self, spinner, text):
+        if text != 'sample':
+            self._prev_tool = text
+        self.current_tool = text
+        self._update_status()
 
-        edit_menu = tk.Menu(menubar, tearoff=0)
-        edit_menu.add_command(label="Undo", command=self.undo)
-        edit_menu.add_command(label="Redo", command=self.redo)
-        edit_menu.add_separator()
-        edit_menu.add_command(label="Copy", command=self.copy_selection)
-        edit_menu.add_command(label="Paste", command=self.paste_at_prompt)
-        menubar.add_cascade(label="Edit", menu=edit_menu)
+    def _on_layer_change(self, spinner, text):
+        self.current_layer = int(text)
 
-        draw_menu = tk.Menu(menubar, tearoff=0)
-        draw_menu.add_command(label="Pencil", command=lambda: self.set_tool("pencil"))
-        draw_menu.add_command(label="Rectangle", command=lambda: self.set_tool("rectangle"))
-        draw_menu.add_command(label="Ellipse", command=lambda: self.set_tool("ellipse"))
-        draw_menu.add_command(label="Fill", command=lambda: self.set_tool("fill"))
-        menubar.add_cascade(label="Draw", menu=draw_menu)
-
-        view_menu = tk.Menu(menubar, tearoff=0)
-        view_menu.add_command(label="Zoom In", command=self.zoom_in)
-        view_menu.add_command(label="Zoom Out", command=self.zoom_out)
-        view_menu.add_command(label="Default Zoom", command=self.default_zoom)
-        view_menu.add_command(label="Grid Lines On/Off", command=self.toggle_grid)
-        menubar.add_cascade(label="View", menu=view_menu)
-
-        self.root.config(menu=menubar)
-
-    def _bind_shortcuts(self) -> None:
-        self.root.bind("<Control-o>", lambda e: self.load_map())
-        self.root.bind("<Control-s>", lambda e: self.save_map())
-        self.root.bind("<Control-z>", lambda e: self.undo())
-        self.root.bind("<Control-y>", lambda e: self.redo())
-        self.root.bind("<Control-c>", lambda e: self.copy_selection())
-        self.root.bind("<Control-v>", lambda e: self.paste_at_prompt())
-        self.root.bind("+", lambda e: self.zoom_in())
-        self.root.bind("-", lambda e: self.zoom_out())
+    def _on_tile_code_change(self, ti, text):
+        self.current_tile_value = text
 
     # ---------- Helpers ----------
 
-    def tile_size(self) -> int:
+    def tile_size(self):
         return max(12, int(self.BASE_TILE_SIZE * self.zoom))
 
-    def has_map(self) -> bool:
+    def has_map(self):
         return self.model.raw is not None
 
-    def get_draw_value(self) -> int:
-        text = self.current_tile_value.get().strip()
+    def get_draw_value(self):
+        text = self.current_tile_value.strip()
         if not text:
-            raise ValueError("Tile code is blank.")
+            raise ValueError('Tile code is blank.')
         return int(text)
 
-    def push_undo(self) -> None:
+    def push_undo(self):
         if not self.has_map():
             return
         self.undo_stack.append(self.model.snapshot())
@@ -293,163 +639,117 @@ class MapEditorApp:
             self.undo_stack.pop(0)
         self.redo_stack.clear()
 
-    def set_tool(self, tool: str) -> None:
-        self.current_tool.set(tool)
+    def set_tool(self, tool):
+        if tool != 'sample':
+            self._prev_tool = tool
+        self.current_tool = tool
+        self.tool_spinner.text = tool
         self._update_status()
 
-    def _update_status(self, extra: str = "") -> None:
+    def rect_bounds(self, a, b):
+        return min(a[0], b[0]), min(a[1], b[1]), max(a[0], b[0]), max(a[1], b[1])
+
+    def _update_status(self, extra=''):
         if not self.has_map():
-            self.status_var.set("No map loaded")
+            self.status_label.text = 'No map loaded'
             return
-        msg = (
-            f"{self.model.width}x{self.model.height} | "
-            f"Tool: {self.current_tool.get()} | "
-            f"Layer: {self.current_layer.get()} | "
-            f"Tile: {self.current_tile_value.get()} | "
-            f"Zoom: {self.zoom:.2f}x"
-        )
+        msg = (f'{self.model.width}x{self.model.height} | '
+               f'Tool: {self.current_tool} | Layer: {self.current_layer} | '
+               f'Tile: {self.current_tile_value} | Zoom: {self.zoom:.2f}x')
         if extra:
-            msg += f" | {extra}"
-        self.status_var.set(msg)
+            msg += f' | {extra}'
+        self.status_label.text = msg
 
-    def canvas_to_tile(self, event_x: int, event_y: int) -> Optional[Tuple[int, int]]:
+    # ---------- File ----------
+
+    def load_map(self):
+        def _on_selected(path):
+            try:
+                self.model.load(path)
+                self.undo_stack.clear()
+                self.redo_stack.clear()
+                self.selection_anchor = None
+                self.drag_start = None
+                self.drag_current = None
+                self.map_widget.update_canvas()
+                self._update_status(f'Loaded {path}')
+            except Exception as e:
+                AlertPopup.show('Load Error', str(e))
+        FileDialog(mode='load', on_select=_on_selected).open()
+
+    def save_map(self):
         if not self.has_map():
-            return None
-        x = int(self.canvas.canvasx(event_x) // self.tile_size())
-        y = int(self.canvas.canvasy(event_y) // self.tile_size())
-        if 0 <= x < self.model.width and 0 <= y < self.model.height:
-            return x, y
-        return None
-
-    def rect_bounds(self, a: Tuple[int, int], b: Tuple[int, int]) -> Tuple[int, int, int, int]:
-        x1 = min(a[0], b[0])
-        y1 = min(a[1], b[1])
-        x2 = max(a[0], b[0])
-        y2 = max(a[1], b[1])
-        return x1, y1, x2, y2
-
-    def tile_center(self, x: int, y: int) -> Tuple[float, float]:
-        ts = self.tile_size()
-        return x * ts + ts / 2, y * ts + ts / 2
-
-    # ---------- File actions ----------
-
-    def load_map(self) -> None:
-        path = filedialog.askopenfilename(
-            title="Load RPG Maker MV map JSON",
-            filetypes=[("JSON files", "*.json"), ("All files", "*.*")],
-        )
-        if not path:
+            AlertPopup.show('Save', 'No map loaded.')
             return
-        try:
-            self.model.load(path)
-            self.undo_stack.clear()
-            self.redo_stack.clear()
-            self.selection_anchor = None
-            self.drag_start = None
-            self.drag_current = None
-            self.render_map()
-            self._update_status(f"Loaded {path}")
-        except Exception as e:
-            messagebox.showerror("Load Error", str(e))
+        def _on_selected(path):
+            try:
+                self.model.save(path)
+                self._update_status(f'Saved {path}')
+            except Exception as e:
+                AlertPopup.show('Save Error', str(e))
+        FileDialog(mode='save', on_select=_on_selected).open()
 
-    def save_map(self) -> None:
-        if not self.has_map():
-            messagebox.showinfo("Save", "No map loaded.")
-            return
+    # ---------- Edit ----------
 
-        path = filedialog.asksaveasfilename(
-            title="Save map JSON",
-            defaultextension=".json",
-            initialfile=(self.model.path.split("/")[-1] if self.model.path else "Map.json"),
-            filetypes=[("JSON files", "*.json"), ("All files", "*.*")],
-        )
-        if not path:
-            return
-        try:
-            self.model.save(path)
-            self._update_status(f"Saved {path}")
-        except Exception as e:
-            messagebox.showerror("Save Error", str(e))
-
-    # ---------- Edit actions ----------
-
-    def undo(self) -> None:
+    def undo(self):
         if not self.has_map() or not self.undo_stack:
             return
         self.redo_stack.append(self.model.snapshot())
-        snap = self.undo_stack.pop()
-        self.model.restore_snapshot(snap)
-        self.render_map()
-        self._update_status("Undo")
+        self.model.restore_snapshot(self.undo_stack.pop())
+        self.map_widget.update_canvas()
+        self._update_status('Undo')
 
-    def redo(self) -> None:
+    def redo(self):
         if not self.has_map() or not self.redo_stack:
             return
         self.undo_stack.append(self.model.snapshot())
-        snap = self.redo_stack.pop()
-        self.model.restore_snapshot(snap)
-        self.render_map()
-        self._update_status("Redo")
+        self.model.restore_snapshot(self.redo_stack.pop())
+        self.map_widget.update_canvas()
+        self._update_status('Redo')
 
-    def copy_selection(self) -> None:
+    def copy_selection(self):
         if not self.has_map():
             return
         if self.selection_anchor is None or self.drag_current is None:
-            messagebox.showinfo("Copy", "No current selection area. Drag a rectangle or ellipse first.")
+            AlertPopup.show('Copy', 'No selection. Drag a rectangle or ellipse first.')
             return
-
         x1, y1, x2, y2 = self.rect_bounds(self.selection_anchor, self.drag_current)
-        layer = self.current_layer.get()
+        layer = self.current_layer
         cells = []
         for y in range(y1, y2 + 1):
-            row = []
-            for x in range(x1, x2 + 1):
-                row.append(self.model.get(x, y, layer))
+            row = [self.model.get(x, y, layer) for x in range(x1, x2 + 1)]
             cells.append(row)
-
         self.clipboard = ClipboardData(width=x2 - x1 + 1, height=y2 - y1 + 1, cells=cells)
-        self._update_status(f"Copied {self.clipboard.width}x{self.clipboard.height} from layer {layer}")
+        self._update_status(f'Copied {self.clipboard.width}x{self.clipboard.height} from layer {layer}')
 
-    def paste_at_prompt(self) -> None:
+    def paste_at_prompt(self):
         if not self.has_map():
             return
         if self.clipboard is None:
-            messagebox.showinfo("Paste", "Clipboard is empty.")
+            AlertPopup.show('Paste', 'Clipboard is empty.')
             return
-
-        x = simpledialog.askinteger("Paste", "Paste at tile X:", minvalue=0, maxvalue=max(0, self.model.width - 1))
-        if x is None:
-            return
-        y = simpledialog.askinteger("Paste", "Paste at tile Y:", minvalue=0, maxvalue=max(0, self.model.height - 1))
-        if y is None:
-            return
-
-        self.push_undo()
-        layer = self.current_layer.get()
-        for dy in range(self.clipboard.height):
-            for dx in range(self.clipboard.width):
-                tx = x + dx
-                ty = y + dy
-                if 0 <= tx < self.model.width and 0 <= ty < self.model.height:
-                    self.model.set(tx, ty, layer, self.clipboard.cells[dy][dx])
-        self.render_map()
-        self._update_status(f"Pasted at {x},{y} on layer {layer}")
+        def _do(x, y):
+            self.push_undo()
+            layer = self.current_layer
+            for dy in range(self.clipboard.height):
+                for dx in range(self.clipboard.width):
+                    tx, ty = x + dx, y + dy
+                    if 0 <= tx < self.model.width and 0 <= ty < self.model.height:
+                        self.model.set(tx, ty, layer, self.clipboard.cells[dy][dx])
+            self.map_widget.update_canvas()
+            self._update_status(f'Pasted at {x},{y} on layer {layer}')
+        PasteDialog(self.model, self.clipboard, on_confirm=_do).open()
 
     # ---------- Drawing ----------
 
-    def _use_clicked_tile_code(self) -> None:
-        self._update_status("Tile code ready")
+    def draw_point(self, x, y, value):
+        self.model.set(x, y, self.current_layer, value)
 
-    def draw_point(self, x: int, y: int, value: int) -> None:
-        self.model.set(x, y, self.current_layer.get(), value)
-
-    def flood_fill(self, x: int, y: int, new_value: int) -> None:
-        layer = self.current_layer.get()
+    def flood_fill(self, x, y, new_value):
+        layer = self.current_layer
         target = self.model.get(x, y, layer)
         if target == new_value:
             return
-
         stack = [(x, y)]
         seen = set()
         while stack:
@@ -462,24 +762,20 @@ class MapEditorApp:
             if self.model.get(cx, cy, layer) != target:
                 continue
             self.model.set(cx, cy, layer, new_value)
-            stack.append((cx + 1, cy))
-            stack.append((cx - 1, cy))
-            stack.append((cx, cy + 1))
-            stack.append((cx, cy - 1))
+            stack.extend([(cx + 1, cy), (cx - 1, cy), (cx, cy + 1), (cx, cy - 1)])
 
-    def draw_rectangle(self, start: Tuple[int, int], end: Tuple[int, int], value: int) -> None:
+    def draw_rectangle(self, start, end, value):
         x1, y1, x2, y2 = self.rect_bounds(start, end)
         for y in range(y1, y2 + 1):
             for x in range(x1, x2 + 1):
                 self.draw_point(x, y, value)
 
-    def draw_ellipse(self, start: Tuple[int, int], end: Tuple[int, int], value: int) -> None:
+    def draw_ellipse(self, start, end, value):
         x1, y1, x2, y2 = self.rect_bounds(start, end)
         rx = max((x2 - x1 + 1) / 2.0, 0.5)
         ry = max((y2 - y1 + 1) / 2.0, 0.5)
         cx = x1 + rx - 0.5
         cy = y1 + ry - 0.5
-
         for y in range(y1, y2 + 1):
             for x in range(x1, x2 + 1):
                 dx = (x - cx) / rx
@@ -487,206 +783,45 @@ class MapEditorApp:
                 if dx * dx + dy * dy <= 1.0:
                     self.draw_point(x, y, value)
 
-    # ---------- Canvas events ----------
-
-    def on_left_down(self, event: tk.Event) -> None:
-        tile = self.canvas_to_tile(event.x, event.y)
-        if tile is None:
-            return
-        self.drag_start = tile
-        self.drag_current = tile
-        self.selection_anchor = tile
-
-        tool = self.current_tool.get()
-        try:
-            value = self.get_draw_value()
-        except Exception as e:
-            messagebox.showerror("Tile Code Error", str(e))
-            return
-
-        if tool == "pencil":
-            self.push_undo()
-            self.draw_point(tile[0], tile[1], value)
-            self.render_map()
-        elif tool == "fill":
-            self.push_undo()
-            self.flood_fill(tile[0], tile[1], value)
-            self.render_map()
-        else:
-            self.render_preview(tile, tile)
-
-    def on_left_drag(self, event: tk.Event) -> None:
-        tile = self.canvas_to_tile(event.x, event.y)
-        if tile is None or self.drag_start is None:
-            return
-
-        tool = self.current_tool.get()
-        self.drag_current = tile
-
-        if tool == "pencil":
-            try:
-                value = self.get_draw_value()
-            except Exception:
-                return
-            self.draw_point(tile[0], tile[1], value)
-            self.render_map()
-        elif tool in ("rectangle", "ellipse"):
-            self.render_preview(self.drag_start, tile)
-
-    def on_left_up(self, event: tk.Event) -> None:
-        tile = self.canvas_to_tile(event.x, event.y)
-        if tile is None or self.drag_start is None:
-            self.clear_preview()
-            self.drag_start = None
-            self.drag_current = None
-            return
-
-        tool = self.current_tool.get()
-        try:
-            value = self.get_draw_value()
-        except Exception as e:
-            messagebox.showerror("Tile Code Error", str(e))
-            self.clear_preview()
-            self.drag_start = None
-            self.drag_current = None
-            return
-
-        if tool in ("rectangle", "ellipse"):
-            self.push_undo()
-            if tool == "rectangle":
-                self.draw_rectangle(self.drag_start, tile, value)
-            else:
-                self.draw_ellipse(self.drag_start, tile, value)
-            self.render_map()
-
-        self.clear_preview()
-        self.drag_current = tile
-        self._update_status(f"Tile {tile[0]},{tile[1]}")
-        self.drag_start = None
-
-    def on_right_click(self, event: tk.Event) -> None:
-        tile = self.canvas_to_tile(event.x, event.y)
-        if tile is None:
-            return
-        value = self.model.composite_tile_value(tile[0], tile[1])
-        self.current_tile_value.set(str(value))
-        self._update_status(f"Sampled tile code {value} at {tile[0]},{tile[1]}")
-
-    def on_mouse_move(self, event: tk.Event) -> None:
-        tile = self.canvas_to_tile(event.x, event.y)
-        if tile is None or not self.has_map():
-            return
-        visible = self.model.composite_tile_value(tile[0], tile[1])
-        current = self.model.get(tile[0], tile[1], self.current_layer.get())
-        self._update_status(
-            f"Hover {tile[0]},{tile[1]} | visible={visible} | layer{self.current_layer.get()}={current}"
-        )
-
-    def on_mousewheel(self, event: tk.Event) -> None:
-        if event.state & 0x4:  # Ctrl pressed
-            if event.delta > 0:
-                self.zoom_in()
-            else:
-                self.zoom_out()
-
     # ---------- View ----------
 
-    def zoom_in(self) -> None:
+    def zoom_in(self):
         self.zoom = min(self.MAX_ZOOM, round(self.zoom * 1.25, 4))
-        self.render_map()
-        self._update_status("Zoom in")
+        self.map_widget._label_cache.clear()
+        self.map_widget.update_canvas()
+        self._update_status('Zoom in')
 
-    def zoom_out(self) -> None:
+    def zoom_out(self):
         self.zoom = max(self.MIN_ZOOM, round(self.zoom / 1.25, 4))
-        self.render_map()
-        self._update_status("Zoom out")
+        self.map_widget._label_cache.clear()
+        self.map_widget.update_canvas()
+        self._update_status('Zoom out')
 
-    def default_zoom(self) -> None:
+    def default_zoom(self):
         self.zoom = 1.0
-        self.render_map()
-        self._update_status("Default zoom")
+        self.map_widget._label_cache.clear()
+        self.map_widget.update_canvas()
+        self._update_status('Default zoom')
 
-    def toggle_grid(self) -> None:
+    def toggle_grid(self):
         self.show_grid = not self.show_grid
-        self.render_map()
+        self.map_widget.update_canvas()
         self._update_status(f"Grid {'on' if self.show_grid else 'off'}")
 
-    # ---------- Rendering ----------
 
-    def clear_preview(self) -> None:
-        if self.preview_id is not None:
-            self.canvas.delete(self.preview_id)
-            self.preview_id = None
+# ---------- App ----------
 
-    def render_preview(self, start: Tuple[int, int], end: Tuple[int, int]) -> None:
-        self.clear_preview()
-        ts = self.tile_size()
-        x1, y1, x2, y2 = self.rect_bounds(start, end)
-        self.preview_id = self.canvas.create_rectangle(
-            x1 * ts,
-            y1 * ts,
-            (x2 + 1) * ts,
-            (y2 + 1) * ts,
-            outline="#d04b4b",
-            width=2,
-            dash=(6, 4),
-        )
+class MapEditorApp(App):
+    def build(self):
+        return RootLayout()
 
-    def render_map(self) -> None:
-        self.canvas.delete("all")
-        self.clear_preview()
-
-        if not self.has_map():
-            self.canvas.create_text(40, 40, anchor="nw", text="Load a map JSON to begin.", font=("TkDefaultFont", 12))
-            self.canvas.configure(scrollregion=(0, 0, 500, 300))
-            return
-
-        ts = self.tile_size()
-        width_px = self.model.width * ts
-        height_px = self.model.height * ts
-
-        for y in range(self.model.height):
-            for x in range(self.model.width):
-                x1 = x * ts
-                y1 = y * ts
-                x2 = x1 + ts
-                y2 = y1 + ts
-
-                self.canvas.create_rectangle(x1, y1, x2, y2, fill="#c9dca2", outline="")
-
-                value = self.model.composite_tile_value(x, y)
-                font_size = max(7, min(12, int(ts / 5)))
-                self.canvas.create_text(
-                    x1 + ts / 2,
-                    y1 + ts / 2,
-                    text=str(value),
-                    font=("TkDefaultFont", font_size),
-                    fill="#1f1f1f",
-                )
-
-        if self.show_grid:
-            grid_color = "#90a97d"
-            for x in range(self.model.width + 1):
-                xx = x * ts
-                self.canvas.create_line(xx, 0, xx, height_px, fill=grid_color)
-            for y in range(self.model.height + 1):
-                yy = y * ts
-                self.canvas.create_line(0, yy, width_px, yy, fill=grid_color)
-
-        self.canvas.configure(scrollregion=(0, 0, width_px, height_px))
+    def on_start(self):
+        self.root.map_widget.update_canvas()
 
 
-def main() -> None:
-    root = tk.Tk()
-    style = ttk.Style()
-    try:
-        style.theme_use("clam")
-    except tk.TclError:
-        pass
-    app = MapEditorApp(root)
-    app.render_map()
-    root.mainloop()
+def main():
+    MapEditorApp().run()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
