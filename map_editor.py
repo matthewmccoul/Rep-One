@@ -196,11 +196,14 @@ class _FileBrowser(BoxLayout):
         try:
             dirs, files = [], []
             with os.scandir(self._path) as it:
-                for e in sorted(it, key=lambda e: e.name):
-                    if e.is_dir():
-                        dirs.append(e.name)
-                    elif e.is_file():
-                        files.append(e.name)
+                for e in sorted(list(it), key=lambda e: e.name.lower()):
+                    try:
+                        if e.is_dir():
+                            dirs.append(e.name)
+                        elif e.is_file():
+                            files.append(e.name)
+                    except Exception:
+                        pass
         except Exception as e:
             self._list.add_widget(Label(
                 text=f'Cannot read folder:\n{e}',
@@ -268,6 +271,7 @@ class FileDialog(Popup):
         self.size_hint  = (0.95, 0.9)
 
         for candidate in ('/sdcard/Download', '/storage/emulated/0/Download',
+                          '/sdcard/Android/data/ru.iiec.pydroid3/files',
                           '/sdcard', '/storage/emulated/0', '/'):
             if os.path.isdir(candidate):
                 start = candidate
@@ -936,9 +940,16 @@ class MapEditorApp(App):
 
     def on_start(self):
         try:
+            from android.permissions import request_permissions, Permission
+            request_permissions([
+                Permission.READ_EXTERNAL_STORAGE,
+                Permission.WRITE_EXTERNAL_STORAGE,
+            ])
+        except Exception:
+            pass
+        try:
             from jnius import autoclass
             PythonActivity = autoclass('org.kivy.android.PythonActivity')
-            ActivityInfo = autoclass('android.content.pm.ActivityInfo')
             PythonActivity.mActivity.setRequestedOrientation(0)  # SCREEN_ORIENTATION_LANDSCAPE
         except Exception:
             pass
