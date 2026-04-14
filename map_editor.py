@@ -7,7 +7,6 @@ from typing import List, Optional, Tuple
 
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.gridlayout import GridLayout
 from kivy.uix.widget import Widget
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.label import Label
@@ -480,10 +479,10 @@ class RootLayout(BoxLayout):
         self._build_ui()
 
     def _build_ui(self):
-        self.add_widget(self._build_menu_bar())
+        self.add_widget(self._build_top_bar())
 
         middle = BoxLayout(orientation='horizontal')
-        middle.add_widget(self._build_left_panel())
+        middle.add_widget(self._build_left_bar())
 
         self.scroll_view = ScrollView(do_scroll_x=True, do_scroll_y=True)
         self.map_widget = MapWidget(root_layout=self)
@@ -497,111 +496,92 @@ class RootLayout(BoxLayout):
 
         self.status_label = Label(
             text='No map loaded',
-            size_hint_y=None, height=dp(28),
+            size_hint_y=None, height=dp(24),
             halign='left', valign='middle',
         )
         self.status_label.bind(size=self.status_label.setter('text_size'))
         self.add_widget(self.status_label)
 
-    def _build_menu_bar(self):
+    def _build_top_bar(self):
         bar = BoxLayout(orientation='horizontal', size_hint_y=None, height=dp(44), spacing=dp(2))
-        menus = [
-            ('File', [
-                ('Load', self.load_map),
-                ('Save', self.save_map),
-                ('Exit', lambda: App.get_running_app().stop()),
-            ]),
-            ('Edit', [
-                ('Undo', self.undo),
-                ('Redo', self.redo),
-                ('Copy', self.copy_selection),
-                ('Paste', self.paste_at_prompt),
-            ]),
-            ('Draw', [
-                ('Pencil',    lambda: self.set_tool('pencil')),
-                ('Rectangle', lambda: self.set_tool('rectangle')),
-                ('Ellipse',   lambda: self.set_tool('ellipse')),
-                ('Fill',      lambda: self.set_tool('fill')),
-                ('Pan',       lambda: self.set_tool('pan')),
-                ('Sample',    lambda: self.set_tool('sample')),
-            ]),
-            ('View', [
-                ('Zoom In',     self.zoom_in),
-                ('Zoom Out',    self.zoom_out),
-                ('Default Zoom', self.default_zoom),
-                ('Grid On/Off', self.toggle_grid),
-            ]),
-        ]
-        for menu_name, items in menus:
-            dd = DropDown()
-            for label, cb in items:
-                btn = Button(text=label, size_hint_y=None, height=dp(44))
-                btn.bind(on_release=lambda b, c=cb, d=dd: (c(), d.dismiss()))
-                dd.add_widget(btn)
-            parent_btn = Button(text=menu_name, size_hint_x=None, width=dp(80))
-            parent_btn.bind(on_release=lambda b, d=dd: d.open(b))
-            bar.add_widget(parent_btn)
-        bar.add_widget(Label())  # spacer
-        return bar
 
-    def _build_left_panel(self):
-        panel = BoxLayout(
-            orientation='vertical', size_hint_x=None, width=dp(200),
-            padding=dp(8), spacing=dp(6),
-        )
+        # File menu
+        file_dd = DropDown()
+        for lbl, cb in [('Load', self.load_map), ('Save', self.save_map),
+                        ('Exit', lambda: App.get_running_app().stop())]:
+            btn = Button(text=lbl, size_hint_y=None, height=dp(44))
+            btn.bind(on_release=lambda b, c=cb, d=file_dd: (c(), d.dismiss()))
+            file_dd.add_widget(btn)
+        file_btn = Button(text='File', size_hint_x=None, width=dp(56))
+        file_btn.bind(on_release=lambda b: file_dd.open(b))
+        bar.add_widget(file_btn)
 
-        panel.add_widget(Label(text='Draw Tool', size_hint_y=None, height=dp(24), halign='left'))
+        # Edit menu
+        edit_dd = DropDown()
+        for lbl, cb in [('Copy', self.copy_selection), ('Paste', self.paste_at_prompt)]:
+            btn = Button(text=lbl, size_hint_y=None, height=dp(44))
+            btn.bind(on_release=lambda b, c=cb, d=edit_dd: (c(), d.dismiss()))
+            edit_dd.add_widget(btn)
+        edit_btn = Button(text='Edit', size_hint_x=None, width=dp(56))
+        edit_btn.bind(on_release=lambda b: edit_dd.open(b))
+        bar.add_widget(edit_btn)
+
+        # Tool spinner
         self.tool_spinner = Spinner(
             text='pencil',
             values=['pencil', 'rectangle', 'ellipse', 'fill', 'pan', 'sample'],
-            size_hint_y=None, height=dp(40),
+            size_hint_x=None, width=dp(110),
         )
         self.tool_spinner.bind(text=self._on_tool_change)
-        panel.add_widget(self.tool_spinner)
+        bar.add_widget(self.tool_spinner)
 
-        panel.add_widget(Label(text='Edit Layer', size_hint_y=None, height=dp(24), halign='left'))
+        # Layer spinner
         self.layer_spinner = Spinner(
             text='0', values=['0', '1', '2', '3'],
-            size_hint_y=None, height=dp(40),
+            size_hint_x=None, width=dp(56),
         )
         self.layer_spinner.bind(text=self._on_layer_change)
-        panel.add_widget(self.layer_spinner)
+        bar.add_widget(self.layer_spinner)
 
-        panel.add_widget(Label(text='Tile Code', size_hint_y=None, height=dp(24), halign='left'))
+        # Tile code input
         self.tile_code_input = TextInput(
-            text='2816', multiline=False,
-            size_hint_y=None, height=dp(40),
+            text='2816', multiline=False, input_filter='int',
+            size_hint_x=None, width=dp(90),
         )
         self.tile_code_input.bind(text=self._on_tile_code_change)
-        panel.add_widget(self.tile_code_input)
+        bar.add_widget(self.tile_code_input)
 
-        use_btn = Button(text='Use Tile Code', size_hint_y=None, height=dp(40))
-        use_btn.bind(on_release=lambda b: self._update_status('Tile code ready'))
-        panel.add_widget(use_btn)
+        bar.add_widget(Label())  # spacer
+        return bar
 
-        panel.add_widget(Label(text='Quick Actions', size_hint_y=None, height=dp(24), halign='left'))
-        quick = GridLayout(cols=2, size_hint_y=None, height=dp(88), spacing=dp(4))
-        for lbl, cmd in [('Undo', self.undo), ('Redo', self.redo),
-                         ('Copy', self.copy_selection), ('Paste', self.paste_at_prompt)]:
-            btn = Button(text=lbl)
+    def _build_left_bar(self):
+        bar = BoxLayout(
+            orientation='vertical', size_hint_x=None, width=dp(56),
+            spacing=dp(2), padding=dp(2),
+        )
+        for text, cmd in [
+            ('\u21a9', self.undo),    # ↩
+            ('\u21aa', self.redo),    # ↪
+            ('+', self.zoom_in),
+            ('\u2212', self.zoom_out),  # −
+            ('#', self.toggle_grid),
+        ]:
+            btn = Button(text=text, size_hint_y=None, height=dp(52))
             btn.bind(on_release=lambda b, c=cmd: c())
-            quick.add_widget(btn)
-        panel.add_widget(quick)
+            bar.add_widget(btn)
 
-        panel.add_widget(Label(text='View', size_hint_y=None, height=dp(24), halign='left'))
-        view = GridLayout(cols=2, size_hint_y=None, height=dp(88), spacing=dp(4))
-        for lbl, cmd in [('Zoom In', self.zoom_in), ('Zoom Out', self.zoom_out),
-                         ('Reset Zoom', self.default_zoom), ('Grid On/Off', self.toggle_grid)]:
-            btn = Button(text=lbl)
-            btn.bind(on_release=lambda b, c=cmd: c())
-            view.add_widget(btn)
-        panel.add_widget(view)
+        more_dd = DropDown()
+        for lbl, cb in [('Reset Zoom', self.default_zoom),
+                        ('Sample', lambda: self.set_tool('sample'))]:
+            btn = Button(text=lbl, size_hint_y=None, height=dp(44))
+            btn.bind(on_release=lambda b, c=cb, d=more_dd: (c(), d.dismiss()))
+            more_dd.add_widget(btn)
+        more_btn = Button(text='\u22ee', size_hint_y=None, height=dp(52))  # ⋮
+        more_btn.bind(on_release=lambda b: more_dd.open(b))
+        bar.add_widget(more_btn)
 
-        panel.add_widget(Label(
-            text='Tap: draw\nSample tool: pick tile\nPan tool: scroll map\nRect/Ellipse: drag\nCopy needs a drag first',
-            halign='left', valign='top',
-        ))
-        return panel
+        bar.add_widget(Label())  # push buttons to top
+        return bar
 
     # ---------- Spinner callbacks ----------
 
@@ -816,6 +796,13 @@ class MapEditorApp(App):
         return RootLayout()
 
     def on_start(self):
+        try:
+            from jnius import autoclass
+            PythonActivity = autoclass('org.kivy.android.PythonActivity')
+            ActivityInfo = autoclass('android.content.pm.ActivityInfo')
+            PythonActivity.mActivity.setRequestedOrientation(0)  # SCREEN_ORIENTATION_LANDSCAPE
+        except Exception:
+            pass
         self.root.map_widget.update_canvas()
 
 
