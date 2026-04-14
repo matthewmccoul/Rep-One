@@ -14,7 +14,6 @@ from kivy.uix.button import Button
 from kivy.uix.spinner import Spinner
 from kivy.uix.textinput import TextInput
 from kivy.uix.popup import Popup
-from kivy.uix.filechooser import FileChooserListView
 from kivy.uix.dropdown import DropDown
 from kivy.graphics import Color, Rectangle, RoundedRectangle, Line, InstructionGroup
 from kivy.core.text import Label as CoreLabel
@@ -159,6 +158,89 @@ class MapModel:
         self.data = list(snap)
 
 
+# ---------- File browser (uses os.listdir — works in Pydroid 3) ----------
+
+class _FileBrowser(BoxLayout):
+    def __init__(self, start_path, **kwargs):
+        super().__init__(orientation='vertical', **kwargs)
+        self.selection = []
+        self._path = start_path
+
+        self._path_lbl = Label(
+            size_hint_y=None, height=dp(28),
+            halign='left', valign='middle',
+            color=(0.55, 0.75, 1.0, 1), font_size=dp(11),
+        )
+        self._path_lbl.bind(size=self._path_lbl.setter('text_size'))
+        self.add_widget(self._path_lbl)
+
+        sv = ScrollView()
+        self._list = BoxLayout(orientation='vertical', size_hint_y=None, spacing=dp(2))
+        self._list.bind(minimum_height=self._list.setter('height'))
+        sv.add_widget(self._list)
+        self.add_widget(sv)
+
+        self._refresh()
+
+    def _refresh(self):
+        self._list.clear_widgets()
+        self.selection = []
+        self._path_lbl.text = self._path
+
+        if self._path not in ('/', ''):
+            up = FlatButton(text='[up one level]', col=_C_ACT, col_down=_C_ACT_D,
+                            size_hint_y=None, height=dp(44))
+            up.bind(on_release=lambda b: self._enter(os.path.dirname(self._path)))
+            self._list.add_widget(up)
+
+        try:
+            entries = sorted(os.listdir(self._path))
+        except Exception as e:
+            self._list.add_widget(Label(
+                text=f'Cannot read folder:\n{e}',
+                color=(1, 0.4, 0.4, 1), size_hint_y=None, height=dp(80),
+            ))
+            return
+
+        dirs  = [e for e in entries if os.path.isdir( os.path.join(self._path, e))]
+        files = [e for e in entries if os.path.isfile(os.path.join(self._path, e))]
+
+        for d in dirs:
+            b = FlatButton(text='/ ' + d, col=(0.19, 0.21, 0.28, 1), col_down=_C_BTN_D,
+                           size_hint_y=None, height=dp(44))
+            full = os.path.join(self._path, d)
+            b.bind(on_release=lambda btn, p=full: self._enter(p))
+            self._list.add_widget(b)
+
+        for f in files:
+            b = FlatButton(text=f, size_hint_y=None, height=dp(44))
+            full = os.path.join(self._path, f)
+            b.bind(on_release=lambda btn, p=full, bt=b: self._pick(p, bt))
+            self._list.add_widget(b)
+
+        if not dirs and not files:
+            self._list.add_widget(Label(
+                text='(empty folder)', color=(0.5, 0.5, 0.5, 1),
+                size_hint_y=None, height=dp(44),
+            ))
+
+    def _enter(self, path):
+        if os.path.isdir(path):
+            self._path = path
+            self._refresh()
+
+    def _pick(self, path, btn):
+        self.selection = [path]
+        for child in self._list.children:
+            if hasattr(child, '_col_up'):
+                child._rc.rgba = child._col_up
+        btn._rc.rgba = _C_ACT_D  # highlight selected
+
+    @property
+    def path(self):
+        return self._path
+
+
 # ---------- Dialogs ----------
 
 class AlertPopup(Popup):
@@ -178,12 +260,11 @@ class AlertPopup(Popup):
 class FileDialog(Popup):
     def __init__(self, mode='load', on_select=None, **kwargs):
         super().__init__(**kwargs)
-        self._mode     = mode
+        self._mode      = mode
         self._on_select = on_select
-        self.title     = 'Load Map' if mode == 'load' else 'Save Map'
-        self.size_hint = (0.95, 0.9)
+        self.title      = 'Load Map' if mode == 'load' else 'Save Map'
+        self.size_hint  = (0.95, 0.9)
 
-        # Best default: Downloads folder
         for candidate in ('/sdcard/Download', '/storage/emulated/0/Download',
                           '/sdcard', '/storage/emulated/0', '/'):
             if os.path.isdir(candidate):
@@ -192,36 +273,8 @@ class FileDialog(Popup):
 
         layout = BoxLayout(orientation='vertical', spacing=dp(4), padding=dp(4))
 
-        # Path bar — shows current dir, lets user type a path manually
-        path_row = BoxLayout(size_hint_y=None, height=dp(44), spacing=dp(4))
-        self._path_input = TextInput(
-            text=start, multiline=False,
-            background_color=(0.18, 0.18, 0.22, 1),
-            foreground_color=(0.9, 0.9, 0.9, 1),
-        )
-        go_btn = FlatButton(text='Go', col=_C_ACT, col_down=_C_ACT_D,
-                            size_hint_x=None, width=dp(60))
-        go_btn.bind(on_release=self._go)
-        path_row.add_widget(self._path_input)
-        path_row.add_widget(go_btn)
-        layout.add_widget(path_row)
-
-        # Quick-jump buttons
-        quick = BoxLayout(size_hint_y=None, height=dp(40), spacing=dp(4))
-        for label, path in [('Downloads', '/sdcard/Download'),
-                             ('/sdcard',   '/sdcard'),
-                             ('/storage',  '/storage/emulated/0'),
-                             ('/',         '/')]:
-            if os.path.isdir(path):
-                b = FlatButton(text=label, col=_C_BTN, col_down=_C_BTN_D)
-                b.bind(on_release=lambda btn, p=path: self._nav(p))
-                quick.add_widget(b)
-        layout.add_widget(quick)
-
-        # File browser
-        self._chooser = FileChooserListView(path=start)
-        self._chooser.bind(path=lambda i, v: setattr(self._path_input, 'text', v))
-        layout.add_widget(self._chooser)
+        self._browser = _FileBrowser(start_path=start)
+        layout.add_widget(self._browser)
 
         if mode == 'save':
             self._filename_input = TextInput(
@@ -243,28 +296,18 @@ class FileDialog(Popup):
         layout.add_widget(btn_row)
         self.content = layout
 
-    def _nav(self, path):
-        if os.path.isdir(path):
-            self._chooser.path = path
-
-    def _go(self, *_):
-        p = self._path_input.text.strip()
-        if os.path.isfile(p):
-            self._chooser.selection = [p]
-        elif os.path.isdir(p):
-            self._nav(p)
-
     def _do_select(self, *_):
         if self._mode == 'load':
-            sel = self._chooser.selection
+            sel = self._browser.selection
             if not sel:
+                AlertPopup.show('No file selected', 'Tap a file to select it first.')
                 return
             path = sel[0]
         else:
             fn = self._filename_input.text.strip()
             if not fn:
                 return
-            path = os.path.join(self._chooser.path, fn)
+            path = os.path.join(self._browser.path, fn)
         self.dismiss()
         if self._on_select:
             self._on_select(path)
