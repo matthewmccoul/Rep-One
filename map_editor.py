@@ -16,10 +16,53 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.popup import Popup
 from kivy.uix.filechooser import FileChooserListView
 from kivy.uix.dropdown import DropDown
-from kivy.graphics import Color, Rectangle, Line, InstructionGroup
+from kivy.graphics import Color, Rectangle, RoundedRectangle, Line, InstructionGroup
 from kivy.core.text import Label as CoreLabel
 from kivy.metrics import dp
 
+
+# ---------- Theme ----------
+
+_C_BAR   = (0.13, 0.13, 0.17, 1)
+_C_BTN   = (0.22, 0.22, 0.28, 1)
+_C_BTN_D = (0.34, 0.34, 0.46, 1)
+_C_ACT   = (0.12, 0.26, 0.46, 1)
+_C_ACT_D = (0.18, 0.38, 0.62, 1)
+
+
+class FlatButton(Button):
+    def __init__(self, col=_C_BTN, col_down=_C_BTN_D, **kwargs):
+        super().__init__(**kwargs)
+        self.background_normal = ''
+        self.background_down   = ''
+        self.background_color  = (0, 0, 0, 0)
+        self._col_up   = col
+        self._col_down = col_down
+        with self.canvas.before:
+            self._rc = Color(*col)
+            self._rr = RoundedRectangle(pos=self.pos, size=self.size, radius=[dp(5)])
+        self.bind(pos=self._upd, size=self._upd, state=self._upd_state)
+
+    def _upd(self, *_):
+        self._rr.pos  = self.pos
+        self._rr.size = self.size
+
+    def _upd_state(self, *_):
+        self._rc.rgba = self._col_down if self.state == 'down' else self._col_up
+
+
+def _tinted(layout, color=_C_BAR):
+    with layout.canvas.before:
+        Color(*color)
+        rect = Rectangle(pos=layout.pos, size=layout.size)
+    layout.bind(
+        pos =lambda *_: setattr(rect, 'pos',  layout.pos),
+        size=lambda *_: setattr(rect, 'size', layout.size),
+    )
+    return layout
+
+
+# ---------- Data ----------
 
 @dataclass
 class ClipboardData:
@@ -116,17 +159,18 @@ class MapModel:
         self.data = list(snap)
 
 
-# ---------- Dialog helpers ----------
+# ---------- Dialogs ----------
 
 class AlertPopup(Popup):
     @classmethod
     def show(cls, title, message):
         inst = cls(title=title, size_hint=(0.8, 0.4))
         layout = BoxLayout(orientation='vertical', padding=dp(12), spacing=dp(8))
-        layout.add_widget(Label(text=message))
-        ok_btn = Button(text='OK', size_hint_y=None, height=dp(44))
-        ok_btn.bind(on_release=inst.dismiss)
-        layout.add_widget(ok_btn)
+        layout.add_widget(Label(text=message, color=(0.9, 0.9, 0.9, 1)))
+        ok = FlatButton(text='OK', col=_C_ACT, col_down=_C_ACT_D,
+                        size_hint_y=None, height=dp(44))
+        ok.bind(on_release=inst.dismiss)
+        layout.add_widget(ok)
         inst.content = layout
         inst.open()
 
@@ -134,46 +178,93 @@ class AlertPopup(Popup):
 class FileDialog(Popup):
     def __init__(self, mode='load', on_select=None, **kwargs):
         super().__init__(**kwargs)
-        self._mode = mode
+        self._mode     = mode
         self._on_select = on_select
-        self.title = 'Load Map' if mode == 'load' else 'Save Map'
+        self.title     = 'Load Map' if mode == 'load' else 'Save Map'
         self.size_hint = (0.95, 0.9)
 
-        start = '/sdcard/' if os.path.isdir('/sdcard/') else '/'
+        # Best default: Downloads folder
+        for candidate in ('/sdcard/Download', '/storage/emulated/0/Download',
+                          '/sdcard', '/storage/emulated/0', '/'):
+            if os.path.isdir(candidate):
+                start = candidate
+                break
 
-        layout = BoxLayout(orientation='vertical', spacing=dp(4))
+        layout = BoxLayout(orientation='vertical', spacing=dp(4), padding=dp(4))
+
+        # Path bar — shows current dir, lets user type a path manually
+        path_row = BoxLayout(size_hint_y=None, height=dp(44), spacing=dp(4))
+        self._path_input = TextInput(
+            text=start, multiline=False,
+            background_color=(0.18, 0.18, 0.22, 1),
+            foreground_color=(0.9, 0.9, 0.9, 1),
+        )
+        go_btn = FlatButton(text='Go', col=_C_ACT, col_down=_C_ACT_D,
+                            size_hint_x=None, width=dp(60))
+        go_btn.bind(on_release=self._go)
+        path_row.add_widget(self._path_input)
+        path_row.add_widget(go_btn)
+        layout.add_widget(path_row)
+
+        # Quick-jump buttons
+        quick = BoxLayout(size_hint_y=None, height=dp(40), spacing=dp(4))
+        for label, path in [('Downloads', '/sdcard/Download'),
+                             ('/sdcard',   '/sdcard'),
+                             ('/storage',  '/storage/emulated/0'),
+                             ('/',         '/')]:
+            if os.path.isdir(path):
+                b = FlatButton(text=label, col=_C_BTN, col_down=_C_BTN_D)
+                b.bind(on_release=lambda btn, p=path: self._nav(p))
+                quick.add_widget(b)
+        layout.add_widget(quick)
+
+        # File browser
         self._chooser = FileChooserListView(path=start)
+        self._chooser.bind(path=lambda i, v: setattr(self._path_input, 'text', v))
         layout.add_widget(self._chooser)
 
         if mode == 'save':
             self._filename_input = TextInput(
                 text='Map.json', multiline=False,
-                size_hint_y=None, height=dp(44)
+                background_color=(0.18, 0.18, 0.22, 1),
+                foreground_color=(0.9, 0.9, 0.9, 1),
+                size_hint_y=None, height=dp(44),
             )
             layout.add_widget(self._filename_input)
 
         btn_row = BoxLayout(size_hint_y=None, height=dp(50), spacing=dp(4))
-        select_lbl = 'Select' if mode == 'load' else 'Save'
-        select_btn = Button(text=select_lbl)
-        cancel_btn = Button(text='Cancel')
-        select_btn.bind(on_release=self._do_select)
-        cancel_btn.bind(on_release=self.dismiss)
-        btn_row.add_widget(select_btn)
-        btn_row.add_widget(cancel_btn)
+        ok  = FlatButton(text='Select' if mode == 'load' else 'Save',
+                         col=_C_ACT, col_down=_C_ACT_D)
+        can = FlatButton(text='Cancel')
+        ok.bind(on_release=self._do_select)
+        can.bind(on_release=self.dismiss)
+        btn_row.add_widget(ok)
+        btn_row.add_widget(can)
         layout.add_widget(btn_row)
         self.content = layout
 
-    def _do_select(self, *args):
+    def _nav(self, path):
+        if os.path.isdir(path):
+            self._chooser.path = path
+
+    def _go(self, *_):
+        p = self._path_input.text.strip()
+        if os.path.isfile(p):
+            self._chooser.selection = [p]
+        elif os.path.isdir(p):
+            self._nav(p)
+
+    def _do_select(self, *_):
         if self._mode == 'load':
             sel = self._chooser.selection
             if not sel:
                 return
             path = sel[0]
         else:
-            filename = self._filename_input.text.strip()
-            if not filename:
+            fn = self._filename_input.text.strip()
+            if not fn:
                 return
-            path = os.path.join(self._chooser.path, filename)
+            path = os.path.join(self._chooser.path, fn)
         self.dismiss()
         if self._on_select:
             self._on_select(path)
@@ -181,47 +272,46 @@ class FileDialog(Popup):
 
 class PasteDialog(Popup):
     def __init__(self, model, clipboard, on_confirm=None, **kwargs):
-        super().__init__(title='Paste Clipboard', size_hint=(0.7, 0.55), **kwargs)
+        super().__init__(title='Paste', size_hint=(0.7, 0.5), **kwargs)
         self._on_confirm = on_confirm
-        self._model = model
+        self._model      = model
 
         layout = BoxLayout(orientation='vertical', padding=dp(12), spacing=dp(8))
         layout.add_widget(Label(
-            text=f'Clipboard: {clipboard.width}x{clipboard.height}  Map: {model.width}x{model.height}',
-            size_hint_y=None, height=dp(40)
+            text=f'Clipboard {clipboard.width}x{clipboard.height} — paste at:',
+            color=(0.85, 0.85, 0.85, 1), size_hint_y=None, height=dp(36),
         ))
 
-        row_x = BoxLayout(size_hint_y=None, height=dp(44))
-        row_x.add_widget(Label(text='Tile X:', size_hint_x=0.4))
-        self._x_input = TextInput(text='0', multiline=False, input_filter='int')
-        row_x.add_widget(self._x_input)
-        layout.add_widget(row_x)
-
-        row_y = BoxLayout(size_hint_y=None, height=dp(44))
-        row_y.add_widget(Label(text='Tile Y:', size_hint_x=0.4))
-        self._y_input = TextInput(text='0', multiline=False, input_filter='int')
-        row_y.add_widget(self._y_input)
-        layout.add_widget(row_y)
+        for attr, label in [('_x_input', 'Tile X'), ('_y_input', 'Tile Y')]:
+            row = BoxLayout(size_hint_y=None, height=dp(44), spacing=dp(8))
+            row.add_widget(Label(text=label, size_hint_x=None, width=dp(70),
+                                 color=(0.8, 0.8, 0.8, 1)))
+            inp = TextInput(text='0', multiline=False, input_filter='int',
+                            background_color=(0.18, 0.18, 0.22, 1),
+                            foreground_color=(0.9, 0.9, 0.9, 1))
+            setattr(self, attr, inp)
+            row.add_widget(inp)
+            layout.add_widget(row)
 
         btn_row = BoxLayout(size_hint_y=None, height=dp(50), spacing=dp(4))
-        paste_btn = Button(text='Paste')
-        cancel_btn = Button(text='Cancel')
-        paste_btn.bind(on_release=self._do_paste)
-        cancel_btn.bind(on_release=self.dismiss)
-        btn_row.add_widget(paste_btn)
-        btn_row.add_widget(cancel_btn)
+        ok  = FlatButton(text='Paste',  col=_C_ACT, col_down=_C_ACT_D)
+        can = FlatButton(text='Cancel')
+        ok.bind(on_release=self._do_paste)
+        can.bind(on_release=self.dismiss)
+        btn_row.add_widget(ok)
+        btn_row.add_widget(can)
         layout.add_widget(btn_row)
         self.content = layout
 
-    def _do_paste(self, *args):
+    def _do_paste(self, *_):
         try:
-            x = int(self._x_input.text)
-            y = int(self._y_input.text)
+            x, y = int(self._x_input.text), int(self._y_input.text)
         except ValueError:
             AlertPopup.show('Error', 'X and Y must be integers.')
             return
-        if not (0 <= x < self._model.width and 0 <= y < self._model.height):
-            AlertPopup.show('Error', f'Out of range (0..{self._model.width-1}, 0..{self._model.height-1}).')
+        m = self._model
+        if not (0 <= x < m.width and 0 <= y < m.height):
+            AlertPopup.show('Error', f'Out of range (0–{m.width-1}, 0–{m.height-1}).')
             return
         self.dismiss()
         if self._on_confirm:
@@ -452,20 +542,6 @@ class MapWidget(Widget):
         return True
 
 
-# ---------- Layout helpers ----------
-
-def _tinted(layout, r, g, b):
-    """Add a solid background colour to a Layout widget."""
-    with layout.canvas.before:
-        Color(r, g, b, 1)
-        rect = Rectangle(pos=layout.pos, size=layout.size)
-    layout.bind(
-        pos=lambda *_: setattr(rect, 'pos', layout.pos),
-        size=lambda *_: setattr(rect, 'size', layout.size),
-    )
-    return layout
-
-
 # ---------- Layout ----------
 
 class RootLayout(BoxLayout):
@@ -517,87 +593,88 @@ class RootLayout(BoxLayout):
         self.add_widget(self.status_label)
 
     def _build_top_bar(self):
-        bar = _tinted(
-            BoxLayout(orientation='horizontal', size_hint_y=None, height=dp(44), spacing=dp(2)),
-            0.18, 0.18, 0.22,
-        )
+        bar = _tinted(BoxLayout(
+            orientation='horizontal', size_hint_y=None, height=dp(48), spacing=dp(3), padding=dp(3),
+        ))
 
-        # File menu
-        file_dd = DropDown()
-        for lbl, cb in [('Load', self.load_map), ('Save', self.save_map),
-                        ('Exit', lambda: App.get_running_app().stop())]:
-            btn = Button(text=lbl, size_hint_y=None, height=dp(44))
-            btn.bind(on_release=lambda b, c=cb, d=file_dd: (c(), d.dismiss()))
-            file_dd.add_widget(btn)
-        file_btn = Button(text='File', size_hint_x=None, width=dp(56))
-        file_btn.bind(on_release=lambda b: file_dd.open(b))
-        bar.add_widget(file_btn)
+        def _dd_btn(label, items, width=dp(72)):
+            dd = DropDown(auto_width=False, width=dp(160))
+            for txt, cb in items:
+                b = FlatButton(text=txt, col=_C_BTN, col_down=_C_BTN_D,
+                               size_hint_y=None, height=dp(44))
+                b.bind(on_release=lambda btn, c=cb, d=dd: (c(), d.dismiss()))
+                dd.add_widget(b)
+            btn = FlatButton(text=label, col=_C_ACT, col_down=_C_ACT_D,
+                             size_hint_x=None, width=width)
+            btn.bind(on_release=lambda b: dd.open(b))
+            return btn
 
-        # Edit menu
-        edit_dd = DropDown()
-        for lbl, cb in [('Copy', self.copy_selection), ('Paste', self.paste_at_prompt)]:
-            btn = Button(text=lbl, size_hint_y=None, height=dp(44))
-            btn.bind(on_release=lambda b, c=cb, d=edit_dd: (c(), d.dismiss()))
-            edit_dd.add_widget(btn)
-        edit_btn = Button(text='Edit', size_hint_x=None, width=dp(56))
-        edit_btn.bind(on_release=lambda b: edit_dd.open(b))
-        bar.add_widget(edit_btn)
+        bar.add_widget(_dd_btn('File', [
+            ('Load', self.load_map),
+            ('Save', self.save_map),
+            ('Exit', lambda: App.get_running_app().stop()),
+        ]))
+        bar.add_widget(_dd_btn('Edit', [
+            ('Copy',  self.copy_selection),
+            ('Paste', self.paste_at_prompt),
+        ]))
 
-        # Tool spinner
         self.tool_spinner = Spinner(
             text='pencil',
             values=['pencil', 'rectangle', 'ellipse', 'fill', 'pan', 'sample'],
-            size_hint_x=None, width=dp(110),
+            size_hint_x=None, width=dp(120),
+            background_normal='', background_color=_C_BTN,
         )
         self.tool_spinner.bind(text=self._on_tool_change)
         bar.add_widget(self.tool_spinner)
 
-        # Layer spinner
         self.layer_spinner = Spinner(
             text='0', values=['0', '1', '2', '3'],
-            size_hint_x=None, width=dp(56),
+            size_hint_x=None, width=dp(62),
+            background_normal='', background_color=_C_BTN,
         )
         self.layer_spinner.bind(text=self._on_layer_change)
         bar.add_widget(self.layer_spinner)
 
-        # Tile code input
         self.tile_code_input = TextInput(
             text='2816', multiline=False, input_filter='int',
             size_hint_x=None, width=dp(90),
+            background_color=(0.18, 0.18, 0.23, 1),
+            foreground_color=(0.95, 0.95, 0.95, 1),
+            cursor_color=(0.5, 0.75, 1.0, 1),
         )
         self.tile_code_input.bind(text=self._on_tile_code_change)
         bar.add_widget(self.tile_code_input)
 
-        bar.add_widget(Label())  # spacer
+        bar.add_widget(Label())  # spacer — status text could go here later
         return bar
 
     def _build_left_bar(self):
-        bar = _tinted(
-            BoxLayout(orientation='vertical', size_hint_x=None, width=dp(56),
-                      spacing=dp(2), padding=dp(2)),
-            0.18, 0.18, 0.22,
-        )
+        bar = _tinted(BoxLayout(
+            orientation='vertical', size_hint_x=None, width=dp(62),
+            spacing=dp(3), padding=dp(3),
+        ))
         for text, cmd in [
-            ('Undo', self.undo),
-            ('Redo', self.redo),
-            ('+', self.zoom_in),
-            ('-', self.zoom_out),
-            ('Grid', self.toggle_grid),
+            ('Undo',  self.undo),
+            ('Redo',  self.redo),
+            ('+',     self.zoom_in),
+            ('-',     self.zoom_out),
+            ('Grid',  self.toggle_grid),
         ]:
-            btn = Button(text=text)
-            btn.bind(on_release=lambda b, c=cmd: c())
-            bar.add_widget(btn)
+            b = FlatButton(text=text)
+            b.bind(on_release=lambda btn, c=cmd: c())
+            bar.add_widget(b)
 
         more_dd = DropDown(auto_width=False, width=dp(160))
         for lbl, cb in [('Reset Zoom', self.default_zoom),
-                        ('Sample', lambda: self.set_tool('sample'))]:
-            btn = Button(text=lbl, size_hint_y=None, height=dp(44))
-            btn.bind(on_release=lambda b, c=cb, d=more_dd: (c(), d.dismiss()))
-            more_dd.add_widget(btn)
-        more_btn = Button(text='More')
-        more_btn.bind(on_release=lambda b: more_dd.open(b))
-        bar.add_widget(more_btn)
-
+                        ('Sample',     lambda: self.set_tool('sample'))]:
+            b = FlatButton(text=lbl, col=_C_BTN, col_down=_C_BTN_D,
+                           size_hint_y=None, height=dp(44))
+            b.bind(on_release=lambda btn, c=cb, d=more_dd: (c(), d.dismiss()))
+            more_dd.add_widget(b)
+        more = FlatButton(text='More')
+        more.bind(on_release=lambda b: more_dd.open(b))
+        bar.add_widget(more)
         return bar
 
     # ---------- Spinner callbacks ----------
