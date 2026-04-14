@@ -194,16 +194,16 @@ class _FileBrowser(BoxLayout):
             self._list.add_widget(up)
 
         try:
-            entries = sorted(os.listdir(self._path))
+            with os.scandir(self._path) as it:
+                entries = sorted(it, key=lambda e: e.name)
+            dirs  = [e.name for e in entries if e.is_dir()]
+            files = [e.name for e in entries if e.is_file()]
         except Exception as e:
             self._list.add_widget(Label(
                 text=f'Cannot read folder:\n{e}',
                 color=(1, 0.4, 0.4, 1), size_hint_y=None, height=dp(80),
             ))
             return
-
-        dirs  = [e for e in entries if os.path.isdir( os.path.join(self._path, e))]
-        files = [e for e in entries if os.path.isfile(os.path.join(self._path, e))]
 
         for d in dirs:
             b = FlatButton(text='/ ' + d, col=(0.19, 0.21, 0.28, 1), col_down=_C_BTN_D,
