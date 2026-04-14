@@ -142,7 +142,7 @@ class FileDialog(Popup):
         start = '/sdcard/' if os.path.isdir('/sdcard/') else '/'
 
         layout = BoxLayout(orientation='vertical', spacing=dp(4))
-        self._chooser = FileChooserListView(path=start, filters=['*.json'])
+        self._chooser = FileChooserListView(path=start)
         layout.add_widget(self._chooser)
 
         if mode == 'save':
@@ -452,6 +452,20 @@ class MapWidget(Widget):
         return True
 
 
+# ---------- Layout helpers ----------
+
+def _tinted(layout, r, g, b):
+    """Add a solid background colour to a Layout widget."""
+    with layout.canvas.before:
+        Color(r, g, b, 1)
+        rect = Rectangle(pos=layout.pos, size=layout.size)
+    layout.bind(
+        pos=lambda *_: setattr(rect, 'pos', layout.pos),
+        size=lambda *_: setattr(rect, 'size', layout.size),
+    )
+    return layout
+
+
 # ---------- Layout ----------
 
 class RootLayout(BoxLayout):
@@ -503,7 +517,10 @@ class RootLayout(BoxLayout):
         self.add_widget(self.status_label)
 
     def _build_top_bar(self):
-        bar = BoxLayout(orientation='horizontal', size_hint_y=None, height=dp(44), spacing=dp(2))
+        bar = _tinted(
+            BoxLayout(orientation='horizontal', size_hint_y=None, height=dp(44), spacing=dp(2)),
+            0.18, 0.18, 0.22,
+        )
 
         # File menu
         file_dd = DropDown()
@@ -555,9 +572,10 @@ class RootLayout(BoxLayout):
         return bar
 
     def _build_left_bar(self):
-        bar = BoxLayout(
-            orientation='vertical', size_hint_x=None, width=dp(56),
-            spacing=dp(2), padding=dp(2),
+        bar = _tinted(
+            BoxLayout(orientation='vertical', size_hint_x=None, width=dp(56),
+                      spacing=dp(2), padding=dp(2)),
+            0.18, 0.18, 0.22,
         )
         for text, cmd in [
             ('Undo', self.undo),
@@ -570,7 +588,7 @@ class RootLayout(BoxLayout):
             btn.bind(on_release=lambda b, c=cmd: c())
             bar.add_widget(btn)
 
-        more_dd = DropDown()
+        more_dd = DropDown(auto_width=False, width=dp(160))
         for lbl, cb in [('Reset Zoom', self.default_zoom),
                         ('Sample', lambda: self.set_tool('sample'))]:
             btn = Button(text=lbl, size_hint_y=None, height=dp(44))
