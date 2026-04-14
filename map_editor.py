@@ -566,7 +566,7 @@ class RootLayout(BoxLayout):
             ('-', self.zoom_out),
             ('Grid', self.toggle_grid),
         ]:
-            btn = Button(text=text, size_hint_y=None, height=dp(52))
+            btn = Button(text=text)
             btn.bind(on_release=lambda b, c=cmd: c())
             bar.add_widget(btn)
 
@@ -576,11 +576,10 @@ class RootLayout(BoxLayout):
             btn = Button(text=lbl, size_hint_y=None, height=dp(44))
             btn.bind(on_release=lambda b, c=cb, d=more_dd: (c(), d.dismiss()))
             more_dd.add_widget(btn)
-        more_btn = Button(text='More', size_hint_y=None, height=dp(52))
+        more_btn = Button(text='More')
         more_btn.bind(on_release=lambda b: more_dd.open(b))
         bar.add_widget(more_btn)
 
-        bar.add_widget(Label())  # push buttons to top
         return bar
 
     # ---------- Spinner callbacks ----------
