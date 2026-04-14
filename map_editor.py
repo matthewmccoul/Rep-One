@@ -194,10 +194,13 @@ class _FileBrowser(BoxLayout):
             self._list.add_widget(up)
 
         try:
+            dirs, files = [], []
             with os.scandir(self._path) as it:
-                entries = sorted(it, key=lambda e: e.name)
-            dirs  = [e.name for e in entries if e.is_dir()]
-            files = [e.name for e in entries if e.is_file()]
+                for e in sorted(it, key=lambda e: e.name):
+                    if e.is_dir():
+                        dirs.append(e.name)
+                    elif e.is_file():
+                        files.append(e.name)
         except Exception as e:
             self._list.add_widget(Label(
                 text=f'Cannot read folder:\n{e}',
@@ -225,9 +228,8 @@ class _FileBrowser(BoxLayout):
             ))
 
     def _enter(self, path):
-        if os.path.isdir(path):
-            self._path = path
-            self._refresh()
+        self._path = path
+        self._refresh()
 
     def _pick(self, path, btn):
         self.selection = [path]
