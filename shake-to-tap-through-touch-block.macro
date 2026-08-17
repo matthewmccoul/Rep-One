@@ -1,0 +1,98 @@
+{
+  "macroExportVersion": 1,
+  "macro": {
+    "m_name": "Shake to Tap Through Touch Block",
+    "m_description": "When shaken, if touch blocking is active, briefly disables it, taps at 50% x / 80% y, then re-enables blocking",
+    "m_enabled": true,
+    "m_completed": true,
+    "m_GUID": 0,
+    "aiGenerated": 1,
+    "m_triggerList": [
+      {
+        "m_classType": "ShakeDeviceTrigger",
+        "m_SIGUID": 0
+      }
+    ],
+    "m_actionList": [
+      {
+        "m_classType": "IfConditionAction",
+        "m_SIGUID": 0,
+        "m_constraintList": [
+          {
+            "m_classType": "MacroDroidVariableConstraint",
+            "m_SIGUID": 0,
+            "m_variable": {
+              "m_name": "touches_blocked",
+              "m_type": 0,
+              "isLocalVariable": false
+            },
+            "m_booleanValue": true
+          }
+        ]
+      },
+      {
+        "m_classType": "BlockTouchesAction",
+        "m_SIGUID": 0,
+        "option": 1,
+        "useAccessibilityService": true,
+        "m_comment": "Temporarily disable touch blocking"
+      },
+      {
+        "m_classType": "PauseAction",
+        "m_SIGUID": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 300,
+        "m_useAlarm": false
+      },
+      {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "longClick": false,
+          "xyPoint": {
+            "x": 50,
+            "y": 80
+          },
+          "xyPercentages": true,
+          "blocking": true
+        },
+        "m_comment": "Tap at 50% width, 80% height"
+      },
+      {
+        "m_classType": "PauseAction",
+        "m_SIGUID": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 300,
+        "m_useAlarm": false
+      },
+      {
+        "m_classType": "BlockTouchesAction",
+        "m_SIGUID": 0,
+        "option": 0,
+        "xPosition": 0.5,
+        "yPosition": 0.5,
+        "width": 1.0,
+        "height": 1.0,
+        "useAccessibilityService": true,
+        "m_comment": "Re-enable blocking - MUST mirror your original block config (area, accessibility mode)"
+      },
+      {
+        "m_classType": "EndIfAction",
+        "m_SIGUID": 0
+      }
+    ],
+    "m_constraintList": []
+  },
+  "globalVariables": [
+    {
+      "m_name": "touches_blocked",
+      "m_type": 0,
+      "m_booleanValue": false,
+      "isLocalVar": false
+    }
+  ],
+  "userIcons": null,
+  "aiFeedback": "Uses a global boolean guard since MacroDroid exposes no constraint for touch-block state. The guard variable must be kept in sync by whichever macro toggles touch blocking. The 300ms pauses allow the block overlay to tear down before the synthetic tap dispatches - raise to 500ms if taps do not land."
+}
