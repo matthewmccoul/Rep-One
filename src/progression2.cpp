@@ -24,6 +24,7 @@
 #include "mordor/math_util.h"
 #include "mordor/progression2.h"
 #include "mordor/shared_helpers.h"
+#include "mordor/casting1.h"
 
 namespace mordor {
 namespace {
@@ -166,6 +167,17 @@ i32 restInCity(Ctx& ctx, Character& ch) {
     }
     const i32 days = restRoundB(missingPct / kRestScale);
     ageCharacterDays(ch, days, &ctx);
+    // Checked in the real game (rest_cases.py) and in Mordor.Core's Character.RestInCity: the rest
+    // restores hits to the maximum and refills spell points.
+    ch.vitals.curHits = ch.vitals.maxHits;
+    recalcSpellPoints(ch, true);
+    // Mordor.Core also ends paralysis, poison and disease at the city gate (FRMCTYM.BAS:113-115);
+    // not yet checked in the real game.
+    ch.ailments.paralysisLevel = 0;
+    ch.ailments.paralysed = false;
+    ch.ailments.poisonLevel = 0;
+    ch.ailments.diseaseLevel = 0;
+    ch.ailments.ailmentSteps = 0;
     return days;
 }
 
