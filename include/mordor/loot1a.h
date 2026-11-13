@@ -202,7 +202,7 @@ Currency thiefRobs(Ctx& ctx, Character& victim, Currency roll);
 // ---- shop ----
 
 // R28 buy price (F18): base price if Floor==0; 0 if no stock; else shelf and charge scaled. Pure.
-Currency storeBuyPrice(i32 floor, i32 shelfCount, Currency price, i32 charges);
+
 // R28 buying depletes the shelf (F21): floor > 0 or bought alignment is not Unaligned. Pure.
 bool buyDepletesShelf(i32 floor, ItemAlign bought);
 // R28 remove one unit of an item from the shelf (F21 RemoveOne). Returns false if none in stock.

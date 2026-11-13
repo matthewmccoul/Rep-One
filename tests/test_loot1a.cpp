@@ -147,24 +147,11 @@ TEST(typed_gold_uses_clng_and_thief_take_caps_at_purse) {
     CHECK_EQ(thiefTake(currencyFromWhole(500), currencyFromWhole(300)), currencyFromWhole(300));
 }
 
-TEST(store_buy_price_unchanged_on_floor0_and_zero_without_stock) {
-    CHECK_EQ(storeBuyPrice(0, 5, 1000, 3), 1000);
-    CHECK_EQ(storeBuyPrice(0, 0, 1000, 3), 1000);
-    CHECK_EQ(storeBuyPrice(1, 0, 1000, 0), 0);
-}
 
-TEST(store_buy_price_shelf_term_caps_at_nine) {
-    // shelf = min(count-1, 9); cost = 1.5*P / (ln(shelf+1)+1.15)
-    CHECK_EQ(storeBuyPrice(1, 1, 1000, 0), 1304);   // 1500/1.15 = 1304.35
-    CHECK_EQ(storeBuyPrice(1, 10, 1000, 0), 434);   // shelf 9: 1500/3.4526 = 434.46
-    CHECK_EQ(storeBuyPrice(1, 11, 1000, 0), 434);   // capped at shelf 9
-    CHECK(storeBuyPrice(1, 2, 1000, 0) > 434);      // shelf 1 is pricier
-}
 
-TEST(store_buy_price_charge_penalty) {
-    // 1304.35 - ln(2)*(0.05*1000) = 1304.35 - 34.66 = 1269.69 -> 1270
-    CHECK_EQ(storeBuyPrice(1, 1, 1000, 1), 1270);
-}
+
+
+
 
 TEST(buying_depletes_shelf_for_floor_or_aligned_purchase) {
     CHECK(!buyDepletesShelf(0, ItemAlign::Unaligned));

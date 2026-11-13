@@ -966,22 +966,6 @@ Currency thiefRobs(Ctx& ctx, Character& victim, Currency roll) {
 // Shop (R28..R31)
 // ---------------------------------------------------------------------------
 
-// F18 PriceOf: floor 0 -> Price; no stock -> 0; else the shelf-scaled cost.
-Currency storeBuyPrice(i32 floor, i32 shelfCount, Currency price, i32 charges) {
-    if (floor == 0) {
-        return price;
-    }
-    if (shelfCount <= 0) {
-        return 0;
-    }
-    const i32 shelfLen = shelfCount - 1;
-    const i32 shelf = shelfLen < kShelfStockCap ? shelfLen : kShelfStockCap;
-    const double p = static_cast<double>(price);
-    const double cost = (1.5 * p) / (std::log(static_cast<double>(shelf) + 1.0) + 1.15) -
-                        std::log(static_cast<double>(charges) + 1.0) * (0.05 * p);
-    return roundHalfEven(cost);
-}
-
 // F21 DepletedByBuying: depleted when on a floor or bought with an alignment.
 bool buyDepletesShelf(i32 floor, ItemAlign bought) {
     return floor > 0 || bought != ItemAlign::Unaligned;

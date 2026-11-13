@@ -17,6 +17,7 @@
 #include "mordor/partyb.h"
 #include "mordor/progression2.h"
 #include "mordor/progression2b.h"
+#include "mordor/store_prices.h"
 
 namespace mordor {
 namespace {
@@ -293,15 +294,8 @@ static i32 storeShelfCount(const Vec<Item>& store, const Item& it) {
 // Floor-0 items sell at the list price. Otherwise the price depends on the shelf count.
 // UNKNOWN: no store price function is visible in the evidence packet, so the reference
 // formula is applied here directly. Replace with the module function when one is available.
-static i64 storeBuyPriceGold(const ItemDef& def, const Vec<Item>& store, const Item& it) {
-    if (def.floor == 0) return static_cast<i64>(def.price);
-    const i32 count = storeShelfCount(store, it);
-    if (count <= 0) return 0;
-    const i32 shelf = (count - 1 < kStoreShelfCap) ? (count - 1) : kStoreShelfCap;
-    const double p = static_cast<double>(def.price);
-    const double cost = (1.5 * p) / (std::log(static_cast<double>(shelf) + 1.0) + 1.15)
-                      - std::log(static_cast<double>(it.charges) + 1.0) * (0.05 * p);
-    return static_cast<i64>(roundHalfEven(cost));
+static i64 storeBuyPriceGold(const GameData& data, const Vec<Item>& store, const Item& it) {
+    return static_cast<i64>(storeBuyPrice(data, it, storeShelfCount(store, it)) / 10000);
 }
 
 // Whole gold with up to four decimals (1/10000 gold units), trailing zeros dropped.
@@ -382,7 +376,7 @@ void doShop(Ctx& ctx, Session& s, Str& reply) {
         ++row;
         const ItemDef* def = findItemDef(s.data, item.id);
         const Str name = def != nullptr ? def->name : Str("?");
-        const Str price = def != nullptr ? toStr(storeBuyPriceGold(*def, s.town.store, item)) : Str("0");
+        const Str price = def != nullptr ? toStr(storeBuyPriceGold(s.data, s.town.store, item)) : Str("0");
         note(ctx, reply, "town.shop",
              "  " + toStr(row) + ": " + name + "  " + price + " gold  x" + toStr(count));
     }
@@ -415,7 +409,7 @@ void doBuy(Ctx& ctx, Session& s, i64 row, i32 idx, Str& reply) {
 
     // R? General Store buy price: stock-dependent, charged in whole gold (StoreStock.PriceOf).
     // The price is taken before the copy leaves the shelf, so the shelf count includes it.
-    const i64 priceGold = storeBuyPriceGold(*def, s.town.store, shelfItem);
+    const i64 priceGold = storeBuyPriceGold(s.data, s.town.store, shelfItem);
     // Currency is gold * 10000.
     const Currency kCurrencyPerGold = 10000;
     const Currency cost = static_cast<Currency>(priceGold) * kCurrencyPerGold;
