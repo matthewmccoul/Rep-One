@@ -599,12 +599,12 @@ Vec<TeleporterDest> rollTeleporterDestinations(Ctx& ctx, const GameData& data, i
     return dests;
 }
 
+// Keeper becomeLost(Ctx&, LostState&) lives in src/dungeon1a.cpp.
+void becomeLost(Ctx& ctx, LostState& lost);
+
 void becomeLost(Ctx& ctx, Character& who) {
-    // R77 BecomeLost sets the three lost flags.
-    (void)ctx;
-    who.lost.position = true;
-    who.lost.level = true;
-    who.lost.facing = true;
+    // R77 BecomeLost sets the three lost flags; delegates to the keeper.
+    becomeLost(ctx, who.lost);
 }
 
 void splitTeleportedParty(Ctx& ctx, Party& party, Vec<FloorState>& floors, const GameData& data,
