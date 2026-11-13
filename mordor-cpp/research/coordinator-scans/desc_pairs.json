@@ -1,0 +1,744 @@
+[
+[
+0.8,
+"duseMustBeEquipped@src/feat_duse.cpp:52",
+"typeNeedsEquipToUse@src/items2a.cpp:37",
+"Reports whether an item of the given type must be equipped before it can be used, covering",
+"Decides whether an item of the given type must be equipped before its spell can be used, r"
+],
+[
+0.77,
+"raceAllowsGuild@src/progression1b.cpp:169",
+"raceMayJoinGuild@src/progression2a.cpp:133",
+"Returns whether a given race may take a given guild, barring Elves, Osiri, and Gnomes from",
+"Determines whether a given race may join a given guild in Mordor, returning false for Elve"
+],
+[
+0.75,
+"isRareQuestMonster@src/misc_2.cpp:332",
+"isRareQuestItem@src/misc_2.cpp:337",
+"Returns true when a monster's spawn weight is at or below the quest-rare threshold, markin",
+"Returns true when a quest item's spawn weight is at or below the threshold kQuestRareItemM"
+],
+[
+0.75,
+"carryChoiceOpen@src/companions1b_2.cpp:73",
+"companionsCarryOpen@src/feat_companions.cpp:57",
+"Decides whether the owner may choose a body for the carried item, which is allowed only wh",
+"Decides whether the owner may choose a body to carry, allowing it only when the carry slot"
+],
+[
+0.73,
+"isModEnabled@src/modding.cpp:558",
+"setModEnabled@src/modding.cpp:563",
+"Reports whether a mod is enabled for a given mod id by reading that mod's stored \"Enabled\"",
+"Records the mod's \"Enabled\" flag (true or false) into the mod settings store for the given"
+],
+[
+0.71,
+"newbieLeadRejected@src/monsters1a.cpp:280",
+"newbieRerollsLead@src/monsters3a.cpp:129",
+"Decides whether a newbie lead is rejected for a party, returning true when the lead's guil",
+"Returns true when the newbie guard is active, the lead character's guild level is above th"
+],
+[
+0.7,
+"statItemMaxAllowed@src/progression1b.cpp:180",
+"statCeiling@src/races.cpp:117",
+"Computes the maximum stat value an item may raise a character's stat to, as the race's nat",
+"Returns the maximum value a character of the given race may reach for a given stat, which "
+],
+[
+0.7,
+"id307Ref@src/companions1a.cpp:158",
+"id307CreatureRef@src/companions2a.cpp:510",
+"Maps a companion's alignment to the monster-table index for Id 307 (Morgul for Neutral or ",
+"Given an item's alignment, it returns the creature reference for Id 307's split: Evil maps"
+],
+[
+0.7,
+"breathFirePercent@src/companions2a.cpp:251",
+"companionBreathChance@src/monsters2b.cpp:168",
+"Returns the percent chance of a breath fire attack, at 80 if the lead foe's guild level is",
+"Returns the companion's breath-attack chance (50 by default, 80 if the lead's strength is "
+],
+[
+0.69,
+"mergeReplacesName@src/city3a.cpp:246",
+"sightingTakesNewName@src/city3b.cpp:61",
+"Decides whether a newer item name replaces the existing name in the game's record, which h",
+"Decides whether a sighting of a monster replaces its recorded name, returning true only wh"
+],
+[
+0.69,
+"chestFateTrap@src/status1b.cpp:71",
+"chestFate@src/status2.cpp:511",
+"Implements the chest trap 6 (Fate) from the Mordor rules, rerolling the opener's current h",
+"Chest trap 6 (\"Fate\") rerolls the character's current hit points and spell points to rando"
+],
+[
+0.68,
+"companionBreathPercent@src/companions1a.cpp:575",
+"companionBreathChance@src/monsters2b.cpp:168",
+"Rolls the breath chance for a companion by comparing the lead foe's guild level to the com",
+"Returns the companion's breath-attack chance (50 by default, 80 if the lead's strength is "
+],
+[
+0.68,
+"clearChestTrapForPass@src/loot1a.cpp:190",
+"beginChestGenerationPass@src/loot1b.cpp:102",
+"Resets a chest's trap state to \"not trapped\" at the start of each chest generation pass, w",
+"Resets a chest's trap state (trap type, trap flags, and teleporter trap) at the start of e"
+],
+[
+0.68,
+"breathChancePercent@src/casting1_b.cpp:60",
+"companionBreathChance@src/monsters2b.cpp:168",
+"Computes the percentage chance of a monster's breath attack succeeding by comparing the to",
+"Returns the companion's breath-attack chance (50 by default, 80 if the lead's strength is "
+],
+[
+0.67,
+"sanctuaryPointFor@src/spells1b.cpp:290",
+"castSetSanctuary@src/spells1b.cpp:299",
+"Builds the sanctuary point for the party's current position by offsetting the stored X and",
+"Casts the Sanctuary spell by recording the caster's current party position (x, y, and dung"
+],
+[
+0.67,
+"libraryItemGrade@src/city2a.cpp:58",
+"libraryGradeFor@src/items2b.cpp:201",
+"Maps a library item's identification state to its grade for the Library, returning 4 for f",
+"Maps a character's library identification level (all or mostly identified) to the correspo"
+],
+[
+0.67,
+"breathChancePercent@src/casting1_b.cpp:60",
+"companionBreathPercent@src/companions1a.cpp:575",
+"Computes the percentage chance of a monster's breath attack succeeding by comparing the to",
+"Rolls the breath chance for a companion by comparing the lead foe's guild level to the com"
+],
+[
+0.66,
+"sightingKnownAfter@src/city3a.cpp:240",
+"mergeSightingKnown@src/city3b.cpp:55",
+"Raises the known level of a sighting to whichever is higher, the current known value or th",
+"Raises a sighting's Known grade to the newly read grade when that grade is higher, and oth"
+],
+[
+0.66,
+"oldAgeThreshold@src/death2b.cpp:28",
+"oldAgeRollThreshold@src/progression1b.cpp:437",
+"Computes the old-age death chance threshold for a character at a given percent of max age,",
+"Computes the age threshold for the old-age roll, 5 plus the natural log of how far the cha"
+],
+[
+0.66,
+"companionBreathPercent@src/companions1a.cpp:575",
+"breathFirePercent@src/companions2a.cpp:251",
+"Rolls the breath chance for a companion by comparing the lead foe's guild level to the com",
+"Returns the percent chance of a breath fire attack, at 80 if the lead foe's guild level is"
+],
+[
+0.66,
+"applyYounger@src/items1a_b.cpp:207",
+"youngerBy@src/items1b.cpp:670",
+"Reduces the character's age by the requested number of years (365 days each), clamping it ",
+"Ages a character by the given number of years, floors the result at the minimum adult age "
+],
+[
+0.66,
+"addItemSpellPoints@src/items3b.cpp:364",
+"addSpellPointsFromItem@src/items4.cpp:165",
+"Adds the item's spell-point bonus to the user's current spell points on use (e.g. Scroll o",
+"Adds spell points restored by a Scroll of Spells (50) or Tome of Spells (200) to the chara"
+],
+[
+0.65,
+"inflictDisease@src/status1a.cpp:106",
+"tryDisease@src/status2.cpp:115",
+"Rolls a disease-resistance check against the victim's disease resistance and, if the victi",
+"Rolls a disease-resistance check against the character's Resistance (stat 4) and, if the c"
+],
+[
+0.65,
+"duseGainSpellPoints@src/feat_duse.cpp:96",
+"addSpellPointsFromItem@src/items4.cpp:165",
+"Spends spell points by adding the given amount to the character's current spell points, ca",
+"Adds spell points restored by a Scroll of Spells (50) or Tome of Spells (200) to the chara"
+],
+[
+0.64,
+"spitPercent@src/status2.cpp:412",
+"electrocutionPercent@src/status2.cpp:419",
+"Returns the spit attack's chance percentage for a victim, picked from high, mid, or low ba",
+"Returns the percent chance that a victim of a given level is electrocuted, using the monst"
+],
+[
+0.64,
+"slayTargetGroup@src/monsters3a.cpp:314",
+"spellStartGroup@src/spells1a.cpp:319",
+"Picks the target group for a slay-class spell by returning the index of the first group in",
+"Picks which monster group a spell hits: the group the caster aimed at if it still has livi"
+],
+[
+0.64,
+"goldPerLevelArchiveClosed@src/progression1b.cpp:239",
+"goldNextLevelResearch@src/progression1b.cpp:258",
+"Computes the gold needed to advance from level n to n+1 under the game's R16 formula, 30.1",
+"Computes the gold needed to advance to the next level in research, as the player's gold-ga"
+],
+[
+0.63,
+"rollChestLock@src/loot1a.cpp:233",
+"applyMagicLock@src/loot1a.cpp:257",
+"Rolls a d100 for a chest and returns MAGIC_LOCKED if the roll is at or under the lock chan",
+"Decides whether a chest gets a magic lock by checking whether the square allows one, then "
+],
+[
+0.63,
+"realEffect@src/casting2.cpp:443",
+"effectReal@src/spells1a.cpp:82",
+"Returns the underlying game effect for a party-wide spell variant by subtracting the party",
+"Maps a party-wide spell effect id (200 and up) down to its underlying real effect id by su"
+],
+[
+0.63,
+"projectedXp@src/progression1b.cpp:192",
+"projectedLevel@src/progression1b.cpp:202",
+"Projects a character's experience points forward to a desired level by scaling current XP ",
+"Projects a character's level from the ratio of desired to current experience points, scale"
+],
+[
+0.63,
+"identifyLevelFromSkill@src/items3b.cpp:248",
+"identifyLevelFor@src/items4.cpp:71",
+"Given a dungeon level and a player's skill against an item's difficulty, it determines how",
+"Given a character's identification skill, the item's difficulty, and the dungeon level, it"
+],
+[
+0.63,
+"hitsGain@src/guilds1_missing.cpp:31",
+"HitsGain@src/guilds2_a.cpp:60",
+"Computes the hit points a character gains when reaching a new guild level, using the guild",
+"Rolls the hit points a character gains on reaching the next level in a guild, using the gu"
+],
+[
+0.63,
+"companionSpawnWindow@src/monsters2b.cpp:203",
+"resolveCompanionMode@src/monsters3a.cpp:139",
+"Maps a companion's spawn mode number to the window of floor offsets, repeat/keep-previous ",
+"Maps a companion spawn mode to its spawn behavior: a floor window, keeping the previous wi"
+],
+[
+0.63,
+"breathFireChancePercent@src/companions2b.cpp:126",
+"breathRollFires@src/companions2b.cpp:138",
+"Returns the percent chance that a breath attack fires, which is 80 for a positive relation",
+"Rolls a percent chance, based on the relation value, to decide whether a breath attack fir"
+],
+[
+0.63,
+"adSummary@src/game_town.cpp:803",
+"gearAdLine@src/game_town.cpp:951",
+"Builds the one-line gear summary shown to the player in the town menu, giving the combat a",
+"Builds the gear-screen summary line showing a character's combat attack/defence and total "
+],
+[
+0.62,
+"requiredGuildLevel@src/items1b.cpp:91",
+"guildUseMinLevel@src/items2a.cpp:191",
+"Computes the guild-use level a player needs to use an item, as a real number: the item's l",
+"Computes the minimum character level needed to use a guild item, as (use factor + use fact"
+],
+[
+0.62,
+"oldAgePercent@src/death2b.cpp:19",
+"oldAgeCheckApplies@src/death2b.cpp:38",
+"Computes a character's age as a percentage of their race's maximum lifespan (R36), returni",
+"Returns true only when the character is in the dungeon and their age percentage of race li"
+],
+[
+0.62,
+"goldNextLevelWikiL2@src/progression1b.cpp:269",
+"goldNextLevelWikiMinus1@src/progression1b.cpp:280",
+"Computes the gold needed to reach the next level for a character at the given level, using",
+"Computes the gold needed to reach the next level for a character, using the wiki formula f"
+],
+[
+0.62,
+"encodeGuildLog@src/dataformatsa_a.cpp:289",
+"writeGuildLog@src/dataformatsb.cpp:480",
+"Serializes a guild log (a list of records, each with a guild index, day serial, and text) ",
+"Serializes a list of guild log entries (guild index, day-serial stamp, and text) into a li"
+],
+[
+0.62,
+"declaredToggleDefault@src/modding.cpp:728",
+"declareToggle@src/modding.cpp:791",
+"Looks up a toggle in a mod's manifest by its key, ignoring case, and returns that toggle's",
+"Declares a new mod toggle on a manifest, adding it to the declared settings unless a toggl"
+],
+[
+0.62,
+"companionBreathGuard@src/companions1a.cpp:569",
+"breathStopped@src/companions2b.cpp:105",
+"Decides whether a companion's breath attack is blocked, returning true when a fire breath ",
+"Decides whether a breath attack is stopped, returning true only when it is a cold breath a"
+],
+[
+0.62,
+"bankWithdrawAllowed@src/items1a_c.cpp:311",
+"withdrawGold@src/items1b.cpp:368",
+"Decides whether a bank withdrawal of the given amount is allowed, refusing it when the amo",
+"Withdraws gold from the party's bank account into hand, failing with a Beep result if the "
+],
+[
+0.61,
+"joinOfferVisibleFor@src/companions2b.cpp:347",
+"readJoinOffer@src/monsters2b.cpp:70",
+"Decides whether the join offer should be displayed for a given encounter group, showing it",
+"Returns whether the first group in the encounter has a join offer, which is a game rule ab"
+],
+[
+0.61,
+"gameCommand@src/feat_options.cpp:121",
+"charCommand@src/feat_options.cpp:152",
+"Handles the player's typed options command in the game, either reporting the current value",
+"Handles the player's typed \"char\" command in the options screen, parsing a party member nu"
+],
+[
+0.6,
+"useOriginalAnswer@src/modding.cpp:672",
+"applyHookReply@src/modding.cpp:677",
+"Given a hook's status, it decides whether the original game answer is used: only an Ok sta",
+"Applies the mod's hook reply to the game: if the hook threw, the mod is faulted for the se"
+],
+[
+0.6,
+"uncurseRefusal@src/feat_uncurse.cpp:28",
+"checkUncurse@src/items1b.cpp:292",
+"Checks whether a cursed item can be uncursed at the clerk's shop, returning the refusal me",
+"Checks whether a cursed item can be uncursed by returning NotCursed if the item isn't curs"
+],
+[
+0.6,
+"roomAlreadyEmptied@src/monsters3a.cpp:49",
+"stampRoomEmptied@src/monsters3a.cpp:55",
+"Returns true when the room's first foe slot holds the emptied-room marker (ref -1), which ",
+"When a room is cleared of its foes, it records the time of clearing (the stamp) and marks "
+],
+[
+0.6,
+"readOptionText@src/dataformatsa_a.cpp:222",
+"legacyIniFallbackApplies@src/dataformatsb.cpp:789",
+"Reads an option's text value from the player's settings.ini file, falling back to the lega",
+"Returns true only when a key is missing from settings.ini, so the legacy MORDOR.INI file i"
+],
+[
+0.6,
+"depositGold@src/items1b.cpp:359",
+"withdrawGold@src/items1b.cpp:368",
+"Makes a bank deposit by moving gold from the character's on-hand purse into the bank balan",
+"Withdraws gold from the party's bank account into hand, failing with a Beep result if the "
+],
+[
+0.6,
+"companionStoneChance@src/companions2a.cpp:334",
+"companionStoneRoll@src/companions2a.cpp:345",
+"Computes the chance that a companion's stone succeeds, from the companion's Constitution a",
+"Rolls a percent chance against the companion stone chance (computed from the companion's C"
+],
+[
+0.6,
+"companionBreathDamage@src/spells1a.cpp:620",
+"companionSpitOrShockDamage@src/spells1a.cpp:627",
+"Computes the damage of a companion's R37 breath attack by taking the special hit range fro",
+"Computes spit and electrocution damage for a companion by taking half the special hit rang"
+],
+[
+0.6,
+"chestPoisonGasTrap@src/status1b.cpp:48",
+"chestPoisonGas@src/status2.cpp:529",
+"Applies the chest poison-gas trap: each party member rolls against their poison resistance",
+"Rolls a percentile check against the character's poison resistance and, if it fails, sets "
+],
+[
+0.59,
+"writeHallRecord@src/misc.cpp:353",
+"announceHallRecord@src/misc.cpp:363",
+"Records a Hall of Records entry by storing the given value under the record kind, while th",
+"Announces a Hall of Records entry by showing the record holder's name, the record kind's n"
+],
+[
+0.59,
+"specialSpellPointGain@src/items2a.cpp:76",
+"addSpellPointsFromItem@src/items4.cpp:165",
+"Returns the spell points a player gains from using a Scroll of Spells (50) or Tome of Spel",
+"Adds spell points restored by a Scroll of Spells (50) or Tome of Spells (200) to the chara"
+],
+[
+0.59,
+"readStoredFlag@src/modding.cpp:758",
+"readStoredText@src/modding.cpp:780",
+"Returns the stored true/false setting for a mod's key, falling back to the given default w",
+"Returns the text a mod has stored under a given key for that mod, or an empty string if no"
+],
+[
+0.59,
+"oldAgePercent@src/death1b.cpp:477",
+"oldAgeCheckApplies@src/death2b.cpp:38",
+"Computes a character's age as a percentage of their race's lifespan (age in years divided ",
+"Returns true only when the character is in the dungeon and their age percentage of race li"
+],
+[
+0.59,
+"monsterMayJoin@src/companions1b_2.cpp:427",
+"monsterJoinsCharacter@src/companions2a.cpp:88",
+"Decides whether a monster of a given alignment may join a character of a given alignment: ",
+"Decides whether a monster can join a character based on alignment, where Neutral monsters "
+],
+[
+0.59,
+"legacyIniFallbackApplies@src/dataformatsb.cpp:789",
+"iniFlagValue@src/options.cpp:207",
+"Returns true only when a key is missing from settings.ini, so the legacy MORDOR.INI file i",
+"Returns the true/false value of an option from the game's INI settings file, treating a mi"
+],
+[
+0.59,
+"inflictPoison@src/status1a.cpp:96",
+"tryPoison@src/status2.cpp:109",
+"Rolls a poison-resistance check against the victim and, if the victim fails and is not alr",
+"Attempts to poison a character: a resistance roll against the Poison resistance decides wh"
+],
+[
+0.59,
+"groupStanding@src/clock.cpp:34",
+"firstStandingGroup@src/combat1a.cpp:44",
+"Reports whether a monster group in the current encounter is still standing, meaning it has",
+"Returns the index of the first group in the encounter that is still standing (per R5 of th"
+],
+[
+0.59,
+"findToggleIndexCi@src/modding.cpp:146",
+"declaredToggleDefault@src/modding.cpp:728",
+"Looks up a toggle's index in a mod's declared settings by matching its key case-insensitiv",
+"Looks up a toggle in a mod's manifest by its key, ignoring case, and returns that toggle's"
+],
+[
+0.59,
+"companionGateDefence@src/combat1a.cpp:375",
+"companionDefenceBonus@src/monsters1a.cpp:630",
+"Computes a companion's effective defence against a melee attack, adding +4 if the hit is a",
+"Computes the companion's melee defence bonus in the Mordor rules, adding +4 for a critical"
+],
+[
+0.59,
+"charmEffectMatches@src/casting1_b.cpp:130",
+"charmMatchesMonsterClass@src/casting2.cpp:469",
+"Checks whether a charm spell effect (codes 75 through 99) applies to a monster, returning ",
+"Returns true when a spell effect is a charm effect and its charm index equals the monster'"
+],
+[
+0.58,
+"thiefTake@src/loot1a.cpp:948",
+"thiefTakeGold@src/loot1b.cpp:462",
+"Thief theft resolution: if the rolled amount exceeds the victim's purse, the stolen amount",
+"Takes a thief's share of the party's gold, rounding the amount to whole gold pieces (half "
+],
+[
+0.58,
+"spawnPickForMode@src/companions1a.cpp:417",
+"resolveCompanionMode@src/monsters3a.cpp:139",
+"Maps a monster spawn mode number to the spawn window (how far above or below the party's l",
+"Maps a companion spawn mode to its spawn behavior: a floor window, keeping the previous wi"
+],
+[
+0.58,
+"readJoinOffer@src/monsters2b.cpp:70",
+"encounterOffersJoin@src/monsters3a.cpp:222",
+"Returns whether the first group in the encounter has a join offer, which is a game rule ab",
+"Decides whether an encounter can offer the player a join option, which is refused when mor"
+],
+[
+0.58,
+"isWholePartyEffect@src/casting1_b.cpp:422",
+"realSpellEffect@src/casting1_b.cpp:427",
+"Returns true when a spell's raw effect code is at or above the offset threshold (200), mar",
+"Converts a raw spell effect code into its real effect by subtracting the whole-party offse"
+],
+[
+0.58,
+"isLivingGroup@src/spells1a.cpp:128",
+"spellStartGroup@src/spells1a.cpp:319",
+"Reports whether a group index is valid and the group still has living members in the encou",
+"Picks which monster group a spell hits: the group the caster aimed at if it still has livi"
+],
+[
+0.58,
+"goldNextLevelWikiMinus1@src/progression1b.cpp:280",
+"goldTotalWiki@src/progression1b.cpp:288",
+"Computes the gold needed to reach the next level for a character, using the wiki formula f",
+"Computes the total gold needed to reach a given level by summing the gold required for eac"
+],
+[
+0.58,
+"charmEffectMatches@src/casting1_b.cpp:130",
+"isCharmEffect@src/casting1_b.cpp:432",
+"Checks whether a charm spell effect (codes 75 through 99) applies to a monster, returning ",
+"Returns true when a spell or effect code falls in the charm range 75 to 99, marking it as "
+],
+[
+0.58,
+"chargeGold@src/death1a.cpp:34",
+"chargeUncurseFee@src/feat_uncurse.cpp:55",
+"Charges a gold amount to the character, drawing from gold on hand first and then from the ",
+"Charges the gold fee for removing a curse, taking it from the character's hand gold first "
+],
+[
+0.58,
+"castCurePoison@src/spells1a.cpp:473",
+"clearPoisonInTown@src/status2.cpp:590",
+"Cures poison in a character by clearing their poison level to zero and announcing \"Poison ",
+"Resting in town cures poison by clearing the character's poison level to zero and showing "
+],
+[
+0.57,
+"trapFate@src/loot1b.cpp:374",
+"rerollOneTo@src/status2.cpp:64",
+"Rerolls the trap opener's current hit points to a random value from 1 to max HP and curren",
+"Rerolls a random value from 1 to max using the game's RNG, as used for chest fate (Table F"
+],
+[
+0.57,
+"toggleValue@src/modding.cpp:718",
+"declaredToggleDefault@src/modding.cpp:728",
+"Returns whether a named toggle is on for a loaded mod, reading the stored flag for that mo",
+"Looks up a toggle in a mod's manifest by its key, ignoring case, and returns that toggle's"
+],
+[
+0.57,
+"swapCombineCheck@src/feat_swap.cpp:82",
+"checkCombine@src/items1b.cpp:579",
+"Checks whether two items can be combined in a typed swap, testing identification, class, i",
+"Checks whether two items can be combined into one stack by testing their type, alignment, "
+],
+[
+0.57,
+"seerAnswer@src/feat_seer.cpp:218",
+"register_seer@src/feat_seer.cpp:280",
+"Handles the player's \"seer yes\" or \"seer no\" reply to a pending offer, charging the fee an",
+"Registers the town-screen \"seer\" player command, which lets the player search for a creatu"
+],
+[
+0.57,
+"realignPayFee@src/feat_realign.cpp:50",
+"seerTakeGold@src/feat_seer.cpp:147",
+"Charges a realignment fee to the party by deducting gold from members in roster order, and",
+"Takes the requested amount of gold from the party's gold on hand, drawing from members in "
+],
+[
+0.57,
+"protectLevelOnCast@src/casting1_b.cpp:229",
+"protectLevelOnRecompute@src/casting1_b.cpp:234",
+"Computes the Protect ailment level granted by a spell cast, as half the caster's spell lev",
+"Computes a character's Protect ailment level from their guild level as half the guild leve"
+],
+[
+0.57,
+"poisonTick@src/status2.cpp:250",
+"diseaseTick@src/status2.cpp:269",
+"Each tick, if the character is poisoned and alive, it rolls to cure the poison using Const",
+"Each round a character with disease rolls a cure check, reduced by poison when the poison "
+],
+[
+0.57,
+"oldAgePercent@src/death2b.cpp:19",
+"isOldAgeOnset@src/progression2b.cpp:249",
+"Computes a character's age as a percentage of their race's maximum lifespan (R36), returni",
+"Returns true when a character's age in days has reached 98% of their race's natural lifesp"
+],
+[
+0.57,
+"mergeSightingKnown@src/city3b.cpp:55",
+"libraryGradeAfterRead@src/items2b.cpp:208",
+"Raises a sighting's Known grade to the newly read grade when that grade is higher, and oth",
+"Returns the library grade after a read, which is the higher of the current grade and the g"
+],
+[
+0.57,
+"charmIndex@src/casting2.cpp:464",
+"charmMatchesMonsterClass@src/casting2.cpp:469",
+"Converts a spell effect code into its charm index by subtracting the first charm effect va",
+"Returns true when a spell effect is a charm effect and its charm index equals the monster'"
+],
+[
+0.57,
+"breathFireRoll@src/companions2a.cpp:264",
+"rollCompanionBreath@src/monsters1a.cpp:640",
+"Rolls a percentile die against the breath-fire chance computed from the lead and companion",
+"Rolls a percentile die against the companion's breath chance (derived from the leading cha"
+],
+[
+0.56,
+"uncurseItem@src/items1a_c.cpp:211",
+"uncurseSlot@src/items1b.cpp:299",
+"Uncurses an equipped cursed item in the player's pack by clearing its curse flag, refusing",
+"Attempts to remove a curse from an equipped item, reporting \"not cursed\" or \"not equipped\""
+],
+[
+0.56,
+"swingsPerWeapon@src/combat1a.cpp:115",
+"applyNoWeaponDefend@src/combat1a.cpp:121",
+"Computes a combatant's total swings per weapon for melee combat by adding the actor's Swin",
+"Implements the R8 no-weapon rule: if the actor has no weapon or total swings are below 1, "
+],
+[
+0.56,
+"specialSpellPointGain@src/items2a.cpp:76",
+"addItemSpellPoints@src/items3b.cpp:364",
+"Returns the spell points a player gains from using a Scroll of Spells (50) or Tome of Spel",
+"Adds the item's spell-point bonus to the user's current spell points on use (e.g. Scroll o"
+],
+[
+0.56,
+"slayTargetGroup@src/monsters3a.cpp:314",
+"isLivingGroup@src/spells1a.cpp:128",
+"Picks the target group for a slay-class spell by returning the index of the first group in",
+"Reports whether a group index is valid and the group still has living members in the encou"
+],
+[
+0.56,
+"reportLimitedChuteWalkOn@src/dungeon1b_a.cpp:459",
+"reportLimitedMessage@src/dungeon2a.cpp:260",
+"Produces the player-facing message \"There is a chute here, but it doesn't do anything in t",
+"Decides whether a limited-version message applies when a player takes a Chute at the last "
+],
+[
+0.56,
+"putDownBodyOnly@src/dungeon1b_b.cpp:110",
+"putDownWhatIsCarried@src/dungeon1b_b.cpp:431",
+"Puts down a carried dead body, clearing the carrier's record of it and freeing the party's",
+"Puts down whatever the party is carrying: if it is a companion, that companion is released"
+],
+[
+0.56,
+"hitsGain@src/guilds1_missing.cpp:31",
+"hitsGainForLevel@src/progression2b.cpp:157",
+"Computes the hit points a character gains when reaching a new guild level, using the guild",
+"Computes the hit points a character gains on reaching a new level, using the guild's avera"
+],
+[
+0.56,
+"findToggleIndexCi@src/modding.cpp:146",
+"declareToggle@src/modding.cpp:791",
+"Looks up a toggle's index in a mod's declared settings by matching its key case-insensitiv",
+"Declares a new mod toggle on a manifest, adding it to the declared settings unless a toggl"
+],
+[
+0.56,
+"expForLevel@src/guilds1_a.cpp:426",
+"closedFormLevelXpWiki@src/progression1b.cpp:93",
+"Computes the experience points required to reach a given level, combining the guild's expe",
+"Computes a character's experience points required to reach a given level, scaled by a guil"
+],
+[
+0.56,
+"chestDiseaseSporesTrap@src/status1b.cpp:59",
+"chestDiseaseSpores@src/status2.cpp:540",
+"Applies the disease-spores chest trap (R38): each party member rolls against half their Di",
+"Rolls a percentile check against the character's disease resistance (resistance 4 for the "
+],
+[
+0.56,
+"bandPercent@src/status2.cpp:51",
+"electrocutionPercent@src/status2.cpp:419",
+"Classifies a victim's level against a reference level using 1.25x and 0.75x ratio bands (T",
+"Returns the percent chance that a victim of a given level is electrocuted, using the monst"
+],
+[
+0.56,
+"archiveMinimumCost@src/casting1_a.cpp:446",
+"archiveCostMinimum@src/casting3.cpp:90",
+"Computes the minimum casting cost of a spell as its starting spell level multiplied by a b",
+"Computes the minimum cost for the R8 archive spell as the starting spell level multiplied "
+],
+[
+0.56,
+"HitsGain@src/guilds2_a.cpp:60",
+"hitsGainForLevel@src/progression2b.cpp:157",
+"Rolls the hit points a character gains on reaching the next level in a guild, using the gu",
+"Computes the hit points a character gains on reaching a new level, using the guild's avera"
+],
+[
+0.55,
+"settleArea@src/dungeon1b_b.cpp:135",
+"afterTurn@src/dungeon1b_b.cpp:157",
+"Settles the party after a level or area change by taking and clearing the forced-settle fl",
+"After each turn, if the forced-settle flag bit is set in the game flags, it triggers the a"
+],
+[
+0.55,
+"realignPayFee@src/feat_realign.cpp:50",
+"chargeUncurseFee@src/feat_uncurse.cpp:55",
+"Charges a realignment fee to the party by deducting gold from members in roster order, and",
+"Charges the gold fee for removing a curse, taking it from the character's hand gold first "
+],
+[
+0.55,
+"realSpellEffect@src/casting1_b.cpp:427",
+"realEffect@src/casting2.cpp:443",
+"Converts a raw spell effect code into its real effect by subtracting the whole-party offse",
+"Returns the underlying game effect for a party-wide spell variant by subtracting the party"
+],
+[
+0.55,
+"raceExpMultiplier@src/progression1a.cpp:226",
+"raceExpMult@src/progression2a.cpp:29",
+"Computes the race experience multiplier f = ((ln r / ln(r+1)) + 1) \u2212 0.7 + r/25 from the r",
+"Returns the race's experience multiplier by looking up the race's raw experience value in "
+],
+[
+0.55,
+"oldAgeCheckApplies@src/death2b.cpp:38",
+"isOldAgeOnset@src/progression2b.cpp:249",
+"Returns true only when the character is in the dungeon and their age percentage of race li",
+"Returns true when a character's age in days has reached 98% of their race's natural lifesp"
+],
+[
+0.55,
+"libraryGradeFromIdLevel@src/city2a.cpp:70",
+"libraryGradeAfterRead@src/items2b.cpp:208",
+"Converts a library roll or identification level into a monster grade for the Mordor librar",
+"Returns the library grade after a read, which is the higher of the current grade and the g"
+],
+[
+0.55,
+"duseGainSpellPoints@src/feat_duse.cpp:96",
+"specialSpellPointGain@src/items2a.cpp:76",
+"Spends spell points by adding the given amount to the character's current spell points, ca",
+"Returns the spell points a player gains from using a Scroll of Spells (50) or Tome of Spel"
+],
+[
+0.55,
+"archiveMinimum@src/spells2.cpp:84",
+"archiveDamageMinimum@src/spells2.cpp:352",
+"Computes the archive minimum for a spell's damage or healing, combining a base value, a lo",
+"Computes the minimum damage of an archive-style damage spell from its base value, power, a"
+],
+[
+0.55,
+"applyPoisonCure@src/progression2b.cpp:210",
+"poisonTick@src/status2.cpp:250",
+"Applies a poison cure attempt that costs the character 2 hit points each try and, if the c",
+"Each tick, if the character is poisoned and alive, it rolls to cure the poison using Const"
+],
+[
+0.55,
+"applyItemStatBonus@src/items3a.cpp:93",
+"statItemMaxAllowed@src/progression1b.cpp:180",
+"Raises a character's stats by the bonuses from a stat item, capping each stat at its race ",
+"Computes the maximum stat value an item may raise a character's stat to, as the race's nat"
+]
+]
