@@ -1,4 +1,5 @@
 #include "test_support.h"
+#include "mordor/attributes.h"
 #include "mordor/items1b.h"
 #include "mordor/items1a.h"  // FIXED: identifyChance(f64, bool) is declared here
 

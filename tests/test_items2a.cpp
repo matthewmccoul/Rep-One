@@ -1,4 +1,5 @@
 #include "test_support.h"
+#include "mordor/attributes.h"
 #include "mordor/items2a.h"
 
 #include <cmath>
@@ -104,10 +105,10 @@ TEST(attack_defence_fit_rounds_half_to_even) {
 }
 
 TEST(stat_mod_fit_floors_halves) {
-    CHECK_EQ(adjustStatModForFit(FitClass::Full, 9), 9);
-    CHECK_EQ(adjustStatModForFit(FitClass::Half, 5), 2);  // floor(2.5)
-    CHECK_EQ(adjustStatModForFit(FitClass::Half, 7), 3);  // floor(3.5)
-    CHECK_EQ(adjustStatModForFit(FitClass::Subtract, 4), -4);
+    CHECK_EQ(statModWorth(9, FitClass::Full), 9);
+    CHECK_EQ(statModWorth(5, FitClass::Half), 2);  // floor(2.5)
+    CHECK_EQ(statModWorth(7, FitClass::Half), 3);  // floor(3.5)
+    CHECK_EQ(statModWorth(4, FitClass::Subtract), -4);
 }
 
 TEST(id_level_from_original_counts_down) {

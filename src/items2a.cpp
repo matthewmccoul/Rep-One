@@ -152,19 +152,6 @@ i32 adjustAdForFit(FitClass fit, i32 raw) {
     }
 }
 
-// Stat mods: Full raw; Half floor(raw / 2.0); Subtract -raw. Example: 5 -> 2, 7 -> 3.
-i32 adjustStatModForFit(FitClass fit, i32 raw) {
-    switch (fit) {
-        case FitClass::Full:
-            return raw;
-        case FitClass::Half:
-            return static_cast<i32>(vbInt(static_cast<double>(raw) / 2.0));
-        case FitClass::Subtract:
-        default:
-            return -raw;
-    }
-}
-
 // ---- Identification (T-6) -------------------------------------------------
 
 // Original codes count down: 0 All, 1 Mostly, 2 Partial, 3 Barely.
