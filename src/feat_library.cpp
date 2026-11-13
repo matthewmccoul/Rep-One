@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cstddef>
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 namespace {
@@ -60,14 +61,6 @@ int parseInt(const Str& t, int fallback) {
   return v;
 }
 
-Str joinFrom(const Vec<Str>& w, std::size_t from) {
-  Str r;
-  for (std::size_t i = from; i < w.size(); ++i) {
-    if (!r.empty()) r += ' ';
-    r += w[i];
-  }
-  return r;
-}
 
 Str factStr(const Session& s, const Str& kind, const Str& name, const char* field) {
   auto it = s.featureState.find(Str(kRecordPrefix) + kind + "." + name + "." + field);

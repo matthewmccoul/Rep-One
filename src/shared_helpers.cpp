@@ -74,4 +74,13 @@ bool isDigits(const Str& t) {
 // The original refuses silently; this port returns a reason line instead.
 bool swapSlotInRange(i32 slot) { return slot > 1 && slot <= kPackSlots; }
 
+Str joinFrom(const Vec<Str>& w, std::size_t from) {
+  Str r;
+  for (std::size_t i = from; i < w.size(); ++i) {
+    if (!r.empty()) r += ' ';
+    r += w[i];
+  }
+  return r;
+}
+
 }  // namespace mordor
