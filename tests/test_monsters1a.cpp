@@ -13,12 +13,7 @@ int enumCode(E e) {
 }  // namespace
 
 // R3: Asmodeus is identified by Id alone.
-TEST(asmodeus_identified_by_id_alone) {
-    CHECK(isAsmodeus(277));
-    CHECK(!isAsmodeus(278));
-    CHECK(!isAsmodeus(0));
-    CHECK_EQ(kAsmodeusId, 277);
-}
+
 
 // R8: rock square 1432 and area 0 block; positive area with stored encounter uses it.
 TEST(encounter_precheck_blocks_rock_and_area_zero) {

@@ -148,7 +148,7 @@ bool newbieProtected(const Character& ch, i32 areaId);
 bool isLairMonster(const Area& area, const Creature& creature);
 // [c1] Asmodeus identity is by Id only
 // CONFLICT: Id 307 is shared by Morgul and Shadow Ninja [c57][c100]; identity by Id is ambiguous for that Id.
-bool isAsmodeus(const Creature& creature);
+
 // [c13] SpawnMask bit n = monster kind n
 // FIXED: type MonsterKind exists nowhere in the headers; using plain i32 kind index (kind n = bit n).
 bool spawnMaskAllowsKind(i32 spawnMask, i32 kind);

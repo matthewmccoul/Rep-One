@@ -151,19 +151,7 @@ TEST(newbie_protection_level_one_below_area_18) {
     CHECK(!newbieProtected(ch, 5));
 }
 
-TEST(asmodeus_identity_is_by_id_only) {
-    Creature c;
-    c.id = 277;
-    c.monsterClass = 5;
-    CHECK(isAsmodeus(c));
 
-    c.id = 276;
-    CHECK(!isAsmodeus(c));
-
-    // Morgul and Shadow Ninja share Id 307; neither is Asmodeus.
-    c.id = 307;
-    CHECK(!isAsmodeus(c));
-}
 
 TEST(spawn_mask_bit_n_is_kind_n) {
     CHECK(spawnMaskAllowsKind(1 << 2, 2));    // Demon

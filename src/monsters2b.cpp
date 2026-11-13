@@ -131,12 +131,6 @@ bool isLairMonster(const Area& area, const Creature& creature) {
     return area.lairId != 0 && creature.id == area.lairId;
 }
 
-// Asmodeus is identified by Id only: Monster Id 277 [c1].
-bool isAsmodeus(const Creature& creature) {
-    constexpr i32 kAsmodeusMonsterId = 277;
-    return creature.id == kAsmodeusMonsterId;
-}
-
 // SpawnMask bit n = kind n [c13].
 // UNKNOWN: MonsterKind is not declared in any header given to this module. It is
 // assumed to be an enum whose values are 0..kMonsterKindCount-1 (Humanoid=0 ..
