@@ -22,10 +22,12 @@ struct GuildlogRow {
   Str text;
 };
 
+}  // namespace
 Str glGet(const Session& s, const Str& key) {
   auto it = s.featureState.find(key);
   return it == s.featureState.end() ? Str() : it->second;
 }
+namespace {
 
 // Parses a decimal integer without exceptions. ok is false on any non-digit.
 i64 glParseInt(const Str& t, bool& ok) {

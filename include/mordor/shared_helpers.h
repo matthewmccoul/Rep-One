@@ -33,4 +33,5 @@ const ItemDef* itemDefById(const GameData& data, i32 id);
 bool isDigits(const Str& t);
 bool swapSlotInRange(i32 slot);
 Str joinFrom(const Vec<Str>& w, std::size_t from);
+Str glGet(const Session& s, const Str& key);
 }  // namespace mordor
