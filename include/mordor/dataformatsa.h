@@ -254,7 +254,7 @@ Vec<GuildLogRecord> decodeGuildLog(const Ctx& ctx, const Vec<u8>& file);
 Vec<u8> cleanGuildLog(Ctx& ctx, const Vec<u8>& oldFile, Vec<u8>& backupOut);
 
 // R6 DaySerial: days since 1899-12-30 from epoch milliseconds (pure arithmetic)
-i64 daySerialFromEpochMillis(i64 epochMillis);
+
 
 // R7 steps 1-3: append one CHARSTAT page; header and item lists only when toFile; no footer
 // UNKNOWN: port's footer behaviour is not stated; the original footer is dead code and is not reproduced.

@@ -27,18 +27,6 @@ Vec<u8> cleanGuildLog(Ctx& ctx, const Vec<u8>& oldFile, Vec<u8>& backupOut) {
     return encodeGuildLog(ctx, records);
 }
 
-// Day serial from Unix epoch milliseconds. The serial epoch offset is
-// kDaySerialEpochOffset (25569) and a day is kMillisPerDay.
-// UNKNOWN: the day serial is whole days; a time of day is discarded, and
-// pre-1970 values floor toward negative infinity.
-i64 daySerialFromEpochMillis(i64 epochMillis) {
-    i64 days = epochMillis / kMillisPerDay;
-    if (epochMillis % kMillisPerDay < 0) {
-        days -= 1;
-    }
-    return days + kDaySerialEpochOffset;
-}
-
 // Character stats page (CHARSTAT.TXT).
 // UNKNOWN: no SRD text for the page layout. The page lists a fixed set of
 // basic stats. When toFile is false each line is also emitted as an event.
