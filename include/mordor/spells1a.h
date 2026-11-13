@@ -205,7 +205,7 @@ i32 protectValueOnRecompute(i32 guildLevel);
 
 // R29 clear used by antimagic or blackout: SpellEffects = 0, spell resistance cleared, recompute
 // UNKNOWN: spell-granted resistance (SpellResist) has no field in Resistances; resist[] is assumed.
-void clearSpellStates(Ctx& ctx, Character& target);
+
 
 // R30 protection defence bonus: B(3 * ln(Protection)^2)
 i32 protectionDefenceBonus(i32 protection);

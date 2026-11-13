@@ -554,15 +554,6 @@ i32 protectValueOnRecompute(i32 guildLevel) {
     return static_cast<i32>(vbInt(static_cast<f64>(guildLevel) / 2.0)) + 1;
 }
 
-// R29: SpellEffects = 0; SpellResist[all] = 0; Recompute.
-void clearSpellStates(Ctx& ctx, Character& target) {
-    target.activeEffectIds.clear();
-    for (i32 k = 0; k < kResistKinds; ++k) {
-        target.resistances.resist[k] = 0;
-    }
-    recomputeSpellStates(ctx, target);
-}
-
 // R30: protection defence bonus = B(3 * ln(Protection)^2). B = VB Integer rounding.
 i32 protectionDefenceBonus(i32 protection) {
     if (protection <= 0) return 0;  // UNKNOWN: ln(0) guard
