@@ -1,4 +1,5 @@
 #include "test_support.h"
+#include "mordor/casting2.h"
 #include "mordor/casting3.h"
 
 #include <cmath>
@@ -181,10 +182,10 @@ TEST(casting3_stat_minimums_compare_each_stat) {
         req[k] = 0;
     }
     req[1] = 10;  // INT exactly meets the minimum
-    CHECK(mordor::meetsStatMinimums(c, req));
+    CHECK(mordor::meetsRequiredStats(c, req));
 
     req[1] = 11;  // INT one short
-    CHECK(!mordor::meetsStatMinimums(c, req));
+    CHECK(!mordor::meetsRequiredStats(c, req));
 }
 
 // ---- Item spell level (R6 engine: negative item level uses caster guild SL) ----

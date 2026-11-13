@@ -209,18 +209,6 @@ bool monstersPresentPort(bool combatOver, i32 waitingCount) {
     return (!combatOver) || waitingCount > 0;
 }
 
-// R25: StatWithMods(i) >= Required[i] for every stat (engine item gate, c1, c23).
-// UNKNOWN: U29, whether this applies to general spells.
-bool meetsStatMinimums(const Character& c, const Arr<i32, kStatCount>& required) {
-    for (i32 i = 0; i < kStatCount; ++i) {
-        const u32 idx = static_cast<u32>(i);
-        if (statWithMods(c, static_cast<StatIndex>(i)) < required[idx]) {
-            return false;
-        }
-    }
-    return true;
-}
-
 // R31: CONFLICT. Implemented as the original rule (c34): asks only when M5B33 > 0,
 // which is effect codes 0 and 18. The port always asks per c34 (stated deviation).
 bool castAsksWho(i32 effectCode) {

@@ -140,7 +140,7 @@ bool monstersPresentPort(bool combatOver, i32 waitingCount);
 
 // R25 item spell stat gate: StatWithMods(i) >= Required[i] for every stat.
 // UNKNOWN: whether this applies to general spells (U29); engine item gate used.
-bool meetsStatMinimums(const Character& c, const Arr<i32, kStatCount>& required);
+
 
 // R31 whether the cast asks "Who?". Port always asks.
 // CONFLICT: original asks only for effects 0 and 18 (c34); port behaviour is a stated deviation.
