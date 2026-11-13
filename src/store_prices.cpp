@@ -4,6 +4,7 @@
 #include <cmath>
 
 #include "mordor/math_util.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 
@@ -11,12 +12,6 @@ namespace {
 
 constexpr Currency kPerGold = 10000;
 
-const ItemDef* itemDefById(const GameData& data, i32 id) {
-    for (const ItemDef& d : data.items) {
-        if (d.id == id) return &d;
-    }
-    return nullptr;
-}
 
 // The reference counts identification down: 0 is completely identified, 3 barely. Ours has an extra Unknown
 // at the start (Unknown, Barely, Partial, Mostly, All), so Unknown and Barely both count as 3.

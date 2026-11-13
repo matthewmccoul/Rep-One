@@ -258,17 +258,6 @@ void doJoin(Ctx& ctx, Session& s, i32 idx, Guild g, Str& reply) {
     }
 }
 
-// SIMPLIFIED: prices are not listed; the GameData item price field is not in the API shown.
-// UNKNOWN: Item has no count member, so each shelf entry is listed as one row.
-// UNKNOWN: Item.id is matched to ItemDef.id; the table index is not used as a fallback.
-static const ItemDef* findItemDef(const GameData& data, i32 id) {
-    for (size_t i = 0; i < data.items.size(); ++i) {
-        if (data.items[i].id == id) {
-            return &data.items[i];
-        }
-    }
-    return nullptr;
-}
 
 // ---- src/game_town.cpp :: doShop
 // Helpers for the General Store. This block supersedes the earlier doShop block and contains
@@ -350,7 +339,7 @@ void doShop(Ctx& ctx, Session& s, Str& reply) {
             if (s.town.store[q].id == item.id) ++count;
         }
         ++row;
-        const ItemDef* def = findItemDef(s.data, item.id);
+        const ItemDef* def = itemDefById(s.data, item.id);
         const Str name = def != nullptr ? def->name : Str("?");
         const Str price = def != nullptr ? toStr(storeBuyPriceGold(s.data, s.town.store, item)) : Str("0");
         note(ctx, reply, "town.shop",
@@ -377,7 +366,7 @@ void doBuy(Ctx& ctx, Session& s, i64 row, i32 idx, Str& reply) {
     const size_t rowIndex = static_cast<size_t>(rowIndexSigned);
     const Item shelfItem = s.town.store[rowIndex];
 
-    const ItemDef* def = findItemDef(s.data, shelfItem.id);
+    const ItemDef* def = itemDefById(s.data, shelfItem.id);
     if (def == nullptr) {
         note(ctx, reply, "town.buy", "That item is not in the item table.");
         return;
@@ -486,7 +475,7 @@ void doSell(Ctx& ctx, Session& s, i32 slot, i32 idx, Str& reply) {
         return;
     }
 
-    const ItemDef* def = findItemDef(s.data, item.id);
+    const ItemDef* def = itemDefById(s.data, item.id);
     const Str name = def != nullptr ? def->name : Str("item");
 
     // Keep a copy of the item as it was offered; the pack entry is cleared only on success.
@@ -885,7 +874,7 @@ static Str gearNum(i32 v) {
 // Item name from the static data. Named differently from the static itemNameOf stub
 // and from items1b's itemNameOf, which would clash once those headers are included.
 static Str gearItemName(const Ctx& ctx, const Item& it) {
-    const ItemDef* def = findItemDef(ctx.data, it.id);
+    const ItemDef* def = itemDefById(ctx.data, it.id);
     return def != nullptr ? def->name : Str("?");
 }
 

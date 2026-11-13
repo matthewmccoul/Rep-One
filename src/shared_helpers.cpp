@@ -55,4 +55,11 @@ const Character& memberAt(const Party& p, i32 i) {
     return p.members[static_cast<u32>(i)];
 }
 
+const ItemDef* itemDefById(const GameData& data, i32 id) {
+    for (const ItemDef& d : data.items) {
+        if (d.id == id) return &d;
+    }
+    return nullptr;
+}
+
 }  // namespace mordor

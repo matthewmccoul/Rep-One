@@ -29,4 +29,5 @@ u32 uidx(i32 i);
 Str seerJoinWords(const Vec<Str>& w, size_t from);
 Str bufferInt(i64 v);
 const Character& memberAt(const Party& p, i32 i);
+const ItemDef* itemDefById(const GameData& data, i32 id);
 }  // namespace mordor
