@@ -14,13 +14,6 @@ constexpr i32 kUnknownCasterAtt = 2;
 
 // ---------------------------------------------------------------- R28 blows and flags
 
-bool specialFlagBit(u32 flags, i32 bit) {
-    if (bit < 0 || bit > 31) {
-        return false;
-    }
-    return ((flags >> static_cast<u32>(bit)) & 1u) != 0u;
-}
-
 // ---------------------------------------------------------------- R32 mishap sounds and captions
 
 // ---------------------------------------------------------------- R34 drift

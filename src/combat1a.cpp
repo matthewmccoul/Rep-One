@@ -58,7 +58,11 @@ i32 firstStandingGroup(const Encounter& enc) {
 
 // T5: monster property bit test ("Has(bit n)", R15).
 bool monsterHasBit(const Creature& m, i32 bit) {
-    return specialFlagBit(static_cast<u32>(m.specialPropertyFlags), bit);
+    if (bit < 0 || bit > 31) {
+        return false;
+    }
+    const u32 flags = static_cast<u32>(m.specialPropertyFlags);
+    return ((flags >> static_cast<u32>(bit)) & 1u) != 0u;
 }
 
 // ---------------------------------------------------------------------------
