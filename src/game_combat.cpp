@@ -14,6 +14,7 @@
 #include "mordor/clock.h"
 #include "mordor/death1a.h"
 #include "mordor/progression2.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 namespace {
@@ -524,14 +525,6 @@ static void resolveMonsterPhase(Ctx& ctx, GameState& g) {
     }
 }
 
-// Spell-name helpers for combat casting (file-local).
-static bool castAllDigits(const Str& t) {
-    if (t.empty()) return false;
-    for (std::size_t i = 0; i < t.size(); ++i) {
-        if (t[i] < '0' || t[i] > '9') return false;
-    }
-    return true;
-}
 
 static Str castKey(const Str& t) {
     std::size_t b = 0;
@@ -563,7 +556,7 @@ static const SpellDef* castFindSpell(const GameData& data, const Str& text) {
     for (std::size_t i = 0; i < data.spells.size(); ++i) {
         if (castKey(data.spells[i].name) == want) return &data.spells[i];
     }
-    if (castAllDigits(want) && want.size() <= 9) {
+    if (isDigits(want) && want.size() <= 9) {
         i32 id = 0;
         for (std::size_t i = 0; i < want.size(); ++i) id = id * 10 + static_cast<i32>(want[i] - '0');
         for (std::size_t i = 0; i < data.spells.size(); ++i) {
@@ -662,7 +655,7 @@ bool combatAction(Session& s, const Str& command, Str& reply) {
         if (verb == "cast") {
             // Spell name or id; a trailing all-digit word after at least one text word is the group.
             std::size_t textEnd = tok.size();
-            if (textEnd - 2 > 1 && castAllDigits(tok[textEnd - 1])) --textEnd;
+            if (textEnd - 2 > 1 && isDigits(tok[textEnd - 1])) --textEnd;
             const Str text = castJoin(tok, 2, textEnd);
             const SpellDef* sp = castFindSpell(s.data, text);
             if (sp == nullptr) {

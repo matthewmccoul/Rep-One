@@ -4,6 +4,7 @@
 #include <string>
 
 #include "mordor/state_common.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 namespace {
@@ -41,12 +42,6 @@ i32 findIndex(const char* const* names, i32 count, const Str& word) {
   return -1;
 }
 
-bool isDigits(const Str& t) {
-  if (t.empty()) return false;
-  for (char c : t)
-    if (c < '0' || c > '9') return false;
-  return true;
-}
 
 bool parseBool(const Str& t, bool& out) {
   Str l = lowerCopy(t);

@@ -62,4 +62,11 @@ const ItemDef* itemDefById(const GameData& data, i32 id) {
     return nullptr;
 }
 
+bool isDigits(const Str& t) {
+  if (t.empty()) return false;
+  for (char c : t)
+    if (c < '0' || c > '9') return false;
+  return true;
+}
+
 }  // namespace mordor
