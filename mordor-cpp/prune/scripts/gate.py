@@ -18,7 +18,7 @@ class Gate:
             summ, fails, out = self.suite(exe)
             if summ is None: return {"ok": False, "why": f"{exe} printed no summary (crash)", "log": out[-1500:]}
             res[k] = summ
-            if summ[2] != 0 or fails: return {"ok": False, "why": f"{exe}: {summ[2]} failing", "log": "\n".join(l for l in out.splitlines() if l.startswith("FAIL"))[:3000], **res}
+            if summ[2] != 0 or fails: return {**res, "ok": False, "why": f"{exe}: {summ[2]} failing", "log": "\n".join(l for l in out.splitlines() if l.startswith("FAIL"))[:3000]}
         diffs = []
         for s in (3, 11, 29, 41):
             rc, out = self.sh(f"./mordor_console --seed {s} --quick --bot 600 --data ../data/combat-data.json", cwd=f"{self.C}/b")
