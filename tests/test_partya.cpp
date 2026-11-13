@@ -1,4 +1,5 @@
 #include "test_support.h"
+#include "mordor/partyb.h"
 #include "mordor/partya.h"
 
 using namespace mordor;
@@ -247,15 +248,16 @@ TEST(partya_swap_positions_rules) {
     p.members[1].level = 5;
     p.members[2].level = 7;
     p.selectedIndex = 1;
-    CHECK(swapPartyPositions(env.ctx, p, 1, 2, false, false) ==
-          PartySwapOutcome::Swapped);
+    CHECK(rearrangeParty(env.ctx, p, 1, 2, false) ==
+          RearrangeOutcome::Swapped);
     CHECK_EQ(p.members[1].level, 7);
     CHECK_EQ(p.members[2].level, 5);
     CHECK_EQ(p.selectedIndex, 2);
-    CHECK(swapPartyPositions(env.ctx, p, 0, 9, false, false) ==
-          PartySwapOutcome::InvalidIndex);
-    CHECK(swapPartyPositions(env.ctx, p, 0, 1, true, true) ==
-          PartySwapOutcome::RefusedInCombat);
+    CHECK(rearrangeParty(env.ctx, p, 0, 9, false) ==
+          RearrangeOutcome::OutOfRange);
+    p.inDungeon = true;
+    CHECK(rearrangeParty(env.ctx, p, 0, 1, true) ==
+          RearrangeOutcome::InCombat);
 }
 
 // R25.1: input needs a comma, at most 5 characters, and exactly two integers.

@@ -588,35 +588,6 @@ bool runItemSwap(Ctx& ctx, Character& c, Inventory& inv, const Str& text, bool b
     return true;
 }
 
-// R26: swap party positions, with standing orders and the selected index following the character.
-PartySwapOutcome swapPartyPositions(Ctx& ctx, Party& party, i32 a, i32 b,
-                                    bool inDungeon, bool inCombat) {
-    if (a < 0 || b < 0 || a >= party.size || b >= party.size) return PartySwapOutcome::InvalidIndex;
-    if (inDungeon && inCombat) {                                         // R26.4
-        ctx.say("party.swap.combat", "You cannot rearrange the party during combat!", {}, {});
-        return PartySwapOutcome::RefusedInCombat;
-    }
-    if (a == b) return PartySwapOutcome::Swapped;
-    const u32 ua = static_cast<u32>(a);
-    const u32 ub = static_cast<u32>(b);
-    Character tmpC = memberAt(party, a);                                 // R26.1
-    memberAt(party, a) = memberAt(party, b);
-    memberAt(party, b) = tmpC;
-    CombatOrder tmpO = party.combatOrders[ua];                           // R26.1 standing orders
-    party.combatOrders[ua] = party.combatOrders[ub];
-    party.combatOrders[ub] = tmpO;
-    if (party.selectedIndex == a) {                                      // R26.2
-        party.selectedIndex = b;
-    } else if (party.selectedIndex == b) {
-        party.selectedIndex = a;
-    }
-    if (a == kLeaderIndex || b == kLeaderIndex) {                        // R26.3
-        // UNKNOWN: the NowLeader text is not given in the SRD; wording assumed.
-        ctx.say("party.swap.leader", "\"" + memberAt(party, 0).name + "\" is now the party leader.", {}, {});
-    }
-    return PartySwapOutcome::Swapped;
-}
-
 // R27.1, R27.2: the next command index after the selected one, wrapping.
 i32 nextCommandIndex(const Party& party) {
     if (party.size <= 0) return 0;
