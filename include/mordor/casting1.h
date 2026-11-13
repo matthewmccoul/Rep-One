@@ -191,7 +191,7 @@ i32 spellCostEngine(const Ctx& ctx, const Character& caster, const SpellDef& spe
 
 
 // R46 natural max SP: ((INT * 10) / 2) + ((WIS * 10) / 2), natural unmodified stats
-i32 naturalMaxSpellPoints(const Abilities& abilities);
+
 
 // R47 recalculate max SP; refill sets cur = max, otherwise cur = min(cur, max)
 void recalcSpellPoints(Character& who, bool refill);
