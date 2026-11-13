@@ -47,7 +47,7 @@ CastRefusal levelZeroItemGate(const Character& who,
 // c1 Cast refusal order: SpellPoints, NonCombat, AntiMagic, CombatOnly, TooLongPeaced
 // FIXED: SpellRefusalKind does not exist; using closest existing type CastRefusal.
 // FIXED: CastCheckInputs does not exist; using closest existing type CastSituation.
-CastRefusal firstCastRefusal(const CastSituation& in);
+
 
 
 // c46 NoSpellsHere = Has(ANTIMAGIC) OR Has(EXTINGUISHER)

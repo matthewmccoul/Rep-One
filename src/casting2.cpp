@@ -194,27 +194,6 @@ CastRefusal levelZeroItemGate(const Character& who,
     return CastRefusal::None;
 }
 
-// [c1] mdrcharCheckCast refusal order (first match wins).
-// CONFLICT: the preserved formula [c1] refuses monsters-present, not-engaged, Level > 7 with no
-// use test, while the table adds "use Combat/Either". The table is followed here.
-CastRefusal firstCastRefusal(const CastSituation& in) {
-    const bool monsters = in.monstersPresent;
-    const SpellUse use = castUseOf(in);
-    const bool combatUse = use == SpellUse::Combat || use == SpellUse::Either;
-    if (castCostOf(in) > castCurSpellPointsOf(in)) return CastRefusal::SpellPoints;  // 1
-    if (monsters && in.engaged && use == SpellUse::NonCombat) {                      // 2
-        return CastRefusal::NonCombat;
-    }
-    if (castBlockedBySquare(castAntiMagicOf(in), castExtinguisherOf(in))) {
-        return CastRefusal::AntiMagic;                                               // 3
-    }
-    if (combatUse && !monsters && castCombatSpellOf(in)) return CastRefusal::CombatOnly;  // 4a
-    if (combatUse && monsters && !in.engaged && castSpellLevelOf(in) > kPeacedSpellLevelLocal) {
-        return CastRefusal::TooLongPeaced;                                           // 4b
-    }
-    return CastRefusal::None;
-}
-
 // [c1] NoSpellsHere = Has(ANTIMAGIC) OR Has(EXTINGUISHER)
 bool castBlockedBySquare(bool antimagic, bool extinguisher) {
     return antimagic || extinguisher;
