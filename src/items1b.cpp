@@ -606,8 +606,8 @@ CombineCheck combineCharges(Ctx& ctx, Item& first, Item& next) {
 
 // R-use: MustBeEquipped = (1 <= T <= 22) or T in {29, 32, 33, 34}.
 bool mustBeEquipped(i32 typeNumber) {
-    return (typeNumber >= kMustEquipTypeMin && typeNumber <= kMustEquipTypeMax)
-        || typeNumber == 29 || typeNumber == 32 || typeNumber == 33 || typeNumber == 34;
+    bool isMustBeEquippedType(i32 itemTypeCode);
+    return isMustBeEquippedType(typeNumber);
 }
 
 // R-use: Consumed = (23 <= T <= 28) or T in {30, 31}.
