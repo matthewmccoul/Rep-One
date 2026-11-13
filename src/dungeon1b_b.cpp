@@ -80,11 +80,7 @@ bool isCarriedBody(const Party& party, i32 idx) {
 
 // Removes member idx from the party, shifting the rest left (UNKNOWN: representation of party removal).
 void removeMember(Party& party, i32 idx) {
-    for (i32 k = idx; k + 1 < party.size; ++k) {
-        party.members[static_cast<u32>(k)] = party.members[static_cast<u32>(k + 1)];
-    }
-    party.size -= 1;
-    party.members[static_cast<u32>(party.size)] = Character{};
+    removePartyMember(party, idx);
 }
 
 void setPartyPosition(Party& party, i32 level, i32 x, i32 y) {
