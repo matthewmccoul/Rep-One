@@ -752,65 +752,6 @@ i32 itemSlotIndex(i32 n) {
     return (n > 1) ? n - 1 : 0;
 }
 
-PartyGiveItemOutcome giveItemToMember(Ctx& ctx,
-                                      Party& party,
-                                      Character& giver,
-                                      i32 receiverIndex,
-                                      i32 packSlot) {
-    // Nobody in party to give to (c10)
-    if (party.size <= 1 || receiverIndex < 0 || receiverIndex >= party.size) {
-        ctx.say("party.give.nobody", "Nobody in party to give to!", {}, {});
-        return PartyGiveItemOutcome::NobodyToGiveTo;
-    }
-    const i32 slot = itemSlotIndex(packSlot);
-    // Item "" or "0" and slot 1 (Hands) -> "No Item to give!" (c10)
-    if (slot == kGiveHandsSlot || slot < 0 || slot >= kPackSlots) {
-        ctx.say("party.give.noItem", "No Item to give!", {}, {});
-        return PartyGiveItemOutcome::NoItemToGive;
-    }
-    // Locate the giver's member index by address identity (no RTTI).
-    i32 giverIndex = -1;
-    for (i32 i = 0; i < party.size; ++i) {
-        if (&party.members[i] == &giver) {
-            giverIndex = i;
-            break;
-        }
-    }
-    if (giverIndex < 0) {
-        ctx.say("party.give.nobody", "Nobody in party to give to!", {}, {});
-        return PartyGiveItemOutcome::NobodyToGiveTo;
-    }
-    Inventory& from = party.inventories[giverIndex];
-    Inventory& to = party.inventories[receiverIndex];
-    // Item "" or "0" -> "No Item to give!" (c10)
-    if (from.pack[slot].id == 0) {
-        ctx.say("party.give.noItem", "No Item to give!", {}, {});
-        return PartyGiveItemOutcome::NoItemToGive;
-    }
-    // UNKNOWN: the Equipped check and the receiver placement rule (first empty
-    // slot, Hands excluded or not) are not given in the SRD text provided.
-    // Here the item goes to the receiver's first empty pack slot.
-    i32 dest = -1;
-    for (i32 s = 0; s < kPackSlots; ++s) {
-        if (to.pack[s].id == 0) {
-            dest = s;
-            break;
-        }
-    }
-    if (dest < 0) {
-        // UNKNOWN: no SRD message for a full pack. Reuses the no-item outcome.
-        ctx.say("party.give.packFull", "Pack is full!", {}, {});
-        return PartyGiveItemOutcome::NoItemToGive;
-    }
-    to.pack[dest] = from.pack[slot];
-    from.pack[slot] = Item{};
-    // RESOLVED-BY-REFERENCE: the completion line reads "Give of Item to "X" Completed!"
-    // (GiveCommand.cs:172, sub14B5 3004-3006), with a capital I. Strs[0] = receiver name.
-    ctx.say("party.give.itemDone", "Give of Item to \"<name>\" Completed!", {},
-            {party.members[receiverIndex].name});
-    return PartyGiveItemOutcome::Given;
-}
-
 // ---------------------------------------------------------------------------
 // Leaving and joining details (c16, c43)
 // ---------------------------------------------------------------------------

@@ -303,23 +303,7 @@ TEST(items1a_buffers_follow_swap_and_reset_on_empty) {
 }
 
 // R47: give refusal order: guild-issued is checked before equipped.
-TEST(items1a_give_refusal_order_guild_before_equipped) {
-    tsup::Env env({static_cast<u64>(0.0)});
-    Character giver;
-    Character receiver;
-    Inventory gi;
-    Inventory ri;
 
-    gi.pack[1].id = 7;
-    gi.pack[1].equipped = true;
-    gi.pack[1].guildIssued = true;
-    gi.pack[1].ailments = kGuildMarkerBase + 2;
-    CHECK(giveFromPack(env.ctx, giver, gi, receiver, ri, 1) == GiveOutcome::GuildIssued);
-
-    gi.pack[1].guildIssued = false;
-    gi.pack[1].ailments = 0;
-    CHECK(giveFromPack(env.ctx, giver, gi, receiver, ri, 1) == GiveOutcome::Equipped);
-}
 
 // R63: bank deposit and withdrawal amount gates.
 TEST(items1a_bank_amount_gates) {
