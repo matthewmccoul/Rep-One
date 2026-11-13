@@ -529,11 +529,9 @@ bool leaveCheck(Ctx& ctx, f64 leaveValue) {
 
 // R57 content drift: max(0.5, 15*missingHP/maxHP).
 f64 contentDrift(i32 missingHits, i32 maxHits) {
-    if (maxHits <= 0) {
-        return kContentDriftFloor;
-    }
-    const f64 v = kDriftHpScale * static_cast<f64>(missingHits) / static_cast<f64>(maxHits);
-    return std::max(kContentDriftFloor, v);
+    // R57 content drift: forwards to driftContentStep with hits = maxHits - missingHits.
+    // driftContentStep returns max(0.5, 15 * missing / max) for maxHits > 0 and 0.5 for maxHits <= 0.
+    return driftContentStep(maxHits - missingHits, maxHits);
 }
 
 // R57 bound drift:

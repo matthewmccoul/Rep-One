@@ -1,6 +1,7 @@
 #include "mordor/companions1b.h"
 
 #include <cmath>
+#include "mordor/companions2a.h"
 
 namespace mordor {
 namespace {
@@ -269,17 +270,11 @@ void reportCompanionKill(Ctx& ctx, const Character& owner, i32 monsterId) {
 
 // R34 drift content (Binding < 0): max(0.5, (MaxHits - Hits) / MaxHits * 15); 0 if MaxHits <= 0.
 f64 companionDriftContent(i32 hits, i32 maxHits) {
-    // R34 drift content (Binding < 0): max(0.5, (MaxHits - Hits) / MaxHits * 15); 0 if MaxHits <= 0.
-    // The floor and scale are written out from the SRD. Check that kDriftContentFloor
-    // is 0.5 and kDriftContentScale is 15.0 wherever they are defined.
-    // The floor is applied with an explicit comparison, not maxv, so fractional results are kept.
-    constexpr f64 kContentFloor = 0.5;
-    constexpr f64 kContentScale = 15.0;
+    // R34 drift content (Binding < 0): forwards to driftContentStep for MaxHits > 0; 0 if MaxHits <= 0.
     if (maxHits <= 0) {
         return 0.0;
     }
-    const f64 raw = static_cast<f64>(maxHits - hits) / static_cast<f64>(maxHits) * kContentScale;
-    return (raw > kContentFloor) ? raw : kContentFloor;
+    return driftContentStep(hits, maxHits);
 }
 
 // R34 drift bound (Binding > 0):
