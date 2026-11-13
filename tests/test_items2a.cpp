@@ -160,13 +160,15 @@ TEST(slime_threshold_rises_two_per_level) {
     CHECK(!slimeTakesEffect(envNo.ctx, 10));
 }
 
+#include "mordor/items3a.h"
+
 TEST(theft_slot_spans_2_to_40) {
     tsup::Env envLow({0.0, 0.9});
-    CHECK_EQ(rollTheftSlot(envLow.ctx), 2);
+    CHECK_EQ(drawTheftSlot(envLow.ctx), 2);
     tsup::Env envMid({0.5, 0.9});       // Int(19.5) + 2 = 21
-    CHECK_EQ(rollTheftSlot(envMid.ctx), 21);
+    CHECK_EQ(drawTheftSlot(envMid.ctx), 21);
     tsup::Env envHigh({0.999, 0.9});    // Int(38.961) + 2 = 40
-    CHECK_EQ(rollTheftSlot(envHigh.ctx), 40);
+    CHECK_EQ(drawTheftSlot(envHigh.ctx), 40);
 }
 
 TEST(seer_band_and_carrier_count) {

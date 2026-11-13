@@ -93,13 +93,6 @@ bool monsterDestroyCheck(Ctx& ctx, Inventory& inv, i32 slot, i32 monsterFloor, i
     return true;
 }
 
-// R72: theft slot = Int(Rnd x 39) + 2, giving 2..40.
-// Quirk: slot 40 is off the array, so one roll in 39 misses and slot 1 is never stolen. The value is returned as is.
-i32 theftSlotRoll(Ctx& ctx) {
-    // R72 / Formulas: TheftSlot = Int(Rnd * 39) + 2, range 2..40 (original quirk).
-    return static_cast<i32>(ctx.rng.below(39)) + 2;
-}
-
 // R72: theft is decided by score - monLvl x 2.
 // UNKNOWN: the success test is not given (R90, Formulas). Uses the margin, clamped to 0..100, as a percent chance.
 bool theftDecided(Ctx& ctx, i32 score, i32 monsterLevel) {

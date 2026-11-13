@@ -288,7 +288,7 @@ bool slimeDestroy(Ctx& ctx, Inventory& inv, i32 slot);
 bool monsterDestroyCheck(Ctx& ctx, Inventory& inv, i32 slot, i32 monsterFloor, i32 levelFound);
 // R72 theft slot = Int(Rnd x 39) + 2, giving 2..40
 // Original quirk: slot 40 is off the array, so one roll in 39 misses
-i32 theftSlotRoll(Ctx& ctx);
+
 // R72 theft decided by score - monsterLevel x 2 (UNKNOWN: score formula is in Formulas section)
 bool theftDecided(Ctx& ctx, i32 score, i32 monsterLevel);
 // R73 quicksand slot roll; acts if slot occupied (UNKNOWN: quicksand outcome)

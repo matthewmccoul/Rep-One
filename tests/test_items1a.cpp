@@ -233,12 +233,14 @@ TEST(items1a_slime_threshold_and_slot_pick_ranges) {
 }
 
 // R72 and the theft quirk: Int(Rnd x 39) + 2 gives 2..40; slot 1 is never stolen.
+#include "mordor/items3a.h"
+
 TEST(items1a_theft_slot_roll_range_quirk) {
     // Rnd values passed as doubles in [0,1); no truncation to u64.
     tsup::Env lo({0.0});
-    CHECK_EQ(theftSlotRoll(lo.ctx), 2);     // Int(0*39)+2
+    CHECK_EQ(drawTheftSlot(lo.ctx), 2);     // Int(0*39)+2
     tsup::Env hi({0.999});
-    CHECK_EQ(theftSlotRoll(hi.ctx), 40);    // Int(0.999*39)+2 = 38+2
+    CHECK_EQ(drawTheftSlot(hi.ctx), 40);    // Int(0.999*39)+2 = 38+2
 }
 
 // R74-R75: Seer take is within 1..3; named carriers are certain hits.

@@ -229,11 +229,6 @@ bool slimeTakesEffect(Ctx& ctx, i32 dungeonLevel) {
     return roll < kSlimeBaseChance + kSlimePerLevel * dungeonLevel;
 }
 
-// Int(Rnd * 39) + 2 -> 2..40. Slot 1 is never stolen (quirk, kept).
-i32 rollTheftSlot(Ctx& ctx) {
-    return static_cast<i32>(ctx.rng.below(kTheftSpan)) + kTheftFirstSlot;
-}
-
 // Rnd(3) -> 0..2.
 // CONFLICT: rollSeerBand is also declared in items1b.h. Same signature; defined once here.
 i32 rollSeerBand(Ctx& ctx) {
