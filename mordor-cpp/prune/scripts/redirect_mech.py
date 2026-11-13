@@ -2,7 +2,7 @@
 optionally rewrite calls with a regex, include shared_helpers.h where the keeper is now called. Then gate.
 usage: redirect_mech.py <S> <keeper> <msg> <loser@file>... [--sub REGEX=>REPL] [--export file:name]"""
 import glob, json, os, re, subprocess, sys
-S = sys.argv[1]; keeper = sys.argv[2]; msg = sys.argv[3]; rest = sys.argv[4:]; W = f"{S}/prune"; C = f"{W}/code"
+S = sys.argv[1]; keeper = sys.argv[2]; msg = sys.argv[3]; rest = sys.argv[4:]; W = os.environ.get("W", f"{S}/prune"); C = f"{W}/code"
 subs = []; losers = []; exports = []
 it = iter(rest)
 for a in it:
@@ -10,7 +10,7 @@ for a in it:
     elif a == "--export": exports.append(next(it))
     else: losers.append(a)
 sys.path.insert(0, f"{W}/scripts"); from gate import Gate
-argv0 = sys.argv; sys.argv = [argv0[0], S, "src"]; exec(open(f"{W}/scripts/delete_unrun.py").read().split('if phase == "src":')[0])
+argv0 = sys.argv; sys.argv = [argv0[0], S, "src"]; exec(open(f"{W}/scripts/delete_unrun.py").read().split('if phase == "src":')[0]); C = f"{W}/code"   # the exec resets C; restore it
 inv = json.load(open(f"{W}/notes/inventory.json"))
 for e in exports:
     f, n = e.split(":"); d = [x for x in inv if x["name"] == n and x["file"] == f][0]

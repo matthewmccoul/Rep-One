@@ -1,8 +1,8 @@
 """Make a file-local function callable from other files, in place: drop `static`, or close the anonymous namespace around it,
 and declare it in include/mordor/shared_helpers.h (plus the includes its file uses). usage: export_keeper.py <S> <file> <name> <line>"""
 import os, re, sys
-S, rel, name, line = sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4]); C = f"{S}/prune/code"
-sys.argv = [sys.argv[0], S, "src"]; exec(open(f"{S}/prune/scripts/delete_unrun.py").read().split('if phase == "src":')[0])
+S, rel, name, line = sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4]); C = os.environ.get("W", f"{S}/prune") + "/code"
+sys.argv = [sys.argv[0], S, "src"]; exec(open(f"{S}/prune/scripts/delete_unrun.py").read().split('if phase == "src":')[0]); C = os.environ.get("W", f"{S}/prune") + "/code"   # the exec resets C; restore it
 raw = open(f"{C}/{rel}").read(); L = raw.split("\n"); st = strip(raw)
 L0 = line - 1
 for d in (0, -1, 1, -2, 2):

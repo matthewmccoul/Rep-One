@@ -60,4 +60,6 @@ def start(g, log=None):
         if m: g.x("windowsize", m[0], "1024", "768"); g.x("windowmove", m[0], "0", "0"); time.sleep(2); return True
     return False
 def crashed(g):
-    return any("serious problem" in n or n in ("Program Error", "Error!") for _, n in _wins(g.d, visible=True)) or subprocess.run(["pgrep", "-f", "winevdm.*MORDOR"], capture_output=True).returncode != 0
+    """The game itself is gone: its main window or its process. Stray debugger windows from other Wine processes do not count."""
+    alive = subprocess.run(["pgrep", "-f", "winevdm.*MORDOR"], capture_output=True).returncode == 0
+    return not alive or not any("Limited Version" in n for _, n in _wins(g.d))

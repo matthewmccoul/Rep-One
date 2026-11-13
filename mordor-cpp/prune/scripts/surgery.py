@@ -5,6 +5,7 @@ W, AS = sys.argv[1], sys.argv[2]; sys.path.insert(0, AS); sys.path.insert(0, f"{
 from army import run_all, est
 from gate import Gate
 C = f"{W}/code"; EXCLUDE = {55, 59}
+INV = json.load(open(f"{W}/notes/inventory.json"))
 P = json.load(open(os.environ.get("PLAN", f"{W}/notes/plan.json")))
 sel = sys.argv[3] if len(sys.argv) > 3 else "all"; rnd = int(sys.argv[sys.argv.index("--round") + 1]) if "--round" in sys.argv else 1
 ids = [i for i, p in enumerate(P) if any(l["phase"] == 1 for l in p["losers"]) and i not in EXCLUDE]
@@ -86,6 +87,31 @@ def packet(i, extra=""):
                     if re.search(rf"\b{re.escape(l['name'])}\s*\(", line) and not re.match(rf"^[A-Za-z_][\w:<>,&\*\s]*\b{re.escape(l['name'])}\s*\([^;]*\)\s*(const)?\s*\{{?\s*$", line):
                         sites.append(f"{os.path.relpath(g, C)}:{n+1}:\n" + "\n".join(L[max(0, n - 2):n + 3]))
             parts.append(f"CALL SITES of {l['name']} ({len(sites)}):\n" + "\n---\n".join(sites[:40]))
+    if os.environ.get("FAMILY"):
+        for hp in (f"{C}/include/mordor/shared_helpers.h", f"{C}/src/shared_helpers.cpp"):
+            parts.append(f"CURRENT {os.path.relpath(hp, C)} (anchor line '}}  // namespace mordor' occurs once):\n" + open(hp).read()[-2500:])
+        # keeper call sites too
+        kk = p["keeper"]; sites = []
+        for g in sorted(glob.glob(f"{C}/src/*.cpp") + glob.glob(f"{C}/tests/*.cpp") + glob.glob(f"{C}/apps/*/*.cpp")):
+            L = open(g, errors="replace").read().splitlines()
+            for n, line in enumerate(L):
+                if re.search(rf"\b{re.escape(kk['name'])}\s*\(", line) and not re.match(rf"^[A-Za-z_][\w:<>,&\*\s]*\b{re.escape(kk['name'])}\s*\(", line):
+                    sites.append(f"{os.path.relpath(g, C)}:{n+1}:\n" + "\n".join(L[max(0, n - 2):n + 3]))
+        parts.append(f"CALL SITES of keeper {kk['name']} ({len(sites)}):\n" + "\n---\n".join(sites[:40]))
+        # definitions of helpers and constants the copies use
+        txt = " ".join(x for x in parts); seen = set(); defs = []
+        names = {d["name"] for d in INV}
+        for w in sorted(set(re.findall(r"\b([A-Za-z_]\w{3,})\b", txt))):
+            if w in seen or w in (kk["name"],) or any(w == l["name"] for l in p["losers"]): continue
+            if w in names:
+                d = next(d for d in INV if d["name"] == w); sp = func_span(f"{C}/{d['file']}", w, int(d["line"]))
+                if sp: defs.append(f"// {d['file']}\n" + sp[2][sp[0]:sp[1]][:1200]); seen.add(w)
+            elif w.startswith("k") and w[1:2].isupper():
+                for g in glob.glob(f"{C}/include/mordor/*.h") + glob.glob(f"{C}/src/*.cpp"):
+                    m = re.search(rf"^[^\n]*\b{w}\b\s*=[^\n]*$", open(g, errors="replace").read(), re.M)
+                    if m: defs.append(f"// {os.path.relpath(g, C)}: {m.group(0).strip()}"); seen.add(w); break
+            if len(defs) >= 14: break
+        parts.append("DEFINITIONS OF HELPERS AND CONSTANTS THE COPIES USE:\n" + "\n\n".join(defs))
     if extra: parts.append("PREVIOUS ATTEMPT FAILED:\n" + extra)
     return "\n\n".join(parts)
 def apply(out, i):
@@ -147,6 +173,8 @@ for i in todo:
     n, probs = apply(out, i)
     r = g.check(golden_must_match=str(i) not in os.environ.get('GOLDEN_MAY_MOVE', '').split(','))
     removed = re.findall(r"=== REMOVE_TEST (\w+)\s*\|\s*(.*?) ===", out); replaced = re.findall(r"=== REPLACE_TEST (\w+) ===", out)
+    if r["ok"] and not probs and n == 0:
+        state[str(i)] = {"status": "NO_CHANGE", "problem": out[-1500:]}; print(f"group {i}: NO_CHANGE (ant made no edits)", flush=True); continue
     if r["ok"] and not probs:
         g.commit(f"prune group {i}: keep {P[i]['keeper']['name']}; " + ", ".join(f"{l['action'].lower()} {l['name']}" for l in P[i]["losers"] if l["phase"] == 1))
         state[str(i)] = {"status": "DONE", "edits": n, "tests_removed": removed, "tests_retargeted": replaced, "suites": [r["srd"], r["engine"]], "golden_moved": r.get("golden_diffs", [])}
