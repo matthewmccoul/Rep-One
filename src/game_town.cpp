@@ -20,6 +20,7 @@
 #include "mordor/store_prices.h"
 #include "mordor/shared_helpers.h"
 #include "mordor/parse.h"
+#include "mordor/names.h"
 
 namespace mordor {
 namespace {
@@ -29,9 +30,6 @@ constexpr i32 kFirstPackSlot = 1;        // R5: usable pack slots are 1..39
 constexpr i32 kLastPackSlot = 39;
 constexpr i32 kEntryDungeonLevel = 1;
 
-const char* const kGuildNames[kGuildCount] = {
-    "nomad", "warrior", "paladin", "ninja", "villain", "seeker",
-    "thief", "scavenger", "mage", "sorcerer", "wizard", "healer"};
 
 const char* const kHelpText =
     "Town commands (members 1-based, pack slots 1-39):\n"
@@ -89,7 +87,7 @@ bool guildFromWord(const Str& w, Guild& g) {
     }
     const Str lw = lowerAscii(w);
     for (i32 i = 0; i < kGuildCount; ++i) {
-        if (lw == Str(kGuildNames[i])) {
+        if (lw == lowerAscii(Str(guildNameOrNull(i)))) {
             g = static_cast<Guild>(i);
             return true;
         }
@@ -98,7 +96,7 @@ bool guildFromWord(const Str& w, Guild& g) {
 }
 
 Str guildName(Guild g) {
-    return Str(kGuildNames[static_cast<i32>(g)]);
+    return lowerAscii(Str(guildNameOrNull(static_cast<i32>(g))));
 }
 
 // ---- access helpers ----

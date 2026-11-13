@@ -5,6 +5,7 @@
 #include "mordor/dungeon1a.h"
 #include "mordor/guilds1.h"
 #include "mordor/shared_helpers.h"
+#include "mordor/names.h"
 
 namespace mordor {
 namespace {
@@ -37,21 +38,8 @@ Str raceName(Race r) {
 // SIMPLIFIED: GameData race/guild name tables are not visible in the given headers,
 // so names are local switches over the enums.
 Str guildName(Guild g) {
-  switch (g) {
-    case Guild::Nomad: return "Nomad";
-    case Guild::Warrior: return "Warrior";
-    case Guild::Paladin: return "Paladin";
-    case Guild::Ninja: return "Ninja";
-    case Guild::Villain: return "Villain";
-    case Guild::Seeker: return "Seeker";
-    case Guild::Thief: return "Thief";
-    case Guild::Scavenger: return "Scavenger";
-    case Guild::Mage: return "Mage";
-    case Guild::Sorcerer: return "Sorcerer";
-    case Guild::Wizard: return "Wizard";
-    case Guild::Healer: return "Healer";
-  }
-  return "?";
+  const char* n = guildNameOrNull(static_cast<i32>(g));
+  return n ? Str(n) : Str("?");
 }
 
 Str alignName(Align a) {

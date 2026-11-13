@@ -6,26 +6,24 @@
 #include "mordor/guilds1.h"
 #include "mordor/guilds2.h"
 #include "mordor/loot2.h"
+#include "mordor/names.h"
 
 namespace mordor {
 namespace {
 
 // Guild names in table order. The order matches the Guildmasters.Seeded order in the reference.
 // NEED: GuildDef name field. When it exists, replace this table with GuildDef.name.
-const char* const kQuestGuildNames[kGuildCount] = {
-    "Nomad", "Warrior", "Paladin", "Ninja", "Villain", "Seeker",
-    "Thief", "Scavenger", "Mage", "Sorcerer", "Wizard", "Healer"};
 
 Str questsGuildName(Guild guild) {
   const i32 idx = static_cast<i32>(guild);
   if (idx < 0 || idx >= kGuildCount) return Str();
-  return Str(kQuestGuildNames[static_cast<size_t>(idx)]);
+  return Str(guildNameOrNull(idx));
 }
 
 bool questsGuildFromWord(const Str& word, Guild& guild) {
   const Str want = accLower(word);
   for (i32 i = 0; i < kGuildCount; ++i) {
-    if (accLower(Str(kQuestGuildNames[static_cast<size_t>(i)])) == want) {
+    if (accLower(Str(guildNameOrNull(i))) == want) {
       guild = static_cast<Guild>(i);
       return true;
     }
