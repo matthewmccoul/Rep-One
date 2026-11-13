@@ -5,7 +5,7 @@ W, AS = sys.argv[1], sys.argv[2]; sys.path.insert(0, AS); sys.path.insert(0, f"{
 from army import run_all, est
 from gate import Gate
 C = f"{W}/code"; EXCLUDE = {55, 59}
-P = json.load(open(f"{W}/notes/plan.json"))
+P = json.load(open(os.environ.get("PLAN", f"{W}/notes/plan.json")))
 sel = sys.argv[3] if len(sys.argv) > 3 else "all"; rnd = int(sys.argv[sys.argv.index("--round") + 1]) if "--round" in sys.argv else 1
 ids = [i for i, p in enumerate(P) if any(l["phase"] == 1 for l in p["losers"]) and i not in EXCLUDE]
 if sel != "all": ids = [int(x) for x in sel.split(",")]
@@ -54,7 +54,7 @@ def tests_using(name):
             if re.search(rf"\b{re.escape(name)}\s*\(", body): out.append((os.path.relpath(f, C), m.group(1), body))
     return out
 SYS = """You are a surgery ant doing ONE cleanup step on a C++17 code base (a re-implementation of the rules of the 1995 RPG Mordor). The coordinator has already decided which duplicate copies of a rule to remove; you only carry the decision out. You get: the KEEPER function (the copy that stays), each LOSER with its action, the header declarations of each loser, and every test that calls a loser.
-Actions: DELETE = the loser's definition and its header declaration(s) go away. FORWARD = keep the loser's signature but replace its body with a call to the keeper (adapt arguments and return value exactly; if the keeper cannot express it, say CANNOT_FORWARD).
+Actions: DELETE = the loser's definition and its header declaration(s) go away. FORWARD = keep the loser's signature but replace its body with a call to the keeper (adapt arguments and return value exactly; if the keeper cannot express it, say CANNOT_FORWARD). REDIRECT = delete the loser's definition and declaration(s), and change EVERY call site shown under CALL SITES to call the keeper instead (adapt the arguments; use one EDIT per call site, with enough surrounding text to be unique), adding the keeper's header with ADD_INCLUDE where the file needs it. If the keeper is file-local and a loser's file must call it, make the keeper visible as described below.
 For every test that calls a DELETE loser: if the same expected values must also hold for the keeper (same rule, compatible inputs), rewrite the test to call the keeper instead, keeping every expected value; otherwise remove the test. Never change an expected value.
 Output ONLY these blocks:
 === DELETE_FUNCTION <src file> :: <name> ===
@@ -77,6 +77,15 @@ def packet(i, extra=""):
         ls = func_span(f"{C}/{l['file']}", l["name"], l["line"])
         parts.append(f"LOSER {l['name']} in {l['file']} near line {l['line']} -> ACTION {l['action']}\n" + (ls[2][ls[0]:ls[1]][:3500] if ls else "(already gone)") + "\nDeclarations:\n" + "\n".join(decls(l["name"])[:6]))
         for f, tn, body in tests_using(l["name"])[:14]: parts.append(f"TEST {tn} in {f}\n{body[:2500]}")
+        if l["action"] == "REDIRECT":
+            sites = []
+            for g in sorted(glob.glob(f"{C}/src/*.cpp") + glob.glob(f"{C}/include/mordor/*.h") + glob.glob(f"{C}/tests/*.cpp") + glob.glob(f"{C}/apps/*/*.cpp")):
+                raw = open(g, errors="replace").read(); L = raw.splitlines()
+                if os.path.basename(g) != os.path.basename(l["file"]) and re.search(rf"^[A-Za-z_][\w:<>,&\*\s]*\b{re.escape(l['name'])}\s*\([^;]*\)\s*(const)?\s*\{{", raw, re.M): continue   # file has its own definition of that name
+                for n, line in enumerate(L):
+                    if re.search(rf"\b{re.escape(l['name'])}\s*\(", line) and not re.match(rf"^[A-Za-z_][\w:<>,&\*\s]*\b{re.escape(l['name'])}\s*\([^;]*\)\s*(const)?\s*\{{?\s*$", line):
+                        sites.append(f"{os.path.relpath(g, C)}:{n+1}:\n" + "\n".join(L[max(0, n - 2):n + 3]))
+            parts.append(f"CALL SITES of {l['name']} ({len(sites)}):\n" + "\n---\n".join(sites[:40]))
     if extra: parts.append("PREVIOUS ATTEMPT FAILED:\n" + extra)
     return "\n\n".join(parts)
 def apply(out, i):
@@ -124,14 +133,14 @@ def apply(out, i):
                 open(f, "w").write(t[:pos] + inc + "\n" + t[pos:])
     return n, problems
 os.makedirs(f"{W}/surgery", exist_ok=True)
-state_f = f"{W}/notes/surgery_state.json"; state = json.load(open(state_f)) if os.path.exists(state_f) else {}
+state_f = os.environ.get("STATE", f"{W}/notes/surgery_state.json"); state = json.load(open(state_f)) if os.path.exists(state_f) else {}
 todo = [i for i in ids if state.get(str(i), {}).get("status") != "DONE"]
-tasks = [{"id": f"g{i}", "system": SYS, "user": packet(i, state.get(str(i), {}).get("problem", "") if rnd > 1 else ""), "out": f"{W}/surgery/r{rnd}_g{i}.md"} for i in todo]
+tasks = [{"id": f"g{i}", "system": SYS, "user": packet(i, state.get(str(i), {}).get("problem", "") if rnd > 1 else ""), "out": f"{W}/surgery/{os.environ.get('PREFIX', '')}r{rnd}_g{i}.md"} for i in todo]
 print(len(tasks), "surgery ants; max est", max([est(t["system"], t["user"]) for t in tasks] or [0]), flush=True)
 asyncio.run(run_all(tasks, f"{W}/surgery.log.jsonl", 5))
 g = Gate(W)
 for i in todo:
-    p = f"{W}/surgery/r{rnd}_g{i}.md"
+    p = f"{W}/surgery/{os.environ.get('PREFIX', '')}r{rnd}_g{i}.md"
     if not os.path.exists(p): state[str(i)] = {"status": "NO_OUTPUT"}; continue
     out = open(p).read()
     if "CANNOT_FORWARD" in out and "=== " not in out: state[str(i)] = {"status": "CANNOT", "problem": out[:800]}; continue

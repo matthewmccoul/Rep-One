@@ -1,0 +1,193 @@
+{
+ "0": {
+  "status": "DONE",
+  "edits": 4,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    309,
+    5619,
+    0
+   ],
+   [
+    166,
+    203,
+    0
+   ]
+  ],
+  "golden_moved": []
+ },
+ "3": {
+  "status": "DONE",
+  "edits": 6,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    309,
+    5619,
+    0
+   ],
+   [
+    166,
+    203,
+    0
+   ]
+  ],
+  "golden_moved": []
+ },
+ "6": {
+  "status": "FAILED",
+  "problem": "build failed\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/game_town.cpp:779:37: error: \u2018gearNum\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/game_town.cpp:840:37: error: \u2018gearNum\u2019 was not declared in this scope\nedit: old text found 2x in src/game_town.cpp\nedit: old text found 2x in src/game_town.cpp"
+ },
+ "7": {
+  "status": "FAILED",
+  "problem": "A mechanical merge (move the keeper to a shared module, rename all calls) failed to build:\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/loot1a.cpp:479:33: error: call of overloaded \u2018memberAt(mordor::Party&, mordor::i32&)\u2019 is ambiguous\nCOORDINATOR: leave the keeper where it is. REDIRECT each loser's call sites to the keeper, adapting argument order and types. If two overloads exist (const and non-const), keep both overloads of the keeper. If the keeper is file-local and another file needs it, make it visible as instructed."
+ },
+ "8": {
+  "status": "DONE",
+  "edits": 4,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    309,
+    5619,
+    0
+   ],
+   [
+    166,
+    203,
+    0
+   ]
+  ],
+  "golden_moved": []
+ },
+ "9": {
+  "status": "FAILED",
+  "problem": "build failed\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/game_combat.cpp:593:20: error: \u2018splitWords\u2019 was not declared in this scope\n"
+ },
+ "11": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    309,
+    5619,
+    0
+   ],
+   [
+    166,
+    203,
+    0
+   ]
+  ],
+  "golden_moved": []
+ },
+ "12": {
+  "status": "DONE",
+  "edits": 0,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    309,
+    5619,
+    0
+   ],
+   [
+    166,
+    203,
+    0
+   ]
+  ],
+  "golden_moved": []
+ },
+ "14": {
+  "status": "FAILED",
+  "problem": "build failed\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/game_setup.cpp:250:9: error: \u2018creationPointsLeft\u2019 was not declared in this scope\n"
+ },
+ "15": {
+  "status": "DONE",
+  "edits": 3,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    309,
+    5619,
+    0
+   ],
+   [
+    166,
+    203,
+    0
+   ]
+  ],
+  "golden_moved": []
+ },
+ "17": {
+  "status": "DONE",
+  "edits": 3,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    309,
+    5619,
+    0
+   ],
+   [
+    166,
+    203,
+    0
+   ]
+  ],
+  "golden_moved": []
+ },
+ "18": {
+  "status": "DONE",
+  "edits": 3,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    309,
+    5619,
+    0
+   ],
+   [
+    166,
+    203,
+    0
+   ]
+  ],
+  "golden_moved": []
+ },
+ "19": {
+  "status": "DONE",
+  "edits": 0,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    309,
+    5619,
+    0
+   ],
+   [
+    166,
+    203,
+    0
+   ]
+  ],
+  "golden_moved": []
+ },
+ "21": {
+  "status": "FAILED",
+  "problem": "build failed\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/guilds1_a.cpp:116:23: error: invalid initialization of reference of type \u2018mordor::Character&\u2019 from expression of type \u2018mordor::Ctx\u2019\n"
+ }
+}

@@ -1,0 +1,802 @@
+[
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): glGet@src/feat_guildlog.cpp, hallGetS@src/feat_hall.cpp",
+  "keeper": {
+   "name": "glGet",
+   "file": "src/feat_guildlog.cpp",
+   "line": 26,
+   "verdict": "n/a",
+   "callers": [
+    "glArchive@src/feat_guildlog.cpp",
+    "glLoadAll@src/feat_guildlog.cpp",
+    "glStoreAll@src/feat_guildlog.cpp",
+    "glToday@src/feat_guildlog.cpp"
+   ],
+   "test_refs": 0
+  },
+  "losers": [
+   {
+    "name": "hallGetS",
+    "file": "src/feat_hall.cpp",
+    "line": 56,
+    "callers": [
+     "hallDescribe@src/feat_hall.cpp",
+     "hallGetI@src/feat_hall.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): uidx@src/monsters1a.cpp, uidx@src/death1a.cpp",
+  "keeper": {
+   "name": "uidx",
+   "file": "src/monsters1a.cpp",
+   "line": 30,
+   "verdict": "n/a",
+   "callers": [
+    "buildClassRanges@src/monsters1a.cpp",
+    "onPartyWiped@src/death1a.cpp",
+    "pickEncounterClass@src/monsters1a.cpp",
+    "pickMonsterInClass@src/monsters1a.cpp",
+    "pickWeightedClass@src/monsters1a.cpp",
+    "pruneTheDead@src/death1a.cpp",
+    "removePartyMember@src/death1a.cpp",
+    "rollLair@src/monsters1a.cpp",
+    "shiftCounted@src/death1a.cpp"
+   ],
+   "test_refs": 0
+  },
+  "losers": [
+   {
+    "name": "uidx",
+    "file": "src/death1a.cpp",
+    "line": 16,
+    "callers": [
+     "buildClassRanges@src/monsters1a.cpp",
+     "onPartyWiped@src/death1a.cpp",
+     "pickEncounterClass@src/monsters1a.cpp",
+     "pickMonsterInClass@src/monsters1a.cpp",
+     "pickWeightedClass@src/monsters1a.cpp",
+     "pruneTheDead@src/death1a.cpp",
+     "removePartyMember@src/death1a.cpp",
+     "rollLair@src/monsters1a.cpp",
+     "shiftCounted@src/death1a.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): seerJoinWords@src/feat_seer.cpp, bufferJoin@src/feat_buffers.cpp, dcastJoin@src/feat_dcast.cpp",
+  "keeper": {
+   "name": "seerJoinWords",
+   "file": "src/feat_seer.cpp",
+   "line": 113,
+   "verdict": "n/a",
+   "callers": [
+    "seerCommand@src/feat_seer.cpp"
+   ],
+   "test_refs": 0
+  },
+  "losers": [
+   {
+    "name": "bufferJoin",
+    "file": "src/feat_buffers.cpp",
+    "line": 51,
+    "callers": [
+     "bufferCommand@src/feat_buffers.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   },
+   {
+    "name": "dcastJoin",
+    "file": "src/feat_dcast.cpp",
+    "line": 86,
+    "callers": [
+     "dcastRun@src/feat_dcast.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): parseInt@src/game_combat.cpp, parseInt@src/feat_library.cpp",
+  "keeper": {
+   "name": "parseInt",
+   "file": "src/game_combat.cpp",
+   "line": 59,
+   "verdict": "n/a",
+   "callers": [
+    "combatAction@src/game_combat.cpp",
+    "entries@src/feat_library.cpp",
+    "groupIndex@src/game_combat.cpp",
+    "itemPage@src/feat_library.cpp",
+    "memberIndex@src/game_combat.cpp",
+    "monsterPage@src/feat_library.cpp"
+   ],
+   "test_refs": 0
+  },
+  "losers": [
+   {
+    "name": "parseInt",
+    "file": "src/feat_library.cpp",
+    "line": 53,
+    "callers": [
+     "combatAction@src/game_combat.cpp",
+     "entries@src/feat_library.cpp",
+     "groupIndex@src/game_combat.cpp",
+     "itemPage@src/feat_library.cpp",
+     "memberIndex@src/game_combat.cpp",
+     "monsterPage@src/feat_library.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): bufferInt@src/feat_buffers.cpp, confNumText@src/feat_confinement.cpp",
+  "keeper": {
+   "name": "bufferInt",
+   "file": "src/feat_buffers.cpp",
+   "line": 27,
+   "verdict": "n/a",
+   "callers": [
+    "bufferCommand@src/feat_buffers.cpp",
+    "bufferKey@src/feat_buffers.cpp",
+    "buffersDescribe@src/feat_buffers.cpp",
+    "buffersListText@src/feat_buffers.cpp"
+   ],
+   "test_refs": 0
+  },
+  "losers": [
+   {
+    "name": "confNumText",
+    "file": "src/feat_confinement.cpp",
+    "line": 32,
+    "callers": [
+     "cmdPens@src/feat_confinement.cpp",
+     "confGoldText@src/feat_confinement.cpp",
+     "confinementSellSlot@src/feat_confinement.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): memberAt@src/game_town.cpp, partyMember@src/loot1a.cpp",
+  "keeper": {
+   "name": "memberAt",
+   "file": "src/game_town.cpp",
+   "line": 146,
+   "verdict": "n/a",
+   "callers": [
+    "doBank@src/game_town.cpp",
+    "doDescend@src/game_town.cpp",
+    "doGuildList@src/game_town.cpp",
+    "doIdentify@src/game_town.cpp",
+    "doIdentifyItem@src/game_town.cpp",
+    "doJoin@src/game_town.cpp",
+    "doLevelUp@src/game_town.cpp",
+    "doMorgue@src/game_town.cpp",
+    "doRest@src/game_town.cpp"
+   ],
+   "test_refs": 0
+  },
+  "losers": [
+   {
+    "name": "partyMember",
+    "file": "src/loot1a.cpp",
+    "line": 76,
+    "callers": [
+     "resolveChestTrap@src/loot1a.cpp",
+     "trapKilledLeader@src/loot1a.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): toStr@src/game_town.cpp, viewInt@src/game_view.cpp, gearNum@src/game_town.cpp, companionsNum@src/feat_companions.cpp, numStr@src/game_combat.cpp, numText@src/feat_look.cpp, intStr@src/game_dungeon.cpp, i64ToStr@src/game_save.cpp",
+  "keeper": {
+   "name": "toStr",
+   "file": "src/game_town.cpp",
+   "line": 46,
+   "verdict": "n/a",
+   "callers": [
+    "doBank@src/game_town.cpp",
+    "doBuy@src/game_town.cpp",
+    "doGuildList@src/game_town.cpp",
+    "doIdentify@src/game_town.cpp",
+    "doIdentifyItem@src/game_town.cpp",
+    "doJoin@src/game_town.cpp",
+    "doLevelUp@src/game_town.cpp",
+    "doMorgue@src/game_town.cpp",
+    "doPool@src/game_town.cpp",
+    "doRest@src/game_town.cpp",
+    "doSell@src/game_town.cpp",
+    "doShop@src/game_town.cpp",
+    "storeGoldText@src/game_town.cpp",
+    "townAction@src/game_town.cpp"
+   ],
+   "test_refs": 0
+  },
+  "losers": [
+   {
+    "name": "viewInt",
+    "file": "src/game_view.cpp",
+    "line": 15,
+    "callers": [
+     "describeCharacter@src/game_view.cpp",
+     "describeFight@src/game_view.cpp",
+     "describeParty@src/game_view.cpp",
+     "describeSquare@src/game_view.cpp",
+     "renderAutomap@src/game_view.cpp",
+     "viewGold@src/game_view.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   },
+   {
+    "name": "gearNum",
+    "file": "src/game_town.cpp",
+    "line": 866,
+    "callers": [
+     "gearAdLine@src/game_town.cpp",
+     "gearEquip@src/game_town.cpp",
+     "gearUnequip@src/game_town.cpp",
+     "gearUse@src/game_town.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   },
+   {
+    "name": "companionsNum",
+    "file": "src/feat_companions.cpp",
+    "line": 20,
+    "callers": [
+     "cmdCarry@src/feat_companions.cpp",
+     "cmdCompanions@src/feat_companions.cpp",
+     "companionsReleaseSlot@src/feat_companions.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   },
+   {
+    "name": "numStr",
+    "file": "src/game_combat.cpp",
+    "line": 74,
+    "callers": [
+     "combatAction@src/game_combat.cpp",
+     "resolveMemberOrder@src/game_combat.cpp",
+     "resolveMonsterPhase@src/game_combat.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   },
+   {
+    "name": "numText",
+    "file": "src/feat_look.cpp",
+    "line": 26,
+    "callers": [
+     "lookText@src/feat_look.cpp",
+     "readoutLine@src/feat_look.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   },
+   {
+    "name": "intStr",
+    "file": "src/game_dungeon.cpp",
+    "line": 435,
+    "callers": [
+     "dungeonAction@src/game_dungeon.cpp",
+     "goldText@src/game_dungeon.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   },
+   {
+    "name": "i64ToStr",
+    "file": "src/game_save.cpp",
+    "line": 53,
+    "callers": [
+     "visitCharacter@src/game_save.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): memberAt@src/game_town.cpp, partyMember@src/loot1a.cpp",
+  "keeper": {
+   "name": "memberAt",
+   "file": "src/game_town.cpp",
+   "line": 143,
+   "verdict": "n/a",
+   "callers": [
+    "doBank@src/game_town.cpp",
+    "doDescend@src/game_town.cpp",
+    "doGuildList@src/game_town.cpp",
+    "doIdentify@src/game_town.cpp",
+    "doIdentifyItem@src/game_town.cpp",
+    "doJoin@src/game_town.cpp",
+    "doLevelUp@src/game_town.cpp",
+    "doMorgue@src/game_town.cpp",
+    "doRest@src/game_town.cpp"
+   ],
+   "test_refs": 0
+  },
+  "losers": [
+   {
+    "name": "partyMember",
+    "file": "src/loot1a.cpp",
+    "line": 72,
+    "callers": [
+     "resolveChestTrap@src/loot1a.cpp",
+     "trapKilledLeader@src/loot1a.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): confParseIndex@src/feat_confinement.cpp, bufferParseInt@src/feat_buffers.cpp",
+  "keeper": {
+   "name": "confParseIndex",
+   "file": "src/feat_confinement.cpp",
+   "line": 12,
+   "verdict": "n/a",
+   "callers": [
+    "cmdPenBuy@src/feat_confinement.cpp",
+    "confParseMember@src/feat_confinement.cpp",
+    "confParseSlot@src/feat_confinement.cpp"
+   ],
+   "test_refs": 0
+  },
+  "losers": [
+   {
+    "name": "bufferParseInt",
+    "file": "src/feat_buffers.cpp",
+    "line": 29,
+    "callers": [
+     "bufferCommand@src/feat_buffers.cpp",
+     "buffersRead@src/feat_buffers.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): splitWords@src/features.cpp, tokenize@src/game_combat.cpp",
+  "keeper": {
+   "name": "splitWords",
+   "file": "src/features.cpp",
+   "line": 17,
+   "verdict": "n/a",
+   "callers": [
+    "runFeatureCommand@src/features.cpp",
+    "townAction@src/game_town.cpp"
+   ],
+   "test_refs": 0
+  },
+  "losers": [
+   {
+    "name": "tokenize",
+    "file": "src/game_combat.cpp",
+    "line": 39,
+    "callers": [
+     "combatAction@src/game_combat.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): itemDefById@src/store_prices.cpp, findItemDef@src/game_town.cpp",
+  "keeper": {
+   "name": "itemDefById",
+   "file": "src/store_prices.cpp",
+   "line": 14,
+   "verdict": "n/a",
+   "callers": [
+    "storeBuyPrice@src/store_prices.cpp",
+    "storeIdentifyFee@src/store_prices.cpp",
+    "storeRealignFee@src/store_prices.cpp",
+    "storeSellPrice@src/store_prices.cpp"
+   ],
+   "test_refs": 0
+  },
+  "losers": [
+   {
+    "name": "findItemDef",
+    "file": "src/game_town.cpp",
+    "line": 266,
+    "callers": [
+     "doBuy@src/game_town.cpp",
+     "doSell@src/game_town.cpp",
+     "doShop@src/game_town.cpp",
+     "gearItemName@src/game_town.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): storeGoldText@src/game_town.cpp, seerMoney@src/feat_seer.cpp",
+  "keeper": {
+   "name": "storeGoldText",
+   "file": "src/game_town.cpp",
+   "line": 430,
+   "verdict": "n/a",
+   "callers": [
+    "doSell@src/game_town.cpp"
+   ],
+   "test_refs": 0
+  },
+  "losers": [
+   {
+    "name": "seerMoney",
+    "file": "src/feat_seer.cpp",
+    "line": 25,
+    "callers": [
+     "seerSearchPerson@src/feat_seer.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): firstStandingGroup@src/combat1a.cpp, standingGroupIndex@src/clock.cpp",
+  "keeper": {
+   "name": "firstStandingGroup",
+   "file": "src/combat1a.cpp",
+   "line": 44,
+   "verdict": "n/a",
+   "callers": [
+    "furtherSwingAim@src/combat1a.cpp"
+   ],
+   "test_refs": 0
+  },
+  "losers": [
+   {
+    "name": "standingGroupIndex",
+    "file": "src/clock.cpp",
+    "line": 245,
+    "callers": [
+     "retarget@src/clock.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): isDigits@src/feat_options.cpp, castAllDigits@src/game_combat.cpp",
+  "keeper": {
+   "name": "isDigits",
+   "file": "src/feat_options.cpp",
+   "line": 44,
+   "verdict": "n/a",
+   "callers": [
+    "cmdOptions@src/feat_options.cpp",
+    "parseLevel@src/feat_options.cpp",
+    "parseMember@src/feat_options.cpp"
+   ],
+   "test_refs": 0
+  },
+  "losers": [
+   {
+    "name": "castAllDigits",
+    "file": "src/game_combat.cpp",
+    "line": 528,
+    "callers": [
+     "castFindSpell@src/game_combat.cpp",
+     "combatAction@src/game_combat.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): creationPointsLeft@src/game_setup.cpp, creationPool@src/attributes.cpp",
+  "keeper": {
+   "name": "creationPointsLeft",
+   "file": "src/game_setup.cpp",
+   "line": 98,
+   "verdict": "n/a",
+   "callers": [
+    "createCharacter@src/game_setup.cpp"
+   ],
+   "test_refs": 4
+  },
+  "losers": [
+   {
+    "name": "creationPool",
+    "file": "src/attributes.cpp",
+    "line": 102,
+    "callers": [
+     "creationPointsLeft@src/game_setup.cpp"
+    ],
+    "test_refs": 2,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): maxSpellPoints@src/casting2.cpp, naturalMaxSpellPoints@src/casting1_a.cpp",
+  "keeper": {
+   "name": "maxSpellPoints",
+   "file": "src/casting2.cpp",
+   "line": 66,
+   "verdict": "n/a",
+   "callers": [
+    "naturalMaxSpellPoints@src/casting1_a.cpp"
+   ],
+   "test_refs": 2
+  },
+  "losers": [
+   {
+    "name": "naturalMaxSpellPoints",
+    "file": "src/casting1_a.cpp",
+    "line": 252,
+    "callers": [
+     "recalcSpellPoints@src/casting1_a.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): swapSlotInRange@src/feat_swap.cpp, slotInRange@src/feat_uncurse.cpp",
+  "keeper": {
+   "name": "swapSlotInRange",
+   "file": "src/feat_swap.cpp",
+   "line": 15,
+   "verdict": "n/a",
+   "callers": [
+    "cmdCombine@src/feat_swap.cpp",
+    "cmdSwap@src/feat_swap.cpp"
+   ],
+   "test_refs": 0
+  },
+  "losers": [
+   {
+    "name": "slotInRange",
+    "file": "src/feat_uncurse.cpp",
+    "line": 25,
+    "callers": [
+     "cmdUncurse@src/feat_uncurse.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): chargePurse@src/items2b_2.cpp, chargeUncurseFee@src/feat_uncurse.cpp",
+  "keeper": {
+   "name": "chargePurse",
+   "file": "src/items2b_2.cpp",
+   "line": 46,
+   "verdict": "n/a",
+   "callers": [
+    "identifyItem@src/items2b_2.cpp"
+   ],
+   "test_refs": 4
+  },
+  "losers": [
+   {
+    "name": "chargeUncurseFee",
+    "file": "src/feat_uncurse.cpp",
+    "line": 54,
+    "callers": [
+     "cmdUncurse@src/feat_uncurse.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): monsterHasBit@src/combat1a.cpp, specialFlagBit@src/companions1b.cpp",
+  "keeper": {
+   "name": "monsterHasBit",
+   "file": "src/combat1a.cpp",
+   "line": 60,
+   "verdict": "n/a",
+   "callers": [
+    "weaponBlockedByNeedsGoodWeapon@src/combat1a.cpp",
+    "weaponNullifiedByImmunity@src/combat1a.cpp"
+   ],
+   "test_refs": 3
+  },
+  "losers": [
+   {
+    "name": "specialFlagBit",
+    "file": "src/companions1b.cpp",
+    "line": 17,
+    "callers": [
+     "monsterHasBit@src/combat1a.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): cellInState@src/dungeon1a.cpp, inMap@src/dungeon1a.cpp",
+  "keeper": {
+   "name": "cellInState",
+   "file": "src/dungeon1a.cpp",
+   "line": 87,
+   "verdict": "n/a",
+   "callers": [
+    "arrivalLostCheck@src/dungeon1a.cpp",
+    "classifyEdge@src/dungeon1a.cpp",
+    "mapRecordOnEntry@src/dungeon1a.cpp",
+    "markExplored@src/dungeon1a.cpp",
+    "recordDoorPassage@src/dungeon1a.cpp",
+    "recordFogWallBump@src/dungeon1a.cpp",
+    "rollSecretDoorsOnEntry@src/dungeon1a.cpp",
+    "squareIsFogged@src/dungeon1a.cpp",
+    "squareIsRock@src/dungeon1a.cpp"
+   ],
+   "test_refs": 0
+  },
+  "losers": [
+   {
+    "name": "inMap",
+    "file": "src/dungeon1a.cpp",
+    "line": 83,
+    "callers": [
+     "cellInState@src/dungeon1a.cpp",
+     "mapRecordOnEntry@src/dungeon1a.cpp",
+     "stepLeavesMap@src/dungeon1a.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): joinFrom@src/feat_library.cpp, glJoinArgs@src/feat_guildlog.cpp",
+  "keeper": {
+   "name": "joinFrom",
+   "file": "src/feat_library.cpp",
+   "line": 63,
+   "verdict": "n/a",
+   "callers": [
+    "cmdLibrary@src/feat_library.cpp"
+   ],
+   "test_refs": 0
+  },
+  "losers": [
+   {
+    "name": "glJoinArgs",
+    "file": "src/feat_guildlog.cpp",
+    "line": 135,
+    "callers": [
+     "cmdGuildlog@src/feat_guildlog.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": null,
+  "group": null,
+  "rule": "identical helpers (two ants agreed: same results for all inputs): recalcSpellPoints@src/guilds1_a.cpp, recalcSpellPoints@src/casting1_a.cpp",
+  "keeper": {
+   "name": "recalcSpellPoints",
+   "file": "src/guilds1_a.cpp",
+   "line": 226,
+   "verdict": "n/a",
+   "callers": [
+    "createCharacter@src/game_setup.cpp",
+    "joinGuild@src/guilds1_a.cpp"
+   ],
+   "test_refs": 0
+  },
+  "losers": [
+   {
+    "name": "recalcSpellPoints",
+    "file": "src/casting1_a.cpp",
+    "line": 252,
+    "callers": [
+     "createCharacter@src/game_setup.cpp",
+     "joinGuild@src/guilds1_a.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REDIRECT",
+    "phase": 1
+   }
+  ]
+ }
+]
