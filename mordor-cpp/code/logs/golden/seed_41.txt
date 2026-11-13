@@ -1,8 +1,8 @@
 MORDOR: The Depths of Dejenol (rules core demo)  seed 41
-[1] Aldric, Human, Warrior level 1, HP 15/15, SP 80/80, xp 0, gold 739.0328
-[2] Lyra, Elf, Mage level 1, HP 15/15, SP 125/125, xp 0, gold 261.7996
-[3] Borin, Osiri, Thief level 1, HP 15/15, SP 110/110, xp 0, gold 493.4940
-[4] Thessa, Osiri, Healer level 1, HP 15/15, SP 145/145, xp 0, gold 666.9975
+[1] Aldric, Human, Warrior level 1, HP 15/15, SP 80/80, xp 0, gold 1240.0000
+[2] Lyra, Elf, Mage level 1, HP 15/15, SP 125/125, xp 0, gold 1175.0000
+[3] Borin, Osiri, Thief level 1, HP 15/15, SP 110/110, xp 0, gold 1240.0000
+[4] Thessa, Osiri, Healer level 1, HP 15/15, SP 145/145, xp 0, gold 1240.0000
 
 
 [bot] > rest
@@ -2045,8 +2045,8 @@ You search the square.
 [bot] > forward
 Ouch! A wall blocks the way.
 
-[1] Aldric, Human, Warrior level 1, HP 14/15, SP 80/80, xp 241, gold 6355.6970
-[2] Lyra, Elf, Mage level 1, HP 15/15, SP 125/125, xp 54, gold 5878.4604
-[3] Borin, Osiri, Thief level 1, HP 15/15, SP 110/110, xp 122, gold 6110.1548
-[4] Thessa, Osiri, Healer level 1, HP 15/15, SP 145/145, xp 47, gold 6283.6583
+[1] Aldric, Human, Warrior level 1, HP 14/15, SP 80/80, xp 241, gold 6856.6642
+[2] Lyra, Elf, Mage level 1, HP 15/15, SP 125/125, xp 54, gold 6791.6608
+[3] Borin, Osiri, Thief level 1, HP 15/15, SP 110/110, xp 122, gold 6856.6608
+[4] Thessa, Osiri, Healer level 1, HP 15/15, SP 145/145, xp 47, gold 6856.6608
 

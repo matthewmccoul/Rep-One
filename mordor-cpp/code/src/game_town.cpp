@@ -164,7 +164,7 @@ void doGuildList(Ctx& ctx, const Party& party, Str& reply) {
                 line += ": level " + toStr(m.level) + ", xp needed " + toStr(need) +
                         ", gold for next level " + toStr(goldForNextLevel(ch, gu));
             } else {
-                line += ": not joined, join cost " + toStr(guildJoinCost(gu));
+                line += ": not joined, join cost " + toStr(guildJoinCost(ctx.data.guilds[static_cast<u32>(gu)], ch) / kCurrencyScale);
             }
             note(ctx, reply, "town.guilds", line);
         }
@@ -214,7 +214,7 @@ void doJoin(Ctx& ctx, Session& s, i32 idx, Guild g, Str& reply) {
         note(ctx, reply, "town.join", ch.name + " joined " + guildName(g) + ".");
     } else {
         note(ctx, reply, "town.join",
-             "Join refused for " + ch.name + " (join cost " + toStr(guildJoinCost(g)) +
+             "Join refused for " + ch.name + " (join cost " + toStr(guildJoinCost(s.data.guilds[static_cast<u32>(g)], ch) / kCurrencyScale) +
                  "; not enough gold or not eligible).");
     }
 }

@@ -62,9 +62,11 @@ bool joinGuild(Ctx& ctx, GameState& game, Character& character, Inventory& inven
     // R13.3: cost = GuildJoinCost(def) if the character already belongs to another guild, else 0.
     // RESOLVED-BY-REFERENCE: GuildHall.cs:104 JoinQuestion: "Priced whenever you already belong to a
     // guild other than the current one, even at a price of nought; asked plainly otherwise".
+    // Priced only when the character belongs to a guild other than its CURRENT one (Mordor.Core
+    // CityWindow.JoinVisitedGuild; the real game lets a Nomad-only character join a first guild free).
     bool belongsElsewhere = false;
     for (i32 i = 0; i < kGuildCount; ++i) {
-        if (static_cast<u32>(i) != g && character.guilds[static_cast<u32>(i)].joined) {
+        if (i != static_cast<i32>(character.activeGuild) && character.guilds[static_cast<u32>(i)].joined) {
             belongsElsewhere = true;
         }
     }
@@ -158,7 +160,8 @@ Currency guildJoinCost(const GuildDef& guildDef, const Character& character) {
             sum += round4(static_cast<f64>(m) / kJoinSpellDivisor);
         }
     }
-    return roundHalfEven(sum * sum * static_cast<f64>(kJoinCostFactor));
+    // Whole gold (the real game asks 8,216,267 for the Seeker guild, as Mordor.Core computes), held as Currency.
+    return static_cast<Currency>(roundHalfEven(sum * sum * static_cast<f64>(kJoinCostFactor))) * kCurrencyScale;
 }
 
 // R13.4: returns true when no worn item is cursed (refusal when cursed gear is worn).

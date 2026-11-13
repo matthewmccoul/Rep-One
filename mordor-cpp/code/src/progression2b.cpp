@@ -61,26 +61,5 @@ constexpr i32 kOtherPastMaxHits = 2;
 
 }  // namespace
 
-// T13: guild join cost, whole gold table [c104].
-// UNKNOWN: archive values depend on ability and spell inputs ("each non-zero guild
-// ability", "spell class maximum level") that the SRD does not define; table used as given.
-Currency guildJoinCost(Guild guild) {
-    i64 gold = 0;
-    switch (guild) {
-        case Guild::Nomad:     gold = 1695394; break;
-        case Guild::Warrior:   gold = 5009672; break;
-        case Guild::Paladin:   gold = 3214939; break;
-        case Guild::Ninja:     gold = 10886091; break;
-        case Guild::Villain:   gold = 6191500; break;
-        case Guild::Seeker:    gold = 8216267; break;
-        case Guild::Thief:     gold = 7465060; break;
-        case Guild::Scavenger: gold = 4569336; break;
-        case Guild::Mage:      gold = 9132004; break;
-        case Guild::Sorcerer:  gold = 8587434; break;
-        case Guild::Wizard:    gold = 9317113; break;
-        case Guild::Healer:    gold = 5730025; break;
-    }
-    return gold * kCurrencyScale;
-}
 
 }  // namespace mordor
