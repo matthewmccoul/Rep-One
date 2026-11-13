@@ -9,7 +9,8 @@
 
 ## Two forks
 1. PRUNE fork (now): the uploaded mordor-cpp-demo, duplicates trimmed to one copy each, Mordor.Core + real game as references. Tree: prune/code (git, one commit per group).
-2. TRANSLATION fork (after pruning): a C++ translation of Mordor.Core, one C++ function per Core method, verified against Core by the differential harness and against the real game where testable; then the pruned game layer re-wired onto it.
+2. TRANSLATION fork (after pruning): a NEW, SEPARATE C++ translation of Mordor.Core, one C++ function per Core method, verified against Core by the differential harness and against the real game where testable. It does not replace or modify the pruned version, which is kept as its own version permanently.
+- Prune scope: duplicates only. Unique functions stay, including the ones the game never runs.
 
 ## Tools in this scratchpad
 - prune/: inventory, piles, evidence ants, plan.json, surgery.py, gate.py (build exit status + both suites + 4 golden transcripts).

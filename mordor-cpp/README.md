@@ -16,10 +16,10 @@ A C++ implementation of Mordor's rules (the 1995 game, *Mordor: The Depths of De
 - If Mordor.Core and the real game disagree, nothing is chosen; the case goes in a report.
 - If a rule cannot be tested in the real game, it is reported as "Core result only".
 
-## Stages
+## Two forks
 
-1. **Prune** (in progress): cut duplicate copies of each rule down to one.
-2. **Translation** (next): a C++ translation of Mordor.Core, one function per Core method, checked against Core and the real game.
+1. **Our version, pruned** (in progress, `code/`). This is kept permanently as its own version. Only duplicate copies are cut, down to one each. Nothing unique is removed, including rules the game does not run yet.
+2. **Translation of Mordor.Core** (after the prune). A new, separate codebase: one C++ function per Core method, checked against Core and against the real game where the real game can test it. It does not replace or modify fork 1.
 
 ## Layout
 
