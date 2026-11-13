@@ -211,11 +211,8 @@ bool castBlockedInTown(bool inTown) {
 
 // [c106] SL = floor(guild_level/2 + 0.5), min 1, max 255. Matches T-14.
 i32 spellLevelFromGuildLevel(i32 guildLevel) {
-    // CONFLICT: same signature is declared in casting3.h; keep one definition project-wide.
-    i32 sl = guildHalfLevelRounded(guildLevel);
-    if (sl < 1) sl = 1;
-    if (sl > kSpellLevelCap) sl = kSpellLevelCap;
-    return sl;
+    // R21: delegate to the project-wide keeper guildSpellLevel (src/casting1_a.cpp).
+    return guildSpellLevel(guildLevel);
 }
 
 // [c1] round_even(spell.Level * rate)
