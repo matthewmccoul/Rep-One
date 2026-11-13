@@ -6,6 +6,7 @@
 #include "mordor/state_common.h"
 #include "mordor/types.h"
 #include "mordor/items1b.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 
@@ -48,14 +49,6 @@ bool bufferParseInt(const Str& t, i32& out) {
   return true;
 }
 
-Str bufferJoin(const Vec<Str>& w, size_t from) {
-  Str out;
-  for (size_t i = from; i < w.size(); ++i) {
-    if (i > from) out += ' ';
-    out += w[i];
-  }
-  return out;
-}
 
 bool bufferIsItem(i32 b) { return b >= 0 && b < kPackSlots; }
 i32 bufferSpellIndex(i32 b) { return b - kPackSlots; }
@@ -182,7 +175,7 @@ bool bufferCommand(Session& s, const Vec<Str>& w, Str& reply) {
     reply = "Slot must be 1 to 4.";
     return true;
   }
-  const Str spellName = bufferJoin(w, first + 2);
+  const Str spellName = seerJoinWords(w, first + 2);
   if (spellName.empty()) {
     reply = kBufferUsage;
     return true;

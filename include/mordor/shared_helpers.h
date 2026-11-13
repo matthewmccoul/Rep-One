@@ -2,6 +2,8 @@
 // One shared copy of helpers that several modules had each written for themselves.
 #include "mordor/types.h"
 #include "mordor/game_data.h"
+#include "mordor/access.h"
+#include "mordor/features.h"
 #include "mordor/state_dungeon.h"
 #include "mordor/state_creature.h"
 #include "mordor/state_companion.h"
@@ -13,4 +15,5 @@
 
 namespace mordor {
 u32 uidx(i32 i);
+Str seerJoinWords(const Vec<Str>& w, size_t from);
 }  // namespace mordor

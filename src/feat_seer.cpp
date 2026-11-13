@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <string>
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 namespace {
@@ -109,15 +110,6 @@ Vec<Str> seerMemberNames(const Session& s) {
   return out;
 }
 
-// Words after the subcommand, joined with single spaces (names may be typed in several words).
-Str seerJoinWords(const Vec<Str>& w, size_t from) {
-  Str out;
-  for (size_t i = from; i < w.size(); ++i) {
-    if (i > from) out += ' ';
-    out += w[i];
-  }
-  return out;
-}
 
 // Pending offer bookkeeping.
 bool seerHasPending(const Session& s) {

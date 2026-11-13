@@ -3,6 +3,7 @@
 #include "mordor/features.h"
 #include "mordor/casting1.h"
 #include "mordor/access.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 namespace {
@@ -82,15 +83,6 @@ i32 dcastParseMember(const Str& word) {
   return n;
 }
 
-// Words from index `from` joined with single spaces (spell name or id).
-Str dcastJoin(const Vec<Str>& w, size_t from) {
-  Str out;
-  for (size_t i = from; i < w.size(); ++i) {
-    if (i > from) out += ' ';
-    out += w[i];
-  }
-  return out;
-}
 
 // Depth Perception (reference effect 12): the level the party stands on. Applied.
 bool dcastDepth(Ctx& ctx, const Party& party, const Str& casterName, const Str& spellName, Str& note) {
@@ -130,7 +122,7 @@ bool dcastRun(Session& s, const Vec<Str>& w, Str& reply) {
     reply = "Cast for which party member? Give a party number.";
     return true;
   }
-  const Str spellName = dcastJoin(w, 2);
+  const Str spellName = seerJoinWords(w, 2);
   const SpellDef* spell = accSpellByName(s, spellName);
   if (spell == nullptr) {
     reply = "No spell called " + spellName + ".";
