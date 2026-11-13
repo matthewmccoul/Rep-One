@@ -221,25 +221,4 @@ CompanionPriceBand companionPriceBand(i32 level) {
     return kCompanionPriceBands[idx];
 }
 
-// CONFLICT: drawRoundedIndex is also declared in city1.h (as roundedIndex) and in
-// city3a.h with the same signature. Defined once, here, because city2b.h declares it.
-// UNKNOWN: rounding rule not stated in SRD chunks. Chosen: round_half_even of
-// rnd * (n - 1), giving an index in 0..n-1 from ctx.rng only.
-// SRD quirk "Rounded index bias": index = VB Int-style rounding of Rnd * n.
-// 0 and n each get half weight, so an index equal to n matches nothing and is retried.
-// Uses ctx.rng.nextDouble() directly, per the RNG convention.
-i32 drawRoundedIndex(Ctx& ctx, i32 n) {
-    if (n <= 1) {
-        return 0;
-    }
-    for (;;) {
-        double r = ctx.rng.nextDouble() * static_cast<double>(n);
-        i64 idx = roundHalfEven(r);
-        if (idx < static_cast<i64>(n)) {
-            return static_cast<i32>(idx);
-        }
-        // Index equal to n: retry (SRD quirk, no clamp).
-    }
-}
-
 }  // namespace mordor

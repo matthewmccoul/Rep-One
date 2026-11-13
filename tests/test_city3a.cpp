@@ -1,4 +1,5 @@
 #include "test_support.h"
+#include "mordor/city1.h"
 #include "mordor/city3a.h"
 
 using namespace mordor;
@@ -21,13 +22,13 @@ TEST(deepest_stocked_floor_stops_short_of_bottom_floor) {
 // Rounded index bias: index 0 covers only the lower half-band.
 TEST(rounded_index_low_draw_gives_zero) {
     tsup::Env env({0.04, 0.9});
-    CHECK_EQ(drawRoundedIndex(env.ctx, 10), 0);
+    CHECK_EQ(roundedIndex(env.ctx, 10), 0);
 }
 
 TEST(rounded_index_band_of_one) {
     // 0.1 * 10 = 1.0 rounds to 1.
     tsup::Env env({0.1, 0.9});
-    CHECK_EQ(drawRoundedIndex(env.ctx, 10), 1);
+    CHECK_EQ(roundedIndex(env.ctx, 10), 1);
 }
 
 // Index n matches nothing and is retried.
@@ -35,7 +36,7 @@ TEST(rounded_index_retries_when_index_equals_n) {
     // 0.96 * 10 = 9.6 rounds to 10 == n, so it is retried.
     // 0.21 * 10 = 2.1 rounds to 2.
     tsup::Env env({0.96, 0.21});
-    CHECK_EQ(drawRoundedIndex(env.ctx, 10), 2);
+    CHECK_EQ(roundedIndex(env.ctx, 10), 2);
 }
 
 // Empty pen gives price 0 (original Log(0) trap reproduced).

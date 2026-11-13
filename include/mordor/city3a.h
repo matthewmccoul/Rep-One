@@ -54,7 +54,7 @@ enum class SightingPlaceKind : i32 {
 
 // Rounded index bias: VB Round of Rnd*n, so index 0 comes up half as often.
 // Index n matches nothing and is retried internally; returns 0..n-1. Used by store and pens.
-i32 drawRoundedIndex(Ctx& ctx, i32 n);
+
 
 // ---- Companion pens (R12, R16, quirks) ----
 

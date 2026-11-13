@@ -169,6 +169,6 @@ CompanionPriceBand companionPriceBand(i32 level);
 // ---- rounded index draw ----
 // Terms: rounded index = round_half_even(Rnd * n). Result in 0..n; index n matches nothing,
 // index 0 is half as likely. Consumes one ctx.rng.nextDouble().
-i32 drawRoundedIndex(Ctx& ctx, i32 n);
+
 
 }  // namespace mordor
