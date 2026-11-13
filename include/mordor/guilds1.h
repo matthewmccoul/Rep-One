@@ -151,7 +151,6 @@ bool allowsAlignment(const GuildDef& guildDef, Align align);
 // R15 raceIndex < 0 or absent from RaceData is allowed; else RaceMask bit test
 bool allowsRace(const GuildDef& guildDef, i32 raceIndex);
 // R13.7 recalculates SpellPoints; refills when refill is true
-void recalcSpellPoints(Ctx& ctx, Character& character, bool refill);
 // R8 / R13.7 appends a log entry stamped with game.today
 // FIXED: GuildLogKind is declared nowhere in the API INDEX or state headers; using plain i32 for the kind
 void addGuildLog(Ctx& ctx, GameState& game, Guild guild, i32 kind, Str text);
