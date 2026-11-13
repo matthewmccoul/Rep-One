@@ -17,7 +17,8 @@ for k in pick:
     if any(not (lo <= a[f"s{i}"] <= hi) for i, (lo, hi) in enumerate(HUMAN)): r["real"] = "UNREACHABLE: stat outside the Human range"
     else:
         g.set({**{f"Stats({i})": a[f"s{i}"] for i in range(6)}, "Pack(1).Ref": ref[a["id"]], "Pack(1).Id": a["id"], "Pack(1).Alignment": 2,
-               "Pack(1).Charges": 0, "Pack(1).Equipped": 0, "Pack(1).IdLevel": 3, "Pack(1).Cursed": 0})
+               "Pack(1).Charges": 0, "Pack(1).Equipped": 0, "Pack(1).IdLevel": 3, "Pack(1).Cursed": 0,
+               **{f"M586D({i})": 0 for i in range(36)}, "M5700": 0})   # running worn-per-class and hands-used counts: a fresh character's
         g.load_and_run(); before = g.messages(f"eqc{k}_a"); g.equip_slot(2); after = g.messages(f"eqc{k}_b")
         if crashed(g): r["real"] = "CRASH"; start(g)
         else:

@@ -2,7 +2,7 @@
 import asyncio, json, os, re, subprocess, sys, collections
 S, H = sys.argv[1:3]; sys.path.insert(0, f"{S}/ants2/scripts"); from army import run_all
 sel = sys.argv[3] if len(sys.argv) > 3 else "all"; rounds = int(sys.argv[4]) if len(sys.argv) > 4 else 3
-tasks = {t["id"]: t for t in json.load(open(f"{H}/tasks.json"))}; man = json.load(open(f"{H}/manifest.json"))
+SFX = os.environ.get("SFX", ""); tasks = {t["id"]: t for t in json.load(open(f"{H}/tasks{SFX}.json"))}; man = json.load(open(f"{H}/manifest{SFX}.json"))
 gids = list(tasks) if sel == "all" else sel.split(",")
 FILE = re.compile(r"=== FILE: (\S+) ===\n(.*?)\n=== END FILE ===", re.S)
 def strip_fence(b): b = re.sub(r"^```[a-zA-Z+#]*\n", "", b); return re.sub(r"\n```\s*$", "", b)
@@ -19,7 +19,7 @@ def compare(g):
         elif len(r[2]) < 3: r[2].append(f"case {k}: core {cv} | c++ {v}")
     excs = sum(1 for v in core.values() if v.startswith("EXC:"))
     return {n: {"match": a, "of": b, "examples": ex} for n, (a, b, ex) in res.items()}, len(core), excs
-state_f = f"{H}/state.json"; state = json.load(open(state_f)) if os.path.exists(state_f) else {}
+state_f = f"{H}/state{SFX}.json"; state = json.load(open(state_f)) if os.path.exists(state_f) else {}
 pending = [g for g in gids if state.get(g, {}).get("status") not in ("DONE", "NO_REFERENCE")]
 START = int(os.environ.get('START_ROUND', '1'))
 for rnd in range(START, START + rounds):
@@ -31,6 +31,18 @@ for rnd in range(START, START + rounds):
         batch.append(t)
     asyncio.run(run_all(batch, f"{H}/harness.log.jsonl", 5))
     nxt = []
+    import concurrent.futures as _cf
+    def _build(gid):
+        g = f"{H}/groups/{gid}"; p = f"{g}/ant_r{rnd}.md"
+        if not os.path.exists(p): return gid, None
+        out = open(p).read()
+        if "NO_REFERENCE" in out and "=== FILE" not in out: return gid, None
+        files = {k: strip_fence(v) for k, v in FILE.findall(out)}
+        if not all(k in files for k in ("cases.json", "Case.cs", "case.cpp")) or any("/" in k or ".." in k for k in files): return gid, None
+        for k, v in files.items(): open(f"{g}/{k}", "w").write(v + "\n")
+        try: return gid, subprocess.run([f"{H}/scripts/run_group.sh", g], capture_output=True, text=True, timeout=600).stdout.strip()
+        except subprocess.TimeoutExpired: return gid, "TIMEOUT"
+    with _cf.ThreadPoolExecutor(int(os.environ.get("BUILDS", "4"))) as ex: prebuilt = dict(ex.map(_build, pending))
     for gid in pending:
         g = f"{H}/groups/{gid}"; p = f"{g}/ant_r{rnd}.md"
         if not os.path.exists(p): nxt.append(gid); continue
@@ -40,7 +52,7 @@ for rnd in range(START, START + rounds):
         if not all(k in files for k in ("cases.json", "Case.cs", "case.cpp")) or any("/" in k or ".." in k for k in files):
             state[gid] = {"status": "BAD_OUTPUT", "problem": "Missing one of the three file blocks.", "prev": out[:6000]}; nxt.append(gid); continue
         for k, v in files.items(): open(f"{g}/{k}", "w").write(v + "\n")
-        r = subprocess.run([f"{H}/scripts/run_group.sh", g], capture_output=True, text=True, timeout=1200).stdout.strip()
+        r = prebuilt.get(gid) or "NOT_BUILT"
         if r != "OK":
             log = ""
             for lf in ("cs_build.log", "cpp_build.log", "core_err.log", "cpp_err.log"):

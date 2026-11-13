@@ -1,0 +1,688 @@
+{
+ "0": {
+  "case": 0,
+  "args": {
+   "id": 13,
+   "s0": 4,
+   "s1": 4,
+   "s2": 4,
+   "s3": 6,
+   "s4": 5,
+   "s5": 6
+  },
+  "core_action": "Your guild level is too low to use item!",
+  "core_fn": "Your guild level is too low to use item!",
+  "cpp_fn": "Your guild level is too low to use item!",
+  "real": "Your guild level is too low to use item!",
+  "equipped_after": "0",
+  "match": true
+ },
+ "1": {
+  "case": 1,
+  "args": {
+   "id": 13,
+   "s0": 10,
+   "s1": 10,
+   "s2": 10,
+   "s3": 10,
+   "s4": 10,
+   "s5": 10
+  },
+  "core_action": "Your guild level is too low to use item!",
+  "core_fn": "Your guild level is too low to use item!",
+  "cpp_fn": "Your guild level is too low to use item!",
+  "real": "Your guild level is too low to use item!",
+  "equipped_after": "0",
+  "match": true
+ },
+ "2": {
+  "case": 2,
+  "args": {
+   "id": 13,
+   "s0": 17,
+   "s1": 18,
+   "s2": 18,
+   "s3": 17,
+   "s4": 18,
+   "s5": 18
+  },
+  "core_action": "Your guild level is too low to use item!",
+  "core_fn": "Your guild level is too low to use item!",
+  "cpp_fn": "Your guild level is too low to use item!",
+  "real": "Your guild level is too low to use item!",
+  "equipped_after": "0",
+  "match": true
+ },
+ "3": {
+  "case": 3,
+  "args": {
+   "id": 20,
+   "s0": 4,
+   "s1": 4,
+   "s2": 4,
+   "s3": 6,
+   "s4": 5,
+   "s5": 6
+  },
+  "core_action": "Your guild level is too low to use item!",
+  "core_fn": "Your guild level is too low to use item!",
+  "cpp_fn": "Your guild level is too low to use item!",
+  "real": "Your guild level is too low to use item!",
+  "equipped_after": "0",
+  "match": true
+ },
+ "4": {
+  "case": 4,
+  "args": {
+   "id": 20,
+   "s0": 10,
+   "s1": 10,
+   "s2": 10,
+   "s3": 10,
+   "s4": 10,
+   "s5": 10
+  },
+  "core_action": "Your guild level is too low to use item!",
+  "core_fn": "Your guild level is too low to use item!",
+  "cpp_fn": "Your guild level is too low to use item!",
+  "real": "Your guild level is too low to use item!",
+  "equipped_after": "0",
+  "match": true
+ },
+ "5": {
+  "case": 5,
+  "args": {
+   "id": 20,
+   "s0": 17,
+   "s1": 18,
+   "s2": 18,
+   "s3": 17,
+   "s4": 18,
+   "s5": 18
+  },
+  "core_action": "Your guild level is too low to use item!",
+  "core_fn": "Your guild level is too low to use item!",
+  "cpp_fn": "Your guild level is too low to use item!",
+  "real": "Your guild level is too low to use item!",
+  "equipped_after": "0",
+  "match": true
+ },
+ "6": {
+  "case": 6,
+  "args": {
+   "id": 33,
+   "s0": 4,
+   "s1": 4,
+   "s2": 4,
+   "s3": 6,
+   "s4": 5,
+   "s5": 6
+  },
+  "core_action": "All guild levels too low to use item!",
+  "core_fn": "All guild levels too low to use item!",
+  "cpp_fn": "All guild levels too low to use item!",
+  "real": "(silent, not equipped)",
+  "equipped_after": "0",
+  "match": false
+ },
+ "7": {
+  "case": 7,
+  "args": {
+   "id": 33,
+   "s0": 10,
+   "s1": 10,
+   "s2": 10,
+   "s3": 10,
+   "s4": 10,
+   "s5": 10
+  },
+  "core_action": "All guild levels too low to use item!",
+  "core_fn": "All guild levels too low to use item!",
+  "cpp_fn": "All guild levels too low to use item!",
+  "real": "CRASH"
+ },
+ "8": {
+  "case": 8,
+  "args": {
+   "id": 33,
+   "s0": 17,
+   "s1": 18,
+   "s2": 18,
+   "s3": 17,
+   "s4": 18,
+   "s5": 18
+  },
+  "core_action": "All guild levels too low to use item!",
+  "core_fn": "All guild levels too low to use item!",
+  "cpp_fn": "All guild levels too low to use item!",
+  "real": "All guild levels too low to use item!",
+  "equipped_after": "0",
+  "match": true
+ },
+ "9": {
+  "case": 9,
+  "args": {
+   "id": 50,
+   "s0": 4,
+   "s1": 4,
+   "s2": 4,
+   "s3": 6,
+   "s4": 5,
+   "s5": 6
+  },
+  "core_action": "Your guild level is too low to use item!",
+  "core_fn": "Your guild level is too low to use item!",
+  "cpp_fn": "Your guild level is too low to use item!",
+  "real": "Your guild level is too low to use item!",
+  "equipped_after": "0",
+  "match": true
+ },
+ "10": {
+  "case": 10,
+  "args": {
+   "id": 50,
+   "s0": 10,
+   "s1": 10,
+   "s2": 10,
+   "s3": 10,
+   "s4": 10,
+   "s5": 10
+  },
+  "core_action": "Your guild level is too low to use item!",
+  "core_fn": "Your guild level is too low to use item!",
+  "cpp_fn": "Your guild level is too low to use item!",
+  "real": "(silent, not equipped)",
+  "equipped_after": "0",
+  "match": false
+ },
+ "11": {
+  "case": 11,
+  "args": {
+   "id": 50,
+   "s0": 17,
+   "s1": 18,
+   "s2": 18,
+   "s3": 17,
+   "s4": 18,
+   "s5": 18
+  },
+  "core_action": "Your guild level is too low to use item!",
+  "core_fn": "Your guild level is too low to use item!",
+  "cpp_fn": "Your guild level is too low to use item!",
+  "real": "CRASH"
+ },
+ "12": {
+  "case": 12,
+  "args": {
+   "id": 100,
+   "s0": 4,
+   "s1": 4,
+   "s2": 4,
+   "s3": 6,
+   "s4": 5,
+   "s5": 6
+  },
+  "core_action": "Your guild level is too low to use item!",
+  "core_fn": "Your guild level is too low to use item!",
+  "cpp_fn": "Your guild level is too low to use item!",
+  "real": "Your guild level is too low to use item!",
+  "equipped_after": "0",
+  "match": true
+ },
+ "13": {
+  "case": 13,
+  "args": {
+   "id": 100,
+   "s0": 10,
+   "s1": 10,
+   "s2": 10,
+   "s3": 10,
+   "s4": 10,
+   "s5": 10
+  },
+  "core_action": "Your guild level is too low to use item!",
+  "core_fn": "Your guild level is too low to use item!",
+  "cpp_fn": "Your guild level is too low to use item!",
+  "real": "Your guild level is too low to use item!",
+  "equipped_after": "0",
+  "match": true
+ },
+ "14": {
+  "case": 14,
+  "args": {
+   "id": 100,
+   "s0": 17,
+   "s1": 18,
+   "s2": 18,
+   "s3": 17,
+   "s4": 18,
+   "s5": 18
+  },
+  "core_action": "Your guild level is too low to use item!",
+  "core_fn": "Your guild level is too low to use item!",
+  "cpp_fn": "Your guild level is too low to use item!",
+  "real": "(silent, not equipped)",
+  "equipped_after": "0",
+  "match": false
+ },
+ "15": {
+  "case": 15,
+  "args": {
+   "id": 150,
+   "s0": 4,
+   "s1": 4,
+   "s2": 4,
+   "s3": 6,
+   "s4": 5,
+   "s5": 6
+  },
+  "core_action": "All guild levels too low to use item!",
+  "core_fn": "All guild levels too low to use item!",
+  "cpp_fn": "All guild levels too low to use item!",
+  "real": "CRASH"
+ },
+ "16": {
+  "case": 16,
+  "args": {
+   "id": 150,
+   "s0": 10,
+   "s1": 10,
+   "s2": 10,
+   "s3": 10,
+   "s4": 10,
+   "s5": 10
+  },
+  "core_action": "All guild levels too low to use item!",
+  "core_fn": "All guild levels too low to use item!",
+  "cpp_fn": "All guild levels too low to use item!",
+  "real": "All guild levels too low to use item!",
+  "equipped_after": "0",
+  "match": true
+ },
+ "17": {
+  "case": 17,
+  "args": {
+   "id": 150,
+   "s0": 17,
+   "s1": 18,
+   "s2": 18,
+   "s3": 17,
+   "s4": 18,
+   "s5": 18
+  },
+  "core_action": "All guild levels too low to use item!",
+  "core_fn": "All guild levels too low to use item!",
+  "cpp_fn": "All guild levels too low to use item!",
+  "real": "All guild levels too low to use item!",
+  "equipped_after": "0",
+  "match": true
+ },
+ "18": {
+  "case": 18,
+  "args": {
+   "id": 175,
+   "s0": 4,
+   "s1": 4,
+   "s2": 4,
+   "s3": 6,
+   "s4": 5,
+   "s5": 6
+  },
+  "core_action": "(silent, not equipped)",
+  "core_fn": "null",
+  "cpp_fn": "null",
+  "real": "(silent, not equipped)",
+  "equipped_after": "0",
+  "match": true
+ },
+ "19": {
+  "case": 19,
+  "args": {
+   "id": 175,
+   "s0": 10,
+   "s1": 10,
+   "s2": 10,
+   "s3": 10,
+   "s4": 10,
+   "s5": 10
+  },
+  "core_action": "(silent, not equipped)",
+  "core_fn": "null",
+  "cpp_fn": "null",
+  "real": "CRASH"
+ },
+ "20": {
+  "case": 20,
+  "args": {
+   "id": 175,
+   "s0": 17,
+   "s1": 18,
+   "s2": 18,
+   "s3": 17,
+   "s4": 18,
+   "s5": 18
+  },
+  "core_action": "(silent, not equipped)",
+  "core_fn": "null",
+  "cpp_fn": "null",
+  "real": "(silent, not equipped)",
+  "equipped_after": "0",
+  "match": true
+ },
+ "21": {
+  "case": 21,
+  "args": {
+   "id": 200,
+   "s0": 4,
+   "s1": 4,
+   "s2": 4,
+   "s3": 6,
+   "s4": 5,
+   "s5": 6
+  },
+  "core_action": "(silent, not equipped)",
+  "core_fn": "All guild levels too low to use item!",
+  "cpp_fn": "All guild levels too low to use item!",
+  "real": "(silent, not equipped)",
+  "equipped_after": "0",
+  "match": true
+ },
+ "22": {
+  "case": 22,
+  "args": {
+   "id": 200,
+   "s0": 10,
+   "s1": 10,
+   "s2": 10,
+   "s3": 10,
+   "s4": 10,
+   "s5": 10
+  },
+  "core_action": "(silent, not equipped)",
+  "core_fn": "All guild levels too low to use item!",
+  "cpp_fn": "All guild levels too low to use item!",
+  "real": "(silent, not equipped)",
+  "equipped_after": "0",
+  "match": true
+ },
+ "23": {
+  "case": 23,
+  "args": {
+   "id": 200,
+   "s0": 17,
+   "s1": 18,
+   "s2": 18,
+   "s3": 17,
+   "s4": 18,
+   "s5": 18
+  },
+  "core_action": "(silent, not equipped)",
+  "core_fn": "All guild levels too low to use item!",
+  "cpp_fn": "All guild levels too low to use item!",
+  "real": "CRASH"
+ },
+ "24": {
+  "case": 24,
+  "args": {
+   "id": 225,
+   "s0": 4,
+   "s1": 4,
+   "s2": 4,
+   "s3": 6,
+   "s4": 5,
+   "s5": 6
+  },
+  "core_action": "(silent, not equipped)",
+  "core_fn": "Your currently joined guilds cannot use this item!",
+  "cpp_fn": "Your currently joined guilds cannot use this item!",
+  "real": "(silent, not equipped)",
+  "equipped_after": "0",
+  "match": true
+ },
+ "25": {
+  "case": 25,
+  "args": {
+   "id": 225,
+   "s0": 10,
+   "s1": 10,
+   "s2": 10,
+   "s3": 10,
+   "s4": 10,
+   "s5": 10
+  },
+  "core_action": "(silent, not equipped)",
+  "core_fn": "Your currently joined guilds cannot use this item!",
+  "cpp_fn": "Your currently joined guilds cannot use this item!",
+  "real": "(silent, not equipped)",
+  "equipped_after": "0",
+  "match": true
+ },
+ "26": {
+  "case": 26,
+  "args": {
+   "id": 225,
+   "s0": 17,
+   "s1": 18,
+   "s2": 18,
+   "s3": 17,
+   "s4": 18,
+   "s5": 18
+  },
+  "core_action": "(silent, not equipped)",
+  "core_fn": "Your currently joined guilds cannot use this item!",
+  "cpp_fn": "Your currently joined guilds cannot use this item!",
+  "real": "(silent, not equipped)",
+  "equipped_after": "0",
+  "match": true
+ },
+ "27": {
+  "case": 27,
+  "args": {
+   "id": 250,
+   "s0": 4,
+   "s1": 4,
+   "s2": 4,
+   "s3": 6,
+   "s4": 5,
+   "s5": 6
+  },
+  "core_action": "(silent, not equipped)",
+  "core_fn": "Your currently joined guilds cannot use this item!",
+  "cpp_fn": "Your currently joined guilds cannot use this item!",
+  "real": "CRASH"
+ },
+ "28": {
+  "case": 28,
+  "args": {
+   "id": 250,
+   "s0": 10,
+   "s1": 10,
+   "s2": 10,
+   "s3": 10,
+   "s4": 10,
+   "s5": 10
+  },
+  "core_action": "(silent, not equipped)",
+  "core_fn": "Your currently joined guilds cannot use this item!",
+  "cpp_fn": "Your currently joined guilds cannot use this item!",
+  "real": "(silent, not equipped)",
+  "equipped_after": "0",
+  "match": true
+ },
+ "29": {
+  "case": 29,
+  "args": {
+   "id": 250,
+   "s0": 17,
+   "s1": 18,
+   "s2": 18,
+   "s3": 17,
+   "s4": 18,
+   "s5": 18
+  },
+  "core_action": "(silent, not equipped)",
+  "core_fn": "Your currently joined guilds cannot use this item!",
+  "cpp_fn": "Your currently joined guilds cannot use this item!",
+  "real": "(silent, not equipped)",
+  "equipped_after": "0",
+  "match": true
+ },
+ "30": {
+  "case": 30,
+  "args": {
+   "id": 299,
+   "s0": 4,
+   "s1": 4,
+   "s2": 4,
+   "s3": 6,
+   "s4": 5,
+   "s5": 6
+  },
+  "core_action": "(equipped)",
+  "core_fn": "null",
+  "cpp_fn": "null",
+  "real": "(silent, not equipped)",
+  "equipped_after": "0",
+  "match": false
+ },
+ "31": {
+  "case": 31,
+  "args": {
+   "id": 299,
+   "s0": 10,
+   "s1": 10,
+   "s2": 10,
+   "s3": 10,
+   "s4": 10,
+   "s5": 10
+  },
+  "core_action": "(equipped)",
+  "core_fn": "null",
+  "cpp_fn": "null",
+  "real": "CRASH"
+ },
+ "32": {
+  "case": 32,
+  "args": {
+   "id": 299,
+   "s0": 17,
+   "s1": 18,
+   "s2": 18,
+   "s3": 17,
+   "s4": 18,
+   "s5": 18
+  },
+  "core_action": "(equipped)",
+  "core_fn": "null",
+  "cpp_fn": "null",
+  "real": "(equipped)",
+  "equipped_after": "1",
+  "match": true
+ },
+ "33": {
+  "case": 33,
+  "args": {
+   "id": 300,
+   "s0": 4,
+   "s1": 4,
+   "s2": 4,
+   "s3": 6,
+   "s4": 5,
+   "s5": 6
+  },
+  "core_action": "Your current guild cannot use this item!",
+  "core_fn": "Your current guild cannot use this item!",
+  "cpp_fn": "Your current guild cannot use this item!",
+  "real": "Using too Many!",
+  "equipped_after": "0",
+  "match": false
+ },
+ "34": {
+  "case": 34,
+  "args": {
+   "id": 300,
+   "s0": 10,
+   "s1": 10,
+   "s2": 10,
+   "s3": 10,
+   "s4": 10,
+   "s5": 10
+  },
+  "core_action": "Your current guild cannot use this item!",
+  "core_fn": "Your current guild cannot use this item!",
+  "cpp_fn": "Your current guild cannot use this item!",
+  "real": "(silent, not equipped)",
+  "equipped_after": "0",
+  "match": false
+ },
+ "35": {
+  "case": 35,
+  "args": {
+   "id": 300,
+   "s0": 17,
+   "s1": 18,
+   "s2": 18,
+   "s3": 17,
+   "s4": 18,
+   "s5": 18
+  },
+  "core_action": "Your current guild cannot use this item!",
+  "core_fn": "Your current guild cannot use this item!",
+  "cpp_fn": "Your current guild cannot use this item!",
+  "real": "CRASH"
+ },
+ "36": {
+  "case": 36,
+  "args": {
+   "id": 320,
+   "s0": 4,
+   "s1": 4,
+   "s2": 4,
+   "s3": 6,
+   "s4": 5,
+   "s5": 6
+  },
+  "core_action": "Your guild level is too low to use item!",
+  "core_fn": "Your guild level is too low to use item!",
+  "cpp_fn": "Your guild level is too low to use item!",
+  "real": "Your guild level is too low to use item!",
+  "equipped_after": "0",
+  "match": true
+ },
+ "37": {
+  "case": 37,
+  "args": {
+   "id": 320,
+   "s0": 10,
+   "s1": 10,
+   "s2": 10,
+   "s3": 10,
+   "s4": 10,
+   "s5": 10
+  },
+  "core_action": "Your guild level is too low to use item!",
+  "core_fn": "Your guild level is too low to use item!",
+  "cpp_fn": "Your guild level is too low to use item!",
+  "real": "Your guild level is too low to use item!",
+  "equipped_after": "0",
+  "match": true
+ },
+ "38": {
+  "case": 38,
+  "args": {
+   "id": 320,
+   "s0": 17,
+   "s1": 18,
+   "s2": 18,
+   "s3": 17,
+   "s4": 18,
+   "s5": 18
+  },
+  "core_action": "Your guild level is too low to use item!",
+  "core_fn": "Your guild level is too low to use item!",
+  "cpp_fn": "Your guild level is too low to use item!",
+  "real": "(silent, not equipped)",
+  "equipped_after": "0",
+  "match": false
+ }
+}

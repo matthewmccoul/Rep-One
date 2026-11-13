@@ -1,0 +1,2925 @@
+{
+ "L000": {
+  "plan_index": 0,
+  "rule": "two copies of one rule: levelThresholdXp / fn12A1",
+  "copies": [
+   "levelThresholdXp@src/progression1a.cpp",
+   "fn12A1@src/progression2.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.Fn12A1"
+   ],
+   [
+    "CastGate.cs",
+    "CastGate.Unfit"
+   ],
+   [
+    "Rules.cs",
+    "Rules.ChestExp"
+   ],
+   [
+    "Rules.cs",
+    "Rules.ExpAwarded"
+   ]
+  ],
+  "linked": false
+ },
+ "L001": {
+  "plan_index": 1,
+  "rule": "two copies of one rule: rollHitGate / monsterHitRoll",
+  "copies": [
+   "rollHitGate@src/combat1a.cpp",
+   "monsterHitRoll@src/combat3.cpp"
+  ],
+  "refs": [
+   [
+    "Loot.cs",
+    "Loot.DropsItem"
+   ],
+   [
+    "Rules.cs",
+    "Rules.Fn0DEE"
+   ],
+   [
+    "MonsterAttack.cs",
+    "MonsterAttack.MonsterAttacks"
+   ],
+   [
+    "Rules.cs",
+    "Rules.RollQuest"
+   ]
+  ],
+  "linked": false
+ },
+ "L002": {
+  "plan_index": 2,
+  "rule": "two copies of one rule: monsterBlow / archiveMonsterDamage",
+  "copies": [
+   "monsterBlow@src/combat1b.cpp",
+   "archiveMonsterDamage@src/combat1b.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.MonsterBlow"
+   ]
+  ],
+  "linked": true
+ },
+ "L003": {
+  "plan_index": 3,
+  "rule": "two copies of one rule: allowsRace / guildAllowed",
+  "copies": [
+   "allowsRace@src/guilds1_a.cpp",
+   "guildAllowed@src/races.cpp"
+  ],
+  "refs": [
+   [
+    "GuildData.cs",
+    "GuildDef.AllowsRace"
+   ]
+  ],
+  "linked": true
+ },
+ "L004": {
+  "plan_index": 4,
+  "rule": "two copies of one rule: retarget / furtherSwingAim",
+  "copies": [
+   "retarget@src/clock.cpp",
+   "furtherSwingAim@src/combat1a.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "Combat.TargetFor"
+   ],
+   [
+    "Combat.cs",
+    "Combat.FoeOf"
+   ],
+   [
+    "Combat.cs",
+    "Combat.AimedRecord"
+   ],
+   [
+    "Combat.cs",
+    "Combat.Retarget"
+   ]
+  ],
+  "linked": true
+ },
+ "L005": {
+  "plan_index": 5,
+  "rule": "two copies of one rule: livingFoes / countLivingFoes",
+  "copies": [
+   "livingFoes@src/game_combat.cpp",
+   "countLivingFoes@src/game_combat.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "Combat.RoundPaced"
+   ],
+   [
+    "Combat.cs",
+    "Combat.Capture"
+   ],
+   [
+    "Confinement.cs",
+    "Confinement.Fresh"
+   ],
+   [
+    "MdrLoader.cs",
+    "MdrLoader.LoadMonsters"
+   ]
+  ],
+  "linked": false
+ },
+ "L006": {
+  "plan_index": 6,
+  "rule": "two copies of one rule: townCharge / chargePurse",
+  "copies": [
+   "townCharge@src/city1_b.cpp",
+   "chargePurse@src/items2b_2.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.Pay"
+   ]
+  ],
+  "linked": true
+ },
+ "L007": {
+  "plan_index": 7,
+  "rule": "two copies of one rule: bestGuildPair / bestGuildAD",
+  "copies": [
+   "bestGuildPair@src/attributes.cpp",
+   "bestGuildAD@src/guilds1_b.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "CombatEngine.BestAbilityGuild"
+   ],
+   [
+    "Rules.cs",
+    "Rules.BestGuildAD"
+   ]
+  ],
+  "linked": true
+ },
+ "L008": {
+  "plan_index": 8,
+  "rule": "two copies of one rule: restRoundB / roundHalfEvenLocal",
+  "copies": [
+   "restRoundB@src/progression2.cpp",
+   "roundHalfEvenLocal@src/ref_fn1485.cpp"
+  ],
+  "refs": [
+   [
+    "CastGate.cs",
+    "CastGate.Unfit"
+   ],
+   [
+    "Rules.cs",
+    "Rules.Fn0DEE"
+   ],
+   [
+    "Rules.cs",
+    "Rules.Fn12B2"
+   ],
+   [
+    "Rules.cs",
+    "Rules.SpellRaiseChance"
+   ]
+  ],
+  "linked": false
+ },
+ "L009": {
+  "plan_index": 9,
+  "rule": "two copies of one rule: curFixed / vbCurrencyFromDouble",
+  "copies": [
+   "curFixed@src/progression1a.cpp",
+   "vbCurrencyFromDouble@src/loot1a.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "Combat.SetGold"
+   ]
+  ],
+  "linked": true
+ },
+ "L010": {
+  "plan_index": 10,
+  "rule": "two copies of one rule: goldForNextLevel",
+  "copies": [
+   "goldForNextLevel@src/guilds1_a.cpp",
+   "goldForNextLevel@src/progression2.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.GoldForNextLevel"
+   ]
+  ],
+  "linked": true
+ },
+ "L011": {
+  "plan_index": 11,
+  "rule": "Forfeit: C++ implementation of Character.ForfeitQuest",
+  "copies": [
+   "Forfeit@src/guilds2_a.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.ForfeitQuest"
+   ]
+  ],
+  "linked": true
+ },
+ "L012": {
+  "plan_index": 12,
+  "rule": "GuildTitle: C++ implementation of GuildTitles.Of",
+  "copies": [
+   "GuildTitle@src/guilds2_b.cpp"
+  ],
+  "refs": [
+   [
+    "GuildTitles.cs",
+    "GuildTitles.Of"
+   ]
+  ],
+  "linked": true
+ },
+ "L013": {
+  "plan_index": 13,
+  "rule": "ageBy: C++ implementation of Character.AgeBy",
+  "copies": [
+   "ageBy@src/progression2a.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.AgeBy"
+   ]
+  ],
+  "linked": true
+ },
+ "L014": {
+  "plan_index": 14,
+  "rule": "allowsAlignment: C++ implementation of GuildDef.AllowsAlignment",
+  "copies": [
+   "allowsAlignment@src/guilds1_a.cpp"
+  ],
+  "refs": [
+   [
+    "GuildData.cs",
+    "GuildDef.AllowsAlignment"
+   ]
+  ],
+  "linked": true
+ },
+ "L015": {
+  "plan_index": 15,
+  "rule": "applyEquipCurse: C++ implementation of Character.ApplyEquipCurse",
+  "copies": [
+   "applyEquipCurse@src/items1b.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.ApplyEquipCurse"
+   ]
+  ],
+  "linked": true
+ },
+ "L016": {
+  "plan_index": 16,
+  "rule": "applyLowGroupGoldFloor: C++ implementation of Rules.GroupGold",
+  "copies": [
+   "applyLowGroupGoldFloor@src/loot1a.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.GroupGold"
+   ]
+  ],
+  "linked": true
+ },
+ "L017": {
+  "plan_index": 17,
+  "rule": "applyMoveKey: C++ implementation of DungeonNav.TurnLeft(), DungeonNav.TurnRight(), DungeonNav.TurnAround",
+  "copies": [
+   "applyMoveKey@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "DungeonNav.cs",
+    "DungeonNav.TurnLeft()"
+   ],
+   [
+    "DungeonNav.cs",
+    "DungeonNav.TurnRight()"
+   ],
+   [
+    "DungeonNav.cs",
+    "DungeonNav.TurnAround"
+   ]
+  ],
+  "linked": true
+ },
+ "L018": {
+  "plan_index": 18,
+  "rule": "attackOf: C++ implementation of CombatEngine.AttackOf",
+  "copies": [
+   "attackOf@src/combat3.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "CombatEngine.AttackOf"
+   ]
+  ],
+  "linked": true
+ },
+ "L019": {
+  "plan_index": 19,
+  "rule": "awardCrest: C++ implementation of Guildmasters.AwardCrest",
+  "copies": [
+   "awardCrest@src/guilds1_b.cpp"
+  ],
+  "refs": [
+   [
+    "Guildmasters.cs",
+    "Guildmasters.AwardCrest"
+   ]
+  ],
+  "linked": true
+ },
+ "L020": {
+  "plan_index": 20,
+  "rule": "backstabChance: C++ implementation of Rules.BackstabChance, Rules.SpecialHitChance",
+  "copies": [
+   "backstabChance@src/combat2a.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.BackstabChance"
+   ],
+   [
+    "Rules.cs",
+    "Rules.SpecialHitChance"
+   ]
+  ],
+  "linked": true
+ },
+ "L021": {
+  "plan_index": 21,
+  "rule": "buildClassRanges: C++ implementation of Combat.ClassRanges",
+  "copies": [
+   "buildClassRanges@src/monsters1a.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "Combat.ClassRanges"
+   ]
+  ],
+  "linked": true
+ },
+ "L022": {
+  "plan_index": 22,
+  "rule": "canLevelUp: C++ implementation of Character.CanLevelUp",
+  "copies": [
+   "canLevelUp@src/progression2.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.CanLevelUp"
+   ]
+  ],
+  "linked": true
+ },
+ "L023": {
+  "plan_index": 23,
+  "rule": "canMoveFacing: C++ implementation of DungeonNav.CanMove",
+  "copies": [
+   "canMoveFacing@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "DungeonNav.cs",
+    "DungeonNav.CanMove"
+   ]
+  ],
+  "linked": true
+ },
+ "L024": {
+  "plan_index": 24,
+  "rule": "characterDamage: C++ implementation of Rules.CharacterDamage",
+  "copies": [
+   "characterDamage@src/combat1a.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.CharacterDamage"
+   ]
+  ],
+  "linked": true
+ },
+ "L025": {
+  "plan_index": 25,
+  "rule": "chestAfflictParty: C++ implementation of ChestTraps.Spring",
+  "copies": [
+   "chestAfflictParty@src/combat2a.cpp"
+  ],
+  "refs": [
+   [
+    "ChestTraps.cs",
+    "ChestTraps.Spring"
+   ]
+  ],
+  "linked": true
+ },
+ "L026": {
+  "plan_index": 26,
+  "rule": "claimMastership: C++ implementation of Guildmasters.Claim",
+  "copies": [
+   "claimMastership@src/guilds1_b.cpp"
+  ],
+  "refs": [
+   [
+    "Guildmasters.cs",
+    "Guildmasters.Claim"
+   ]
+  ],
+  "linked": true
+ },
+ "L027": {
+  "plan_index": 27,
+  "rule": "classBitSet: C++ implementation of Librarian.Bit",
+  "copies": [
+   "classBitSet@src/monsters1a.cpp"
+  ],
+  "refs": [
+   [
+    "Librarian.cs",
+    "Librarian.Bit"
+   ]
+  ],
+  "linked": true
+ },
+ "L028": {
+  "plan_index": 28,
+  "rule": "classifyEdge: C++ implementation of DungeonNav.EdgeAt, DungeonNav.Classify",
+  "copies": [
+   "classifyEdge@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "DungeonNav.cs",
+    "DungeonNav.EdgeAt"
+   ],
+   [
+    "DungeonNav.cs",
+    "DungeonNav.Classify"
+   ]
+  ],
+  "linked": true
+ },
+ "L029": {
+  "plan_index": 29,
+  "rule": "cmdGuildlog: C++ implementation of GuildLog.For",
+  "copies": [
+   "cmdGuildlog@src/feat_guildlog.cpp"
+  ],
+  "refs": [
+   [
+    "GuildLog.cs",
+    "GuildLog.For"
+   ]
+  ],
+  "linked": true
+ },
+ "L030": {
+  "plan_index": 30,
+  "rule": "cmdLibrary: C++ implementation of LibrarySearch.Find",
+  "copies": [
+   "cmdLibrary@src/feat_library.cpp"
+  ],
+  "refs": [
+   [
+    "LibrarySearch.cs",
+    "LibrarySearch.Find"
+   ]
+  ],
+  "linked": true
+ },
+ "L031": {
+  "plan_index": 31,
+  "rule": "companionsName: C++ implementation of CompanionRef.Def",
+  "copies": [
+   "companionsName@src/feat_companions.cpp"
+  ],
+  "refs": [
+   [
+    "CompanionRef.cs",
+    "CompanionRef.Def"
+   ]
+  ],
+  "linked": true
+ },
+ "L032": {
+  "plan_index": 32,
+  "rule": "confRows: C++ implementation of Confinement.RefOf",
+  "copies": [
+   "confRows@src/feat_confinement.cpp"
+  ],
+  "refs": [
+   [
+    "Confinement.cs",
+    "Confinement.RefOf"
+   ]
+  ],
+  "linked": true
+ },
+ "L033": {
+  "plan_index": 33,
+  "rule": "countsForWearer: C++ implementation of Effects.Counts",
+  "copies": [
+   "countsForWearer@src/combat3.cpp"
+  ],
+  "refs": [
+   [
+    "Effects.cs",
+    "Effects.Counts"
+   ]
+  ],
+  "linked": true
+ },
+ "L034": {
+  "plan_index": 34,
+  "rule": "coverShortfall: C++ implementation of Party.CoverShortfall",
+  "copies": [
+   "coverShortfall@src/city1_b.cpp"
+  ],
+  "refs": [
+   [
+    "Party.cs",
+    "Party.CoverShortfall"
+   ]
+  ],
+  "linked": true
+ },
+ "L035": {
+  "plan_index": 35,
+  "rule": "createCharacter: C++ implementation of Character.Create",
+  "copies": [
+   "createCharacter@src/game_setup.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.Create"
+   ]
+  ],
+  "linked": true
+ },
+ "L036": {
+  "plan_index": 36,
+  "rule": "createInitialStore: C++ implementation of StoreStock.Load, StoreStock.CreateInitial",
+  "copies": [
+   "createInitialStore@src/city1_a.cpp"
+  ],
+  "refs": [
+   [
+    "StoreStock.cs",
+    "StoreStock.Load"
+   ],
+   [
+    "StoreStock.cs",
+    "StoreStock.CreateInitial"
+   ]
+  ],
+  "linked": true
+ },
+ "L037": {
+  "plan_index": 37,
+  "rule": "crestId: C++ implementation of Guildmasters.CrestFor",
+  "copies": [
+   "crestId@src/guilds1_a.cpp"
+  ],
+  "refs": [
+   [
+    "Guildmasters.cs",
+    "Guildmasters.CrestFor"
+   ]
+  ],
+  "linked": true
+ },
+ "L038": {
+  "plan_index": 38,
+  "rule": "critChance: C++ implementation of Rules.CritChance, Rules.SpecialHitChance",
+  "copies": [
+   "critChance@src/combat2a.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.CritChance"
+   ],
+   [
+    "Rules.cs",
+    "Rules.SpecialHitChance"
+   ]
+  ],
+  "linked": true
+ },
+ "L039": {
+  "plan_index": 39,
+  "rule": "dcastPlanOf: C++ implementation of Spellbook.IsHealing, Spellbook.IsCure",
+  "copies": [
+   "dcastPlanOf@src/feat_dcast.cpp"
+  ],
+  "refs": [
+   [
+    "Spells.cs",
+    "Spellbook.IsHealing"
+   ],
+   [
+    "Spells.cs",
+    "Spellbook.IsCure"
+   ]
+  ],
+  "linked": true
+ },
+ "L040": {
+  "plan_index": 40,
+  "rule": "dcastRun: C++ implementation of Spellbook.ShownBold",
+  "copies": [
+   "dcastRun@src/feat_dcast.cpp"
+  ],
+  "refs": [
+   [
+    "Spells.cs",
+    "Spellbook.ShownBold"
+   ]
+  ],
+  "linked": true
+ },
+ "L041": {
+  "plan_index": 41,
+  "rule": "defenseOf: C++ implementation of CombatEngine.DefenseOf",
+  "copies": [
+   "defenseOf@src/combat3.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "CombatEngine.DefenseOf"
+   ]
+  ],
+  "linked": true
+ },
+ "L042": {
+  "plan_index": 42,
+  "rule": "describeCharacter: C++ implementation of Guildmasters.Describe",
+  "copies": [
+   "describeCharacter@src/game_view.cpp"
+  ],
+  "refs": [
+   [
+    "Guildmasters.cs",
+    "Guildmasters.Describe"
+   ]
+  ],
+  "linked": true
+ },
+ "L043": {
+  "plan_index": 43,
+  "rule": "describeFight: C++ implementation of Combat.TargetFor, Combat.Describe",
+  "copies": [
+   "describeFight@src/game_view.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "Combat.TargetFor"
+   ],
+   [
+    "Combat.cs",
+    "Combat.Describe"
+   ]
+  ],
+  "linked": true
+ },
+ "L044": {
+  "plan_index": 44,
+  "rule": "describeSquare: C++ implementation of DungeonNav.Describe, Guildmasters.Describe, Floor.Has",
+  "copies": [
+   "describeSquare@src/game_view.cpp"
+  ],
+  "refs": [
+   [
+    "DungeonNav.cs",
+    "DungeonNav.Describe"
+   ],
+   [
+    "Guildmasters.cs",
+    "Guildmasters.Describe"
+   ],
+   [
+    "Models.cs",
+    "Floor.Has"
+   ]
+  ],
+  "linked": true
+ },
+ "L045": {
+  "plan_index": 45,
+  "rule": "doRest: C++ implementation of Rescue.TurnOverTown",
+  "copies": [
+   "doRest@src/game_town.cpp"
+  ],
+  "refs": [
+   [
+    "Rescue.cs",
+    "Rescue.TurnOverTown"
+   ]
+  ],
+  "linked": true
+ },
+ "L046": {
+  "plan_index": 46,
+  "rule": "drawChestTrapBit: C++ implementation of Rules.ChestTrap",
+  "copies": [
+   "drawChestTrapBit@src/loot1a.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.ChestTrap"
+   ]
+  ],
+  "linked": true
+ },
+ "L047": {
+  "plan_index": 47,
+  "rule": "drawItemIndex: C++ implementation of Confinement.DrawOne, StoreStock.DrawOne, StoreStock.Weight",
+  "copies": [
+   "drawItemIndex@src/city1_a.cpp"
+  ],
+  "refs": [
+   [
+    "Confinement.cs",
+    "Confinement.DrawOne"
+   ],
+   [
+    "StoreStock.cs",
+    "StoreStock.DrawOne"
+   ],
+   [
+    "StoreStock.cs",
+    "StoreStock.Weight"
+   ],
+   [
+    "StoreStock.cs",
+    "StoreStock.Reachable"
+   ]
+  ],
+  "linked": true
+ },
+ "L048": {
+  "plan_index": 48,
+  "rule": "encounterPrecheck: C++ implementation of Combat.Generate",
+  "copies": [
+   "encounterPrecheck@src/monsters1a.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "Combat.Generate"
+   ]
+  ],
+  "linked": true
+ },
+ "L049": {
+  "plan_index": 49,
+  "rule": "endFight: C++ implementation of Party.ClearOrders",
+  "copies": [
+   "endFight@src/clock.cpp"
+  ],
+  "refs": [
+   [
+    "Party.cs",
+    "Party.ClearOrders"
+   ]
+  ],
+  "linked": true
+ },
+ "L050": {
+  "plan_index": 50,
+  "rule": "entries: C++ implementation of Store.Get, Store.KnowsItem, Store.Known",
+  "copies": [
+   "entries@src/feat_library.cpp"
+  ],
+  "refs": [
+   [
+    "Librarian.cs",
+    "Store.Get"
+   ],
+   [
+    "Librarian.cs",
+    "Store.KnowsItem"
+   ],
+   [
+    "Librarian.cs",
+    "Store.Known"
+   ],
+   [
+    "LibrarySearch.cs",
+    "LibrarySearch.Sorted"
+   ]
+  ],
+  "linked": true
+ },
+ "L051": {
+  "plan_index": 51,
+  "rule": "equipProblem: C++ implementation of Character.EquipProblem, Character.WearRefusal, ItemUse.Problem",
+  "copies": [
+   "equipProblem@src/items1b.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.EquipProblem"
+   ],
+   [
+    "Character.cs",
+    "Character.WearRefusal"
+   ],
+   [
+    "ItemUse.cs",
+    "ItemUse.Problem"
+   ]
+  ],
+  "linked": true
+ },
+ "L052": {
+  "plan_index": 52,
+  "rule": "equipProblemText: C++ implementation of Character.EquipProblem",
+  "copies": [
+   "equipProblemText@src/items1b.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.EquipProblem"
+   ]
+  ],
+  "linked": true
+ },
+ "L053": {
+  "plan_index": 53,
+  "rule": "equippedAtt: C++ implementation of CombatEngine.WeaponOf",
+  "copies": [
+   "equippedAtt@src/combat3.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "CombatEngine.WeaponOf"
+   ]
+  ],
+  "linked": true
+ },
+ "L054": {
+  "plan_index": 54,
+  "rule": "equippedWeaponSlots: C++ implementation of CombatEngine.WeaponOf, Combat.WeaponsOf",
+  "copies": [
+   "equippedWeaponSlots@src/combat1a.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "CombatEngine.WeaponOf"
+   ],
+   [
+    "Combat.cs",
+    "Combat.WeaponsOf"
+   ]
+  ],
+  "linked": true
+ },
+ "L055": {
+  "plan_index": 55,
+  "rule": "experienceCap: C++ implementation of Character.ExperienceCap, Rules.Fn13ED",
+  "copies": [
+   "experienceCap@src/progression1a.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.ExperienceCap"
+   ],
+   [
+    "Rules.cs",
+    "Rules.Fn13ED"
+   ]
+  ],
+  "linked": true
+ },
+ "L056": {
+  "plan_index": 56,
+  "rule": "facingDelta: C++ implementation of DungeonNav.Delta",
+  "copies": [
+   "facingDelta@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "DungeonNav.cs",
+    "DungeonNav.Delta"
+   ]
+  ],
+  "linked": true
+ },
+ "L057": {
+  "plan_index": 57,
+  "rule": "firstFreePackSlot: C++ implementation of Character.PutInPack",
+  "copies": [
+   "firstFreePackSlot@src/items1a_a.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.PutInPack"
+   ]
+  ],
+  "linked": true
+ },
+ "L058": {
+  "plan_index": 58,
+  "rule": "fitFor: C++ implementation of Character.ItemHelps, ItemAlignments.AsCharacter, ItemAlignments.FitFor",
+  "copies": [
+   "fitFor@src/attributes.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.ItemHelps"
+   ],
+   [
+    "Models.cs",
+    "ItemAlignments.AsCharacter"
+   ],
+   [
+    "Models.cs",
+    "ItemAlignments.FitFor"
+   ]
+  ],
+  "linked": true
+ },
+ "L059": {
+  "plan_index": 59,
+  "rule": "fn1485Price: C++ implementation of Rules.Fn1485Price",
+  "copies": [
+   "fn1485Price@src/ref_fn1485.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.Fn1485Price"
+   ]
+  ],
+  "linked": true
+ },
+ "L060": {
+  "plan_index": 60,
+  "rule": "foundYourself: C++ implementation of Character.FoundYourself, Lost.OnKnownGround",
+  "copies": [
+   "foundYourself@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.FoundYourself"
+   ],
+   [
+    "Lost.cs",
+    "Lost.OnKnownGround"
+   ]
+  ],
+  "linked": true
+ },
+ "L061": {
+  "plan_index": 61,
+  "rule": "generateEncounterChest: C++ implementation of CombatEngine.CombatEngine, Combat.Generate, Combat.FillGroup",
+  "copies": [
+   "generateEncounterChest@src/loot1a.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "CombatEngine.CombatEngine"
+   ],
+   [
+    "Combat.cs",
+    "Combat.Generate"
+   ],
+   [
+    "Combat.cs",
+    "Combat.FillGroup"
+   ],
+   [
+    "Rules.cs",
+    "Rules.EncounterGold"
+   ]
+  ],
+  "linked": true
+ },
+ "L062": {
+  "plan_index": 62,
+  "rule": "generateEncounterFor: C++ implementation of CombatEngine.CombatEngine, Combat.InRoom",
+  "copies": [
+   "generateEncounterFor@src/game_dungeon.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "CombatEngine.CombatEngine"
+   ],
+   [
+    "Combat.cs",
+    "Combat.InRoom"
+   ]
+  ],
+  "linked": true
+ },
+ "L063": {
+  "plan_index": 63,
+  "rule": "giveExperience: C++ implementation of CombatEngine.Credit, CombatEngine.GiveExperience",
+  "copies": [
+   "giveExperience@src/progression1a.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "CombatEngine.Credit"
+   ],
+   [
+    "Combat.cs",
+    "CombatEngine.GiveExperience"
+   ]
+  ],
+  "linked": true
+ },
+ "L064": {
+  "plan_index": 64,
+  "rule": "giveGold: C++ implementation of GiveCommand.Give, Party.GaveGold",
+  "copies": [
+   "giveGold@src/feat_give.cpp"
+  ],
+  "refs": [
+   [
+    "GiveCommand.cs",
+    "GiveCommand.Give"
+   ],
+   [
+    "Party.cs",
+    "Party.GaveGold"
+   ]
+  ],
+  "linked": true
+ },
+ "L065": {
+  "plan_index": 65,
+  "rule": "giveItem: C++ implementation of Party.SwapItems, Party.NoFreeSlots, Party.GiveItem",
+  "copies": [
+   "giveItem@src/feat_give.cpp"
+  ],
+  "refs": [
+   [
+    "Party.cs",
+    "Party.SwapItems"
+   ],
+   [
+    "Party.cs",
+    "Party.NoFreeSlots"
+   ],
+   [
+    "Party.cs",
+    "Party.GiveItem"
+   ]
+  ],
+  "linked": true
+ },
+ "L066": {
+  "plan_index": 66,
+  "rule": "guildAD: C++ implementation of Rules.AdInterval, Rules.GuildAD, Rules.GuildADSingle",
+  "copies": [
+   "guildAD@src/attributes.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.AdInterval"
+   ],
+   [
+    "Rules.cs",
+    "Rules.GuildAD"
+   ],
+   [
+    "Rules.cs",
+    "Rules.GuildADSingle"
+   ]
+  ],
+  "linked": true
+ },
+ "L067": {
+  "plan_index": 67,
+  "rule": "guildExpFactor: C++ implementation of Rules.Fn13ED",
+  "copies": [
+   "guildExpFactor@src/progression1a.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.Fn13ED"
+   ]
+  ],
+  "linked": true
+ },
+ "L068": {
+  "plan_index": 68,
+  "rule": "guildJoinCost: C++ implementation of Rules.GuildJoinCost",
+  "copies": [
+   "guildJoinCost@src/progression2b.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.GuildJoinCost"
+   ]
+  ],
+  "linked": true
+ },
+ "L069": {
+  "plan_index": 69,
+  "rule": "guildReachesSpell: C++ implementation of Spellbook.ReachingGuilds",
+  "copies": [
+   "guildReachesSpell@src/casting1_a.cpp"
+  ],
+  "refs": [
+   [
+    "Spells.cs",
+    "Spellbook.ReachingGuilds"
+   ]
+  ],
+  "linked": true
+ },
+ "L070": {
+  "plan_index": 70,
+  "rule": "guildSpellLevel: C++ implementation of Rules.SpellLevel",
+  "copies": [
+   "guildSpellLevel@src/casting1_a.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.SpellLevel"
+   ]
+  ],
+  "linked": true
+ },
+ "L071": {
+  "plan_index": 71,
+  "rule": "guildTitle: C++ implementation of GuildTitles.Of",
+  "copies": [
+   "guildTitle@src/guilds1_b.cpp"
+  ],
+  "refs": [
+   [
+    "GuildTitles.cs",
+    "GuildTitles.Of"
+   ]
+  ],
+  "linked": true
+ },
+ "L072": {
+  "plan_index": 72,
+  "rule": "handsUsed: C++ implementation of Character.HandsUsed",
+  "copies": [
+   "handsUsed@src/items1b.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.HandsUsed"
+   ]
+  ],
+  "linked": true
+ },
+ "L073": {
+  "plan_index": 73,
+  "rule": "hitThresholdPercent: C++ implementation of Rules.HitThreshold",
+  "copies": [
+   "hitThresholdPercent@src/combat1a.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.HitThreshold"
+   ]
+  ],
+  "linked": true
+ },
+ "L074": {
+  "plan_index": 74,
+  "rule": "idCountdown: C++ implementation of StoreStock.IdCountdown",
+  "copies": [
+   "idCountdown@src/store_prices.cpp"
+  ],
+  "refs": [
+   [
+    "StoreStock.cs",
+    "StoreStock.IdCountdown"
+   ]
+  ],
+  "linked": true
+ },
+ "L075": {
+  "plan_index": 75,
+  "rule": "identifyFee: C++ implementation of StoreStock.IdentifyFee",
+  "copies": [
+   "identifyFee@src/items3a.cpp"
+  ],
+  "refs": [
+   [
+    "StoreStock.cs",
+    "StoreStock.IdentifyFee"
+   ]
+  ],
+  "linked": true
+ },
+ "L076": {
+  "plan_index": 76,
+  "rule": "itemBand: C++ implementation of Rules.QuestItemBand",
+  "copies": [
+   "itemBand@src/guilds1_b.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.QuestItemBand"
+   ]
+  ],
+  "linked": true
+ },
+ "L077": {
+  "plan_index": 77,
+  "rule": "itemUseProblem: C++ implementation of ItemUse.Problem",
+  "copies": [
+   "itemUseProblem@src/game_town.cpp"
+  ],
+  "refs": [
+   [
+    "ItemUse.cs",
+    "ItemUse.Problem"
+   ]
+  ],
+  "linked": true
+ },
+ "L078": {
+  "plan_index": 78,
+  "rule": "joinGuild: C++ implementation of Character.JoinGuild, GuildHall.Greeting",
+  "copies": [
+   "joinGuild@src/guilds1_a.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.JoinGuild"
+   ],
+   [
+    "GuildHall.cs",
+    "GuildHall.Greeting"
+   ]
+  ],
+  "linked": true
+ },
+ "L079": {
+  "plan_index": 79,
+  "rule": "levelUp: C++ implementation of Character.LevelUp",
+  "copies": [
+   "levelUp@src/guilds1_a.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.LevelUp"
+   ]
+  ],
+  "linked": true
+ },
+ "L080": {
+  "plan_index": 80,
+  "rule": "loadGameDataFromJson: C++ implementation of Floor.AreasInUse",
+  "copies": [
+   "loadGameDataFromJson@src/game_data_json.cpp"
+  ],
+  "refs": [
+   [
+    "Models.cs",
+    "Floor.AreasInUse"
+   ]
+  ],
+  "linked": true
+ },
+ "L081": {
+  "plan_index": 81,
+  "rule": "lookText: C++ implementation of RoomRoster.DeadBodies, RoomRoster.Strangers, RoomRoster.Lines",
+  "copies": [
+   "lookText@src/feat_look.cpp"
+  ],
+  "refs": [
+   [
+    "RoomRoster.cs",
+    "RoomRoster.DeadBodies"
+   ],
+   [
+    "RoomRoster.cs",
+    "RoomRoster.Strangers"
+   ],
+   [
+    "RoomRoster.cs",
+    "RoomRoster.Lines"
+   ]
+  ],
+  "linked": true
+ },
+ "L082": {
+  "plan_index": 82,
+  "rule": "mapRecordOnEntry: C++ implementation of DungeonNav.DungeonNav, DungeonNav.SetPosition, DungeonNav.MarkExplored",
+  "copies": [
+   "mapRecordOnEntry@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "DungeonNav.cs",
+    "DungeonNav.DungeonNav"
+   ],
+   [
+    "DungeonNav.cs",
+    "DungeonNav.SetPosition"
+   ],
+   [
+    "DungeonNav.cs",
+    "DungeonNav.MarkExplored"
+   ],
+   [
+    "DungeonNav.cs",
+    "DungeonNav.MapHere"
+   ],
+   [
+    "MapRecord.cs",
+    "MapRecord.OnEntry"
+   ],
+   [
+    "MapRecord.cs",
+    "MapRecord.BackfillExplored"
+   ],
+   [
+    "MapRecord.cs",
+    "MapRecord.Square"
+   ],
+   [
+    "SharedMap.cs",
+    "SharedMap.SeenFlags"
+   ],
+   [
+    "SharedMap.cs",
+    "SharedMap.Recorded"
+   ],
+   [
+    "SharedMap.cs",
+    "SharedMap.Record"
+   ]
+  ],
+  "linked": true
+ },
+ "L083": {
+  "plan_index": 83,
+  "rule": "maxSpellPoints: C++ implementation of Spellbook.MaxSpellPoints",
+  "copies": [
+   "maxSpellPoints@src/casting2.cpp"
+  ],
+  "refs": [
+   [
+    "Spells.cs",
+    "Spellbook.MaxSpellPoints"
+   ]
+  ],
+  "linked": true
+ },
+ "L084": {
+  "plan_index": 84,
+  "rule": "maxWornOfClass: C++ implementation of Character.MaxWornOfClass",
+  "copies": [
+   "maxWornOfClass@src/items1b.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.MaxWornOfClass"
+   ]
+  ],
+  "linked": true
+ },
+ "L085": {
+  "plan_index": 85,
+  "rule": "meetsStats: C++ implementation of GuildDef.MeetsStats",
+  "copies": [
+   "meetsStats@src/guilds1_a.cpp"
+  ],
+  "refs": [
+   [
+    "GuildData.cs",
+    "GuildDef.MeetsStats"
+   ]
+  ],
+  "linked": true
+ },
+ "L086": {
+  "plan_index": 86,
+  "rule": "memberAble: C++ implementation of Party.Able",
+  "copies": [
+   "memberAble@src/game_combat.cpp"
+  ],
+  "refs": [
+   [
+    "Party.cs",
+    "Party.Able"
+   ]
+  ],
+  "linked": true
+ },
+ "L087": {
+  "plan_index": 87,
+  "rule": "monsterClassCount: C++ implementation of Combat.ClassCount",
+  "copies": [
+   "monsterClassCount@src/monsters1a.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "Combat.ClassCount"
+   ]
+  ],
+  "linked": true
+ },
+ "L088": {
+  "plan_index": 88,
+  "rule": "monsterDefIndex: C++ implementation of CompanionRef.At, CompanionRef.IndexOf",
+  "copies": [
+   "monsterDefIndex@src/game_combat.cpp"
+  ],
+  "refs": [
+   [
+    "CompanionRef.cs",
+    "CompanionRef.At"
+   ],
+   [
+    "CompanionRef.cs",
+    "CompanionRef.IndexOf"
+   ]
+  ],
+  "linked": true
+ },
+ "L089": {
+  "plan_index": 89,
+  "rule": "monsterHasBit: C++ implementation of MonsterProperty.Has",
+  "copies": [
+   "monsterHasBit@src/combat1a.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "MonsterProperty.Has"
+   ]
+  ],
+  "linked": true
+ },
+ "L090": {
+  "plan_index": 90,
+  "rule": "monsterPage: C++ implementation of Librarian.Size, Librarian.Align, Store.KnowsMonster",
+  "copies": [
+   "monsterPage@src/feat_library.cpp"
+  ],
+  "refs": [
+   [
+    "Librarian.cs",
+    "Librarian.Size"
+   ],
+   [
+    "Librarian.cs",
+    "Librarian.Align"
+   ],
+   [
+    "Librarian.cs",
+    "Store.KnowsMonster"
+   ]
+  ],
+  "linked": true
+ },
+ "L091": {
+  "plan_index": 91,
+  "rule": "monstersFreeAttack: C++ implementation of CombatEngine.MonstersAttack, CombatEngine.MonsterAttacks",
+  "copies": [
+   "monstersFreeAttack@src/clock.cpp"
+  ],
+  "refs": [
+   [
+    "MonsterAttack.cs",
+    "CombatEngine.MonstersAttack"
+   ],
+   [
+    "MonsterAttack.cs",
+    "CombatEngine.MonsterAttacks"
+   ]
+  ],
+  "linked": true
+ },
+ "L092": {
+  "plan_index": 92,
+  "rule": "newGame: C++ implementation of Guildmasters.LoadSeeded",
+  "copies": [
+   "newGame@src/guilds1_b.cpp"
+  ],
+  "refs": [
+   [
+    "Guildmasters.cs",
+    "Guildmasters.LoadSeeded"
+   ]
+  ],
+  "linked": true
+ },
+ "L093": {
+  "plan_index": 93,
+  "rule": "noteMonsterKill: C++ implementation of Character.NoteMonster",
+  "copies": [
+   "noteMonsterKill@src/combat1b.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.NoteMonster"
+   ]
+  ],
+  "linked": true
+ },
+ "L094": {
+  "plan_index": 94,
+  "rule": "openChest: C++ implementation of Combat.TrapSprung, Combat.ChestEmptied",
+  "copies": [
+   "openChest@src/loot2.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "Combat.TrapSprung"
+   ],
+   [
+    "Combat.cs",
+    "Combat.ChestEmptied"
+   ]
+  ],
+  "linked": true
+ },
+ "L095": {
+  "plan_index": 95,
+  "rule": "orderFromSetting: C++ implementation of CombatOrder.ApplyDefault",
+  "copies": [
+   "orderFromSetting@src/clock.cpp"
+  ],
+  "refs": [
+   [
+    "CombatOrder.cs",
+    "CombatOrder.ApplyDefault"
+   ]
+  ],
+  "linked": true
+ },
+ "L096": {
+  "plan_index": 96,
+  "rule": "partyWiped: C++ implementation of CombatEngine.PartyWiped",
+  "copies": [
+   "partyWiped@src/game_combat.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "CombatEngine.PartyWiped"
+   ]
+  ],
+  "linked": true
+ },
+ "L097": {
+  "plan_index": 97,
+  "rule": "payFightGold: C++ implementation of Combat.PayGold",
+  "copies": [
+   "payFightGold@src/combat1b.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "Combat.PayGold"
+   ]
+  ],
+  "linked": true
+ },
+ "L098": {
+  "plan_index": 98,
+  "rule": "penBuyPrice: C++ implementation of Confinement.PriceToBuy",
+  "copies": [
+   "penBuyPrice@src/city1_b.cpp"
+  ],
+  "refs": [
+   [
+    "Confinement.cs",
+    "Confinement.PriceToBuy"
+   ]
+  ],
+  "linked": true
+ },
+ "L099": {
+  "plan_index": 99,
+  "rule": "penIndexOfItemAlign: C++ implementation of Confinement.PenIndex",
+  "copies": [
+   "penIndexOfItemAlign@src/city1_b.cpp"
+  ],
+  "refs": [
+   [
+    "Confinement.cs",
+    "Confinement.PenIndex"
+   ]
+  ],
+  "linked": true
+ },
+ "L100": {
+  "plan_index": 100,
+  "rule": "penSellPrice: C++ implementation of StoreStock.SellPrice",
+  "copies": [
+   "penSellPrice@src/city1_b.cpp"
+  ],
+  "refs": [
+   [
+    "StoreStock.cs",
+    "StoreStock.SellPrice"
+   ]
+  ],
+  "linked": true
+ },
+ "L101": {
+  "plan_index": 101,
+  "rule": "perceiveSquare: C++ implementation of Perception.PerceiveSquare",
+  "copies": [
+   "perceiveSquare@src/casting1_b.cpp"
+  ],
+  "refs": [
+   [
+    "Perception.cs",
+    "Perception.PerceiveSquare"
+   ]
+  ],
+  "linked": true
+ },
+ "L102": {
+  "plan_index": 102,
+  "rule": "pickEncounterClass: C++ implementation of CombatEngine.CombatEngine",
+  "copies": [
+   "pickEncounterClass@src/monsters1a.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "CombatEngine.CombatEngine"
+   ]
+  ],
+  "linked": true
+ },
+ "L103": {
+  "plan_index": 103,
+  "rule": "pickMonsterTarget: C++ implementation of CombatEngine.MonsterAttacks",
+  "copies": [
+   "pickMonsterTarget@src/combat1b.cpp"
+  ],
+  "refs": [
+   [
+    "MonsterAttack.cs",
+    "CombatEngine.MonsterAttacks"
+   ]
+  ],
+  "linked": true
+ },
+ "L104": {
+  "plan_index": 104,
+  "rule": "poolGoldToSelected: C++ implementation of Party.PoolGold",
+  "copies": [
+   "poolGoldToSelected@src/partyb.cpp"
+  ],
+  "refs": [
+   [
+    "Party.cs",
+    "Party.PoolGold"
+   ]
+  ],
+  "linked": true
+ },
+ "L105": {
+  "plan_index": 105,
+  "rule": "priceOfItem: C++ implementation of StoreStock.PriceOf",
+  "copies": [
+   "priceOfItem@src/items3a.cpp"
+  ],
+  "refs": [
+   [
+    "StoreStock.cs",
+    "StoreStock.PriceOf"
+   ]
+  ],
+  "linked": true
+ },
+ "L106": {
+  "plan_index": 106,
+  "rule": "processMidRoundDeath: C++ implementation of Combat.RoundPaced",
+  "copies": [
+   "processMidRoundDeath@src/combat1a.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "Combat.RoundPaced"
+   ]
+  ],
+  "linked": true
+ },
+ "L107": {
+  "plan_index": 107,
+  "rule": "pruneDeadMembers: C++ implementation of ListedParty.Sync",
+  "copies": [
+   "pruneDeadMembers@src/game_combat.cpp"
+  ],
+  "refs": [
+   [
+    "LookAround.cs",
+    "ListedParty.Sync"
+   ]
+  ],
+  "linked": true
+ },
+ "L108": {
+  "plan_index": 108,
+  "rule": "pruneTheDead: C++ implementation of Party.RemoveTheDead",
+  "copies": [
+   "pruneTheDead@src/death1a.cpp"
+  ],
+  "refs": [
+   [
+    "Party.cs",
+    "Party.RemoveTheDead"
+   ]
+  ],
+  "linked": true
+ },
+ "L109": {
+  "plan_index": 109,
+  "rule": "questItem: C++ implementation of Rules.QuestItem",
+  "copies": [
+   "questItem@src/guilds1_b.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.QuestItem"
+   ]
+  ],
+  "linked": true
+ },
+ "L110": {
+  "plan_index": 110,
+  "rule": "questItemReachable: C++ implementation of Rules.QuestItemReachable, StoreStock.Reachable",
+  "copies": [
+   "questItemReachable@src/guilds1_b.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.QuestItemReachable"
+   ],
+   [
+    "StoreStock.cs",
+    "StoreStock.Reachable"
+   ]
+  ],
+  "linked": true
+ },
+ "L111": {
+  "plan_index": 111,
+  "rule": "questMonster: C++ implementation of Combat.Int, Rules.QuestMonster",
+  "copies": [
+   "questMonster@src/guilds1_b.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "Combat.Int"
+   ],
+   [
+    "Rules.cs",
+    "Rules.QuestMonster"
+   ]
+  ],
+  "linked": true
+ },
+ "L112": {
+  "plan_index": 112,
+  "rule": "questSatisfied: C++ implementation of Character.RemoveFromPack, Character.QuestSatisfied, Progress.QuestStateOf",
+  "copies": [
+   "questSatisfied@src/guilds1_b.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.RemoveFromPack"
+   ],
+   [
+    "Character.cs",
+    "Character.QuestSatisfied"
+   ],
+   [
+    "Progress.cs",
+    "Progress.QuestStateOf"
+   ]
+  ],
+  "linked": true
+ },
+ "L113": {
+  "plan_index": 113,
+  "rule": "questTier: C++ implementation of Rules.QuestTier",
+  "copies": [
+   "questTier@src/guilds1_b.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.QuestTier"
+   ]
+  ],
+  "linked": true
+ },
+ "L114": {
+  "plan_index": 114,
+  "rule": "raceExpFactor: C++ implementation of Rules.Fn13ED",
+  "copies": [
+   "raceExpFactor@src/progression1a.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.Fn13ED"
+   ]
+  ],
+  "linked": true
+ },
+ "L115": {
+  "plan_index": 115,
+  "rule": "raceSizeOf: C++ implementation of CombatEngine.SizeOf",
+  "copies": [
+   "raceSizeOf@src/game_combat.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "CombatEngine.SizeOf"
+   ]
+  ],
+  "linked": true
+ },
+ "L116": {
+  "plan_index": 116,
+  "rule": "readNamedEntry: C++ implementation of Mdata1.ReadTable",
+  "copies": [
+   "readNamedEntry@src/game_data_json.cpp"
+  ],
+  "refs": [
+   [
+    "Mdata1.cs",
+    "Mdata1.ReadTable"
+   ]
+  ],
+  "linked": true
+ },
+ "L117": {
+  "plan_index": 117,
+  "rule": "readRaceDef: C++ implementation of Race.Alignments",
+  "copies": [
+   "readRaceDef@src/game_data_json.cpp"
+  ],
+  "refs": [
+   [
+    "RaceData.cs",
+    "Race.Alignments"
+   ]
+  ],
+  "linked": true
+ },
+ "L118": {
+  "plan_index": 118,
+  "rule": "recalcSpellPoints: C++ implementation of Character.RecalcSpellPoints",
+  "copies": [
+   "recalcSpellPoints@src/casting1_a.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.RecalcSpellPoints"
+   ]
+  ],
+  "linked": true
+ },
+ "L119": {
+  "plan_index": 119,
+  "rule": "recordArrival: C++ implementation of MapRecord.OnEntry",
+  "copies": [
+   "recordArrival@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "MapRecord.cs",
+    "MapRecord.OnEntry"
+   ]
+  ],
+  "linked": true
+ },
+ "L120": {
+  "plan_index": 120,
+  "rule": "recordDoorPassage: C++ implementation of MapRecord.OnPassingThrough, SharedMap.Record",
+  "copies": [
+   "recordDoorPassage@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "MapRecord.cs",
+    "MapRecord.OnPassingThrough"
+   ],
+   [
+    "SharedMap.cs",
+    "SharedMap.Record"
+   ]
+  ],
+  "linked": true
+ },
+ "L121": {
+  "plan_index": 121,
+  "rule": "recordFogWallBump: C++ implementation of MapRecord.OnBumpInFog, SharedMap.SeenFlags, SharedMap.Recorded",
+  "copies": [
+   "recordFogWallBump@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "MapRecord.cs",
+    "MapRecord.OnBumpInFog"
+   ],
+   [
+    "SharedMap.cs",
+    "SharedMap.SeenFlags"
+   ],
+   [
+    "SharedMap.cs",
+    "SharedMap.Recorded"
+   ],
+   [
+    "SharedMap.cs",
+    "SharedMap.Record"
+   ],
+   [
+    "SharedMap.cs",
+    "SharedMap.Knows"
+   ],
+   [
+    "SharedMap.cs",
+    "SharedMap.Note"
+   ]
+  ],
+  "linked": true
+ },
+ "L122": {
+  "plan_index": 122,
+  "rule": "removePartyMember: C++ implementation of Party.Remove",
+  "copies": [
+   "removePartyMember@src/death1a.cpp"
+  ],
+  "refs": [
+   [
+    "Party.cs",
+    "Party.Remove"
+   ]
+  ],
+  "linked": true
+ },
+ "L123": {
+  "plan_index": 123,
+  "rule": "replenishStore: C++ implementation of Rescue.TurnOverTown, StoreStock.Replenish, StoreStock.AddOne",
+  "copies": [
+   "replenishStore@src/city1_a.cpp"
+  ],
+  "refs": [
+   [
+    "Rescue.cs",
+    "Rescue.TurnOverTown"
+   ],
+   [
+    "StoreStock.cs",
+    "StoreStock.Replenish"
+   ],
+   [
+    "StoreStock.cs",
+    "StoreStock.AddOne"
+   ]
+  ],
+  "linked": true
+ },
+ "L124": {
+  "plan_index": 124,
+  "rule": "rescueReport: C++ implementation of Rescue.Report",
+  "copies": [
+   "rescueReport@src/feat_rescue.cpp"
+  ],
+  "refs": [
+   [
+    "Rescue.cs",
+    "Rescue.Report"
+   ]
+  ],
+  "linked": true
+ },
+ "L125": {
+  "plan_index": 125,
+  "rule": "rescueResolvePendingRaise: C++ implementation of PendingRaise.Prepare",
+  "copies": [
+   "rescueResolvePendingRaise@src/feat_rescue.cpp"
+  ],
+  "refs": [
+   [
+    "PendingRaise.cs",
+    "PendingRaise.Prepare"
+   ]
+  ],
+  "linked": true
+ },
+ "L126": {
+  "plan_index": 126,
+  "rule": "resistancePercentOf: C++ implementation of Effects.ResistancePercent",
+  "copies": [
+   "resistancePercentOf@src/combat3.cpp"
+  ],
+  "refs": [
+   [
+    "Effects.cs",
+    "Effects.ResistancePercent"
+   ]
+  ],
+  "linked": true
+ },
+ "L127": {
+  "plan_index": 127,
+  "rule": "resolveChestTrap: C++ implementation of ChestTraps.Spring",
+  "copies": [
+   "resolveChestTrap@src/loot1a.cpp"
+  ],
+  "refs": [
+   [
+    "ChestTraps.cs",
+    "ChestTraps.Spring"
+   ]
+  ],
+  "linked": true
+ },
+ "L128": {
+  "plan_index": 128,
+  "rule": "resolveSpellOrder: C++ implementation of Spellbook.BestHealing",
+  "copies": [
+   "resolveSpellOrder@src/game_combat.cpp"
+  ],
+  "refs": [
+   [
+    "Spells.cs",
+    "Spellbook.BestHealing"
+   ]
+  ],
+  "linked": true
+ },
+ "L129": {
+  "plan_index": 129,
+  "rule": "restInCity: C++ implementation of Character.RestInCity, Party.RestInCity",
+  "copies": [
+   "restInCity@src/progression2.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.RestInCity"
+   ],
+   [
+    "Party.cs",
+    "Party.RestInCity"
+   ]
+  ],
+  "linked": true
+ },
+ "L130": {
+  "plan_index": 130,
+  "rule": "restockPens: C++ implementation of Confinement.Replenish, Rescue.TurnOverTown",
+  "copies": [
+   "restockPens@src/city1_b.cpp"
+  ],
+  "refs": [
+   [
+    "Confinement.cs",
+    "Confinement.Replenish"
+   ],
+   [
+    "Rescue.cs",
+    "Rescue.TurnOverTown"
+   ]
+  ],
+  "linked": true
+ },
+ "L131": {
+  "plan_index": 131,
+  "rule": "rollAnotherChestItem: C++ implementation of Loot.DropsAnother",
+  "copies": [
+   "rollAnotherChestItem@src/loot1a.cpp"
+  ],
+  "refs": [
+   [
+    "Loot.cs",
+    "Loot.DropsAnother"
+   ]
+  ],
+  "linked": true
+ },
+ "L132": {
+  "plan_index": 132,
+  "rule": "rollBaseGroupGold: C++ implementation of Rules.GroupGold",
+  "copies": [
+   "rollBaseGroupGold@src/loot1a.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.GroupGold"
+   ]
+  ],
+  "linked": true
+ },
+ "L133": {
+  "plan_index": 133,
+  "rule": "rollChestItem: C++ implementation of Loot.RollDrop",
+  "copies": [
+   "rollChestItem@src/loot1a.cpp"
+  ],
+  "refs": [
+   [
+    "Loot.cs",
+    "Loot.RollDrop"
+   ]
+  ],
+  "linked": true
+ },
+ "L134": {
+  "plan_index": 134,
+  "rule": "rollChestItemSpawn: C++ implementation of Loot.DropsItem",
+  "copies": [
+   "rollChestItemSpawn@src/loot1a.cpp"
+  ],
+  "refs": [
+   [
+    "Loot.cs",
+    "Loot.DropsItem"
+   ]
+  ],
+  "linked": true
+ },
+ "L135": {
+  "plan_index": 135,
+  "rule": "rollChestTrap: C++ implementation of Rules.ChestTrap",
+  "copies": [
+   "rollChestTrap@src/loot1a.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.ChestTrap"
+   ]
+  ],
+  "linked": true
+ },
+ "L136": {
+  "plan_index": 136,
+  "rule": "rollLair: C++ implementation of Combat.Generate",
+  "copies": [
+   "rollLair@src/monsters1a.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "Combat.Generate"
+   ]
+  ],
+  "linked": true
+ },
+ "L137": {
+  "plan_index": 137,
+  "rule": "rollMonsterHits: C++ implementation of CombatMonster.LoadRecord",
+  "copies": [
+   "rollMonsterHits@src/monsters1a.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "CombatMonster.LoadRecord"
+   ]
+  ],
+  "linked": true
+ },
+ "L138": {
+  "plan_index": 138,
+  "rule": "rollQuest: C++ implementation of Character.RollQuestForLevel, Rules.RollQuest",
+  "copies": [
+   "rollQuest@src/guilds1_b.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.RollQuestForLevel"
+   ],
+   [
+    "Rules.cs",
+    "Rules.RollQuest"
+   ]
+  ],
+  "linked": true
+ },
+ "L139": {
+  "plan_index": 139,
+  "rule": "rollSecretDoorsOnEntry: C++ implementation of MapRecord.NoticesSecretDoor, MapRecord.OnEntry, MapRecord.Square",
+  "copies": [
+   "rollSecretDoorsOnEntry@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "MapRecord.cs",
+    "MapRecord.NoticesSecretDoor"
+   ],
+   [
+    "MapRecord.cs",
+    "MapRecord.OnEntry"
+   ],
+   [
+    "MapRecord.cs",
+    "MapRecord.Square"
+   ],
+   [
+    "SharedMap.cs",
+    "SharedMap.Unrecord"
+   ]
+  ],
+  "linked": true
+ },
+ "L140": {
+  "plan_index": 140,
+  "rule": "rosterFindLeft: C++ implementation of GuildData.IndexOf",
+  "copies": [
+   "rosterFindLeft@src/feat_roster.cpp"
+  ],
+  "refs": [
+   [
+    "GuildData.cs",
+    "GuildData.IndexOf"
+   ]
+  ],
+  "linked": true
+ },
+ "L141": {
+  "plan_index": 141,
+  "rule": "roundedIndex: C++ implementation of Rules.RoundedIndex",
+  "copies": [
+   "roundedIndex@src/city1_a.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.RoundedIndex"
+   ]
+  ],
+  "linked": true
+ },
+ "L142": {
+  "plan_index": 142,
+  "rule": "scaleGoldForClass: C++ implementation of CombatEngine.GoldAfterClass",
+  "copies": [
+   "scaleGoldForClass@src/loot1a.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "CombatEngine.GoldAfterClass"
+   ]
+  ],
+  "linked": true
+ },
+ "L143": {
+  "plan_index": 143,
+  "rule": "seedStartingPens: C++ implementation of Confinement.Fresh",
+  "copies": [
+   "seedStartingPens@src/city1_b.cpp"
+  ],
+  "refs": [
+   [
+    "Confinement.cs",
+    "Confinement.Fresh"
+   ]
+  ],
+  "linked": true
+ },
+ "L144": {
+  "plan_index": 144,
+  "rule": "seerSearchPerson: C++ implementation of Rescue.Offer",
+  "copies": [
+   "seerSearchPerson@src/feat_seer.cpp"
+  ],
+  "refs": [
+   [
+    "Rescue.cs",
+    "Rescue.Offer"
+   ]
+  ],
+  "linked": true
+ },
+ "L145": {
+  "plan_index": 145,
+  "rule": "sellPrice: C++ implementation of StoreStock.SellPrice",
+  "copies": [
+   "sellPrice@src/items1a_d.cpp"
+  ],
+  "refs": [
+   [
+    "StoreStock.cs",
+    "StoreStock.SellPrice"
+   ]
+  ],
+  "linked": true
+ },
+ "L146": {
+  "plan_index": 146,
+  "rule": "sessionInit: C++ implementation of DungeonState.StoreRoom",
+  "copies": [
+   "sessionInit@src/game_setup.cpp"
+  ],
+  "refs": [
+   [
+    "DungeonState.cs",
+    "DungeonState.StoreRoom"
+   ]
+  ],
+  "linked": true
+ },
+ "L147": {
+  "plan_index": 147,
+  "rule": "setActiveGuild: C++ implementation of Character.SetActiveGuild",
+  "copies": [
+   "setActiveGuild@src/guilds1_a.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.SetActiveGuild"
+   ]
+  ],
+  "linked": true
+ },
+ "L148": {
+  "plan_index": 148,
+  "rule": "setLivingOrders: C++ implementation of Party.OrderFor",
+  "copies": [
+   "setLivingOrders@src/game_combat.cpp"
+  ],
+  "refs": [
+   [
+    "Party.cs",
+    "Party.OrderFor"
+   ]
+  ],
+  "linked": true
+ },
+ "L149": {
+  "plan_index": 149,
+  "rule": "setPartyPosition: C++ implementation of DungeonNav.DungeonNav, DungeonNav.SetPosition",
+  "copies": [
+   "setPartyPosition@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "DungeonNav.cs",
+    "DungeonNav.DungeonNav"
+   ],
+   [
+    "DungeonNav.cs",
+    "DungeonNav.SetPosition"
+   ]
+  ],
+  "linked": true
+ },
+ "L150": {
+  "plan_index": 150,
+  "rule": "settleRound: C++ implementation of CombatEngine.IsOver, CombatEngine.Won",
+  "copies": [
+   "settleRound@src/game_combat.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "CombatEngine.IsOver"
+   ],
+   [
+    "Combat.cs",
+    "CombatEngine.Won"
+   ]
+  ],
+  "linked": true
+ },
+ "L151": {
+  "plan_index": 151,
+  "rule": "spellCostEngine: C++ implementation of Spellbook.ClassSpells, Spellbook.Cost",
+  "copies": [
+   "spellCostEngine@src/casting1_a.cpp"
+  ],
+  "refs": [
+   [
+    "Spells.cs",
+    "Spellbook.ClassSpells"
+   ],
+   [
+    "Spells.cs",
+    "Spellbook.Cost"
+   ]
+  ],
+  "linked": true
+ },
+ "L152": {
+  "plan_index": 152,
+  "rule": "spellUse: C++ implementation of Spellbook.IsCureParalysis",
+  "copies": [
+   "spellUse@src/casting1_a.cpp"
+  ],
+  "refs": [
+   [
+    "Spells.cs",
+    "Spellbook.IsCureParalysis"
+   ]
+  ],
+  "linked": true
+ },
+ "L153": {
+  "plan_index": 153,
+  "rule": "squareIndexOf: C++ implementation of DungeonNav.InBounds",
+  "copies": [
+   "squareIndexOf@src/dungeon3.cpp"
+  ],
+  "refs": [
+   [
+    "DungeonNav.cs",
+    "DungeonNav.InBounds"
+   ]
+  ],
+  "linked": true
+ },
+ "L154": {
+  "plan_index": 154,
+  "rule": "squareIsFogged: C++ implementation of DungeonNav.HasMapped",
+  "copies": [
+   "squareIsFogged@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "DungeonNav.cs",
+    "DungeonNav.HasMapped"
+   ]
+  ],
+  "linked": true
+ },
+ "L155": {
+  "plan_index": 155,
+  "rule": "squareIsRock: C++ implementation of DungeonNav.IsRock",
+  "copies": [
+   "squareIsRock@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "DungeonNav.cs",
+    "DungeonNav.IsRock"
+   ]
+  ],
+  "linked": true
+ },
+ "L156": {
+  "plan_index": 156,
+  "rule": "standingGroupIndex: C++ implementation of Combat.TargetFor",
+  "copies": [
+   "standingGroupIndex@src/clock.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "Combat.TargetFor"
+   ]
+  ],
+  "linked": true
+ },
+ "L157": {
+  "plan_index": 157,
+  "rule": "starterEligible: C++ implementation of Combat.WeaponsOf",
+  "copies": [
+   "starterEligible@src/game_setup.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "Combat.WeaponsOf"
+   ]
+  ],
+  "linked": true
+ },
+ "L158": {
+  "plan_index": 158,
+  "rule": "statWithMods: C++ implementation of Character.StatWithMods",
+  "copies": [
+   "statWithMods@src/attributes.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.StatWithMods"
+   ]
+  ],
+  "linked": true
+ },
+ "L159": {
+  "plan_index": 159,
+  "rule": "statsAD: C++ implementation of Character.StatsADNow, Rules.StatsAD",
+  "copies": [
+   "statsAD@src/attributes.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.StatsADNow"
+   ],
+   [
+    "Rules.cs",
+    "Rules.StatsAD"
+   ]
+  ],
+  "linked": true
+ },
+ "L160": {
+  "plan_index": 160,
+  "rule": "statsADOf: C++ implementation of CombatEngine.StatsWithGear",
+  "copies": [
+   "statsADOf@src/combat3.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "CombatEngine.StatsWithGear"
+   ]
+  ],
+  "linked": true
+ },
+ "L161": {
+  "plan_index": 161,
+  "rule": "storeBuyPrice: C++ implementation of StoreStock.PriceOf",
+  "copies": [
+   "storeBuyPrice@src/store_prices.cpp"
+  ],
+  "refs": [
+   [
+    "StoreStock.cs",
+    "StoreStock.PriceOf"
+   ]
+  ],
+  "linked": true
+ },
+ "L162": {
+  "plan_index": 162,
+  "rule": "storeChestOnSquare: C++ implementation of Encounter.ToRecord",
+  "copies": [
+   "storeChestOnSquare@src/loot1a.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "Encounter.ToRecord"
+   ]
+  ],
+  "linked": true
+ },
+ "L163": {
+  "plan_index": 163,
+  "rule": "storeIdentifyFee: C++ implementation of StoreStock.IdentifyFee",
+  "copies": [
+   "storeIdentifyFee@src/store_prices.cpp"
+  ],
+  "refs": [
+   [
+    "StoreStock.cs",
+    "StoreStock.IdentifyFee"
+   ]
+  ],
+  "linked": true
+ },
+ "L164": {
+  "plan_index": 164,
+  "rule": "storeRowCount: C++ implementation of Confinement.Count, StoreStock.Count",
+  "copies": [
+   "storeRowCount@src/city1_a.cpp"
+  ],
+  "refs": [
+   [
+    "Confinement.cs",
+    "Confinement.Count"
+   ],
+   [
+    "StoreStock.cs",
+    "StoreStock.Count"
+   ]
+  ],
+  "linked": true
+ },
+ "L165": {
+  "plan_index": 165,
+  "rule": "storeSellPrice: C++ implementation of StoreStock.SellPrice",
+  "copies": [
+   "storeSellPrice@src/store_prices.cpp"
+  ],
+  "refs": [
+   [
+    "StoreStock.cs",
+    "StoreStock.SellPrice"
+   ]
+  ],
+  "linked": true
+ },
+ "L166": {
+  "plan_index": 166,
+  "rule": "storedADShift: C++ implementation of Character.StoredADShift, CombatEngine.StatsADOf",
+  "copies": [
+   "storedADShift@src/combat3.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.StoredADShift"
+   ],
+   [
+    "Combat.cs",
+    "CombatEngine.StatsADOf"
+   ]
+  ],
+  "linked": true
+ },
+ "L167": {
+  "plan_index": 167,
+  "rule": "tickChestCountdown: C++ implementation of Combat.ChestRoundsOf, Combat.ChestTick",
+  "copies": [
+   "tickChestCountdown@src/loot2.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "Combat.ChestRoundsOf"
+   ],
+   [
+    "Combat.cs",
+    "Combat.ChestTick"
+   ]
+  ],
+  "linked": true
+ },
+ "L168": {
+  "plan_index": 168,
+  "rule": "tryMoveForward: C++ implementation of DungeonNav.MoveForward, DungeonNav.MoveBackward",
+  "copies": [
+   "tryMoveForward@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "DungeonNav.cs",
+    "DungeonNav.MoveForward"
+   ],
+   [
+    "DungeonNav.cs",
+    "DungeonNav.MoveBackward"
+   ]
+  ],
+  "linked": true
+ },
+ "L169": {
+  "plan_index": 169,
+  "rule": "tryToWorkItOut: C++ implementation of Lost.TryToWorkItOut, Lost.TryToWorkItOut(gear",
+  "copies": [
+   "tryToWorkItOut@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "Lost.cs",
+    "Lost.TryToWorkItOut"
+   ],
+   [
+    "Lost.cs",
+    "Lost.TryToWorkItOut(gear"
+   ]
+  ],
+  "linked": true
+ },
+ "L170": {
+  "plan_index": 170,
+  "rule": "turnAroundOf: C++ implementation of DungeonNav.Opposite, DungeonNav.TurnAround",
+  "copies": [
+   "turnAroundOf@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "DungeonNav.cs",
+    "DungeonNav.Opposite"
+   ],
+   [
+    "DungeonNav.cs",
+    "DungeonNav.TurnAround"
+   ]
+  ],
+  "linked": true
+ },
+ "L171": {
+  "plan_index": 171,
+  "rule": "turnLeftOf: C++ implementation of DungeonNav.TurnLeft(Facing), DungeonNav.TurnLeft()",
+  "copies": [
+   "turnLeftOf@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "DungeonNav.cs",
+    "DungeonNav.TurnLeft(Facing)"
+   ],
+   [
+    "DungeonNav.cs",
+    "DungeonNav.TurnLeft()"
+   ]
+  ],
+  "linked": true
+ },
+ "L172": {
+  "plan_index": 172,
+  "rule": "turnRightOf: C++ implementation of DungeonNav.TurnRight(Facing), DungeonNav.TurnRight(), DungeonNav.FaceTowards",
+  "copies": [
+   "turnRightOf@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "DungeonNav.cs",
+    "DungeonNav.TurnRight(Facing)"
+   ],
+   [
+    "DungeonNav.cs",
+    "DungeonNav.TurnRight()"
+   ],
+   [
+    "DungeonNav.cs",
+    "DungeonNav.FaceTowards"
+   ]
+  ],
+  "linked": true
+ },
+ "L173": {
+  "plan_index": 173,
+  "rule": "unfitGateCheck: C++ implementation of CastGate.Unfit, Spellbook.Known",
+  "copies": [
+   "unfitGateCheck@src/casting1_a.cpp"
+  ],
+  "refs": [
+   [
+    "CastGate.cs",
+    "CastGate.Unfit"
+   ],
+   [
+    "Spells.cs",
+    "Spellbook.Known"
+   ]
+  ],
+  "linked": true
+ },
+ "L174": {
+  "plan_index": 174,
+  "rule": "unmet: C++ implementation of GuildDef.Unmet",
+  "copies": [
+   "unmet@src/guilds1_a.cpp"
+  ],
+  "refs": [
+   [
+    "GuildData.cs",
+    "GuildDef.Unmet"
+   ]
+  ],
+  "linked": true
+ },
+ "L175": {
+  "plan_index": 175,
+  "rule": "viewStatus: C++ implementation of CharacterStates.Showing",
+  "copies": [
+   "viewStatus@src/game_view.cpp"
+  ],
+  "refs": [
+   [
+    "CharacterStates.cs",
+    "CharacterStates.Showing"
+   ]
+  ],
+  "linked": true
+ },
+ "L176": {
+  "plan_index": 176,
+  "rule": "wearClassOf: C++ implementation of Character.WearClassOf",
+  "copies": [
+   "wearClassOf@src/items1b.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.WearClassOf"
+   ]
+  ],
+  "linked": true
+ },
+ "L177": {
+  "plan_index": 177,
+  "rule": "weightGroupGold: C++ implementation of Rules.GroupGold",
+  "copies": [
+   "weightGroupGold@src/loot1a.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.GroupGold"
+   ]
+  ],
+  "linked": true
+ },
+ "L178": {
+  "plan_index": 178,
+  "rule": "wornOfClass: C++ implementation of Character.WornOfClass",
+  "copies": [
+   "wornOfClass@src/items1b.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.WornOfClass"
+   ]
+  ],
+  "linked": true
+ },
+ "L179": {
+  "plan_index": 179,
+  "rule": "wouldCoverShortfall: C++ implementation of Party.PlanShortfall",
+  "copies": [
+   "wouldCoverShortfall@src/city1_b.cpp"
+  ],
+  "refs": [
+   [
+    "Party.cs",
+    "Party.PlanShortfall"
+   ]
+  ],
+  "linked": true
+ }
+}

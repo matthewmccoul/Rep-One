@@ -45,7 +45,7 @@ def _wins(d, visible=False):
     return [l.split("|", 1) for l in out.splitlines() if "|" in l]
 def start(g, log=None):
     """(Re)start Xvfb and the game on g.d; leave it at the main menu with the window at 1024x768."""
-    subprocess.run(f"pkill -f 'winevdm.*MORDOR' ; pkill -f 'wine.*MORDOR' ; pkill -f winedbg ; sleep 1", shell=True)
+    subprocess.run(f"WINEPREFIX={g.prefix} wineserver -k ; pkill -f 'winevdm.*MORDOR' ; pkill -f 'wine.*MORDOR' ; pkill -f winedbg ; sleep 2", shell=True)
     if subprocess.run(["pgrep", "-f", f"Xvfb {g.d}"], capture_output=True).returncode != 0:
         subprocess.Popen(["Xvfb", g.d, "-screen", "0", "1024x768x24"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL); time.sleep(1)
     env = dict(ENV, DISPLAY=g.d, WINEPREFIX=g.prefix, WINEDEBUG="trace+msgbox")
@@ -62,4 +62,6 @@ def start(g, log=None):
 def crashed(g):
     """The game itself is gone: its main window or its process. Stray debugger windows from other Wine processes do not count."""
     alive = subprocess.run(["pgrep", "-f", "winevdm.*MORDOR"], capture_output=True).returncode == 0
-    return not alive or not any("Limited Version" in n for _, n in _wins(g.d))
+    names = [n for _, n in _wins(g.d, visible=True)]
+    # start() kills leftover debuggers, so a Program Error window here is from this game
+    return not alive or "Program Error" in names or not any("Limited Version" in n for _, n in _wins(g.d))

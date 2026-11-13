@@ -1,0 +1,8 @@
+{"cur": 10, "max": 77, "real_hits": 77, "real_age_added": 27, "real_sp": "180", "core_hits": 77, "core_age_added": 27, "match": true}
+{"cur": 1, "max": 77, "real_hits": 77, "real_age_added": 30, "real_sp": "180", "core_hits": 77, "core_age_added": 30, "match": true}
+{"cur": 38, "max": 77, "real": "CRASH"}
+{"cur": 76, "max": 77, "real_hits": 77, "real_age_added": 0, "real_sp": "180", "core_hits": 77, "core_age_added": 0, "match": true}
+{"cur": 77, "max": 77, "real_hits": 77, "real_age_added": 0, "real_sp": "180", "core_hits": 77, "core_age_added": 0, "match": true}
+{"cur": 5, "max": 15, "real": "CRASH"}
+{"cur": 13, "max": 15, "real_hits": 15, "real_age_added": 4, "real_sp": "180", "core_hits": 15, "core_age_added": 4, "match": true}
+{"cur": 30, "max": 60, "real_hits": 60, "real_age_added": 15, "real_sp": "180", "core_hits": 60, "core_age_added": 15, "match": true}
