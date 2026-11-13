@@ -42,6 +42,7 @@ const char* const kHelpText =
 
 // ---- small string helpers ----
 
+}  // namespace
 Str toStr(i64 v) {
     if (v == 0) return Str("0");
     const bool neg = v < 0;
@@ -54,6 +55,7 @@ Str toStr(i64 v) {
     if (neg) out.insert(out.begin(), '-');
     return out;
 }
+namespace {
 
 Str lowered(const Str& w) {
     Str r = w;
