@@ -161,7 +161,7 @@ void levelUp(Ctx& ctx, Character& ch, Guild g, const GuildHitsRef& rates);
 i32 forfeitCost(const Character& ch, Guild g);
 
 // ForfeitGuild: level = max(1, from - cost); Experience = Fn12A1(level - 1). [c3]
-void forfeitGuild(Character& ch, Guild g);
+
 
 // ---------------------------------------------------------------------------
 // Attack/defence award step and interval (source chunk [c10][c28])

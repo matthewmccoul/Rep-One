@@ -341,20 +341,6 @@ i32 forfeitCost(const Character& ch, Guild g) {
     return 0;
 }
 
-// Forfeit the guild: membership reset. UNKNOWN: which fields the original resets
-// (guild gold, AH hits restoration, see [c106]); only membership, level, experience and
-// quest state are reset here.
-void forfeitGuild(Character& ch, Guild g) {
-    GuildMembership& m = memberOf(ch, g);
-    m.joined = false;
-    m.level = 0;
-    m.experience = 0;
-    m.att = 0;
-    m.def = 0;
-    m.questDone = false;
-    m.quest = GuildQuest{};
-}
-
 // ---------------------------------------------------------------------------
 // Award-level step (AD) [c28]
 // ---------------------------------------------------------------------------
