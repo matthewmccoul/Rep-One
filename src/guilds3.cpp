@@ -297,29 +297,6 @@ bool MeetsUseLevel(const Ctx& ctx, const Item& item, const Character& c) {
     return false;
 }
 
-// Picks one guild for an ability [c5]: the joined guild with the highest rating for that
-// ability. Ties go to the lowest guild index. Returns -1 (kCarryNone) when none qualify.
-// UNKNOWN: tie-break and the ability indexing are not in the excerpt.
-i32 WinningGuild(const Character& c, i32 ability) {
-    if (ability < 0 || ability >= kAbilityRatingCount) {
-        return -1;
-    }
-    i32 best = -1;
-    f32 bestVal = 0.0f;
-    for (i32 g = 0; g < kGuildCount; ++g) {
-        const GuildMembership& m = c.guilds[static_cast<u32>(g)];
-        if (!m.joined) {
-            continue;
-        }
-        const f32 v = m.abilityRating[static_cast<u32>(ability)];
-        if (best < 0 || v > bestVal) {
-            best = g;
-            bestVal = v;
-        }
-    }
-    return best;
-}
-
 // Forfeit [c24][c104]. Resets XP to the new level floor and rechecks equipment [c24].
 // UNKNOWN: new level floor value (0 used); removal of gained A/D and abilities [c104];
 // demotion amount and the guild log entry [c64][c3]; IsPinned trigger [c49].

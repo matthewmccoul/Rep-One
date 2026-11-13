@@ -111,7 +111,7 @@ bool MeetsUseLevel(const Ctx& ctx, const Item& item, const Character& c);
 // UNKNOWN: whether swings sum across memberships [c3][c5][c82].
 i32 SwingsFor(const GuildMembership& m, i32 guild);
 // c5 picks one guild for ability; returns guild index or -1. Summing across guilds UNKNOWN.
-i32 WinningGuild(const Character& c, i32 ability);
+
 
 // ---- c24 c104: forfeit ----
 // c24 c104 forfeit a guild: resets XP to new level floor and rechecks equipment
