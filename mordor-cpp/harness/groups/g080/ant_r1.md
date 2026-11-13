@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the shown Mordor.Core candidates performs the 1-based player slot to 0-based pack index conversion (`playerSlot - 1`). `SpellBuffers.Describe`, `Spells.SpendCharge`, `Party.SwapItems`, and `Character.DepositToVault` all take a pack slot that is already a 0-based index into `Pack`, so none of them implements this rule. Testing the C++ copies against them would not check the rule.
+
+REFERENCE: none (no reference method implements this rule)

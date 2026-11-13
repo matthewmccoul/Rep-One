@@ -1,0 +1,3 @@
+src/ref_banktyped.cpp isDigit isDigit__ref_banktyped
+src/ref_goldfromtag.cpp isDigit isDigit__ref_goldfromtag
+src/ref_tryclng.cpp isDigit isDigit__ref_tryclng

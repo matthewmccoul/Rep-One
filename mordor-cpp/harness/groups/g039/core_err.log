@@ -1,0 +1,6 @@
+System.MissingMethodException: Cannot dynamically create an instance of type 'System.Int32[]'. Reason: Type is not supported.
+   at System.RuntimeType.ActivatorCache..ctor(RuntimeType rt)
+   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean wrapExceptions)
+   at Case.NewCharacter(String name) in /tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/harness/groups/g039/cs/Case.cs:line 38
+   at Case.Run(JsonElement a, Random rng) in /tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/harness/groups/g039/cs/Case.cs:line 17
+   at Program.Main(String[] args) in /tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/harness/groups/g039/cs/Program.cs:line 40

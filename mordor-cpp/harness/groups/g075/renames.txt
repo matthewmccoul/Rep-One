@@ -1,0 +1,2 @@
+src/dungeon3.cpp tryToWorkItOut tryToWorkItOut__dungeon3
+src/dungeon1a.cpp tryToWorkItOut tryToWorkItOut__dungeon1a

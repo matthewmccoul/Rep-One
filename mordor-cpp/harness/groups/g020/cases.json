@@ -1,0 +1,27 @@
+[
+  {"args": {"level": 5, "prior_level": 0, "prior_adshift": 0, "stat_str": 10, "stat_int": 10, "stat_wis": 10, "stat_con": 10, "stat_cha": 10, "stat_dex": 10}, "rng": [0.5]},
+  {"args": {"level": 1, "prior_level": 0, "prior_adshift": 0, "stat_str": 3, "stat_int": 3, "stat_wis": 3, "stat_con": 3, "stat_cha": 3, "stat_dex": 3}, "rng": [0.5]},
+  {"args": {"level": 0, "prior_level": 0, "prior_adshift": 0, "stat_str": 18, "stat_int": 18, "stat_wis": 18, "stat_con": 18, "stat_cha": 18, "stat_dex": 18}, "rng": [0.5]},
+  {"args": {"level": -1, "prior_level": 0, "prior_adshift": 0, "stat_str": 16, "stat_int": 8, "stat_wis": 12, "stat_con": 14, "stat_cha": 10, "stat_dex": 15}, "rng": [0.5]},
+  {"args": {"level": -5, "prior_level": 0, "prior_adshift": 3, "stat_str": 12, "stat_int": 14, "stat_wis": 9, "stat_con": 11, "stat_cha": 13, "stat_dex": 7}, "rng": [0.5]},
+  {"args": {"level": 2147483647, "prior_level": 0, "prior_adshift": 0, "stat_str": 5, "stat_int": 17, "stat_wis": 6, "stat_con": 18, "stat_cha": 4, "stat_dex": 12}, "rng": [0.5]},
+  {"args": {"level": -2147483648, "prior_level": 0, "prior_adshift": 0, "stat_str": 15, "stat_int": 13, "stat_wis": 17, "stat_con": 9, "stat_cha": 8, "stat_dex": 11}, "rng": [0.5]},
+  {"args": {"level": 255, "prior_level": 0, "prior_adshift": 0, "stat_str": 9, "stat_int": 11, "stat_wis": 7, "stat_con": 13, "stat_cha": 16, "stat_dex": 14}, "rng": [0.5]},
+  {"args": {"level": 256, "prior_level": 0, "prior_adshift": 0, "stat_str": 18, "stat_int": 3, "stat_wis": 18, "stat_con": 3, "stat_cha": 18, "stat_dex": 3}, "rng": [0.5]},
+  {"args": {"level": 7, "prior_level": 3, "prior_adshift": 4, "stat_str": 4, "stat_int": 6, "stat_wis": 8, "stat_con": 10, "stat_cha": 12, "stat_dex": 14}, "rng": [0.5]},
+  {"args": {"level": 0, "prior_level": 3, "prior_adshift": 4, "stat_str": 13, "stat_int": 12, "stat_wis": 11, "stat_con": 10, "stat_cha": 9, "stat_dex": 8}, "rng": [0.5]},
+  {"args": {"level": 9, "prior_level": -1, "prior_adshift": 4, "stat_str": 17, "stat_int": 15, "stat_wis": 13, "stat_con": 11, "stat_cha": 9, "stat_dex": 7}, "rng": [0.5]},
+  {"args": {"level": 1, "prior_level": 1, "prior_adshift": 0, "stat_str": 10, "stat_int": 10, "stat_wis": 10, "stat_con": 10, "stat_cha": 10, "stat_dex": 10}, "rng": [0.5]},
+  {"args": {"level": 12, "prior_level": 12, "prior_adshift": -7, "stat_str": 3, "stat_int": 3, "stat_wis": 3, "stat_con": 3, "stat_cha": 3, "stat_dex": 3}, "rng": [0.5]},
+  {"args": {"level": -5, "prior_level": -5, "prior_adshift": 2, "stat_str": 18, "stat_int": 18, "stat_wis": 18, "stat_con": 18, "stat_cha": 18, "stat_dex": 18}, "rng": [0.5]},
+  {"args": {"level": 4, "prior_level": 2, "prior_adshift": 12, "stat_str": 16, "stat_int": 8, "stat_wis": 12, "stat_con": 14, "stat_cha": 10, "stat_dex": 15}, "rng": [0.5]},
+  {"args": {"level": 4, "prior_level": 0, "prior_adshift": 12, "stat_str": 12, "stat_int": 14, "stat_wis": 9, "stat_con": 11, "stat_cha": 13, "stat_dex": 7}, "rng": [0.5]},
+  {"args": {"level": 10, "prior_level": 0, "prior_adshift": -5, "stat_str": 5, "stat_int": 17, "stat_wis": 6, "stat_con": 18, "stat_cha": 4, "stat_dex": 12}, "rng": [0.5]},
+  {"args": {"level": 6, "prior_level": 0, "prior_adshift": 2147483647, "stat_str": 15, "stat_int": 13, "stat_wis": 17, "stat_con": 9, "stat_cha": 8, "stat_dex": 11}, "rng": [0.5]},
+  {"args": {"level": 2, "prior_level": 0, "prior_adshift": -2147483648, "stat_str": 9, "stat_int": 11, "stat_wis": 7, "stat_con": 13, "stat_cha": 16, "stat_dex": 14}, "rng": [0.5]},
+  {"args": {"level": 15, "prior_level": 0, "prior_adshift": 7, "stat_str": 18, "stat_int": 3, "stat_wis": 18, "stat_con": 3, "stat_cha": 18, "stat_dex": 3}, "rng": [0.5]},
+  {"args": {"level": 8, "prior_level": 0, "prior_adshift": 0, "stat_str": 4, "stat_int": 6, "stat_wis": 8, "stat_con": 10, "stat_cha": 12, "stat_dex": 14}, "rng": [0.0]},
+  {"args": {"level": 8, "prior_level": 0, "prior_adshift": 0, "stat_str": 13, "stat_int": 12, "stat_wis": 11, "stat_con": 10, "stat_cha": 9, "stat_dex": 8}, "rng": [0.999]},
+  {"args": {"level": 0, "prior_level": 0, "prior_adshift": 9, "stat_str": 17, "stat_int": 15, "stat_wis": 13, "stat_con": 11, "stat_cha": 9, "stat_dex": 7}, "rng": [0.5]}
+]
+

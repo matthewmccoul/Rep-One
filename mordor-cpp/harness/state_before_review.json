@@ -1,0 +1,810 @@
+{
+ "g043": {
+  "status": "DONE",
+  "cases": 25,
+  "core_exceptions": 0,
+  "copies": {
+   "storeBuyPrice@loot1a": {
+    "match": 8,
+    "of": 25,
+    "examples": [
+     "case 7: core 333484 | c++ 333483.913",
+     "case 8: core 208072 | c++ 208071.555",
+     "case 9: core 138980 | c++ 138979.9344"
+    ]
+   },
+   "storeBuyPrice@store_prices": {
+    "match": 25,
+    "of": 25,
+    "examples": []
+   }
+  },
+  "unreachable": [],
+  "reference": "StoreStock.PriceOf"
+ },
+ "g088": {
+  "status": "DONE",
+  "cases": 24,
+  "core_exceptions": 0,
+  "copies": {
+   "unparalyse@status1a": {
+    "match": 6,
+    "of": 24,
+    "examples": [
+     "case 6: core -42|0 | c++ -48|0",
+     "case 7: core -37|0 | c++ -48|0",
+     "case 8: core -49|0 | c++ -48|0"
+    ]
+   },
+   "unparalyse@status2": {
+    "match": 6,
+    "of": 24,
+    "examples": [
+     "case 6: core -42|0 | c++ 0|1",
+     "case 7: core -37|0 | c++ 5|1",
+     "case 8: core -49|0 | c++ -7|1"
+    ]
+   }
+  },
+  "unreachable": [],
+  "reference": "Character.Unparalyse"
+ },
+ "g000": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the four Mordor.Core methods provided implements giving an item to another member. `ForfeitQuest` and `ForfeitRefusal` handle quest forfeiture, `QuestSatisfied` checks or consumes a quest item, and `RemoveFromPack` only empties a slot on one character. No method transfers an item into another character's pack, and none applies the give rules (combat block, same-character chec"
+ },
+ "g006": {
+  "status": "DONE",
+  "cases": 29,
+  "core_exceptions": 0,
+  "copies": {
+   "resolveChestTrap@loot1a": {
+    "match": 29,
+    "of": 29,
+    "examples": []
+   },
+   "resolveChestTrap@combat2a": {
+    "match": 0,
+    "of": 29,
+    "examples": [
+     "case 0: core 0|0|0|10|5 | c++ NA|NA|NA|10|5",
+     "case 1: core 0|0|0|10|5 | c++ NA|NA|NA|10|5",
+     "case 2: core 0|0|0|10|10|10|5|5|5 | c++ NA|NA|NA|10|10|10|5|5|5"
+    ]
+   }
+  },
+  "unreachable": [],
+  "reference": "ChestTraps.Spring"
+ },
+ "g007": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: none of the shown Mordor.Core methods sets a party's position together with its dungeon level. The closest is `DungeonNav.SetPosition(int x, int y)`, but it takes no level, touches no party or member state, and calls `MarkExplored()` for non-rock squares, which is the opposite of the rule's \"no explore\" requirement. The C++ copies write `party.x`, `party.y`, `party.dungeonLevel`, and"
+ },
+ "g008": {
+  "status": "DONE",
+  "cases": 29,
+  "core_exceptions": 0,
+  "copies": {
+   "driftContentStep": {
+    "match": 29,
+    "of": 29,
+    "examples": []
+   },
+   "companionDriftContent": {
+    "match": 23,
+    "of": 29,
+    "examples": [
+     "case 10: core 0.5 | c++ 0",
+     "case 11: core 0.5 | c++ 0",
+     "case 12: core 0.5 | c++ 0"
+    ]
+   },
+   "contentDrift": {
+    "match": 29,
+    "of": 29,
+    "examples": []
+   }
+  },
+  "unreachable": [],
+  "reference": "CompanionMood.Drift"
+ },
+ "g009": {
+  "status": "BAD_OUTPUT",
+  "problem": "Missing one of the three file blocks.",
+  "prev": "I can't fix this yet, so I haven't written the three files. Retrying with a guess would likely fail the same way.\n\nThe harness found no `int` field whose name contains `TopGuildLevel`. An ordinary auto-property would have a compiler-generated backing field with that name, so `TopGuildLevel` is probably a computed getter, such as a value derived from guild memberships or other state. I can't set a computed value directly, and the Character outline you gave me is truncated and doesn't show how it's derived. Writing a reflection setter for some other member would break the \"do not invent fields\" rule.\n\nTo proceed, I need one of these:\n\n1. **The definition of `TopGuildLevel` in `Character.cs`.** Run `grep -n \"TopGuildLevel\" <Mordor.Core>/Character.cs` and paste the matching lines plus the members they reference. With that I can build the inputs from the real state that drives it.\n2. **Permission to search the repo myself.** I can grep for `TopGuildLevel` under the Mordor.Core source and read the relevant members.\n\nTwo other notes for the rewrite:\n\n- **Scope of the cases.** The C# `Drift` has a separate `BindingLevel < 0` branch with a 0.5 floor, and the C++ copies implement only the `Binding > 0` rule. All cases should use `binding_level >= 1` so the two sides test the same rule.\n- **Floor semantics.** The C# uses `Math.Max(1, drift)`, which matches the C++ explicit comparison against 1.0. Fractional results above the floor should match exactly, so the cases don't need special handling for them."
+ },
+ "g014": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the Mordor.Core methods listed implements the ASCII A-Z to a-z character mapping. `IsPlainName` uses `ToUpperInvariant` for a different purpose, and `Val`, `ApplyToCharacter`, `OnEntry`, and the `GiveCommand` methods do not lowercase characters. The C# `InstallerUnpack` list is truncated, so I cannot rule out a match there, but nothing shown implements this rule. No files wer"
+ },
+ "g015": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the shown Mordor.Core methods implements an index-to-member accessor. `Party.Leader` returns `Members[0]` with no index parameter. `Party.Selected` picks by `SelectedIndex` state, not an argument. `Party.Remove` and `Party.PoolToBank` take a `Character` or a member collection, not an index. The `SpellThrown.Line` and `SpellThrown.Companion` candidates are display-string build"
+ },
+ "g016": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the shown Mordor.Core methods implements an index accessor on Party. SpellThrown.Person, SpellThrown.Companion, SpellThrown.Line, Party.Remove, and Party.PoolToBank do not take a member index. Party.Selected clamps SelectedIndex, and Party.Leader is fixed at Members[0], so neither matches memberAt(p, i) for an arbitrary i. Using the List indexer Party.Members[i] directly woul"
+ },
+ "g017": {
+  "status": "DONE",
+  "cases": 25,
+  "core_exceptions": 0,
+  "copies": {
+   "equipProblem": {
+    "match": 11,
+    "of": 25,
+    "examples": [
+     "case 7: core One or more stats are too low! | c++ Your currently joined guilds cannot use this item!",
+     "case 8: core Your guild level is too low to use item! | c++ Your currently joined guilds cannot use this item!",
+     "case 9: core Your guild level is too low to use item! | c++ Your currently joined guilds cannot use this item!"
+    ]
+   },
+   "equipCheck": {
+    "match": 9,
+    "of": 25,
+    "examples": [
+     "case 7: core One or more stats are too low! | c++ Your current guild cannot use this item!",
+     "case 8: core Your guild level is too low to use item! | c++ Your current guild cannot use this item!",
+     "case 9: core Your guild level is too low to use item! | c++ Your current guild cannot use this item!"
+    ]
+   }
+  },
+  "unreachable": [],
+  "reference": "Character.EquipProblem"
+ },
+ "g018": {
+  "status": "DONE",
+  "cases": 23,
+  "core_exceptions": 7,
+  "copies": {
+   "giveGold@items2b.cpp": {
+    "match": 0,
+    "of": 16,
+    "examples": [
+     "case 0: core 1|1570|1580 | c++ 1|70|80",
+     "case 1: core 1|1500|1530 | c++ 1|0|30",
+     "case 2: core 1|1499|1530 | c++ 0|29|0"
+    ]
+   },
+   "giveGold@loot1a.cpp": {
+    "match": 0,
+    "of": 16,
+    "examples": [
+     "case 0: core 1|1570|1580 | c++ 1|70|80",
+     "case 1: core 1|1500|1530 | c++ 1|0|30",
+     "case 2: core 1|1499|1530 | c++ 0|29|0"
+    ]
+   },
+   "giveGoldTransfer": {
+    "match": 0,
+    "of": 16,
+    "examples": [
+     "case 0: core 1|1570|1580 | c++ 1|70|80",
+     "case 1: core 1|1500|1530 | c++ 1|0|30",
+     "case 2: core 1|1499|1530 | c++ 0|29|0"
+    ]
+   }
+  },
+  "unreachable": [],
+  "reference": "GiveCommand.Give"
+ },
+ "g019": {
+  "status": "DONE",
+  "cases": 25,
+  "core_exceptions": 0,
+  "copies": {
+   "experienceCapOf": {
+    "match": 2,
+    "of": 25,
+    "examples": [
+     "case 2: core 42 | c++ 133",
+     "case 3: core 137 | c++ 488",
+     "case 4: core 248 | c++ 1019"
+    ]
+   },
+   "experienceCap@progression1a": {
+    "match": 2,
+    "of": 25,
+    "examples": [
+     "case 2: core 42 | c++ 132",
+     "case 3: core 137 | c++ 487",
+     "case 4: core 248 | c++ 1019"
+    ]
+   },
+   "experienceCap@progression2b": {
+    "match": 0,
+    "of": 25,
+    "examples": [
+     "case 0: core -1 | c++ 1704",
+     "case 1: core -1 | c++ 0",
+     "case 2: core 42 | c++ 0"
+    ]
+   }
+  },
+  "unreachable": [],
+  "reference": "Rules.Fn13ED"
+ },
+ "g020": {
+  "status": "DONE",
+  "cases": 24,
+  "core_exceptions": 0,
+  "copies": {
+   "paralyse@status1a": {
+    "match": 7,
+    "of": 24,
+    "examples": [
+     "case 0: core 5|42 | c++ 5|48",
+     "case 1: core 1|42 | c++ 1|48",
+     "case 2: core 0|42 | c++ 0|48"
+    ]
+   },
+   "paralyse@status2": {
+    "match": 3,
+    "of": 24,
+    "examples": [
+     "case 0: core 5|42 | c++ 5|0",
+     "case 1: core 1|42 | c++ 1|0",
+     "case 2: core 0|42 | c++ 0|0"
+    ]
+   }
+  },
+  "unreachable": [],
+  "reference": "Character.Paralyse"
+ },
+ "g021": {
+  "status": "CPP_BUILD_FAILED",
+  "problem": "CPP_BUILD_FAILED\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/harness/groups/g021/case.cpp:23:14: error: \u2018addCurrencyChecked\u2019 was not declared in this scopeSystem.InvalidOperationException: UNIT/FORMAT ASSUMPTION FAILED: Amt(12345)='12345' Amt(0)='0' Amt(-5)='-5'",
+  "prev": "=== FILE: cases.json ===\n[\n {\"args\":{\"n\":0},\"rng\":[0.5]},\n {\"args\":{\"n\":1,\"b0\":5,\"bd0\":0,\"h0\":7,\"hd0\":0},\"rng\":[0.5]},\n {\"args\":{\"n\":1,\"b0\":3,\"bd0\":0,\"h0\":0,\"hd0\":0},\"rng\":[0.5]},\n {\"args\":{\"n\":1,\"b0\":0,\"bd0\":0,\"h0\":0,\"hd0\":0},\"rng\":[0.5]},\n {\"args\":{\"n\":1,\"b0\":10,\"bd0\":0,\"h0\":-4,\"hd0\":0},\"rng\":[0.5]},\n {\"args\":{\"n\":1,\"b0\":-10,\"bd0\":0,\"h0\":-4,\"hd0\":0},\"rng\":[0.5]},\n {\"args\":{\"n\":1,\"b0\":-10,\"bd0\":0,\"h0\":4,\"hd0\":0},\"rng\":[0.5]},\n {\"args\":{\"n\":1,\"b0\":0,\"bd0\":0,\"h0\":1,\"hd0\":0},\"rng\":[0.5]},\n {\"args\":{\"n\":1,\"b0\":0,\"bd0\":0,\"h0\":10000,\"hd0\":0},\"rng\":[0.5]},\n {\"args\":{\"n\":1,\"b0\":0,\"bd0\":0,\"h0\":2147483647,\"hd0\":0},\"rng\":[0.5]},\n {\"args\":{\"n\":1,\"b0\":0,\"bd0\":0,\"h0\":-2147483648,\"hd0\":0},\"rng\":[0.5]},\n {\"args\":{\"n\":1,\"b0\":2147483647,\"bd0\":0,\"h0\":2147483647,\"hd0\":0},\"rng\":[0.5]},\n {\"args\":{\"n\":2,\"b0\":5,\"bd0\":0,\"h0\":7,\"hd0\":0,\"b1\":0,\"bd1\":0,\"h1\":0,\"hd1\":0},\"rng\":[0.5]},\n {\"args\":{\"n\":2,\"b0\":0,\"bd0\":0,\"h0\":0,\"hd0\":0,\"b1\":-3,\"bd1\":0,\"h1\":8,\"hd1\":0},\"rng\":[0.5]},\n {\"args\":{\"n\":4,\"b0\":1,\"bd0\":0,\"h0\":2,\"hd0\":0,\"b1\":3,\"bd1\":0,\"h1\":4,\"hd1\":0,\"b2\":5,\"bd2\":0,\"h2\":6,\"hd2\":0,\"b3\":7,\"bd3\":0,\"h3\":8,\"hd3\":0},\"rng\":[0.5]},\n {\"args\":{\"n\":3,\"b0\":0,\"bd0\":0,\"h0\":0,\"hd0\":0,\"b1\":0,\"bd1\":0,\"h1\":0,\"hd1\":0,\"b2\":0,\"bd2\":0,\"h2\":0,\"hd2\":0},\"rng\":[0.5]},\n {\"args\":{\"n\":2,\"b0\":5,\"bd0\":0,\"h0\":6,\"hd0\":0,\"b1\":1,\"bd1\":62,\"h1\":1,\"hd1\":62},\"rng\":[0.5]},\n {\"args\":{\"n\":2,\"b0\":1,\"bd0\":62,\"h0\":1,\"hd0\":62,\"b1\":5,\"bd1\":0,\"h1\":6,\"hd1\":0},\"rng\":[0.5]},\n {\"args\":{\"n\":4,\"b0\":1,\"bd0\":0,\"h0\":2,\"hd0\":0,\"b1\":3,\"bd1\":0,\"h1\":4,\"hd1\":0,\"b2\":5,\"bd2\":0,\"h2\":6,\"hd2\":0,\"b3\":1,\"bd3\":62,\"h3\":1,\"hd3\":62},\"rng\":[0.5]},\n {\"args\":{\"n\":1,\"b0\":2147483647,\"bd0\":32,\"h0\":2147483647,\"hd0\":32},\"rng\":[0.5]},\n {\"args\":{\"n\":1,\"b0\":2147483647,\"bd0\":32,\"h0\":2147483647,\"hd0\":0},\"rng\":[0.5]},\n {\"args\":{\"n\":1,\"b0\":-1,\"bd0\":62,\"h0\":-1,\"hd0\":62},\"rng\":[0.5]},\n {\"args\":{\"n\":1,\"b0\":-2147483648,\"bd0\":33,\"h0\":0,\"hd0\":0},\"rng\":[0.5]},\n {\"args\":{\"n\":1,\"b0\":1,\"bd0\":63,\"h0\":0,\"hd0\":0},\"rng\":[0.5]},\n {\"args\":{\"n\":2,\"b0\":4,\"bd0\":0,\"h0\":4,\"hd0\":0,\"b1\":4,\"bd1\":0,\"h1\":4,\"hd1\":0},\"rng\":[0.1,0.9]},\n {\"args\":{\"n\":2,\"b0\":-7,\"bd0\":0,\"h0\":3,\"hd0\":0,\"b1\":0,\"bd1\":0,\"h1\":-2147483648,\"hd1\":0},\"rng\":[0.25]}\n]\n=== END FILE ===\n=== FILE: Case.cs ===\nusing System;\nusing System.Collections.Generic;\nusing System.Text;\nusing System.Text.Json;\nusing Mordor.Core;\n\npublic static class Case\n{\n    // UNKNOWN: unit of the implicit int conversion. Guarded by the probe in Run.\n    static VbCurrency Amt(int units) => units;\n\n    // Uses the shown Str() readback pattern (BankAllText).\n    static string Fmt(VbCurrency v) => v.Str().TrimStart(' ');\n\n    // Builds start doubled n times with TryAdd; false on overflow (input-side).\n    static bool Build(VbCurrency start, int doublings, out VbCurrency v)\n    {\n        v = start;\n        for (int k = 0; k < doublings; k++)\n        {\n            if (!VbCurrency.TryAdd(v, v, out var s)) return false;\n            v = s;\n        }\n        return true;\n    }\n\n    public static string Run(JsonElement a, Random rng)\n    {\n        string p1 = Fmt(Amt(12345)), p0 = Fmt(Amt(0)), pn = Fmt(Amt(-5));\n        if (p1 != \"1.2345\" || p0 != \"0.0000\" || pn != \"-0.0005\")\n            throw new InvalidOperationException(\n                \"UNIT/FORMAT ASSUMPTION FAILED: Amt(12345)='\" + p1 + \"' Amt(0)='\" + p0 + \"' Amt(-5)='\" + pn + \"'\");\n\n        int n = a.GetProperty(\"n\").GetInt32();\n        var members = new List<Character>();\n        for (int i = 0; i < n; i++)\n        {\n            if (!Build(Amt(a.GetProperty($\"b{i}\").GetInt32()), a.GetProperty($\"bd{i}\").GetInt32(), out VbCurrency bank))\n                return \"INPUT_OVERFLOW\";\n            if (!Build(Amt(a.GetProperty($\"h{i}\").GetInt32()), a.GetProperty($\"hd{i}\").GetInt32(), out VbCurrency hand))\n                return \"INPUT_OVERFLOW\";\n\n            var c = Character.Create(\"M\" + i, RaceData.ByName(\"Human\"), Alignment.Neutral, Sex.Male,\n                                     new int[] { 10, 10, 10, 10, 10, 10 });\n            c.GoldInBank = bank;\n            c.GoldOnHand = hand;\n            members.Add(c);\n        }\n\n        var party = new Party(members.ToArray());\n        VbCurrency moved = Party.PartyDeposit(party.Members);\n\n        var sb = new StringBuilder();\n        sb.Append(Fmt(moved));\n        foreach (var c in members)\n            sb.Append('|').Append(Fmt(c.GoldInBank)).Append('|').Append(Fmt(c.GoldOnHand));\n        return sb.ToString();\n    }\n}\n=== END FILE ===\n=== FILE: case.cpp ===\n#include <cstddef>\n#include <cstdint>\n#include <cstdio>\n#include \"case_api.h\"\n#include \"mordor/state_character.h\"\n#include \"mordor/state_party.h\"\n#include \"mordor/partyb.h\"\n#include \"mordor/city1.h\"\n\nnamespace mordor {\nnamespace {\n\nconst char* const kBankKey[4] = {\"b0\", \"b1\", \"b2\", \"b3\"};\nconst char* const kBankDbl[4] = {\"bd0\", \"bd1\", \"bd2\", \"bd3\"};\nconst char* const kHandKey[4] = {\"h0\", \"h1\", \"h2\", \"h3\"};\nconst char* const kHandDbl[4] = {\"hd0\", \"hd1\", \"hd2\", \"hd3\"};\n\n// Doubles start n times with addCurrencyChecked; false on overflow (input-side).\nbool doubledCurrency(Currency start, i32 n, Currency& out) {\n    Currency x = start;\n    for (i32 k = 0; k < n; ++k) {\n        Currency s = 0;\n        if (!addCurrencyChecked(x, x, s)) return false;\n        x = s;\n    }\n    out = x;\n    return true;\n}\n\n// Gold text with 4 decimals (assumed to match C# Str(); see Case.Run probe).\nStr goldText(Currency u) {\n    const bool neg = u < 0;\n    const unsigned long long mag = neg\n        ? 0ULL - static_cast<unsigned long long>(u)\n        : static_cast<unsigned long long>(u);\n    char b[64];\n    std::snprintf(b, sizeof b, \"%s%llu.%04llu\", neg ? \"-\" : \"\",\n                  mag / 10000ULL, mag % 10000ULL);\n    return Str(b);\n}\n\n// Saturating add, used only to canonicalise the moved total.\nCurrency addSat(Currency a, Currency b) {\n    if (b > 0 && a > INT64_MAX - b) return INT64_MAX;\n    if (b < 0 && a < INT64_MIN - b) return INT64_MIN;\n    return a + b;\n}\n\nbool buildParty(const JsonValue& a, Party& party) {\n    party.size = static_cast<i32>(A(a, \"n\").asInt());\n    for (i32 i = 0; i < party.size; ++i) {\n        Currency bank = 0;\n        Currency hand = 0;\n        if (!doubledCurrency(static_cast<Currency>(A(a, kBankKey[i]).asInt()),\n                             static_cast<i32>(A(a, kBankDbl[i]).asInt()), bank)) {\n            return false;\n        }\n        if (!doubledCurrency(static_cast<Currency>(A(a, kHandKey[i]).asInt()),\n                             static_cast<i32>(A(a, kHandDbl[i]).asInt()), hand)) {\n            return false;\n        }\n        Character& m = party.members[static_cast<u32>(i)];\n        m.wallet.goldInBank = bank;\n        m.wallet.goldOnHand = hand;\n    }\n    return true;\n}\n\nStr stateText(const Party& party, const Str& head) {\n    Str out = head;\n    for (i32 i = 0; i < party.size; ++i) {\n        const Character& m = party.members[static_cast<u32>(i)];\n        out += \"|\" + goldText(m.wallet.goldInBank) + \"|\" + goldText(m.wallet.goldOnHand);\n    }\n    return out;\n}\n\nstatic Str run_partyDepositGold(const JsonValue& a, Ctx& ctx) {\n    Party party{};\n    if (!buildParty(a, party)) return Str(\"INPUT_OVERFLOW\");\n    // Canonical moved total: saturating sum of on-hand when the copy reports success, else zero.\n    Currency sum = 0;\n    for (i32 i = 0; i < party.size; ++i) {\n        sum = addSat(sum, party.members[static_cast<u32>(i)].wallet.goldOnHand);\n    }\n    const bool ok = partyDepositGold(ctx, party);\n    const Currency moved = ok ? sum : 0;\n    return stateText(party, goldText(moved));\n}\n\nstatic Str run_partyDepositOnHand(const JsonValue& a, Ctx& ctx) {\n    static_cast<void>(ctx);\n    Party party{};\n    if (!buildParty(a, party)) return Str(\"INPUT_OVERFLOW\");\n    const Currency total = partyDepositOnHand(party);\n    return stateText(party, goldText(total));\n}\n\n}  // namespace\n\nconst CopyEntry kCopies[] = {\n    {\"partyDepositGold\", &run_partyDepositGold},\n    {\"partyDepositOnHand\", &run_partyDepositOnHand},\n};\nconst std::size_t kNumCopies = 2;\n\n}  // namespace mordor\n=== END FILE ==="
+ },
+ "g022": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: The only C# candidate, Combat.SwingOnce, implements the player's outgoing attack, not the monster's incoming melee. It builds the character's damage from guild-derived fight, crit, and backstab modifiers, the weapon's DamageMod, and Rules.CharacterDamage. The rule under test is the monster's melee modifier, covering an opening-chest bonus on the character, monster crit and backstab v"
+ },
+ "g023": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: No Mordor.Core method returns a row-major index or -1. DungeonNav.InBounds only returns the bounds predicate and does not compute y*width+x. Building the index in Case.cs would test my own code, not the reference."
+ },
+ "g024": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: The rule is an unchecked row-major index, `y*side+x`. The only reference candidate, `DungeonNav.InBounds`, is a bounds check that returns a bool and never computes an index, so it does not implement the rule. No shown C# method computes the index, so I wrote no files.\n\nREFERENCE: none (closest candidate DungeonNav.InBounds was examined and rejected because it does not compute an inde"
+ },
+ "g025": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: none of the shown reference methods renders a signed integer as plain decimal text. GiveCommand.Val and Rescue.Val parse text into numbers, the inverse of this rule. CharStatFile.Paint and SpellInfo.Paint lay out screen and file pieces and do not perform the conversion. The closest candidate, CharStatFile.FormatNumber(long), inserts thousands separators and uses CurrentCulture, so it"
+ },
+ "g026": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: Rules.TrapReadout computes the identify chance internally (the same `naturalWis + gearWis/4.0 - ln*ln*2.5`, clamp, `+ ln^2` form that loot2 uses), but it never returns that value. It returns only Gauge, Diamonds (a lossy bucket of confidence/10/2.3, clamped to 1..100), and ShownTrap (which depends on rng). The rule's output, the chance integer, is therefore not observable from the re"
+ },
+ "g027": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the listed reference methods implements integer-to-decimal text conversion. The closest candidate, `SpellInfo.Paint`, uses a private local lambda `N(long)` that formats with InvariantCulture, but that lambda is not a callable method and is only incidental to the page layout. `GiveCommand.Val` does the reverse (text to number), and `GuildLog.Line`, `CastGate.Unfit`, and the ot"
+ },
+ "g028": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the shown reference methods implements integer-to-decimal text conversion. The only text-producing candidate, the local `N(long v)` inside `SpellInfo.Paint`, uses `ToString(InvariantCulture)` rather than a manual digit loop, and it is a private helper inside a page builder, so it is not the rule under test. The other candidates (`VbConvert.TryCLng`, `Rescue.Val`, `VbCurrency."
+ },
+ "g031": {
+  "status": "DONE",
+  "cases": 24,
+  "core_exceptions": 0,
+  "copies": {
+   "restInCity@progression2": {
+    "match": 24,
+    "of": 24,
+    "examples": []
+   },
+   "restInCity@progression1b": {
+    "match": 23,
+    "of": 24,
+    "examples": [
+     "case 13: core 46|5886 | c++ 31|5871"
+    ]
+   }
+  },
+  "unreachable": [],
+  "reference": "Character.RestInCity"
+ },
+ "g032": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: The rule is an empty-body stub that discards every argument and changes no state. Neither shown reference method implements that. `ItemUse.ApplySpecial` is the full special-effect routine: it changes spell points, stats, and age and emits messages depending on `SpecialType` and alignment. Its early returns (`SpecialType <= 0`, or an adjacent alignment) produce no state change, but th"
+ },
+ "g034": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: No reference method implements round-half-even. `GuildDef.ShownSpellLevel` is the closest candidate, but it computes `(int)(spellLevel * rate)`, which truncates toward zero. For example, with level 3 and rate 1.5 it returns 4 where round-half-even gives 4, but with level 5 and rate 0.5 it returns 2 where round-half-even gives 2 (2.5 rounds to 2), and with level 7 and rate 0.5 it retu"
+ },
+ "g035": {
+  "status": "DONE",
+  "cases": 20,
+  "core_exceptions": 0,
+  "copies": {
+   "recalcSP": {
+    "match": 20,
+    "of": 20,
+    "examples": []
+   },
+   "recalcSpellPoints": {
+    "match": 20,
+    "of": 20,
+    "examples": []
+   }
+  },
+  "unreachable": [],
+  "reference": "Character.RecalcSpellPoints"
+ },
+ "g036": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the shown Mordor.Core methods implements a 32-bit signed absolute value. `RgbaImage.Decode` and `X87.RoundToLong` don't take absolute values as their rule. `Character.Cost` calls `Math.Abs(current)` as one step of a cost formula, so it doesn't test absI on its own. The BCL `Math.Abs` is not a Mordor.Core method. No files were written.\n\nREFERENCE: none"
+ },
+ "g037": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the shown Mordor.Core methods returns the index of the first free companion slot. CompanionTurn.Check, Combat.AcceptJoin, MonsterAttack.AcidTarget and CompanionCarry.Run never return a slot index. AcceptJoin only reads `Companions.FreeSlots` as a count, and CompanionCarry.Run releases slots without returning one. The slot-finding logic would sit in CompanionSlots.Add or an in"
+ },
+ "g038": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: The rule is a C++ `static_cast<u32>(i32)` that wraps negative inputs. None of the listed Mordor.Core methods performs an i32-to-u32 index conversion. `CastGate.UseOf`, `CombatSounds.Of`, `Spells.SpellLevelFor`, and `SpellThrown.Line` implement spell-use classification, sound selection, spell-level lookup, and message text. None of them casts an integer to an unsigned index, so the di"
+ },
+ "g039": {
+  "status": "CORE_EXC",
+  "problem": "The reference (Case.cs) threw on 29 of 29 cases. First exception:\nSystem.MissingMethodException: Cannot dynamically create an instance of type 'System.Int32[]'. Reason: Type is not supported.\n   at System.RuntimeType.ActivatorCache..ctor(RuntimeType rt)\n   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean wrapExceptions)\n   at Case.NewCharacter(String name) in /tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/harness/groups/g039/cs/Case.cs:line 38\n   at Case.Run(JsonElement a, Random rng) in /tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/harness/groups/g039/cs/Case.cs:line 17\n   at Program.Main(String[] args) in /tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/harness/groups/g039/cs/Program.cs:line 40\n",
+  "prev": "=== FILE: cases.json ===\n[\n{\"args\":{\"n\":1,\"sel\":0,\"h0\":0,\"l0\":1,\"x0\":2,\"y0\":3},\"rng\":[0.5]},\n{\"args\":{\"n\":1,\"sel\":9,\"h0\":5,\"l0\":1,\"x0\":2,\"y0\":3},\"rng\":[0.5]},\n{\"args\":{\"n\":2,\"sel\":0,\"h0\":5,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":3,\"l1\":1,\"x1\":2,\"y1\":2},\"rng\":[0.5]},\n{\"args\":{\"n\":2,\"sel\":0,\"h0\":5,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":0,\"l1\":2,\"x1\":4,\"y1\":4},\"rng\":[0.5]},\n{\"args\":{\"n\":2,\"sel\":0,\"h0\":0,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":4,\"l1\":3,\"x1\":9,\"y1\":9},\"rng\":[0.5]},\n{\"args\":{\"n\":2,\"sel\":1,\"h0\":0,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":4,\"l1\":1,\"x1\":5,\"y1\":5},\"rng\":[0.5]},\n{\"args\":{\"n\":2,\"sel\":0,\"h0\":0,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":0,\"l1\":2,\"x1\":2,\"y1\":2},\"rng\":[0.5]},\n{\"args\":{\"n\":2,\"sel\":0,\"h0\":-3,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":2,\"l1\":1,\"x1\":2,\"y1\":2},\"rng\":[0.5]},\n{\"args\":{\"n\":2,\"sel\":0,\"h0\":1,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":1,\"l1\":1,\"x1\":2,\"y1\":2},\"rng\":[0.5]},\n{\"args\":{\"n\":2,\"sel\":0,\"h0\":1,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":0,\"l1\":1,\"x1\":2,\"y1\":2},\"rng\":[0.5]},\n{\"args\":{\"n\":2,\"sel\":0,\"h0\":0,\"l0\":0,\"x0\":0,\"y0\":0,\"h1\":3,\"l1\":-1,\"x1\":5,\"y1\":-2},\"rng\":[0.5]},\n{\"args\":{\"n\":2,\"sel\":0,\"h0\":0,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":2,\"l1\":1,\"x1\":1,\"y1\":1},\"rng\":[0.5]},\n{\"args\":{\"n\":2,\"sel\":-1,\"h0\":0,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":1,\"l1\":1,\"x1\":2,\"y1\":2},\"rng\":[0.5]},\n{\"args\":{\"n\":2,\"sel\":5,\"h0\":0,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":1,\"l1\":1,\"x1\":2,\"y1\":2},\"rng\":[0.5]},\n{\"args\":{\"n\":2,\"sel\":1,\"h0\":2,\"l0\":1,\"x0\":3,\"y0\":3,\"h1\":4,\"l1\":1,\"x1\":7,\"y1\":7},\"rng\":[0.5]},\n{\"args\":{\"n\":2,\"sel\":0,\"h0\":0,\"l0\":0,\"x0\":0,\"y0\":0,\"h1\":0,\"l1\":0,\"x1\":0,\"y1\":0},\"rng\":[0.5]},\n{\"args\":{\"n\":3,\"sel\":2,\"h0\":5,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":0,\"l1\":1,\"x1\":2,\"y1\":2,\"h2\":6,\"l2\":1,\"x2\":3,\"y2\":3},\"rng\":[0.5]},\n{\"args\":{\"n\":3,\"sel\":0,\"h0\":0,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":0,\"l1\":1,\"x1\":2,\"y1\":2,\"h2\":6,\"l2\":1,\"x2\":3,\"y2\":3},\"rng\":[0.5]},\n{\"args\":{\"n\":3,\"sel\":1,\"h0\":0,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":4,\"l1\":1,\"x1\":2,\"y1\":2,\"h2\":0,\"l2\":1,\"x2\":3,\"y2\":3},\"rng\":[0.5]},\n{\"args\":{\"n\":3,\"sel\":0,\"h0\":5,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":0,\"l1\":2,\"x1\":2,\"y1\":2,\"h2\":0,\"l2\":1,\"x2\":3,\"y2\":3},\"rng\":[0.5]},\n{\"args\":{\"n\":3,\"sel\":2,\"h0\":5,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":5,\"l1\":1,\"x1\":2,\"y1\":2,\"h2\":0,\"l2\":1,\"x2\":3,\"y2\":3},\"rng\":[0.5]},\n{\"args\":{\"n\":3,\"sel\":7,\"h0\":5,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":5,\"l1\":1,\"x1\":2,\"y1\":2,\"h2\":5,\"l2\":1,\"x2\":3,\"y2\":3},\"rng\":[0.5]},\n{\"args\":{\"n\":3,\"sel\":0,\"h0\":0,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":0,\"l1\":1,\"x1\":2,\"y1\":2,\"h2\":0,\"l2\":1,\"x2\":3,\"y2\":3},\"rng\":[0.5]},\n{\"args\":{\"n\":4,\"sel\":3,\"h0\":0,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":0,\"l1\":1,\"x1\":2,\"y1\":2,\"h2\":0,\"l2\":1,\"x2\":3,\"y2\":3,\"h3\":0,\"l3\":1,\"x3\":4,\"y3\":4},\"rng\":[0.5]},\n{\"args\":{\"n\":4,\"sel\":3,\"h0\":5,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":0,\"l1\":2,\"x1\":2,\"y1\":2,\"h2\":0,\"l2\":1,\"x2\":3,\"y2\":3,\"h3\":2,\"l3\":4,\"x3\":4,\"y3\":4},\"rng\":[0.5]},\n{\"args\":{\"n\":4,\"sel\":1,\"h0\":5,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":0,\"l1\":1,\"x1\":2,\"y1\":2,\"h2\":5,\"l2\":1,\"x2\":3,\"y2\":3,\"h3\":5,\"l3\":1,\"x3\":4,\"y3\":4},\"rng\":[0.5]},\n{\"args\":{\"n\":4,\"sel\":3,\"h0\":5,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":0,\"l1\":1,\"x1\":2,\"y1\":2,\"h2\":5,\"l2\":1,\"x2\":3,\"y2\":3,\"h3\":5,\"l3\":1,\"x3\":4,\"y3\":4},\"rng\":[0.5]},\n{\"args\":{\"n\":4,\"sel\":0,\"h0\":0,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":5,\"l1\":1,\"x1\":2,\"y1\":2,\"h2\":0,\"l2\":1,\"x2\":3,\"y2\":3,\"h3\":5,\"l3\":1,\"x3\":4,\"y3\":4},\"rng\":[0.5]},\n{\"args\":{\"n\":4,\"sel\":2,\"h0\":5,\"l0\":1,\"x0\":1,\"y0\":1,\"h1\":5,\"l1\":1,\"x1\":2,\"y1\":2,\"h2\":5,\"l2\":1,\"x2\":3,\"y2\":3,\"h3\":5,\"l3\":1,\"x3\":4,\"y3\":4},\"rng\":[0.5]}\n]\n=== END FILE ===\n=== FILE: Case.cs ===\nusing System;\nusing System.Collections.Generic;\nusing System.Linq;\nusing System.Reflection;\nusing System.Text;\nusing System.Text.Json;\nusing Mordor.Core;\n\npublic static class Case\n{\n    public static string Run(JsonElement a, Random rng)\n    {\n        int n = Get(a, \"n\");\n        var list = new List<Character>();\n        for (int i = 0; i < n; i++)\n        {\n            var c = NewCharacter(((char)('A' + i)).ToString());\n            c.CurHits = Get(a, \"h\" + i);\n            c.DungeonLevel = Get(a, \"l\" + i);\n            c.X = Get(a, \"x\" + i);\n            c.Y = Get(a, \"y\" + i);\n            list.Add(c);\n        }\n        var party = new Party(list.ToArray());\n        // SelectedIndex has a private setter; set it through the existing setter.\n        typeof(Party).GetProperty(\"SelectedIndex\")!.GetSetMethod(true)!.Invoke(party, new object[] { Get(a, \"sel\") });\n\n        party.RemoveTheDead(); // returned messages and rng are not part of the canonical string\n\n        return Dump(party);\n    }\n\n    // Character.Create's stats argument must be a real instance, not null (passing default\n    // for a reference type gives null, which is a likely source of the NullReferenceException).\n    // Build it reflectively from the 5-parameter Create overload.\n    static Character NewCharacter(string name)\n    {\n        var create = typeof(Character)\n            .GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)\n            .First(m => m.Name == \"Create\" && m.GetParameters().Length == 5);\n        object stats = Activator.CreateInstance(create.GetParameters()[4].ParameterType)!;\n        return (Character)create.Invoke(null, new object[]\n        {\n            name, RaceData.ByName(\"Human\"), Alignment.Neutral, Sex.Male, stats\n        })!;\n    }\n\n    static int Get(JsonElement a, string key) => a.TryGetProperty(key, out var v) ? v.GetInt32() : 0;\n\n    static string Dump(Party p)\n    {\n        var sb = new StringBuilder();\n        sb.Append(p.Size).Append('|').Append(p.SelectedIndex);\n        foreach (var c in p.Members)\n        {\n            sb.Append('|').Append(c.Name).Append('|').Append(c.CurHits)\n              .Append('|').Append(c.IsDead ? 1 : 0)\n              .Append('|').Append(c.Stoned ? 1 : 0)\n              .Append('|').Append(c.DungeonLevel)\n              .Append('|').Append(c.X).Append('|').Append(c.Y);\n        }\n        return sb.ToString();\n    }\n}\n=== END FILE ===\n=== FILE: case.cpp ===\n#include \"case_api.h\"\n#include \"mordor/state_character.h\"\n#include \"mordor/state_party.h\"\n\nnamespace mordor {\n\n// Exports from the shim files. The file-local copies are reached only through these,\n// so no pruneTheDead declaration is visible here (that caused the ambiguous call).\nvoid shim_partyb_prune(Ctx& ctx, Party& party);\nvoid shim_death1a_prune(Ctx& ctx, Party& party, Arr<bool, kPartyMaxSize>& countedDead);\n\nstatic i32 slot(const JsonValue& a, const char* prefix, i32 i) {\n    Str k = Str(prefix) + I(i);\n    return static_cast<i32>(A(a, k.c_str()).asInt());\n}\n\nstatic void fillParty(Party& p, const JsonValue& a) {\n    const i32 n = static_cast<i32>(A(a, \"n\").asInt());\n    for (i32 i = 0; i < n; ++i) {\n        Character& m = p.members[i];\n        m.name = Str(1, static_cast<char>('A' + i));\n        m.vitals.curHits = slot(a, \"h\", i);\n        m.location.dungeonLevel = slot(a, \"l\", i);\n        m.location.x = slot(a, \"x\", i);\n        m.location.y = slot(a, \"y\", i);\n    }\n    p.size = n;\n    p.selectedIndex = static_cast<i32>(A(a, \"sel\").asInt());\n}\n\n// Same canonical form as the C# Dump: size|selected, then per member\n// name|curHits|isDead|stoned|dungeonLevel|x|y.\nstatic Str dump(const Party& p) {\n    Str s = I(p.size) + \"|\" + I(p.selectedIndex);\n    for (i32 i = 0; i < p.size; ++i) {\n        const Character& m = p.members[i];\n        s += \"|\" + m.name\n           + \"|\" + I(m.vitals.curHits)\n           + \"|\" + I(m.isDead() ? 1 : 0)\n           + \"|\" + I(m.deathState == DeathState::Stoned ? 1 : 0)\n           + \"|\" + I(m.location.dungeonLevel)\n           + \"|\" + I(m.location.x)\n           + \"|\" + I(m.location.y);\n    }\n    return s;\n}\n\nstatic Str run_partyb(const JsonValue& a, Ctx& ctx) {\n    Party p;\n    fillParty(p, a);\n    shim_partyb_prune(ctx, p);\n    return dump(p);\n}\n\nstatic Str run_death1a(const JsonValue& a, Ctx& ctx) {\n    Party p;\n    fillParty(p, a);\n    Arr<bool, kPartyMaxSize> countedDead{};  // no casualties counted before the call\n    shim_death1a_prune(ctx, p, countedDead);\n    return dump(p);\n}\n\nconst CopyEntry kCopies[] = {\n    {\"pruneTheDead@partyb\", &run_partyb},\n    {\"pruneTheDead@death1a\", &run_death1a},\n};\nconst std::size_t kNumCopies = 2;\n\n}  // namespace mordor\n=== END FILE ===\n=== FILE: shim_partyb.cpp ===\nnamespace mordor {\n// The harness renamed this file's pruneTheDead to pruneTheDead__partyb.\nvoid shim_partyb_prune(Ctx& ctx, Party& party) {\n    pruneTheDead__partyb(ctx, party);\n}\n}  // namespace mordor\n=== END FILE ===\n=== FILE: shim_death1a.cpp ===\nnamespace mordor {\n// The harness renamed this file's pruneTheDead to pruneTheDead__death1a.\nvoid shim_death1a_prune(Ctx& ctx, Party& party, Arr<bool, kPartyMaxSize>& countedDead) {\n    pruneTheDead__death1a(ctx, party, countedDead);\n}\n}  // namespace mordor\n=== END FILE ==="
+ },
+ "g041": {
+  "status": "DONE",
+  "cases": 21,
+  "core_exceptions": 0,
+  "copies": {
+   "removeMember": {
+    "match": 9,
+    "of": 21,
+    "examples": [
+     "case 4: core 0|4 | c++ 1|3",
+     "case 5: core 0|4 | c++ 1|3",
+     "case 6: core 0|4 | c++ 1|3"
+    ]
+   },
+   "removePartyMember": {
+    "match": 21,
+    "of": 21,
+    "examples": []
+   }
+  },
+  "unreachable": [],
+  "reference": "Party.Remove (Mordor.Core, Party.cs)"
+ },
+ "g042": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: The only C# code that performs this roll is inline in the Combat.CombatEngine constructor (`_rng.Next(100) + 1 <= lead.LockedChance && ChestClass > 1`). It cannot serve as the reference. It has no square-allows-magic input, so the rule's third condition is untested. It is not a separate method, and its draw is interleaved with Rules.ChestClass and Rules.ChestTrap, whose draw counts a"
+ },
+ "g044": {
+  "status": "DONE",
+  "cases": 30,
+  "core_exceptions": 0,
+  "copies": {
+   "respawnDelay": {
+    "match": 30,
+    "of": 30,
+    "examples": []
+   },
+   "respawnDelaySeconds": {
+    "match": 30,
+    "of": 30,
+    "examples": []
+   }
+  },
+  "unreachable": [],
+  "reference": "DungeonState.RespawnDelay"
+ },
+ "g046": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the Mordor.Core methods shown implements the rule \"true when char is in '0'..'9'\". `Rescue.Val` and `VbConvert.TryCLng` use digit checks only as internal steps of larger parsing routines. `Rescue.Val` calls `char.IsDigit`, which also accepts non-ASCII Unicode digits, so it is not the same rule. `InstallerUnpack.IsPlainName` uses `char.IsAsciiDigit` inline, and that is a BCL c"
+ },
+ "g055": {
+  "status": "DONE",
+  "cases": 32,
+  "core_exceptions": 0,
+  "copies": {
+   "playerSpellDamage": {
+    "match": 28,
+    "of": 32,
+    "examples": [
+     "case 9: core 7 | c++ 6",
+     "case 10: core 20 | c++ 19",
+     "case 14: core 261 | c++ 260"
+    ]
+   },
+   "monsterSpellDamage": {
+    "match": 26,
+    "of": 32,
+    "examples": [
+     "case 5: core 50 | c++ 60",
+     "case 9: core 7 | c++ 6",
+     "case 10: core 20 | c++ 19"
+    ]
+   },
+   "spellDamage": {
+    "match": 30,
+    "of": 32,
+    "examples": [
+     "case 14: core 261 | c++ 260",
+     "case 15: core 357 | c++ 319"
+    ]
+   }
+  },
+  "unreachable": [],
+  "reference": "Rules.SpellDamage"
+ },
+ "g056": {
+  "status": "CPP_BUILD_FAILED",
+  "problem": "CPP_BUILD_FAILED\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/harness/groups/g056/tu_guilds1_b.cpp:786:68: error: \u2018::itemBand\u2019 has not been declared; did you mean \u2018mordor::itemBand\u2019?",
+  "prev": "=== FILE: cases.json ===\n[\n{\"args\":{\"tier\":0},\"rng\":[0.5]},\n{\"args\":{\"tier\":1},\"rng\":[0.5]},\n{\"args\":{\"tier\":2},\"rng\":[0.5]},\n{\"args\":{\"tier\":3},\"rng\":[0.5]},\n{\"args\":{\"tier\":4},\"rng\":[0.5]},\n{\"args\":{\"tier\":5},\"rng\":[0.5]},\n{\"args\":{\"tier\":6},\"rng\":[0.5]},\n{\"args\":{\"tier\":7},\"rng\":[0.5]},\n{\"args\":{\"tier\":9},\"rng\":[0.5]},\n{\"args\":{\"tier\":10},\"rng\":[0.5]},\n{\"args\":{\"tier\":11},\"rng\":[0.5]},\n{\"args\":{\"tier\":12},\"rng\":[0.5]},\n{\"args\":{\"tier\":15},\"rng\":[0.5]},\n{\"args\":{\"tier\":30},\"rng\":[0.5]},\n{\"args\":{\"tier\":99},\"rng\":[0.5]},\n{\"args\":{\"tier\":100},\"rng\":[0.5]},\n{\"args\":{\"tier\":101},\"rng\":[0.5]},\n{\"args\":{\"tier\":1000},\"rng\":[0.5]},\n{\"args\":{\"tier\":12345},\"rng\":[0.5]},\n{\"args\":{\"tier\":999999},\"rng\":[0.5]},\n{\"args\":{\"tier\":1000000},\"rng\":[0.5]},\n{\"args\":{\"tier\":2147483647},\"rng\":[0.5]},\n{\"args\":{\"tier\":-1},\"rng\":[0.5]},\n{\"args\":{\"tier\":-2},\"rng\":[0.5]},\n{\"args\":{\"tier\":-3},\"rng\":[0.5]},\n{\"args\":{\"tier\":-4},\"rng\":[0.5]},\n{\"args\":{\"tier\":-5},\"rng\":[0.5]},\n{\"args\":{\"tier\":-6},\"rng\":[0.5]},\n{\"args\":{\"tier\":-7},\"rng\":[0.5]},\n{\"args\":{\"tier\":-10},\"rng\":[0.5]},\n{\"args\":{\"tier\":-100},\"rng\":[0.5]},\n{\"args\":{\"tier\":-2147483647},\"rng\":[0.5]},\n{\"args\":{\"tier\":-2147483648},\"rng\":[0.5]}\n]\n=== END FILE ===\n=== FILE: Case.cs ===\npublic static class Case\n{\n    public static string Run(System.Text.Json.JsonElement a, System.Random rng)\n    {\n        // Rule takes no Random; rng is unused.\n        int tier = a.GetProperty(\"tier\").GetInt32();\n        int band = Mordor.Core.Rules.QuestItemBand(tier);\n        return band.ToString(System.Globalization.CultureInfo.InvariantCulture);\n    }\n}\n=== END FILE ===\n=== FILE: case.cpp ===\n#include \"case_api.h\"\n\nnamespace mordor {\n\n// Exported by the shims appended to each copy's source file (see shim_*.cpp).\nint mordor_export_questItemBand(int tier);\nint mordor_export_itemBand(int tier);\nint mordor_export_ItemQuestBand(int tier);\n\nstatic Str run_questItemBand(const JsonValue& a, Ctx& ctx) {\n    (void)ctx;  // rule takes no RNG\n    int tier = static_cast<int>(A(a, \"tier\").asInt());\n    return I(mordor_export_questItemBand(tier));\n}\n\nstatic Str run_itemBand(const JsonValue& a, Ctx& ctx) {\n    (void)ctx;\n    int tier = static_cast<int>(A(a, \"tier\").asInt());\n    return I(mordor_export_itemBand(tier));\n}\n\nstatic Str run_ItemQuestBand(const JsonValue& a, Ctx& ctx) {\n    (void)ctx;\n    int tier = static_cast<int>(A(a, \"tier\").asInt());\n    return I(mordor_export_ItemQuestBand(tier));\n}\n\nconst CopyEntry kCopies[] = {\n    {\"questItemBand\", &run_questItemBand},\n    {\"itemBand\", &run_itemBand},\n    {\"ItemQuestBand\", &run_ItemQuestBand},\n};\nconst std::size_t kNumCopies = sizeof(kCopies) / sizeof(kCopies[0]);\n\n}  // namespace mordor\n=== END FILE ===\n=== FILE: shim_ref_questband.cpp ===\nnamespace mordor { int mordor_export_questItemBand(int tier) { return ::questItemBand(tier); } }\n=== END FILE ===\n=== FILE: shim_guilds1_b.cpp ===\nnamespace mordor { int mordor_export_itemBand(int tier) { return ::itemBand(tier); } }\n=== END FILE ===\n=== FILE: shim_guilds3.cpp ===\nnamespace mordor { int mordor_export_ItemQuestBand(int tier) { return ::ItemQuestBand(tier); } }\n=== END FILE ==="
+ },
+ "g060": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the shown Mordor.Core methods joins words from an index. `Character.AilmentText` uses `string.Join(\" \", ...)`, but it joins three fixed ailment labels and takes no word list or start index, so it does not implement this rule. The other candidates (SpellInfo.Paint, CompanionCarry.Run, MdrLoader.LoadRaces, LookAround.Listed, ListedParty) are unrelated. No files are written.\n\nRE"
+ },
+ "g061": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the shown Mordor.Core methods resolves an item definition from `item.id`. `MdrLoader.LoadMonsters` parses monster records. `CastGate.Unfit` checks spell rates and stats and only takes an item callback. `Rules.QuestItem` picks an entry from a list by type and floor, not by id. `OriginalSaves.Read` loads save files. `H.ItemsById` is a table lookup, not one of the listed referen"
+ },
+ "g062": {
+  "status": "DONE",
+  "cases": 25,
+  "core_exceptions": 0,
+  "copies": {
+   "createCharacter@attributes": {
+    "match": 25,
+    "of": 25,
+    "examples": []
+   }
+  },
+  "unreachable": [],
+  "reference": "Character.Create"
+ },
+ "g063": {
+  "status": "DONE",
+  "cases": 26,
+  "core_exceptions": 0,
+  "copies": {
+   "maxSpellPoints@casting2": {
+    "match": 26,
+    "of": 26,
+    "examples": []
+   }
+  },
+  "unreachable": [
+   "maxSpellPoints@casting3 - the copy takes a C++ Character and reads its stats through statWithMods(c, StatIndex::Int/Wis). The shown Character excerpt has no stat field, and the source of statWithMods and StatIndex is not shown, so natural Int and Wis cannot be set without inventing a field name. Supplying the stat field name would make this copy testable."
+  ],
+  "reference": "Spellbook.MaxSpellPoints"
+ },
+ "g064": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: No method in the shown Mordor.Core candidates implements a standalone natural-log helper. The C++ copies are bare `std::log` wrappers: `combat1a` has no guard, and `spells2` returns `x > 0 ? log(x) : 0`. The reference candidates call `Math.Log` inline, but only after their own clamps or offsets (`Math.Max(1, ...)` in `TrapReadout`, `+ 1` in `SpecialHits.Range`, `(level + 5)/10 + 1` i"
+ },
+ "g065": {
+  "status": "DONE",
+  "cases": 35,
+  "core_exceptions": 0,
+  "copies": {
+   "mishapChance@combat1b": {
+    "match": 35,
+    "of": 35,
+    "examples": []
+   },
+   "mishapChance@companions1a": {
+    "match": 12,
+    "of": 35,
+    "examples": [
+     "case 0: core 20 | c++ 40",
+     "case 2: core 14.985 | c++ 9.99",
+     "case 3: core 9.99 | c++ 14.985"
+    ]
+   }
+  },
+  "unreachable": [],
+  "reference": "CompanionMishap.Chance"
+ },
+ "g066": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the shown reference methods maps a DamageKind to a resist index. The C++ copies cast a DamageKind enum value to an integer. The closest shown method, SpellEffect.ResistKind (used by ApplyToCharacter, Handles, and WhoToAsk), maps a spell effect id to a resist kind, which is a different input and rule. The DamageKind type does not appear in the shown C# types, so I cannot build"
+ },
+ "g068": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the Mordor.Core methods shown implements the stone chance rule (`con * log(max(1,con)) / log(base) - attackerLevel`, capped at 95). `MonsterCritChance`, `ParalysisPasses`, `BestAbilityValue`, and `Confinement.BaseValue` all use different formulas and constants, and none applies a stone cap. The C# outlines also don't show a `Character` stone or stoning method I could call. Wi"
+ },
+ "g069": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the shown reference methods performs ASCII case-insensitive comparison of two arbitrary strings. The closest is `GameOptions.Flag`, which compares an option's text to the constant \"True\" using `OrdinalIgnoreCase`. That is Unicode-aware rather than ASCII-only, and its input comes from `For`/`Text` INI lookups that are not in the outline, so the test cannot feed it arbitrary st"
+ },
+ "g070": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the shown Mordor.Core methods implements converting a signed 64-bit integer to a decimal string. `CharStatFile.FormatNumber(long)` is the closest, but it inserts thousands separators through a culture-dependent format string (`###,###,...`), so it returns \"-1,234\" where this rule requires \"-1234\". `SpellInfo.Paint` has an inner `N(long)` helper, but it is a local function ins"
+ },
+ "g071": {
+  "status": "DONE",
+  "cases": 29,
+  "core_exceptions": 0,
+  "copies": {
+   "oldAgePercent@death1b": {
+    "match": 29,
+    "of": 29,
+    "examples": []
+   },
+   "oldAgePercent@death2b": {
+    "match": 29,
+    "of": 29,
+    "examples": []
+   }
+  },
+  "unreachable": [],
+  "reference": "Raising.ComplicationChance (called with 2*raceLifespanYears for lifespan > 0, which yields the rule's pct exactly; Rules.DiesOfOldAge computes the same pct but returns only a bool)"
+ },
+ "g072": {
+  "status": "DONE",
+  "cases": 20,
+  "core_exceptions": 0,
+  "copies": {
+   "raiseAgeCost@death3": {
+    "match": 20,
+    "of": 20,
+    "examples": []
+   },
+   "raiseAgeCost@feat_rescue": {
+    "match": 20,
+    "of": 20,
+    "examples": []
+   }
+  },
+  "unreachable": [],
+  "reference": "Raising.AgeDaysFor"
+ },
+ "g073": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: The rule returns a mutable reference into `floor.squares` (with const and non-const overloads) and is keyed by `cellOf(x, y)`. None of the shown Mordor.Core methods does this. The nearest is `Floor.At(x, y)`, which maps (x, y) to `Fields[y * Width + x]`, but it returns a `Field` copy (AreaId and Flags), not a `SquareState`, has no mutable overload, and the C# side has no `cellOf` to "
+ },
+ "g075": {
+  "status": "BAD_OUTPUT",
+  "problem": "Missing one of the three file blocks.",
+  "prev": "I still can't write all three files without inventing members, and a third block with guessed names would fail at compile time. These are the gaps:\n\n1. **Lost-state flags (C#).** `Case.cs` must set the floor, facing, and position flags and read them back. The outline doesn't show their names or types, and the `Character` listing is cut off. `Lost.LoseDirection(Character, Random, gear)` is shown, but I don't know which flags it sets or how many draws it consumes, so I can't use it as a setup step without guessing.\n\n2. **Perception input.** The C# reference takes no perception parameter. Its value comes from `Rules.BestAbilityChance` over the party, and no shown member sets that. The C++ copies take perception differently: `dungeon1a` as an argument and `dungeon3` as `who.perception`. Even with correct setup, the two sides would not receive the same input.\n\n3. **C++ helpers.** `dungeon3` calls `who.isLost()` and `foundYourself(ctx, who)`. `dungeon1a` calls `workingOutWeight(perception)` and `foundYourself(ctx, lost)`. None of these are declared in the shown types, so `case.cpp` can't compile against them.\n\n4. **Weight formula.** Both copies say the weight is `Log(perception)^2`, with a zero clamp in `dungeon3`. The reference source isn't shown, so I can't confirm this from the reference.\n\n5. **Canonical return.** The reference returns `List<string>`, `dungeon3` returns `bool`, and `dungeon1a` returns `void`. My suggestion is the state triple `level|facing|position`, with the `dungeon3` bool as a fourth field and the message list excluded. Please confirm.\n\nTo produce the three files, I need:\n- The exact C# names and types of the floor, facing, and position flags, and the member that holds perception (or a callable `Rules.BestAbilityChance` signature).\n- The declarations of `isLost`, `foundYourself`, and `workingOutWeight`, or the headers that declare them.\n- Your decision on the return format in point 5.\n\nOnce I have these, I'll write `cases.json`, `Case.cs`, and `case.cpp` together, so the argument keys match on both sides.\n\nREFERENCE: Lost.TryToWorkItOut(Character c, Random rng)"
+ },
+ "g076": {
+  "status": "DONE",
+  "cases": 22,
+  "core_exceptions": 0,
+  "copies": {
+   "bufferForSpell@feat_buffers": {
+    "match": 22,
+    "of": 22,
+    "examples": []
+   },
+   "bufferForSpell@items2a": {
+    "match": 22,
+    "of": 22,
+    "examples": []
+   }
+  },
+  "unreachable": [],
+  "reference": "SpellBuffers.ForSpell"
+ },
+ "g077": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: No reference method implements this rule. The rule is a strict digits-only parse that rejects empty input and values above 1000000. The closest candidates don't match. `VbConvert.TryCLng` accepts leading and trailing whitespace, signs, decimal points, exponents, thousands separators, and `&H`/`&O` prefixes, and its upper bound is int.MaxValue, not 1000000. `Rescue.Val` never rejects "
+ },
+ "g078": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the listed Mordor.Core candidates splits text into words. `VbConvert.TryCLng` trims spaces and tabs from one string and parses it as a single number, and it never produces multiple tokens. `CharStatFile.Paint`, `CompanionCarry.Run`, and `SpellInfo.Paint` build display pieces, companion rosters, and spell pages, and none of them tokenizes a string. Writing a test against any o"
+ },
+ "g079": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: No shown Mordor.Core method maps the Guild enum to its display name. `Guildmasters.Seeded` holds guildmaster names (Crashland, Eli, Merlin), not guild names. `GuildData.ByName` looks up guild data by name, not enum to name, and its signature isn't shown. `Guildmasters.Describe(int guild, Character)` describes a guildmaster and has no shown body. Without a reference method, the two C+"
+ },
+ "g080": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the shown Mordor.Core candidates performs the 1-based player slot to 0-based pack index conversion (`playerSlot - 1`). `SpellBuffers.Describe`, `Spells.SpendCharge`, `Party.SwapItems`, and `Character.DepositToVault` all take a pack slot that is already a 0-based index into `Pack`, so none of them implements this rule. Testing the C++ copies against them would not check the ru"
+ },
+ "g081": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: No shown Mordor.Core method implements \"packIndex + 1\" as a rule. The closest is `SpellBuffers.Describe`, which prints `Item #{b + 1}` inside a display string. Testing that would exercise buffer naming and null handling, not the slot conversion, and it returns a string rather than the integer. `SpendCharge`, `SwapItems`, and `DepositToVault` use pack slot indices directly with no +1 "
+ },
+ "g082": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the shown Mordor.Core methods implements item name lookup by id. CompanionCarry.Run, CastGate.Unfit, Librarian.FileSighting and MdrLoader.LoadMonsters never resolve an item id to its ItemDef name. Librarian.DescribeItem takes an Item, but only its signature is shown, so I can't confirm it does that lookup, and its body is not in the candidates. No files were written.\n\nREFEREN"
+ },
+ "g083": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: No method in Mordor.Core implements a standalone integer clamp of an arbitrary value to [lo, hi]. The candidates clamp only as one step of a larger calculation. `SpellRaiseChance` clamps a formula result to [10, 98], `ChanceToLeave` clamps a double to [0, 90], and `WholeRows.Snap` clamps a double to [0, max]. Driving any of them with arbitrary v, lo, and hi would test their formulas,"
+ },
+ "g084": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the shown reference methods implements \"return the party member at an index.\" `Party.Selected` returns `Members[Math.Clamp(SelectedIndex, 0, Count-1)]`, which clamps the index and reads a stored selection rather than taking an index. `Party.Leader` is fixed at `Members[0]`. `Party.Remove`, `SpellThrown.Line`, and `Party.PoolOnHandToBank` do not return a member by index. The C"
+ },
+ "g085": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the four C# candidates implements chest item placement. The rule needs a random start index drawn over the party, a wrap-around search for the first free pack slot, and the \"nobody had room\" message. RechargeGuildItems scans one character's pack and recharges guild items. GiveFromVault moves a bank item into one target's first free slot, with no party loop and no random draw."
+ },
+ "g087": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: The rule is C++ fixed-slot indexing of a guild array by enum value (`ch.guilds[static_cast<u32>(g)]`). None of the shown C# methods looks up one guild's membership by identity. The C# side stores memberships in a list (`c.Guilds`) and finds them by scanning `m.Guild` (via `GuildData.ByName`). `Spells.SpellLevelFor`, `Spells.Known`, `Spells.Cost`, and `Character.Create` only iterate t"
+ },
+ "g090": {
+  "status": "DONE",
+  "cases": 31,
+  "core_exceptions": 0,
+  "copies": {
+   "chargePurse": {
+    "match": 31,
+    "of": 31,
+    "examples": []
+   },
+   "payCharacterGold": {
+    "match": 29,
+    "of": 31,
+    "examples": [
+     "case 19: core 1|0|0 | c++ 1|-922337203685477|-922337203685477",
+     "case 20: core 1|922337203685476|0 | c++ 1|-922337203685477|-1"
+    ]
+   }
+  },
+  "unreachable": [],
+  "reference": "Character.Pay"
+ },
+ "g093": {
+  "status": "DONE",
+  "cases": 33,
+  "core_exceptions": 0,
+  "copies": {
+   "isRockSquare": {
+    "match": 10,
+    "of": 33,
+    "examples": [
+     "case 10: core 1 | c++ 0",
+     "case 11: core 1 | c++ 0",
+     "case 12: core 1 | c++ 0"
+    ]
+   }
+  },
+  "unreachable": [
+   "squareIsRock - the copy reads cellInState/sqAt, which index squares by a width that is not given anywhere (FloorState has no width field and FloorDef's layout is not shown), and SquareState/kBitRock are not defined in the provided material, so the input floor cannot be built."
+  ],
+  "reference": "DungeonNav.IsRock"
+ },
+ "g095": {
+  "status": "DONE",
+  "cases": 22,
+  "core_exceptions": 0,
+  "copies": {
+   "isMustBeEquippedType": {
+    "match": 22,
+    "of": 22,
+    "examples": []
+   },
+   "mustBeEquipped": {
+    "match": 22,
+    "of": 22,
+    "examples": []
+   }
+  },
+  "unreachable": [],
+  "reference": "ItemUse.MustBeEquippedToUse"
+ },
+ "g096": {
+  "status": "DONE",
+  "cases": 30,
+  "core_exceptions": 0,
+  "copies": {
+   "placeOf": {
+    "match": 30,
+    "of": 30,
+    "examples": []
+   },
+   "libraryPlaceOf": {
+    "match": 26,
+    "of": 30,
+    "examples": [
+     "case 2: core 0|null | c++ 1|1,1,0",
+     "case 3: core 0|null | c++ 1|1,1,-1",
+     "case 4: core 0|null | c++ 1|4,4,-5"
+    ]
+   }
+  },
+  "unreachable": [],
+  "reference": "Librarian.PlaceOf"
+ },
+ "g100": {
+  "status": "DONE",
+  "cases": 25,
+  "core_exceptions": 0,
+  "copies": {
+   "guildSpellLevel": {
+    "match": 25,
+    "of": 25,
+    "examples": []
+   },
+   "spellLevelFromGuildLevel": {
+    "match": 25,
+    "of": 25,
+    "examples": []
+   }
+  },
+  "unreachable": [],
+  "reference": "Rules.SpellLevel"
+ },
+ "g104": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: The \"REFERENCE CANDIDATES (Mordor.Core)\" list and the \"C# TYPES USED\" section are both empty, so no reference method is shown. The chargeTownCost copy's comment names Character.cs:567 `Pay()`, but that method is not among the shown candidates, and its signature and source are not provided, so I can't use it without inventing details."
+ },
+ "g107": {
+  "status": "DONE",
+  "cases": 31,
+  "core_exceptions": 0,
+  "copies": {
+   "monsterHasBit": {
+    "match": 23,
+    "of": 31,
+    "examples": [
+     "case 21: core 1 | c++ 0",
+     "case 22: core 1 | c++ 0",
+     "case 23: core 1 | c++ 0"
+    ]
+   },
+   "specialFlagBit": {
+    "match": 23,
+    "of": 31,
+    "examples": [
+     "case 21: core 1 | c++ 0",
+     "case 22: core 1 | c++ 0",
+     "case 23: core 1 | c++ 0"
+    ]
+   }
+  },
+  "unreachable": [],
+  "reference": "MonsterProperty.Has"
+ },
+ "g109": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the four Mordor.Core methods shown implements this rule. The rule finds a spell in the spell table by normalized name key, or by numeric id when the text is all digits. `Spells.Known` and `Spells.SpellLevelFor` take a spell that has already been resolved, `CompanionInfo.Paint` reads a monster definition, and `CompanionCarry.Run` works on companion slots. The C# counterpart of"
+ },
+ "g110": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the shown Mordor.Core methods implements a spell-name lookup key. `SpellInfo.Paint` only calls `s.Name.TrimEnd()` for display. It does not trim leading spaces, lowercase the name, or look anything up by key. `CharStatFile.Paint`, `GiveCommand.Give`, and `CompanionCarry.Run` do not touch spell names. The C++ `castKey`/`townKey` copies have no C# counterpart in the candidates p"
+ },
+ "g111": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the shown reference methods implements plain i64-to-decimal formatting. `CharStatFile.FormatNumber(long)` is the closest, but it formats with the `###,###` pattern, so 1000 becomes \"1,000\" and it does not match the rule. The plain formatter is the local function `N` inside `SpellInfo.Paint`, but it is not callable on its own. Reaching it through `Paint` would also restrict it"
+ },
+ "g112": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the listed Mordor.Core methods converts an i64 to a decimal string. `VbConvert.TryCLng`, `VbCurrency.TryParse`, and `Rescue.Val` parse strings into numbers, which is the opposite direction. `Rescue.SearchCost` returns a long but does no string conversion. The only i64-to-string code among the candidates is the nested `N(long v)` local function in `SpellInfo.Paint`, which call"
+ },
+ "g113": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the shown Mordor.Core methods maps an Alignment value to a bit constant. The C++ copies return `kAlignBitGood/Neutral/Evil` (default 0), but the C# candidates either return other values or use different types. Rules.EngageChance takes Alignment and returns a chance percentage. StoreStock.CreateInitial and the Models.cs ItemAlignment helpers (Letter, Name, AsCharacter, FitFor,"
+ },
+ "g114": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: None of the reference methods shown implements a range-clamped join of a word list (`w[from..to)` with `to` clamped to `w.size()`, joined by single spaces). `CompanionCarry.Run`, `SpellInfo.Paint`, `GiveCommand.Give`, and `Party.SwapItems` do not join words at all. `Character.AilmentText` uses `string.Join(\" \", ...)`, but over a fixed three-item filtered list, not a word range, so it"
+ },
+ "g115": {
+  "status": "NO_REFERENCE",
+  "why": "NO_REFERENCE: The rule is a string check (non-empty, every character an ASCII digit '0'-'9'). None of the four reference candidates (ItemUse.RechargeGuildItems, GearCheck.Any, Rules.QuestMonster, ItemUse.ApplySpecial) implements or calls such a check, and the listed C# types expose no digit-validation method. The C++ copies (townAllDigits, castAllDigits) have no counterpart in Mordor.Core to compa"
+ },
+ "g116": {
+  "status": "DONE",
+  "cases": 31,
+  "core_exceptions": 0,
+  "copies": {
+   "freeStorageSlot": {
+    "match": 31,
+    "of": 31,
+    "examples": []
+   },
+   "freeSlot": {
+    "match": 31,
+    "of": 31,
+    "examples": []
+   }
+  },
+  "unreachable": [],
+  "reference": "Character.FirstFreeSlot"
+ }
+}

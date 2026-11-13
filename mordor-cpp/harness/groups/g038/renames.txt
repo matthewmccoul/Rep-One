@@ -1,0 +1,2 @@
+src/death1a.cpp uidx uidx__death1a
+src/monsters1a.cpp uidx uidx__monsters1a

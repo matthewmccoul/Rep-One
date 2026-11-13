@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the reference methods shown implements a range-clamped join of a word list (`w[from..to)` with `to` clamped to `w.size()`, joined by single spaces). `CompanionCarry.Run`, `SpellInfo.Paint`, `GiveCommand.Give`, and `Party.SwapItems` do not join words at all. `Character.AilmentText` uses `string.Join(" ", ...)`, but over a fixed three-item filtered list, not a word range, so it is not the rule under test. The two C++ copies (`castJoin`, `townJoin`) are the only implementations of this rule, and no C# reference exists to compare them against.
+
+REFERENCE: none

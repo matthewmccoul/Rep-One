@@ -1,0 +1,2 @@
+src/combat3.cpp itemDefOf itemDefOf__combat3
+src/attributes.cpp itemDefOf itemDefOf__attributes

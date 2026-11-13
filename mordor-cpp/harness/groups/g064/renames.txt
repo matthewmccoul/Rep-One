@@ -1,0 +1,2 @@
+src/combat1a.cpp lnOf lnOf__combat1a
+src/spells2.cpp lnOf lnOf__spells2

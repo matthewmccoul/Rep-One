@@ -1,0 +1,996 @@
+{
+ "53": {
+  "status": "DONE",
+  "edits": 7,
+  "tests_removed": [],
+  "tests_retargeted": [
+   "items1a_theft_slot_roll_range_quirk",
+   "theft_slot_spans_2_to_40"
+  ],
+  "suites": [
+   [
+    1698,
+    11670,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "59": {
+  "status": "FAILED",
+  "problem": "build failed\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/ref_tryclng.cpp:29:12: error: \u2018hexDigitValue\u2019 was not declared in this scope; did you mean \u2018hexDigit\u2019?\n"
+ },
+ "13": {
+  "status": "DONE",
+  "edits": 1,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1698,
+    11670,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "0": {
+  "status": "DONE",
+  "edits": 4,
+  "tests_removed": [
+   [
+    "items1a_give_refusal_order_guild_before_equipped",
+    "Keeper giveItem takes a Session and word vector and returns a bool with a reply string, not a GiveOutcome enum, and the Session construction is not in the supplied context, so the expected enum values cannot be asserted against the keeper."
+   ],
+   [
+    "engine_B_0059_30_balances",
+    "Keeper giveItem takes a Session and word vector and returns a reply string, not a PartyGiveItemOutcome, and the Session setup is not in the supplied context. The gold-balance assertions could be kept in a separate gold-only test."
+   ]
+  ],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1689,
+    11632,
+    0
+   ],
+   [
+    489,
+    771,
+    0
+   ]
+  ]
+ },
+ "1": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1698,
+    11670,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "2": {
+  "status": "DONE",
+  "edits": 6,
+  "tests_removed": [
+   [
+    "transfer_gold_caps_and_ignores_negative",
+    "Keeper refuses amounts over available gold (\"Too Much!\") instead of capping, and moves gold for negative amounts, so the expected values (70/0/100, 10/0) do not hold."
+   ],
+   [
+    "give_gold_and_item_refusals",
+    "Expects NothingToGive for a -3 gold amount, but transferGold's negative quirk moves gold (giver goes to 103), so the expected values do not hold."
+   ]
+  ],
+  "tests_retargeted": [
+   "engine_B_0059_30_balances"
+  ],
+  "suites": [
+   [
+    1696,
+    11656,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "3": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1696,
+    11656,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "4": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1696,
+    11656,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "5": {
+  "status": "DONE",
+  "edits": 3,
+  "tests_removed": [],
+  "tests_retargeted": [
+   "spell_resistance_grant_does_not_stack"
+  ],
+  "suites": [
+   [
+    1696,
+    11656,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "10": {
+  "status": "DONE",
+  "edits": 4,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1696,
+    11656,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "11": {
+  "status": "FAILED",
+  "problem": "build failed\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_items1a.cpp:47:14: error: \u2018adWithFit\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_items1a.cpp:48:14: error: \u2018adWithFit\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_items1a.cpp:49:14: error: \u2018adWithFit\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_items1a.cpp:50:14: error: \u2018adWithFit\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_items1a.cpp:51:14: error: \u2018adWithFit\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_items1a.cpp:52:14: error: \u2018adWithFit\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_items1a.cpp:53:14: error: \u2018adWithFit\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_items1a.cpp:54:14: error: \u2018adWithFit\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_items1b.cpp:108:14: error: \u2018adWithFit\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_items1b.cpp:109:14: error: \u2018adWithFit\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_items1b.cpp:110:14: error: \u2018adWithFit\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_items1b.cpp:111:14: error: \u2018adWithFit\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_items2a.cpp:100:14: error: \u2018adWithFit\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_items2a.cpp:101:14: error: \u2018adWithFit\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scr"
+ },
+ "12": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [
+   "stat_mod_fit_floors_halves"
+  ],
+  "suites": [
+   [
+    1696,
+    11656,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "18": {
+  "status": "FAILED",
+  "problem": "build failed\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_engine_party_1.cpp:36:19: error: too many arguments to function \u2018bool mordor::giveGold(Ctx&, Character&, Character&, i64)\u2019\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_engine_party_1.cpp:36:66: error: \u2018GiveResult\u2019 has not been declared\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_engine_party_1.cpp:43:5: error: \u2018GiveResult\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_engine_party_1.cpp:44:11: error: \u2018r\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_engine_party_1.cpp:44:16: error: \u2018GiveResult\u2019 is not a class, namespace, or enumeration\n"
+ },
+ "29": {
+  "status": "DONE",
+  "edits": 5,
+  "tests_removed": [],
+  "tests_retargeted": [
+   "level_hit_gain_zero_when_not_ahead_of_other_guilds",
+   "level_hit_gain_zero_on_tie_with_highest_other_guild"
+  ],
+  "suites": [
+   [
+    1689,
+    11632,
+    0
+   ],
+   [
+    489,
+    771,
+    0
+   ]
+  ]
+ },
+ "30": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1696,
+    11656,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "33": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1696,
+    11656,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "40": {
+  "status": "DONE",
+  "edits": 0,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1696,
+    11656,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "45": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1696,
+    11656,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "47": {
+  "status": "DONE",
+  "edits": 4,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1696,
+    11656,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "48": {
+  "status": "FAILED",
+  "problem": "build failed\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_engine_loot_6.cpp:18:14: error: \u2018openingRoundsForDisarm\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_loot1b.cpp:113:22: error: \u2018openingRoundsForDisarm\u2019 is not a member of \u2018mordor\u2019\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_loot1b.cpp:114:22: error: \u2018openingRoundsForDisarm\u2019 is not a member of \u2018mordor\u2019\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_loot1b.cpp:115:22: error: \u2018openingRoundsForDisarm\u2019 is not a member of \u2018mordor\u2019\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_loot1b.cpp:116:22: error: \u2018openingRoundsForDisarm\u2019 is not a member of \u2018mordor\u2019\n"
+ },
+ "49": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1696,
+    11656,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "50": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1696,
+    11656,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "51": {
+  "status": "FAILED",
+  "problem": "build failed\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_items3a.cpp:32:14: error: \u2018shelfStockOf\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_items3a.cpp:33:14: error: \u2018shelfStockOf\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_items3a.cpp:34:14: error: \u2018shelfStockOf\u2019 was not declared in this scope\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_items3a.cpp:35:14: error: \u2018shelfStockOf\u2019 was not declared in this scope\nedit: old text found 0x in include/mordor/loot1a.h"
+ },
+ "52": {
+  "status": "DONE",
+  "edits": 4,
+  "tests_removed": [],
+  "tests_retargeted": [
+   "curse_flags_and_uncurse_order",
+   "engine_rtt144_attaches_itself_first_cursed1_is_false"
+  ],
+  "suites": [
+   [
+    1696,
+    11656,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "54": {
+  "status": "FAILED",
+  "problem": "build failed\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_progression1a.cpp:98:22: error: \u2018disarmAward\u2019 is not a member of \u2018mordor\u2019\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_progression1a.cpp:103:22: error: \u2018disarmAward\u2019 is not a member of \u2018mordor\u2019\n"
+ },
+ "57": {
+  "status": "DONE",
+  "edits": 11,
+  "tests_removed": [],
+  "tests_retargeted": [
+   "SpecialRange_LogFormulaFloors",
+   "breath_percent_and_range",
+   "engine_B_0064_59_breath_range_formula",
+   "engine_B_0064_60_range_falls_with_target_level",
+   "engine_B_0064_61_special_range_grows_with_attacker",
+   "engine_B_0064_71_range_not_equal_monster_breath_range",
+   "engine_B_0064_72_monster_range_exceeds_special_by_at_least_one"
+  ],
+  "suites": [
+   [
+    1696,
+    11656,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "58": {
+  "status": "FAILED",
+  "problem": "build failed\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/status1a.cpp:276:12: error: \u2018mordor::i32 mordor::specialResistIndexOf(SpecialAttackKind)\u2019 was declared \u2018extern\u2019 and later \u2018static\u2019 [-fpermissive]\n"
+ },
+ "67": {
+  "status": "FAILED",
+  "problem": "build failed\ntest_monsters1b.cpp:(.text+0x35a): undefined reference to `mordor::charmForcesJoin(int, int)'\n/usr/bin/ld: test_monsters1b.cpp:(.text+0x374): undefined reference to `mordor::charmForcesJoin(int, int)'\n/usr/bin/ld: test_monsters1b.cpp:(.text+0x392): undefined reference to `mordor::charmForcesJoin(int, int)'\ncollect2: error: ld returned 1 exit status\n"
+ },
+ "74": {
+  "status": "DONE",
+  "edits": 1,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1689,
+    11632,
+    0
+   ],
+   [
+    489,
+    771,
+    0
+   ]
+  ]
+ },
+ "86": {
+  "status": "DONE",
+  "edits": 3,
+  "tests_removed": [
+   [
+    "respawn_base_1200s_plus_150_per_floor_minus_5_per_room_in_ms",
+    "Keeper gives 150000 ms at level 1 with no empty areas (respawn_delay_takes_5s_per_empty_area_below_header pins respawnBaseMs(1) = 150000), so the expected 1350000 cannot hold, and (1,10) maps to a different base under the keeper."
+   ],
+   [
+    "respawn_never_below_120_seconds",
+    "Keeper gives 120000 for (1, 230) because the 5 s-per-area term drives the delay below the floor, so the expected 200000 cannot hold."
+   ]
+  ],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1694,
+    11651,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "89": {
+  "status": "DONE",
+  "edits": 4,
+  "tests_removed": [
+   [
+    "asmodeus_identified_by_id_alone",
+    "keeper asmodeusIs compares against kAsmodeusMonsterId, which is an unverified placeholder that never matches, so the expected true result for id 277 cannot be guaranteed for the keeper"
+   ],
+   [
+    "asmodeus_identity_is_by_id_only",
+    "keeper asmodeusIs compares against the unverified placeholder kAsmodeusMonsterId, so the expected true result for id 277 cannot be guaranteed for the keeper"
+   ]
+  ],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1692,
+    11644,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "91": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1692,
+    11644,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "92": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1692,
+    11644,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "94": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1692,
+    11644,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "97": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1692,
+    11644,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "98": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [
+   "partya_swap_positions_rules"
+  ],
+  "suites": [
+   [
+    1692,
+    11644,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "99": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1692,
+    11644,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "101": {
+  "status": "DONE",
+  "edits": 6,
+  "tests_removed": [],
+  "tests_retargeted": [
+   "rounded_index_low_draw_gives_zero",
+   "rounded_index_band_of_one",
+   "rounded_index_retries_when_index_equals_n"
+  ],
+  "suites": [
+   [
+    1692,
+    11644,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "102": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1692,
+    11644,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "103": {
+  "status": "DONE",
+  "edits": 4,
+  "tests_removed": [
+   [
+    "ParseSwapRequestAccepts",
+    "Keeper returns raw slot numbers with no 2-40 range check and no slot-to-internal-index mapping, so expected status Swapped and indices 2 and 6 (and 1 and 39) cannot hold for the keeper."
+   ],
+   [
+    "ParseSwapRequestRefusals",
+    "Keeper has no NoComma status and no slot-range or Hands checks; it accepts \"1,5\" and \"5,41\", so the Refused and NoComma expectations cannot hold for the keeper."
+   ]
+  ],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1690,
+    11634,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "105": {
+  "status": "DONE",
+  "edits": 3,
+  "tests_removed": [],
+  "tests_retargeted": [
+   "casting3_stat_minimums_compare_each_stat"
+  ],
+  "suites": [
+   [
+    1690,
+    11634,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "106": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1690,
+    11634,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "108": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1690,
+    11634,
+    0
+   ],
+   [
+    490,
+    777,
+    0
+   ]
+  ]
+ },
+ "44": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1689,
+    11632,
+    0
+   ],
+   [
+    489,
+    771,
+    0
+   ]
+  ]
+ },
+ "71": {
+  "status": "DONE",
+  "edits": 4,
+  "tests_removed": [],
+  "tests_retargeted": [
+   "old_age_percent_zero_age_is_zero",
+   "old_age_percent_full_max_age_is_100",
+   "old_age_percent_halves_when_lifespan_doubles"
+  ],
+  "suites": [
+   [
+    1689,
+    11632,
+    0
+   ],
+   [
+    489,
+    771,
+    0
+   ]
+  ]
+ },
+ "72": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1689,
+    11632,
+    0
+   ],
+   [
+    489,
+    771,
+    0
+   ]
+  ]
+ },
+ "76": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1689,
+    11632,
+    0
+   ],
+   [
+    489,
+    771,
+    0
+   ]
+  ]
+ },
+ "95": {
+  "status": "DONE",
+  "edits": 1,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1689,
+    11632,
+    0
+   ],
+   [
+    489,
+    771,
+    0
+   ]
+  ]
+ },
+ "100": {
+  "status": "DONE",
+  "edits": 1,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1689,
+    11632,
+    0
+   ],
+   [
+    489,
+    771,
+    0
+   ]
+  ]
+ },
+ "116": {
+  "status": "DONE",
+  "edits": 4,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1689,
+    11632,
+    0
+   ],
+   [
+    489,
+    771,
+    0
+   ]
+  ]
+ },
+ "35": {
+  "status": "DONE",
+  "edits": 1,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1689,
+    11632,
+    0
+   ],
+   [
+    489,
+    771,
+    0
+   ]
+  ]
+ },
+ "107": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1689,
+    11632,
+    0
+   ],
+   [
+    489,
+    771,
+    0
+   ]
+  ]
+ },
+ "8": {
+  "status": "DONE",
+  "edits": 3,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1689,
+    11632,
+    0
+   ],
+   [
+    489,
+    771,
+    0
+   ]
+  ]
+ },
+ "31": {
+  "status": "FAILED",
+  "problem": "build failed\n/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/progression1b.cpp:460:23: error: \u2018restInCity\u2019 was not declared in this scope\n"
+ },
+ "41": {
+  "status": "DONE",
+  "edits": 1,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1689,
+    11632,
+    0
+   ],
+   [
+    489,
+    771,
+    0
+   ]
+  ]
+ },
+ "90": {
+  "status": "DONE",
+  "edits": 2,
+  "tests_removed": [],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1689,
+    11632,
+    0
+   ],
+   [
+    489,
+    771,
+    0
+   ]
+  ]
+ },
+ "43": {
+  "status": "DONE",
+  "edits": 9,
+  "tests_removed": [
+   [
+    "store_buy_price_unchanged_on_floor0_and_zero_without_stock",
+    "4-argument storeBuyPrice deleted; the keeper storeBuyPrice(const GameData&, const Item&, i32) in store_prices.cpp has its own tests of the same formula"
+   ],
+   [
+    "store_buy_price_shelf_term_caps_at_nine",
+    "4-argument storeBuyPrice deleted; the keeper storeBuyPrice(const GameData&, const Item&, i32) in store_prices.cpp has its own tests of the same formula"
+   ],
+   [
+    "store_buy_price_charge_penalty",
+    "4-argument storeBuyPrice deleted; the keeper storeBuyPrice(const GameData&, const Item&, i32) in store_prices.cpp has its own tests of the same formula"
+   ]
+  ],
+  "tests_retargeted": [],
+  "suites": [
+   [
+    1686,
+    11624,
+    0
+   ],
+   [
+    489,
+    771,
+    0
+   ]
+  ],
+  "golden_moved": []
+ }
+}

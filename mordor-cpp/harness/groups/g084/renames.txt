@@ -1,0 +1,2 @@
+src/loot1a.cpp partyMember partyMember__loot1a
+src/loot1a.cpp partyMember partyMember__loot1a

@@ -1,0 +1,2 @@
+src/combat3.cpp resistIndex resistIndex__combat3
+src/loot1a.cpp resistIndex resistIndex__loot1a

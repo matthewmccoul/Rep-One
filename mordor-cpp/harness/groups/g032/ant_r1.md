@@ -1,0 +1,3 @@
+NO_REFERENCE: The rule is an empty-body stub that discards every argument and changes no state. Neither shown reference method implements that. `ItemUse.ApplySpecial` is the full special-effect routine: it changes spell points, stats, and age and emits messages depending on `SpecialType` and alignment. Its early returns (`SpecialType <= 0`, or an adjacent alignment) produce no state change, but that is one branch of a real implementation, not the stub contract. A differential test would expect no change on every input, and the reference contradicts that on most of them, so it would not check the copies against the stub rule.
+
+REFERENCE: none

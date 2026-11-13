@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the four C# candidates implements chest item placement. The rule needs a random start index drawn over the party, a wrap-around search for the first free pack slot, and the "nobody had room" message. RechargeGuildItems scans one character's pack and recharges guild items. GiveFromVault moves a bank item into one target's first free slot, with no party loop and no random draw. GearCheck.Any unequips items. SwapItems swaps two named slots. No method shown does the random-start party search.
+
+REFERENCE: none (no candidate used)

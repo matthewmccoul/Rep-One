@@ -1,0 +1,2 @@
+src/combat1b.cpp mishapChance mishapChance__combat1b
+src/companions1a.cpp mishapChance mishapChance__companions1a

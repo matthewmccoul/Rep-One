@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the Mordor.Core methods shown implements the rule "true when char is in '0'..'9'". `Rescue.Val` and `VbConvert.TryCLng` use digit checks only as internal steps of larger parsing routines. `Rescue.Val` calls `char.IsDigit`, which also accepts non-ASCII Unicode digits, so it is not the same rule. `InstallerUnpack.IsPlainName` uses `char.IsAsciiDigit` inline, and that is a BCL call inside a larger method, not a reference method for this rule.
+
+REFERENCE: none

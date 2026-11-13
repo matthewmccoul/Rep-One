@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the listed Mordor.Core candidates splits text into words. `VbConvert.TryCLng` trims spaces and tabs from one string and parses it as a single number, and it never produces multiple tokens. `CharStatFile.Paint`, `CompanionCarry.Run`, and `SpellInfo.Paint` build display pieces, companion rosters, and spell pages, and none of them tokenizes a string. Writing a test against any of them would compare the C++ `splitWords` copies to behavior the reference does not have.
+
+REFERENCE: none

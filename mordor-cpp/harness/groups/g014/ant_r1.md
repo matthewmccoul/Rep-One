@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the Mordor.Core methods listed implements the ASCII A-Z to a-z character mapping. `IsPlainName` uses `ToUpperInvariant` for a different purpose, and `Val`, `ApplyToCharacter`, `OnEntry`, and the `GiveCommand` methods do not lowercase characters. The C# `InstallerUnpack` list is truncated, so I cannot rule out a match there, but nothing shown implements this rule. No files were written.
+
+REFERENCE: none

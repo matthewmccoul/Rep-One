@@ -1,0 +1,3 @@
+NO_REFERENCE: The rule returns a mutable reference into `floor.squares` (with const and non-const overloads) and is keyed by `cellOf(x, y)`. None of the shown Mordor.Core methods does this. The nearest is `Floor.At(x, y)`, which maps (x, y) to `Fields[y * Width + x]`, but it returns a `Field` copy (AreaId and Flags), not a `SquareState`, has no mutable overload, and the C# side has no `cellOf` to check the index formula against. Comparing it would test a different record type, so I have written no files.
+
+REFERENCE: none (nearest candidate Floor.At, rejected)

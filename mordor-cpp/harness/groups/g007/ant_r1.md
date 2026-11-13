@@ -1,0 +1,3 @@
+NO_REFERENCE: none of the shown Mordor.Core methods sets a party's position together with its dungeon level. The closest is `DungeonNav.SetPosition(int x, int y)`, but it takes no level, touches no party or member state, and calls `MarkExplored()` for non-rock squares, which is the opposite of the rule's "no explore" requirement. The C++ copies write `party.x`, `party.y`, `party.dungeonLevel`, and every member's location, and none of that has a C# counterpart in the shown types.
+
+REFERENCE: none

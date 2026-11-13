@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the shown Mordor.Core methods resolves an item definition from `item.id`. `MdrLoader.LoadMonsters` parses monster records. `CastGate.Unfit` checks spell rates and stats and only takes an item callback. `Rules.QuestItem` picks an entry from a list by type and floor, not by id. `OriginalSaves.Read` loads save files. `H.ItemsById` is a table lookup, not one of the listed reference methods, so I did not use it. The two C++ copies also differ: `itemDefOf` in combat3.cpp returns nullptr for negative or out-of-range ids, while the copy in attributes.cpp indexes without a bounds check. Neither can be checked against a reference here.
+
+REFERENCE: none (no shown reference method implements this rule)

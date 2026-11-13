@@ -1,0 +1,3 @@
+NO_REFERENCE: No method in the shown Mordor.Core candidates implements a standalone natural-log helper. The C++ copies are bare `std::log` wrappers: `combat1a` has no guard, and `spells2` returns `x > 0 ? log(x) : 0`. The reference candidates call `Math.Log` inline, but only after their own clamps or offsets (`Math.Max(1, ...)` in `TrapReadout`, `+ 1` in `SpecialHits.Range`, `(level + 5)/10 + 1` in `IdentifySkill`). Testing them would exercise those rules, not a ln helper. The two copies also disagree for x ≤ 0 (NaN/-inf versus 0), and no reference method pins that behaviour down.
+
+REFERENCE: none

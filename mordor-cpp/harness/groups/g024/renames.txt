@@ -1,0 +1,2 @@
+src/dungeon3.cpp squareIndexOf squareIndexOf__dungeon3
+src/spells1a.cpp squareIndexOf squareIndexOf__spells1a

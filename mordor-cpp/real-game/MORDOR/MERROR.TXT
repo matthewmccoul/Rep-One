@@ -1,0 +1,3 @@
+11/13/2026 6:07:08 AM - "Error 'file not found' playing C:\MORDOR\MUSIC\MESSAGE.WAV!"
+11/13/2026 6:12:55 AM - "Error 'file not found' playing C:\MORDOR\MUSIC\MESSAGE.WAV!"
+11/13/2026 6:13:55 AM - "Error 'file not found' playing C:\MORDOR\MUSIC\MESSAGE.WAV!"

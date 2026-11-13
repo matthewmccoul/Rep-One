@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the shown reference methods implements integer-to-decimal text conversion. The only text-producing candidate, the local `N(long v)` inside `SpellInfo.Paint`, uses `ToString(InvariantCulture)` rather than a manual digit loop, and it is a private helper inside a page builder, so it is not the rule under test. The other candidates (`VbConvert.TryCLng`, `Rescue.Val`, `VbCurrency.TryParse`) parse text into numbers, which is the opposite direction.
+
+REFERENCE: none (no C# method used)

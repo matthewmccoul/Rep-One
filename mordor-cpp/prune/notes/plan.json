@@ -1,0 +1,4050 @@
+[
+ {
+  "pile": "p001",
+  "group": "G2",
+  "rule": "give one pack item to another member",
+  "keeper": {
+   "name": "giveItem",
+   "file": "src/feat_give.cpp",
+   "line": 204,
+   "verdict": "?",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "giveFromPack",
+    "file": "src/items1a_missing.cpp",
+    "line": 25,
+    "lines": 56,
+    "verdict": "?",
+    "why": "",
+    "callers": [],
+    "test_refs": 2,
+    "action": "DELETE",
+    "phase": 1
+   },
+   {
+    "name": "giveItem",
+    "file": "src/items2b.cpp",
+    "line": 143,
+    "lines": 38,
+    "verdict": "?",
+    "why": "",
+    "callers": [
+     "cmdGive@src/feat_give.cpp"
+    ],
+    "test_refs": 3,
+    "action": "HOLD",
+    "phase": 3
+   },
+   {
+    "name": "giveItemToMember",
+    "file": "src/partyb.cpp",
+    "line": 784,
+    "lines": 58,
+    "verdict": "?",
+    "why": "",
+    "callers": [],
+    "test_refs": 2,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p001",
+  "group": "G5",
+  "rule": "forfeit guild membership",
+  "keeper": {
+   "name": "Forfeit",
+   "file": "src/guilds2_a.cpp",
+   "line": 228,
+   "verdict": "?",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "forfeitGuild",
+    "file": "src/progression2.cpp",
+    "line": 347,
+    "lines": 10,
+    "verdict": "?",
+    "why": "",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p001",
+  "group": "G9",
+  "rule": "give gold to another character",
+  "keeper": {
+   "name": "transferGold",
+   "file": "src/partyb_missing2.cpp",
+   "line": 13,
+   "verdict": "?",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "transferGold",
+    "file": "src/items1b.cpp",
+    "line": 384,
+    "lines": 11,
+    "verdict": "?",
+    "why": "",
+    "callers": [],
+    "test_refs": 9,
+    "action": "DELETE",
+    "phase": 1
+   },
+   {
+    "name": "giveGoldToMember",
+    "file": "src/partyb.cpp",
+    "line": 750,
+    "lines": 28,
+    "verdict": "?",
+    "why": "",
+    "callers": [],
+    "test_refs": 5,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p002",
+  "group": "G1",
+  "rule": "apply a binding effect to a companion (life binding)",
+  "keeper": {
+   "name": "applyBindEffect",
+   "file": "src/casting3.cpp",
+   "line": 260,
+   "verdict": "?",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "applyBindingEffect",
+    "file": "src/casting2.cpp",
+    "line": 489,
+    "lines": 14,
+    "verdict": "?",
+    "why": "",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p002",
+  "group": "G5",
+  "rule": "clear spell effects and resistances (ClearSpellEffects)",
+  "keeper": {
+   "name": "clearSpellEffects",
+   "file": "src/status2.cpp",
+   "line": 519,
+   "verdict": "?",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "clearSpellStates",
+    "file": "src/spells1a.cpp",
+    "line": 558,
+    "lines": 7,
+    "verdict": "?",
+    "why": "",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p002",
+  "group": "G7",
+  "rule": "raise spell resistance to granted level if lower",
+  "keeper": {
+   "name": "castResistSpell",
+   "file": "src/spells2.cpp",
+   "line": 532,
+   "verdict": "?",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "grantSpellResistance",
+    "file": "src/spells1a.cpp",
+    "line": 574,
+    "lines": 8,
+    "verdict": "?",
+    "why": "",
+    "callers": [],
+    "test_refs": 2,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p003",
+  "group": "G2",
+  "rule": "resolve chest trap by trap number (ChestTraps.Spring)",
+  "keeper": {
+   "name": "resolveChestTrap",
+   "file": "src/loot1a.cpp",
+   "line": 657,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 4
+  },
+  "losers": [
+   {
+    "name": "resolveChestTrap",
+    "file": "src/combat2a.cpp",
+    "line": 155,
+    "lines": 40,
+    "verdict": "DIFFERS",
+    "why": "Poison and disease branches call m1, so they inherit m1's level and gear differences. Traps 3 to 5 go through resolveMemberTrap and chestTrapScope, which are not shown, so they cannot be checked. It e",
+    "callers": [
+     "applyChestTrap@src/loot2.cpp",
+     "openChest@src/loot2.cpp",
+     "openChestInFight@src/loot1a.cpp",
+     "resolveChestTrapInParty@src/dungeon2b.cpp"
+    ],
+    "test_refs": 6,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p004",
+  "group": "G2",
+  "rule": "set party position with explicit level, no explore",
+  "keeper": {
+   "name": "setPartyPosition",
+   "file": "src/dungeon1b_a.cpp",
+   "line": 75,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 5
+  },
+  "losers": [
+   {
+    "name": "setPartyPosition",
+    "file": "src/dungeon1b_b.cpp",
+    "line": 90,
+    "lines": 11,
+    "verdict": "DIFFERS",
+    "why": "Same as m7: DungeonNav.SetPosition has an IsRock check and a MarkExplored call, which this C++ lacks. Its level argument and level writes are not in the reference.",
+    "callers": [
+     "chestTeleporterTrap@src/dungeon1b_b.cpp",
+     "displaceParty@src/dungeon1b_a.cpp",
+     "etherealPortalStep@src/dungeon1b_a.cpp",
+     "finishTeleportLeader@src/dungeon1b_a.cpp",
+     "tryMoveForward@src/dungeon1a.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p005",
+  "group": "G1",
+  "rule": "R34 content drift (Binding < 0), max(0.5, (MaxHits - Hits) / MaxHits * 15). m6 takes missingHits instead of hits.",
+  "keeper": {
+   "name": "driftContentStep",
+   "file": "src/companions2a.cpp",
+   "line": 354,
+   "verdict": "MATCHES",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "companionDriftContent",
+    "file": "src/companions1b.cpp",
+    "line": 271,
+    "lines": 13,
+    "verdict": "DIFFERS",
+    "why": "harness: copies differ only on inputs play cannot produce; keeper is the copy equal to Mordor.Core on every case",
+    "callers": [
+     "companionMoodRound@src/companions1b.cpp"
+    ],
+    "test_refs": 4,
+    "action": "FORWARD",
+    "phase": 1
+   },
+   {
+    "name": "contentDrift",
+    "file": "src/status1b.cpp",
+    "line": 531,
+    "lines": 7,
+    "verdict": "DIFFERS",
+    "why": "harness: copies differ only on inputs play cannot produce; keeper is the copy equal to Mordor.Core on every case",
+    "callers": [
+     "companionTick@src/status1b.cpp"
+    ],
+    "test_refs": 5,
+    "action": "FORWARD",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p005",
+  "group": "G2",
+  "rule": "R34 bound drift (Binding > 0), max(1, GuildLevel / ln3 * 2 - TopGuildLevel / ln12 * |Binding / 2|)",
+  "keeper": {
+   "name": "companionDriftBound",
+   "file": "src/companions1b.cpp",
+   "line": 288,
+   "verdict": "MATCHES",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "driftBoundStep",
+    "file": "src/companions2a.cpp",
+    "line": 364,
+    "lines": 8,
+    "verdict": "DIFFERS",
+    "why": "(unverified) | Same formula and 1.0 floor as Drift bound branch, but the scale and base come from kDriftBoundGuildBase, kDriftBoundGuildScale, kDriftBoundTopBase, and kDriftBoundBindingDivisor, whose ",
+    "callers": [
+     "driftCompanion@src/companions2a.cpp"
+    ],
+    "test_refs": 2,
+    "action": "REPLACE_WITH_KEEPER",
+    "phase": 2
+   },
+   {
+    "name": "boundDrift",
+    "file": "src/status1b.cpp",
+    "line": 542,
+    "lines": 7,
+    "verdict": "DIFFERS",
+    "why": "Strength term 2.0*m/ln3 equals reference (m/ln3)*2. Hold term is computed as (t*half)/ln12 rather than (t/ln12)*half, so the rounding order differs and results can differ in the last bit. Floor kBound",
+    "callers": [
+     "companionTick@src/status1b.cpp"
+    ],
+    "test_refs": 3,
+    "action": "REPLACE_WITH_KEEPER",
+    "phase": 2
+   }
+  ]
+ },
+ {
+  "pile": "p006",
+  "group": "G3",
+  "rule": "no-op restock stub (store/shelf replenish placeholder, no state change)",
+  "keeper": {
+   "name": "replenishShelf",
+   "file": "src/loot2.cpp",
+   "line": 563,
+   "verdict": "DIFFERS",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "restockStore",
+    "file": "src/city3a.cpp",
+    "line": 65,
+    "lines": 6,
+    "verdict": "DIFFERS",
+    "why": "Reference StoreStock.Replenish changes the store. This stub does nothing (all parameters voided, UNKNOWN BLOCKED comment), so it misses every case.",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   },
+   {
+    "name": "replenishStoreAfterPurchase",
+    "file": "src/city3a.cpp",
+    "line": 75,
+    "lines": 6,
+    "verdict": "NO_REFERENCE",
+    "why": "Purchase-triggered replenish has no matching shown reference. The body is a no-op stub.",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p007",
+  "group": "G1",
+  "rule": "attack/defence fit adjustment (Full returns raw, Half returns round-half-even(raw/2), Subtract returns -raw), matching Mordor.Core AttDefWorth",
+  "keeper": {
+   "name": "adWithFit",
+   "file": "src/attributes.cpp",
+   "line": 47,
+   "verdict": "MATCHES",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "adWorthOfFit",
+    "file": "src/items1a_a.cpp",
+    "line": 334,
+    "lines": 12,
+    "verdict": "MATCHES",
+    "why": "Same arms as AttDefWorth (round-half-even for Half, -raw for Subtract). Only differs for out-of-range enum values (returns raw).",
+    "callers": [],
+    "test_refs": 8,
+    "action": "DELETE",
+    "phase": 1
+   },
+   {
+    "name": "attDefWorth",
+    "file": "src/items1b.cpp",
+    "line": 547,
+    "lines": 8,
+    "verdict": "MATCHES",
+    "why": "Identical arms to AttDefWorth: raw, roundHalfEven(raw/2.0), -raw.",
+    "callers": [],
+    "test_refs": 4,
+    "action": "DELETE",
+    "phase": 1
+   },
+   {
+    "name": "adjustAdForFit",
+    "file": "src/items2a.cpp",
+    "line": 143,
+    "lines": 11,
+    "verdict": "MATCHES",
+    "why": "Same computation as AttDefWorth with arguments reversed (fit, raw). Subtract and default both return -raw, matching the reference's `_ => -raw`.",
+    "callers": [],
+    "test_refs": 5,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p007",
+  "group": "G2",
+  "rule": "stat-mod fit adjustment (Full returns mod, Half returns vbInt(mod/2), Subtract returns -mod), matching Mordor.Core StatModWorth",
+  "keeper": {
+   "name": "statModWorth",
+   "file": "src/attributes.cpp",
+   "line": 229,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 2
+  },
+  "losers": [
+   {
+    "name": "adjustStatModForFit",
+    "file": "src/items2a.cpp",
+    "line": 156,
+    "lines": 11,
+    "verdict": "DIFFERS",
+    "why": "(unconfirmed) | Same arms as m2, but Subtract and default both return -raw. Half uses vbInt(raw/2.0) against the reference's Math.Floor, with the same unverified vbInt caveat as m2.",
+    "callers": [],
+    "test_refs": 4,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p009",
+  "group": "G2",
+  "rule": "victim draw, `round_half_even(Rnd*(partySize-1))`. m2 returns it 0-based, m4 returns it 1-based.",
+  "keeper": {
+   "name": "drawMishapVictim",
+   "file": "src/companions1a.cpp",
+   "line": 668,
+   "verdict": "MATCHES",
+   "live": true,
+   "callers": 3
+  },
+  "losers": [
+   {
+    "name": "mishapVictimIndex",
+    "file": "src/companions2a.cpp",
+    "line": 303,
+    "lines": 6,
+    "verdict": "MATCHES",
+    "why": "Returns `round_half_even(Rnd*(partySize-1)) + 1`, identical to reference Victim `drawn = Math.Round(rng.NextDouble()*last, ToEven) + 1`. No empty-party guard in this helper (the reference guard is at ",
+    "callers": [
+     "rollMishap@src/companions2a.cpp"
+    ],
+    "test_refs": 3,
+    "action": "FORWARD",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p012",
+  "group": "G1",
+  "rule": "map one char A-Z to a-z, other chars unchanged (char -> char)",
+  "keeper": {
+   "name": "lowerAscii",
+   "file": "src/dungeon2a.cpp",
+   "line": 30,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 9
+  },
+  "losers": [
+   {
+    "name": "lowerAscii",
+    "file": "src/dataformatsb.cpp",
+    "line": 34,
+    "lines": 3,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method for lowerAscii is shown",
+    "callers": [
+     "equalNoCase@src/dungeon2a.cpp",
+     "equalsCi@src/modding.cpp",
+     "equalsCiLiteral@src/modding.cpp",
+     "equalsIgnoreCaseTrue@src/dataformatsb.cpp",
+     "goldFromTag@src/ref_goldfromtag.cpp",
+     "isSeerNamePrefix@src/dungeon2a.cpp",
+     "lessCi@src/modding.cpp",
+     "runFeatureCommand@src/features.cpp",
+     "wordSortCompare@src/misc_2.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   },
+   {
+    "name": "lowerAscii",
+    "file": "src/misc_2.cpp",
+    "line": 135,
+    "lines": 3,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method for lowerAscii is shown",
+    "callers": [
+     "equalNoCase@src/dungeon2a.cpp",
+     "equalsCi@src/modding.cpp",
+     "equalsCiLiteral@src/modding.cpp",
+     "equalsIgnoreCaseTrue@src/dataformatsb.cpp",
+     "goldFromTag@src/ref_goldfromtag.cpp",
+     "isSeerNamePrefix@src/dungeon2a.cpp",
+     "lessCi@src/modding.cpp",
+     "runFeatureCommand@src/features.cpp",
+     "wordSortCompare@src/misc_2.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   },
+   {
+    "name": "lowerAscii",
+    "file": "src/modding.cpp",
+    "line": 39,
+    "lines": 6,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method for lowerAscii is shown",
+    "callers": [
+     "equalNoCase@src/dungeon2a.cpp",
+     "equalsCi@src/modding.cpp",
+     "equalsCiLiteral@src/modding.cpp",
+     "equalsIgnoreCaseTrue@src/dataformatsb.cpp",
+     "goldFromTag@src/ref_goldfromtag.cpp",
+     "isSeerNamePrefix@src/dungeon2a.cpp",
+     "lessCi@src/modding.cpp",
+     "runFeatureCommand@src/features.cpp",
+     "wordSortCompare@src/misc_2.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   },
+   {
+    "name": "lowerAscii",
+    "file": "src/ref_goldfromtag.cpp",
+    "line": 22,
+    "lines": 3,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method for lowerAscii is shown",
+    "callers": [
+     "equalNoCase@src/dungeon2a.cpp",
+     "equalsCi@src/modding.cpp",
+     "equalsCiLiteral@src/modding.cpp",
+     "equalsIgnoreCaseTrue@src/dataformatsb.cpp",
+     "goldFromTag@src/ref_goldfromtag.cpp",
+     "isSeerNamePrefix@src/dungeon2a.cpp",
+     "lessCi@src/modding.cpp",
+     "runFeatureCommand@src/features.cpp",
+     "wordSortCompare@src/misc_2.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p013",
+  "group": "G1",
+  "rule": "party member accessor by index, non-const overload (Party&, i32) returning members[static_cast<u32>(i)]",
+  "keeper": {
+   "name": "memberAt",
+   "file": "src/game_town.cpp",
+   "line": 141,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 36
+  },
+  "losers": [
+   {
+    "name": "memberAt",
+    "file": "src/partya.cpp",
+    "line": 20,
+    "lines": 1,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method shown for party member indexing",
+    "callers": [
+     "afterTargetKnockedOut@src/partya.cpp",
+     "appendMember@src/partya.cpp",
+     "applyRoomEntryCombatSettings@src/partya.cpp",
+     "autoloadParty@src/partya.cpp",
+     "bankPartyOption@src/partya.cpp",
+     "checkJoin@src/partya.cpp",
+     "deathHeadRoutine@src/status2.cpp",
+     "depositAll@src/partya.cpp",
+     "diseaseTick@src/status2.cpp",
+     "distributeOnHand@src/partya.cpp",
+     "doBank@src/game_town.cpp",
+     "doDescend@src/game_town.cpp",
+     "doGuildList@src/game_town.cpp",
+     "doIdentify@src/game_town.cpp",
+     "doIdentifyItem@src/game_town.cpp",
+     "doJoin@src/game_town.cpp",
+     "doLevelUp@src/game_town.cpp",
+     "doMorgue@src/game_town.cpp",
+     "doRaise@src/game_town.cpp",
+     "doRest@src/game_town.cpp",
+     "drownCharacter@src/status2.cpp",
+     "eraseMember@src/partya.cpp",
+     "firePartyUpdateIfDead@src/partya.cpp",
+     "hasOppositeMember@src/partya.cpp",
+     "isMemberOf@src/partya.cpp",
+     "killCharacter@src/status2.cpp",
+     "leaveParty@src/partya.cpp",
+     "morgueGrabBody@src/partya.cpp",
+     "performJoin@src/partya.cpp",
+     "planDisband@src/partya.cpp",
+     "poisonTick@src/status2.cpp",
+     "pruneMemberAt@src/partya.cpp",
+     "resolveDisband@src/partya.cpp",
+     "samePlace@src/partya.cpp",
+     "swapPartyPositions@src/partya.cpp",
+     "switchCommandedCharacter@src/partya.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   },
+   {
+    "name": "memberAt",
+    "file": "src/status2.cpp",
+    "line": 27,
+    "lines": 3,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method shown for party member indexing",
+    "callers": [
+     "afterTargetKnockedOut@src/partya.cpp",
+     "appendMember@src/partya.cpp",
+     "applyRoomEntryCombatSettings@src/partya.cpp",
+     "autoloadParty@src/partya.cpp",
+     "bankPartyOption@src/partya.cpp",
+     "checkJoin@src/partya.cpp",
+     "deathHeadRoutine@src/status2.cpp",
+     "depositAll@src/partya.cpp",
+     "diseaseTick@src/status2.cpp",
+     "distributeOnHand@src/partya.cpp",
+     "doBank@src/game_town.cpp",
+     "doDescend@src/game_town.cpp",
+     "doGuildList@src/game_town.cpp",
+     "doIdentify@src/game_town.cpp",
+     "doIdentifyItem@src/game_town.cpp",
+     "doJoin@src/game_town.cpp",
+     "doLevelUp@src/game_town.cpp",
+     "doMorgue@src/game_town.cpp",
+     "doRaise@src/game_town.cpp",
+     "doRest@src/game_town.cpp",
+     "drownCharacter@src/status2.cpp",
+     "eraseMember@src/partya.cpp",
+     "firePartyUpdateIfDead@src/partya.cpp",
+     "hasOppositeMember@src/partya.cpp",
+     "isMemberOf@src/partya.cpp",
+     "killCharacter@src/status2.cpp",
+     "leaveParty@src/partya.cpp",
+     "morgueGrabBody@src/partya.cpp",
+     "performJoin@src/partya.cpp",
+     "planDisband@src/partya.cpp",
+     "poisonTick@src/status2.cpp",
+     "pruneMemberAt@src/partya.cpp",
+     "resolveDisband@src/partya.cpp",
+     "samePlace@src/partya.cpp",
+     "swapPartyPositions@src/partya.cpp",
+     "switchCommandedCharacter@src/partya.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p013",
+  "group": "G2",
+  "rule": "party member accessor by index, const overload (const Party&, i32) returning members[static_cast<u32>(i)]",
+  "keeper": {
+   "name": "memberAt",
+   "file": "src/game_town.cpp",
+   "line": 145,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 36
+  },
+  "losers": [
+   {
+    "name": "memberAt",
+    "file": "src/partya.cpp",
+    "line": 21,
+    "lines": 1,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method shown for party member indexing",
+    "callers": [
+     "afterTargetKnockedOut@src/partya.cpp",
+     "appendMember@src/partya.cpp",
+     "applyRoomEntryCombatSettings@src/partya.cpp",
+     "autoloadParty@src/partya.cpp",
+     "bankPartyOption@src/partya.cpp",
+     "checkJoin@src/partya.cpp",
+     "deathHeadRoutine@src/status2.cpp",
+     "depositAll@src/partya.cpp",
+     "diseaseTick@src/status2.cpp",
+     "distributeOnHand@src/partya.cpp",
+     "doBank@src/game_town.cpp",
+     "doDescend@src/game_town.cpp",
+     "doGuildList@src/game_town.cpp",
+     "doIdentify@src/game_town.cpp",
+     "doIdentifyItem@src/game_town.cpp",
+     "doJoin@src/game_town.cpp",
+     "doLevelUp@src/game_town.cpp",
+     "doMorgue@src/game_town.cpp",
+     "doRaise@src/game_town.cpp",
+     "doRest@src/game_town.cpp",
+     "drownCharacter@src/status2.cpp",
+     "eraseMember@src/partya.cpp",
+     "firePartyUpdateIfDead@src/partya.cpp",
+     "hasOppositeMember@src/partya.cpp",
+     "isMemberOf@src/partya.cpp",
+     "killCharacter@src/status2.cpp",
+     "leaveParty@src/partya.cpp",
+     "morgueGrabBody@src/partya.cpp",
+     "performJoin@src/partya.cpp",
+     "planDisband@src/partya.cpp",
+     "poisonTick@src/status2.cpp",
+     "pruneMemberAt@src/partya.cpp",
+     "resolveDisband@src/partya.cpp",
+     "samePlace@src/partya.cpp",
+     "swapPartyPositions@src/partya.cpp",
+     "switchCommandedCharacter@src/partya.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   },
+   {
+    "name": "memberAt",
+    "file": "src/status2.cpp",
+    "line": 31,
+    "lines": 3,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method shown for party member indexing",
+    "callers": [
+     "afterTargetKnockedOut@src/partya.cpp",
+     "appendMember@src/partya.cpp",
+     "applyRoomEntryCombatSettings@src/partya.cpp",
+     "autoloadParty@src/partya.cpp",
+     "bankPartyOption@src/partya.cpp",
+     "checkJoin@src/partya.cpp",
+     "deathHeadRoutine@src/status2.cpp",
+     "depositAll@src/partya.cpp",
+     "diseaseTick@src/status2.cpp",
+     "distributeOnHand@src/partya.cpp",
+     "doBank@src/game_town.cpp",
+     "doDescend@src/game_town.cpp",
+     "doGuildList@src/game_town.cpp",
+     "doIdentify@src/game_town.cpp",
+     "doIdentifyItem@src/game_town.cpp",
+     "doJoin@src/game_town.cpp",
+     "doLevelUp@src/game_town.cpp",
+     "doMorgue@src/game_town.cpp",
+     "doRaise@src/game_town.cpp",
+     "doRest@src/game_town.cpp",
+     "drownCharacter@src/status2.cpp",
+     "eraseMember@src/partya.cpp",
+     "firePartyUpdateIfDead@src/partya.cpp",
+     "hasOppositeMember@src/partya.cpp",
+     "isMemberOf@src/partya.cpp",
+     "killCharacter@src/status2.cpp",
+     "leaveParty@src/partya.cpp",
+     "morgueGrabBody@src/partya.cpp",
+     "performJoin@src/partya.cpp",
+     "planDisband@src/partya.cpp",
+     "poisonTick@src/status2.cpp",
+     "pruneMemberAt@src/partya.cpp",
+     "resolveDisband@src/partya.cpp",
+     "samePlace@src/partya.cpp",
+     "swapPartyPositions@src/partya.cpp",
+     "switchCommandedCharacter@src/partya.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p014",
+  "group": "G1",
+  "rule": "equip-blocking check (hands, worn-class cap, guild, guild level, stats) returning a reason",
+  "keeper": {
+   "name": "equipProblem",
+   "file": "src/items1b.cpp",
+   "line": 195,
+   "verdict": "MATCHES",
+   "live": true,
+   "callers": 4
+  },
+  "losers": [
+   {
+    "name": "equipCheck",
+    "file": "src/items1a_a.cpp",
+    "line": 185,
+    "lines": 25,
+    "verdict": "DIFFERS",
+    "why": "Compared with Character.EquipProblem. Check order (hands, cap, guild, level, stats) matches, and the hands and cap checks are skipped when storeLike is set (reference skips them when item is null). Di",
+    "callers": [
+     "equipSlot@src/items1a_a.cpp"
+    ],
+    "test_refs": 0,
+    "action": "REPLACE_WITH_KEEPER",
+    "phase": 2
+   }
+  ]
+ },
+ {
+  "pile": "p017",
+  "group": "G2",
+  "rule": "transfer whole gold between two characters (receiver-balance cap, giver-balance check, success line)",
+  "keeper": {
+   "name": "giveGold",
+   "file": "src/items2b.cpp",
+   "line": 121,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "giveGold",
+    "file": "src/loot1a.cpp",
+    "line": 906,
+    "lines": 16,
+    "verdict": "DIFFERS",
+    "why": "Reference is Give (gold branch). Amount <= 0 returns false with no line, which matches the reference producing nothing. Insufficient gold returns false silently, which matches the reference's silent p",
+    "callers": [
+     "cmdGive@src/feat_give.cpp"
+    ],
+    "test_refs": 5,
+    "action": "HOLD",
+    "phase": 3
+   },
+   {
+    "name": "giveGoldTransfer",
+    "file": "src/partya.cpp",
+    "line": 453,
+    "lines": 21,
+    "verdict": "DIFFERS",
+    "why": "Reference is Give (gold branch) plus Party.GaveGold. Zero check uses currencyWhole(amount) < 1, which matches the reference's gold > 0 check only for whole-gold input. Insufficient gold emits \"Not eno",
+    "callers": [],
+    "test_refs": 8,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p019",
+  "group": "G1",
+  "rule": "guild experience cap = threshold(level+1) - 1",
+  "keeper": {
+   "name": "experienceCapOf",
+   "file": "src/progression2.cpp",
+   "line": 128,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 3
+  },
+  "losers": [
+   {
+    "name": "experienceCap",
+    "file": "src/progression1a.cpp",
+    "line": 130,
+    "lines": 4,
+    "verdict": "NO_REFERENCE",
+    "why": "Call shape matches `Character.ExperienceCap` and `Rules.Fn13ED` (level+1, guild factor, race factor, minus 1), but the threshold comes from `levelThresholdXp`, whose body is not shown, so equivalence ",
+    "callers": [
+     "giveExperience@src/progression1a.cpp",
+     "progressToolbar@src/progression1a.cpp"
+    ],
+    "test_refs": 14,
+    "action": "HOLD",
+    "phase": 3
+   },
+   {
+    "name": "experienceCap",
+    "file": "src/progression2b.cpp",
+    "line": 66,
+    "lines": 20,
+    "verdict": "DIFFERS",
+    "why": "Reference `Fn13ED` calls `Fn12A1` with the factors. m5 instead evaluates its own quadratic (`kXpQuadratic*n\u00b2 + kXpLinear*n + kXpConstant`, flagged UNKNOWN in the code), multiplies by the factors, and ",
+    "callers": [
+     "giveExperience@src/progression1a.cpp",
+     "progressToolbar@src/progression1a.cpp"
+    ],
+    "test_refs": 14,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p020",
+  "group": "G1",
+  "rule": "paralyse (set character paralysis state on a monster hit)",
+  "keeper": {
+   "name": "paralyse",
+   "file": "src/status1a.cpp",
+   "line": 79,
+   "verdict": "MATCHES",
+   "live": true,
+   "callers": 2
+  },
+  "losers": [
+   {
+    "name": "paralyse",
+    "file": "src/status2.cpp",
+    "line": 142,
+    "lines": 11,
+    "verdict": "DIFFERS",
+    "why": "Does not guard against existing paralysis (overwrites paralysisLevel when already paralysed). Does not set ADShift (reference sets ADShift = StoredADShift - StatsADNow). Adds paralysed flag and paraly",
+    "callers": [
+     "meleeParalysisCheck@src/status1a.cpp",
+     "tryParalysis@src/status2.cpp"
+    ],
+    "test_refs": 2,
+    "action": "REPLACE_WITH_KEEPER",
+    "phase": 2
+   }
+  ]
+ },
+ {
+  "pile": "p021",
+  "group": "G2",
+  "rule": "PartyDeposit, moving each member's on-hand gold into that member's bank",
+  "keeper": {
+   "name": "partyDepositGold",
+   "file": "src/partyb.cpp",
+   "line": 352,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "partyDepositOnHand",
+    "file": "src/city1_b.cpp",
+    "line": 611,
+    "lines": 14,
+    "verdict": "DIFFERS",
+    "why": "Compared with Party.PartyDeposit: (a) no overflow check, since it uses plain `+=` and does not use TryAdd, so overflow is not refused; (b) no all-or-nothing rollback; (c) skips members with amt <= 0, ",
+    "callers": [
+     "arrivalDepositAndPool@src/city1_b.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p027",
+  "group": "G1",
+  "rule": "monster melee damage modifier (called from monsterMeleeBlow and resolveMonsterMelee)",
+  "keeper": {
+   "name": "meleeDamageModifier",
+   "file": "src/combat1b.cpp",
+   "line": 85,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 2
+  },
+  "losers": [
+   {
+    "name": "meleeDamageModifier",
+    "file": "src/monsters1a.cpp",
+    "line": 602,
+    "lines": 14,
+    "verdict": "NO_REFERENCE",
+    "why": "Same reason as m1: no shown reference covers monster melee. Against SwingOnce, m4 floors input <= 0 to 1.0, adds +0.75 for chest, +2.0 for crit and +1.0 for backstab (reference comment states +5 and +",
+    "callers": [
+     "monsterMeleeBlow@src/monsters1a.cpp",
+     "resolveMonsterMelee@src/combat1b.cpp"
+    ],
+    "test_refs": 16,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p028",
+  "group": "G1",
+  "rule": "bounds-checked row-major square index, (x,y) to y*width+x, returns -1 when out of bounds",
+  "keeper": {
+   "name": "squareIndexOf",
+   "file": "src/dungeon2b.cpp",
+   "line": 63,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 14
+  },
+  "losers": [
+   {
+    "name": "squareIndexOf",
+    "file": "src/dungeon1b_a.cpp",
+    "line": 189,
+    "lines": 6,
+    "verdict": "NO_REFERENCE",
+    "why": "DungeonNav.InBounds returns only a bool bounds check and does not compute the index y*width+x or the -1 sentinel; no shown reference computes the index",
+    "callers": [
+     "applyEtherealPortal@src/dungeon3.cpp",
+     "applyFailedTeleport@src/dungeon1b_a.cpp",
+     "applyRockDeath@src/spells1a.cpp",
+     "applySquareEffects@src/dungeon3.cpp",
+     "beginChestAfterCombat@src/dungeon1b_b.cpp",
+     "isUnmappedSquare@src/dungeon1b_a.cpp",
+     "loadSavedBodyOnRock@src/dungeon1b_b.cpp",
+     "markNeighbours@src/dungeon2b.cpp",
+     "rockAt@src/spells1a.cpp",
+     "saveOnFloor@src/dungeon1b_a.cpp",
+     "squareAhead@src/dungeon2b.cpp",
+     "syncAreas@src/dungeon2b.cpp",
+     "takeButtonTarget@src/dungeon2a.cpp",
+     "teleportArrivalTest@src/dungeon1b_a.cpp"
+    ],
+    "test_refs": 8,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p028",
+  "group": "G2",
+  "rule": "unchecked row-major index, (x,y) to y*side+x with a fixed side constant (equal only if kMapSide == kGridSize, which is not shown)",
+  "keeper": {
+   "name": "squareIndexOf",
+   "file": "src/dungeon3.cpp",
+   "line": 60,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 14
+  },
+  "losers": [
+   {
+    "name": "squareIndexOf",
+    "file": "src/spells1a.cpp",
+    "line": 102,
+    "lines": 1,
+    "verdict": "NO_REFERENCE",
+    "why": "DungeonNav.InBounds is a bool bounds check with no index output; m4 performs no bounds check and returns y*kGridSize+x unconditionally",
+    "callers": [
+     "applyEtherealPortal@src/dungeon3.cpp",
+     "applyFailedTeleport@src/dungeon1b_a.cpp",
+     "applyRockDeath@src/spells1a.cpp",
+     "applySquareEffects@src/dungeon3.cpp",
+     "beginChestAfterCombat@src/dungeon1b_b.cpp",
+     "isUnmappedSquare@src/dungeon1b_a.cpp",
+     "loadSavedBodyOnRock@src/dungeon1b_b.cpp",
+     "markNeighbours@src/dungeon2b.cpp",
+     "rockAt@src/spells1a.cpp",
+     "saveOnFloor@src/dungeon1b_a.cpp",
+     "squareAhead@src/dungeon2b.cpp",
+     "syncAreas@src/dungeon2b.cpp",
+     "takeButtonTarget@src/dungeon2a.cpp",
+     "teleportArrivalTest@src/dungeon1b_a.cpp"
+    ],
+    "test_refs": 8,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p029",
+  "group": "G1",
+  "rule": "render a signed integer as decimal text (m1/m2 return a Str; m3/m4 append to an out Str; m3 takes i64, m4 takes i32)",
+  "keeper": {
+   "name": "intStr",
+   "file": "src/dungeon1b_b.cpp",
+   "line": 20,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 4
+  },
+  "losers": [
+   {
+    "name": "intStr",
+    "file": "src/game_dungeon.cpp",
+    "line": 452,
+    "lines": 10,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method was shown for this rule; returns \"0\" for zero, recursive \"-\" prefix for negatives",
+    "callers": [
+     "dungeonAction@src/game_dungeon.cpp",
+     "goldText@src/game_dungeon.cpp",
+     "reportLookAround@src/dungeon1b_b.cpp",
+     "roomReadout@src/dungeon1b_b.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   },
+   {
+    "name": "appendInt",
+    "file": "src/items1b_missing.cpp",
+    "line": 15,
+    "lines": 17,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method was shown for this rule; appends \"-\" plus digits to out, takes i64",
+    "callers": [
+     "placeOf@src/ref_placeof.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   },
+   {
+    "name": "appendInt",
+    "file": "src/ref_placeof.cpp",
+    "line": 9,
+    "lines": 15,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method was shown for this rule; appends \"-\" plus digits to out, takes i32 so input range is narrower than m1-m3",
+    "callers": [
+     "placeOf@src/ref_placeof.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p030",
+  "group": "G2",
+  "rule": "trap identify chance",
+  "keeper": {
+   "name": "trapIdentifyChance",
+   "file": "src/dungeon1b_b.cpp",
+   "line": 717,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "trapIdentifyChance",
+    "file": "src/loot2.cpp",
+    "line": 232,
+    "lines": 15,
+    "verdict": "DIFFERS",
+    "why": "Matches TrapReadout on naturalWis + gearWis/4.0, the monster log term (max(1,\u00b7) applied), the [2,98] clamp order (clamp before adding disarm), and the guild term. Differs in: (a) no disarm minimum of ",
+    "callers": [
+     "rollTrapIdentify@src/dungeon1b_b.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p031",
+  "group": "G1",
+  "rule": "integer to decimal text via std::to_string (i64 input)",
+  "keeper": {
+   "name": "numText",
+   "file": "src/feat_look.cpp",
+   "line": 26,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 4
+  },
+  "losers": [
+   {
+    "name": "numText",
+    "file": "src/partya.cpp",
+    "line": 23,
+    "lines": 1,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method is shown; body is identical to m1 (std::to_string on i64).",
+    "callers": [
+     "adSummary@src/game_town.cpp",
+     "giveGoldTransfer@src/partya.cpp",
+     "lookText@src/feat_look.cpp",
+     "readoutLine@src/feat_look.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p031",
+  "group": "G2",
+  "rule": "integer to decimal text via manual digit loop (i32 input)",
+  "keeper": {
+   "name": "numText",
+   "file": "src/game_town.cpp",
+   "line": 796,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 4
+  },
+  "losers": [
+   {
+    "name": "gearNum",
+    "file": "src/game_town.cpp",
+    "line": 937,
+    "lines": 11,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method is shown; same algorithm as m2 with an explicit int cast on the digit. Output is identical to m2 for every i32 value.",
+    "callers": [
+     "gearAdLine@src/game_town.cpp",
+     "gearEquip@src/game_town.cpp",
+     "gearUnequip@src/game_town.cpp",
+     "gearUse@src/game_town.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p032",
+  "group": "G1",
+  "rule": "hit points gained on guild level-up (reference: Character.LevelUp hit branch)",
+  "keeper": {
+   "name": "levelUp",
+   "file": "src/progression2.cpp",
+   "line": 297,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "hitsOnLevelUp",
+    "file": "src/attributes.cpp",
+    "line": 326,
+    "lines": 43,
+    "verdict": "DIFFERS",
+    "why": "Matches the reference in the gate (returns 0 when any other guild level is >= new level), the AH/MH split at HitsCapLevel, the 2-in-3 roll (`below(3)` then `nextDouble`), the CON>16 bonus below cap, a",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   },
+   {
+    "name": "levelHitGain",
+    "file": "src/progression1a.cpp",
+    "line": 172,
+    "lines": 27,
+    "verdict": "DIFFERS",
+    "why": "Compared with reference LevelUp. The field mapping is wrong: the ML stand-in uses `hitsPerLevel` instead of `HitsCapLevel`, and the MH value uses `hitsPerLevel` instead of `LateHits`. The early return",
+    "callers": [],
+    "test_refs": 2,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p033",
+  "group": "G1",
+  "rule": "pick the joined guild with the highest stored abilityRating for an ability; ties go to the lowest index",
+  "keeper": {
+   "name": "winningGuild",
+   "file": "src/guilds1_b.cpp",
+   "line": 135,
+   "verdict": "DIFFERS",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "WinningGuild",
+    "file": "src/guilds3.cpp",
+    "line": 303,
+    "lines": 19,
+    "verdict": "DIFFERS",
+    "why": "vs WinningGuild (Combat.cs): same formula and selection differences as m1 (stored abilityRating used, no Level or table-based scoring, rating-0 guilds accepted). It returns a guild index or -1 instead",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p036",
+  "group": "G3",
+  "rule": "rest-in-city age cost in days from hit deficit",
+  "keeper": {
+   "name": "restInCity",
+   "file": "src/progression2.cpp",
+   "line": 463,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 2
+  },
+  "losers": [
+   {
+    "name": "restInCity",
+    "file": "src/progression1b.cpp",
+    "line": 56,
+    "lines": 5,
+    "verdict": "DIFFERS",
+    "why": "harness: copies differ only on inputs play cannot produce; keeper is the copy equal to Mordor.Core on every case",
+    "callers": [
+     "doRest@src/game_town.cpp",
+     "restOnArrival@src/progression1b.cpp"
+    ],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p043",
+  "group": "G1",
+  "rule": "no-op special-effect stub (empty body, all parameters discarded)",
+  "keeper": {
+   "name": "applySpecialEffects",
+   "file": "src/items1a_b.cpp",
+   "line": 208,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "applyItemSpecial",
+    "file": "src/items2b.cpp",
+    "line": 361,
+    "lines": 6,
+    "verdict": "DIFFERS",
+    "why": "Empty body, same as m1; ApplySpecial applies effects and messages.",
+    "callers": [
+     "useItemFromPack@src/items2b.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p044",
+  "group": "G1",
+  "rule": "roll charges for a found item from base charges",
+  "keeper": {
+   "name": "rollFoundCharges",
+   "file": "src/items1b.cpp",
+   "line": 791,
+   "verdict": "MATCHES",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "rollCharges",
+    "file": "src/items1a_b.cpp",
+    "line": 16,
+    "lines": 7,
+    "verdict": "DIFFERS",
+    "why": "Reference Loot.RollCharges returns 0 when Charges <= 0; m1 returns the input unchanged, so negative input gives a negative result. Draw order differs: m1 draws nextDouble first, then below(2*spread+1)",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p046",
+  "group": "G2",
+  "rule": "rated spell level = round-half-even(spellLevel * rate)",
+  "keeper": {
+   "name": "ratedSpellLevel",
+   "file": "src/casting1_a.cpp",
+   "line": 365,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 3
+  },
+  "losers": [
+   {
+    "name": "ratedSpellLevel",
+    "file": "src/casting2.cpp",
+    "line": 243,
+    "lines": 3,
+    "verdict": "NO_REFERENCE",
+    "why": "same rule as m2 (round-half-even of level*rate). It takes a double rate rather than f32, which is not covered by any shown reference.",
+    "callers": [
+     "levelReachesSpell@src/casting2.cpp",
+     "spellCostPublished@src/casting1_a.cpp",
+     "spellLevelOkForAnyGuild@src/casting2.cpp"
+    ],
+    "test_refs": 3,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p047",
+  "group": "G1",
+  "rule": "recalculate max and current spell points from the character (refill to max, or clamp current down to max)",
+  "keeper": {
+   "name": "recalcSpellPoints",
+   "file": "src/casting1_a.cpp",
+   "line": 648,
+   "lines": 12,
+   "verdict": "DIFFERS",
+   "callers": [
+    "createCharacter@src/game_setup.cpp",
+    "joinGuild@src/guilds1_a.cpp"
+   ],
+   "test_refs": 0
+  },
+  "losers": [
+   {
+    "name": "recalcSP",
+    "file": "src/attributes.cpp",
+    "line": 431,
+    "verdict": "MATCHES",
+    "live": true,
+    "callers": 2,
+    "action": "FORWARD",
+    "phase": 1,
+    "why": "harness: all copies give identical results to each other and to Mordor.Core; keeper swapped because the other direction cannot be forwarded"
+   }
+  ]
+ },
+ {
+  "pile": "p050",
+  "group": "G1",
+  "rule": "absolute value of a 32-bit signed int (absI)",
+  "keeper": {
+   "name": "absI",
+   "file": "src/companions1a.cpp",
+   "line": 38,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 6
+  },
+  "losers": [
+   {
+    "name": "absI",
+    "file": "src/companions1b.cpp",
+    "line": 10,
+    "lines": 3,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method was shown for absolute value, so no comparison is possible",
+    "callers": [
+     "bindingCostFactor@src/companions1a.cpp",
+     "boundFromBinding@src/companions1b.cpp",
+     "classifyLocate@src/spells1b.cpp",
+     "companionTurnCheck@src/companions1b.cpp",
+     "nextBindingLevel@src/companions1a.cpp",
+     "relativeDirection@src/spells1b.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   },
+   {
+    "name": "absI",
+    "file": "src/spells1b.cpp",
+    "line": 10,
+    "lines": 3,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method was shown for absolute value, so no comparison is possible",
+    "callers": [
+     "bindingCostFactor@src/companions1a.cpp",
+     "boundFromBinding@src/companions1b.cpp",
+     "classifyLocate@src/spells1b.cpp",
+     "companionTurnCheck@src/companions1b.cpp",
+     "nextBindingLevel@src/companions1a.cpp",
+     "relativeDirection@src/spells1b.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p051",
+  "group": "G1",
+  "rule": "return index of first unoccupied companion slot, or -1 if none",
+  "keeper": {
+   "name": "firstFreeCompanionSlot",
+   "file": "src/companions1a.cpp",
+   "line": 86,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 2
+  },
+  "losers": [
+   {
+    "name": "firstCompanionHole",
+    "file": "src/companions1b_2.cpp",
+    "line": 362,
+    "lines": 8,
+    "verdict": "NO_REFERENCE",
+    "why": "No C# reference method was shown for this rule. Scans all kCompanionSlots entries and tests `occupied`.",
+    "callers": [
+     "charmCreatureAsCompanion@src/companions1b_2.cpp",
+     "placeNewCompanion@src/companions1b_2.cpp"
+    ],
+    "test_refs": 1,
+    "action": "HOLD",
+    "phase": 3
+   },
+   {
+    "name": "firstFreeCompanionSlot",
+    "file": "src/companions2a_slotfix.cpp",
+    "line": 7,
+    "lines": 5,
+    "verdict": "NO_REFERENCE",
+    "why": "No C# reference method was shown for this rule. Scans all kCompanionSlots entries and tests `ref < 0` instead of `occupied`, so it is equivalent to the others only if `ref < 0` means unoccupied, which",
+    "callers": [
+     "acceptJoinOffer@src/companions1a.cpp",
+     "buyCompanion@src/companions1a.cpp"
+    ],
+    "test_refs": 7,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p053",
+  "group": "G1",
+  "rule": "i32 to u32 index cast (static_cast<u32>, negative inputs wrap)",
+  "keeper": {
+   "name": "uidx",
+   "file": "src/death1a.cpp",
+   "line": 16,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 19
+  },
+  "losers": [
+   {
+    "name": "uidx",
+    "file": "src/monsters1a.cpp",
+    "line": 30,
+    "lines": 3,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method shown for this rule; identical body to m2",
+    "callers": [
+     "buildClassRanges@src/monsters1a.cpp",
+     "deathStateName@src/death1a.cpp",
+     "monsterDisplayName@src/monsters1a.cpp",
+     "monsterGroupName@src/monsters1a.cpp",
+     "monsterTableIndexForId@src/monsters1a.cpp",
+     "newbieLeadRejected@src/monsters1a.cpp",
+     "onPartyWiped@src/death1a.cpp",
+     "payRescueHire@src/death1a.cpp",
+     "pickCompanionSlot@src/monsters1a.cpp",
+     "pickEncounterClass@src/monsters1a.cpp",
+     "pickMonsterInClass@src/monsters1a.cpp",
+     "pickMonsterTarget@src/monsters1a.cpp",
+     "pickWeightedClass@src/monsters1a.cpp",
+     "pruneTheDead@src/death1a.cpp",
+     "removePartyMember@src/death1a.cpp",
+     "rollLair@src/monsters1a.cpp",
+     "rollMisidentification@src/monsters1a.cpp",
+     "shiftCounted@src/death1a.cpp",
+     "spawnEligible@src/monsters1a.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p055",
+  "group": "G1",
+  "rule": "remove casualties from the party while keeping at least one member (size > 1 guard), zeroing hits and sharing the leader's location. m1 takes an extra countedDead argument.",
+  "keeper": {
+   "name": "pruneTheDead",
+   "file": "src/partyb.cpp",
+   "line": 99,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 6
+  },
+  "losers": [
+   {
+    "name": "pruneTheDead",
+    "file": "src/death1a.cpp",
+    "line": 53,
+    "lines": 17,
+    "verdict": "DIFFERS",
+    "why": "Reference is Party.RemoveTheDead. m1 has no visible curHits=0, no leader-level death message, no setDead/save callbacks, no SelectedIndex decrement or clamp, and no location sync for remaining members",
+    "callers": [
+     "joinFromCity@src/partyb.cpp",
+     "leaveParty@src/partyb.cpp",
+     "onPartyWiped@src/death1a.cpp",
+     "partyDeathFlow@src/status1b.cpp",
+     "rockDeath@src/status1b.cpp",
+     "sub0930@src/status1b.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p057",
+  "group": "G1",
+  "rule": "race size lookup by race index (returns 0 for out-of-range index)",
+  "keeper": {
+   "name": "raceSizeOf",
+   "file": "src/game_combat.cpp",
+   "line": 340,
+   "verdict": "MATCHES",
+   "live": true,
+   "callers": 3
+  },
+  "losers": [
+   {
+    "name": "raceSizeOf",
+    "file": "src/dungeon1a.cpp",
+    "line": 133,
+    "lines": 5,
+    "verdict": "MATCHES",
+    "why": "Returns `races[idx].size` for a valid index, the same value as reference `SizeOf` (`RaceData.ByName(c.Race).Size`). The reference keys by race name and the C++ by enum index, so equivalence assumes th",
+    "callers": [
+     "applyChuteFall@src/misc.cpp",
+     "resolveMemberOrder@src/game_combat.cpp",
+     "resolvePitFall@src/dungeon1a.cpp"
+    ],
+    "test_refs": 0,
+    "action": "FORWARD",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p060",
+  "group": "G1",
+  "rule": "remove party member at a given index (shift left, decrement size)",
+  "keeper": {
+   "name": "removePartyMember",
+   "file": "src/death1a.cpp",
+   "line": 280,
+   "lines": 14,
+   "verdict": "DIFFERS",
+   "callers": [
+    "pruneDeadMembers@src/game_combat.cpp",
+    "pruneTheDead@src/death1a.cpp"
+   ],
+   "test_refs": 0
+  },
+  "losers": [
+   {
+    "name": "removeMember",
+    "file": "src/dungeon1b_b.cpp",
+    "line": 82,
+    "verdict": "DIFFERS",
+    "live": true,
+    "callers": 2,
+    "phase": 1,
+    "action": "FORWARD",
+    "why": "harness: copies differ only on inputs play cannot produce; keeper is the copy equal to Mordor.Core on every case"
+   }
+  ]
+ },
+ {
+  "pile": "p064",
+  "group": "G1",
+  "rule": "magic-lock roll for a chest (roll = below(100)+1 <= LockedChance, class above CONTAINER, square allows magic), returning ChestLock",
+  "keeper": {
+   "name": "rollChestLock",
+   "file": "src/loot2.cpp",
+   "line": 56,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 2
+  },
+  "losers": [
+   {
+    "name": "rollChestLock",
+    "file": "src/loot1a.cpp",
+    "line": 233,
+    "lines": 13,
+    "verdict": "NO_REFERENCE",
+    "why": "No C# reference method is shown in the pile, so no comparison is possible. Takes lockedChance as i32; m3 takes it from ChestTuning but computes the same result.",
+    "callers": [
+     "applyMagicLock@src/loot1a.cpp",
+     "createChest@src/loot2.cpp"
+    ],
+    "test_refs": 12,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p066",
+  "group": "G1",
+  "rule": "store buy price (floor-0 pass-through; shelf-capped log formula; round half-even)",
+  "keeper": {
+   "name": "storeBuyPrice",
+   "file": "src/store_prices.cpp",
+   "line": 41,
+   "lines": 10,
+   "verdict": "DIFFERS",
+   "callers": [
+    "modItemCost@src/items1a_d.cpp"
+   ],
+   "test_refs": 8
+  },
+  "losers": [
+   {
+    "name": "storeBuyPrice",
+    "file": "src/loot1a.cpp",
+    "line": 970,
+    "verdict": "MATCHES",
+    "live": true,
+    "callers": 1,
+    "action": "DELETE",
+    "phase": 1,
+    "why": "real game + Core: Iron Dagger 30,492 and Oak Staff 16,246 (rounded); loot1a copy returns 30491.7391 and 16245.6522"
+   },
+   {
+    "name": "storeBuyPriceGold",
+    "file": "src/game_town.cpp",
+    "line": 296,
+    "callers": [
+     "game_town.cpp:385",
+     "game_town.cpp:418"
+    ],
+    "test_refs": [],
+    "action": "FORWARD",
+    "phase": 1,
+    "why": "third copy of the same formula found by the coordinator (static helper)"
+   }
+  ]
+ },
+ {
+  "pile": "p068",
+  "group": "G1",
+  "rule": "respawn delay from (level, area count, tally), floored, subtracting per unrefilled emptied room",
+  "keeper": {
+   "name": "respawnDelay",
+   "file": "src/ref_respawn.cpp",
+   "line": 6,
+   "verdict": "MATCHES",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "respawnDelaySeconds",
+    "file": "src/monsters1b_2.cpp",
+    "line": 368,
+    "lines": 8,
+    "verdict": "DIFFERS",
+    "why": "harness: all copies give identical results to each other and to Mordor.Core",
+    "callers": [
+     "markAreaEmptied@src/monsters2b.cpp"
+    ],
+    "test_refs": 16,
+    "action": "FORWARD",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p069",
+  "group": "G1",
+  "rule": "HelpCry needed when curHits < 10 or curHits <= 10% of maxHits (inclusive)",
+  "keeper": {
+   "name": "helpCryNeeded",
+   "file": "src/partyb.cpp",
+   "line": 147,
+   "verdict": "MATCHES",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "helpCryNeeded",
+    "file": "src/partya.cpp",
+    "line": 714,
+    "lines": 5,
+    "verdict": "MATCHES",
+    "why": "Same structure as HelpCry.Needed: `curHits < kHelpCryHitsBelow || curHits <= kHelpCryFraction * maxHits`, with the same inclusive comparison and double arithmetic. Result equals the reference only if ",
+    "callers": [],
+    "test_refs": 10,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p070",
+  "group": "G1",
+  "rule": "isDigit, true when char is in '0'..'9'",
+  "keeper": {
+   "name": "isDigit",
+   "file": "src/ref_banktyped.cpp",
+   "line": 22,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 3
+  },
+  "losers": [
+   {
+    "name": "isDigit",
+    "file": "src/ref_goldfromtag.cpp",
+    "line": 20,
+    "lines": 1,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method was shown for this rule",
+    "callers": [
+     "cleanDecimal@src/ref_tryclng.cpp",
+     "goldFromTag@src/ref_goldfromtag.cpp",
+     "parseCurrency@src/ref_banktyped.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   },
+   {
+    "name": "isDigit",
+    "file": "src/ref_tryclng.cpp",
+    "line": 25,
+    "lines": 1,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method was shown for this rule",
+    "callers": [
+     "cleanDecimal@src/ref_tryclng.cpp",
+     "goldFromTag@src/ref_goldfromtag.cpp",
+     "parseCurrency@src/ref_banktyped.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p072",
+  "group": "G1",
+  "rule": "guild join (SRD ch04 R13: re-join is free and makes the guild active; otherwise pay cost, check eligibility, insert {Guild, Level=1, Experience=0}). Same inputs and purpose, but the three bodies are not copies of each other.",
+  "keeper": {
+   "name": "joinGuild",
+   "file": "src/guilds1_a.cpp",
+   "line": 84,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 2
+  },
+  "losers": [
+   {
+    "name": "Join",
+    "file": "src/guilds2_a.cpp",
+    "line": 208,
+    "lines": 15,
+    "verdict": "DIFFERS",
+    "why": "Reference has no cost. m2 deducts JoinCost from goldOnHand only, with no affordability check (can go negative) and no bank fallback. m2 sets joined=true but does not set Level=1 or Experience=0 and do",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   },
+   {
+    "name": "JoinGuild",
+    "file": "src/guilds3.cpp",
+    "line": 68,
+    "lines": 33,
+    "verdict": "DIFFERS",
+    "why": "Reference has no eligibility check. m3 never calls Unmet or any eligibility check, so a character who fails requirements can join. m3 also charges GuildJoinCost whenever it is > 0 (reference charges n",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p073",
+  "group": "G1",
+  "rule": "chest/opening rounds from disarm, `10 - 2*ln(disarm-10)` rounded, minimum 2, 0 when disarm <= 10",
+  "keeper": {
+   "name": "chestCountdownRounds",
+   "file": "src/dungeon1b_b.cpp",
+   "line": 678,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "openingRoundsForDisarm",
+    "file": "src/loot1b.cpp",
+    "line": 152,
+    "lines": 12,
+    "verdict": "DIFFERS",
+    "why": "Formula, rounding (roundHalfEven, assumed to be ToEven, definition not shown), and minimum 2 match Combat.OpeningRounds. The only difference is that m3 returns 0 instead of null when disarm <= 10.",
+    "callers": [],
+    "test_refs": 9,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p074",
+  "group": "G1",
+  "rule": "quest monster selection by tier (reference: Rules.QuestMonster)",
+  "keeper": {
+   "name": "questMonster",
+   "file": "src/guilds1_b.cpp",
+   "line": 407,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "questPickMonster",
+    "file": "src/monsters1b_2.cpp",
+    "line": 379,
+    "lines": 38,
+    "verdict": "DIFFERS",
+    "why": "Matches Rules.QuestMonster for any table where every class has monsters: the same class draw, 40% head draw, class-bounded scan, round-half-even span, rare test (Chance<10 and 25% turn draw always dra",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p075",
+  "group": "G1",
+  "rule": "combine a list of pack slots into one item (Combine plus Refusal: identification, class, item id, alignment, charge sum, source cleared)",
+  "keeper": {
+   "name": "storeCombine",
+   "file": "src/items1a_c.cpp",
+   "line": 72,
+   "verdict": "DIFFERS",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "combineItems",
+    "file": "src/items2b_2.cpp",
+    "line": 197,
+    "lines": 27,
+    "verdict": "DIFFERS",
+    "why": "vs Combine and Refusal. Merge: adds maxCharges (no reference equivalent) and resets the whole source with Item{}, while reference only sets ItemId = 0 and keeps charges, alignment and flags. No charge",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p076",
+  "group": "G1",
+  "rule": "per-shelf count for one alignment, returned as shelf.alignCounts[alignment]",
+  "keeper": {
+   "name": "shelfStockOf",
+   "file": "src/loot1a.cpp",
+   "line": 102,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "shelfCountFor",
+    "file": "src/items3a.cpp",
+    "line": 280,
+    "lines": 3,
+    "verdict": "DIFFERS",
+    "why": "Compared with StoreStock.Count(short id, ItemAlignment a). m2 takes an already-selected Shelf and has no item id parameter, so it cannot select by item. It reads the array slot alignCounts[(u32)alignm",
+    "callers": [],
+    "test_refs": 4,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p077",
+  "group": "G1",
+  "rule": "item is cursed with CurseKind2 (returns `cursed == CurseKind2`)",
+  "keeper": {
+   "name": "curseAttachesItself",
+   "file": "src/loot1b.cpp",
+   "line": 537,
+   "verdict": "MATCHES",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "attachesItself",
+    "file": "src/items1b.cpp",
+    "line": 284,
+    "lines": 1,
+    "verdict": "MATCHES",
+    "why": "Same expression as Loot.AttachesItself (`it.Cursed == 2`), assuming CurseKind2 equals 2. The value of CurseKind2 is not shown in the code provided.",
+    "callers": [],
+    "test_refs": 3,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p078",
+  "group": "G1",
+  "rule": "theft slot roll, uniform 2..40 (39 values)",
+  "keeper": {
+   "name": "drawTheftSlot",
+   "file": "src/items3a.cpp",
+   "line": 442,
+   "verdict": "MATCHES",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "theftSlotRoll",
+    "file": "src/items1a_d.cpp",
+    "line": 98,
+    "lines": 4,
+    "verdict": "MATCHES",
+    "why": "Same formula as CombatEngine.TheftSlot: `below(39) + 2` gives 2..40, same as `Floor(NextDouble() * 39) + 2`. Assumes `ctx.rng.below(n)` is one draw mapped to floor(u*n); its body is not in the pile.",
+    "callers": [],
+    "test_refs": 2,
+    "action": "DELETE",
+    "phase": 1
+   },
+   {
+    "name": "rollTheftSlot",
+    "file": "src/items2a.cpp",
+    "line": 233,
+    "lines": 3,
+    "verdict": "MATCHES",
+    "why": "Same shape as the reference. Equals it only if kTheftSpan == 39 and kTheftFirstSlot == 2; those constants are not shown in the pile.",
+    "callers": [],
+    "test_refs": 3,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p082",
+  "group": "G1",
+  "rule": "chest/disarm trap XP award (xp = chance * (GL/2) / (1 + firstGL/333); award = round(party * round(xp)), party = 1 - (partySize-1)*0.04)",
+  "keeper": {
+   "name": "disarmAward",
+   "file": "src/feat_disarm.cpp",
+   "line": 45,
+   "verdict": "MATCHES",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "chestTrapExperience",
+    "file": "src/progression1a.cpp",
+    "line": 117,
+    "lines": 11,
+    "verdict": "DIFFERS",
+    "why": "Adds an early return of 0 when `fightChestTrap <= 0`, a case Rules.ChestExp does not have. Otherwise the same formula. Uses kChestGuildScaleD and kPartyStepPerMember, which are not shown; the match as",
+    "callers": [],
+    "test_refs": 3,
+    "action": "DELETE",
+    "phase": 1
+   },
+   {
+    "name": "chestAward",
+    "file": "src/progression2.cpp",
+    "line": 258,
+    "lines": 12,
+    "verdict": "MATCHES",
+    "why": "Same formula, same divisors (333.0, 2.0, 0.04), same rounding order as Rules.ChestExp, with the same parameter order for the inputs.",
+    "callers": [],
+    "test_refs": 7,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p083",
+  "group": "G1",
+  "rule": "spell damage (base modifier with level log term and special effect, random cut, resistance scaling with round-half-even)",
+  "keeper": {
+   "name": "playerSpellDamage",
+   "file": "src/spells1a.cpp",
+   "line": 284,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 2
+  },
+  "losers": [
+   {
+    "name": "monsterSpellDamage",
+    "file": "src/spells1a.cpp",
+    "line": 298,
+    "lines": 14,
+    "verdict": "DIFFERS",
+    "why": "Reference Rules.SpellDamage applies resistance unconditionally with `resistPct` clamped to 0..100 and rounds with `Math.Round(..., ToEven)`. m2 applies it only when `hasResist` is true, does not clamp",
+    "callers": [
+     "monsterSpellDamageToTarget@src/spells1a.cpp"
+    ],
+    "test_refs": 5,
+    "action": "HOLD",
+    "phase": 3
+   },
+   {
+    "name": "spellDamage",
+    "file": "src/spells3_b.cpp",
+    "line": 48,
+    "lines": 20,
+    "verdict": "NO_REFERENCE",
+    "why": "The first two steps call `effectiveSpellLevel`, `damageModifier1`, and `spellModifier2`, none of which are shown, so the reference's mod1 and cut computation cannot be checked against them. The tail m",
+    "callers": [],
+    "test_refs": 11,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p086",
+  "group": "G1",
+  "rule": "quest item band, tier to int(tier / 1.5) + 1 (m1 and m2 wrap the division in vbInt; m3 truncates with a plain cast)",
+  "keeper": {
+   "name": "questItemBand",
+   "file": "src/ref_questband.cpp",
+   "line": 7,
+   "verdict": "MATCHES",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "itemBand",
+    "file": "src/guilds1_b.cpp",
+    "line": 385,
+    "lines": 3,
+    "verdict": "DIFFERS",
+    "why": "Matches QuestItemBand for tier >= 0 only if vbInt truncates toward zero. vbInt's body is not in the pile, so this can't be confirmed. If vbInt is VB's Int() (floor), tier = -1 gives -1 + 1 = 0 in the ",
+    "callers": [
+     "questItem@src/guilds1_b.cpp",
+     "questItemMaxLevel@src/guilds1_b.cpp",
+     "questItemReachable@src/guilds1_b.cpp"
+    ],
+    "test_refs": 2,
+    "action": "REPLACE_WITH_KEEPER",
+    "phase": 2
+   },
+   {
+    "name": "ItemQuestBand",
+    "file": "src/guilds3.cpp",
+    "line": 185,
+    "lines": 3,
+    "verdict": "DIFFERS",
+    "why": "Same as m1: the only change is double vs f64 spelling, so the result depends on vbInt. Matches the reference only if vbInt truncates toward zero. If vbInt floors, negative tiers differ (e.g., tier = -",
+    "callers": [
+     "AssignQuest@src/guilds3.cpp",
+     "RollQuest@src/guilds2_b.cpp"
+    ],
+    "test_refs": 12,
+    "action": "REPLACE_WITH_KEEPER",
+    "phase": 2
+   }
+  ]
+ },
+ {
+  "pile": "p087",
+  "group": "G1",
+  "rule": "special/breath hit range from attacker level and target level, computed as floor((ln(a) + a/d) / ln(b) - t/10 + 1) with a = level + 1",
+  "keeper": {
+   "name": "specialHitRange",
+   "file": "src/spells1a.cpp",
+   "line": 632,
+   "verdict": "MATCHES",
+   "live": true,
+   "callers": 2
+  },
+  "losers": [
+   {
+    "name": "specialAttackRange",
+    "file": "src/combat1b.cpp",
+    "line": 173,
+    "lines": 6,
+    "verdict": "DIFFERS",
+    "why": "Reference is SpecialHits.Range. Constants kSpecialRangeDivisor and kSpecialRangeLogBase are not shown, so the 15 and 1.08 cannot be confirmed. targetLevel / kSpecialRangeLevelDivisor divides two ints,",
+    "callers": [],
+    "test_refs": 3,
+    "action": "DELETE",
+    "phase": 1
+   },
+   {
+    "name": "companionBreathRange",
+    "file": "src/companions1a.cpp",
+    "line": 627,
+    "lines": 6,
+    "verdict": "DIFFERS",
+    "why": "Reference is SpecialHits.Range. Division by tgt uses 10.0 in double, which matches. kBreathSeedDivisor and kBreathLogBase are not shown, so equality with 15 and 1.08 cannot be confirmed. Also, the nam",
+    "callers": [],
+    "test_refs": 12,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p088",
+  "group": "G1",
+  "rule": "SpecialAttackKind to resistance index (breath = fire, acid spit = 2, electrocute = 3)",
+  "keeper": {
+   "name": "specialResistIndexOf",
+   "file": "src/status1a.cpp",
+   "line": 376,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "specialResistIndex",
+    "file": "src/status1a_missing.cpp",
+    "line": 6,
+    "lines": 20,
+    "verdict": "DIFFERS",
+    "why": "Same breath gap as m1: it always returns kFireIndex (0), with a comment saying cold-breathing monsters must be handled at the call site. ResistedBy returns Cold when not fire-breathing. Acid (2) and e",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p090",
+  "group": "G1",
+  "rule": "hex digit value (0-9, a-f, A-F to 0-15; any other char to -1)",
+  "keeper": {
+   "name": "hexDigitValue",
+   "file": "src/city2a.cpp",
+   "line": 43,
+   "verdict": "MATCHES",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "hexDigit",
+    "file": "src/ref_tryclng.cpp",
+    "line": 28,
+    "lines": 6,
+    "verdict": "MATCHES",
+    "why": "Same mapping and -1 fallback as VbConvert.HexDigit; only the check order differs, and the ranges are disjoint, so results are identical.",
+    "callers": [
+     "parseAmpersand@src/ref_tryclng.cpp"
+    ],
+    "test_refs": 0,
+    "action": "FORWARD",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p091",
+  "group": "G1",
+  "rule": "join words w[from..end] with single spaces into one string",
+  "keeper": {
+   "name": "bufferJoin",
+   "file": "src/feat_buffers.cpp",
+   "line": 50,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "dcastJoin",
+    "file": "src/feat_dcast.cpp",
+    "line": 86,
+    "lines": 8,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method was shown for this helper",
+    "callers": [
+     "dcastRun@src/feat_dcast.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   },
+   {
+    "name": "seerJoinWords",
+    "file": "src/feat_seer.cpp",
+    "line": 113,
+    "lines": 8,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method was shown for this helper",
+    "callers": [
+     "seerCommand@src/feat_seer.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p092",
+  "group": "G1",
+  "rule": "item definition lookup by item.id",
+  "keeper": {
+   "name": "itemDefOf",
+   "file": "src/combat3.cpp",
+   "line": 8,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 7
+  },
+  "losers": [
+   {
+    "name": "itemDefOf",
+    "file": "src/attributes.cpp",
+    "line": 32,
+    "lines": 4,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method was shown; returns a reference with unchecked indexing by item.id, so out-of-range or negative ids are undefined behavior.",
+    "callers": [
+     "canWear@src/attributes.cpp",
+     "countingItemResists@src/combat3.cpp",
+     "effectiveStat@src/attributes.cpp",
+     "equippedAtt@src/combat3.cpp",
+     "equippedDef@src/combat3.cpp",
+     "fittedWornSum@src/attributes.cpp",
+     "wornSum@src/attributes.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p093",
+  "group": "G1",
+  "rule": "create a new character with R5 starting values (stats, StatMax from race, 15/15 hits, 1500 gold, area -1, level-1 guild membership)",
+  "keeper": {
+   "name": "createCharacter",
+   "file": "src/game_setup.cpp",
+   "line": 211,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "createCharacter",
+    "file": "src/attributes.cpp",
+    "line": 145,
+    "lines": 21,
+    "verdict": "DIFFERS",
+    "why": "Compared to Character.Create. Matches: stats copied, StatMax = race max, MaxHits = CurHits = kStartHits (comment says 15, value not shown), gold from kStartGoldWhole (comment says 1500), Area = kStart",
+    "callers": [],
+    "test_refs": 6,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p098",
+  "group": "G1",
+  "rule": "max spell points = (Int + Wis) * 5",
+  "keeper": {
+   "name": "maxSpellPoints",
+   "file": "src/casting2.cpp",
+   "line": 427,
+   "verdict": "MATCHES",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "maxSpellPoints",
+    "file": "src/casting3.cpp",
+    "line": 273,
+    "lines": 5,
+    "verdict": "DIFFERS",
+    "why": "Reads stats through statWithMods(c, ...), while Spellbook.MaxSpellPoints reads c.Stats[...] directly. If statWithMods applies any modifiers, the results differ. The definition of statWithMods and the ",
+    "callers": [
+     "naturalMaxSpellPoints@src/casting1_a.cpp"
+    ],
+    "test_refs": 4,
+    "action": "REPLACE_WITH_KEEPER",
+    "phase": 2
+   }
+  ]
+ },
+ {
+  "pile": "p106",
+  "group": "G1",
+  "rule": "natural logarithm helper, double to double",
+  "keeper": {
+   "name": "lnOf",
+   "file": "src/combat1a.cpp",
+   "line": 18,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 7
+  },
+  "losers": [
+   {
+    "name": "lnOf",
+    "file": "src/spells2.cpp",
+    "line": 57,
+    "lines": 3,
+    "verdict": "NO_REFERENCE",
+    "why": "No C# reference method was provided. Returns std::log(x) for x>0 and 0.0 otherwise, so it differs from m1 for x<=0.",
+    "callers": [
+     "archiveMinimum@src/spells2.cpp",
+     "extraSwingsFromMultiple@src/combat1a.cpp",
+     "guildSpellProtectionDefence@src/spells2.cpp",
+     "itemProtectionDefence@src/spells2.cpp",
+     "meleeBaseFactor@src/combat1a.cpp",
+     "meleeHitAndDamage@src/combat1a.cpp",
+     "scaledMagnitude@src/spells2.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p107",
+  "group": "G1",
+  "rule": "companion mishap chance (999/level x bodies/20 x per-kind factor, clamped to per-kind range)",
+  "keeper": {
+   "name": "mishapChance",
+   "file": "src/combat1b.cpp",
+   "line": 249,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 4
+  },
+  "losers": [
+   {
+    "name": "mishapChance",
+    "file": "src/companions1a.cpp",
+    "line": 647,
+    "lines": 6,
+    "verdict": "DIFFERS",
+    "why": "Logic matches CompanionMishap.Chance: maxv(1, guildLevel) equals the reference's level<=0 ? 1 rule, and (999.0/gl) * (bodies/20.0) * factor uses the same operation order, then clamps to row.low and ro",
+    "callers": [
+     "companionBreath@src/companions1a.cpp",
+     "companionFriendlyFire@src/companions1a.cpp",
+     "companionSpit@src/companions1a.cpp",
+     "rollMishap@src/companions2a.cpp"
+    ],
+    "test_refs": 27,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p110",
+  "group": "G1",
+  "rule": "map DamageKind to resist index (same input and purpose; return types differ, u64 vs i32)",
+  "keeper": {
+   "name": "resistIndex",
+   "file": "src/combat3.cpp",
+   "line": 19,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 4
+  },
+  "losers": [
+   {
+    "name": "resistIndex",
+    "file": "src/loot1a.cpp",
+    "line": 115,
+    "lines": 3,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method for this rule was shown. Returns the i32 cast of kind.",
+    "callers": [
+     "castResistRaise@src/combat3.cpp",
+     "itemResistsKind@src/combat3.cpp",
+     "raceResistBase@src/combat3.cpp",
+     "resistancePercentOf@src/combat3.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p112",
+  "group": "G1",
+  "rule": "charm forces join when inflicted exceeds remaining hits (`return x > remainingHits`; m1 uses i64, m2 uses i32)",
+  "keeper": {
+   "name": "charmForcesJoin",
+   "file": "src/companions1a.cpp",
+   "line": 402,
+   "verdict": "NO_REFERENCE",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "charmForcesJoin",
+    "file": "src/monsters2b.cpp",
+    "line": 112,
+    "lines": 3,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method is shown for this rule; computes `damage > remainingHits` on i32",
+    "callers": [],
+    "test_refs": 9,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p115",
+  "group": "G1",
+  "rule": "stone chance = con * log(max(1,con)) / log(base) - attacker level, capped at R30 95",
+  "keeper": {
+   "name": "stoneChance",
+   "file": "src/companions1b.cpp",
+   "line": 159,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 3
+  },
+  "losers": [
+   {
+    "name": "stoneChance",
+    "file": "src/status1a.cpp",
+    "line": 453,
+    "lines": 7,
+    "verdict": "NO_REFERENCE",
+    "why": "No C# reference method is shown for this rule. Computes baseCon(target) * log(max(1,con))/log(2.5) - attackerLevel, capped at kStoneCap. Same formula as m1 but takes a Character and derives con from i",
+    "callers": [
+     "rollStoning@src/status2.cpp",
+     "stoneCheck@src/status1a.cpp",
+     "stoneLands@src/companions1b.cpp"
+    ],
+    "test_refs": 5,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p120",
+  "group": "G1",
+  "rule": "ASCII case-insensitive string equality (equal length, then compare each char after ASCII case folding)",
+  "keeper": {
+   "name": "equalsIgnoreCase",
+   "file": "src/options.cpp",
+   "line": 34,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 5
+  },
+  "losers": [
+   {
+    "name": "equalsIgnoreCase",
+    "file": "src/dataformatsa_a.cpp",
+    "line": 24,
+    "lines": 11,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method is shown for case-insensitive string equality",
+    "callers": [
+     "findEntryIndex@src/options.cpp",
+     "findIniEntry@src/dataformatsa_a.cpp",
+     "findSectionIndex@src/options.cpp",
+     "parseFlagText@src/options.cpp",
+     "portFlagTruthy@src/dataformatsa_a.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p122",
+  "group": "G1",
+  "rule": "convert a signed 64-bit integer to its base-10 decimal string, with a leading '-' for negatives",
+  "keeper": {
+   "name": "i64ToStr",
+   "file": "src/dataformatsb.cpp",
+   "line": 54,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 3
+  },
+  "losers": [
+   {
+    "name": "i64ToStr",
+    "file": "src/game_save.cpp",
+    "line": 53,
+    "lines": 12,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method for this rule was shown; identical output to m1 for all inputs, including INT64_MIN",
+    "callers": [
+     "mdataFileName@src/dataformatsb.cpp",
+     "storeKey@src/dataformatsb.cpp",
+     "visitCharacter@src/game_save.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p124",
+  "group": "G1",
+  "rule": "old-age percent of race lifespan (ageDays/365 / lifespan * 100, returns 0 when lifespan <= 0)",
+  "keeper": {
+   "name": "oldAgePercent",
+   "file": "src/death1b.cpp",
+   "line": 477,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 2
+  },
+  "losers": [
+   {
+    "name": "oldAgePercent",
+    "file": "src/death2b.cpp",
+    "line": 19,
+    "lines": 7,
+    "verdict": "NO_REFERENCE",
+    "why": "harness: all copies give identical results to each other and to Mordor.Core; same name as keeper, so callers bind to the keeper once it is visible",
+    "callers": [
+     "oldAgeCheckApplies@src/death2b.cpp",
+     "rollOldAgeDeath@src/death2b.cpp"
+    ],
+    "test_refs": 6,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p126",
+  "group": "G1",
+  "rule": "raise age cost by death state (Stoned, Rock, other)",
+  "keeper": {
+   "name": "raiseAgeCost",
+   "file": "src/death3.cpp",
+   "line": 142,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 2
+  },
+  "losers": [
+   {
+    "name": "raiseAgeCost",
+    "file": "src/feat_rescue.cpp",
+    "line": 216,
+    "lines": 5,
+    "verdict": "NO_REFERENCE",
+    "why": "harness: all copies give identical results to each other and to Mordor.Core; same name as keeper, so callers bind to the keeper once it is visible",
+    "callers": [
+     "raiseCharacter@src/death3.cpp",
+     "rescueResolvePendingRaise@src/feat_rescue.cpp"
+    ],
+    "test_refs": 3,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p128",
+  "group": "G1",
+  "rule": "floor square lookup by (x, y) via cellOf, returning a reference into floor.squares (non-const and const overloads with identical bodies)",
+  "keeper": {
+   "name": "sqAt",
+   "file": "src/dungeon1a.cpp",
+   "line": 95,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 13
+  },
+  "losers": [
+   {
+    "name": "sqAt",
+    "file": "src/dungeon1a.cpp",
+    "line": 99,
+    "lines": 3,
+    "verdict": "NO_REFERENCE",
+    "why": "No C# reference method for square lookup is shown. Const overload of sqAt, same body as m1.",
+    "callers": [
+     "arrivalLostCheck@src/dungeon1a.cpp",
+     "castBlockedBySquare@src/dungeon1a.cpp",
+     "classifyEdge@src/dungeon1a.cpp",
+     "faceSquareBits@src/dungeon1a.cpp",
+     "mapRecordOnEntry@src/dungeon1a.cpp",
+     "markExplored@src/dungeon1a.cpp",
+     "perceiveAheadFeatures@src/dungeon1a.cpp",
+     "perceiveUnderfoot@src/dungeon1a.cpp",
+     "recordDoorPassage@src/dungeon1a.cpp",
+     "recordFogWallBump@src/dungeon1a.cpp",
+     "rollSecretDoorsOnEntry@src/dungeon1a.cpp",
+     "squareIsFogged@src/dungeon1a.cpp",
+     "squareIsRock@src/dungeon1a.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p129",
+  "group": "G1",
+  "rule": "BecomeLost sets the level, position, and facing lost flags to true.",
+  "keeper": {
+   "name": "becomeLost",
+   "file": "src/dungeon1a.cpp",
+   "line": 442,
+   "verdict": "MATCHES",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "becomeLost",
+    "file": "src/dungeon1b_a.cpp",
+    "line": 602,
+    "lines": 7,
+    "verdict": "MATCHES",
+    "why": "Sets who.lost.position, who.lost.level, and who.lost.facing to true, the same three flags as Character.BecomeLost. It takes Character& and writes through its lost sub-struct, with the same effect.",
+    "callers": [
+     "walkOntoTeleporter@src/dungeon1b_a.cpp"
+    ],
+    "test_refs": 1,
+    "action": "FORWARD",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p130",
+  "group": "G1",
+  "rule": "R28 working out position (level roll /15, facing roll /20, position roll /25, each `weight/n > Rnd*100`, in that order)",
+  "keeper": {
+   "name": "tryToWorkItOut",
+   "file": "src/dungeon3.cpp",
+   "line": 207,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "tryToWorkItOut",
+    "file": "src/dungeon1a.cpp",
+    "line": 459,
+    "lines": 19,
+    "verdict": "NO_REFERENCE",
+    "why": "The only shown reference is `Lost.TryToWorkItOut(Character, Random)`, which just returns `TryToWorkItOutWith(c, rng, null)`. The `TryToWorkItOutWith` body is not shown, so the weight formula, draw ord",
+    "callers": [
+     "arrivalLostCheck@src/dungeon1a.cpp"
+    ],
+    "test_refs": 3,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p139",
+  "group": "G1",
+  "rule": "map a spell index to its buffer slot (`PackSlots + spellIndex`)",
+  "keeper": {
+   "name": "bufferForSpell",
+   "file": "src/items2a.cpp",
+   "line": 286,
+   "lines": 3,
+   "verdict": "DIFFERS",
+   "callers": [
+    "bufferCommand@src/feat_buffers.cpp"
+   ],
+   "test_refs": 4
+  },
+  "losers": [
+   {
+    "name": "bufferForSpell",
+    "file": "src/feat_buffers.cpp",
+    "line": 60,
+    "verdict": "MATCHES",
+    "live": true,
+    "callers": 1,
+    "action": "DELETE",
+    "phase": 1,
+    "why": "harness: all copies give identical results to each other and to Mordor.Core; same name as keeper, so callers bind to the keeper once it is visible"
+   }
+  ]
+ },
+ {
+  "pile": "p141",
+  "group": "G1",
+  "rule": "decimal string-to-int parse, digits only, rejects empty input and values above 1000000",
+  "keeper": {
+   "name": "parseInt",
+   "file": "src/game_combat.cpp",
+   "line": 57,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 6
+  },
+  "losers": [
+   {
+    "name": "parseInt",
+    "file": "src/feat_library.cpp",
+    "line": 52,
+    "lines": 10,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method was shown for this rule. (Same behavior as m2: digits only, empty rejected, cap 1000000 inclusive; returns fallback on failure.)",
+    "callers": [
+     "combatAction@src/game_combat.cpp",
+     "entries@src/feat_library.cpp",
+     "groupIndex@src/game_combat.cpp",
+     "itemPage@src/feat_library.cpp",
+     "memberIndex@src/game_combat.cpp",
+     "monsterPage@src/feat_library.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p143",
+  "group": "G1",
+  "rule": "split text into words on space/tab, skipping empty tokens",
+  "keeper": {
+   "name": "splitWords",
+   "file": "src/game_town.cpp",
+   "line": 64,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 2
+  },
+  "losers": [
+   {
+    "name": "splitWords",
+    "file": "src/features.cpp",
+    "line": 17,
+    "lines": 13,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method for word splitting was shown",
+    "callers": [
+     "runFeatureCommand@src/features.cpp",
+     "townAction@src/game_town.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p145",
+  "group": "G1",
+  "rule": "map Guild enum to display name string",
+  "keeper": {
+   "name": "guildName",
+   "file": "src/game_view.cpp",
+   "line": 51,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 5
+  },
+  "losers": [
+   {
+    "name": "guildName",
+    "file": "src/game_town.cpp",
+    "line": 135,
+    "lines": 3,
+    "verdict": "NO_REFERENCE",
+    "why": "No C# reference method was shown. Looks up kGuildNames[g] with no range check; the table contents are not shown.",
+    "callers": [
+     "describeCharacter@src/game_view.cpp",
+     "describeParty@src/game_view.cpp",
+     "doGuildList@src/game_town.cpp",
+     "doJoin@src/game_town.cpp",
+     "doLevelUp@src/game_town.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p147",
+  "group": "G1",
+  "rule": "convert 1-based player slot to 0-based pack index (playerSlot - 1)",
+  "keeper": {
+   "name": "packIndexFromPlayerSlot",
+   "file": "src/game_town.cpp",
+   "line": 353,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 4
+  },
+  "losers": [
+   {
+    "name": "packIndexFromPlayerSlot",
+    "file": "src/items2a.cpp",
+    "line": 20,
+    "lines": 3,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method was shown for this rule; body is `return playerSlot - 1`, identical to m1 (differs only in file and linkage)",
+    "callers": [
+     "doSell@src/game_town.cpp",
+     "gearEquip@src/game_town.cpp",
+     "gearUnequip@src/game_town.cpp",
+     "gearUse@src/game_town.cpp"
+    ],
+    "test_refs": 2,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p148",
+  "group": "G1",
+  "rule": "pack index to player slot (returns packIndex + 1)",
+  "keeper": {
+   "name": "playerSlotFromPackIndex",
+   "file": "src/game_town.cpp",
+   "line": 357,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "playerSlotFromPackIndex",
+    "file": "src/items2a.cpp",
+    "line": 24,
+    "lines": 3,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method was shown for this rule",
+    "callers": [
+     "doBuy@src/game_town.cpp"
+    ],
+    "test_refs": 2,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p149",
+  "group": "G1",
+  "rule": "item name lookup by item id (returns the ItemDef name; the missing-definition fallback differs, see below)",
+  "keeper": {
+   "name": "itemNameOf",
+   "file": "src/game_town.cpp",
+   "line": 817,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 3
+  },
+  "losers": [
+   {
+    "name": "itemNameOf",
+    "file": "src/items1b.cpp",
+    "line": 61,
+    "lines": 4,
+    "verdict": "NO_REFERENCE",
+    "why": "No C# reference method is shown for item name lookup. Missing definition returns an empty string; relies on defOf(ctx, it.id), which is not shown. Differs from m1 only in the fallback value.",
+    "callers": [
+     "combineCharges@src/items1b.cpp",
+     "giveSlot@src/items1b.cpp",
+     "rollSlime@src/items1b.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p157",
+  "group": "G1",
+  "rule": "clamp integer v to [lo, hi]",
+  "keeper": {
+   "name": "clampI",
+   "file": "src/items1b.cpp",
+   "line": 47,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 3
+  },
+  "losers": [
+   {
+    "name": "clampI",
+    "file": "src/status1a.cpp",
+    "line": 33,
+    "lines": 1,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method is shown for a clamp rule; body is identical to m1 (`v < lo ? lo : (v > hi ? hi : v)`)",
+    "callers": [
+     "destroyChance@src/items1b.cpp",
+     "destructionSaveChance@src/status1a.cpp",
+     "rollAgingDays@src/status1a.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p165",
+  "group": "G1",
+  "rule": "party member accessor by index (returns the Character at party.members[index])",
+  "keeper": {
+   "name": "partyMember",
+   "file": "src/loot1a.cpp",
+   "line": 72,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 4
+  },
+  "losers": [
+   {
+    "name": "partyMember",
+    "file": "src/loot1a.cpp",
+    "line": 76,
+    "lines": 3,
+    "verdict": "NO_REFERENCE",
+    "why": "const overload returning const Character&, same body as m1; no C# reference method is shown for this rule.",
+    "callers": [
+     "openChestInFight@src/loot1a.cpp",
+     "payOutChestGold@src/loot1a.cpp",
+     "resolveChestTrap@src/loot1a.cpp",
+     "trapKilledLeader@src/loot1a.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p167",
+  "group": "G1",
+  "rule": "chest item placement, random start index over party, first free pack slot",
+  "keeper": {
+   "name": "placeChestItem",
+   "file": "src/loot1a.cpp",
+   "line": 485,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 2
+  },
+  "losers": [
+   {
+    "name": "placeChestItem",
+    "file": "src/loot2.cpp",
+    "line": 587,
+    "lines": 9,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method was shown for chest item placement. Differs from m1 in that it returns false silently when no member has room, and it takes a Party and delegates slot finding to placeInFreePack",
+    "callers": [
+     "openChest@src/loot2.cpp",
+     "openChestInFight@src/loot1a.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p173",
+  "group": "G1",
+  "rule": "monster respawn delay (level-scaled, reduced by emptied rooms, floored at a minimum)",
+  "keeper": {
+   "name": "respawnDelayMs",
+   "file": "src/monsters3a.cpp",
+   "line": 17,
+   "verdict": "NO_REFERENCE",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "respawnDelayMs",
+    "file": "src/monsters2a.cpp",
+    "line": 133,
+    "lines": 9,
+    "verdict": "NO_REFERENCE",
+    "why": "No C# reference method is shown. The constants kRespawnBaseSeconds, kRespawnPerLevelSeconds, kRespawnPerEmptiedRoomSeconds and kRespawnFloorSeconds are not visible, so the values cannot be checked.",
+    "callers": [],
+    "test_refs": 7,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p178",
+  "group": "G1",
+  "rule": "index a character's guild membership by Guild enum (`ch.guilds[static_cast<u32>(g)]`). m2 is the const overload of m1, same body.",
+  "keeper": {
+   "name": "memberOf",
+   "file": "src/progression2.cpp",
+   "line": 79,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 10
+  },
+  "losers": [
+   {
+    "name": "memberOf",
+    "file": "src/progression2.cpp",
+    "line": 83,
+    "lines": 3,
+    "verdict": "NO_REFERENCE",
+    "why": "No C# reference method was shown for guild membership lookup. Const overload of m1 returning const GuildMembership&.",
+    "callers": [
+     "awardExp@src/progression2.cpp",
+     "canLevelUp@src/progression2.cpp",
+     "expForNextLevel@src/progression2.cpp",
+     "expForThisLevel@src/progression2.cpp",
+     "experienceCapOf@src/progression2.cpp",
+     "forfeitGuild@src/progression2.cpp",
+     "goldForNextLevel@src/progression2.cpp",
+     "isPinned@src/progression2.cpp",
+     "levelUp@src/progression2.cpp",
+     "toolbarState@src/progression2.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p180",
+  "group": "G1",
+  "rule": "unparalyse (end paralysis, restore AD shift)",
+  "keeper": {
+   "name": "unparalyse",
+   "file": "src/status1a.cpp",
+   "line": 87,
+   "verdict": "MATCHES",
+   "live": true,
+   "callers": 5
+  },
+  "losers": [
+   {
+    "name": "unparalyse",
+    "file": "src/status2.cpp",
+    "line": 154,
+    "lines": 8,
+    "verdict": "DIFFERS",
+    "why": "Does not check ParalysisLevel and does not set ADShift from StoredADShift + StatsADNow. It sets paralysed = false and paralyzedRounds = 0 instead, and leaves ParalysisLevel unchanged. Its own comment ",
+    "callers": [
+     "castCureParalysis@src/status2.cpp",
+     "endEveryAilment@src/status2.cpp",
+     "paralysisNoMonsterClear@src/status1a.cpp",
+     "paralysisWearOff@src/status2.cpp",
+     "paralysisWearOffTick@src/status1a.cpp"
+    ],
+    "test_refs": 1,
+    "action": "REPLACE_WITH_KEEPER",
+    "phase": 2
+   }
+  ]
+ },
+ {
+  "pile": "p183",
+  "group": "G1",
+  "rule": "is monster the Asmodeus monster (id equality)",
+  "keeper": {
+   "name": "asmodeusIs",
+   "file": "src/combat2b.cpp",
+   "line": 276,
+   "verdict": "MATCHES",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "isAsmodeus",
+    "file": "src/monsters2b.cpp",
+    "line": 135,
+    "lines": 4,
+    "verdict": "MATCHES",
+    "why": "Same check as Asmodeus.Is: `creature.id == 277`, with the constant hardcoded locally. The reference's `MonsterId` value is not shown, so it is unverified that it equals 277.",
+    "callers": [],
+    "test_refs": 6,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p185",
+  "group": "G1",
+  "rule": "pay gold for a cost, taking from goldOnHand first and the remainder from goldInBank, returning false when purse is short",
+  "keeper": {
+   "name": "chargePurse",
+   "file": "src/items2b_2.cpp",
+   "line": 347,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 6
+  },
+  "losers": [
+   {
+    "name": "payCharacterGold",
+    "file": "src/companions1a.cpp",
+    "line": 253,
+    "lines": 14,
+    "verdict": "DIFFERS",
+    "why": "harness: copies differ only on inputs play cannot produce; keeper is the copy equal to Mordor.Core on every case",
+    "callers": [
+     "buyCompanion@src/companions1a.cpp",
+     "raiseBinding@src/companions1a.cpp"
+    ],
+    "test_refs": 2,
+    "action": "FORWARD",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p189",
+  "group": "G1",
+  "rule": "filename sanitising, replacing forbidden and control characters with '_'",
+  "keeper": {
+   "name": "sanitiseFileName",
+   "file": "src/dataformatsb.cpp",
+   "line": 277,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "safeFileName",
+    "file": "src/dataformatsa_b.cpp",
+    "line": 107,
+    "lines": 17,
+    "verdict": "DIFFERS",
+    "why": "Reference is Character.SafeFileName, which removes invalid characters (`Where(c => !...Contains(c))`) rather than replacing them with '_'. The C++ also uses a fixed forbidden set (\\ / : * ? \" < > | pl",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p194",
+  "group": "G1",
+  "rule": "cast refusal gate (R5/R6: SP cost, NonCombat in fight, anti-magic, Combat/Either with no monsters, peaced spell level above 7)",
+  "keeper": {
+   "name": "checkCastGate",
+   "file": "src/casting1_missing.cpp",
+   "line": 8,
+   "verdict": "MATCHES",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "firstCastRefusal",
+    "file": "src/casting2.cpp",
+    "line": 200,
+    "lines": 17,
+    "verdict": "MATCHES",
+    "why": "For the same NonCombatInFight inputs, m2 returns NonCombat at step 2, before its anti-magic and extinguisher checks, so the result agrees with the reference. Only that slice is comparable. Outside it,",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p200",
+  "group": "G1",
+  "rule": "is the square at (x,y) a rock tile (R1/R10, R75/R84)",
+  "keeper": {
+   "name": "isRockSquare",
+   "file": "src/dungeon1b_a.cpp",
+   "line": 196,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 5
+  },
+  "losers": [
+   {
+    "name": "squareIsRock",
+    "file": "src/dungeon1a.cpp",
+    "line": 254,
+    "lines": 6,
+    "verdict": "DIFFERS",
+    "why": "Reference DungeonNav.IsRock returns true when (x,y) is out of bounds (`!InBounds(x, y) ||`). m1 has no bounds case and returns false via cellInState when out of range. It reads the live SquareState::b",
+    "callers": [
+     "castMovementSpell@src/spells3_missing.cpp",
+     "setPartyPosition@src/dungeon1a.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p204",
+  "group": "G1",
+  "rule": "epoch milliseconds (UTC) to day serial (days since 1899-12-30)",
+  "keeper": {
+   "name": "libraryDaySerial",
+   "file": "src/city2a.cpp",
+   "line": 270,
+   "verdict": "NO_REFERENCE",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "daySerialFromEpochMillis",
+    "file": "src/dataformatsa_b.cpp",
+    "line": 34,
+    "lines": 7,
+    "verdict": "NO_REFERENCE",
+    "why": "No shown reference takes epoch millis. The nearest, GuildLog.DaySerial, takes a DateTime. m2 uses integer division with a -1 correction when the remainder is negative, so it computes floor(epochMillis",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p208",
+  "group": "G1",
+  "rule": "must-be-equipped check for item type codes 1-22, 29, 32, 33, 34",
+  "keeper": {
+   "name": "isMustBeEquippedType",
+   "file": "src/items1a_b.cpp",
+   "line": 54,
+   "verdict": "MATCHES",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "mustBeEquipped",
+    "file": "src/items1b.cpp",
+    "line": 624,
+    "lines": 4,
+    "verdict": "DIFFERS",
+    "why": "harness: all copies give identical results to each other and to Mordor.Core",
+    "callers": [
+     "checkUse@src/items1b.cpp"
+    ],
+    "test_refs": 8,
+    "action": "FORWARD",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p212",
+  "group": "G1",
+  "rule": "place string \"x+1,y+1,level\", or failure when the party is lost",
+  "keeper": {
+   "name": "placeOf",
+   "file": "src/ref_placeof.cpp",
+   "line": 27,
+   "verdict": "MATCHES",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "libraryPlaceOf",
+    "file": "src/city2a.cpp",
+    "line": 127,
+    "lines": 6,
+    "verdict": "DIFFERS",
+    "why": "harness: copies differ only on inputs play cannot produce; keeper is the copy equal to Mordor.Core on every case",
+    "callers": [
+     "libraryDungeonMeeting@src/city2a.cpp"
+    ],
+    "test_refs": 1,
+    "action": "FORWARD",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p215",
+  "group": "G1",
+  "rule": "item display name at identification level (Unknown/Barely/Partial/Mostly/All), with alignment tag, charges, and cursed suffixes",
+  "keeper": {
+   "name": "itemDisplayName",
+   "file": "src/items1a_d.cpp",
+   "line": 146,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 3
+  },
+  "losers": [
+   {
+    "name": "itemNameAtLevel",
+    "file": "src/items1b.cpp",
+    "line": 739,
+    "lines": 19,
+    "verdict": "DIFFERS",
+    "why": "vs Loot.NameFor: (a) The default case, which covers Unknown and Barely, returns the literal \"Unidentified Item\". NameFor's default returns Mdata1.ItemDescriptionName(it.Type) when Mdata1.Loaded. (b) I",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p218",
+  "group": "G1",
+  "rule": "swap two party member positions, moving SelectedIndex with the swap and announcing the new leader when slot 0 changes",
+  "keeper": {
+   "name": "rearrangeParty",
+   "file": "src/partyb.cpp",
+   "line": 497,
+   "verdict": "DIFFERS",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "swapPartyPositions",
+    "file": "src/partya.cpp",
+    "line": 592,
+    "lines": 27,
+    "verdict": "DIFFERS",
+    "why": "Party.Swap has no combat refusal, but m1 returns RefusedInCombat when inDungeon && inCombat. m1 also swaps party.combatOrders, which Party.Swap does not touch. a == b returns Swapped instead of null. ",
+    "callers": [],
+    "test_refs": 3,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p223",
+  "group": "G1",
+  "rule": "guild toolbar state (Short if exp < next-level threshold, Pinned if exp at or above cap, else Ready)",
+  "keeper": {
+   "name": "progressToolbar",
+   "file": "src/progression1a.cpp",
+   "line": 138,
+   "verdict": "DIFFERS",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "toolbarState",
+    "file": "src/progression2.cpp",
+    "line": 185,
+    "lines": 10,
+    "verdict": "DIFFERS",
+    "why": "Progress.ToolbarNeed returns (State, Amount), but m2 returns only a state code and no amount (missing the Short and Ready remaining-amount values). Pinned uses `exp >= cap` where the reference uses `=",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p228",
+  "group": "G1",
+  "rule": "guild level to spell level, clamped to 1..cap (R21; reference Rules.SpellLevel)",
+  "keeper": {
+   "name": "guildSpellLevel",
+   "file": "src/casting1_a.cpp",
+   "line": 203,
+   "verdict": "MATCHES",
+   "live": true,
+   "callers": 8
+  },
+  "losers": [
+   {
+    "name": "spellLevelFromGuildLevel",
+    "file": "src/casting2.cpp",
+    "line": 234,
+    "lines": 7,
+    "verdict": "DIFFERS",
+    "why": "harness: all copies give identical results to each other and to Mordor.Core",
+    "callers": [
+     "portZeroLevelHealLevel@src/casting3.cpp"
+    ],
+    "test_refs": 16,
+    "action": "FORWARD",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p230",
+  "group": "G1",
+  "rule": "roundedIndex, pick index in [0, n) by rounding rng*n half-to-even",
+  "keeper": {
+   "name": "roundedIndex",
+   "file": "src/city1_a.cpp",
+   "line": 431,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 2
+  },
+  "losers": [
+   {
+    "name": "drawRoundedIndex",
+    "file": "src/city2b.cpp",
+    "line": 231,
+    "lines": 13,
+    "verdict": "DIFFERS",
+    "why": "Same retry-on-k==n behavior as m1 for n >= 2, so it differs from the reference the same way. For n == 1 it returns 0 without drawing from rng, while the reference draws once and can return 1. For n <=",
+    "callers": [],
+    "test_refs": 3,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p237",
+  "group": "G1",
+  "rule": "binding-spell check (effect in binding range, or the life-binding effect)",
+  "keeper": {
+   "name": "isBindingEffect",
+   "file": "src/casting2.cpp",
+   "line": 482,
+   "verdict": "MATCHES",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "isBindingSpell",
+    "file": "src/casting1_b.cpp",
+    "line": 432,
+    "lines": 4,
+    "verdict": "DIFFERS",
+    "why": "Reference Spellbook.IsBinding first normalizes with SpellEffect.Of(s). m1 takes the raw effect and range-checks it directly with no normalization step, so results differ when the raw value and the nor",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p241",
+  "group": "G1",
+  "rule": "parse \"a,b\" swap input into two integers (reject when no comma, too long, or not two integers)",
+  "keeper": {
+   "name": "parseSwapInput",
+   "file": "src/partya.cpp",
+   "line": 555,
+   "verdict": "DIFFERS",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "parseSwapRequest",
+    "file": "src/items2b.cpp",
+    "line": 487,
+    "lines": 25,
+    "verdict": "DIFFERS",
+    "why": "Reference is SwapCommand.Parse, which returns the tuple (A, B) or null. m1 returns a SwapRequest with a status enum and applies slotIndexOf and validStorage, which the reference does not. The referenc",
+    "callers": [],
+    "test_refs": 6,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p242",
+  "group": "G1",
+  "rule": "pay a gold cost from on-hand gold first, then take the remainder from the bank rounded to whole gold (half to even).",
+  "keeper": {
+   "name": "chargeTownCost",
+   "file": "src/loot1a.cpp",
+   "line": 855,
+   "verdict": "MATCHES",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "payFromPurse",
+    "file": "src/items3a.cpp",
+    "line": 226,
+    "lines": 14,
+    "verdict": "DIFFERS",
+    "why": "Compared with Character.cs:567 Pay(). The rounding mode matches (half to even), but m1 divides by 10000.0 as a double and rounds with roundHalfEven, where the reference rounds the owed amount with int",
+    "callers": [
+     "bindCompanion@src/items3a.cpp",
+     "identifyCompanion@src/items3a.cpp",
+     "realignItem@src/items3a.cpp"
+    ],
+    "test_refs": 4,
+    "action": "REPLACE_WITH_KEEPER",
+    "phase": 2
+   }
+  ]
+ },
+ {
+  "pile": "p243",
+  "group": "G1",
+  "rule": "character meets all stat minimums; returns false if any statWithMods(who, stat) is below required[stat], otherwise true",
+  "keeper": {
+   "name": "meetsRequiredStats",
+   "file": "src/casting2.cpp",
+   "line": 168,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "meetsStatMinimums",
+    "file": "src/casting3.cpp",
+    "line": 214,
+    "lines": 9,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method is shown for this rule; logic is identical to m1 (same loop, same statWithMods comparison, same return values)",
+    "callers": [],
+    "test_refs": 2,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p245",
+  "group": "G1",
+  "rule": "monster may join party by alignment (Good monsters only with Good characters, Neutral with any, Evil never)",
+  "keeper": {
+   "name": "monsterMayJoin",
+   "file": "src/companions1b_2.cpp",
+   "line": 427,
+   "verdict": "NO_REFERENCE",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "alignmentMayJoin",
+    "file": "src/monsters1b_2.cpp",
+    "line": 160,
+    "lines": 11,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method was shown for this rule",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p250",
+  "group": "G1",
+  "rule": "test whether special-property bit N is set in a monster's flags (bit outside 0..31 returns false)",
+  "keeper": {
+   "name": "specialFlagBit",
+   "file": "src/companions1b.cpp",
+   "line": 94,
+   "lines": 6,
+   "verdict": "DIFFERS",
+   "callers": [
+    "applyLandedBlowEffects@src/companions1b.cpp",
+    "blowDamageMod@src/companions1b.cpp"
+   ],
+   "test_refs": 3
+  },
+  "losers": [
+   {
+    "name": "monsterHasBit",
+    "file": "src/combat1a.cpp",
+    "line": 59,
+    "verdict": "DIFFERS",
+    "live": true,
+    "callers": 2,
+    "action": "FORWARD",
+    "phase": 1,
+    "why": "harness: all copies give identical results to each other and to Mordor.Core; keeper swapped because the other direction cannot be forwarded"
+   }
+  ]
+ },
+ {
+  "pile": "p251",
+  "group": "G1",
+  "rule": "monster hostility toward a character by monster alignment (Good: hostile unless character is Good; Neutral: percent roll; Evil: always hostile)",
+  "keeper": {
+   "name": "monsterHostileToCharacter",
+   "file": "src/companions1b_2.cpp",
+   "line": 441,
+   "verdict": "NO_REFERENCE",
+   "live": false,
+   "callers": 0
+  },
+  "losers": [
+   {
+    "name": "alignmentHostileRoll",
+    "file": "src/monsters1b_2.cpp",
+    "line": 175,
+    "lines": 11,
+    "verdict": "NO_REFERENCE",
+    "why": "No C# reference method is shown in the pile. Neutral case uses a hardcoded percent(60). Same switch and return values as m1 otherwise; differs from m1 only in using the literal 60 instead of the named",
+    "callers": [],
+    "test_refs": 0,
+    "action": "DELETE",
+    "phase": 1
+   }
+  ]
+ },
+ {
+  "pile": "p252",
+  "group": "G1",
+  "rule": "find spell in GameData.spells by normalized name key, or by numeric id when the text is all digits (up to 9 digits)",
+  "keeper": {
+   "name": "castFindSpell",
+   "file": "src/game_combat.cpp",
+   "line": 560,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "townFindSpell",
+    "file": "src/game_town.cpp",
+    "line": 1227,
+    "lines": 15,
+    "verdict": "NO_REFERENCE",
+    "why": "No C# reference method for spell lookup is shown. Same logic as m1, differing only in the helpers used (townKey, townAllDigits). Copy status of m1 and m2 depends on castKey/townKey and castAllDigits/t",
+    "callers": [
+     "townCast@src/game_town.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p253",
+  "group": "G1",
+  "rule": "spell-name lookup key (trim leading/trailing spaces, ASCII-lowercase A-Z)",
+  "keeper": {
+   "name": "castKey",
+   "file": "src/game_combat.cpp",
+   "line": 536,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "townKey",
+    "file": "src/game_town.cpp",
+    "line": 1203,
+    "lines": 13,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method was shown for this rule",
+    "callers": [
+     "townFindSpell@src/game_town.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p258",
+  "group": "G1",
+  "rule": "format an i64 as a decimal string, with \"0\" for zero and a leading \"-\" for negatives",
+  "keeper": {
+   "name": "bufferInt",
+   "file": "src/feat_buffers.cpp",
+   "line": 26,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 7
+  },
+  "losers": [
+   {
+    "name": "confNumText",
+    "file": "src/feat_confinement.cpp",
+    "line": 32,
+    "lines": 12,
+    "verdict": "NO_REFERENCE",
+    "why": "No C# reference method was shown for this rule. Same algorithm as m1; the only difference is an explicit static_cast<int> on the digit, which does not change the output.",
+    "callers": [
+     "cmdPens@src/feat_confinement.cpp",
+     "confGoldText@src/feat_confinement.cpp",
+     "confinementSellSlot@src/feat_confinement.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p259",
+  "group": "G1",
+  "rule": "i64 to decimal string conversion (sign handling, INT64_MIN safe via unsigned negation)",
+  "keeper": {
+   "name": "toStr",
+   "file": "src/game_town.cpp",
+   "line": 43,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 17
+  },
+  "losers": [
+   {
+    "name": "i64Str",
+    "file": "src/items2b.cpp",
+    "line": 90,
+    "lines": 12,
+    "verdict": "NO_REFERENCE",
+    "why": "No C# reference method was shown for integer-to-string conversion.",
+    "callers": [
+     "dropPackItem@src/items2b.cpp",
+     "giveGold@src/items2b.cpp",
+     "rereadPackOnLevelGain@src/items2b.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p260",
+  "group": "G1",
+  "rule": "map Align (Good/Neutral/Evil) to kAlignBit constants, default 0",
+  "keeper": {
+   "name": "wearerAlignBit",
+   "file": "src/combat3.cpp",
+   "line": 62,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "alignBitOf",
+    "file": "src/guilds2_a.cpp",
+    "line": 24,
+    "lines": 11,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method was shown for alignment-bit mapping; returns u8 (differs from m1 only in return type)",
+    "callers": [
+     "CanJoin@src/guilds2_a.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p265",
+  "group": "G1",
+  "rule": "join words w[from..to) (clamped to w.size()) with single spaces",
+  "keeper": {
+   "name": "castJoin",
+   "file": "src/game_combat.cpp",
+   "line": 550,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 1
+  },
+  "losers": [
+   {
+    "name": "townJoin",
+    "file": "src/game_town.cpp",
+    "line": 1217,
+    "lines": 8,
+    "verdict": "NO_REFERENCE",
+    "why": "no C# reference method was shown for word-range joining",
+    "callers": [
+     "townCast@src/game_town.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p270",
+  "group": "G1",
+  "rule": "string is non-empty and every character is an ASCII digit '0'-'9'",
+  "keeper": {
+   "name": "townAllDigits",
+   "file": "src/game_town.cpp",
+   "line": 1195,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 3
+  },
+  "losers": [
+   {
+    "name": "castAllDigits",
+    "file": "src/game_combat.cpp",
+    "line": 528,
+    "lines": 7,
+    "verdict": "NO_REFERENCE",
+    "why": "No C# reference method was shown for this rule. Body is identical to m2 (empty returns false, then per-char range check on '0'..'9').",
+    "callers": [
+     "castFindSpell@src/game_combat.cpp",
+     "combatAction@src/game_combat.cpp"
+    ],
+    "test_refs": 0,
+    "action": "HOLD",
+    "phase": 3
+   }
+  ]
+ },
+ {
+  "pile": "p271",
+  "group": "G1",
+  "rule": "return index of first empty pack slot (1 to kLastPackIndex), or -1 if none",
+  "keeper": {
+   "name": "freeStorageSlot",
+   "file": "src/items2b.cpp",
+   "line": 83,
+   "verdict": "NO_REFERENCE",
+   "live": true,
+   "callers": 3
+  },
+  "losers": [
+   {
+    "name": "freeSlot",
+    "file": "src/items2b_2.cpp",
+    "line": 26,
+    "lines": 6,
+    "verdict": "NO_REFERENCE",
+    "why": "harness: all copies give identical results to each other and to Mordor.Core",
+    "callers": [
+     "buyFromStore@src/items2b_2.cpp"
+    ],
+    "test_refs": 0,
+    "action": "FORWARD",
+    "phase": 1
+   }
+  ]
+ }
+]

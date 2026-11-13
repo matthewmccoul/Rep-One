@@ -1,0 +1,22 @@
+[
+{"args": {"cause": 0}, "rng": [0.0]},
+{"args": {"cause": 0}, "rng": [0.3]},
+{"args": {"cause": 0}, "rng": [0.5]},
+{"args": {"cause": 0}, "rng": [0.8]},
+{"args": {"cause": 0}, "rng": [0.99999]},
+{"args": {"cause": 1}, "rng": [0.0]},
+{"args": {"cause": 1}, "rng": [0.3]},
+{"args": {"cause": 1}, "rng": [0.5]},
+{"args": {"cause": 1}, "rng": [0.8]},
+{"args": {"cause": 1}, "rng": [0.99999]},
+{"args": {"cause": 2}, "rng": [0.0]},
+{"args": {"cause": 2}, "rng": [0.3]},
+{"args": {"cause": 2}, "rng": [0.5]},
+{"args": {"cause": 2}, "rng": [0.8]},
+{"args": {"cause": 2}, "rng": [0.99999]},
+{"args": {"cause": 3}, "rng": [0.0]},
+{"args": {"cause": 3}, "rng": [0.3]},
+{"args": {"cause": 3}, "rng": [0.5]},
+{"args": {"cause": 3}, "rng": [0.8]},
+{"args": {"cause": 3}, "rng": [0.99999]}
+]

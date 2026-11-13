@@ -1,0 +1,2 @@
+src/casting1_a.cpp ratedSpellLevel ratedSpellLevel__casting1_a
+src/casting2.cpp ratedSpellLevel ratedSpellLevel__casting2

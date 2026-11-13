@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the listed reference methods implements integer-to-decimal text conversion. The closest candidate, `SpellInfo.Paint`, uses a private local lambda `N(long)` that formats with InvariantCulture, but that lambda is not a callable method and is only incidental to the page layout. `GiveCommand.Val` does the reverse (text to number), and `GuildLog.Line`, `CastGate.Unfit`, and the other candidates do not format integers.
+
+REFERENCE: none

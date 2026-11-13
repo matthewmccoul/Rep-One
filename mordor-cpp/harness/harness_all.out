@@ -1,0 +1,139 @@
+g007: ok 6460 in / 792 out / 7.0s
+g000: ok 10064 in / 690 out / 9.3s
+g014: ok 8962 in / 506 out / 5.4s
+g015: ok 8569 in / 753 out / 7.1s
+g016: ok 8569 in / 1243 out / 8.7s
+g009: ok 6525 in / 10387 out / 44.9s
+g008: ok 6250 in / 10927 out / 46.9s
+g020: ok 7579 in / 10368 out / 47.3s
+g019: ok 7469 in / 11946 out / 54.0s
+g017: ok 9812 in / 19117 out / 85.2s
+g023: ok 5209 in / 934 out / 5.7s
+g018: ok 8667 in / 21340 out / 89.0s
+g024: ok 4237 in / 568 out / 5.5s
+g022: ok 7898 in / 2822 out / 16.1s
+g027: ok 8037 in / 693 out / 6.3s
+g025: ok 9959 in / 1744 out / 13.4s
+g028: ok 8506 in / 592 out / 5.3s
+g026: ok 5614 in / 2141 out / 14.5s
+g006: ok 9913 in / 30187 out / 129.7s
+g034: ok 4727 in / 842 out / 8.4s
+g032: ok 8671 in / 1314 out / 9.8s
+g036: ok 8194 in / 891 out / 6.6s
+g037: ok 9199 in / 961 out / 9.7s
+g038: ok 5913 in / 429 out / 4.7s
+g035: ok 5815 in / 7227 out / 34.3s
+g031: ok 7635 in / 12178 out / 50.5s
+g021: ok 7583 in / 19350 out / 85.0s
+g046: ok 6745 in / 837 out / 7.0s
+g042: ok 10021 in / 4209 out / 24.0s
+g041: ok 6159 in / 10207 out / 49.3s
+g060: ok 8701 in / 564 out / 5.1s
+g044: ok 4478 in / 7622 out / 34.1s
+g056: ok 4301 in / 4772 out / 20.7s
+g061: ok 9681 in / 1001 out / 8.5s
+g064: ok 6052 in / 931 out / 7.4s
+g063: ok 6322 in / 6670 out / 30.6s
+g066: ok 7440 in / 905 out / 7.5s
+g055: ok 6044 in / 15714 out / 65.3s
+g068: ok 8781 in / 656 out / 6.2s
+g065: ok 4455 in / 9211 out / 39.8s
+g070: ok 9942 in / 1076 out / 7.5s
+g069: ok 6556 in / 1980 out / 11.9s
+g073: ok 8540 in / 1608 out / 11.9s
+g039: ok 7616 in / 32718 out / 132.8s
+g071: ok 8240 in / 8882 out / 37.2s
+g076: ok 3891 in / 4746 out / 21.2s
+g077: ok 6970 in / 1000 out / 8.9s
+g072: ok 7098 in / 10073 out / 43.3s
+g062: ok 9696 in / 21967 out / 96.4s
+g078: ok 9779 in / 444 out / 4.9s
+g075: ok 7090 in / 5850 out / 32.5s
+g080: ok 7436 in / 579 out / 5.9s
+g082: ok 9977 in / 611 out / 6.1s
+g079: ok 6697 in / 1195 out / 8.5s
+g081: ok 7408 in / 1049 out / 8.1s
+g083: ok 6304 in / 999 out / 7.2s
+g084: ok 8473 in / 922 out / 7.2s
+g085: ok 10041 in / 811 out / 6.4s
+g087: ok 8832 in / 881 out / 6.8s
+g095: ok 4754 in / 3534 out / 15.9s
+g093: ok 4970 in / 3521 out / 18.8s
+g104: ok 5573 in / 906 out / 6.4s
+g100: ok 4431 in / 5586 out / 26.5s
+g109: ok 9408 in / 1060 out / 7.4s
+g096: ok 5025 in / 7919 out / 32.8s
+g110: ok 9613 in / 640 out / 7.6s
+g112: ok 8568 in / 983 out / 7.8s
+g111: ok 9591 in / 1994 out / 12.8s
+g113: ok 7891 in / 794 out / 7.4s
+g114: ok 9888 in / 637 out / 6.2s
+g115: ok 7931 in / 465 out / 5.2s
+g090: ok 5938 in / 12655 out / 54.4s
+g107: ok 6084 in / 8685 out / 36.9s
+g116: ok 7267 in / 13061 out / 56.4s
+g006 CS_BUILD_FAILED
+g008 DONE 29 cases; {'driftContentStep': '29/29', 'companionDriftContent': '23/29', 'contentDrift': '29/29'}
+g009 CS_BUILD_FAILED
+g017 CPP_BUILD_FAILED
+g018 DONE 23 cases; {'giveGold@items2b.cpp': '0/16', 'giveGold@loot1a.cpp': '0/16', 'giveGoldTransfer': '0/16'}
+g019 DONE 25 cases; {'experienceCapOf': '2/25', 'experienceCap@progression1a': '2/25', 'experienceCap@progression2b': '0/25'}
+g020 DONE 24 cases; {'paralyse@status1a': '7/24', 'paralyse@status2': '3/24'}
+g021 CORE_EXC 25 of 26
+g031 DONE 24 cases; {'restInCity@progression2': '24/24', 'restInCity@progression1b': '23/24'}
+g035 DONE 20 cases; {'recalcSP': '20/20', 'recalcSpellPoints': '20/20'}
+g039 CPP_BUILD_FAILED
+g041 CPP_RUN_FAILED
+g044 CPP_BUILD_FAILED
+g055 DONE 32 cases; {'playerSpellDamage': '28/32', 'monsterSpellDamage': '26/32', 'spellDamage': '30/32'}
+g056 CPP_BUILD_FAILED
+g062 CS_BUILD_FAILED
+g063 DONE 26 cases; {'maxSpellPoints@casting2': '26/26'}
+g065 CS_BUILD_FAILED
+g071 DONE 29 cases; {'oldAgePercent@death1b': '29/29', 'oldAgePercent@death2b': '29/29'}
+g072 DONE 20 cases; {'raiseAgeCost@death3': '20/20', 'raiseAgeCost@feat_rescue': '20/20'}
+g076 DONE 22 cases; {'bufferForSpell@feat_buffers': '22/22', 'bufferForSpell@items2a': '22/22'}
+g090 CORE_EXC 31 of 31
+g095 DONE 22 cases; {'isMustBeEquippedType': '22/22', 'mustBeEquipped': '22/22'}
+g096 CPP_BUILD_FAILED
+g100 DONE 25 cases; {'guildSpellLevel': '25/25', 'spellLevelFromGuildLevel': '25/25'}
+g107 DONE 31 cases; {'monsterHasBit': '23/31', 'specialFlagBit': '23/31'}
+g116 DONE 31 cases; {'freeStorageSlot': '31/31', 'freeSlot': '31/31'}
+g006: ok 13841 in / 2310 out / 15.7s
+g021: ok 11104 in / 3164 out / 19.0s
+g009: ok 9292 in / 5739 out / 24.9s
+g017: ok 13213 in / 9064 out / 37.5s
+g056: ok 5859 in / 3660 out / 16.7s
+g044: ok 6530 in / 5864 out / 24.8s
+g039: ok 11658 in / 12092 out / 47.7s
+g041: ok 7886 in / 7209 out / 32.6s
+g065: ok 7294 in / 3884 out / 15.8s
+g062: ok 14001 in / 5936 out / 22.7s
+g075: ok 7844 in / 2607 out / 16.6s
+g090: ok 8475 in / 4913 out / 20.0s
+g096: ok 7776 in / 5156 out / 21.1s
+g093: ok 5971 in / 9312 out / 43.1s
+g009 CORE_EXC 30 of 30
+g017 DONE 25 cases; {'equipProblem': '11/25', 'equipCheck': '9/25'}
+g039 CPP_BUILD_FAILED
+g041 DONE 21 cases; {'removeMember': '9/21', 'removePartyMember': '21/21'}
+g044 CPP_BUILD_FAILED
+g056 CPP_BUILD_FAILED
+g062 DONE 25 cases; {'createCharacter@attributes': '25/25'}
+g065 DONE 35 cases; {'mishapChance@combat1b': '35/35', 'mishapChance@companions1a': '12/35'}
+g090 DONE 31 cases; {'chargePurse': '31/31', 'payCharacterGold': '29/31'}
+g093 DONE 33 cases; {'isRockSquare': '10/33'}
+g096 DONE 30 cases; {'placeOf': '30/30', 'libraryPlaceOf': '26/30'}
+g009: ok 9587 in / 2662 out / 16.6s
+g056: ok 5977 in / 4590 out / 20.6s
+g044: ok 6718 in / 9759 out / 41.1s
+g039: ok 11629 in / 13798 out / 55.2s
+g075: ok 7796 in / 3963 out / 23.4s
+g006: ok 10407 in / 29971 out / 124.4s
+g021: ok 8120 in / 31140 out / 130.8s
+g006 DONE 29 cases; {'resolveChestTrap@loot1a': '29/29', 'resolveChestTrap@combat2a': '0/29'}
+g021 CPP_BUILD_FAILED
+g039 CORE_EXC 29 of 29
+g044 DONE 30 cases; {'respawnDelay': '30/30', 'respawnDelaySeconds': '30/30'}
+g056 CPP_BUILD_FAILED
+STATUS {'DONE': 26, 'NO_REFERENCE': 45, 'BAD_OUTPUT': 2, 'CPP_BUILD_FAILED': 2, 'CORE_EXC': 1}

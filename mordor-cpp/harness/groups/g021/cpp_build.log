@@ -1,0 +1,4 @@
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/harness/groups/g021/case.cpp: In function ‘bool mordor::{anonymous}::doubledCurrency(mordor::Currency, mordor::i32, mordor::Currency&)’:
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/harness/groups/g021/case.cpp:23:14: error: ‘addCurrencyChecked’ was not declared in this scope
+   23 |         if (!addCurrencyChecked(x, x, s)) return false;
+      |              ^~~~~~~~~~~~~~~~~~

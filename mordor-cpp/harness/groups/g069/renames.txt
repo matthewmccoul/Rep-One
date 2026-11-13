@@ -1,0 +1,2 @@
+src/options.cpp equalsIgnoreCase equalsIgnoreCase__options
+src/dataformatsa_a.cpp equalsIgnoreCase equalsIgnoreCase__dataformatsa_a

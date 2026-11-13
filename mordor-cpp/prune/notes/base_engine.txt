@@ -1,0 +1,10 @@
+  skip  teleporters in the dungeon (86): full game only (the shipped data is the 3-level shareware)
+  skip  squares across the dungeon (13500): full game only (the shipped data is the 3-level shareware)
+  skip  engine_re_maxworn_mdata3_distinct_values: full game only (the shipped data is the 3-level shareware)
+  skip  engine_re_maxworn_mdata3_has_minus_one: full game only (the shipped data is the 3-level shareware)
+  skip  engine_re_maxworn_medusa_head: full game only (the shipped data is the 3-level shareware)
+  skip  engine_re_maxworn_mdata3_has_zero: full game only (the shipped data is the 3-level shareware)
+  skip  engine_rtt141_max_worn_zero_class_count: full game only (the shipped data is the 3-level shareware)
+  skip  engine_rtt141_max_worn_minus_one_class_count: full game only (the shipped data is the 3-level shareware)
+  skip  engine_rtt141_max_worn_minus_one_value: full game only (the shipped data is the 3-level shareware)
+490 tests, 777 checks, 0 failures

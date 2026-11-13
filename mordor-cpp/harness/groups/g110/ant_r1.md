@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the shown Mordor.Core methods implements a spell-name lookup key. `SpellInfo.Paint` only calls `s.Name.TrimEnd()` for display. It does not trim leading spaces, lowercase the name, or look anything up by key. `CharStatFile.Paint`, `GiveCommand.Give`, and `CompanionCarry.Run` do not touch spell names. The C++ `castKey`/`townKey` copies have no C# counterpart in the candidates provided, so there is no reference to compare them against and no files were written.
+
+REFERENCE: none

@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the shown Mordor.Core methods joins words from an index. `Character.AilmentText` uses `string.Join(" ", ...)`, but it joins three fixed ailment labels and takes no word list or start index, so it does not implement this rule. The other candidates (SpellInfo.Paint, CompanionCarry.Run, MdrLoader.LoadRaces, LookAround.Listed, ListedParty) are unrelated. No files are written.
+
+REFERENCE: none

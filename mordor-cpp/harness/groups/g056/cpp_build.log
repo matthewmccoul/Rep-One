@@ -1,0 +1,8 @@
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/harness/groups/g056/tu_guilds1_b.cpp: In function ‘int mordor::mordor_export_itemBand(int)’:
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/harness/groups/g056/tu_guilds1_b.cpp:786:68: error: ‘::itemBand’ has not been declared; did you mean ‘mordor::itemBand’?
+  786 | namespace mordor { int mordor_export_itemBand(int tier) { return ::itemBand(tier); } }
+      |                                                                    ^~~~~~~~
+      |                                                                    mordor::itemBand
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/harness/groups/g056/tu_guilds1_b.cpp:385:5: note: ‘mordor::itemBand’ declared here
+  385 | i32 itemBand(i32 tier) {
+      |     ^~~~~~~~

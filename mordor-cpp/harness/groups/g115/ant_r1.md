@@ -1,0 +1,3 @@
+NO_REFERENCE: The rule is a string check (non-empty, every character an ASCII digit '0'-'9'). None of the four reference candidates (ItemUse.RechargeGuildItems, GearCheck.Any, Rules.QuestMonster, ItemUse.ApplySpecial) implements or calls such a check, and the listed C# types expose no digit-validation method. The C++ copies (townAllDigits, castAllDigits) have no counterpart in Mordor.Core to compare against.
+
+REFERENCE: none

@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the shown Mordor.Core methods returns the index of the first free companion slot. CompanionTurn.Check, Combat.AcceptJoin, MonsterAttack.AcidTarget and CompanionCarry.Run never return a slot index. AcceptJoin only reads `Companions.FreeSlots` as a count, and CompanionCarry.Run releases slots without returning one. The slot-finding logic would sit in CompanionSlots.Add or an indexer, and neither is shown, so I cannot use it without inventing methods.
+
+REFERENCE: none

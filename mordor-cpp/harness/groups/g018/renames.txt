@@ -1,0 +1,2 @@
+src/items2b.cpp giveGold giveGold__items2b
+src/loot1a.cpp giveGold giveGold__loot1a

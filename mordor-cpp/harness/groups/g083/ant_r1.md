@@ -1,0 +1,3 @@
+NO_REFERENCE: No method in Mordor.Core implements a standalone integer clamp of an arbitrary value to [lo, hi]. The candidates clamp only as one step of a larger calculation. `SpellRaiseChance` clamps a formula result to [10, 98], `ChanceToLeave` clamps a double to [0, 90], and `WholeRows.Snap` clamps a double to [0, max]. Driving any of them with arbitrary v, lo, and hi would test their formulas, not the clamp rule. `Math.Clamp` is a BCL call, not Mordor.Core.
+
+REFERENCE: none

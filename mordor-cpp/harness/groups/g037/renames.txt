@@ -1,0 +1,2 @@
+src/companions1a.cpp firstFreeCompanionSlot firstFreeCompanionSlot__companions1a
+src/companions2a_slotfix.cpp firstFreeCompanionSlot firstFreeCompanionSlot__companions2a_slotfix

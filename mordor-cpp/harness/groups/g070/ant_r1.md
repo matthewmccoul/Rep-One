@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the shown Mordor.Core methods implements converting a signed 64-bit integer to a decimal string. `CharStatFile.FormatNumber(long)` is the closest, but it inserts thousands separators through a culture-dependent format string (`###,###,...`), so it returns "-1,234" where this rule requires "-1234". `SpellInfo.Paint` has an inner `N(long)` helper, but it is a local function inside a page-painting method and cannot be called. The only other ways to get this behaviour are the BCL's `long.ToString(InvariantCulture)` or the C++ copies themselves, and neither is a Mordor.Core reference.
+
+REFERENCE: none

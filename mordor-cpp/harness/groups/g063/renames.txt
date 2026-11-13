@@ -1,0 +1,2 @@
+src/casting2.cpp maxSpellPoints maxSpellPoints__casting2
+src/casting3.cpp maxSpellPoints maxSpellPoints__casting3

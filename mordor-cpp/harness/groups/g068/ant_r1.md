@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the Mordor.Core methods shown implements the stone chance rule (`con * log(max(1,con)) / log(base) - attackerLevel`, capped at 95). `MonsterCritChance`, `ParalysisPasses`, `BestAbilityValue`, and `Confinement.BaseValue` all use different formulas and constants, and none applies a stone cap. The C# outlines also don't show a `Character` stone or stoning method I could call. Without a reference, the differential test has nothing to compare the C++ copies against, so I've written no files.
+
+REFERENCE: none

@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the shown Mordor.Core methods implements item name lookup by id. CompanionCarry.Run, CastGate.Unfit, Librarian.FileSighting and MdrLoader.LoadMonsters never resolve an item id to its ItemDef name. Librarian.DescribeItem takes an Item, but only its signature is shown, so I can't confirm it does that lookup, and its body is not in the candidates. No files were written.
+
+REFERENCE: none

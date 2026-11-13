@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the shown reference methods implements plain i64-to-decimal formatting. `CharStatFile.FormatNumber(long)` is the closest, but it formats with the `###,###` pattern, so 1000 becomes "1,000" and it does not match the rule. The plain formatter is the local function `N` inside `SpellInfo.Paint`, but it is not callable on its own. Reaching it through `Paint` would also restrict it to `short` values and gate it on `Damage2 > 0`, so it cannot exercise the i64 range. No files written.
+
+REFERENCE: none (closest shown, not matching: CharStatFile.FormatNumber(long), which adds thousands separators)

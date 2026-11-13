@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the shown Mordor.Core methods maps an Alignment value to a bit constant. The C++ copies return `kAlignBitGood/Neutral/Evil` (default 0), but the C# candidates either return other values or use different types. Rules.EngageChance takes Alignment and returns a chance percentage. StoreStock.CreateInitial and the Models.cs ItemAlignment helpers (Letter, Name, AsCharacter, FitFor, Possible) work with ItemAlignment or stock keys, not bit flags. No file was written because there is no reference to compare against.
+
+REFERENCE: none

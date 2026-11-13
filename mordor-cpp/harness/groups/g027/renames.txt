@@ -1,0 +1,2 @@
+src/feat_look.cpp numText numText__feat_look
+src/partya.cpp numText numText__partya

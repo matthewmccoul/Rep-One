@@ -1,0 +1,1733 @@
+{
+ "g000": {
+  "plan_index": 0,
+  "rule": "give one pack item to another member",
+  "copies": [
+   "giveItem@src/feat_give.cpp",
+   "giveFromPack@src/items1a_missing.cpp",
+   "giveItem@src/items2b.cpp",
+   "giveItemToMember@src/partyb.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.ForfeitQuest"
+   ],
+   [
+    "Character.cs",
+    "Character.ForfeitRefusal"
+   ],
+   [
+    "Character.cs",
+    "Character.QuestSatisfied"
+   ],
+   [
+    "Character.cs",
+    "Character.RemoveFromPack"
+   ],
+   [
+    "Interact.cs",
+    "Interact.NobodyFor"
+   ],
+   [
+    "Party.cs",
+    "Party.GaveItem"
+   ],
+   [
+    "Party.cs",
+    "Party.GiveFromVault"
+   ],
+   [
+    "Party.cs",
+    "Party.GiveGold"
+   ]
+  ],
+  "linked": true
+ },
+ "g006": {
+  "plan_index": 6,
+  "rule": "resolve chest trap by trap number (ChestTraps.Spring)",
+  "copies": [
+   "resolveChestTrap@src/loot1a.cpp",
+   "resolveChestTrap@src/combat2a.cpp"
+  ],
+  "refs": [
+   [
+    "ChestTraps.cs",
+    "ChestTraps.Spring"
+   ]
+  ],
+  "linked": true
+ },
+ "g007": {
+  "plan_index": 7,
+  "rule": "set party position with explicit level, no explore",
+  "copies": [
+   "setPartyPosition@src/dungeon1b_a.cpp",
+   "setPartyPosition@src/dungeon1b_b.cpp"
+  ],
+  "refs": [
+   [
+    "DungeonNav.cs",
+    "DungeonNav.DungeonNav"
+   ],
+   [
+    "DungeonNav.cs",
+    "DungeonNav.MapHere"
+   ],
+   [
+    "DungeonNav.cs",
+    "DungeonNav.MarkExplored"
+   ],
+   [
+    "DungeonNav.cs",
+    "DungeonNav.SetPosition"
+   ],
+   [
+    "MapRecord.cs",
+    "MapRecord.BackfillExplored"
+   ],
+   [
+    "MapRecord.cs",
+    "MapRecord.NoticesSecretDoor"
+   ],
+   [
+    "MapRecord.cs",
+    "MapRecord.OnBumpInFog"
+   ],
+   [
+    "MapRecord.cs",
+    "MapRecord.OnEntry"
+   ]
+  ],
+  "linked": true
+ },
+ "g008": {
+  "plan_index": 8,
+  "rule": "R34 content drift (Binding < 0), max(0.5, (MaxHits - Hits) / MaxHits * 15). m6 takes missingHits instead of hits.",
+  "copies": [
+   "driftContentStep@src/companions2a.cpp",
+   "companionDriftContent@src/companions1b.cpp",
+   "contentDrift@src/status1b.cpp"
+  ],
+  "refs": [
+   [
+    "CompanionMood.cs",
+    "CompanionMood.Drift"
+   ]
+  ],
+  "linked": true
+ },
+ "g009": {
+  "plan_index": 9,
+  "rule": "R34 bound drift (Binding > 0), max(1, GuildLevel / ln3 * 2 - TopGuildLevel / ln12 * |Binding / 2|)",
+  "copies": [
+   "companionDriftBound@src/companions1b.cpp",
+   "driftBoundStep@src/companions2a.cpp",
+   "boundDrift@src/status1b.cpp"
+  ],
+  "refs": [
+   [
+    "CompanionMood.cs",
+    "CompanionMood.Drift"
+   ]
+  ],
+  "linked": true
+ },
+ "g014": {
+  "plan_index": 14,
+  "rule": "map one char A-Z to a-z, other chars unchanged (char -> char)",
+  "copies": [
+   "lowerAscii@src/dungeon2a.cpp",
+   "lowerAscii@src/dataformatsb.cpp",
+   "lowerAscii@src/misc_2.cpp",
+   "lowerAscii@src/modding.cpp",
+   "lowerAscii@src/ref_goldfromtag.cpp"
+  ],
+  "refs": [
+   [
+    "InstallerUnpack.cs",
+    "InstallerUnpack.IsPlainName"
+   ],
+   [
+    "GiveCommand.cs",
+    "GiveCommand.Val"
+   ],
+   [
+    "SpellEffect.cs",
+    "SpellEffect.ApplyToCharacter"
+   ],
+   [
+    "MapRecord.cs",
+    "MapRecord.OnEntry"
+   ]
+  ],
+  "linked": false
+ },
+ "g015": {
+  "plan_index": 15,
+  "rule": "party member accessor by index, non-const overload (Party&, i32) returning members[static_cast<u32>(i)]",
+  "copies": [
+   "memberAt@src/game_town.cpp",
+   "memberAt@src/partya.cpp",
+   "memberAt@src/status2.cpp"
+  ],
+  "refs": [
+   [
+    "SpellThrown.cs",
+    "SpellThrown.Person"
+   ],
+   [
+    "SpellThrown.cs",
+    "SpellThrown.Companion"
+   ],
+   [
+    "Party.cs",
+    "Party.Remove"
+   ],
+   [
+    "Party.cs",
+    "Party.PoolToBank"
+   ]
+  ],
+  "linked": false
+ },
+ "g016": {
+  "plan_index": 16,
+  "rule": "party member accessor by index, const overload (const Party&, i32) returning members[static_cast<u32>(i)]",
+  "copies": [
+   "memberAt@src/game_town.cpp",
+   "memberAt@src/partya.cpp",
+   "memberAt@src/status2.cpp"
+  ],
+  "refs": [
+   [
+    "SpellThrown.cs",
+    "SpellThrown.Person"
+   ],
+   [
+    "SpellThrown.cs",
+    "SpellThrown.Companion"
+   ],
+   [
+    "Party.cs",
+    "Party.Remove"
+   ],
+   [
+    "Party.cs",
+    "Party.PoolToBank"
+   ]
+  ],
+  "linked": false
+ },
+ "g017": {
+  "plan_index": 17,
+  "rule": "equip-blocking check (hands, worn-class cap, guild, guild level, stats) returning a reason",
+  "copies": [
+   "equipProblem@src/items1b.cpp",
+   "equipCheck@src/items1a_a.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.EquipProblem"
+   ],
+   [
+    "Character.cs",
+    "Character.WearRefusal"
+   ],
+   [
+    "ItemUse.cs",
+    "ItemUse.Problem"
+   ]
+  ],
+  "linked": true
+ },
+ "g018": {
+  "plan_index": 18,
+  "rule": "transfer whole gold between two characters (receiver-balance cap, giver-balance check, success line)",
+  "copies": [
+   "giveGold@src/items2b.cpp",
+   "giveGold@src/loot1a.cpp",
+   "giveGoldTransfer@src/partya.cpp"
+  ],
+  "refs": [
+   [
+    "GiveCommand.cs",
+    "GiveCommand.Give"
+   ],
+   [
+    "Party.cs",
+    "Party.GaveGold"
+   ]
+  ],
+  "linked": true
+ },
+ "g019": {
+  "plan_index": 19,
+  "rule": "guild experience cap = threshold(level+1) - 1",
+  "copies": [
+   "experienceCapOf@src/progression2.cpp",
+   "experienceCap@src/progression1a.cpp",
+   "experienceCap@src/progression2b.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.ExperienceCap"
+   ],
+   [
+    "Rules.cs",
+    "Rules.Fn13ED"
+   ]
+  ],
+  "linked": true
+ },
+ "g020": {
+  "plan_index": 20,
+  "rule": "paralyse (set character paralysis state on a monster hit)",
+  "copies": [
+   "paralyse@src/status1a.cpp",
+   "paralyse@src/status2.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.Paralyse"
+   ],
+   [
+    "Combat.cs",
+    "CombatEngine.ParalyzedRounds"
+   ],
+   [
+    "Rules.cs",
+    "Rules.ParalysisPasses"
+   ]
+  ],
+  "linked": true
+ },
+ "g021": {
+  "plan_index": 21,
+  "rule": "PartyDeposit, moving each member's on-hand gold into that member's bank",
+  "copies": [
+   "partyDepositGold@src/partyb.cpp",
+   "partyDepositOnHand@src/city1_b.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.Receive"
+   ],
+   [
+    "Party.cs",
+    "Party.PartyDeposit"
+   ]
+  ],
+  "linked": true
+ },
+ "g022": {
+  "plan_index": 22,
+  "rule": "monster melee damage modifier (called from monsterMeleeBlow and resolveMonsterMelee)",
+  "copies": [
+   "meleeDamageModifier@src/combat1b.cpp",
+   "meleeDamageModifier@src/monsters1a.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "Combat.SwingOnce"
+   ]
+  ],
+  "linked": true
+ },
+ "g023": {
+  "plan_index": 23,
+  "rule": "bounds-checked row-major square index, (x,y) to y*width+x, returns -1 when out of bounds",
+  "copies": [
+   "squareIndexOf@src/dungeon2b.cpp",
+   "squareIndexOf@src/dungeon1b_a.cpp"
+  ],
+  "refs": [
+   [
+    "DungeonNav.cs",
+    "DungeonNav.InBounds"
+   ]
+  ],
+  "linked": true
+ },
+ "g024": {
+  "plan_index": 24,
+  "rule": "unchecked row-major index, (x,y) to y*side+x with a fixed side constant (equal only if kMapSide == kGridSize, which is not shown)",
+  "copies": [
+   "squareIndexOf@src/dungeon3.cpp",
+   "squareIndexOf@src/spells1a.cpp"
+  ],
+  "refs": [
+   [
+    "DungeonNav.cs",
+    "DungeonNav.InBounds"
+   ]
+  ],
+  "linked": true
+ },
+ "g025": {
+  "plan_index": 25,
+  "rule": "render a signed integer as decimal text (m1/m2 return a Str; m3/m4 append to an out Str; m3 takes i64, m4 takes i32)",
+  "copies": [
+   "intStr@src/dungeon1b_b.cpp",
+   "intStr@src/game_dungeon.cpp",
+   "appendInt@src/items1b_missing.cpp",
+   "appendInt@src/ref_placeof.cpp"
+  ],
+  "refs": [
+   [
+    "GiveCommand.cs",
+    "GiveCommand.Val"
+   ],
+   [
+    "Rescue.cs",
+    "Rescue.Val"
+   ],
+   [
+    "CharStatFile.cs",
+    "CharStatFile.Paint"
+   ],
+   [
+    "SpellInfo.cs",
+    "SpellInfo.Paint"
+   ]
+  ],
+  "linked": false
+ },
+ "g026": {
+  "plan_index": 26,
+  "rule": "trap identify chance",
+  "copies": [
+   "trapIdentifyChance@src/dungeon1b_b.cpp",
+   "trapIdentifyChance@src/loot2.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.TrapReadout"
+   ]
+  ],
+  "linked": true
+ },
+ "g027": {
+  "plan_index": 27,
+  "rule": "integer to decimal text via std::to_string (i64 input)",
+  "copies": [
+   "numText@src/feat_look.cpp",
+   "numText@src/partya.cpp"
+  ],
+  "refs": [
+   [
+    "SpellInfo.cs",
+    "SpellInfo.Paint"
+   ],
+   [
+    "GuildLog.cs",
+    "GuildLog.Line"
+   ],
+   [
+    "GiveCommand.cs",
+    "GiveCommand.Val"
+   ],
+   [
+    "CastGate.cs",
+    "CastGate.Unfit"
+   ]
+  ],
+  "linked": false
+ },
+ "g028": {
+  "plan_index": 28,
+  "rule": "integer to decimal text via manual digit loop (i32 input)",
+  "copies": [
+   "numText@src/game_town.cpp",
+   "gearNum@src/game_town.cpp"
+  ],
+  "refs": [
+   [
+    "SpellInfo.cs",
+    "SpellInfo.Paint"
+   ],
+   [
+    "VbConvert.cs",
+    "VbConvert.TryCLng"
+   ],
+   [
+    "Rescue.cs",
+    "Rescue.Val"
+   ],
+   [
+    "VbCurrency.cs",
+    "VbCurrency.TryParse"
+   ]
+  ],
+  "linked": false
+ },
+ "g031": {
+  "plan_index": 31,
+  "rule": "rest-in-city age cost in days from hit deficit",
+  "copies": [
+   "restInCity@src/progression2.cpp",
+   "restInCity@src/progression1b.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.RestInCity"
+   ],
+   [
+    "Party.cs",
+    "Party.RestInCity"
+   ]
+  ],
+  "linked": true
+ },
+ "g032": {
+  "plan_index": 32,
+  "rule": "no-op special-effect stub (empty body, all parameters discarded)",
+  "copies": [
+   "applySpecialEffects@src/items1a_b.cpp",
+   "applyItemSpecial@src/items2b.cpp"
+  ],
+  "refs": [
+   [
+    "ItemUse.cs",
+    "ItemUse.ApplySpecial"
+   ],
+   [
+    "ItemUse.cs",
+    "ItemUse.ApplyStatMods"
+   ]
+  ],
+  "linked": true
+ },
+ "g034": {
+  "plan_index": 34,
+  "rule": "rated spell level = round-half-even(spellLevel * rate)",
+  "copies": [
+   "ratedSpellLevel@src/casting1_a.cpp",
+   "ratedSpellLevel@src/casting2.cpp"
+  ],
+  "refs": [
+   [
+    "GuildData.cs",
+    "GuildDef.CanCast"
+   ],
+   [
+    "GuildData.cs",
+    "GuildDef.ShownSpellLevel"
+   ]
+  ],
+  "linked": true
+ },
+ "g035": {
+  "plan_index": 35,
+  "rule": "recalculate max and current spell points from the character (refill to max, or clamp current down to max)",
+  "copies": [
+   "recalcSP@src/attributes.cpp",
+   "recalcSpellPoints@src/casting1_a.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.RecalcSpellPoints"
+   ]
+  ],
+  "linked": true
+ },
+ "g036": {
+  "plan_index": 36,
+  "rule": "absolute value of a 32-bit signed int (absI)",
+  "copies": [
+   "absI@src/companions1a.cpp",
+   "absI@src/companions1b.cpp",
+   "absI@src/spells1b.cpp"
+  ],
+  "refs": [
+   [
+    "Extraction/RgbaImage.cs",
+    "RgbaImage.Decode"
+   ],
+   [
+    "Extraction/RgbaImage.cs",
+    "RgbaImage.Decode"
+   ],
+   [
+    "Character.cs",
+    "Character.Cost"
+   ],
+   [
+    "X87.cs",
+    "X87.RoundToLong"
+   ]
+  ],
+  "linked": false
+ },
+ "g037": {
+  "plan_index": 37,
+  "rule": "return index of first unoccupied companion slot, or -1 if none",
+  "copies": [
+   "firstFreeCompanionSlot@src/companions1a.cpp",
+   "firstCompanionHole@src/companions1b_2.cpp",
+   "firstFreeCompanionSlot@src/companions2a_slotfix.cpp"
+  ],
+  "refs": [
+   [
+    "CompanionTurn.cs",
+    "CompanionTurn.Check"
+   ],
+   [
+    "Combat.cs",
+    "Combat.AcceptJoin"
+   ],
+   [
+    "MonsterAttack.cs",
+    "MonsterAttack.AcidTarget"
+   ],
+   [
+    "CompanionCarry.cs",
+    "CompanionCarry.Run"
+   ]
+  ],
+  "linked": false
+ },
+ "g038": {
+  "plan_index": 38,
+  "rule": "i32 to u32 index cast (static_cast<u32>, negative inputs wrap)",
+  "copies": [
+   "uidx@src/death1a.cpp",
+   "uidx@src/monsters1a.cpp"
+  ],
+  "refs": [
+   [
+    "CastGate.cs",
+    "CastGate.UseOf"
+   ],
+   [
+    "CombatSounds.cs",
+    "CombatSounds.Of"
+   ],
+   [
+    "Spells.cs",
+    "Spells.SpellLevelFor"
+   ],
+   [
+    "SpellThrown.cs",
+    "SpellThrown.Person"
+   ]
+  ],
+  "linked": false
+ },
+ "g039": {
+  "plan_index": 39,
+  "rule": "remove casualties from the party while keeping at least one member (size > 1 guard), zeroing hits and sharing the leader's location. m1 takes an extra countedDead argument.",
+  "copies": [
+   "pruneTheDead@src/partyb.cpp",
+   "pruneTheDead@src/death1a.cpp"
+  ],
+  "refs": [
+   [
+    "Party.cs",
+    "Party.RemoveTheDead"
+   ]
+  ],
+  "linked": true
+ },
+ "g041": {
+  "plan_index": 41,
+  "rule": "remove party member at a given index (shift left, decrement size)",
+  "copies": [
+   "removeMember@src/dungeon1b_b.cpp",
+   "removePartyMember@src/death1a.cpp"
+  ],
+  "refs": [
+   [
+    "Party.cs",
+    "Party.Remove"
+   ]
+  ],
+  "linked": true
+ },
+ "g042": {
+  "plan_index": 42,
+  "rule": "magic-lock roll for a chest (roll = below(100)+1 <= LockedChance, class above CONTAINER, square allows magic), returning ChestLock",
+  "copies": [
+   "rollChestLock@src/loot2.cpp",
+   "rollChestLock@src/loot1a.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "Combat.CombatEngine"
+   ],
+   [
+    "Combat.cs",
+    "Combat.CombatEngine"
+   ],
+   [
+    "Loot.cs",
+    "Loot.RollDrop"
+   ],
+   [
+    "Rules.cs",
+    "Rules.EncounterGold"
+   ]
+  ],
+  "linked": false
+ },
+ "g043": {
+  "plan_index": 43,
+  "rule": "store buy price (floor-0 pass-through; shelf-capped log formula; round half-even)",
+  "copies": [
+   "storeBuyPrice@src/loot1a.cpp",
+   "storeBuyPrice@src/store_prices.cpp"
+  ],
+  "refs": [
+   [
+    "StoreStock.cs",
+    "StoreStock.PriceOf"
+   ]
+  ],
+  "linked": true
+ },
+ "g044": {
+  "plan_index": 44,
+  "rule": "respawn delay from (level, area count, tally), floored, subtracting per unrefilled emptied room",
+  "copies": [
+   "respawnDelay@src/ref_respawn.cpp",
+   "respawnDelaySeconds@src/monsters1b_2.cpp"
+  ],
+  "refs": [
+   [
+    "DungeonState.cs",
+    "DungeonState.RespawnDelay"
+   ],
+   [
+    "DungeonState.cs",
+    "DungeonState.RespawnSeconds"
+   ]
+  ],
+  "linked": true
+ },
+ "g046": {
+  "plan_index": 46,
+  "rule": "isDigit, true when char is in '0'..'9'",
+  "copies": [
+   "isDigit@src/ref_banktyped.cpp",
+   "isDigit@src/ref_goldfromtag.cpp",
+   "isDigit@src/ref_tryclng.cpp"
+  ],
+  "refs": [
+   [
+    "Rescue.cs",
+    "Rescue.Val"
+   ],
+   [
+    "InstallerUnpack.cs",
+    "InstallerUnpack.IsPlainName"
+   ],
+   [
+    "GuildHall.cs",
+    "GuildHall.Info"
+   ],
+   [
+    "VbConvert.cs",
+    "VbConvert.TryCLng"
+   ]
+  ],
+  "linked": false
+ },
+ "g055": {
+  "plan_index": 55,
+  "rule": "spell damage (base modifier with level log term and special effect, random cut, resistance scaling with round-half-even)",
+  "copies": [
+   "playerSpellDamage@src/spells1a.cpp",
+   "monsterSpellDamage@src/spells1a.cpp",
+   "spellDamage@src/spells3_b.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.SpellDamage"
+   ]
+  ],
+  "linked": true
+ },
+ "g056": {
+  "plan_index": 56,
+  "rule": "quest item band, tier to int(tier / 1.5) + 1 (m1 and m2 wrap the division in vbInt; m3 truncates with a plain cast)",
+  "copies": [
+   "questItemBand@src/ref_questband.cpp",
+   "itemBand@src/guilds1_b.cpp",
+   "ItemQuestBand@src/guilds3.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.QuestItemBand"
+   ]
+  ],
+  "linked": true
+ },
+ "g060": {
+  "plan_index": 60,
+  "rule": "join words w[from..end] with single spaces into one string",
+  "copies": [
+   "bufferJoin@src/feat_buffers.cpp",
+   "dcastJoin@src/feat_dcast.cpp",
+   "seerJoinWords@src/feat_seer.cpp"
+  ],
+  "refs": [
+   [
+    "SpellInfo.cs",
+    "SpellInfo.Paint"
+   ],
+   [
+    "CompanionCarry.cs",
+    "CompanionCarry.Run"
+   ],
+   [
+    "MdrLoader.cs",
+    "MdrLoader.LoadRaces"
+   ],
+   [
+    "LookAround.cs",
+    "LookAround.Listed"
+   ]
+  ],
+  "linked": false
+ },
+ "g061": {
+  "plan_index": 61,
+  "rule": "item definition lookup by item.id",
+  "copies": [
+   "itemDefOf@src/combat3.cpp",
+   "itemDefOf@src/attributes.cpp"
+  ],
+  "refs": [
+   [
+    "MdrLoader.cs",
+    "MdrLoader.LoadMonsters"
+   ],
+   [
+    "CastGate.cs",
+    "CastGate.Unfit"
+   ],
+   [
+    "Rules.cs",
+    "Rules.QuestItem"
+   ],
+   [
+    "Import/OriginalSaves.cs",
+    "OriginalSaves.Read"
+   ]
+  ],
+  "linked": false
+ },
+ "g062": {
+  "plan_index": 62,
+  "rule": "create a new character with R5 starting values (stats, StatMax from race, 15/15 hits, 1500 gold, area -1, level-1 guild membership)",
+  "copies": [
+   "createCharacter@src/game_setup.cpp",
+   "createCharacter@src/attributes.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.Create"
+   ]
+  ],
+  "linked": true
+ },
+ "g063": {
+  "plan_index": 63,
+  "rule": "max spell points = (Int + Wis) * 5",
+  "copies": [
+   "maxSpellPoints@src/casting2.cpp",
+   "maxSpellPoints@src/casting3.cpp"
+  ],
+  "refs": [
+   [
+    "Spells.cs",
+    "Spellbook.MaxSpellPoints"
+   ]
+  ],
+  "linked": true
+ },
+ "g064": {
+  "plan_index": 64,
+  "rule": "natural logarithm helper, double to double",
+  "copies": [
+   "lnOf@src/combat1a.cpp",
+   "lnOf@src/spells2.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.TrapReadout"
+   ],
+   [
+    "Seer.cs",
+    "Seer.Fee"
+   ],
+   [
+    "SpecialHits.cs",
+    "SpecialHits.Range"
+   ],
+   [
+    "Rules.cs",
+    "Rules.IdentifySkill"
+   ]
+  ],
+  "linked": false
+ },
+ "g065": {
+  "plan_index": 65,
+  "rule": "companion mishap chance (999/level x bodies/20 x per-kind factor, clamped to per-kind range)",
+  "copies": [
+   "mishapChance@src/combat1b.cpp",
+   "mishapChance@src/companions1a.cpp"
+  ],
+  "refs": [
+   [
+    "CompanionMishap.cs",
+    "CompanionMishap.Chance"
+   ]
+  ],
+  "linked": true
+ },
+ "g066": {
+  "plan_index": 66,
+  "rule": "map DamageKind to resist index (same input and purpose; return types differ, u64 vs i32)",
+  "copies": [
+   "resistIndex@src/combat3.cpp",
+   "resistIndex@src/loot1a.cpp"
+  ],
+  "refs": [
+   [
+    "MdrLoader.cs",
+    "MdrLoader.LoadSpells"
+   ],
+   [
+    "SpellThrown.cs",
+    "SpellThrown.WhoToAsk"
+   ],
+   [
+    "SpellThrown.cs",
+    "SpellThrown.Handles"
+   ],
+   [
+    "SpellEffect.cs",
+    "SpellEffect.ApplyToCharacter"
+   ]
+  ],
+  "linked": false
+ },
+ "g068": {
+  "plan_index": 68,
+  "rule": "stone chance = con * log(max(1,con)) / log(base) - attacker level, capped at R30 95",
+  "copies": [
+   "stoneChance@src/companions1b.cpp",
+   "stoneChance@src/status1a.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.MonsterCritChance"
+   ],
+   [
+    "Rules.cs",
+    "Rules.ParalysisPasses"
+   ],
+   [
+    "Rules.cs",
+    "Rules.BestAbilityValue"
+   ],
+   [
+    "Confinement.cs",
+    "Confinement.BaseValue"
+   ]
+  ],
+  "linked": false
+ },
+ "g069": {
+  "plan_index": 69,
+  "rule": "ASCII case-insensitive string equality (equal length, then compare each char after ASCII case folding)",
+  "copies": [
+   "equalsIgnoreCase@src/options.cpp",
+   "equalsIgnoreCase@src/dataformatsa_a.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.MonsterDamage"
+   ],
+   [
+    "GameOptions.cs",
+    "GameOptions.Flag"
+   ],
+   [
+    "GameOptions.cs",
+    "GameOptions.Flag"
+   ],
+   [
+    "InstallerUnpack.cs",
+    "InstallerUnpack.IsPlainName"
+   ]
+  ],
+  "linked": false
+ },
+ "g070": {
+  "plan_index": 70,
+  "rule": "convert a signed 64-bit integer to its base-10 decimal string, with a leading '-' for negatives",
+  "copies": [
+   "i64ToStr@src/dataformatsb.cpp",
+   "i64ToStr@src/game_save.cpp"
+  ],
+  "refs": [
+   [
+    "CharStatFile.cs",
+    "CharStatFile.Paint"
+   ],
+   [
+    "VbConvert.cs",
+    "VbConvert.TryCLng"
+   ],
+   [
+    "SpellInfo.cs",
+    "SpellInfo.Paint"
+   ],
+   [
+    "CompanionCarry.cs",
+    "CompanionCarry.Run"
+   ]
+  ],
+  "linked": false
+ },
+ "g071": {
+  "plan_index": 71,
+  "rule": "old-age percent of race lifespan (ageDays/365 / lifespan * 100, returns 0 when lifespan <= 0)",
+  "copies": [
+   "oldAgePercent@src/death1b.cpp",
+   "oldAgePercent@src/death2b.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.DiesOfOldAge"
+   ],
+   [
+    "Raising.cs",
+    "Raising.ComplicationChance"
+   ],
+   [
+    "Raising.cs",
+    "Raising.Complicates"
+   ],
+   [
+    "ItemUse.cs",
+    "ItemUse.ApplySpecial"
+   ]
+  ],
+  "linked": false
+ },
+ "g072": {
+  "plan_index": 72,
+  "rule": "raise age cost by death state (Stoned, Rock, other)",
+  "copies": [
+   "raiseAgeCost@src/death3.cpp",
+   "raiseAgeCost@src/feat_rescue.cpp"
+  ],
+  "refs": [
+   [
+    "Raising.cs",
+    "Raising.Resolve"
+   ],
+   [
+    "Rules.cs",
+    "Rules.RaiseRefusal"
+   ],
+   [
+    "Raising.cs",
+    "Raising.AgeDaysFor"
+   ],
+   [
+    "Rules.cs",
+    "Rules.SpellRaiseChance"
+   ]
+  ],
+  "linked": false
+ },
+ "g073": {
+  "plan_index": 73,
+  "rule": "floor square lookup by (x, y) via cellOf, returning a reference into floor.squares (non-const and const overloads with identical bodies)",
+  "copies": [
+   "sqAt@src/dungeon1a.cpp",
+   "sqAt@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "Party.cs",
+    "Party.RemoveTheDead"
+   ],
+   [
+    "SquareInfo.cs",
+    "SquareInfo.Of"
+   ],
+   [
+    "PerceiveAhead.cs",
+    "PerceiveAhead.Look"
+   ],
+   [
+    "AutomapLayout.cs",
+    "AutomapLayout.SquareAt"
+   ]
+  ],
+  "linked": false
+ },
+ "g075": {
+  "plan_index": 75,
+  "rule": "R28 working out position (level roll /15, facing roll /20, position roll /25, each `weight/n > Rnd*100`, in that order)",
+  "copies": [
+   "tryToWorkItOut@src/dungeon3.cpp",
+   "tryToWorkItOut@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "Lost.cs",
+    "Lost.TryToWorkItOut"
+   ],
+   [
+    "Lost.cs",
+    "Lost.TryToWorkItOut(gear"
+   ]
+  ],
+  "linked": true
+ },
+ "g076": {
+  "plan_index": 76,
+  "rule": "map a spell index to its buffer slot (`PackSlots + spellIndex`)",
+  "copies": [
+   "bufferForSpell@src/feat_buffers.cpp",
+   "bufferForSpell@src/items2a.cpp"
+  ],
+  "refs": [
+   [
+    "SpellBuffers.cs",
+    "SpellBuffers.ForSpell"
+   ]
+  ],
+  "linked": true
+ },
+ "g077": {
+  "plan_index": 77,
+  "rule": "decimal string-to-int parse, digits only, rejects empty input and values above 1000000",
+  "copies": [
+   "parseInt@src/game_combat.cpp",
+   "parseInt@src/feat_library.cpp"
+  ],
+  "refs": [
+   [
+    "VbConvert.cs",
+    "VbConvert.TryCLng"
+   ],
+   [
+    "VbCurrency.cs",
+    "VbCurrency.TryParse"
+   ],
+   [
+    "Rescue.cs",
+    "Rescue.Val"
+   ],
+   [
+    "GiveCommand.cs",
+    "GiveCommand.Said"
+   ]
+  ],
+  "linked": false
+ },
+ "g078": {
+  "plan_index": 78,
+  "rule": "split text into words on space/tab, skipping empty tokens",
+  "copies": [
+   "splitWords@src/game_town.cpp",
+   "splitWords@src/features.cpp"
+  ],
+  "refs": [
+   [
+    "VbConvert.cs",
+    "VbConvert.TryCLng"
+   ],
+   [
+    "CharStatFile.cs",
+    "CharStatFile.Paint"
+   ],
+   [
+    "CompanionCarry.cs",
+    "CompanionCarry.Run"
+   ],
+   [
+    "SpellInfo.cs",
+    "SpellInfo.Paint"
+   ]
+  ],
+  "linked": false
+ },
+ "g079": {
+  "plan_index": 79,
+  "rule": "map Guild enum to display name string",
+  "copies": [
+   "guildName@src/game_view.cpp",
+   "guildName@src/game_town.cpp"
+  ],
+  "refs": [
+   [
+    "Guildmasters.cs",
+    "Guildmasters.readonly"
+   ],
+   [
+    "Backups.cs",
+    "Backups.IsGameFile"
+   ],
+   [
+    "Spells.cs",
+    "Spells.Known"
+   ],
+   [
+    "LookAround.cs",
+    "LookAround.Walk"
+   ]
+  ],
+  "linked": false
+ },
+ "g080": {
+  "plan_index": 80,
+  "rule": "convert 1-based player slot to 0-based pack index (playerSlot - 1)",
+  "copies": [
+   "packIndexFromPlayerSlot@src/game_town.cpp",
+   "packIndexFromPlayerSlot@src/items2a.cpp"
+  ],
+  "refs": [
+   [
+    "SpellBuffers.cs",
+    "SpellBuffers.Describe"
+   ],
+   [
+    "Spells.cs",
+    "Spells.SpendCharge"
+   ],
+   [
+    "Party.cs",
+    "Party.SwapItems"
+   ],
+   [
+    "Character.cs",
+    "Character.DepositToVault"
+   ]
+  ],
+  "linked": false
+ },
+ "g081": {
+  "plan_index": 81,
+  "rule": "pack index to player slot (returns packIndex + 1)",
+  "copies": [
+   "playerSlotFromPackIndex@src/game_town.cpp",
+   "playerSlotFromPackIndex@src/items2a.cpp"
+  ],
+  "refs": [
+   [
+    "SpellBuffers.cs",
+    "SpellBuffers.Describe"
+   ],
+   [
+    "Spells.cs",
+    "Spells.SpendCharge"
+   ],
+   [
+    "Party.cs",
+    "Party.SwapItems"
+   ],
+   [
+    "Character.cs",
+    "Character.DepositToVault"
+   ]
+  ],
+  "linked": false
+ },
+ "g082": {
+  "plan_index": 82,
+  "rule": "item name lookup by item id (returns the ItemDef name; the missing-definition fallback differs, see below)",
+  "copies": [
+   "itemNameOf@src/game_town.cpp",
+   "itemNameOf@src/items1b.cpp"
+  ],
+  "refs": [
+   [
+    "CompanionCarry.cs",
+    "CompanionCarry.Run"
+   ],
+   [
+    "CastGate.cs",
+    "CastGate.Unfit"
+   ],
+   [
+    "Librarian.cs",
+    "Librarian.FileSighting"
+   ],
+   [
+    "MdrLoader.cs",
+    "MdrLoader.LoadMonsters"
+   ]
+  ],
+  "linked": false
+ },
+ "g083": {
+  "plan_index": 83,
+  "rule": "clamp integer v to [lo, hi]",
+  "copies": [
+   "clampI@src/items1b.cpp",
+   "clampI@src/status1a.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.ChanceToLeave"
+   ],
+   [
+    "Rules.cs",
+    "Rules.SpellRaiseChance"
+   ],
+   [
+    "Rules.cs",
+    "Rules.SpellDamage"
+   ],
+   [
+    "WholeRows.cs",
+    "WholeRows.Snap"
+   ]
+  ],
+  "linked": false
+ },
+ "g084": {
+  "plan_index": 84,
+  "rule": "party member accessor by index (returns the Character at party.members[index])",
+  "copies": [
+   "partyMember@src/loot1a.cpp",
+   "partyMember@src/loot1a.cpp"
+  ],
+  "refs": [
+   [
+    "SpellThrown.cs",
+    "SpellThrown.Person"
+   ],
+   [
+    "SpellThrown.cs",
+    "SpellThrown.Companion"
+   ],
+   [
+    "Party.cs",
+    "Party.Remove"
+   ],
+   [
+    "Party.cs",
+    "Party.PoolOnHandToBank"
+   ]
+  ],
+  "linked": false
+ },
+ "g085": {
+  "plan_index": 85,
+  "rule": "chest item placement, random start index over party, first free pack slot",
+  "copies": [
+   "placeChestItem@src/loot1a.cpp",
+   "placeChestItem@src/loot2.cpp"
+  ],
+  "refs": [
+   [
+    "ItemUse.cs",
+    "ItemUse.RechargeGuildItems"
+   ],
+   [
+    "Party.cs",
+    "Party.GiveFromVault"
+   ],
+   [
+    "GearCheck.cs",
+    "GearCheck.Any"
+   ],
+   [
+    "Party.cs",
+    "Party.SwapItems"
+   ]
+  ],
+  "linked": false
+ },
+ "g087": {
+  "plan_index": 87,
+  "rule": "index a character's guild membership by Guild enum (`ch.guilds[static_cast<u32>(g)]`). m2 is the const overload of m1, same body.",
+  "copies": [
+   "memberOf@src/progression2.cpp",
+   "memberOf@src/progression2.cpp"
+  ],
+  "refs": [
+   [
+    "Spells.cs",
+    "Spells.SpellLevelFor"
+   ],
+   [
+    "Spells.cs",
+    "Spells.Known"
+   ],
+   [
+    "Spells.cs",
+    "Spells.Cost"
+   ],
+   [
+    "Character.cs",
+    "Character.Create"
+   ]
+  ],
+  "linked": false
+ },
+ "g088": {
+  "plan_index": 88,
+  "rule": "unparalyse (end paralysis, restore AD shift)",
+  "copies": [
+   "unparalyse@src/status1a.cpp",
+   "unparalyse@src/status2.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.Unparalyse"
+   ]
+  ],
+  "linked": true
+ },
+ "g090": {
+  "plan_index": 90,
+  "rule": "pay gold for a cost, taking from goldOnHand first and the remainder from goldInBank, returning false when purse is short",
+  "copies": [
+   "chargePurse@src/items2b_2.cpp",
+   "payCharacterGold@src/companions1a.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.Pay"
+   ]
+  ],
+  "linked": true
+ },
+ "g093": {
+  "plan_index": 93,
+  "rule": "is the square at (x,y) a rock tile (R1/R10, R75/R84)",
+  "copies": [
+   "isRockSquare@src/dungeon1b_a.cpp",
+   "squareIsRock@src/dungeon1a.cpp"
+  ],
+  "refs": [
+   [
+    "DungeonNav.cs",
+    "DungeonNav.IsRock"
+   ]
+  ],
+  "linked": true
+ },
+ "g095": {
+  "plan_index": 95,
+  "rule": "must-be-equipped check for item type codes 1-22, 29, 32, 33, 34",
+  "copies": [
+   "isMustBeEquippedType@src/items1a_b.cpp",
+   "mustBeEquipped@src/items1b.cpp"
+  ],
+  "refs": [
+   [
+    "ItemUse.cs",
+    "ItemUse.MustBeEquippedToUse"
+   ]
+  ],
+  "linked": true
+ },
+ "g096": {
+  "plan_index": 96,
+  "rule": "place string \"x+1,y+1,level\", or failure when the party is lost",
+  "copies": [
+   "placeOf@src/ref_placeof.cpp",
+   "libraryPlaceOf@src/city2a.cpp"
+  ],
+  "refs": [
+   [
+    "Librarian.cs",
+    "Librarian.PlaceOf"
+   ]
+  ],
+  "linked": true
+ },
+ "g100": {
+  "plan_index": 100,
+  "rule": "guild level to spell level, clamped to 1..cap (R21; reference Rules.SpellLevel)",
+  "copies": [
+   "guildSpellLevel@src/casting1_a.cpp",
+   "spellLevelFromGuildLevel@src/casting2.cpp"
+  ],
+  "refs": [
+   [
+    "Rules.cs",
+    "Rules.SpellLevel"
+   ]
+  ],
+  "linked": true
+ },
+ "g104": {
+  "plan_index": 104,
+  "rule": "pay a gold cost from on-hand gold first, then take the remainder from the bank rounded to whole gold (half to even).",
+  "copies": [
+   "chargeTownCost@src/loot1a.cpp",
+   "payFromPurse@src/items3a.cpp"
+  ],
+  "refs": [
+   [
+    "VbCurrency.cs",
+    "VbCurrency.operator-(binary)"
+   ]
+  ],
+  "linked": true
+ },
+ "g107": {
+  "plan_index": 107,
+  "rule": "test whether special-property bit N is set in a monster's flags (bit outside 0..31 returns false)",
+  "copies": [
+   "monsterHasBit@src/combat1a.cpp",
+   "specialFlagBit@src/companions1b.cpp"
+  ],
+  "refs": [
+   [
+    "Combat.cs",
+    "MonsterProperty.Has"
+   ]
+  ],
+  "linked": true
+ },
+ "g109": {
+  "plan_index": 109,
+  "rule": "find spell in GameData.spells by normalized name key, or by numeric id when the text is all digits (up to 9 digits)",
+  "copies": [
+   "castFindSpell@src/game_combat.cpp",
+   "townFindSpell@src/game_town.cpp"
+  ],
+  "refs": [
+   [
+    "Spells.cs",
+    "Spells.Known"
+   ],
+   [
+    "Spells.cs",
+    "Spells.SpellLevelFor"
+   ],
+   [
+    "CompanionInfo.cs",
+    "CompanionInfo.Paint"
+   ],
+   [
+    "CompanionCarry.cs",
+    "CompanionCarry.Run"
+   ]
+  ],
+  "linked": false
+ },
+ "g110": {
+  "plan_index": 110,
+  "rule": "spell-name lookup key (trim leading/trailing spaces, ASCII-lowercase A-Z)",
+  "copies": [
+   "castKey@src/game_combat.cpp",
+   "townKey@src/game_town.cpp"
+  ],
+  "refs": [
+   [
+    "CharStatFile.cs",
+    "CharStatFile.Paint"
+   ],
+   [
+    "GiveCommand.cs",
+    "GiveCommand.Give"
+   ],
+   [
+    "SpellInfo.cs",
+    "SpellInfo.Paint"
+   ],
+   [
+    "CompanionCarry.cs",
+    "CompanionCarry.Run"
+   ]
+  ],
+  "linked": false
+ },
+ "g111": {
+  "plan_index": 111,
+  "rule": "format an i64 as a decimal string, with \"0\" for zero and a leading \"-\" for negatives",
+  "copies": [
+   "bufferInt@src/feat_buffers.cpp",
+   "confNumText@src/feat_confinement.cpp"
+  ],
+  "refs": [
+   [
+    "SpellInfo.cs",
+    "SpellInfo.Paint"
+   ],
+   [
+    "CharStatFile.cs",
+    "CharStatFile.Paint"
+   ],
+   [
+    "VbConvert.cs",
+    "VbConvert.TryCLng"
+   ],
+   [
+    "VbCurrency.cs",
+    "VbCurrency.TryParse"
+   ]
+  ],
+  "linked": false
+ },
+ "g112": {
+  "plan_index": 112,
+  "rule": "i64 to decimal string conversion (sign handling, INT64_MIN safe via unsigned negation)",
+  "copies": [
+   "toStr@src/game_town.cpp",
+   "i64Str@src/items2b.cpp"
+  ],
+  "refs": [
+   [
+    "VbConvert.cs",
+    "VbConvert.TryCLng"
+   ],
+   [
+    "VbCurrency.cs",
+    "VbCurrency.TryParse"
+   ],
+   [
+    "Rescue.cs",
+    "Rescue.Val"
+   ],
+   [
+    "SpellInfo.cs",
+    "SpellInfo.Paint"
+   ]
+  ],
+  "linked": false
+ },
+ "g113": {
+  "plan_index": 113,
+  "rule": "map Align (Good/Neutral/Evil) to kAlignBit constants, default 0",
+  "copies": [
+   "wearerAlignBit@src/combat3.cpp",
+   "alignBitOf@src/guilds2_a.cpp"
+  ],
+  "refs": [
+   [
+    "StoreStock.cs",
+    "StoreStock.CreateInitial"
+   ],
+   [
+    "Rules.cs",
+    "Rules.EngageChance"
+   ],
+   [
+    "Librarian.cs",
+    "Librarian.DescribeMonster"
+   ],
+   [
+    "Perception.cs",
+    "Perception.WrongGuess"
+   ]
+  ],
+  "linked": false
+ },
+ "g114": {
+  "plan_index": 114,
+  "rule": "join words w[from..to) (clamped to w.size()) with single spaces",
+  "copies": [
+   "castJoin@src/game_combat.cpp",
+   "townJoin@src/game_town.cpp"
+  ],
+  "refs": [
+   [
+    "CompanionCarry.cs",
+    "CompanionCarry.Run"
+   ],
+   [
+    "SpellInfo.cs",
+    "SpellInfo.Paint"
+   ],
+   [
+    "GiveCommand.cs",
+    "GiveCommand.Said"
+   ],
+   [
+    "Party.cs",
+    "Party.SwapItems"
+   ]
+  ],
+  "linked": false
+ },
+ "g115": {
+  "plan_index": 115,
+  "rule": "string is non-empty and every character is an ASCII digit '0'-'9'",
+  "copies": [
+   "townAllDigits@src/game_town.cpp",
+   "castAllDigits@src/game_combat.cpp"
+  ],
+  "refs": [
+   [
+    "ItemUse.cs",
+    "ItemUse.RechargeGuildItems"
+   ],
+   [
+    "GearCheck.cs",
+    "GearCheck.Any"
+   ],
+   [
+    "Rules.cs",
+    "Rules.QuestMonster"
+   ],
+   [
+    "ItemUse.cs",
+    "ItemUse.ApplySpecial"
+   ]
+  ],
+  "linked": false
+ },
+ "g116": {
+  "plan_index": 116,
+  "rule": "return index of first empty pack slot (1 to kLastPackIndex), or -1 if none",
+  "copies": [
+   "freeStorageSlot@src/items2b.cpp",
+   "freeSlot@src/items2b_2.cpp"
+  ],
+  "refs": [
+   [
+    "Character.cs",
+    "Character.FirstFreeSlot"
+   ],
+   [
+    "SpellBuffers.cs",
+    "SpellBuffers.Describe"
+   ],
+   [
+    "Party.cs",
+    "Party.GiveFromVault"
+   ],
+   [
+    "Character.cs",
+    "Character.PutInPack"
+   ]
+  ],
+  "linked": false
+ }
+}

@@ -1,0 +1,3 @@
+NO_REFERENCE: The rule is an unchecked row-major index, `y*side+x`. The only reference candidate, `DungeonNav.InBounds`, is a bounds check that returns a bool and never computes an index, so it does not implement the rule. No shown C# method computes the index, so I wrote no files.
+
+REFERENCE: none (closest candidate DungeonNav.InBounds was examined and rejected because it does not compute an index)

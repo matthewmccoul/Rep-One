@@ -1,0 +1,4 @@
+src/dungeon1b_b.cpp intStr intStr__dungeon1b_b
+src/game_dungeon.cpp intStr intStr__game_dungeon
+src/items1b_missing.cpp appendInt appendInt__items1b_missing
+src/ref_placeof.cpp appendInt appendInt__ref_placeof

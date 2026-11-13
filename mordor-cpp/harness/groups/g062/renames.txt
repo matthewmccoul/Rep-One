@@ -1,0 +1,2 @@
+src/game_setup.cpp createCharacter createCharacter__game_setup
+src/attributes.cpp createCharacter createCharacter__attributes

@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the shown Mordor.Core methods implements an index-to-member accessor. `Party.Leader` returns `Members[0]` with no index parameter. `Party.Selected` picks by `SelectedIndex` state, not an argument. `Party.Remove` and `Party.PoolToBank` take a `Character` or a member collection, not an index. The `SpellThrown.Line` and `SpellThrown.Companion` candidates are display-string builders that don't index members. `Party.Members` is a public `List<Character>`, so `Members[i]` is available, but no shown method wraps it with an `(i)` argument, so there is no reference method to call. No files were written.
+
+REFERENCE: none

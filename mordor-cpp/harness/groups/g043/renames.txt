@@ -1,0 +1,2 @@
+src/loot1a.cpp storeBuyPrice storeBuyPrice__loot1a
+src/store_prices.cpp storeBuyPrice storeBuyPrice__store_prices

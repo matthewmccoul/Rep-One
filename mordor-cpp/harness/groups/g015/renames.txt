@@ -1,0 +1,3 @@
+src/game_town.cpp memberAt memberAt__game_town
+src/partya.cpp memberAt memberAt__partya
+src/status2.cpp memberAt memberAt__status2

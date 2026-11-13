@@ -1,0 +1,2 @@
+src/game_combat.cpp parseInt parseInt__game_combat
+src/feat_library.cpp parseInt parseInt__feat_library

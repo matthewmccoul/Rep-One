@@ -1,0 +1,2 @@
+src/game_town.cpp itemNameOf itemNameOf__game_town
+src/items1b.cpp itemNameOf itemNameOf__items1b

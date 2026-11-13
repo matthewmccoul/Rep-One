@@ -1,0 +1,2 @@
+src/combat1b.cpp meleeDamageModifier meleeDamageModifier__combat1b
+src/monsters1a.cpp meleeDamageModifier meleeDamageModifier__monsters1a

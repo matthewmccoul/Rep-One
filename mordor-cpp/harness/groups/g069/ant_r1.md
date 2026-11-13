@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the shown reference methods performs ASCII case-insensitive comparison of two arbitrary strings. The closest is `GameOptions.Flag`, which compares an option's text to the constant "True" using `OrdinalIgnoreCase`. That is Unicode-aware rather than ASCII-only, and its input comes from `For`/`Text` INI lookups that are not in the outline, so the test cannot feed it arbitrary strings without inventing methods. `InstallerUnpack.IsPlainName` uses `ToUpperInvariant` plus literal matching for reserved names, which is a different rule.
+
+REFERENCE: none

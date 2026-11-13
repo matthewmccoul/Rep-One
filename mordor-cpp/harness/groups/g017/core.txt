@@ -1,0 +1,25 @@
+0	Your current guild cannot use this item!
+1	Your current guild cannot use this item!
+2	Your current guild cannot use this item!
+3	Your current guild cannot use this item!
+4	Your current guild cannot use this item!
+5	Your current guild cannot use this item!
+6	Your current guild cannot use this item!
+7	One or more stats are too low!
+8	Your guild level is too low to use item!
+9	Your guild level is too low to use item!
+10	All guild levels too low to use item!
+11	Your guild level is too low to use item!
+12	Your guild level is too low to use item!
+13	Your guild level is too low to use item!
+14	Your guild level is too low to use item!
+15	All guild levels too low to use item!
+16	null
+17	All guild levels too low to use item!
+18	Your currently joined guilds cannot use this item!
+19	Your currently joined guilds cannot use this item!
+20	Your currently joined guilds cannot use this item!
+21	null
+22	Your current guild cannot use this item!
+23	Your guild level is too low to use item!
+24	MISSING_ITEM

@@ -1,0 +1,2 @@
+src/feat_give.cpp giveItem giveItem__feat_give
+src/items2b.cpp giveItem giveItem__items2b

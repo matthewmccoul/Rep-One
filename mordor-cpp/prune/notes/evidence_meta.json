@@ -1,0 +1,3791 @@
+{
+"p001": {
+"pile": 1,
+"members": [
+25,
+1392,
+1829,
+1831,
+1854,
+1935,
+1953,
+1980,
+1981,
+2024,
+2107,
+2789,
+2846,
+2848,
+2855,
+2931
+],
+"refs": [
+[
+"Character.cs",
+"Character.ForfeitQuest"
+],
+[
+"Character.cs",
+"Character.ForfeitRefusal"
+],
+[
+"Character.cs",
+"Character.QuestSatisfied"
+],
+[
+"Character.cs",
+"Character.RemoveFromPack"
+],
+[
+"Interact.cs",
+"Interact.NobodyFor"
+],
+[
+"Party.cs",
+"Party.GaveItem"
+],
+[
+"Party.cs",
+"Party.GiveFromVault"
+],
+[
+"Party.cs",
+"Party.GiveGold"
+]
+]
+},
+"p002": {
+"pile": 2,
+"members": [
+180,
+219,
+348,
+2222,
+2340,
+3078,
+3079,
+3080,
+3084,
+3120,
+3165,
+3326
+],
+"refs": [
+[
+"Effects.cs",
+"Effects.ClearSpellEffects"
+],
+[
+"MonsterAttack.cs",
+"CombatEngine.VbInt"
+],
+[
+"SpellEffect.cs",
+"SpellEffect.ApplyToCharacter"
+],
+[
+"SpellEffect.cs",
+"SpellEffect.ResistKind"
+],
+[
+"SpellThrown.cs",
+"SpellThrown.Apply"
+]
+]
+},
+"p003": {
+"pile": 3,
+"members": [
+482,
+483,
+1962,
+1963,
+2036,
+2290,
+2381,
+2419,
+3250
+],
+"refs": [
+[
+"ChestTraps.cs",
+"ChestTraps.Spring"
+]
+]
+},
+"p004": {
+"pile": 4,
+"members": [
+1032,
+1033,
+1034,
+1035,
+1036,
+1037,
+1072,
+1130,
+1252
+],
+"refs": [
+[
+"DungeonNav.cs",
+"DungeonNav.DungeonNav"
+],
+[
+"DungeonNav.cs",
+"DungeonNav.MapHere"
+],
+[
+"DungeonNav.cs",
+"DungeonNav.MarkExplored"
+],
+[
+"DungeonNav.cs",
+"DungeonNav.SetPosition"
+],
+[
+"MapRecord.cs",
+"MapRecord.BackfillExplored"
+],
+[
+"MapRecord.cs",
+"MapRecord.NoticesSecretDoor"
+],
+[
+"MapRecord.cs",
+"MapRecord.OnBumpInFog"
+],
+[
+"MapRecord.cs",
+"MapRecord.OnEntry"
+]
+]
+},
+"p005": {
+"pile": 5,
+"members": [
+627,
+628,
+697,
+698,
+762,
+3276,
+3277
+],
+"refs": [
+[
+"CompanionMood.cs",
+"CompanionMood.Drift"
+]
+]
+},
+"p006": {
+"pile": 6,
+"members": [
+228,
+251,
+342,
+343,
+581,
+582,
+2401
+],
+"refs": [
+[
+"Confinement.cs",
+"Confinement.PenOne"
+],
+[
+"Confinement.cs",
+"Confinement.ReleaseOne"
+],
+[
+"Confinement.cs",
+"Confinement.Replenish"
+],
+[
+"Rescue.cs",
+"Rescue.TurnOverTown"
+],
+[
+"StoreStock.cs",
+"StoreStock.AddOne"
+],
+[
+"StoreStock.cs",
+"StoreStock.RemoveOne"
+],
+[
+"StoreStock.cs",
+"StoreStock.Replenish"
+]
+]
+},
+"p007": {
+"pile": 7,
+"members": [
+3,
+16,
+1918,
+2037,
+2039,
+2082,
+2083
+],
+"refs": [
+[
+"Models.cs",
+"ItemAlignments.AttDefWorth"
+],
+[
+"Models.cs",
+"ItemAlignments.StatModWorth"
+]
+]
+},
+"p008": {
+"pile": 8,
+"members": [
+392,
+442,
+443,
+2562,
+2784,
+2819
+],
+"refs": [
+[
+"MonsterAttack.cs",
+"CombatEngine.MonsterAttacks"
+],
+[
+"MonsterAttack.cs",
+"CombatEngine.MonstersAttack"
+]
+]
+},
+"p009": {
+"pile": 9,
+"members": [
+593,
+594,
+690,
+691,
+2245,
+2926
+],
+"refs": [
+[
+"CompanionMishap.cs",
+"CompanionMishap.BodiesOnYourSide"
+],
+[
+"CompanionMishap.cs",
+"CompanionMishap.Victim"
+],
+[
+"Rules.cs",
+"Rules.ExpAwarded"
+]
+]
+},
+"p010": {
+"pile": 10,
+"members": [
+654,
+911,
+938,
+939,
+986,
+989
+],
+"refs": [
+[
+"PendingRaise.cs",
+"Morgue.RaiseChance"
+],
+[
+"Rules.cs",
+"Rules.MorgueRaiseChance"
+],
+[
+"Rules.cs",
+"Rules.SpellRaiseChance"
+]
+]
+},
+"p011": {
+"pile": 11,
+"members": [
+308,
+784,
+787,
+966,
+1837,
+1868
+],
+"refs": [
+[
+"GuildLog.cs",
+"GuildLog.All"
+],
+[
+"GuildLog.cs",
+"GuildLog.Append"
+],
+[
+"GuildLog.cs",
+"GuildLog.Clean"
+],
+[
+"GuildLog.cs",
+"GuildLog.WriteAll"
+]
+]
+},
+"p012": {
+"pile": 12,
+"members": [
+818,
+1175,
+1576,
+2455,
+2476,
+3003
+],
+"refs": []
+},
+"p013": {
+"pile": 13,
+"members": [
+1693,
+1694,
+2758,
+2759,
+3280,
+3281
+],
+"refs": []
+},
+"p014": {
+"pile": 14,
+"members": [
+1725,
+1910,
+1916,
+2004,
+2005,
+2177
+],
+"refs": [
+[
+"Character.cs",
+"Character.EquipProblem"
+],
+[
+"Character.cs",
+"Character.WearRefusal"
+],
+[
+"ItemUse.cs",
+"ItemUse.Problem"
+]
+]
+},
+"p015": {
+"pile": 15,
+"members": [
+1642,
+2278,
+2376,
+2538,
+2539,
+2542
+],
+"refs": [
+[
+"Combat.cs",
+"Combat.FillGroup"
+],
+[
+"Combat.cs",
+"Combat.Generate"
+],
+[
+"Combat.cs",
+"Combat.InRoom"
+],
+[
+"Combat.cs",
+"CombatEngine.CombatEngine"
+],
+[
+"Rules.cs",
+"Rules.EncounterGold"
+]
+]
+},
+"p016": {
+"pile": 16,
+"members": [
+457,
+503,
+588,
+596,
+3086
+],
+"refs": [
+[
+"Combat.cs",
+"Combat.CompanionBreathes"
+],
+[
+"Combat.cs",
+"Combat.CompanionTurn"
+]
+]
+},
+"p017": {
+"pile": 17,
+"members": [
+1391,
+2106,
+2297,
+2357,
+2790
+],
+"refs": [
+[
+"GiveCommand.cs",
+"GiveCommand.Give"
+],
+[
+"Party.cs",
+"Party.GaveGold"
+]
+]
+},
+"p018": {
+"pile": 18,
+"members": [
+2153,
+2193,
+3032,
+3119,
+3159
+],
+"refs": [
+[
+"SpellEffect.cs",
+"SpellEffect.BindCompanion"
+]
+]
+},
+"p019": {
+"pile": 19,
+"members": [
+2856,
+2857,
+2863,
+2917,
+2959
+],
+"refs": [
+[
+"Character.cs",
+"Character.ExperienceCap"
+],
+[
+"Rules.cs",
+"Rules.Fn13ED"
+]
+]
+},
+"p020": {
+"pile": 20,
+"members": [
+3194,
+3210,
+3291,
+3292,
+3295
+],
+"refs": [
+[
+"Character.cs",
+"Character.Paralyse"
+],
+[
+"Combat.cs",
+"CombatEngine.ParalyzedRounds"
+],
+[
+"Rules.cs",
+"Rules.ParalysisPasses"
+]
+]
+},
+"p021": {
+"pile": 21,
+"members": [
+236,
+269,
+2141,
+2826,
+2827
+],
+"refs": [
+[
+"Character.cs",
+"Character.Receive"
+],
+[
+"Party.cs",
+"Party.PartyDeposit"
+]
+]
+},
+"p022": {
+"pile": 22,
+"members": [
+510,
+1830,
+1861,
+1888,
+2707
+],
+"refs": [
+[
+"Combat.cs",
+"Combat.KilledBy"
+],
+[
+"Combat.cs",
+"Combat.QuestKill"
+]
+]
+},
+"p023": {
+"pile": 23,
+"members": [
+123,
+124,
+506,
+1934,
+2129
+],
+"refs": [
+[
+"CastGate.cs",
+"CastGate.ClearsItemSlot"
+],
+[
+"Combat.cs",
+"Combat.CharacterActs"
+],
+[
+"Combat.cs",
+"Combat.ItemCharge"
+],
+[
+"Combat.cs",
+"Combat.ItemOrderActs"
+],
+[
+"Combat.cs",
+"CombatEngine.RoundCheckCast"
+]
+]
+},
+"p024": {
+"pile": 24,
+"members": [
+246,
+247,
+679,
+749,
+2195
+],
+"refs": [
+[
+"Confinement.cs",
+"Confinement.FromIdKeys"
+],
+[
+"Confinement.cs",
+"Confinement.Key"
+],
+[
+"Confinement.cs",
+"Confinement.Load"
+],
+[
+"Confinement.cs",
+"Confinement.PriceToBuy"
+],
+[
+"Confinement.cs",
+"Confinement.PriceToSell"
+]
+]
+},
+"p025": {
+"pile": 25,
+"members": [
+222,
+466,
+964,
+965,
+2173
+],
+"refs": [
+[
+"HallRecords.cs",
+"HallRecords.Check"
+]
+]
+},
+"p026": {
+"pile": 26,
+"members": [
+42,
+163,
+2123,
+2178
+],
+"refs": [
+[
+"Spells.cs",
+"Spellbook.SpendCharge"
+]
+]
+},
+"p027": {
+"pile": 27,
+"members": [
+444,
+500,
+612,
+2574
+],
+"refs": [
+[
+"Combat.cs",
+"Combat.SwingOnce"
+]
+]
+},
+"p028": {
+"pile": 28,
+"members": [
+1081,
+1212,
+1261,
+3039
+],
+"refs": [
+[
+"DungeonNav.cs",
+"DungeonNav.InBounds"
+]
+]
+},
+"p029": {
+"pile": 29,
+"members": [
+1124,
+1647,
+2066,
+3010
+],
+"refs": []
+},
+"p030": {
+"pile": 30,
+"members": [
+1169,
+1171,
+1172,
+2382
+],
+"refs": [
+[
+"Rules.cs",
+"Rules.TrapReadout"
+]
+]
+},
+"p031": {
+"pile": 31,
+"members": [
+1447,
+1721,
+1730,
+2760
+],
+"refs": []
+},
+"p032": {
+"pile": 32,
+"members": [
+24,
+1789,
+2865,
+2929
+],
+"refs": [
+[
+"Character.cs",
+"Character.LevelUp"
+]
+]
+},
+"p033": {
+"pile": 33,
+"members": [
+1811,
+1816,
+1817,
+1891
+],
+"refs": [
+[
+"Combat.cs",
+"CombatEngine.BestAbilityGuild"
+],
+[
+"Combat.cs",
+"CombatEngine.WinningGuild"
+],
+[
+"Rules.cs",
+"Rules.BestGuildAD"
+]
+]
+},
+"p034": {
+"pile": 34,
+"members": [
+1796,
+1864,
+1890,
+2235
+],
+"refs": [
+[
+"Character.cs",
+"Character.MeetsUseLevel"
+]
+]
+},
+"p035": {
+"pile": 35,
+"members": [
+1944,
+2064,
+2098,
+2184
+],
+"refs": [
+[
+"StoreStock.cs",
+"StoreStock.RealignCost"
+]
+]
+},
+"p036": {
+"pile": 36,
+"members": [
+317,
+908,
+2876,
+2941
+],
+"refs": [
+[
+"Character.cs",
+"Character.RestInCity"
+],
+[
+"Party.cs",
+"Party.RestInCity"
+]
+]
+},
+"p037": {
+"pile": 37,
+"members": [
+183,
+886,
+3261,
+3305
+],
+"refs": [
+[
+"Combat.cs",
+"CombatEngine.Killed"
+],
+[
+"MonsterAttack.cs",
+"MonsterAttack.Dies"
+]
+]
+},
+"p038": {
+"pile": 38,
+"members": [
+31,
+32,
+68,
+111
+],
+"refs": [
+[
+"CastGate.cs",
+"CastGate.Unfit"
+],
+[
+"Spells.cs",
+"Spellbook.IsOffensive"
+],
+[
+"Spells.cs",
+"Spellbook.Known"
+]
+]
+},
+"p039": {
+"pile": 39,
+"members": [
+411,
+518,
+519,
+1680
+],
+"refs": [
+[
+"Combat.cs",
+"Combat.WeaponsOf"
+],
+[
+"Combat.cs",
+"CombatEngine.WeaponOf"
+]
+]
+},
+"p040": {
+"pile": 40,
+"members": [
+386,
+387,
+730,
+1765
+],
+"refs": [
+[
+"Combat.cs",
+"Combat.AimedRecord"
+],
+[
+"Combat.cs",
+"Combat.Describe"
+],
+[
+"Combat.cs",
+"Combat.FoeOf"
+],
+[
+"Combat.cs",
+"Combat.NextInGroup"
+],
+[
+"Combat.cs",
+"Combat.Retarget"
+],
+[
+"Combat.cs",
+"Combat.TargetFor"
+]
+]
+},
+"p041": {
+"pile": 41,
+"members": [
+433,
+434,
+435,
+2569
+],
+"refs": [
+[
+"Combat.cs",
+"Combat.Round"
+],
+[
+"Combat.cs",
+"Combat.RoundPaced"
+]
+]
+},
+"p042": {
+"pile": 42,
+"members": [
+381,
+2836,
+2837,
+2838
+],
+"refs": [
+[
+"CombatOrder.cs",
+"CombatOrder.ApplyDefault"
+],
+[
+"Party.cs",
+"Party.ApplyDefaultOrders"
+]
+]
+},
+"p043": {
+"pile": 43,
+"members": [
+1931,
+2049,
+2124,
+2180
+],
+"refs": [
+[
+"ItemUse.cs",
+"ItemUse.ApplySpecial"
+],
+[
+"ItemUse.cs",
+"ItemUse.ApplyStatMods"
+]
+]
+},
+"p044": {
+"pile": 44,
+"members": [
+1922,
+2057,
+2058,
+2397
+],
+"refs": [
+[
+"Loot.cs",
+"Loot.NewSlot"
+],
+[
+"Loot.cs",
+"Loot.RollAlignment"
+],
+[
+"Loot.cs",
+"Loot.RollCharges"
+]
+]
+},
+"p045": {
+"pile": 45,
+"members": [
+46,
+50,
+53,
+150
+],
+"refs": [
+[
+"Spells.cs",
+"Spellbook.ClassSpells"
+],
+[
+"Spells.cs",
+"Spellbook.Cost"
+],
+[
+"Spells.cs",
+"Spellbook.TeachingGuild"
+]
+]
+},
+"p046": {
+"pile": 46,
+"members": [
+49,
+51,
+148
+],
+"refs": [
+[
+"GuildData.cs",
+"GuildDef.CanCast"
+],
+[
+"GuildData.cs",
+"GuildDef.ShownSpellLevel"
+]
+]
+},
+"p047": {
+"pile": 47,
+"members": [
+27,
+72,
+1782
+],
+"refs": [
+[
+"Character.cs",
+"Character.RecalcSpellPoints"
+]
+]
+},
+"p048": {
+"pile": 48,
+"members": [
+77,
+78,
+164
+],
+"refs": [
+[
+"MonsterAttack.cs",
+"MonsterAttack.ChooseSpell"
+]
+]
+},
+"p049": {
+"pile": 49,
+"members": [
+477,
+2259,
+2260
+],
+"refs": [
+[
+"Rules.cs",
+"Rules.ChestTrap"
+]
+]
+},
+"p050": {
+"pile": 50,
+"members": [
+547,
+599,
+3107
+],
+"refs": []
+},
+"p051": {
+"pile": 51,
+"members": [
+553,
+660,
+713
+],
+"refs": []
+},
+"p052": {
+"pile": 52,
+"members": [
+583,
+680,
+2158
+],
+"refs": [
+[
+"Confinement.cs",
+"Confinement.Add"
+]
+]
+},
+"p053": {
+"pile": 53,
+"members": [
+635,
+877,
+2531
+],
+"refs": []
+},
+"p054": {
+"pile": 54,
+"members": [
+573,
+678,
+2616
+],
+"refs": [
+[
+"Combat.cs",
+"Combat.AcceptJoin"
+]
+]
+},
+"p055": {
+"pile": 55,
+"members": [
+882,
+2815,
+3265
+],
+"refs": [
+[
+"Party.cs",
+"Party.RemoveTheDead"
+]
+]
+},
+"p056": {
+"pile": 56,
+"members": [
+906,
+920,
+936
+],
+"refs": [
+[
+"PendingRaise.cs",
+"PendingRaise.Accept"
+],
+[
+"Raising.cs",
+"Raising.Resolve"
+]
+]
+},
+"p057": {
+"pile": 57,
+"members": [
+1014,
+1605,
+2406
+],
+"refs": [
+[
+"Combat.cs",
+"CombatEngine.SizeOf"
+]
+]
+},
+"p058": {
+"pile": 58,
+"members": [
+1040,
+1246,
+1276
+],
+"refs": [
+[
+"Character.cs",
+"Character.FoundYourself"
+],
+[
+"Lost.cs",
+"Lost.OnKnownGround"
+]
+]
+},
+"p059": {
+"pile": 59,
+"members": [
+1106,
+1970,
+1972
+],
+"refs": [
+[
+"Combat.cs",
+"Combat.IdSkill"
+],
+[
+"Rules.cs",
+"Rules.IdentifyChance"
+],
+[
+"Rules.cs",
+"Rules.RenameChance"
+]
+]
+},
+"p060": {
+"pile": 60,
+"members": [
+895,
+1129,
+2831
+],
+"refs": [
+[
+"Party.cs",
+"Party.Remove"
+]
+]
+},
+"p061": {
+"pile": 61,
+"members": [
+1774,
+2903,
+2961
+],
+"refs": [
+[
+"Rules.cs",
+"Rules.GuildJoinCost"
+]
+]
+},
+"p062": {
+"pile": 62,
+"members": [
+1976,
+2185,
+3339
+],
+"refs": [
+[
+"StoreStock.cs",
+"StoreStock.IdentifyFee"
+]
+]
+},
+"p063": {
+"pile": 63,
+"members": [
+2013,
+2118,
+2167
+],
+"refs": [
+[
+"Character.cs",
+"Character.ApplyEquipCurse"
+]
+]
+},
+"p064": {
+"pile": 64,
+"members": [
+2261,
+2307,
+2369
+],
+"refs": []
+},
+"p065": {
+"pile": 65,
+"members": [
+2281,
+2282,
+2385
+],
+"refs": [
+[
+"Combat.cs",
+"Combat.ChestRoundsOf"
+],
+[
+"Combat.cs",
+"Combat.ChestTick"
+]
+]
+},
+"p066": {
+"pile": 66,
+"members": [
+2183,
+2301,
+3337
+],
+"refs": [
+[
+"StoreStock.cs",
+"StoreStock.PriceOf"
+]
+]
+},
+"p067": {
+"pile": 67,
+"members": [
+2604,
+2650,
+2669
+],
+"refs": []
+},
+"p068": {
+"pile": 68,
+"members": [
+2640,
+2682,
+3013
+],
+"refs": [
+[
+"DungeonState.cs",
+"DungeonState.RespawnDelay"
+],
+[
+"DungeonState.cs",
+"DungeonState.RespawnSeconds"
+]
+]
+},
+"p069": {
+"pile": 69,
+"members": [
+2806,
+2816,
+3309
+],
+"refs": [
+[
+"HelpCry.cs",
+"HelpCry.Needed"
+]
+]
+},
+"p070": {
+"pile": 70,
+"members": [
+2995,
+3002,
+3020
+],
+"refs": []
+},
+"p071": {
+"pile": 71,
+"members": [
+21,
+524,
+525
+],
+"refs": [
+[
+"Character.cs",
+"Character.StatsADNow"
+],
+[
+"Character.cs",
+"Character.StoredADShift"
+],
+[
+"Combat.cs",
+"CombatEngine.StatsADOf"
+],
+[
+"Rules.cs",
+"Rules.StatsAD"
+]
+]
+},
+"p072": {
+"pile": 72,
+"members": [
+1772,
+1853,
+1877
+],
+"refs": [
+[
+"Character.cs",
+"Character.JoinGuild"
+],
+[
+"GuildHall.cs",
+"GuildHall.Greeting"
+]
+]
+},
+"p073": {
+"pile": 73,
+"members": [
+1168,
+2280,
+2324
+],
+"refs": [
+[
+"Combat.cs",
+"Combat.OpeningRounds"
+]
+]
+},
+"p074": {
+"pile": 74,
+"members": [
+1826,
+2555,
+2641
+],
+"refs": [
+[
+"Combat.cs",
+"Combat.Int"
+],
+[
+"Combat.cs",
+"Combat.KnownAsIndex"
+],
+[
+"Rules.cs",
+"Rules.QuestMonster"
+]
+]
+},
+"p075": {
+"pile": 75,
+"members": [
+1942,
+2044,
+2151
+],
+"refs": [
+[
+"Combining.cs",
+"Combining.Combine"
+],
+[
+"Combining.cs",
+"Combining.Refusal"
+]
+]
+},
+"p076": {
+"pile": 76,
+"members": [
+238,
+2187,
+2248
+],
+"refs": [
+[
+"Confinement.cs",
+"Confinement.Count"
+],
+[
+"StoreStock.cs",
+"StoreStock.Count"
+],
+[
+"StoreStock.cs",
+"StoreStock.Counts"
+]
+]
+},
+"p077": {
+"pile": 77,
+"members": [
+2012,
+2362,
+2363
+],
+"refs": [
+[
+"Loot.cs",
+"Loot.AttachesItself"
+]
+]
+},
+"p078": {
+"pile": 78,
+"members": [
+1964,
+2089,
+2200
+],
+"refs": [
+[
+"MonsterAttack.cs",
+"CombatEngine.TheftSlot"
+]
+]
+},
+"p079": {
+"pile": 79,
+"members": [
+2791,
+2825,
+2829
+],
+"refs": [
+[
+"Party.cs",
+"Party.PoolCompleted"
+],
+[
+"Party.cs",
+"Party.PoolGold"
+]
+]
+},
+"p080": {
+"pile": 80,
+"members": [
+270,
+2794,
+2828
+],
+"refs": [
+[
+"Party.cs",
+"Party.AllOrNothing"
+],
+[
+"Party.cs",
+"Party.PoolAndDeposit"
+],
+[
+"Party.cs",
+"Party.PoolOnHandToBank"
+],
+[
+"Party.cs",
+"Party.PoolToBank"
+]
+]
+},
+"p081": {
+"pile": 81,
+"members": [
+102,
+1055,
+1843
+],
+"refs": [
+[
+"PerceiveAhead.cs",
+"PerceiveAhead.Best"
+],
+[
+"Rules.cs",
+"Rules.AbilityChance"
+],
+[
+"Rules.cs",
+"Rules.BestAbilityChance"
+],
+[
+"Rules.cs",
+"Rules.BestAbilityValue"
+]
+]
+},
+"p082": {
+"pile": 82,
+"members": [
+1357,
+2862,
+2927
+],
+"refs": [
+[
+"Rules.cs",
+"Rules.ChestExp"
+]
+]
+},
+"p083": {
+"pile": 83,
+"members": [
+3054,
+3055,
+3175
+],
+"refs": [
+[
+"Rules.cs",
+"Rules.SpellDamage"
+]
+]
+},
+"p084": {
+"pile": 84,
+"members": [
+3067,
+3176,
+3177
+],
+"refs": [
+[
+"Rules.cs",
+"Rules.SpellHeal"
+],
+[
+"Rules.cs",
+"Rules.SpellHealAverage"
+]
+]
+},
+"p085": {
+"pile": 85,
+"members": [
+2264,
+2265,
+2266
+],
+"refs": [
+[
+"Rules.cs",
+"Rules.GroupGold"
+]
+]
+},
+"p086": {
+"pile": 86,
+"members": [
+1823,
+1885,
+3012
+],
+"refs": [
+[
+"Rules.cs",
+"Rules.QuestItemBand"
+]
+]
+},
+"p087": {
+"pile": 87,
+"members": [
+452,
+589,
+3087
+],
+"refs": [
+[
+"SpecialHits.cs",
+"SpecialHits.Range"
+]
+]
+},
+"p088": {
+"pile": 88,
+"members": [
+3215,
+3241,
+3319
+],
+"refs": [
+[
+"SpecialHits.cs",
+"SpecialHits.ResistedBy"
+]
+]
+},
+"p089": {
+"pile": 89,
+"members": [
+248,
+1977,
+3338
+],
+"refs": [
+[
+"StoreStock.cs",
+"StoreStock.SellPrice"
+]
+]
+},
+"p090": {
+"pile": 90,
+"members": [
+273,
+3004,
+3021
+],
+"refs": [
+[
+"VbConvert.cs",
+"VbConvert.HexDigit"
+]
+]
+},
+"p091": {
+"pile": 91,
+"members": [
+1286,
+1350,
+1543
+],
+"refs": []
+},
+"p092": {
+"pile": 92,
+"members": [
+1,
+515
+],
+"refs": []
+},
+"p093": {
+"pile": 93,
+"members": [
+11,
+1683
+],
+"refs": [
+[
+"Character.cs",
+"Character.Create"
+]
+]
+},
+"p094": {
+"pile": 94,
+"members": [
+17,
+1814
+],
+"refs": [
+[
+"Rules.cs",
+"Rules.AdInterval"
+],
+[
+"Rules.cs",
+"Rules.GuildAD"
+],
+[
+"Rules.cs",
+"Rules.GuildADSingle"
+]
+]
+},
+"p095": {
+"pile": 95,
+"members": [
+30,
+3149
+],
+"refs": [
+[
+"Spells.cs",
+"Spellbook.IsCureParalysis"
+]
+]
+},
+"p096": {
+"pile": 96,
+"members": [
+116,
+151
+],
+"refs": []
+},
+"p097": {
+"pile": 97,
+"members": [
+144,
+1049
+],
+"refs": []
+},
+"p098": {
+"pile": 98,
+"members": [
+172,
+220
+],
+"refs": [
+[
+"Spells.cs",
+"Spellbook.MaxSpellPoints"
+]
+]
+},
+"p099": {
+"pile": 99,
+"members": [
+203,
+2175
+],
+"refs": []
+},
+"p100": {
+"pile": 100,
+"members": [
+237,
+2142
+],
+"refs": []
+},
+"p101": {
+"pile": 101,
+"members": [
+347,
+3340
+],
+"refs": []
+},
+"p102": {
+"pile": 102,
+"members": [
+354,
+366
+],
+"refs": []
+},
+"p103": {
+"pile": 103,
+"members": [
+367,
+400
+],
+"refs": []
+},
+"p104": {
+"pile": 104,
+"members": [
+377,
+1581
+],
+"refs": []
+},
+"p105": {
+"pile": 105,
+"members": [
+378,
+2907
+],
+"refs": []
+},
+"p106": {
+"pile": 106,
+"members": [
+397,
+3129
+],
+"refs": []
+},
+"p107": {
+"pile": 107,
+"members": [
+458,
+591
+],
+"refs": [
+[
+"CompanionMishap.cs",
+"CompanionMishap.Chance"
+]
+]
+},
+"p108": {
+"pile": 108,
+"members": [
+474,
+878
+],
+"refs": []
+},
+"p109": {
+"pile": 109,
+"members": [
+504,
+3088
+],
+"refs": []
+},
+"p110": {
+"pile": 110,
+"members": [
+516,
+2250
+],
+"refs": []
+},
+"p111": {
+"pile": 111,
+"members": [
+545,
+2001
+],
+"refs": [
+[
+"Character.cs",
+"Character.SlotEmpty"
+]
+]
+},
+"p112": {
+"pile": 112,
+"members": [
+577,
+2668
+],
+"refs": []
+},
+"p113": {
+"pile": 113,
+"members": [
+580,
+681
+],
+"refs": [
+[
+"CompanionRef.cs",
+"CompanionRef.Of"
+]
+]
+},
+"p114": {
+"pile": 114,
+"members": [
+605,
+736
+],
+"refs": [
+[
+"ItemUse.cs",
+"ItemUse.CastLevel"
+]
+]
+},
+"p115": {
+"pile": 115,
+"members": [
+616,
+3222
+],
+"refs": []
+},
+"p116": {
+"pile": 116,
+"members": [
+617,
+729
+],
+"refs": []
+},
+"p117": {
+"pile": 117,
+"members": [
+653,
+704
+],
+"refs": []
+},
+"p118": {
+"pile": 118,
+"members": [
+674,
+2192
+],
+"refs": [
+[
+"Character.cs",
+"Binding.Charge"
+]
+]
+},
+"p119": {
+"pile": 119,
+"members": [
+707,
+759
+],
+"refs": [
+[
+"SpellEffect.cs",
+"SpellEffect.CompanionRaiseChance"
+]
+]
+},
+"p120": {
+"pile": 120,
+"members": [
+766,
+2731
+],
+"refs": []
+},
+"p121": {
+"pile": 121,
+"members": [
+807,
+874
+],
+"refs": []
+},
+"p122": {
+"pile": 122,
+"members": [
+822,
+1652
+],
+"refs": []
+},
+"p123": {
+"pile": 123,
+"members": [
+888,
+1157
+],
+"refs": []
+},
+"p124": {
+"pile": 124,
+"members": [
+954,
+979
+],
+"refs": []
+},
+"p125": {
+"pile": 125,
+"members": [
+955,
+982
+],
+"refs": []
+},
+"p126": {
+"pile": 126,
+"members": [
+998,
+1509
+],
+"refs": []
+},
+"p127": {
+"pile": 127,
+"members": [
+1005,
+1080
+],
+"refs": []
+},
+"p128": {
+"pile": 128,
+"members": [
+1010,
+1011
+],
+"refs": []
+},
+"p129": {
+"pile": 129,
+"members": [
+1039,
+1113
+],
+"refs": [
+[
+"Character.cs",
+"Character.BecomeLost"
+],
+[
+"Lost.cs",
+"Lost.LoseDirection"
+]
+]
+},
+"p130": {
+"pile": 130,
+"members": [
+1041,
+1277
+],
+"refs": [
+[
+"Lost.cs",
+"Lost.TryToWorkItOut"
+],
+[
+"Lost.cs",
+"Lost.TryToWorkItOut(gear"
+]
+]
+},
+"p131": {
+"pile": 131,
+"members": [
+1043,
+1280
+],
+"refs": []
+},
+"p132": {
+"pile": 132,
+"members": [
+1073,
+1594
+],
+"refs": [
+[
+"LookAround.cs",
+"ListedParty.Sync"
+]
+]
+},
+"p133": {
+"pile": 133,
+"members": [
+1094,
+1646
+],
+"refs": []
+},
+"p134": {
+"pile": 134,
+"members": [
+1098,
+1228
+],
+"refs": []
+},
+"p135": {
+"pile": 135,
+"members": [
+1100,
+1222
+],
+"refs": []
+},
+"p136": {
+"pile": 136,
+"members": [
+1153,
+1259
+],
+"refs": []
+},
+"p137": {
+"pile": 137,
+"members": [
+1210,
+2475
+],
+"refs": []
+},
+"p138": {
+"pile": 138,
+"members": [
+1241,
+1264
+],
+"refs": []
+},
+"p139": {
+"pile": 139,
+"members": [
+1287,
+2095
+],
+"refs": [
+[
+"SpellBuffers.cs",
+"SpellBuffers.ForSpell"
+]
+]
+},
+"p140": {
+"pile": 140,
+"members": [
+1389,
+2019
+],
+"refs": []
+},
+"p141": {
+"pile": 141,
+"members": [
+1435,
+1584
+],
+"refs": []
+},
+"p142": {
+"pile": 142,
+"members": [
+1458,
+1516
+],
+"refs": []
+},
+"p143": {
+"pile": 143,
+"members": [
+1577,
+1687
+],
+"refs": []
+},
+"p144": {
+"pile": 144,
+"members": [
+1586,
+1689
+],
+"refs": []
+},
+"p145": {
+"pile": 145,
+"members": [
+1692,
+1748
+],
+"refs": []
+},
+"p146": {
+"pile": 146,
+"members": [
+1696,
+3193
+],
+"refs": []
+},
+"p147": {
+"pile": 147,
+"members": [
+1708,
+2069
+],
+"refs": []
+},
+"p148": {
+"pile": 148,
+"members": [
+1709,
+2070
+],
+"refs": []
+},
+"p149": {
+"pile": 149,
+"members": [
+1723,
+1986
+],
+"refs": []
+},
+"p150": {
+"pile": 150,
+"members": [
+1787,
+2921
+],
+"refs": [
+[
+"Character.cs",
+"Character.CanLevelUp"
+]
+]
+},
+"p151": {
+"pile": 151,
+"members": [
+1788,
+2922
+],
+"refs": [
+[
+"Character.cs",
+"Character.GoldForNextLevel"
+]
+]
+},
+"p152": {
+"pile": 152,
+"members": [
+1795,
+2234
+],
+"refs": [
+[
+"Character.cs",
+"Character.UseLevel"
+]
+]
+},
+"p153": {
+"pile": 153,
+"members": [
+1835,
+2216
+],
+"refs": [
+[
+"Rules.cs",
+"Rules.IdentifySkill"
+]
+]
+},
+"p154": {
+"pile": 154,
+"members": [
+1899,
+2007
+],
+"refs": [
+[
+"Character.cs",
+"Character.WearClassOf"
+]
+]
+},
+"p155": {
+"pile": 155,
+"members": [
+1968,
+2062
+],
+"refs": []
+},
+"p156": {
+"pile": 156,
+"members": [
+1978,
+2148
+],
+"refs": []
+},
+"p157": {
+"pile": 157,
+"members": [
+1982,
+3181
+],
+"refs": []
+},
+"p158": {
+"pile": 158,
+"members": [
+1989,
+2980
+],
+"refs": []
+},
+"p159": {
+"pile": 159,
+"members": [
+2122,
+2179
+],
+"refs": [
+[
+"Combat.cs",
+"CombatEngine.CastSpell"
+]
+]
+},
+"p160": {
+"pile": 160,
+"members": [
+2138,
+2302
+],
+"refs": []
+},
+"p161": {
+"pile": 161,
+"members": [
+2147,
+2189
+],
+"refs": []
+},
+"p162": {
+"pile": 162,
+"members": [
+2152,
+2191
+],
+"refs": []
+},
+"p163": {
+"pile": 163,
+"members": [
+2154,
+2194
+],
+"refs": []
+},
+"p164": {
+"pile": 164,
+"members": [
+2169,
+2228
+],
+"refs": []
+},
+"p165": {
+"pile": 165,
+"members": [
+2243,
+2244
+],
+"refs": []
+},
+"p166": {
+"pile": 166,
+"members": [
+2255,
+2313
+],
+"refs": []
+},
+"p167": {
+"pile": 167,
+"members": [
+2277,
+2403
+],
+"refs": []
+},
+"p168": {
+"pile": 168,
+"members": [
+2503,
+2528
+],
+"refs": []
+},
+"p169": {
+"pile": 169,
+"members": [
+2517,
+2529
+],
+"refs": []
+},
+"p170": {
+"pile": 170,
+"members": [
+2518,
+2530
+],
+"refs": []
+},
+"p171": {
+"pile": 171,
+"members": [
+2556,
+2681
+],
+"refs": []
+},
+"p172": {
+"pile": 172,
+"members": [
+2646,
+2673
+],
+"refs": []
+},
+"p173": {
+"pile": 173,
+"members": [
+2654,
+2688
+],
+"refs": []
+},
+"p174": {
+"pile": 174,
+"members": [
+2763,
+2811
+],
+"refs": []
+},
+"p175": {
+"pile": 175,
+"members": [
+2775,
+2822
+],
+"refs": [
+[
+"Party.cs",
+"Party.SamePlace"
+]
+]
+},
+"p176": {
+"pile": 176,
+"members": [
+2779,
+2849
+],
+"refs": []
+},
+"p177": {
+"pile": 177,
+"members": [
+2905,
+2953
+],
+"refs": [
+[
+"Character.cs",
+"Character.AgeBy"
+]
+]
+},
+"p178": {
+"pile": 178,
+"members": [
+2912,
+2913
+],
+"refs": []
+},
+"p179": {
+"pile": 179,
+"members": [
+3073,
+3298
+],
+"refs": []
+},
+"p180": {
+"pile": 180,
+"members": [
+3195,
+3293
+],
+"refs": [
+[
+"Character.cs",
+"Character.Unparalyse"
+]
+]
+},
+"p181": {
+"pile": 181,
+"members": [
+3229,
+3320
+],
+"refs": []
+},
+"p182": {
+"pile": 182,
+"members": [
+3270,
+3311
+],
+"refs": []
+},
+"p183": {
+"pile": 183,
+"members": [
+507,
+2672
+],
+"refs": [
+[
+"Asmodeus.cs",
+"Asmodeus.Is"
+]
+]
+},
+"p184": {
+"pile": 184,
+"members": [
+207,
+216
+],
+"refs": [
+[
+"CastGate.cs",
+"CastGate.Refuse"
+]
+]
+},
+"p185": {
+"pile": 185,
+"members": [
+567,
+2164
+],
+"refs": [
+[
+"Character.cs",
+"Character.Pay"
+]
+]
+},
+"p186": {
+"pile": 186,
+"members": [
+1905,
+1952
+],
+"refs": [
+[
+"Character.cs",
+"Character.PutInPack"
+]
+]
+},
+"p187": {
+"pile": 187,
+"members": [
+1936,
+2796
+],
+"refs": [
+[
+"Character.cs",
+"Character.SwapSlots"
+]
+]
+},
+"p188": {
+"pile": 188,
+"members": [
+1819,
+1859
+],
+"refs": [
+[
+"Character.cs",
+"Character.RollQuestForLevel"
+],
+[
+"Rules.cs",
+"Rules.RollQuest"
+]
+]
+},
+"p189": {
+"pile": 189,
+"members": [
+791,
+838
+],
+"refs": [
+[
+"Character.cs",
+"Character.SafeFileName"
+]
+]
+},
+"p190": {
+"pile": 190,
+"members": [
+1957,
+2032
+],
+"refs": [
+[
+"ChestTraps.cs",
+"ChestTraps.Destructible"
+]
+]
+},
+"p191": {
+"pile": 191,
+"members": [
+2334,
+2335
+],
+"refs": [
+[
+"Combat.cs",
+"CombatEngine.AwardSpoils"
+]
+]
+},
+"p192": {
+"pile": 192,
+"members": [
+464,
+2294
+],
+"refs": [
+[
+"Combat.cs",
+"Combat.PayGold"
+]
+]
+},
+"p193": {
+"pile": 193,
+"members": [
+3048,
+3097
+],
+"refs": [
+[
+"Combat.cs",
+"CombatEngine.CastDamage"
+],
+[
+"Combat.cs",
+"CombatEngine.SpellHitsOn"
+],
+[
+"MonsterAttack.cs",
+"MonsterAttack.MonsterSpellHits"
+]
+]
+},
+"p194": {
+"pile": 194,
+"members": [
+121,
+143
+],
+"refs": [
+[
+"Combat.cs",
+"CombatEngine.NonCombatInFight"
+]
+]
+},
+"p195": {
+"pile": 195,
+"members": [
+554,
+555
+],
+"refs": [
+[
+"CompanionRef.cs",
+"CompanionRef.FirstWithId"
+],
+[
+"CompanionRef.cs",
+"CompanionRef.FromId"
+],
+[
+"CompanionRef.cs",
+"CompanionRef.Resolve"
+]
+]
+},
+"p196": {
+"pile": 196,
+"members": [
+750,
+1839
+],
+"refs": [
+[
+"CompanionSlots.cs",
+"CompanionSlots.Left"
+],
+[
+"CompanionSlots.cs",
+"CompanionSlots.Release"
+],
+[
+"CompanionSlots.cs",
+"CompanionSlots.this[]"
+]
+]
+},
+"p197": {
+"pile": 197,
+"members": [
+663,
+752
+],
+"refs": [
+[
+"CompanionSlots.cs",
+"CompanionSlots.NoRearrangingTheDead"
+],
+[
+"CompanionSlots.cs",
+"CompanionSlots.Rearrange"
+]
+]
+},
+"p198": {
+"pile": 198,
+"members": [
+2159,
+2196
+],
+"refs": [
+[
+"Confinement.cs",
+"Confinement.PriceToIdentify"
+]
+]
+},
+"p199": {
+"pile": 199,
+"members": [
+2160,
+2197
+],
+"refs": [
+[
+"Confinement.cs",
+"Confinement.PriceToRealign"
+],
+[
+"Confinement.cs",
+"Confinement.Take"
+]
+]
+},
+"p200": {
+"pile": 200,
+"members": [
+1023,
+1082
+],
+"refs": [
+[
+"DungeonNav.cs",
+"DungeonNav.IsRock"
+]
+]
+},
+"p201": {
+"pile": 201,
+"members": [
+174,
+1122
+],
+"refs": [
+[
+"DungeonNav.cs",
+"DungeonNav.StepThrough"
+]
+]
+},
+"p202": {
+"pile": 202,
+"members": [
+2292,
+2293
+],
+"refs": [
+[
+"GoldShare.cs",
+"GoldShare.Share"
+],
+[
+"GoldShare.cs",
+"GoldShare.Shown"
+]
+]
+},
+"p203": {
+"pile": 203,
+"members": [
+1863,
+1889
+],
+"refs": [
+[
+"GuildData.cs",
+"GuildData.CanUse"
+]
+]
+},
+"p204": {
+"pile": 204,
+"members": [
+292,
+788
+],
+"refs": [
+[
+"GuildLog.cs",
+"GuildLog.DaySerial"
+],
+[
+"GuildLog.cs",
+"GuildLog.Today"
+],
+[
+"Librarian.cs",
+"Librarian.Serial"
+]
+]
+},
+"p205": {
+"pile": 205,
+"members": [
+307,
+331
+],
+"refs": [
+[
+"GuildLog.cs",
+"GuildLog.NeedsCleaning"
+]
+]
+},
+"p206": {
+"pile": 206,
+"members": [
+1834,
+1870
+],
+"refs": [
+[
+"GuildTitles.cs",
+"GuildTitles.Of"
+]
+]
+},
+"p207": {
+"pile": 207,
+"members": [
+2438,
+2439
+],
+"refs": [
+[
+"HallRecords.cs",
+"HallRecords.MonsterPower"
+]
+]
+},
+"p208": {
+"pile": 208,
+"members": [
+1926,
+2045
+],
+"refs": [
+[
+"ItemUse.cs",
+"ItemUse.MustBeEquippedToUse"
+]
+]
+},
+"p209": {
+"pile": 209,
+"members": [
+113,
+2073
+],
+"refs": [
+[
+"ItemUse.cs",
+"ItemUse.ConsumedWhenEmpty"
+]
+]
+},
+"p210": {
+"pile": 210,
+"members": [
+293,
+328
+],
+"refs": [
+[
+"Librarian.cs",
+"Librarian.DaysAgo"
+],
+[
+"Librarian.cs",
+"Librarian.DaysAgoForItem"
+],
+[
+"Librarian.cs",
+"Librarian.DescribeItem"
+],
+[
+"Librarian.cs",
+"Librarian.DescribeMonster"
+]
+]
+},
+"p211": {
+"pile": 211,
+"members": [
+289,
+855
+],
+"refs": [
+[
+"Librarian.cs",
+"Store.EditMonster"
+],
+[
+"Librarian.cs",
+"Store.ForMonster"
+],
+[
+"Librarian.cs",
+"Store.MonsterKey"
+]
+]
+},
+"p212": {
+"pile": 212,
+"members": [
+281,
+3011
+],
+"refs": [
+[
+"Librarian.cs",
+"Librarian.PlaceOf"
+]
+]
+},
+"p213": {
+"pile": 213,
+"members": [
+282,
+283
+],
+"refs": [
+[
+"Librarian.cs",
+"Librarian.FileSighting"
+]
+]
+},
+"p214": {
+"pile": 214,
+"members": [
+2463,
+3030
+],
+"refs": [
+[
+"LibrarySearch.cs",
+"LibrarySearch.WordSort"
+],
+[
+"LibrarySearch.cs",
+"ListBoxOrder.Compare"
+]
+]
+},
+"p215": {
+"pile": 215,
+"members": [
+1969,
+2055
+],
+"refs": [
+[
+"Loot.cs",
+"Loot.NameFor"
+],
+[
+"Loot.cs",
+"Loot.TypeName"
+],
+[
+"Loot.cs",
+"Loot.UnknownName"
+],
+[
+"Mdata1.cs",
+"Mdata1.ItemTypeName"
+]
+]
+},
+"p216": {
+"pile": 216,
+"members": [
+1929,
+2048
+],
+"refs": [
+[
+"MonsterAttack.cs",
+"MonsterAttack.RemoveItem"
+]
+]
+},
+"p217": {
+"pile": 217,
+"members": [
+2772,
+2820
+],
+"refs": [
+[
+"Party.cs",
+"Party.Add"
+],
+[
+"Party.cs",
+"Party.WhyCannotJoin"
+]
+]
+},
+"p218": {
+"pile": 218,
+"members": [
+2797,
+2832
+],
+"refs": [
+[
+"Party.cs",
+"Party.NowLeader"
+],
+[
+"Party.cs",
+"Party.Swap"
+]
+]
+},
+"p219": {
+"pile": 219,
+"members": [
+905,
+940
+],
+"refs": [
+[
+"PendingRaise.cs",
+"Morgue.RaiseCost"
+]
+]
+},
+"p220": {
+"pile": 220,
+"members": [
+1054,
+1213
+],
+"refs": [
+[
+"PerceiveAhead.cs",
+"PerceiveAhead.SquareAhead"
+]
+]
+},
+"p221": {
+"pile": 221,
+"members": [
+1053,
+1270
+],
+"refs": [
+[
+"Perception.cs",
+"Perception.WrongGuess"
+]
+]
+},
+"p222": {
+"pile": 222,
+"members": [
+103,
+1050
+],
+"refs": [
+[
+"Perception.cs",
+"Perception.HitATeleporter"
+],
+[
+"Perception.cs",
+"Perception.Noticeable"
+],
+[
+"Perception.cs",
+"Perception.PerceiveSquare"
+]
+]
+},
+"p223": {
+"pile": 223,
+"members": [
+2864,
+2923
+],
+"refs": [
+[
+"Progress.cs",
+"Progress.NextLevel"
+],
+[
+"Progress.cs",
+"Progress.ToolbarNeed"
+]
+]
+},
+"p224": {
+"pile": 224,
+"members": [
+1621,
+2056
+],
+"refs": [
+[
+"Models.cs",
+"ItemAlignments.Possible"
+],
+[
+"RaceData.cs",
+"Race.Alignments"
+]
+]
+},
+"p225": {
+"pile": 225,
+"members": [
+1149,
+1454
+],
+"refs": [
+[
+"RoomRoster.cs",
+"RoomRoster.DeadBodies"
+],
+[
+"RoomRoster.cs",
+"RoomRoster.Lines"
+],
+[
+"RoomRoster.cs",
+"RoomRoster.Strangers"
+]
+]
+},
+"p226": {
+"pile": 226,
+"members": [
+1104,
+3254
+],
+"refs": [
+[
+"Rules.cs",
+"Rules.QuicksandTakesSomething"
+]
+]
+},
+"p227": {
+"pile": 227,
+"members": [
+484,
+485
+],
+"refs": [
+[
+"Rules.cs",
+"Rules.BackstabChance"
+],
+[
+"Rules.cs",
+"Rules.CritChance"
+],
+[
+"Rules.cs",
+"Rules.SpecialHitChance"
+]
+]
+},
+"p228": {
+"pile": 228,
+"members": [
+43,
+147
+],
+"refs": [
+[
+"Rules.cs",
+"Rules.SpellLevel"
+]
+]
+},
+"p229": {
+"pile": 229,
+"members": [
+910,
+926
+],
+"refs": [
+[
+"Rules.cs",
+"Rules.RaiseRefusal"
+]
+]
+},
+"p230": {
+"pile": 230,
+"members": [
+230,
+336
+],
+"refs": [
+[
+"Rules.cs",
+"Rules.RoundedIndex"
+]
+]
+},
+"p231": {
+"pile": 231,
+"members": [
+2060,
+2061
+],
+"refs": [
+[
+"Seer.cs",
+"Seer.Carriers"
+]
+]
+},
+"p232": {
+"pile": 232,
+"members": [
+304,
+1204
+],
+"refs": [
+[
+"Seer.cs",
+"Seer.LocateCharacter"
+]
+]
+},
+"p233": {
+"pile": 233,
+"members": [
+620,
+725
+],
+"refs": [
+[
+"SpecialHits.cs",
+"SpecialHits.Raw"
+]
+]
+},
+"p234": {
+"pile": 234,
+"members": [
+3052,
+3074
+],
+"refs": [
+[
+"SpellEffect.cs",
+"SpellEffect.IsState"
+],
+[
+"SpellEffect.cs",
+"SpellEffect.Of"
+],
+[
+"SpellThrown.cs",
+"SpellThrown.Handles"
+]
+]
+},
+"p235": {
+"pile": 235,
+"members": [
+44,
+88
+],
+"refs": [
+[
+"SpellEffect.cs",
+"SpellEffect.BindLevelFrom"
+],
+[
+"Spells.cs",
+"Spellbook.CasterSpellLevel"
+],
+[
+"Spells.cs",
+"Spellbook.SpellLevelFor"
+]
+]
+},
+"p236": {
+"pile": 236,
+"members": [
+122,
+1353
+],
+"refs": [
+[
+"Spells.cs",
+"Spellbook.ShownBold"
+]
+]
+},
+"p237": {
+"pile": 237,
+"members": [
+107,
+179
+],
+"refs": [
+[
+"Spells.cs",
+"Spellbook.IsBinding"
+]
+]
+},
+"p238": {
+"pile": 238,
+"members": [
+45,
+139
+],
+"refs": [
+[
+"Spells.cs",
+"Spellbook.ReachingGuilds"
+]
+]
+},
+"p239": {
+"pile": 239,
+"members": [
+112,
+162
+],
+"refs": [
+[
+"Spells.cs",
+"Spellbook.IsConsumable"
+]
+]
+},
+"p240": {
+"pile": 240,
+"members": [
+229,
+1828
+],
+"refs": [
+[
+"Confinement.cs",
+"Confinement.DrawOne"
+],
+[
+"Rules.cs",
+"Rules.QuestItemReachable"
+],
+[
+"StoreStock.cs",
+"StoreStock.DrawOne"
+],
+[
+"StoreStock.cs",
+"StoreStock.Reachable"
+],
+[
+"StoreStock.cs",
+"StoreStock.Weight"
+]
+]
+},
+"p241": {
+"pile": 241,
+"members": [
+2134,
+2795
+],
+"refs": [
+[
+"SwapCommand.cs",
+"SwapCommand.Parse"
+]
+]
+},
+"p242": {
+"pile": 242,
+"members": [
+2181,
+2295
+],
+"refs": [
+[
+"VbCurrency.cs",
+"VbCurrency.operator-(binary)"
+]
+]
+},
+"p243": {
+"pile": 243,
+"members": [
+141,
+214
+],
+"refs": []
+},
+"p244": {
+"pile": 244,
+"members": [
+3246,
+3247
+],
+"refs": []
+},
+"p245": {
+"pile": 245,
+"members": [
+664,
+2622
+],
+"refs": []
+},
+"p246": {
+"pile": 246,
+"members": [
+47,
+3118
+],
+"refs": []
+},
+"p247": {
+"pile": 247,
+"members": [
+2583,
+2584
+],
+"refs": []
+},
+"p248": {
+"pile": 248,
+"members": [
+63,
+64
+],
+"refs": []
+},
+"p249": {
+"pile": 249,
+"members": [
+2586,
+2587
+],
+"refs": []
+},
+"p250": {
+"pile": 250,
+"members": [
+403,
+610
+],
+"refs": [
+[
+"Combat.cs",
+"MonsterProperty.Has"
+]
+]
+},
+"p251": {
+"pile": 251,
+"members": [
+665,
+2623
+],
+"refs": []
+},
+"p252": {
+"pile": 252,
+"members": [
+1612,
+1740
+],
+"refs": []
+},
+"p253": {
+"pile": 253,
+"members": [
+1610,
+1738
+],
+"refs": []
+},
+"p254": {
+"pile": 254,
+"members": [
+1564,
+1565
+],
+"refs": []
+},
+"p255": {
+"pile": 255,
+"members": [
+3327,
+3328
+],
+"refs": []
+},
+"p256": {
+"pile": 256,
+"members": [
+1808,
+1809
+],
+"refs": []
+},
+"p257": {
+"pile": 257,
+"members": [
+1678,
+2247
+],
+"refs": []
+},
+"p258": {
+"pile": 258,
+"members": [
+1284,
+1336
+],
+"refs": []
+},
+"p259": {
+"pile": 259,
+"members": [
+1685,
+2103
+],
+"refs": []
+},
+"p260": {
+"pile": 260,
+"members": [
+520,
+1845
+],
+"refs": []
+},
+"p261": {
+"pile": 261,
+"members": [
+1589,
+1590
+],
+"refs": [
+[
+"Combat.cs",
+"CombatEngine.PartyWiped"
+]
+]
+},
+"p262": {
+"pile": 262,
+"members": [
+2591,
+2592
+],
+"refs": []
+},
+"p263": {
+"pile": 263,
+"members": [
+522,
+523
+],
+"refs": [
+[
+"Combat.cs",
+"CombatEngine.AttackOf"
+],
+[
+"Combat.cs",
+"CombatEngine.DefenseOf"
+]
+]
+},
+"p264": {
+"pile": 264,
+"members": [
+3140,
+3141
+],
+"refs": []
+},
+"p265": {
+"pile": 265,
+"members": [
+1611,
+1739
+],
+"refs": []
+},
+"p266": {
+"pile": 266,
+"members": [
+841,
+842
+],
+"refs": [
+[
+"Import/VbLayout.cs",
+"VbFile.Integer"
+],
+[
+"Import/VbLayout.cs",
+"VbRecord.Integer"
+]
+]
+},
+"p267": {
+"pile": 267,
+"members": [
+843,
+844
+],
+"refs": []
+},
+"p268": {
+"pile": 268,
+"members": [
+860,
+861
+],
+"refs": []
+},
+"p269": {
+"pile": 269,
+"members": [
+2617,
+2631
+],
+"refs": [
+[
+"Combat.cs",
+"Combat.ClearedByJoining"
+],
+[
+"CombatOrder.cs",
+"CombatOrder.Clear"
+]
+]
+},
+"p270": {
+"pile": 270,
+"members": [
+1609,
+1737
+],
+"refs": []
+},
+"p271": {
+"pile": 271,
+"members": [
+2102,
+2136
+],
+"refs": []
+},
+"p272": {
+"pile": 272,
+"members": [
+2353,
+2354
+],
+"refs": []
+}
+}

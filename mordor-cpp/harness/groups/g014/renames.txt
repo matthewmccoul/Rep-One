@@ -1,0 +1,5 @@
+src/dungeon2a.cpp lowerAscii lowerAscii__dungeon2a
+src/dataformatsb.cpp lowerAscii lowerAscii__dataformatsb
+src/misc_2.cpp lowerAscii lowerAscii__misc_2
+src/modding.cpp lowerAscii lowerAscii__modding
+src/ref_goldfromtag.cpp lowerAscii lowerAscii__ref_goldfromtag

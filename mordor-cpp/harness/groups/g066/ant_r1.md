@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the shown reference methods maps a DamageKind to a resist index. The C++ copies cast a DamageKind enum value to an integer. The closest shown method, SpellEffect.ResistKind (used by ApplyToCharacter, Handles, and WhoToAsk), maps a spell effect id to a resist kind, which is a different input and rule. The DamageKind type does not appear in the shown C# types, so I cannot build a reference input for it without inventing a method or type.
+
+REFERENCE: none (no shown C# method implements this rule)

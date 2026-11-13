@@ -1,0 +1,2 @@
+src/death1b.cpp oldAgePercent oldAgePercent__death1b
+src/death2b.cpp oldAgePercent oldAgePercent__death2b

@@ -1,0 +1,3 @@
+NO_REFERENCE: No reference method implements round-half-even. `GuildDef.ShownSpellLevel` is the closest candidate, but it computes `(int)(spellLevel * rate)`, which truncates toward zero. For example, with level 3 and rate 1.5 it returns 4 where round-half-even gives 4, but with level 5 and rate 0.5 it returns 2 where round-half-even gives 2 (2.5 rounds to 2), and with level 7 and rate 0.5 it returns 3 where round-half-even gives 4 (3.5 rounds to 4). Using it as the reference would test a different rule, so I wrote no files. `GuildDef.CanCast` compares `spellLevel * rate` against a guild-level threshold and never produces a rounded level.
+
+REFERENCE: none (closest candidate GuildDef.ShownSpellLevel truncates and does not implement round-half-even)

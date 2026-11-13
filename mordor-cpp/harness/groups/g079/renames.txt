@@ -1,0 +1,2 @@
+src/game_view.cpp guildName guildName__game_view
+src/game_town.cpp guildName guildName__game_town

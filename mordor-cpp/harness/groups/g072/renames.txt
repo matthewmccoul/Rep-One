@@ -1,0 +1,2 @@
+src/death3.cpp raiseAgeCost raiseAgeCost__death3
+src/feat_rescue.cpp raiseAgeCost raiseAgeCost__feat_rescue

@@ -1,0 +1,3 @@
+NO_REFERENCE: No shown Mordor.Core method maps the Guild enum to its display name. `Guildmasters.Seeded` holds guildmaster names (Crashland, Eli, Merlin), not guild names. `GuildData.ByName` looks up guild data by name, not enum to name, and its signature isn't shown. `Guildmasters.Describe(int guild, Character)` describes a guildmaster and has no shown body. Without a reference method, the two C++ copies can't be checked. If a Mordor.Core method that returns the guild's display name for a Guild value exists, send its signature and I'll write the test.
+
+REFERENCE: none

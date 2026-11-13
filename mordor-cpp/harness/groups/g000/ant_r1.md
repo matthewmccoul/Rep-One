@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the four Mordor.Core methods provided implements giving an item to another member. `ForfeitQuest` and `ForfeitRefusal` handle quest forfeiture, `QuestSatisfied` checks or consumes a quest item, and `RemoveFromPack` only empties a slot on one character. No method transfers an item into another character's pack, and none applies the give rules (combat block, same-character check, slot range, equipped and guild-issued refusals, receiver-full check). Writing a test would mean inventing a C# reference, so I wrote no files.
+
+REFERENCE: none

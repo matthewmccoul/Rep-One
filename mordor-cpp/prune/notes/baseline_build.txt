@@ -1,0 +1,587 @@
+ninja: Entering directory `b'
+[0/2] Re-checking globbed directories...
+[1/479] Building CXX object CMakeFiles/mordor_core.dir/src/casting1_missing.cpp.o
+[2/479] Building CXX object CMakeFiles/mordor_core.dir/src/casting3.cpp.o
+[3/479] Building CXX object CMakeFiles/mordor_core.dir/src/casting1_b.cpp.o
+[4/479] Building CXX object CMakeFiles/mordor_core.dir/src/casting1_a.cpp.o
+[5/479] Building CXX object CMakeFiles/mordor_core.dir/src/attributes.cpp.o
+[6/479] Building CXX object CMakeFiles/mordor_core.dir/src/casting2.cpp.o
+[7/479] Building CXX object CMakeFiles/mordor_core.dir/src/city3a.cpp.o
+[8/479] Building CXX object CMakeFiles/mordor_core.dir/src/city2a_missing.cpp.o
+[9/479] Building CXX object CMakeFiles/mordor_core.dir/src/city2b.cpp.o
+[10/479] Building CXX object CMakeFiles/mordor_core.dir/src/city3b.cpp.o
+[11/479] Building CXX object CMakeFiles/mordor_core.dir/src/city1_b.cpp.o
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/city1_b.cpp: In function 'mordor::Currency mordor::creatureBaseWorth(const MonsterDef&, i32)':
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/city1_b.cpp:241:24: warning: comparison of integer expressions of different signedness: 'const mordor::i32' {aka 'const int'} and 'unsigned int' [-Wsign-compare]
+  241 |     if (def.spellFlags > 0u) {
+      |         ~~~~~~~~~~~~~~~^~~~
+[12/479] Building CXX object CMakeFiles/mordor_core.dir/src/city1_a.cpp.o
+[13/479] Building CXX object CMakeFiles/mordor_core.dir/src/city2a.cpp.o
+[14/479] Building CXX object CMakeFiles/mordor_core.dir/src/combat1b.cpp.o
+[15/479] Building CXX object CMakeFiles/mordor_core.dir/src/combat2b.cpp.o
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/combat2b.cpp:27:17: warning: 'const mordor::ProcRule& mordor::{anonymous}::procRule(mordor::CombatProc)' defined but not used [-Wunused-function]
+   27 | const ProcRule& procRule(CombatProc proc) {
+      |                 ^~~~~~~~
+[16/479] Building CXX object CMakeFiles/mordor_core.dir/src/combat2a.cpp.o
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/combat2a.cpp:32:5: warning: 'mordor::f64 mordor::{anonymous}::clampChance(mordor::f64, mordor::f64, mordor::f64)' defined but not used [-Wunused-function]
+   32 | f64 clampChance(f64 value, f64 lo, f64 hi) {
+      |     ^~~~~~~~~~~
+[17/479] Building CXX object CMakeFiles/mordor_core.dir/src/clock.cpp.o
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/clock.cpp:42:5: warning: 'mordor::i32 mordor::{anonymous}::firstLivingIndex(const mordor::GameState&)' defined but not used [-Wunused-function]
+   42 | i32 firstLivingIndex(const GameState& game) {
+      |     ^~~~~~~~~~~~~~~~
+[18/479] Building CXX object CMakeFiles/mordor_core.dir/src/combat1a.cpp.o
+[19/479] Building CXX object CMakeFiles/mordor_core.dir/src/combat3.cpp.o
+[20/479] Building CXX object CMakeFiles/mordor_core.dir/src/companions1a.cpp.o
+[21/479] Building CXX object CMakeFiles/mordor_core.dir/src/companions1b_missing.cpp.o
+[22/479] Building CXX object CMakeFiles/mordor_core.dir/src/companions1b.cpp.o
+[23/479] Building CXX object CMakeFiles/mordor_core.dir/src/companions2a_missing.cpp.o
+[24/479] Building CXX object CMakeFiles/mordor_core.dir/src/companions2a_slotfix.cpp.o
+[25/479] Building CXX object CMakeFiles/mordor_core.dir/src/companions1b_2.cpp.o
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/companions1b_2.cpp:5:5: warning: 'mordor::i32 mordor::{anonymous}::uidx(mordor::i32)' defined but not used [-Wunused-function]
+    5 | i32 uidx(i32 i) {
+      |     ^~~~
+[26/479] Building CXX object CMakeFiles/mordor_core.dir/src/companions2b_missing.cpp.o
+[27/479] Building CXX object CMakeFiles/mordor_core.dir/src/companions2a.cpp.o
+[28/479] Building CXX object CMakeFiles/mordor_core.dir/src/companions2b.cpp.o
+[29/479] Building CXX object CMakeFiles/mordor_core.dir/src/dataformatsa_c.cpp.o
+[30/479] Building CXX object CMakeFiles/mordor_core.dir/src/dataformatsb_missing.cpp.o
+[31/479] Building CXX object CMakeFiles/mordor_core.dir/src/dataformatsa_missing.cpp.o
+[32/479] Building CXX object CMakeFiles/mordor_core.dir/src/dataformatsa_a.cpp.o
+[33/479] Building CXX object CMakeFiles/mordor_core.dir/src/death1a_missing.cpp.o
+[34/479] Building CXX object CMakeFiles/mordor_core.dir/src/dataformatsb.cpp.o
+[35/479] Building CXX object CMakeFiles/mordor_core.dir/src/death2a.cpp.o
+[36/479] Building CXX object CMakeFiles/mordor_core.dir/src/dataformatsa_b.cpp.o
+[37/479] Building CXX object CMakeFiles/mordor_core.dir/src/death2b.cpp.o
+[38/479] Building CXX object CMakeFiles/mordor_core.dir/src/death1a.cpp.o
+[39/479] Building CXX object CMakeFiles/mordor_core.dir/src/death1b.cpp.o
+[40/479] Building CXX object CMakeFiles/mordor_core.dir/src/dungeon1b_missing.cpp.o
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/dungeon1b_missing.cpp:12:5: warning: 'mordor::Str mordor::{anonymous}::numberText(mordor::i32)' defined but not used [-Wunused-function]
+   12 | Str numberText(i32 n) {
+      |     ^~~~~~~~~~
+[41/479] Building CXX object CMakeFiles/mordor_core.dir/src/death3.cpp.o
+[42/479] Building CXX object CMakeFiles/mordor_core.dir/src/dungeon2a_missing.cpp.o
+[43/479] Building CXX object CMakeFiles/mordor_core.dir/src/dungeon2a.cpp.o
+[44/479] Building CXX object CMakeFiles/mordor_core.dir/src/dungeon3.cpp.o
+[45/479] Building CXX object CMakeFiles/mordor_core.dir/src/dungeon1a.cpp.o
+[46/479] Building CXX object CMakeFiles/mordor_core.dir/src/dungeon1b_a.cpp.o
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/dungeon1b_a.cpp:816:19: warning: 'mordor::RelativeDirection mordor::{anonymous}::soulSearchDirection(mordor::i32, mordor::i32)' defined but not used [-Wunused-function]
+  816 | RelativeDirection soulSearchDirection(i32 right, i32 forward) {
+      |                   ^~~~~~~~~~~~~~~~~~~
+[47/479] Building CXX object CMakeFiles/mordor_core.dir/src/feat_companions.cpp.o
+[48/479] Building CXX object CMakeFiles/mordor_core.dir/src/feat_confinement.cpp.o
+[49/479] Building CXX object CMakeFiles/mordor_core.dir/src/dungeon1b_b.cpp.o
+[50/479] Building CXX object CMakeFiles/mordor_core.dir/src/dungeon2b.cpp.o
+[51/479] Building CXX object CMakeFiles/mordor_core.dir/src/feat_dcast.cpp.o
+[52/479] Building CXX object CMakeFiles/mordor_core.dir/src/feat_buffers.cpp.o
+[53/479] Building CXX object CMakeFiles/mordor_core.dir/src/feat_disarm.cpp.o
+[54/479] Building CXX object CMakeFiles/mordor_core.dir/src/feat_duse.cpp.o
+[55/479] Building CXX object CMakeFiles/mordor_core.dir/src/feat_give.cpp.o
+[56/479] Building CXX object CMakeFiles/mordor_core.dir/src/feat_hall.cpp.o
+[57/479] Building CXX object CMakeFiles/mordor_core.dir/src/feat_look.cpp.o
+[58/479] Building CXX object CMakeFiles/mordor_core.dir/src/feat_options.cpp.o
+[59/479] Building CXX object CMakeFiles/mordor_core.dir/src/feat_quests.cpp.o
+[60/479] Building CXX object CMakeFiles/mordor_core.dir/src/feat_realign.cpp.o
+[61/479] Building CXX object CMakeFiles/mordor_core.dir/src/feat_guildlog.cpp.o
+[62/479] Building CXX object CMakeFiles/mordor_core.dir/src/feat_library.cpp.o
+[63/479] Building CXX object CMakeFiles/mordor_core.dir/src/feat_rescue.cpp.o
+[64/479] Building CXX object CMakeFiles/mordor_core.dir/src/feat_uncurse.cpp.o
+[65/479] Building CXX object CMakeFiles/mordor_core.dir/src/feat_swap.cpp.o
+[66/479] Building CXX object CMakeFiles/mordor_core.dir/src/feat_seer.cpp.o
+[67/479] Building CXX object CMakeFiles/mordor_core.dir/src/feat_roster.cpp.o
+[68/479] Building CXX object CMakeFiles/mordor_core.dir/src/feature_registry.cpp.o
+[69/479] Building CXX object CMakeFiles/mordor_core.dir/src/features.cpp.o
+[70/479] Building CXX object CMakeFiles/mordor_core.dir/src/game_clock_fix.cpp.o
+[71/479] Building CXX object CMakeFiles/mordor_core.dir/src/game_dungeon.cpp.o
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/game_dungeon.cpp:108:12: warning: 'mordor::i32 mordor::{anonymous}::roundHalfEvenNonNeg(double)' defined but not used [-Wunused-function]
+  108 | static i32 roundHalfEvenNonNeg(double x) {
+      |            ^~~~~~~~~~~~~~~~~~~
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/game_dungeon.cpp:100:12: warning: 'mordor::i32 mordor::{anonymous}::rollLoadHits(mordor::Ctx&, mordor::i32)' defined but not used [-Wunused-function]
+  100 | static i32 rollLoadHits(Ctx& ctx, i32 baseHits) {
+      |            ^~~~~~~~~~~~
+[72/479] Building CXX object CMakeFiles/mordor_core.dir/src/game_combat.cpp.o
+[73/479] Building CXX object CMakeFiles/mordor_core.dir/src/game_data_json.cpp.o
+[74/479] Building CXX object CMakeFiles/mordor_core.dir/src/game_town.cpp.o
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/game_town.cpp:817:12: warning: 'mordor::Str mordor::itemNameOf(const Ctx&, const Item&)' defined but not used [-Wunused-function]
+  817 | static Str itemNameOf(const Ctx& ctx, const Item& it) {
+      |            ^~~~~~~~~~
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/game_town.cpp:809:12: warning: 'mordor::Str mordor::adSummary(const Ctx&, const Character&, const Inventory&)' defined but not used [-Wunused-function]
+  809 | static Str adSummary(const Ctx& ctx, const Character& c, const Inventory& inv) {
+      |            ^~~~~~~~~
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/game_town.cpp:787:20: warning: 'const char* mordor::gearUsageText(const Str&)' defined but not used [-Wunused-function]
+  787 | static const char* gearUsageText(const Str& verb) {
+      |                    ^~~~~~~~~~~~~
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/game_town.cpp:308:12: warning: 'mordor::Str mordor::{anonymous}::formatGold(mordor::Currency)' defined but not used [-Wunused-function]
+  308 | static Str formatGold(Currency units) {
+      |            ^~~~~~~~~~
+[75/479] Building CXX object CMakeFiles/mordor_core.dir/src/game_view.cpp.o
+[76/479] Building CXX object CMakeFiles/mordor_core.dir/src/guilds1_a.cpp.o
+[77/479] Building CXX object CMakeFiles/mordor_core.dir/src/guilds1_b.cpp.o
+[78/479] Building CXX object CMakeFiles/mordor_core.dir/src/guilds1_missing.cpp.o
+[79/479] Building CXX object CMakeFiles/mordor_core.dir/src/game_setup.cpp.o
+[80/479] Building CXX object CMakeFiles/mordor_core.dir/src/guilds2_b.cpp.o
+[81/479] Building CXX object CMakeFiles/mordor_core.dir/src/guilds2_missing.cpp.o
+[82/479] Building CXX object CMakeFiles/mordor_core.dir/src/guilds2_a.cpp.o
+[83/479] Building CXX object CMakeFiles/mordor_core.dir/src/guilds3.cpp.o
+[84/479] Building CXX object CMakeFiles/mordor_core.dir/src/items1a_d.cpp.o
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/items1a_d.cpp:217:10: warning: 'mordor::Currency mordor::{anonymous}::placeholderPrice()' defined but not used [-Wunused-function]
+  217 | Currency placeholderPrice() {
+      |          ^~~~~~~~~~~~~~~~
+[85/479] Building CXX object CMakeFiles/mordor_core.dir/src/items1a_b.cpp.o
+[86/479] Building CXX object CMakeFiles/mordor_core.dir/src/items1a_missing.cpp.o
+[87/479] Building CXX object CMakeFiles/mordor_core.dir/src/items1a_c.cpp.o
+[88/479] Building CXX object CMakeFiles/mordor_core.dir/src/items2a.cpp.o
+[89/479] Building CXX object CMakeFiles/mordor_core.dir/src/items1a_a.cpp.o
+[90/479] Building CXX object CMakeFiles/mordor_core.dir/src/items1b_missing.cpp.o
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/items1b_missing.cpp:36:5: warning: 'mordor::Str mordor::{anonymous}::unidentifiedText()' defined but not used [-Wunused-function]
+   36 | Str unidentifiedText() {
+      |     ^~~~~~~~~~~~~~~~
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/items1b_missing.cpp:15:6: warning: 'void mordor::{anonymous}::appendInt(mordor::Str&, mordor::i64)' defined but not used [-Wunused-function]
+   15 | void appendInt(Str& out, i64 value) {
+      |      ^~~~~~~~~
+[91/479] Building CXX object CMakeFiles/mordor_core.dir/src/game_save.cpp.o
+[92/479] Building CXX object CMakeFiles/mordor_core.dir/src/items2b_missing3.cpp.o
+[93/479] Building CXX object CMakeFiles/mordor_core.dir/src/items2b.cpp.o
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/items2b.cpp: In function 'mordor::GiveResult mordor::giveItem(Ctx&, Character&, Inventory&, i32, Character&, Inventory&, i32, i32, bool)':
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/items2b.cpp:143:42: warning: unused parameter 'giver' [-Wunused-parameter]
+  143 | GiveResult giveItem(Ctx& ctx, Character& giver, Inventory& giverInv, i32 giverIndex,
+      |                               ~~~~~~~~~~~^~~~~
+[94/479] Building CXX object CMakeFiles/mordor_core.dir/src/items2b_2.cpp.o
+[95/479] Building CXX object CMakeFiles/mordor_core.dir/src/items1b.cpp.o
+[96/479] Building CXX object CMakeFiles/mordor_core.dir/src/items4.cpp.o
+[97/479] Building CXX object CMakeFiles/mordor_core.dir/src/items3b.cpp.o
+[98/479] Building CXX object CMakeFiles/mordor_core.dir/src/items3a.cpp.o
+[99/479] Building CXX object CMakeFiles/mordor_core.dir/src/loot1a_missing3.cpp.o
+[100/479] Building CXX object CMakeFiles/mordor_core.dir/src/loot1b_missing.cpp.o
+[101/479] Building CXX object CMakeFiles/mordor_core.dir/src/json_lite.cpp.o
+[102/479] Building CXX object CMakeFiles/mordor_core.dir/src/loot2.cpp.o
+[103/479] Building CXX object CMakeFiles/mordor_core.dir/src/loot1b.cpp.o
+[104/479] Building CXX object CMakeFiles/mordor_core.dir/src/loot1a.cpp.o
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/loot1a.cpp:115:5: warning: 'mordor::i32 mordor::{anonymous}::resistIndex(mordor::DamageKind)' defined but not used [-Wunused-function]
+  115 | i32 resistIndex(DamageKind kind) {
+      |     ^~~~~~~~~~~
+[105/479] Building CXX object CMakeFiles/mordor_core.dir/src/modding_missing.cpp.o
+[106/479] Building CXX object CMakeFiles/mordor_core.dir/src/misc_2.cpp.o
+[107/479] Building CXX object CMakeFiles/mordor_core.dir/src/modding_missing2.cpp.o
+[108/479] Building CXX object CMakeFiles/mordor_core.dir/src/misc.cpp.o
+[109/479] Building CXX object CMakeFiles/mordor_core.dir/src/monsters1a_missing.cpp.o
+[110/479] Building CXX object CMakeFiles/mordor_core.dir/src/monsters1a.cpp.o
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/monsters1a.cpp:40:5: warning: 'mordor::i32 mordor::{anonymous}::clampIdx(mordor::i64, mordor::i32)' defined but not used [-Wunused-function]
+   40 | i32 clampIdx(i64 k, i32 count) {
+      |     ^~~~~~~~
+[111/479] Building CXX object CMakeFiles/mordor_core.dir/src/monsters2a.cpp.o
+[112/479] Building CXX object CMakeFiles/mordor_core.dir/src/monsters1b.cpp.o
+[113/479] Building CXX object CMakeFiles/mordor_core.dir/src/monsters3a.cpp.o
+[114/479] Building CXX object CMakeFiles/mordor_core.dir/src/monsters2b.cpp.o
+[115/479] Building CXX object CMakeFiles/mordor_core.dir/src/monsters3b.cpp.o
+[116/479] Building CXX object CMakeFiles/mordor_core.dir/src/partyb_missing.cpp.o
+[117/479] Building CXX object CMakeFiles/mordor_core.dir/src/modding.cpp.o
+[118/479] Building CXX object CMakeFiles/mordor_core.dir/src/monsters1b_2.cpp.o
+[119/479] Building CXX object CMakeFiles/mordor_core.dir/src/progression1a.cpp.o
+[120/479] Building CXX object CMakeFiles/mordor_core.dir/src/partyb_missing2.cpp.o
+[121/479] Building CXX object CMakeFiles/mordor_core.dir/src/options.cpp.o
+[122/479] Building CXX object CMakeFiles/mordor_core.dir/src/partya.cpp.o
+[123/479] Building CXX object CMakeFiles/mordor_core.dir/src/progression1b.cpp.o
+[124/479] Building CXX object CMakeFiles/mordor_core.dir/src/progression2_missing.cpp.o
+[125/479] Building CXX object CMakeFiles/mordor_core.dir/src/progression2.cpp.o
+[126/479] Building CXX object CMakeFiles/mordor_core.dir/src/progression2a.cpp.o
+[127/479] Building CXX object CMakeFiles/mordor_core.dir/src/partyb.cpp.o
+[128/479] Building CXX object CMakeFiles/mordor_core.dir/src/ref_banktyped.cpp.o
+[129/479] Building CXX object CMakeFiles/mordor_core.dir/src/ref_fn13ed.cpp.o
+[130/479] Building CXX object CMakeFiles/mordor_core.dir/src/races.cpp.o
+[131/479] Building CXX object CMakeFiles/mordor_core.dir/src/ref_bankalltext.cpp.o
+[132/479] Building CXX object CMakeFiles/mordor_core.dir/src/ref_goldtosteal.cpp.o
+[133/479] Building CXX object CMakeFiles/mordor_core.dir/src/ref_fn1485.cpp.o
+[134/479] Building CXX object CMakeFiles/mordor_core.dir/src/ref_placeof.cpp.o
+[135/479] Building CXX object CMakeFiles/mordor_core.dir/src/ref_goldfromtag.cpp.o
+[136/479] Building CXX object CMakeFiles/mordor_core.dir/src/ref_respawn.cpp.o
+[137/479] Building CXX object CMakeFiles/mordor_core.dir/src/progression2b.cpp.o
+[138/479] Building CXX object CMakeFiles/mordor_core.dir/src/ref_questband.cpp.o
+[139/479] Building CXX object CMakeFiles/mordor_core.dir/src/ref_splitcoords.cpp.o
+[140/479] Building CXX object CMakeFiles/mordor_core.dir/src/ref_swingsat.cpp.o
+[141/479] Building CXX object CMakeFiles/mordor_core.dir/src/ref_wordsort.cpp.o
+[142/479] Building CXX object CMakeFiles/mordor_core.dir/src/ref_tryclng.cpp.o
+[143/479] Building CXX object CMakeFiles/mordor_core.dir/src/spells2.cpp.o
+[144/479] Building CXX object CMakeFiles/mordor_core.dir/src/spells3_b.cpp.o
+[145/479] Building CXX object CMakeFiles/mordor_core.dir/src/spells3_a.cpp.o
+[146/479] Building CXX object CMakeFiles/mordor_core.dir/src/status1a_missing.cpp.o
+[147/479] Building CXX object CMakeFiles/mordor_core.dir/src/spells1b.cpp.o
+[148/479] Building CXX object CMakeFiles/mordor_core.dir/src/spells3_missing.cpp.o
+[149/479] Building CXX object CMakeFiles/mordor_core.dir/src/store_prices.cpp.o
+[150/479] Building CXX object CMakeFiles/mordor_core.dir/src/spells1a.cpp.o
+[151/479] Building CXX object CMakeFiles/mordor_core.dir/src/status1a.cpp.o
+[152/479] Building CXX object CMakeFiles/mordor_core.dir/src/status2.cpp.o
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/src/status2.cpp:31:18: warning: 'const mordor::Character& mordor::{anonymous}::memberAt(const mordor::Party&, mordor::i32)' defined but not used [-Wunused-function]
+   31 | const Character& memberAt(const Party& party, i32 index) {
+      |                  ^~~~~~~~
+[153/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_casting1.cpp.o
+[154/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_casting3.cpp.o
+[155/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_casting2.cpp.o
+[156/479] Building CXX object CMakeFiles/mordor_core.dir/src/status1b.cpp.o
+[157/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_attributes.cpp.o
+[158/479] Linking CXX static library libmordor_core.a
+[159/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_city2b.cpp.o
+[160/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_city1.cpp.o
+[161/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_city3a.cpp.o
+[162/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_city3b.cpp.o
+[163/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_city2a.cpp.o
+[164/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_combat1a.cpp.o
+[165/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_combat2a.cpp.o
+[166/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_combat1b.cpp.o
+[167/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_combat2b.cpp.o
+[168/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_clock.cpp.o
+[169/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_combat3.cpp.o
+[170/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_companions1a.cpp.o
+[171/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_companions2a.cpp.o
+[172/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_companions2b.cpp.o
+[173/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_companions1b.cpp.o
+[174/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_dataformatsa.cpp.o
+[175/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_death2b.cpp.o
+[176/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_death1b.cpp.o
+In file included from /tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_support.h:6,
+                 from /tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_death1b.cpp:6:
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/harness.h: In instantiation of 'bool testh::eq(const A&, const B&) [with A = long unsigned int; B = int]':
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_death1b.cpp:195:5:   required from here
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/harness.h:15:72: warning: comparison of integer expressions of different signedness: 'const long unsigned int' and 'const int' [-Wsign-compare]
+   15 | template <class A, class B> bool eq(const A& a, const B& b) { return a == b; }
+      |                                                                      ~~^~~~
+[177/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_dataformatsb.cpp.o
+In file included from /tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_support.h:6,
+                 from /tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_dataformatsb.cpp:1:
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/harness.h: In instantiation of 'bool testh::eq(const A&, const B&) [with A = long unsigned int; B = int]':
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_dataformatsb.cpp:79:5:   required from here
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/harness.h:15:72: warning: comparison of integer expressions of different signedness: 'const long unsigned int' and 'const int' [-Wsign-compare]
+   15 | template <class A, class B> bool eq(const A& a, const B& b) { return a == b; }
+      |                                                                      ~~^~~~
+[178/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_death2a.cpp.o
+[179/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_death1a.cpp.o
+[180/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_dungeon2b.cpp.o
+[181/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_death3.cpp.o
+[182/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_dungeon3.cpp.o
+[183/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_dungeon2a.cpp.o
+[184/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_dungeon1a.cpp.o
+[185/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_dungeon1b.cpp.o
+[186/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_feat_confinement.cpp.o
+[187/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_feat_companions.cpp.o
+[188/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_feat_dcast.cpp.o
+[189/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_feat_duse.cpp.o
+[190/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_feat_give.cpp.o
+[191/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_feat_disarm.cpp.o
+[192/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_feat_guildlog.cpp.o
+[193/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_feat_hall.cpp.o
+[194/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_feat_library.cpp.o
+[195/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_feat_quests.cpp.o
+[196/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_feat_options.cpp.o
+[197/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_feat_look.cpp.o
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_feat_look.cpp:13:16: warning: 'mordor::Session newSession(mordor::Str)' defined but not used [-Wunused-function]
+   13 | static Session newSession(decltype(readData()) data) {
+      |                ^~~~~~~~~~
+[198/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_feat_realign.cpp.o
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_feat_realign.cpp:10:16: warning: 'mordor::Session freshSession()' defined but not used [-Wunused-function]
+   10 | static Session freshSession() {
+      |                ^~~~~~~~~~~~
+[199/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_feat_roster.cpp.o
+[200/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_feat_seer.cpp.o
+[201/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_feat_swap.cpp.o
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_feat_swap.cpp:8:16: warning: 'mordor::Session newSession(mordor::Str)' defined but not used [-Wunused-function]
+    8 | static Session newSession(decltype(readData()) data) {
+      |                ^~~~~~~~~~
+[202/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_foundation.cpp.o
+[203/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_flow_chests.cpp.o
+[204/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_flow_town.cpp.o
+[205/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_flow_magic.cpp.o
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_flow_magic.cpp: In function 'const mordor::SpellDef* {anonymous}::pick(mordor::Session&, size_t, bool)':
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_flow_magic.cpp:23:7: warning: variable 'c' set but not used [-Wunused-but-set-variable]
+   23 |   Ctx c = s.ctx();
+      |       ^
+[206/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_flow_restock.cpp.o
+[207/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_flow_shop.cpp.o
+[208/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_guilds3.cpp.o
+[209/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_guilds2.cpp.o
+[210/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_game_flow.cpp.o
+[211/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_guilds1.cpp.o
+[212/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_items1b.cpp.o
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_items1b.cpp:10:13: warning: 'const mordor::Item& {anonymous}::packAt(const mordor::Inventory&, mordor::i32)' defined but not used [-Wunused-function]
+   10 | const Item& packAt(const Inventory& inv, i32 i) { return inv.pack[static_cast<u32>(i)]; }
+      |             ^~~~~~
+[213/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_items1a.cpp.o
+[214/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_items2a.cpp.o
+[215/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_items3a.cpp.o
+[216/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_items4.cpp.o
+[217/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_items2b.cpp.o
+[218/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_items3b.cpp.o
+[219/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_main.cpp.o
+[220/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_loot1a.cpp.o
+[221/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_loot1b.cpp.o
+[222/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_misc.cpp.o
+[223/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_loot2.cpp.o
+[224/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_monsters1b.cpp.o
+[225/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_monsters1a.cpp.o
+[226/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_modding.cpp.o
+In file included from /tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_support.h:6,
+                 from /tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_modding.cpp:1:
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/harness.h: In instantiation of 'bool testh::eq(const A&, const B&) [with A = long unsigned int; B = int]':
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_modding.cpp:40:5:   required from here
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/harness.h:15:72: warning: comparison of integer expressions of different signedness: 'const long unsigned int' and 'const int' [-Wsign-compare]
+   15 | template <class A, class B> bool eq(const A& a, const B& b) { return a == b; }
+      |                                                                      ~~^~~~
+[227/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_monsters2a.cpp.o
+[228/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_monsters3a.cpp.o
+[229/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_monsters2b.cpp.o
+[230/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_monsters3b.cpp.o
+[231/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_progression1b.cpp.o
+[232/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_options.cpp.o
+[233/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_progression2.cpp.o
+[234/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_progression1a.cpp.o
+[235/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_partyb.cpp.o
+[236/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_progression2a.cpp.o
+[237/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_partya.cpp.o
+[238/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_progression2b.cpp.o
+[239/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_spells1a.cpp.o
+[240/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_races.cpp.o
+[241/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_spells2.cpp.o
+[242/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_spells3.cpp.o
+[243/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_attributes_1.cpp.o
+[244/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_attributes_2.cpp.o
+[245/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_casting_1.cpp.o
+[246/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_spells1b.cpp.o
+[247/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_casting_10.cpp.o
+[248/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_casting_4.cpp.o
+[249/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_casting_3.cpp.o
+[250/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_status1a.cpp.o
+[251/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_casting_2.cpp.o
+[252/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_status1b.cpp.o
+[253/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_casting_5.cpp.o
+[254/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_casting_6.cpp.o
+[255/479] Building CXX object CMakeFiles/mordor_tests.dir/tests/test_status2.cpp.o
+[256/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_casting_7.cpp.o
+[257/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_casting_8.cpp.o
+[258/479] Linking CXX executable mordor_tests
+[259/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_casting_9.cpp.o
+[260/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_city_1.cpp.o
+[261/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_city_13.cpp.o
+[262/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_city_3.cpp.o
+[263/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_city_10.cpp.o
+[264/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_city_2.cpp.o
+[265/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_city_5.cpp.o
+[266/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_city_11.cpp.o
+[267/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_city_12.cpp.o
+[268/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_city_4.cpp.o
+[269/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_city_6.cpp.o
+[270/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_city_7.cpp.o
+[271/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_city_9.cpp.o
+[272/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_city_8.cpp.o
+[273/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_combat_2.cpp.o
+[274/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_combat_1.cpp.o
+[275/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_combat_4.cpp.o
+[276/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_combat_5.cpp.o
+[277/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_combat_6.cpp.o
+[278/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_companions_10.cpp.o
+[279/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_companions_11.cpp.o
+[280/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_clock_1.cpp.o
+[281/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_companions_1.cpp.o
+[282/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_companions_15.cpp.o
+[283/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_combat_3.cpp.o
+[284/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_companions_12.cpp.o
+[285/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_companions_13.cpp.o
+[286/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_companions_14.cpp.o
+[287/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_companions_16.cpp.o
+[288/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_companions_4.cpp.o
+[289/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_companions_3.cpp.o
+[290/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_companions_6.cpp.o
+[291/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_companions_7.cpp.o
+[292/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_companions_2.cpp.o
+[293/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_companions_5.cpp.o
+[294/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_death_1.cpp.o
+[295/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_companions_8.cpp.o
+[296/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_death_3.cpp.o
+[297/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_death_2.cpp.o
+[298/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_death_10.cpp.o
+[299/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_companions_9.cpp.o
+[300/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_death_7.cpp.o
+[301/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_death_4.cpp.o
+[302/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_death_6.cpp.o
+[303/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_death_5.cpp.o
+[304/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_dungeon_1.cpp.o
+[305/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_dungeon_2.cpp.o
+[306/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_dungeon_11.cpp.o
+[307/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_dungeon_10.cpp.o
+[308/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_death_8.cpp.o
+[309/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_dungeon_3.cpp.o
+[310/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_death_9.cpp.o
+[311/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_dungeon_7.cpp.o
+[312/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_dungeon_4.cpp.o
+[313/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_dungeon_8.cpp.o
+[314/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_dungeon_5.cpp.o
+[315/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_dungeon_9.cpp.o
+[316/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_guilds_3.cpp.o
+[317/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_guilds_1.cpp.o
+[318/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_guilds_4.cpp.o
+[319/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_guilds_2.cpp.o
+[320/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_guilds_5.cpp.o
+[321/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_guilds_7.cpp.o
+[322/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_items_2.cpp.o
+[323/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_items_10.cpp.o
+[324/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_items_4.cpp.o
+[325/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_items_3.cpp.o
+[326/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_items_5.cpp.o
+[327/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_items_1.cpp.o
+[328/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_items_6.cpp.o
+[329/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_items_8.cpp.o
+[330/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_items_7.cpp.o
+[331/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_guilds_6.cpp.o
+In file included from /tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_support.h:6,
+                 from /tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_engine_guilds_6.cpp:1:
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/harness.h: In instantiation of 'bool testh::eq(const A&, const B&) [with A = long unsigned int; B = int]':
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/test_engine_guilds_6.cpp:14:5:   required from here
+/tmp/claude-0/-home-user-Rep-One/5abe2313-f548-5c8c-8816-6ae645168e4f/scratchpad/prune/code/tests/harness.h:15:72: warning: comparison of integer expressions of different signedness: 'const long unsigned int' and 'const int' [-Wsign-compare]
+   15 | template <class A, class B> bool eq(const A& a, const B& b) { return a == b; }
+      |                                                                      ~~^~~~
+[332/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_dungeon_6.cpp.o
+[333/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_loot_1.cpp.o
+[334/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_items_9.cpp.o
+[335/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_loot_2.cpp.o
+[336/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_loot_4.cpp.o
+[337/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_loot_3.cpp.o
+[338/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_loot_5.cpp.o
+[339/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_loot_7.cpp.o
+[340/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_misc_2.cpp.o
+[341/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_loot_8.cpp.o
+[342/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_misc_1.cpp.o
+[343/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_misc_5.cpp.o
+[344/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_loot_6.cpp.o
+[345/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_misc_3.cpp.o
+[346/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_misc_4.cpp.o
+[347/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_monsters_1.cpp.o
+[348/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_monsters_11.cpp.o
+[349/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_monsters_10.cpp.o
+[350/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_monsters_2.cpp.o
+[351/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_monsters_5.cpp.o
+[352/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_monsters_4.cpp.o
+[353/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_monsters_3.cpp.o
+[354/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_monsters_8.cpp.o
+[355/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_monsters_6.cpp.o
+[356/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_monsters_9.cpp.o
+[357/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_monsters_7.cpp.o
+[358/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_party_5.cpp.o
+[359/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_party_3.cpp.o
+[360/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_progression_1.cpp.o
+[361/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_party_1.cpp.o
+[362/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_progression_2.cpp.o
+[363/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_races_1.cpp.o
+[364/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_progression_3.cpp.o
+[365/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_party_2.cpp.o
+[366/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_re_lookahead.cpp.o
+[367/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_re_perceivesq.cpp.o
+[368/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_party_4.cpp.o
+[369/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_re_questtier.cpp.o
+[370/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_re_uncurse.cpp.o
+[371/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_ref_bankalltext.cpp.o
+[372/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_re_theftslot.cpp.o
+[373/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_re_maxworn.cpp.o
+[374/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_ref_fn13ed.cpp.o
+[375/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_ref_fn1485.cpp.o
+[376/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_ref_banktyped.cpp.o
+[377/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_ref_goldtosteal.cpp.o
+[378/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_ref_questband.cpp.o
+[379/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_re_spellcost.cpp.o
+[380/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_ref_goldfromtag.cpp.o
+[381/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_ref_placeof.cpp.o
+[382/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_ref_respawn.cpp.o
+[383/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_ref_splitcoords.cpp.o
+[384/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_ref_swingsat.cpp.o
+[385/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_ref_tryclng.cpp.o
+[386/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_ref_wordsort.cpp.o
+[387/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt010.cpp.o
+[388/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt030.cpp.o
+[389/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt050.cpp.o
+[390/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt041.cpp.o
+[391/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt040.cpp.o
+[392/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt020.cpp.o
+[393/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt042.cpp.o
+[394/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt060.cpp.o
+[395/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt071.cpp.o
+[396/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt070.cpp.o
+[397/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt090.cpp.o
+[398/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt080.cpp.o
+[399/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt091.cpp.o
+[400/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt093.cpp.o
+[401/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt092.cpp.o
+[402/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt081.cpp.o
+[403/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt095.cpp.o
+[404/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt096.cpp.o
+[405/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt094.cpp.o
+[406/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt098.cpp.o
+[407/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt099.cpp.o
+[408/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt101.cpp.o
+[409/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt100.cpp.o
+[410/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt102.cpp.o
+[411/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt103.cpp.o
+[412/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt111.cpp.o
+[413/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt104.cpp.o
+[414/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt121.cpp.o
+[415/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt105.cpp.o
+[416/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt110.cpp.o
+[417/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt123.cpp.o
+[418/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt125.cpp.o
+[419/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt126.cpp.o
+[420/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt130.cpp.o
+[421/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt124.cpp.o
+[422/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt131.cpp.o
+[423/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt122.cpp.o
+[424/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt132.cpp.o
+[425/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt134.cpp.o
+[426/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt135.cpp.o
+[427/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt133.cpp.o
+[428/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt137.cpp.o
+[429/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt138.cpp.o
+[430/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt136.cpp.o
+[431/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt139.cpp.o
+[432/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt142.cpp.o
+[433/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt143.cpp.o
+[434/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt141.cpp.o
+[435/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt146.cpp.o
+[436/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt152.cpp.o
+[437/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt153.cpp.o
+[438/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt140.cpp.o
+[439/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt144.cpp.o
+[440/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt161.cpp.o
+[441/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt160.cpp.o
+[442/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt162.cpp.o
+[443/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt164.cpp.o
+[444/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt163.cpp.o
+[445/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt165.cpp.o
+[446/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt167.cpp.o
+[447/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt166.cpp.o
+[448/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt170.cpp.o
+[449/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt172.cpp.o
+[450/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt173.cpp.o
+[451/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt174.cpp.o
+[452/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt181.cpp.o
+[453/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt193.cpp.o
+[454/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt180.cpp.o
+[455/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt171.cpp.o
+[456/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt190.cpp.o
+[457/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt191.cpp.o
+[458/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt194.cpp.o
+[459/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt192.cpp.o
+[460/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt240.cpp.o
+[461/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt241.cpp.o
+[462/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt195.cpp.o
+[463/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt242.cpp.o
+[464/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_rtt243.cpp.o
+[465/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_spells_2.cpp.o
+[466/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_spells_1.cpp.o
+[467/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_spells_5.cpp.o
+[468/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_spells_6.cpp.o
+[469/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_spells_4.cpp.o
+[470/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_spells_3.cpp.o
+[471/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_spells_8.cpp.o
+[472/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_spells_7.cpp.o
+[473/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_status_3.cpp.o
+[474/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_main.cpp.o
+[475/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_status_1.cpp.o
+[476/479] Building CXX object CMakeFiles/mordor_engine_tests.dir/tests/test_engine_status_2.cpp.o
+[477/479] Linking CXX executable mordor_engine_tests
+[478/479] Building CXX object CMakeFiles/mordor_console.dir/apps/console/main.cpp.o
+[479/479] Linking CXX executable mordor_console

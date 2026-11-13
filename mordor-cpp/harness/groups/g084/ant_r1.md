@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the shown reference methods implements "return the party member at an index." `Party.Selected` returns `Members[Math.Clamp(SelectedIndex, 0, Count-1)]`, which clamps the index and reads a stored selection rather than taking an index. `Party.Leader` is fixed at `Members[0]`. `Party.Remove`, `SpellThrown.Line`, and `Party.PoolOnHandToBank` do not return a member by index. The C++ copies also rely on unchecked `static_cast<u32>` of a signed index, so a negative or out-of-range index has no defined reference behaviour to compare against (C# `List` indexing throws `ArgumentOutOfRangeException`). No files written.
+
+REFERENCE: none

@@ -1,0 +1,1 @@
+NO_REFERENCE: No Mordor.Core method returns a row-major index or -1. DungeonNav.InBounds only returns the bounds predicate and does not compute y*width+x. Building the index in Case.cs would test my own code, not the reference.

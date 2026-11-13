@@ -1,0 +1,50 @@
+equipProblem	0	Your current guild cannot use this item!
+equipProblem	1	Your current guild cannot use this item!
+equipProblem	2	Your current guild cannot use this item!
+equipProblem	3	Your current guild cannot use this item!
+equipProblem	4	Your current guild cannot use this item!
+equipProblem	5	Your current guild cannot use this item!
+equipProblem	6	Your current guild cannot use this item!
+equipProblem	7	One or more stats are too low!
+equipProblem	8	All guild levels too low to use item!
+equipProblem	9	All guild levels too low to use item!
+equipProblem	10	Your current guild cannot use this item!
+equipProblem	11	Your current guild cannot use this item!
+equipProblem	12	Your guild level is too low to use item!
+equipProblem	13	null
+equipProblem	14	Your guild level is too low to use item!
+equipProblem	15	Your guild level is too low to use item!
+equipProblem	16	Your guild level is too low to use item!
+equipProblem	17	null
+equipProblem	18	All guild levels too low to use item!
+equipProblem	19	null
+equipProblem	20	null
+equipProblem	21	Your currently joined guilds cannot use this item!
+equipProblem	22	Your currently joined guilds cannot use this item!
+equipProblem	23	Your currently joined guilds cannot use this item!
+equipProblem	24	MISSING_ITEM
+equipCheck	0	null
+equipCheck	1	null
+equipCheck	2	One or more stats are too low!
+equipCheck	3	null
+equipCheck	4	null
+equipCheck	5	null
+equipCheck	6	null
+equipCheck	7	null
+equipCheck	8	null
+equipCheck	9	null
+equipCheck	10	null
+equipCheck	11	null
+equipCheck	12	null
+equipCheck	13	null
+equipCheck	14	null
+equipCheck	15	null
+equipCheck	16	null
+equipCheck	17	null
+equipCheck	18	null
+equipCheck	19	null
+equipCheck	20	null
+equipCheck	21	null
+equipCheck	22	null
+equipCheck	23	null
+equipCheck	24	MISSING_ITEM

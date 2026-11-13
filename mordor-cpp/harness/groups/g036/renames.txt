@@ -1,0 +1,3 @@
+src/companions1a.cpp absI absI__companions1a
+src/companions1b.cpp absI absI__companions1b
+src/spells1b.cpp absI absI__spells1b

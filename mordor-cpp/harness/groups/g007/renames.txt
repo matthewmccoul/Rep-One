@@ -1,0 +1,2 @@
+src/dungeon1b_a.cpp setPartyPosition setPartyPosition__dungeon1b_a
+src/dungeon1b_b.cpp setPartyPosition setPartyPosition__dungeon1b_b

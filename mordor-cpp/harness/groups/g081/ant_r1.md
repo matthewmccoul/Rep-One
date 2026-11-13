@@ -1,0 +1,2 @@
+NO_REFERENCE: No shown Mordor.Core method implements "packIndex + 1" as a rule. The closest is `SpellBuffers.Describe`, which prints `Item #{b + 1}` inside a display string. Testing that would exercise buffer naming and null handling, not the slot conversion, and it returns a string rather than the integer. `SpendCharge`, `SwapItems`, and `DepositToVault` use pack slot indices directly with no +1 conversion.
+REFERENCE: none

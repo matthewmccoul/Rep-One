@@ -1,0 +1,2 @@
+src/items1b.cpp clampI clampI__items1b
+src/status1a.cpp clampI clampI__status1a

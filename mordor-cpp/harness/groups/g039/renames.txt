@@ -1,0 +1,2 @@
+src/partyb.cpp pruneTheDead pruneTheDead__partyb
+src/death1a.cpp pruneTheDead pruneTheDead__death1a

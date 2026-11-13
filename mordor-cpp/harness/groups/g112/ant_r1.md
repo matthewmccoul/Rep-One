@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the listed Mordor.Core methods converts an i64 to a decimal string. `VbConvert.TryCLng`, `VbCurrency.TryParse`, and `Rescue.Val` parse strings into numbers, which is the opposite direction. `Rescue.SearchCost` returns a long but does no string conversion. The only i64-to-string code among the candidates is the nested `N(long v)` local function in `SpellInfo.Paint`, which calls `v.ToString(InvariantCulture)`. It is reachable only through the full spell-page layout, so a test through it would check page layout as well as the conversion rule. No files are written.
+
+REFERENCE: none

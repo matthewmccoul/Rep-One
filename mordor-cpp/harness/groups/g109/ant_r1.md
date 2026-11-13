@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the four Mordor.Core methods shown implements this rule. The rule finds a spell in the spell table by normalized name key, or by numeric id when the text is all digits. `Spells.Known` and `Spells.SpellLevelFor` take a spell that has already been resolved, `CompanionInfo.Paint` reads a monster definition, and `CompanionCarry.Run` works on companion slots. The C# counterpart of `castFindSpell`/`townFindSpell` (including `castKey`, `townKey`, and the all-digits check) is not among the shown reference methods, and I have not invented one. If you provide that C# lookup method, I can build the differential test against it.
+
+REFERENCE: none

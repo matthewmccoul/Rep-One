@@ -1,0 +1,2 @@
+src/feat_buffers.cpp bufferForSpell bufferForSpell__feat_buffers
+src/items2a.cpp bufferForSpell bufferForSpell__items2a

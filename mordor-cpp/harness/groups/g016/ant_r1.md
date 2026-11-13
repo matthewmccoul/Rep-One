@@ -1,0 +1,3 @@
+NO_REFERENCE: None of the shown Mordor.Core methods implements an index accessor on Party. SpellThrown.Person, SpellThrown.Companion, SpellThrown.Line, Party.Remove, and Party.PoolToBank do not take a member index. Party.Selected clamps SelectedIndex, and Party.Leader is fixed at Members[0], so neither matches memberAt(p, i) for an arbitrary i. Using the List indexer Party.Members[i] directly would test the C# List rather than a Mordor.Core rule. It also would not match the copies: C# throws on an out-of-range index, while the C++ copies read past the end, and a negative i wraps through static_cast<u32>.
+
+REFERENCE: none

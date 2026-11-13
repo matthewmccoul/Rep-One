@@ -1,0 +1,2 @@
+src/companions1b.cpp stoneChance stoneChance__companions1b
+src/status1a.cpp stoneChance stoneChance__status1a

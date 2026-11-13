@@ -1,0 +1,3 @@
+NO_REFERENCE: The only C# code that performs this roll is inline in the Combat.CombatEngine constructor (`_rng.Next(100) + 1 <= lead.LockedChance && ChestClass > 1`). It cannot serve as the reference. It has no square-allows-magic input, so the rule's third condition is untested. It is not a separate method, and its draw is interleaved with Rules.ChestClass and Rules.ChestTrap, whose draw counts are not shown, so the scripted draw stream cannot be aligned to the lock roll. Rules.EncounterGold only takes the lock as an input, and Loot.DropsItem takes lockState without rolling it.
+
+REFERENCE: none (closest is Combat.CombatEngine constructor, not used)

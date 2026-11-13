@@ -1,0 +1,3 @@
+NO_REFERENCE: The rule is a C++ `static_cast<u32>(i32)` that wraps negative inputs. None of the listed Mordor.Core methods performs an i32-to-u32 index conversion. `CastGate.UseOf`, `CombatSounds.Of`, `Spells.SpellLevelFor`, and `SpellThrown.Line` implement spell-use classification, sound selection, spell-level lookup, and message text. None of them casts an integer to an unsigned index, so the differential test has no reference to compare against.
+
+REFERENCE: none

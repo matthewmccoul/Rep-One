@@ -1,0 +1,1 @@
+NO_REFERENCE: The "REFERENCE CANDIDATES (Mordor.Core)" list and the "C# TYPES USED" section are both empty, so no reference method is shown. The chargeTownCost copy's comment names Character.cs:567 `Pay()`, but that method is not among the shown candidates, and its signature and source are not provided, so I can't use it without inventing details.

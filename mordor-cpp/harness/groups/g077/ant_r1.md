@@ -1,0 +1,3 @@
+NO_REFERENCE: No reference method implements this rule. The rule is a strict digits-only parse that rejects empty input and values above 1000000. The closest candidates don't match. `VbConvert.TryCLng` accepts leading and trailing whitespace, signs, decimal points, exponents, thousands separators, and `&H`/`&O` prefixes, and its upper bound is int.MaxValue, not 1000000. `Rescue.Val` never rejects input; it returns 0 on failure. Writing a test against either would compare different behaviour, so no files are written.
+
+REFERENCE: none (closest candidate VbConvert.TryCLng was not used because its accepted inputs and bounds differ from the rule)

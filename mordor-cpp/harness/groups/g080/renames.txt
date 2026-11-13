@@ -1,0 +1,2 @@
+src/game_town.cpp packIndexFromPlayerSlot packIndexFromPlayerSlot__game_town
+src/items2a.cpp packIndexFromPlayerSlot packIndexFromPlayerSlot__items2a

@@ -1,0 +1,3 @@
+NO_REFERENCE: none of the shown reference methods renders a signed integer as plain decimal text. GiveCommand.Val and Rescue.Val parse text into numbers, the inverse of this rule. CharStatFile.Paint and SpellInfo.Paint lay out screen and file pieces and do not perform the conversion. The closest candidate, CharStatFile.FormatNumber(long), inserts thousands separators and uses CurrentCulture, so it would fail every copy for values of 1000 or more for a reason unrelated to their rule. The plain conversion exists only as the local function N inside SpellInfo.Paint, which can't be called directly. No files written.
+
+REFERENCE: none

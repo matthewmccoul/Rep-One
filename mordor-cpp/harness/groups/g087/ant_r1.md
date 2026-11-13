@@ -1,0 +1,3 @@
+NO_REFERENCE: The rule is C++ fixed-slot indexing of a guild array by enum value (`ch.guilds[static_cast<u32>(g)]`). None of the shown C# methods looks up one guild's membership by identity. The C# side stores memberships in a list (`c.Guilds`) and finds them by scanning `m.Guild` (via `GuildData.ByName`). `Spells.SpellLevelFor`, `Spells.Known`, `Spells.Cost`, and `Character.Create` only iterate that list or add the starting guild, so there is no reference result for `memberOf(ch, g)` to match.
+
+REFERENCE: none

@@ -1,0 +1,2 @@
+src/dungeon1b_b.cpp trapIdentifyChance trapIdentifyChance__dungeon1b_b
+src/loot2.cpp trapIdentifyChance trapIdentifyChance__loot2
