@@ -192,36 +192,6 @@ CombineRefusal combineCheck(const Ctx& ctx, const Item& target, const Item& othe
     return CombineRefusal::NoRefusal;
 }
 
-// ---- R65: combine. First named slot is the target.
-// UNKNOWN: merge rule for charges is not in the dossier; charges are summed.
-CombineOutcome combineItems(Ctx& ctx, Inventory& inv, const Vec<i32>& slots) {
-    if (!combineEnabled(slots)) return CombineOutcome::NothingToCombine;
-    i32 count = static_cast<i32>(slots.size());
-    i32 t = slots[0];
-    if (!validSlot(t) || isEmptySlot(inv.pack[t])) return CombineOutcome::Refused;
-    if (count == 1) return CombineOutcome::NothingToCombine;  // R65: single item silent
-    Item& target = inv.pack[t];
-    for (i32 k = 1; k < count; ++k) {
-        i32 s = slots[k];
-        if (!validSlot(s) || isEmptySlot(inv.pack[s])) {
-            ctx.say("items.combineSorry", "SORRY! Those items cannot be combined.", {}, {});
-            return CombineOutcome::Refused;
-        }
-        CombineRefusal r = combineCheck(static_cast<const Ctx&>(ctx), target, inv.pack[s]);
-        if (r != CombineRefusal::NoRefusal) {  // R65 SORRY box (text UNKNOWN per refusal)
-            ctx.say("items.combineSorry", "SORRY! Those items cannot be combined.", {}, {});
-            return CombineOutcome::Refused;
-        }
-    }
-    for (i32 k = 1; k < count; ++k) {
-        Item& other = inv.pack[slots[k]];
-        target.charges += other.charges;
-        target.maxCharges += other.maxCharges;
-        other = Item{};
-    }
-    return CombineOutcome::Combined;
-}
-
 // UNKNOWN: binding cost table not in the dossier. Returns 0 pending data.
 Currency bindingCost(i32 bindingLevel) {
     (void)bindingLevel;

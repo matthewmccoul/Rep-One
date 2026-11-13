@@ -454,7 +454,7 @@ CombineRefusal combineCheck(const Ctx& ctx, const Item& target, const Item& othe
 
 // R65 combine the named slots into the first named item, which is the target.
 // A single item does nothing silently (SingleItem). Refusals are reported by reason.
-CombineOutcome combineItems(Ctx& ctx, Inventory& inv, const Vec<i32>& slots);
+
 
 // ---- Confinement (R67-R73) ----
 
