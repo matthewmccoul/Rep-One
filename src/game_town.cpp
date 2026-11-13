@@ -18,6 +18,7 @@
 #include "mordor/progression2.h"
 #include "mordor/progression2b.h"
 #include "mordor/store_prices.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 namespace {
@@ -143,9 +144,6 @@ Character& memberAt(Party& p, i32 i) {
     return p.members[static_cast<u32>(i)];
 }
 
-const Character& memberAt(const Party& p, i32 i) {
-    return p.members[static_cast<u32>(i)];
-}
 
 Inventory& invAt(Party& p, i32 i) {
     return p.inventories[static_cast<u32>(i)];

@@ -21,6 +21,7 @@
 #include "mordor/math_util.h"
 #include "mordor/rng.h"
 #include "mordor/state_party.h"  // UNKNOWN: Party layout not supplied
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 namespace {
@@ -69,13 +70,10 @@ i32 firstOfTypeAtLeast(const GameData& d, i32 type, i32 low) {
     return -1;
 }
 
-Character& partyMember(Party& party, i32 index) {
+Character& memberAt(Party& party, i32 index) {
     return party.members[static_cast<u32>(index)];
 }
 
-const Character& partyMember(const Party& party, i32 index) {
-    return party.members[static_cast<u32>(index)];
-}
 
 // ---------------------------------------------------------------------------
 // Treasure class helpers
@@ -471,14 +469,14 @@ i32 chestBlastDamage(Ctx& ctx, i32 d, i32 k) {
 
 // R24: leader Hits below 1. Leader is party member 0.
 bool trapKilledLeader(const Party& party) {
-    return partyMember(party, 0).vitals.curHits < 1;
+    return memberAt(party, 0).vitals.curHits < 1;
 }
 
 // R13/R14/R32/R33: trap effects. Traps 6..10 have no effect in the supplied excerpt (T3 absent).
 ChestTrapResult resolveChestTrap(Ctx& ctx, Party& party, i32 openerIndex, ChestTrap trap) {
     ChestTrapResult r;
     r.trap = trap;
-    Character& opener = partyMember(party, openerIndex);
+    Character& opener = memberAt(party, openerIndex);
     // R14: the level used by every trap is the opener's dungeon level (ChestTraps.Spring dungeonLevel).
     const i32 dungeonLevel = opener.location.dungeonLevel;
 
