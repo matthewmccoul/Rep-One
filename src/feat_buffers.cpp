@@ -25,18 +25,6 @@ constexpr i32 kFirstBufferablePackSlot = 2;
 constexpr i32 kCombatSettingBufferBase = 2;
 const char* const kBufferUsage = "Usage: buffer <member> | buffer <member> <slot 1-4> <spell>";
 
-Str bufferInt(i64 v) {
-  if (v == 0) return "0";
-  bool neg = v < 0;
-  if (neg) v = -v;
-  Str out;
-  while (v > 0) {
-    out.insert(out.begin(), static_cast<char>('0' + (v % 10)));
-    v /= 10;
-  }
-  if (neg) out.insert(out.begin(), '-');
-  return out;
-}
 
 bool bufferParseInt(const Str& t, i32& out) {
   if (t.empty() || t.size() > 6) return false;

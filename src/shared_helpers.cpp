@@ -1,4 +1,8 @@
 #include "mordor/shared_helpers.h"
+#include "mordor/items1b.h"
+#include "mordor/state_common.h"
+#include "mordor/game.h"
+#include "mordor/casting1.h"
 #include "mordor/access.h"
 #include "mordor/features.h"
 #include "mordor/types.h"
@@ -24,6 +28,19 @@ Str seerJoinWords(const Vec<Str>& w, size_t from) {
     if (i > from) out += ' ';
     out += w[i];
   }
+  return out;
+}
+
+Str bufferInt(i64 v) {
+  if (v == 0) return "0";
+  bool neg = v < 0;
+  if (neg) v = -v;
+  Str out;
+  while (v > 0) {
+    out.insert(out.begin(), static_cast<char>('0' + (v % 10)));
+    v /= 10;
+  }
+  if (neg) out.insert(out.begin(), '-');
   return out;
 }
 
