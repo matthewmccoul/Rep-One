@@ -51,4 +51,4 @@ The scripts contain absolute paths from the session that made them, so set them 
 Licensing:
 
 - Mordor.Core is GPLv3, and is not included here.
-- The shareware game files are included for testing only. Keep this repository private.
+- `real-game/MORDOR` is the freely distributed 1995 shareware demo (first three dungeon floors), included so the test setup can be rebuilt.
