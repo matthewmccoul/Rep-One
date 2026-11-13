@@ -31,4 +31,5 @@ Str bufferInt(i64 v);
 const Character& memberAt(const Party& p, i32 i);
 const ItemDef* itemDefById(const GameData& data, i32 id);
 bool isDigits(const Str& t);
+bool swapSlotInRange(i32 slot);
 }  // namespace mordor

@@ -69,4 +69,9 @@ bool isDigits(const Str& t) {
   return true;
 }
 
+// R45 (ch13): a typed swap refuses if either slot is <= 1 or > 40 (player numbering).
+// Slot 1 is your hands and never moves. Reference: SwapCommand.Parse / Character.SwapSlots.
+// The original refuses silently; this port returns a reason line instead.
+bool swapSlotInRange(i32 slot) { return slot > 1 && slot <= kPackSlots; }
+
 }  // namespace mordor

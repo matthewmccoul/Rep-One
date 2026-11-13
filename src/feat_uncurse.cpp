@@ -1,6 +1,7 @@
 #include "mordor/features.h"
 #include "mordor/access.h"
 #include "mordor/math_util.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 namespace {
@@ -21,8 +22,6 @@ const char* kUncurseDone = "The curse is lifted.";
 // Currency is gold x 10000.
 constexpr i64 kCurrencyPerGold = 10000;
 
-// Pack slots 2..40 hold items; slot 1 is the hands and is never an item.
-bool slotInRange(i32 slot) { return slot >= 2 && slot <= kPackSlots; }
 
 // Returns the clerk's refusal, or nullptr when the uncurse goes ahead (R61).
 const char* uncurseRefusal(bool slotCursed, bool equipped) {
@@ -80,7 +79,7 @@ bool cmdUncurse(Session& s, const Vec<Str>& w, Str& reply) {
   }
   Character* who = accMember(s, member);
   Item* item = accPackItem(s, member, slot);
-  if (who == nullptr || !slotInRange(slot) || item == nullptr) {
+  if (who == nullptr || !swapSlotInRange(slot) || item == nullptr) {
     reply = kUncurseNoSlot;
     return true;
   }
