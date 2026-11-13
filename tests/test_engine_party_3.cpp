@@ -1,4 +1,5 @@
 #include "test_support.h"
+#include "mordor/items1b.h"
 #include "mordor/partyb.h"
 #include "mordor/state_party.h"
 #include "mordor/state_character.h"
@@ -33,9 +34,10 @@ TEST(engine_B_0059_30_balances) {
     plain.id = 7;
     party.inventories[0].pack[slot] = plain;
 
-    mordor::PartyGiveGoldOutcome g =
-        mordor::giveGoldToMember(env.ctx, party, me, 1, mordor::Currency(120 * 10000));
-    CHECK(g == mordor::PartyGiveGoldOutcome::Given);
+    // Gold give now goes through transferGold. Return 1 (moved) is the former Given outcome.
+    mordor::i32 moved =
+        mordor::transferGold(env.ctx, me, you, mordor::Currency(120 * 10000), false);
+    CHECK(moved == 1);
 
     mordor::PartyGiveItemOutcome it =
         mordor::giveItemToMember(env.ctx, party, me, 1, 2);

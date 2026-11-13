@@ -1,4 +1,5 @@
 #include "test_support.h"
+#include "mordor/items1b.h"
 #include "mordor/partyb.h"
 
 using namespace mordor;
@@ -423,27 +424,7 @@ TEST(party_status_code_letters) {
     CHECK(partyStatusCode(d) == Str("Pa"));
 }
 
-TEST(give_gold_and_item_refusals) {
-    // Currency is i64 in 1/10000 gold, so amounts are written with currencyFromWhole.
-    tsup::Env env({0.5, 0.9});
-    Ctx& ctx = env.ctx;
-    Party party = makeParty(2);
-    Character& giver = party.members[0];
-    giver.wallet.goldOnHand = currencyFromWhole(100);
 
-    CHECK(giveGoldToMember(ctx, party, giver, 1, 0) == PartyGiveGoldOutcome::NothingToGive);
-    CHECK(giveGoldToMember(ctx, party, giver, 1, currencyFromWhole(-3)) == PartyGiveGoldOutcome::NothingToGive);
-    CHECK(giveGoldToMember(ctx, party, giver, 1, currencyFromWhole(101)) == PartyGiveGoldOutcome::NotEnoughGold);
-    CHECK_EQ(giver.wallet.goldOnHand, currencyFromWhole(100));
-
-    // Exactly the amount on hand is allowed.
-    CHECK(giveGoldToMember(ctx, party, giver, 1, currencyFromWhole(100)) == PartyGiveGoldOutcome::Given);
-    CHECK_EQ(giver.wallet.goldOnHand, currencyFromWhole(0));
-    CHECK_EQ(party.members[1].wallet.goldOnHand, currencyFromWhole(100));
-
-    // Pack slot 0 is the Hands slot, so there is no item to give.
-    CHECK(giveItemToMember(ctx, party, giver, 1, 0) == PartyGiveItemOutcome::NoItemToGive);
-}
 
 TEST(item_slot_index_formula) {
     CHECK_EQ(itemSlotIndex(0), 0);

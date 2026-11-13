@@ -1,4 +1,5 @@
 #include "test_support.h"
+#include "mordor/items1b.h"
 #include "mordor/partya.h"
 #include "mordor/partyb.h"
 #include "mordor/state_party.h"

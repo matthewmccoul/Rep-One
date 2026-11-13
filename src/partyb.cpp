@@ -747,35 +747,6 @@ bool isBodyInCity(const Character& body, const Character& self, const Party& par
 // Give gold and items (c10, c29)
 // ---------------------------------------------------------------------------
 
-PartyGiveGoldOutcome giveGoldToMember(Ctx& ctx,
-                                      Party& party,
-                                      Character& giver,
-                                      i32 receiverIndex,
-                                      Currency amount) {
-    // Nobody in party to give to (c10)
-    if (party.size <= 1 || receiverIndex < 0 || receiverIndex >= party.size) {
-        ctx.say("party.give.nobody", "Nobody in party to give to!", {}, {});
-        return PartyGiveGoldOutcome::NobodyToGiveTo;
-    }
-    // Gold "" or Val < 1 -> 0 (c10). UNKNOWN: the 1-gold floor is taken as
-    // currencyFromWhole(1) in Currency units.
-    if (amount < currencyFromWhole(1)) {
-        return PartyGiveGoldOutcome::NothingToGive;
-    }
-    // Val > gold on hand -> "Not enough gold!" (c10)
-    if (amount > giver.wallet.goldOnHand) {
-        ctx.say("party.give.notEnough", "Not enough gold!", {}, {});
-        return PartyGiveGoldOutcome::NotEnoughGold;
-    }
-    Character& receiver = party.members[receiverIndex];
-    giver.wallet.goldOnHand -= amount;
-    receiver.wallet.goldOnHand += amount;
-    // Give of N gold to "X" Completed! (nums[0] = N, strs[0] = receiver name)
-    ctx.say("party.give.goldDone", "Give of gold to \"<name>\" Completed!",
-            {static_cast<i64>(currencyWhole(amount))}, {receiver.name});
-    return PartyGiveGoldOutcome::Given;
-}
-
 i32 itemSlotIndex(i32 n) {
     // slot = (n > 1) ? n - 1 : 0
     return (n > 1) ? n - 1 : 0;

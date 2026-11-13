@@ -380,19 +380,6 @@ BankResult withdrawGold(Ctx& ctx, Purse& purse, Currency amount) {
 // greater-than [c28]. Preferred port behaviour used.
 bool shouldReidentifyOnRetrieval(i32 probe, i32 threshold) { return probe > threshold; }
 
-// R-gold transfer: moved = min(max(amount, 0), from.GoldOnHand).
-void transferGold(Ctx& ctx, Character& from, Character& to, Currency amount) {
-    (void)ctx;
-    Currency want = amount < 0 ? 0 : amount;
-    Currency moved = want < from.wallet.goldOnHand ? want : from.wallet.goldOnHand;
-    // R24: receiver balance cap. Refuse the transfer rather than overflow the receiver.
-    if (moved > kBalanceCap - to.wallet.goldOnHand) {
-        return;
-    }
-    to.wallet.goldOnHand += moved;
-    from.wallet.goldOnHand -= moved;
-}
-
 // UNKNOWN: check order (free slot before gold) is a chosen order. T-10 lists both.
 BuyResult buyItem(Ctx& ctx, Purse& purse, Inventory& inv, const Item& item, Currency price) {
     i32 slot = firstFreeSlot(inv);

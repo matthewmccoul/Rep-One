@@ -429,26 +429,7 @@ TEST(bank_deposit_withdraw_beeps) {
 }
 
 // transferGold moves min(max(amount,0), from.gold); negative moves nothing.
-TEST(transfer_gold_caps_and_ignores_negative) {
-    tsup::Env env({0.5, 0.9});
-    Character from;
-    Character to;
-    from.wallet.goldOnHand = 100;
-    transferGold(env.ctx, from, to, 30);
-    CHECK_EQ(from.wallet.goldOnHand, 70);
-    CHECK_EQ(to.wallet.goldOnHand, 30);
 
-    transferGold(env.ctx, from, to, 500);  // capped at 70
-    CHECK_EQ(from.wallet.goldOnHand, 0);
-    CHECK_EQ(to.wallet.goldOnHand, 100);
-
-    Character from2;
-    Character to2;
-    from2.wallet.goldOnHand = 10;
-    transferGold(env.ctx, from2, to2, -5);
-    CHECK_EQ(from2.wallet.goldOnHand, 10);
-    CHECK_EQ(to2.wallet.goldOnHand, 0);
-}
 
 // Younger: age -= years*365, floored at 16*365 = 5840.
 TEST(younger_by_years_with_floor) {

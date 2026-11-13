@@ -240,7 +240,7 @@ BankResult withdrawGold(Ctx& ctx, Purse& purse, Currency amount);
 // UNKNOWN: arguments of fn12F0 not given; caller supplies the probe value.
 bool shouldReidentifyOnRetrieval(i32 probe, i32 threshold);
 // Party gold: move min(max(amount,0), from.goldOnHand) to receiver
-void transferGold(Ctx& ctx, Character& from, Character& to, Currency amount);
+i32 transferGold(Ctx& ctx, Character& from, Character& to, Currency amount, bool inDungeon);
 // Buy: add item to a free slot and pay. price comes from store formulas (UNKNOWN [c30]).
 BuyResult buyItem(Ctx& ctx, Purse& purse, Inventory& inv, const Item& item, Currency price);
 
