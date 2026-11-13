@@ -103,34 +103,10 @@ i32 raceIndex(Race race) {
 
 }  // namespace
 
-// R2: base stat is drawn uniformly within the race min-max range.
-// UNKNOWN: the roll procedure is not in the source; a uniform draw over [min, max] is used.
-i32 generateBaseStat(Ctx& ctx, Race race, StatIndex stat) {
-    const i32 r = raceIndex(race);
-    const i32 s = static_cast<i32>(stat);
-    const i32 lo = kStatMinTable[r][s];
-    const i32 hi = kStatMaxTable[r][s];
-    return lo + static_cast<i32>(ctx.rng.below(hi - lo + 1));
-}
-
 // R3: ceiling = Races(r).M553C(stat) + 5, where M553C is the race max stat.
 i32 statCeiling(Ctx& ctx, Race race, StatIndex stat) {
     (void)ctx;
     return kStatMaxTable[raceIndex(race)][static_cast<i32>(stat)] + kStatCeilingOffset;
-}
-
-// R3: a stat may be raised only up to the ceiling. Amount is added and clamped to the ceiling.
-// UNKNOWN: whether statMax is also updated on a raise is not in the source; it is left unchanged.
-i32 raiseStat(Ctx& ctx, Character& ch, StatIndex stat, i32 amount) {
-    const u32 idx = static_cast<u32>(stat);
-    const i32 current = ch.abilities.stats[idx];
-    const i32 ceiling = statCeiling(ctx, ch.race, stat);
-    const i32 wanted = current + amount;
-    const i32 target = wanted < ceiling ? wanted : ceiling;
-    if (target > current) {
-        ch.abilities.stats[idx] = target;
-    }
-    return ch.abilities.stats[idx];
 }
 
 // R4: race-guild eligibility from grid T4.
@@ -147,29 +123,6 @@ bool alignmentAllowed(Ctx& ctx, Race race, Align align) {
     return kAlignMask[raceIndex(race)][static_cast<i32>(align)];
 }
 
-// R6: resistance percentage for a category. Categories not listed are 0.
-i32 resistancePercent(Ctx& ctx, Race race, ResistCategory category) {
-    (void)ctx;
-    return kResistTable[raceIndex(race)][static_cast<i32>(category)];
-}
-
-// R6: percentage applied against an amount.
-// UNKNOWN: order and stacking with spell/item resistance are not in the source.
-// Simplest choice: reduce the amount by pct percent, rounded half-even.
-i32 applyResistance(Ctx& ctx, Race race, ResistCategory category, i32 amount) {
-    const i32 pct = resistancePercent(ctx, race, category);
-    const i64 reduction = roundHalfEven(static_cast<f64>(amount) * static_cast<f64>(pct) / 100.0);
-    return amount - static_cast<i32>(reduction);
-}
-
-// R8: age runs toward the race max age.
-// UNKNOWN: aging mechanics and units of ageDays are not in the source.
-// Simplest choice: advance ageDays by one unit per call.
-void advanceAge(Ctx& ctx, Character& ch) {
-    (void)ctx;
-    ch.ageDays += 1;
-}
-
 // R9: XP required is scaled by the racial multiplier.
 // UNKNOWN: the XP formula body is not in the source. Simplest choice: scale the character's
 // xpRequired field by the R11 racial penalty r, rounded half-even.
@@ -177,18 +130,6 @@ i64 xpRequired(Ctx& ctx, const Character& ch) {
     (void)ctx;
     const f64 scaled = static_cast<f64>(ch.xpRequired) * racialPenalty(ch.race);
     return roundHalfEven(scaled);
-}
-
-// R10: approximate XP multiplier derived from Exp.
-// Actual Exp approx = 1 + [ln(Exp)/ln(3) - 1] / [4.50 - (Exp - 4) * (11/90)]
-// CONFLICT: this formula does not reproduce the table in [c97] for Elf, Osiri and Troll
-// (hand recomputation gives about 1.1866, 1.2226, 1.2571). The formula is implemented as written.
-f64 expMultiplier(Ctx& ctx, Race race) {
-    (void)ctx;
-    const f64 exp = static_cast<f64>(kExpTable[raceIndex(race)]);
-    const f64 num = std::log(exp) / std::log(kExpLogBase) - 1.0;
-    const f64 den = kExpDenomConst - (exp - kExpDenomOffset) * kExpDenomSlope;
-    return 1.0 + num / den;
 }
 
 // R11: normalized racial penalty r, Human = 1.0, from table T5 (kRacialPenalty in header).
@@ -200,27 +141,6 @@ f64 racialPenalty(Race race) {
 // UNKNOWN: the item strength requirement is not in Item or the supplied GameData fields.
 // Until it is available, no item is treated as requiring great Strength.
 namespace {
-bool requiresGreatStrength(const Item& item) {
-    (void)item;
-    return false;
-}
 }  // namespace
-
-bool canUseItem(Ctx& ctx, const Character& ch, const Item& item) {
-    (void)ctx;
-    if (ch.race == Race::Elf && requiresGreatStrength(item)) {
-        return false;
-    }
-    return true;
-}
-
-// R13: Morloch cannot easily charm some monsters [c87].
-// UNKNOWN: which monsters are affected is not in the source. No monster is restricted.
-bool canCharm(Ctx& ctx, Race race, i32 monsterId) {
-    (void)ctx;
-    (void)race;
-    (void)monsterId;
-    return true;
-}
 
 }  // namespace mordor

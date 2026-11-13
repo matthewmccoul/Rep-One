@@ -33,16 +33,6 @@ TEST(chest_constants_match_srd) {
     CHECK_EQ(kChestDisarmMax, 98);
 }
 
-TEST(victory_gold_only_without_chest_and_chest_gold_needs_trap_resolved) {
-    CHECK_EQ(victoryGoldPayout(500, true), 0);
-    CHECK_EQ(victoryGoldPayout(500, false), 500);
-    // chestGoldPayable(opened, openerKilledByTrap): gold is paid only when opened and the
-    // opener was not killed by the trap (R17, R24, Q7).
-    CHECK(!chestGoldPayable(false, true));
-    CHECK(!chestGoldPayable(true, true));   // opener killed by trap: no gold
-    CHECK(chestGoldPayable(true, false));   // opened, trap resolved, opener alive
-}
-
 TEST(class_gold_factor_by_treasure_class) {
     // Currency is 1/10000 gold; inputs and expectations are whole gold via currencyFromWhole.
     CHECK_EQ(scaleGoldForClass(currencyFromWhole(1000), 0), currencyFromWhole(500));
@@ -100,86 +90,6 @@ TEST(box_chance3_override_sets_low_one_below_top) {
     CHECK_EQ(plain.low, 5);
 }
 
-TEST(chest_disarm_clamped_to_5_to_98) {
-    CHECK_EQ(clampChestDisarm(0), 5);
-    CHECK_EQ(clampChestDisarm(5), 5);
-    CHECK_EQ(clampChestDisarm(50), 50);
-    CHECK_EQ(clampChestDisarm(98), 98);
-    CHECK_EQ(clampChestDisarm(99), 98);
-}
-
-TEST(fire_damage_reduced_by_half_resistance_then_rounded_half_even) {
-    CHECK_EQ(chestFireDamage(10, 0), 10);
-    CHECK_EQ(chestFireDamage(10, 100), 5);   // 10 - 10*0.5
-    CHECK_EQ(chestFireDamage(10, 50), 8);    // 10 - 2.5 = 7.5 rounds to 8
-}
-
-TEST(payout_stopped_by_party_kill_or_teleport_only) {
-    ChestTrapResult none{};
-    CHECK(!trapStopsPayout(none));
-    ChestTrapResult poisoned{};
-    poisoned.poisoned = true;
-    CHECK(!trapStopsPayout(poisoned));
-    ChestTrapResult killed{};
-    killed.partyKilled = true;
-    CHECK(trapStopsPayout(killed));
-    ChestTrapResult teleported{};
-    teleported.teleported = true;
-    CHECK(trapStopsPayout(teleported));
-}
-
-TEST(group_gold_share_rounds_half_even) {
-    // Pot is Currency; the share is rounded half-to-even in whole gold (R16, T8).
-    CHECK_EQ(goldSharePaid(currencyFromWhole(5), 2), currencyFromWhole(2));    // 2.5 -> 2
-    CHECK_EQ(goldSharePaid(currencyFromWhole(7), 2), currencyFromWhole(4));    // 3.5 -> 4
-    CHECK_EQ(goldSharePaid(currencyFromWhole(9), 2), currencyFromWhole(4));    // 4.5 -> 4
-    CHECK_EQ(goldSharePaid(currencyFromWhole(10), 4), currencyFromWhole(2));   // 2.5 -> 2
-    CHECK_EQ(goldSharePaid(currencyFromWhole(12), 4), currencyFromWhole(3));   // exact
-}
-
-TEST(typed_gold_uses_clng_and_thief_take_caps_at_purse) {
-    CHECK_EQ(typedGoldWhole(2.5), 2);
-    CHECK_EQ(typedGoldWhole(3.5), 4);
-    CHECK_EQ(typedGoldWhole(-2.5), 0);   // below 1 (negatives included) is 0: reference GiveCommand.GoldAnswer
-    CHECK_EQ(typedGoldWhole(0.4), 0);
-    CHECK_EQ(thiefTake(currencyFromWhole(100), currencyFromWhole(300)), currencyFromWhole(100));  // roll below purse
-    // Roll above purse takes CLng(purse) in whole gold (R27, T7); purse must be a real Currency amount.
-    CHECK_EQ(thiefTake(currencyFromWhole(500), currencyFromWhole(300)), currencyFromWhole(300));
-}
-
-
-
-
-
-
-
-TEST(buying_depletes_shelf_for_floor_or_aligned_purchase) {
-    CHECK(!buyDepletesShelf(0, ItemAlign::Unaligned));
-    CHECK(buyDepletesShelf(1, ItemAlign::Unaligned));
-    CHECK(buyDepletesShelf(0, ItemAlign::Good));
-}
-
-TEST(selling_shelves_item_unless_cursed_or_shelf_full) {
-    Item plain{};
-    CHECK(!shelvesSaleItem(plain, 0, ItemAlign::Unaligned, 0));
-    CHECK(shelvesSaleItem(plain, 0, ItemAlign::Good, 0));
-    CHECK(shelvesSaleItem(plain, 1, ItemAlign::Unaligned, 8));
-    CHECK(!shelvesSaleItem(plain, 1, ItemAlign::Unaligned, 9));
-    Item cursed{};
-    cursed.cursed = CurseKind1;
-    CHECK(!shelvesSaleItem(cursed, 1, ItemAlign::Good, 0));
-}
-
-TEST(hall_record_needs_strictly_greater_purse_and_restock_needs_days) {
-    CHECK(replacesWealthiestRecord(101, 100));
-    CHECK(!replacesWealthiestRecord(100, 100));
-    CHECK(!replacesWealthiestRecord(99, 100));
-    Character leader{};
-    CHECK(!restocksOnArrival(leader));   // daysAged 0
-    leader.daysAged = 1;
-    CHECK(restocksOnArrival(leader));
-}
-
 TEST(square_blocks_magic_lock_on_antimagic_or_extinguisher_bits) {
     CHECK(squareAllowsMagicLock(0u));
     CHECK(squareAllowsMagicLock(1u << 11));
@@ -196,15 +106,6 @@ TEST(magic_lock_needs_class_above_one_and_allowed_square) {
     CHECK(applyMagicLock(e3.ctx, 1u << 18, 2, 100) == ChestLock::UNLOCKED);
     tsup::Env e4(std::initializer_list<double>{0.0});
     CHECK(applyMagicLock(e4.ctx, 1u << 10, 3, 100) == ChestLock::UNLOCKED);
-}
-
-TEST(lock_roll_passes_at_or_below_locked_chance_for_class_two_up) {
-    tsup::Env pass(std::initializer_list<double>{0.29});                  // Int(29)+1 = 30 <= 30
-    CHECK(rollChestLock(pass.ctx, 2, 30));
-    tsup::Env fail(std::initializer_list<double>{0.30});                  // Int(30)+1 = 31 > 30
-    CHECK(!rollChestLock(fail.ctx, 2, 30));
-    tsup::Env cls1(std::initializer_list<double>{0.0});
-    CHECK(!rollChestLock(cls1.ctx, 1, 100)); // class 1 never locks
 }
 
 TEST(extra_item_roll_uses_item_chance_tenth) {

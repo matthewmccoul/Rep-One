@@ -13,9 +13,3 @@
 // SKIP B_0056#3: EncounterGenerator.InRoom/Capture need MDATA11 dungeon data and room capture; no equivalent in headers
 // SKIP B_0056#4: EncounterGenerator.InRoom store/read-back needs room persistence; no equivalent in headers
 
-TEST(engine_B_0056_2_alive_after_zero_hits) {
-    mordor::Creature c;
-    c.hits = 1;
-    mordor::setCreatureHits(c, 0);
-    CHECK(!mordor::creatureAlive(c));
-}

@@ -104,48 +104,9 @@ i32 defenseOf(const Ctx& ctx, const Character& c, const Inventory& inv) {
     return floorAtZero(total);
 }
 
-// R3: live stat contribution. UNKNOWN: recomputed live, not read from the cache
-// combat.statsAdNow.
-i32 statsADNow(const Character& c) {
-    return statsADOf(c);
-}
-
 // R6: stored shift only counts while the stat part is held.
 i32 storedADShift(const Character& c) {
     return statPartHeld(c) ? c.combat.storedAdShift : 0;
-}
-
-// R3: panel variant. Reference only; the engine formula in R2 is preferred.
-AdPair panelAD(const Ctx& ctx, const Character& c, const Inventory& inv) {
-    Ctx local(ctx);
-    i32 stats = statsADNow(c) + storedADShift(c);
-    BestAd best = bestGuildAD(c);
-    i32 ia = equippedAtt(ctx, inv);
-    i32 id = equippedDef(ctx, inv);
-    AdPair pair{};
-    pair.att = floorAtZero(baseAD(local, c) + stats + best.att + ia);
-    pair.def = floorAtZero(baseAD(local, c) + stats + best.def + id);
-    return pair;
-}
-
-// R5: a paralysed character fights on base, guild and gear values; the stat
-// part is shifted out.
-// CONFLICT: R7 "shifted out" versus "stored shift kept for good". Engine
-// preferred: the stat term is taken as zero here.
-AdPair paralysedAD(const Ctx& ctx, const Character& c, const Inventory& inv) {
-    Ctx local(ctx);
-    BestAd best = bestGuildAD(c);
-    AdPair pair{};
-    pair.att = floorAtZero(baseAD(local, c) + best.att + equippedAtt(ctx, inv));
-    pair.def = floorAtZero(baseAD(local, c) + best.def + equippedDef(ctx, inv));
-    return pair;
-}
-
-// R6: on level-0 paralysis or a city-gate clear the stored shift is kept
-// "for good". The current shift is copied into the stored shift.
-void keepStoredAdShift(Ctx& ctx, Character& c) {
-    c.combat.storedAdShift = c.combat.adShift;
-    ctx.say("combat3.shift_kept", "Stored stat shift kept.", {}, {});
 }
 
 // R6: the stat part is held unless the character is paralysed.
@@ -157,33 +118,6 @@ bool statPartHeld(const Character& c) {
 // ---------------------------------------------------------------------------
 // Defend (R8, R9)
 // ---------------------------------------------------------------------------
-
-// R8: Defend is a character order. The character stops swinging.
-void setDefendOrder(Ctx& ctx, Character& c, bool on) {
-    c.order.defendOn = on;
-    if (on) {
-        c.order.kind = CombatOrderKind::Defend;
-        c.combat.swings = 0;  // stops swinging
-        ctx.say("combat3.defend_on", "Defend order set.", {}, {});
-    } else {
-        if (c.order.kind == CombatOrderKind::Defend) {
-            c.order.kind = CombatOrderKind::None;
-        }
-        ctx.say("combat3.defend_off", "Defend order cleared.", {}, {});
-    }
-}
-
-// R8: Defend turns on when a weapon proves useless.
-void defendWhenWeaponUseless(Ctx& ctx, Character& c, bool weaponProvedUseless) {
-    if (weaponProvedUseless) {
-        setDefendOrder(ctx, c, true);
-    }
-}
-
-// R8: Defend makes the character harder to rob.
-bool defendHardensRobbery(const Character& c) {
-    return c.order.defendOn;
-}
 
 // R9: the intended +50% Defend bonus is dead code in the original (overwritten
 // before use). The port matches this: no bonus is applied.
@@ -267,51 +201,9 @@ bool itemResistsKind(u32 resistanceFlags, DamageKind kind) {
     return (resistanceFlags & kItemResistBits[idx]) != 0;
 }
 
-// R15: a resistance-raising spell is a caster's action. Only out of combat.
-// It raises the recipient's matching resistance to 95.
-// UNKNOWN: whether 95 is a floor, a set or additive. Floor chosen here.
-bool castResistRaise(Ctx& ctx, Character& caster, Character& target, DamageKind kind, bool inCombat) {
-    (void)caster;
-    if (inCombat) {
-        ctx.say("combat3.resist_refused", "Resistance spells cannot be cast in combat.", {}, {});
-        return false;
-    }
-    u64 k = resistIndex(kind);
-    if (target.resistances.resist[k] < kResistRaisePercent) {
-        target.resistances.resist[k] = kResistRaisePercent;
-    }
-    ctx.say("combat3.resist_raised", "Resistance raised.", {}, {});
-    return true;
-}
-
 // ---------------------------------------------------------------------------
 // Magic class to resistance type (R17)
 // ---------------------------------------------------------------------------
-
-ClassResistType resistTypeForClass(SpellClass cls) {
-    switch (cls) {
-        case SpellClass::Fire:
-            return ClassResistType::FireResist;
-        case SpellClass::Cold:
-            return ClassResistType::ColdResist;
-        case SpellClass::Electrical:
-            return ClassResistType::ElectricalResist;
-        case SpellClass::Mind:
-            return ClassResistType::MindResist;
-        case SpellClass::Damage:
-        case SpellClass::Kill:
-        case SpellClass::Banish:
-        case SpellClass::Dispel:
-            return ClassResistType::MagicResist;
-        case SpellClass::Charm:
-            return ClassResistType::MagicAndCharmResist;
-        case SpellClass::Element:
-            return ClassResistType::ByElement;
-        case SpellClass::Protection:
-            return ClassResistType::NoTargetResist;
-    }
-    return ClassResistType::NoTargetResist;
-}
 
 // ---------------------------------------------------------------------------
 // Monster chance to hit (R18, R19)
@@ -339,15 +231,6 @@ bool monsterHitRoll(Ctx& ctx, i32 monAtk, i32 charDef) {
     f64 chance = monsterHitChance(monAtk, charDef);
     f64 roll = static_cast<f64>(ctx.rng.below(100) + 1);
     return roll <= chance;
-}
-
-// R19: on a player attack the monster's Defense is 0 and the character's
-// Defense is Def.
-HitCallArgs playerAttackHitArgs(i32 charDef) {
-    HitCallArgs args{};
-    args.monsterDefense = 0;
-    args.characterDefense = charDef;
-    return args;
 }
 
 }  // namespace mordor

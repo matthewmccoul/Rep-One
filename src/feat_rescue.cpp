@@ -198,10 +198,6 @@ i32 raiseGetInt(const Session& s, i32 member, const char* field, i32 fallback) {
   return out;
 }
 
-void raiseSetInt(Session& s, i32 member, const char* field, i32 value) {
-  s.featureState[raiseKey(member, field)] = std::to_string(value);
-}
-
 void raiseClear(Session& s, i32 member) {
   s.featureState.erase(raiseKey(member, "chance"));
   s.featureState.erase(raiseKey(member, "kind"));
@@ -220,24 +216,6 @@ i32 rescueComplicationPercent(const Session&, const Character&) {
 }
 
 }  // namespace
-
-// PendingRaise.Initiate (sub0A7C, MAINMOD2.BAS:5974-5998). The body is moved to the raiser's
-// square, level and area. A chance above 0 writes the raise on it.
-// Declared for the spell and morgue modules; NEED: declare in features.h and call from those modules.
-void rescueInitiatePendingRaise(Session& s, i32 bodyMember, i32 raiserMember, i32 chance, i32 kind) {
-  Character* body = accMember(s, bodyMember);
-  const Character* raiser = accMember(s, raiserMember);
-  if (body == nullptr || raiser == nullptr) return;
-  body->location.x = static_cast<decltype(body->location.x)>(raiser->location.x);
-  body->location.y = static_cast<decltype(body->location.y)>(raiser->location.y);
-  body->location.dungeonLevel = static_cast<decltype(body->location.dungeonLevel)>(raiser->location.dungeonLevel);
-  body->location.area = static_cast<decltype(body->location.area)>(raiser->location.area);
-  if (chance > 0) {
-    raiseSetInt(s, bodyMember, "chance", chance);
-    raiseSetInt(s, bodyMember, "kind", kind);
-    s.featureState[raiseKey(bodyMember, "by")] = raiser->name;
-  }
-}
 
 namespace {
 

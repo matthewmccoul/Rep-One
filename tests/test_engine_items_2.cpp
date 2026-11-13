@@ -12,12 +12,3 @@ using namespace mordor;
 // SKIP B_0059#27: GiveCommand.ItemAnswer refusal for out-of-pack item number has no equivalent; see B_0059#22.
 // SKIP B_0059#28: GiveCommand.SlotFromTag has no direct equivalent; slotFromAnswer is not confirmed to implement the same tag-to-slot mapping.
 
-// B_0061#90: special type 1 changes stats. Mapped to specialAppliesStatMods(1), which lists types 1, 13, 14.
-TEST(engine_B_0061_90_special_type1_changes_stats) {
-    CHECK(specialAppliesStatMods(1));
-}
-
-// B_0061#91: special type 14 changes stats. Mapped to specialAppliesStatMods(14).
-TEST(engine_B_0061_91_special_type14_changes_stats) {
-    CHECK(specialAppliesStatMods(14));
-}

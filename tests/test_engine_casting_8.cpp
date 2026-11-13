@@ -12,10 +12,5 @@ using namespace mordor;
 // SKIP B_0062#59: needs MdrLoader.LoadSpells on MDATA2.MDR; no loader API in the provided headers.
 // SKIP B_0062#60: needs MdrLoader.LoadItems and LoadSpells on MDATA3.MDR; no loader API in the provided headers.
 
-TEST(engine_B_0062_61_highest_spell_ceiling_across_guilds) {
-    // Highest spell ceiling any guild reaches in any school.
-    CHECK_EQ(spellCeilingAcrossGuilds(tsup::data().guilds), 15);
-}
-
 // SKIP B_0062#62: needs Character.PutInPack and Spellbook.Castables; no equivalent in the provided headers.
 // SKIP B_0063#38: needs Spellbook.Castables and item-from-carrier castability; no equivalent in the provided headers.

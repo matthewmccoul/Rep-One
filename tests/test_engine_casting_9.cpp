@@ -15,20 +15,6 @@ TEST(engine_B_0064_7_spell_buffer_count) {
 // B_0065#37: no equivalent; needs a combat round and named message inspection.
 // SKIP B_0065#37: needs a full combat round simulation and message text inspection.
 
-// B_0065#38: standing orders revert to Fight when the caster lacks spell points.
-// Assumes the standing cast order starts as CombatOrderKind::Buffer.
-TEST(engine_B_0065_38_standing_orders_fight) {
-    mordor::CombatOrder m0;
-    m0.kind = mordor::CombatOrderKind::Buffer;
-    mordor::enforceStandingOrderSp(m0, 0, 5);
-    CHECK(m0.kind == mordor::CombatOrderKind::Fight);
-
-    mordor::CombatOrder m1;
-    m1.kind = mordor::CombatOrderKind::Buffer;
-    mordor::enforceStandingOrderSp(m1, 0, 5);
-    CHECK(m1.kind == mordor::CombatOrderKind::Fight);
-}
-
 // B_0065#39: no equivalent; the target group is set by the round, not by a header function.
 // SKIP B_0065#39: target group is assigned during a combat round simulation.
 

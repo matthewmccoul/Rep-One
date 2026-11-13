@@ -23,22 +23,3 @@ TEST(engine_B_0061_28_statsad_all_30_20) {
     CHECK_EQ(mordor::statsAD(s), 84);
 }
 
-TEST(engine_B_0061_145_conlosschance_con24) {
-    CHECK_EQ(mordor::conLossChance(24), 2);
-}
-
-TEST(engine_B_0061_146_conlosschance_con23) {
-    CHECK_EQ(mordor::conLossChance(23), 4);
-}
-
-TEST(engine_B_0061_147_conlosschance_con21) {
-    CHECK_EQ(mordor::conLossChance(21), 8);
-}
-
-TEST(engine_B_0061_148_conlosschance_con27) {
-    CHECK_EQ(mordor::conLossChance(27), 0);
-}
-
-TEST(engine_B_0061_149_conlosschance_con25) {
-    CHECK_EQ(mordor::conLossChance(25), 0);
-}

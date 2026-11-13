@@ -244,11 +244,6 @@ bool cmdTownUseItem(Session& s, const Vec<Str>& w, Str& reply) {
 
 }  // namespace
 
-// Exposed for tests; same body as the registered verbs.
-bool duseUseCommand(Session& s, const Vec<Str>& w, Str& reply) {
-  return duseUse(s, w, reply);
-}
-
 void register_duse() {
   registerFeatureCommand({"use", Screen::Dungeon, &cmdDungeonUse, "use <member> <slot>  - use an item from a pack slot (potions heal, scrolls cast)"});
   registerFeatureCommand({"useitem", Screen::Town, &cmdTownUseItem, "useitem <member> <slot>  - use an item from a pack slot (potions heal, scrolls cast)"});

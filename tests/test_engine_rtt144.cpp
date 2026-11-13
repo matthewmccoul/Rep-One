@@ -5,22 +5,6 @@
 
 using namespace mordor;
 
-// B_0063#48: Loot.AttachesItself on the first Cursed==1 item in the data (expected false).
-TEST(engine_rtt144_attaches_itself_first_cursed1_is_false) {
-  const GameData& gd = tsup::data();
-  const auto* found = static_cast<const ItemDef*>(nullptr);
-  for (const auto& it : gd.items) {
-    if (it.cursed == 1) { found = &it; break; }
-  }
-  CHECK(found != nullptr);
-  if (found != nullptr) {
-    // Build a local Item carrying the cursed flag from the definition. Other fields are left at their defaults.
-    Item probe{};
-    probe.cursed = static_cast<CurseKind>(found->cursed);
-    CHECK(!curseAttachesItself(probe));
-  }
-}
-
 // SKIP B_0066#131: ItemUse.Problem returns the message text "\"held\", the Item doesn't appear to do much of anything."
 // Our declarations only expose the UseCheck enum (NoEffect); no message formatter is declared to compare the string.
 

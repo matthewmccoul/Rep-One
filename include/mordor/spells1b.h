@@ -92,73 +92,16 @@ enum class UtilityEffect : i32 {
     FindDirection = 13
 };
 
-// ---- R56 Ethereal Portal ----
-// R56 Ethereal Portal into rock: marks the square as rockRecorded. Port stops rather than hangs
-// (original hangs at MAINMOD2.BAS:4586-4587; the one deliberate deviation).
-PortalOutcome castEtherealPortal(Ctx& ctx, Party& party, SquareState& square, i32 casterSlot);
 
-// ---- R57 Locate ----
-// R57 classify one saved character relative to the caster's location (pure)
-LocateLine classifyLocate(const Location& from, const Location& to, i32 rosterIndex);
-// R57 relative direction from one square to another (pure)
-RelativeDirection relativeDirection(i32 fromX, i32 fromY, i32 toX, i32 toY);
-// R57 Locate (effect 14): one line per saved character, excluding the caster at casterIndex
-void castLocate(Ctx& ctx, const Vec<Character>& roster, i32 casterIndex);
 
-// ---- R58 Fetch candidates ----
-// R58 roster indices of dead characters with deathState Rock, on the party's level, in area kCityArea (pure)
-// UNKNOWN: "the leader's level" is read as party.dungeonLevel
-Vec<i32> fetchCandidates(const Vec<Character>& roster, const Party& party);
 
-// ---- R59 Fetch reach and move ----
-// R59 literal test: a body is refused when its level is at or below kMaxDungeonLevel (pure)
-// UNKNOWN: the literal test may be inverted relative to intent; follows the SRD text
-bool isFetchWithinReach(i32 bodyDungeonLevel);
-// R58/R59 Fetch (effect 15). pickedRosterIndex = -1 is Cancel and spends nothing.
-FetchOutcome castFetch(Ctx& ctx, Party& party, Vec<Character>& roster, i32 pickedRosterIndex);
 
 // ---- R60 Lock-opening ----
 // R60 OpensLockUpTo(effect) = effect - 29 (trivial arithmetic)
 inline constexpr i32 opensLockUpTo(i32 effect) { return effect - kLockOpenBaseEffect; }
-// R60 open a chest lock. spellPointCost is the caster's cost from the spell data.
-// UNKNOWN: SquareState has no lock-level field; chestLockLevel is supplied by the caller.
-OpenLockOutcome castOpenLock(Ctx& ctx, Character& caster, SquareState& square, i32 effect,
-                             i32 spellPointCost, i32 chestLockLevel);
 
-// ---- R61 Binding ----
-// R61 a candidate is a living companion (hits > 0) with bindingLevel != 0 (pure)
-bool isBindCandidate(const Companion& comp);
-// R61 indices of all candidates (pure)
-Vec<i32> bindCandidates(const Vec<Companion>& companions);
-// R61 caster picks pickedIndex (must be a candidate). Spends points, then applies SpellEffect.BindCompanion.
-// effect 150 is bind for life. UNKNOWN: whether this is the items2b bindCompanion overload; not called here.
-BindTargetOutcome castBinding(Ctx& ctx, Character& caster, Vec<Companion>& companions,
-                              i32 pickedIndex, i32 effect, i32 spellPointCost);
 
-// ---- R62 Fate ----
-// R62 Fate (effect 19; also chest trap 6). Draws one unused random number, then names party.members[0]
-// and rerolls its hits and spell points. Shared by both paths.
-// UNKNOWN: whether the original lets spell level 50 cast Fate (only Elixr of Fate) is not verified.
-void applyFate(Ctx& ctx, Party& party);
-// R62 steps 2: CurHits = Int(rnd * MaxHits) + 1; CurSpellPoints = Int(rnd * MaxSpellPoints) + 1
-void rerollFateVitals(Ctx& ctx, Character& who);
 
-// ---- R63 Sanctuary ----
-// R63 stored point for a Set Sanctuary cast: X + 1, Y + 1, DungeonLevel (pure)
-SanctuaryPoint sanctuaryPointFor(const Party& party);
-// R63 Set Sanctuary (effect 16): returns the new stored point
-SanctuaryPoint castSetSanctuary(Ctx& ctx, const Party& party);
-// R63 Sanctuary return (effect 17): ages the caster by kSanctuaryDays when a point is stored.
-// UNKNOWN: whether the party is relocated to the stored point is not stated in this chunk.
-SanctuaryOutcome castSanctuaryReturn(Ctx& ctx, Character& caster, const SanctuaryPoint& stored);
-// R63 mdrcharAddAge(days). UNKNOWN: which age field (ageDays or daysAged) the port touches.
-void addAgeDays(Character& who, i32 days);
 
-// ---- R64 Utility effects 11-13 ----
-// R64 Depth Perception and Find Direction end the lost state for the whole party
-void clearPartyLost(Ctx& ctx, Party& party);
-// R64 dispatch for effects 11, 12, 13.
-// UNKNOWN: Detect Rock's effect is not described in this chunk; only the lost-state clearing is specified.
-void castUtilityEffect(Ctx& ctx, Party& party, FloorState& floor, UtilityEffect effect);
 
 }  // namespace mordor

@@ -109,97 +109,22 @@ struct CompanionSpawnWindow {
 
 // ---- encounter selection and rolls ----
 
-// [c7][c24] any-class roll: Int(Rnd*100)+1 < 2
-bool rollAnyClass(Ctx& ctx);
-// [c7][c24] lair-named monster is drawn 75% of the time
-bool rollLairDraw(Ctx& ctx);
-// [c7][c24] neutral lead is peaced 40% of the time
-bool rollNeutralLeadPeaced(Ctx& ctx);
-// [c19] quest class head start 40%
-bool rollQuestClassHeadStart(Ctx& ctx);
 // [c7][c62] target floor of encounter window: level, +1 on Stud square
 i32 encounterTargetFloor(i32 dungeonLevel, bool onStud);
-// [c7] widen LevelFound window when nothing is found
-// UNKNOWN: step size is not stated; kSpreadStep (1) is the simplest choice.
-void widenEncounterSpread(Ctx& ctx, Encounter& encounter);
-// [c7][c19] level-gap gate percentage (90 / 50 / 10)
-// UNKNOWN: which gap values map to which percentage is not stated in this part.
-i32 levelGapGatePercent(i32 levelGap);
-// [c25][c42] JoinOffer is read only from group 0
-bool readJoinOffer(const Encounter& encounter);
-// [c23] attempts per group = min(living count, kAttemptsPerGroupMax)
-i32 attemptsPerGroup(i32 livingCount);
-// [c5] member at 0 hits still counts as alive until its hits are written
-bool countsAsAlive(const Creature& creature);
-// [c56] character state that ends a monster's blow sequence
-// UNKNOWN: which states end the sequence is not listed; any non-Alive state is assumed.
-bool endsBlowSequence(DeathState state);
-// [c56] companion mishap kills a lone character mid-round
-// UNKNOWN: trigger condition and damage are not stated in this part.
-void companionMishap(Ctx& ctx, Party& party, const Companion& companion);
-// [c97] charm forces a monster to join if its damage exceeds remaining HP
-bool charmForcesJoin(i32 damage, i32 remainingHits);
-// [c4] fear releases companions that have hits > 0 and are not ForLife
-// Caller releases with releaseCompanion() (guilds1.h).
-bool fearReleases(const Companion& companion);
-// [c7] newbie protection for level-1 characters in areas below kNewbieAreaLimit
-bool newbieProtected(const Character& ch, i32 areaId);
-// [c7][c13] monster is the lair of an area when its Id equals the area's LairId
-bool isLairMonster(const Area& area, const Creature& creature);
 // [c1] Asmodeus identity is by Id only
 // CONFLICT: Id 307 is shared by Morgul and Shadow Ninja [c57][c100]; identity by Id is ambiguous for that Id.
 
-// [c13] SpawnMask bit n = monster kind n
-// FIXED: type MonsterKind exists nowhere in the headers; using plain i32 kind index (kind n = bit n).
-bool spawnMaskAllowsKind(i32 spawnMask, i32 kind);
-// [c100] trap-table floor value read as bitmask: bit (floor-1) set means floor allowed
-// UNKNOWN: reading is consistent with all listed examples (31, 15, 1, 64, 29) but unverified.
-bool floorMaskAllows(i32 floorMask, i32 dungeonLevel);
-// [c106] pariah spawns only on levels kPariahMinLevel..kPariahMaxLevel
-bool pariahLevelEligible(i32 dungeonLevel);
 
 // ---- companion breath and special hits ----
 
-// [c6] companion breath chance percent from lead and companion strength
-// UNKNOWN: the strength measure is not stated; both values are assumed comparable on one scale.
-i32 companionBreathChance(i32 leadStrength, i32 companionStrength);
-// [c6] companion breath is rolled each round against companionBreathChance
-bool companionBreathRoll(Ctx& ctx, i32 leadStrength, i32 companionStrength);
-// [c23] clamp a raw special-hit chance into the band's lo..hi
-// UNKNOWN: how raw relates to band.k is not stated in this part; clamp to lo..hi only.
-i32 specialHitChance(SpecialHitKind kind, i32 raw);
-// [c23] roll a crit or backstab with the band-limited chance
-// CONFLICT: [c5] vs [c23] disagree on which flag bits (10/11) enable crit/backstab; this function does not read flags.
-bool rollSpecialHit(Ctx& ctx, SpecialHitKind kind, i32 raw);
 
 // ---- companion spawn ----
 
-// [c24][c31] resolve a companion spawn mode into its search window
-// CONFLICT: [c31] says modes 4 and above name a table index, but mode 6 maps to table index 4
-// (per [c24] table) while the ">7 -> mode-7" rule does not cover 6. Table value is used.
-CompanionSpawnWindow companionSpawnWindow(i32 mode);
-// [c24][c31] choose a monster table index inside the window
-// UNKNOWN: the selection procedure within the window is not described in this part.
-i32 pickCompanionMonster(Ctx& ctx, const CompanionSpawnWindow& window, i32 nativeFloor, i32 previousMonsterIndex);
 
 // ---- respawn and tally ----
 
-// [c9][c24][c66] respawn delay in seconds for an emptied room:
-// 1200 + 150*dungeonLevel - 5*shortfall, floor 120.
-// CONFLICT: [c66] test rows use rooms emptied as shortfall; [c9] says per room of total - tally.
-// Main table value (total - tally) is used; callers pass roomTotal - roomTally.
-i64 respawnDelaySeconds(i32 dungeonLevel, i32 roomShortfall);
-// [c9] standing group is stale when older than 2t
-bool standingGroupStale(i64 nowSeconds, i64 stampSeconds, i64 respawnT);
-// [c9][c24] seed a floor's tally from the header area count
-// UNKNOWN: FloorState.tally vs roomTally is not distinguished in this part; tally is used.
-void seedFloorTally(Ctx& ctx, FloorState& floor, i32 headerAreaCount);
-// [c9] record an emptied room: stamp, respawn delay t, and tally increment
-void markAreaEmptied(Ctx& ctx, FloorState& floor, Area& area, i64 nowSeconds);
 
 // ---- library knowledge ----
 
-// [c96] map a raw knowledge value to its state (>= 3 is FULLY_KNOWN)
-LibraryKnowledge libraryKnowledgeFor(i32 stateValue);
 
 }  // namespace mordor

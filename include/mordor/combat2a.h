@@ -46,24 +46,13 @@ ChestTrap rollChestTrap(Ctx& ctx);
 
 // ---- R2 trap scope ----
 
-// R2 which members a trap affects: trap 0 none, traps 1-4 whole party, traps 5-10 opener only.
-TrapScope chestTrapScope(ChestTrap trap);
 
 // ---- R3 trap damage ----
 
-// R3 damage a trap deals to one member: nonzero only for traps 3 (Explosion) and 4 (Fire).
-// Trap 4 is reduced by the target's fire resistance.
-// UNKNOWN: the damage formula is in the SRD Formulas section, which was not supplied.
-// Ctx& is taken because the damage roll is assumed random; flagged in the implementation.
-f64 chestTrapDamage(Ctx& ctx, ChestTrap trap, const Character& target);
 
 // ---- R4-R5 applying trap damage ----
 
-// R4-R5 new CurHits after trap damage: roundHalfEven(curHits - dmg), floored at 0.
-i32 hitsAfterChestTrap(i32 curHits, f64 dmg);
 
-// R4-R5 apply trap damage to one member's vitals in place.
-void applyChestTrapDamage(Character& target, f64 dmg);
 
 // ---- P1 chest trap resolution ----
 
@@ -103,7 +92,5 @@ BlowProcs rollBlowProcs(Ctx& ctx, f64 critChancePercent, f64 backstabChancePerce
 // Monster bonuses (+2 crit, +1 backstab) are not handled here.
 i32 blowModifierBonus(const BlowProcs& procs);
 
-// R10 true when both procs succeeded on one blow ("Severed").
-bool blowIsSevered(const BlowProcs& procs);
 
 }  // namespace mordor

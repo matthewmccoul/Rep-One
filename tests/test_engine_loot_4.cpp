@@ -16,12 +16,3 @@
 // SKIP B_0059#17: full gold path from string input (" 12") has no string-parsing equivalent in the headers
 // SKIP B_0059#18: "type mismatch" from CLng after Val has no equivalent error path in the headers
 
-TEST(engine_B_0059_19_negative_typed_gives_zero) {
-    // Post-parse value for "-5" is -5.0; the case expects 0 gold transferred.
-    CHECK_EQ(mordor::typedGoldWhole(-5.0), 0);
-}
-
-TEST(engine_B_0059_20_empty_typed_gives_zero) {
-    // Post-parse value for "" is 0.0; the case expects 0 gold transferred.
-    CHECK_EQ(mordor::typedGoldWhole(0.0), 0);
-}

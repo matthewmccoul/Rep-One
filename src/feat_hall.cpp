@@ -79,13 +79,6 @@ i64 hallGetI(const Session& s, i32 k, const char* field) {
   return hallParseI(hallGetS(s, k, field));
 }
 
-// RTrim: the Hall compares holder names without trailing blanks (sub32F6, sub1043).
-Str hallTrimEnd(const Str& t) {
-  size_t n = t.size();
-  while (n > 0 && t[n - 1] == ' ') --n;
-  return t.substr(0, n);
-}
-
 // VB CStr of a Currency held in 1/10000 gold: no trailing zeros, "0.25" style.
 Str hallCurrencyText(i64 v) {
   bool neg = v < 0;
@@ -113,19 +106,6 @@ Str hallValueText(i32 k, i64 v) {
   return std::to_string(v);
 }
 
-// What a character offers to record k (not the creature or skill records).
-// UNKNOWN: stats[] is assumed to be in record order (Str, Int, Wis, [Con unused], Cha, Dex).
-// UNKNOWN: Healthiest measures maximum hit points.
-// UNKNOWN: Wealthiest is goldOnHand plus goldInBank.
-i64 hallOfferValue(const Character& c, i32 k) {
-  switch (k) {
-    case kHallConstitution: return c.vitals.maxHits;
-    case kHallMostExperience: return c.experience;
-    case kHallWealthiest: return c.wallet.goldOnHand + c.wallet.goldInBank;
-    default: return c.abilities.stats[static_cast<size_t>(k)];
-  }
-}
-
 // HallRecords.Describe with FRMHALL sub32F6 layout.
 // UNKNOWN: date text; the day serial is shown as a number because no date formatter is available.
 Str hallDescribe(const Session& s, i32 k) {
@@ -139,25 +119,6 @@ Str hallDescribe(const Session& s, i32 k) {
   return out;
 }
 
-// HallRecords.Check (MODULE11.BAS sub1043). Offers a value to record k and stores it if it wins.
-// Returns true with announce set when a line should be shown on screen.
-// Silent cases: the same holder improves their own record, and the creature record is stored silently.
-bool hallCheck(Session& s, i32 k, const Str& name, i64 value, i64 key, i64 day,
-               bool alone, Str& announce) {
-  if (key <= hallGetI(s, k, "key")) return false;  // did not beat the record (creature: by power)
-  bool alreadyTheirs = hallGetS(s, k, "holder") == name;
-  s.featureState[hallKey(k, "holder")] = name;
-  s.featureState[hallKey(k, "key")] = std::to_string(key);
-  s.featureState[hallKey(k, "value")] = std::to_string(value);
-  s.featureState[hallKey(k, "day")] = std::to_string(day);
-  if (alreadyTheirs || k == kHallDeadliest) return false;
-  HallRow row = hallRow(k);
-  announce = alone
-                 ? "You have just set the record for " + Str(row.logName) + "!"
-                 : "\"" + name + "\" just set the record for " + Str(row.logName) + "!";
-  return true;
-}
-
 // hall: show the Hall of Records.
 bool cmdHall(Session& s, const Vec<Str>& w, Str& reply) {
   (void)w;
@@ -168,39 +129,6 @@ bool cmdHall(Session& s, const Vec<Str>& w, Str& reply) {
 }
 
 }  // namespace
-
-// Arrival in town (R86): every party member is offered to the records.
-// daySerial is the caller's day serial (the core never reads the clock).
-// Returns the announcement lines in the order they were set; the caller shows them.
-// UNKNOWN: dead members are offered too; the reference does not show a skip.
-// UNKNOWN: order is member-major, then record order.
-Vec<Str> hallArrivalUpdate(Session& s, i64 daySerial) {
-  Vec<Str> lines;
-  const i32 n = accPartySize(s);
-  const bool alone = n == 1;
-  for (i32 m = 1; m <= n; ++m) {
-    const Character* c = accMember(s, m);
-    if (c == nullptr) continue;
-    const Str name = hallTrimEnd(c->name);
-    for (i32 k : kArrivalRecords) {
-      const i64 offer = hallOfferValue(*c, k);
-      Str said;
-      if (hallCheck(s, k, name, offer, offer, daySerial, alone, said)) lines.push_back(said);
-    }
-  }
-  return lines;
-}
-
-// Creature record (ch.7 step 7): the killer is offered the defeated monster.
-// power is the monster power the caller computed (fn1BF0 creature case); the stored
-// value is the monster id, and the comparison is by power.
-// Returns true with announce set when a line should be shown.
-bool hallRecordKill(Session& s, i32 member1, i32 monsterId, i64 power, i64 daySerial, Str& announce) {
-  const Character* c = accMember(s, member1);
-  if (c == nullptr) return false;
-  return hallCheck(s, kHallDeadliest, hallTrimEnd(c->name), monsterId, power, daySerial,
-                   accPartySize(s) == 1, announce);
-}
 
 void register_hall() {
   registerFeatureCommand({"hall", Screen::Town, &cmdHall, "hall  - the Hall of Records: the twelve town-wide bests"});

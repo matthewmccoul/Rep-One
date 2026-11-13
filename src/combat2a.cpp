@@ -25,105 +25,7 @@ constexpr i32 kScaredTrapNumber = 9;
 constexpr i32 kExplosionTrapNumber = 3;
 constexpr i32 kFireTrapNumber = 4;
 
-i32 trapNumber(ChestTrap trap) {
-    return static_cast<i32>(trap);
-}
-
-f64 clampChance(f64 value, f64 lo, f64 hi) {
-    if (value < lo) {
-        return lo;
-    }
-    if (value > hi) {
-        return hi;
-    }
-    return value;
-}
-
-// R3 / P1 step 4: fire trap damage is reduced by fire resistance.
-// UNKNOWN: the reduction formula and the fire resistance index are not supplied,
-// so no reduction is applied until they are known.
-f64 applyFireResistance(const Character& target, f64 dmg) {
-    (void)target;
-    if (kFireResistIndex < 0) {
-        return dmg;
-    }
-    return dmg;
-}
-
-// P1 steps 4-5 for one party member.
-void resolveMemberTrap(Ctx& ctx, Character& member, ChestTrap trap) {
-    i32 n = trapNumber(trap);
-    if (n == kExplosionTrapNumber || n == kFireTrapNumber) {
-        f64 dmg = chestTrapDamage(ctx, trap, member);  // R3
-        applyChestTrapDamage(member, dmg);             // R4 (and R5 inside hitsAfterChestTrap)
-    }
-    // R5: if CurHits < 1 then CurHits = 0. Applied after all damage (P1 step 5).
-    if (member.vitals.curHits < 1) {
-        member.vitals.curHits = 0;
-    }
-}
-
 }  // namespace
-
-// R1: trap selection.
-// UNKNOWN: the selection method is not in the supplied material.
-// Placeholder: uniform draw over 0..kChestTrapMax.
-ChestTrap rollChestTrap(Ctx& ctx) {
-    i32 pick = static_cast<i32>(ctx.rng.below(kChestTrapMax + 1));
-    return static_cast<ChestTrap>(pick);
-}
-
-// R2: scope of a trap.
-// Trap 0: none. Traps 1..4: whole party. Traps 5..10: opener only.
-TrapScope chestTrapScope(ChestTrap trap) {
-    i32 n = trapNumber(trap);
-    if (n < 0 || n > kChestTrapMax) {
-        return TrapScope::None;
-    }
-    if (n == 0) {
-        return TrapScope::None;
-    }
-    if (n <= kChestTrapWholePartyMax) {
-        return TrapScope::WholeParty;
-    }
-    return TrapScope::OpenerOnly;
-}
-
-// R3: damage for traps 3 (explosion) and 4 (fire). Other traps deal no damage.
-// UNKNOWN: the damage formula is referenced as "per the Formulas section", which
-// is not supplied. Placeholder damage is 0 until the formula is known.
-f64 chestTrapDamage(Ctx& ctx, ChestTrap trap, const Character& target) {
-    (void)ctx;
-    i32 n = trapNumber(trap);
-    if (n != kExplosionTrapNumber && n != kFireTrapNumber) {
-        return 0.0;
-    }
-    f64 dmg = 0.0;  // UNKNOWN placeholder: base damage formula not supplied.
-    if (n == kFireTrapNumber) {
-        dmg = applyFireResistance(target, dmg);  // R3: trap 4 reduced by fire resistance.
-    }
-    return dmg;
-}
-
-// R4 and R5: returns the hit points after a chest trap.
-// R4: CurHits = round_half_even(CurHits - dmg).
-// R5: if CurHits < 1 then CurHits = 0.
-i32 hitsAfterChestTrap(i32 curHits, f64 dmg) {
-    i64 next = roundHalfEven(static_cast<f64>(curHits) - dmg);  // R4
-    if (next < 1) {                                             // R5
-        return 0;
-    }
-    constexpr i64 kI32Max = 2147483647;
-    if (next > kI32Max) {
-        return static_cast<i32>(kI32Max);
-    }
-    return static_cast<i32>(next);
-}
-
-// R4 applied to a character. R5 is applied by hitsAfterChestTrap.
-void applyChestTrapDamage(Character& target, f64 dmg) {
-    target.vitals.curHits = hitsAfterChestTrap(target.vitals.curHits, dmg);
-}
 
 // Chest traps 1 and 2 (reference ChestTraps.Spring): every party member is tested in order with
 // Rnd*100 < ResistancePercent(kind)/2 (the polarity is reproduced as written) and, when caught, is poisoned
@@ -148,49 +50,6 @@ u32 chestAfflictParty(Ctx& ctx, Party& party, DamageKind kind) {
         }
     }
     return mask;
-}
-
-// P1: chest trap, opener acts.
-// Step 1 (monOpenChest) and step 2 (trap chosen) are performed by the caller.
-void resolveChestTrap(Ctx& ctx, Party& party, ChestTrap trap) {
-    // R38 / ch14 trap 1 (Poison Gas), as written. Each member in order is poisoned
-    // when Rnd*100 < Resist(5)/2, at level = dungeon level. Nothing is printed.
-    // The reference reproduces this polarity (ChestTraps.cs:58).
-    if (trap == ChestTrap::PoisonGas || trap == ChestTrap::DiseaseSpores) {
-        chestAfflictParty(ctx, party, trap == ChestTrap::PoisonGas ? DamageKind::Poison : DamageKind::Disease);
-        return;
-    }
-
-    // Step 3: scope from R2.
-    TrapScope scope = chestTrapScope(trap);
-    if (scope == TrapScope::None) {
-        return;
-    }
-
-    if (scope == TrapScope::WholeParty) {
-        // Every party member, in member index order.
-        for (i32 i = 0; i < party.size && i < kPartyMaxSize; ++i) {
-            resolveMemberTrap(ctx, party.members[static_cast<u32>(i)], trap);
-        }
-    } else {
-        // Opener only.
-        i32 o = party.opener;
-        if (o >= 0 && o < party.size && o < kPartyMaxSize) {
-            resolveMemberTrap(ctx, party.members[static_cast<u32>(o)], trap);
-        }
-    }
-
-    // Original quirk: only two trap arms print text.
-    i32 n = trapNumber(trap);
-    if (n == kSlimeTrapNumber) {
-        // UNKNOWN: the item name is not supplied; placeholder text without it.
-        ctx.say("combat.chest.slime", "SLIME: item Destroyed!", {}, {});
-    }
-    if (n == kScaredTrapNumber) {
-        // UNKNOWN: trap 9 to text mapping is unconfirmed. The companion removal
-        // effect is not specified, so only the message is emitted here.
-        ctx.say("combat.chest.scared", "Your companions were scared away!", {}, {});
-    }
 }
 
 // R7: crit chance as a percentage (roll is drawn from 0..99).
@@ -287,11 +146,6 @@ i32 blowModifierBonus(const BlowProcs& procs) {
         bonus += kBackstabModBonus;   // R10
     }
     return bonus;
-}
-
-// R10: both procs on one blow is "Severed".
-bool blowIsSevered(const BlowProcs& procs) {
-    return procs.crit && procs.backstab;
 }
 
 }  // namespace mordor

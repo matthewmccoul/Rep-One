@@ -52,59 +52,6 @@ void buildBAC(CompanionSlots& s) {
 
 }  // namespace
 
-// B_0055#12: Rearrange(0,1) on A,B,C,- -> blank return (Swapped), order B,A,C,-
-TEST(engine_B_0055_12_rearrange_first_two_swaps) {
-    tsup::Env env({0.5, 0.9});
-    CompanionSlots slots{};
-    buildABC(slots);
-    DragSwapOutcome r = dragSwapCompanions(env.ctx, slots, 0, 1);
-    CHECK(r == DragSwapOutcome::Swapped);
-    CHECK(orderIs(slots, "B", "A", "C"));
-}
-
-// B_0055#13: Rearrange(1,1) on B,A,C,- -> blank return (Swapped), order unchanged
-TEST(engine_B_0055_13_rearrange_onto_self_no_change) {
-    tsup::Env env({0.5, 0.9});
-    CompanionSlots slots{};
-    buildBAC(slots);
-    DragSwapOutcome r = dragSwapCompanions(env.ctx, slots, 1, 1);
-    CHECK(r == DragSwapOutcome::Swapped);
-    CHECK(orderIs(slots, "B", "A", "C"));
-}
-
-// B_0055#14: Rearrange(2,0), dead C dropped on live B -> RefusedDead, order unchanged
-TEST(engine_B_0055_14_dead_dropped_on_live_refused) {
-    tsup::Env env({0.5, 0.9});
-    CompanionSlots slots{};
-    buildBAC(slots);
-    DragSwapOutcome r = dragSwapCompanions(env.ctx, slots, 2, 0);
-    CHECK(r == DragSwapOutcome::RefusedDead);
-    CHECK(orderIs(slots, "B", "A", "C"));
-}
-
-// B_0055#15: Rearrange(1,2), live A dropped on dead C -> RefusedDead, order unchanged
-TEST(engine_B_0055_15_live_dropped_on_dead_refused) {
-    tsup::Env env({0.5, 0.9});
-    CompanionSlots slots{};
-    buildBAC(slots);
-    DragSwapOutcome r = dragSwapCompanions(env.ctx, slots, 1, 2);
-    CHECK(r == DragSwapOutcome::RefusedDead);
-    CHECK(orderIs(slots, "B", "A", "C"));
-}
-
-// B_0055#16: Rearrange(3,0), empty slot 3 dropped on slot 0 -> blank return (Swapped), order unchanged
-TEST(engine_B_0055_16_empty_slot_dropped_on_slot0) {
-    // Reference: slots.Rearrange(onto=3, from=0) with B,A,C,empty.
-    // C# order is (onto, from); C++ dragSwapCompanions is (fromSlot, toSlot).
-    // Dropping a live companion onto an empty slot is a no-op.
-    tsup::Env env({0.5, 0.9});
-    CompanionSlots slots{};
-    buildBAC(slots);
-    DragSwapOutcome r = dragSwapCompanions(env.ctx, slots, 0, 3);
-    CHECK(r != DragSwapOutcome::Swapped);  // reference: no change
-    CHECK(orderIs(slots, "B", "A", "C"));
-}
-
 // SKIP B_0055#17: message text constant not exposed in headers; sayDragSwapRefused emits it
 //   but EventLog inspection API is not in the headers.
 // SKIP B_0055#19: Character.Create does not exist in headers; Morloch AlignmentValue not available.

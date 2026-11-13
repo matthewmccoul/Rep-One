@@ -32,43 +32,6 @@ constexpr i32 kAbilitySlots = 6;           // R26: ability 0..5
 constexpr i32 kAbilityMultipleSwings = 3;  // R30: Abilities[3] is Multiple Swings
 constexpr f64 kUseLevelExtra = 2.97;       // R27: (f + f * 2.97)
 
-// FIXED: placeholder for GuildDef::experiencePenalty (EP, R21). Returns 0 until reconciled.
-i32 guildExperiencePenalty(const GuildDef& guildDef) {
-    // R21/R22: EP, the raw Experience Penalty from the guild data.
-    // Reference: GuildDef.ExpFactor (GuildData.cs:58). The packet's game_data.h field is expFactor.
-    // GUILD_MOD = EP / 8 is applied by the caller (expForLevel), not here.
-    return guildDef.expFactor;
-}
-
-// FIXED: placeholder for RaceDef::expMod (RACE_MOD, R21). Returns neutral 1.0 until reconciled.
-f64 raceExpMod(const RaceDef& raceDef) {
-    // R21: RACE_MOD = Actual Exp from the race table.
-    // Reference: RaceDef.ExpFactor (RaceData.cs:27), read as float (MdrLoader.cs:246).
-    // UNKNOWN: game_data.h stores expFactor as i32, so any fractional part of the race value
-    // is not recoverable here. The stored integer is returned as-is.
-    return static_cast<f64>(raceDef.expFactor);
-}
-
-// FIXED: placeholder for GuildDef::goldParameter (GP, R23). Returns 0 until reconciled.
-i32 guildGoldParameter(const GuildDef& guildDef) {
-    // R23: GP, the raw Gold Parameter from the guild data.
-    // Reference: GuildDef.GoldFactor (GuildData.cs:33), "field 15, the guild gold factor used by
-    // the cost of making a level". The packet's game_data.h field is goldFactor (GGF, ch05).
-    // GP (Actual) = GP / 10 + 1 is applied by the caller, not here.
-    return guildDef.goldFactor;
-}
-
-// FIXED: placeholder for SpellDef::rate[k] (R29). Returns neutral 1.0 until reconciled.
-// A value <= 0 is already treated as 1 by spellAccess.
-f64 spellRate(const SpellDef&, u32) {
-    return 1.0;
-}
-
-// FIXED: placeholder for SpellDef::spellMax[k] (R29). Returns 0 until reconciled,
-// so no spell is castable until the real member is wired in.
-i32 spellMaxFor(const SpellDef&, u32) {
-    return 0;
-}
 }  // namespace
 
 // FIXED: removed 'static'. unmet already has a non-static declaration in a header,
@@ -258,20 +221,6 @@ bool allowsRace(const GuildDef& guildDef, i32 raceIndex) {
     return (guildDef.raceMask & (1 << raceIndex)) != 0;
 }
 
-// R16: creation eligibility display: hidden / italic / bold / plain.
-EligibilityStyle eligibilityStyle(const GuildDef& guildDef, const Character& character) {
-    if (!allowsRace(guildDef, static_cast<i32>(character.race))) {
-        return EligibilityStyle::Hidden;
-    }
-    if (!allowsAlignment(guildDef, character.alignment)) {
-        return EligibilityStyle::Italic;
-    }
-    if (meetsStats(guildDef, character.abilities.stats)) {
-        return EligibilityStyle::Bold;
-    }
-    return EligibilityStyle::Plain;
-}
-
 // R13.7: RecalcSpellPoints(refill). The spell-point formula is not in c04p1.
 // UNKNOWN: delegated to the casting1.h overload recalcSpellPoints(Character&, bool).
 void recalcSpellPoints(Ctx& ctx, Character& character, bool refill) {
@@ -304,15 +253,6 @@ bool setActiveGuild(Ctx& ctx, Character& character, Guild guild) {
     }
     character.activeGuild = guild;
     return true;
-}
-
-// R18: wiki gate (town-only; refuse while wearing cursed or opposite-aligned items).
-// CONFLICT: the engine excerpt has no such gate; per R18 the engine governs, so no gate is applied.
-// inventory and inTown are therefore unused.
-bool setActiveGuildGated(Ctx& ctx, Character& character, const Inventory& inventory, Guild guild, bool inTown) {
-    (void)inventory;
-    (void)inTown;
-    return setActiveGuild(ctx, character, guild);
 }
 
 // R20: Make Level procedure at the guild hall.
@@ -417,40 +357,6 @@ void levelUp(Ctx& ctx, GuildMembership& membership) {
     membership.level += 1;
 }
 
-// R21 (wiki): xpRequired = (GUILD_MOD * a + b - 1) * RACE_MOD.
-//   a = 88.09020776 * (LVL-1)^2
-//   b = 500/11 * (2*(LVL-1) - 1)
-//   GUILD_MOD = actualExpMod(EP), RACE_MOD = RaceDef.expMod
-// UNKNOWN: rounding of the final value (round half to even chosen).
-// Quirk: at level 1 the result is negative because b is negative; kept as written. UNKNOWN.
-i64 expForLevel(const GuildDef& guildDef, const RaceDef& raceDef, i32 level) {
-    const f64 l1 = static_cast<f64>(level - 1);
-    const f64 a = 88.09020776 * l1 * l1;
-    const f64 b = (500.0 / 11.0) * (2.0 * l1 - 1.0);
-    const f64 guildMod = actualExpMod(guildExperiencePenalty(guildDef));
-    const f64 raceMod = raceExpMod(raceDef);
-    return roundHalfEven((guildMod * a + b - 1.0) * raceMod);
-}
-
-// R24: Actual EP = EP / 8.
-f64 actualExpMod(i32 ep) {
-    return static_cast<f64>(ep) / 8.0;
-}
-
-// R24: Actual GP = GP / 10 + 1.
-f64 actualGoldMod(i32 gp) {
-    return static_cast<f64>(gp) / 10.0 + 1.0;
-}
-
-// R23 (wiki): goldRequired = floor[(LVL-1)^2 * 30.1 + (LVL-1)/10] * GP.
-// CONFLICT: the source says GP here means the raw Gold Parameter but also says to use Actual GP.
-// The formula is used as written: the multiplier is the raw GP (actualGoldMod is not applied).
-i64 goldForLevelWiki(const GuildDef& guildDef, i32 level) {
-    const f64 l1 = static_cast<f64>(level - 1);
-    const i64 base = vbInt(l1 * l1 * 30.1 + l1 / 10.0);
-    return base * static_cast<i64>(guildGoldParameter(guildDef));
-}
-
 // R25 (engine): gold to advance from level L.
 //   rate = 60.2
 //   acc = 0
@@ -474,118 +380,6 @@ Currency goldForLevel(Currency guildGold, i32 level) {
     }
     const f64 gold = acc + acc * (static_cast<f64>(guildGold) / 10.0);
     return roundHalfEven(gold);
-}
-
-// R27 (engine): UseLevel(it, g) = max(1, round_half_even((f + f*2.97) * it.LevelScale)),
-// where f = g.ItemUseFactor.
-i32 itemUseLevel(const ItemDef& item, const GuildDef& guildDef) {
-    const f64 f = guildDef.itemUseFactor;
-    const i64 raw = roundHalfEven((f + f * kUseLevelExtra) * item.levelScale);
-    return raw < 1 ? 1 : static_cast<i32>(raw);
-}
-
-// R27 (engine): MeetsUseLevel.
-//   ClassRestricted: Guild.Level >= UseLevel(it, currentGuild)
-//   else: any joined m with Level > 0, allowed by it.Guilds bitmask, and m.Level >= UseLevel(it, g)
-// CONFLICT: the wiki says item use is restricted by the active guild, but skills learned in one guild
-// remain usable elsewhere (R27, c83). The engine rule governs, so the non-class-restricted path is kept.
-// UNKNOWN: item lookup assumes ctx.data.items is indexed by Item.id.
-bool meetsUseLevel(Ctx& ctx, const Character& character, const Item& item) {
-    if (item.id < 0 || item.id >= static_cast<i32>(ctx.data.items.size())) {
-        return false;
-    }
-    const ItemDef& itemDef = ctx.data.items[static_cast<u32>(item.id)];
-
-    if (itemDef.classRestricted) {
-        const u32 ag = static_cast<u32>(character.activeGuild);
-        return character.activeLevel() >= itemUseLevel(itemDef, ctx.data.guilds[ag]);
-    }
-
-    for (i32 i = 0; i < kGuildCount; ++i) {
-        const u32 g = static_cast<u32>(i);
-        const GuildMembership& m = character.guilds[g];
-        if (!m.joined || m.level <= 0) {
-            continue;
-        }
-        if ((itemDef.guilds & kGuildBitmask[g]) == 0) {
-            continue;
-        }
-        if (m.level >= itemUseLevel(itemDef, ctx.data.guilds[g])) {
-            return true;
-        }
-    }
-    return false;
-}
-
-// R29 (engine): canCast = SpellMax[k] > 0 && L <= SpellMax[k] && L*rate <= guildLevel/2.0 + 0.5
-//               shownLevel = floor(L*rate)
-// A rate <= 0 counts as 1. The bound is compared unrounded; the shown level is floored.
-// UNKNOWN: per-guild spell arrays (spellMax, rate) are assumed indexed by guildIndex k.
-SpellAccessResult spellAccess(const GuildMembership& membership, const SpellDef& spell, i32 guildIndex) {
-    SpellAccessResult result{};
-    if (guildIndex < 0 || guildIndex >= kSpellGuildSlots) {
-        return result;
-    }
-    const u32 k = static_cast<u32>(guildIndex);
-    const f64 rawRate = spellRate(spell, k);
-    const f64 rate = rawRate <= 0.0 ? 1.0 : rawRate;
-    const i32 spellLevel = spell.level;
-    const i32 spellMax = spellMaxFor(spell, k);
-    const f64 shown = static_cast<f64>(spellLevel) * rate;
-
-    result.canCast = spellMax > 0
-                  && spellLevel <= spellMax
-                  && shown <= static_cast<f64>(membership.level) / 2.0 + 0.5;
-    result.shownLevel = static_cast<i32>(vbInt(shown));
-    return result;
-}
-
-// R30 (engine): extra swings.
-//   mod = Abilities[3]
-//   if mod <= 0 or m.Level <= 0: return 0
-//   step = ln(10 - mod + 1)
-//   threshold = round_half_even(step * 50)
-//   for level = 1..m.Level: if level > threshold: extra++;
-//       threshold = round_half_even(step * (threshold * 2))   (uses the old threshold, R30)
-// UNKNOWN: when 10 - mod + 1 <= 0 the log is undefined; 0 is returned.
-i32 swingsFor(const GuildDef& guildDef, const GuildMembership& membership) {
-    const i32 mod = guildDef.abilities[static_cast<u32>(kAbilityMultipleSwings)];
-    if (mod <= 0 || membership.level <= 0) {
-        return 0;
-    }
-    const f64 arg = static_cast<f64>(kSwingModBase - mod + 1);
-    if (arg <= 0.0) {
-        return 0;
-    }
-    const f64 step = std::log(arg);
-    i64 threshold = roundHalfEven(step * static_cast<f64>(kSwingThresholdScale));
-    i32 extra = 0;
-    for (i32 level = 1; level <= membership.level; ++level) {
-        if (static_cast<i64>(level) > threshold) {
-            ++extra;
-            threshold = roundHalfEven(step * static_cast<f64>(threshold * 2));
-        }
-    }
-    return extra;
-}
-
-// R34.2 / R35: the best ability chance across the character's joined guilds wins.
-// The per-guild formula, including the thieving clamp for DL > 0, is in abilityChance.
-i32 chanceForAbility(const Character& character, i32 ability, i32 dungeonLevel, i32 monsterGuildLevel) {
-    bool any = false;
-    i32 best = 0;
-    for (i32 i = 0; i < kGuildCount; ++i) {
-        const GuildMembership& m = character.guilds[static_cast<u32>(i)];
-        if (!m.joined) {
-            continue;
-        }
-        const i32 c = abilityChance(m, ability, character, dungeonLevel, monsterGuildLevel);
-        if (!any || c > best) {
-            best = c;
-            any = true;
-        }
-    }
-    return best;
 }
 
 }  // namespace mordor

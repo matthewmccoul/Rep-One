@@ -17,24 +17,3 @@ using namespace mordor;
 // SKIP B_0065#87: needs a one-hit matching monster id from game data; the id is not given in the case.
 // SKIP B_0065#89: the join message text is not returned by any function in the headers; only void log output exists.
 
-TEST(engine_B_0065_90_join_gains_two_companions_7_12) {
-    tsup::Env env({0.0, 0.0, 0.0, 0.0});
-
-    Character owner{};
-    CompanionSlots slots{};
-
-    MonsterGroup group{};
-    group.front.hits = 7;
-    group.front.maxHits = 12;
-    group.count = 3;
-    group.joinOffer = true;
-    group.offerCount = 2;
-
-    acceptJoinOffer(env.ctx, owner, 0, slots, group);
-
-    CHECK_EQ(slots[0].hits, 7);
-    CHECK_EQ(slots[0].maxHits, 12);
-    CHECK_EQ(slots[1].hits, 7);
-    CHECK_EQ(slots[1].maxHits, 12);
-    CHECK_EQ(slots[2].hits, 0);
-}

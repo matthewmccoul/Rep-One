@@ -8,24 +8,6 @@
 namespace mordor {
 namespace {
 
-// ASSUMED: plain decimal text with no locale or grouping.
-Str numberText(i32 n) {
-    if (n == 0) {
-        return Str("0");
-    }
-    const bool negative = n < 0;
-    i64 v = negative ? -static_cast<i64>(n) : static_cast<i64>(n);
-    Str digits;
-    while (v > 0) {
-        digits = Str(1, static_cast<char>('0' + static_cast<int>(v % 10))) + digits;
-        v /= 10;
-    }
-    if (negative) {
-        digits = Str("-") + digits;
-    }
-    return digits;
-}
-
 }  // namespace
 
 

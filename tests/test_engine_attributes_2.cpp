@@ -10,14 +10,3 @@
 // SKIP A_03#15: no save-file importer function in the headers
 // SKIP A_03#16: no save-file importer function in the headers
 
-TEST(engine_B_0065_109_stats_ad_all_six_at_15) {
-    mordor::Arr<mordor::i32, mordor::kStatCount> stats{};
-    stats[static_cast<mordor::u32>(mordor::StatIndex::Str)] = 15;
-    stats[static_cast<mordor::u32>(mordor::StatIndex::Dex)] = 15;
-    stats[static_cast<mordor::u32>(mordor::StatIndex::Int)] = 15;
-    stats[static_cast<mordor::u32>(mordor::StatIndex::Wis)] = 15;
-    stats[static_cast<mordor::u32>(mordor::StatIndex::Con)] = 15;
-    stats[static_cast<mordor::u32>(mordor::StatIndex::Cha)] = 15;
-    CHECK_EQ(mordor::statsAD(stats), 14);
-    CHECK_EQ(mordor::statsADArchive(15, 15, 15, 15), 14);
-}

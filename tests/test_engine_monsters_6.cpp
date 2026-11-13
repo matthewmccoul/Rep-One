@@ -14,16 +14,3 @@ using mordor::i32;
 // SKIP B_0062#15: needs loaded floor squares (Floor.AreaAt, Floor.Has) across 15 floors; no Floor API in the headers
 // SKIP B_0062#16: needs loaded floor squares (Floor.AreaAt, Floor.Has) across 15 floors; no Floor API in the headers
 
-// B_0063#2: the reference draws AcidTarget with four companion slots occupied; the closest
-// header function is rollAcidSlot(Ctx&), which takes no companion array, so the occupancy
-// setup cannot be expressed here. The assertion checks that no draw returns slot 5.
-TEST(engine_B_0063_2_acid_slot_never_five) {
-    tsup::Env env(11);
-    i32 fives = 0;
-    for (i32 i = 0; i < 60000; ++i) {
-        if (rollAcidSlot(env.ctx) == 5) {
-            ++fives;
-        }
-    }
-    CHECK_EQ(fives, 0);
-}

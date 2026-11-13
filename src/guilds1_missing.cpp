@@ -60,56 +60,6 @@ i32 hitsGain(Ctx& ctx, const Character& character, const GuildMembership& member
     return gain;
 }
 
-// R35: ability chance for one membership. The caller takes the best across guilds.
-// ASSUMED: "effective" stats are character.abilities.stats (statMods not added).
-// ASSUMED: the result is converted to i32 with round-half-even, matching the VB
-//          Integer assignment noted in R27/R31.
-i32 abilityChance(const GuildMembership& membership, i32 ability, const Character& character,
-                  i32 dungeonLevel, i32 monsterGuildLevel) {
-    const f64 rating = static_cast<f64>(membership.abilityRating[static_cast<u32>(ability)]);
-    const f64 lvl = static_cast<f64>(membership.level);
-    const f64 dl = static_cast<f64>(dungeonLevel);
-    const f64 wis = static_cast<f64>(character.abilities.stats[static_cast<u32>(StatIndex::Wis)]);
-    const f64 dex = static_cast<f64>(character.abilities.stats[static_cast<u32>(StatIndex::Dex)]);
-
-    f64 r = 0.0;
-    if (ability == kAbilityThieving) {
-        // R35 Thieving (0): monster guild level is floored at kMonsterGuildLevelFloor (2).
-        const i32 mgl = monsterGuildLevel < kMonsterGuildLevelFloor
-                            ? kMonsterGuildLevelFloor
-                            : monsterGuildLevel;
-        const f64 stat = wis / 4.0 + dex / 2.0;
-        const f64 against = (std::log(static_cast<f64>(mgl)) * 4.0)
-                            * (std::log(dl + 1.0) * 1.25) * 1.25;
-        r = (stat + (4.5 + std::exp(std::log(lvl + 1.0) / std::log(15.0)))
-                        * (rating / 10.0 * 14.0))
-            - against * 1.5;
-        if (dl > 0.0) {  // R35: clamp to 5..98 only when DL > 0
-            const f64 lo = static_cast<f64>(kThievingMin);
-            const f64 hi = static_cast<f64>(kThievingMax);
-            if (r < lo) r = lo;
-            if (r > hi) r = hi;
-        }
-    } else if (ability == kAbilityFighting) {
-        // R35 Fighting (4); same formula as R36 with the FightingBase term.
-        r = kFightingBase
-            + ((std::log(100.0 + lvl) / 1.75 - 2.3) * (rating * rating)) / 2.0;
-    } else if (ability == kAbilityPerception) {
-        // R35 Perception (5): r = (rating+climb)*(rating*0.3) + wis; clamp(r - DL*2, 5, 90).
-        const f64 climb = std::log(lvl) / std::log(1.25);
-        r = (rating + climb) * (rating * 0.3) + wis;
-        r -= dl * 2.0;
-        const f64 lo = static_cast<f64>(kPerceptionMin);
-        const f64 hi = static_cast<f64>(kPerceptionMax);
-        if (r < lo) r = lo;
-        if (r > hi) r = hi;
-    } else {
-        // R35 other abilities: r = rating * lvl.
-        r = rating * lvl;
-    }
-    return static_cast<i32>(roundHalfEven(r));
-}
-
 // R7: the guildmaster is the highest-level member; holding the seat also holds the crest.
 // The claim itself is performed by claimMastership (defined elsewhere); the crest is
 // awarded by awardCrest (defined elsewhere) once the claim succeeds.

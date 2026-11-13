@@ -86,18 +86,10 @@ struct ChestOpenResult {
 
 // ---- encounter setup ----
 
-// Intro: fight gold is paid at victory only when no chest is left, otherwise it waits for the chest.
-Currency victoryGoldPayout(Currency fightGold, bool chestLeft);
 
 // R1 roll the treasure class (F1): 0 none, 2 box, 3 chest.
 // FIXED: LeadChestStats exists nowhere in the API index; replaced by plain i32 (lead Id/stats not modelled).
 i32 rollTreasureClass(Ctx& ctx, i32 lead);
-// R8 class loop with no break: later thresholds overwrite earlier ones (F1, Q3).
-// FIXED: LeadChestStats replaced by plain i32.
-i32 treasureClassForRoll(double roll, i32 lead, i32 bonus);
-// R9 lair bonus of 25, only if lair and BoxChance[2] > 0 (CONFLICT-2, CONFLICT-3).
-// FIXED: LeadChestStats replaced by plain i32.
-i32 lairTreasureBonus(i32 lead);
 // R2 clear the chest trap at every generation pass; the lock is kept.
 void clearChestTrapForPass(Ctx& ctx, SquareState& chest);
 // R12 draw trap bits until a set bit is found, up to kTrapDrawAttempts; 0 means none (CONFLICT-5).
@@ -126,9 +118,6 @@ Currency scaleGoldForClass(Currency gold, i32 treasureClass);
 Currency vbCurrencyFromDouble(double d);
 // R5 store class, trap, lock and gold on the room record.
 void storeChestOnSquare(Ctx& ctx, SquareState& chest, i32 treasureClass, ChestTrap trap, ChestLock lock, Currency gold);
-// R6 find attribution: -2 if the lead was taken for another monster or is invisible to a taker who cannot see it; else lead Id. Pure.
-// FIXED: LeadChestStats replaced by plain i32.
-i32 chestFindMonsterId(i32 lead, bool leadTakenForAnother, bool takerSeesInvisible);
 // R7 item-spawn roll on chest creation (F7; CONFLICT-21, CONFLICT-17 for the lock term).
 bool rollChestItemSpawn(Ctx& ctx, i32 treasureClass, i32 itemChance, ChestLock lock, i32 dungeonLevel);
 // R18 further items while Int(Rnd*100)+1 <= Int(ItemChance/10) (F8).
@@ -146,76 +135,29 @@ void generateEncounterChest(Ctx& ctx, SquareState& chest, i32 lead, const Vec<Mo
 
 // ---- opening a chest mid-fight ----
 
-// R21 may this character open the chest in combat: alive, not paralysed, not magically locked. Pure.
-bool canOpenChestInCombat(const Character& opener, const SquareState& chest);
-// R22 opening rounds (F27): max(2, CInt(10 - Log(disarm-10)*2)). Pure.
-i32 chestOpeningRounds(i32 disarm);
-// R22 start a countdown when monsters stand and the trap panel is visible; countdown 0 opens now.
-ChestOpenStart beginChestOpening(Ctx& ctx, Character& opener, const SquareState& chest, bool monstersStanding, bool trapPanelVisible, i32 disarm);
 // R22 decrement the opener's countdown; returns true when it reaches 0 and the chest opens.
 bool tickChestCountdown(Ctx& ctx, Character& opener);
-// R23 clamp a disarm percent to 5..98. Pure.
-i32 clampChestDisarm(i32 percent);
-// R23 trap disarm roll. UNKNOWN: assumed Int(Rnd*100)+1 <= disarm, the common pattern.
-bool rollTrapDisarm(Ctx& ctx, i32 disarm);
 // R13 trap effects (T3) applied to the party. UNKNOWN-6: T3 table is not in the dossier.
 ChestTrapResult resolveChestTrap(Ctx& ctx, Party& party, i32 openerIndex, ChestTrap trap);
 // R13 blast damage (F25): floor(U*d*k*ln(d+2))+1, k = 4 explosion, 6 fire. UNKNOWN-6: d is undefined in the source.
 i32 chestBlastDamage(Ctx& ctx, i32 d, i32 k);
-// R14 poison or disease test: passes when Int(Rnd*100) < resistance/2 (CONFLICT-6, as written).
-bool rollChestAilment(Ctx& ctx, i32 resistance);
-// R32 fire damage after resistance uses integer assignment, which truncates (CONFLICT-7). Pure.
-i32 chestFireDamage(i32 damage, i32 fireResistance);
-// R33 the payout stops if the trap killed or teleported the party. Pure.
-bool trapStopsPayout(const ChestTrapResult& trap);
 // R24 leader Hits below 1 during the trap. Pure.
 bool trapKilledLeader(const Party& party);
-// R23 full chest-open sequence: disarm, trap, deadly test, gold, items, fight record, room write.
-ChestOpenResult openChestInFight(Ctx& ctx, Party& party, i32 openerIndex, SquareState& chest, i32 disarm);
 
 // ---- gold split and payout ----
 
-// R17 chest gold is payable only if someone opened it and the trap has resolved. Pure.
-bool chestGoldPayable(bool anyoneOpened, bool trapResolved);
-// R16 paid share per member: round_half_even(pot / memberCount). Members include the dead.
-Currency goldSharePaid(Currency pot, i32 memberCount);
-// R16 displayed share (Format$ of CCur(pot/n), half up); may differ from the paid share (CONFLICT-11). Pure.
-i64 goldShareDisplayed(Currency pot, i32 memberCount);
-// R16 pay each member's share; remainder is lost. Receive refuses on overflow.
-void payOutChestGold(Ctx& ctx, Party& party, Currency pot);
 
 // ---- town charges, gifts and thieves ----
 
-// R25 town charge: gold on hand first, then bank (F11, F12). Returns false if the total is short.
-bool chargeTownCost(Ctx& ctx, Character& payer, Currency cost);
-// R26 typed amount to whole gold with CLng (round half to even). Pure.
-i64 typedGoldWhole(double typed);
 // R26 Give: a whole amount of 0 does nothing; otherwise moves gold from giver to receiver (F15).
 bool giveGold(Ctx& ctx, Character& giver, Character& receiver, i64 wholeGold);
-// R26 Exchange: converts the typed amount with CLng; 0 does nothing. UNKNOWN: which accounts it moves between (toBank selects the direction).
-bool exchangeGold(Ctx& ctx, Character& who, i64 wholeGold, bool toBank);
-// R27 thief's take (F13): roll if roll < purse, else CLng(purse). Boundary is UNKNOWN-9 and CONFLICT-23. Pure.
-Currency thiefTake(Currency roll, Currency purse);
-// R27 thief takes gold from the victim. UNKNOWN-9: which account is drained first.
-Currency thiefRobs(Ctx& ctx, Character& victim, Currency roll);
 
 // ---- shop ----
 
 // R28 buy price (F18): base price if Floor==0; 0 if no stock; else shelf and charge scaled. Pure.
 
-// R28 buying depletes the shelf (F21): floor > 0 or bought alignment is not Unaligned. Pure.
-bool buyDepletesShelf(i32 floor, ItemAlign bought);
-// R28 remove one unit of an item from the shelf (F21 RemoveOne). Returns false if none in stock.
-bool removeOneFromShelf(Ctx& ctx, Shelf& shelf, i32 itemId);
-// R29 selling: price is sellPrice (items1a.h) and identification fee is identifyFee; not redeclared here.
-// R29 item is shelved on sale (F22): not cursed, not (floor 0 and Unaligned), count < 9. Pure.
-bool shelvesSaleItem(const Item& item, i32 floor, ItemAlign align, i32 shelfCount);
-// R30 shelves and pens restock on arrival only when the leader's days aged > 0. Pure.
-bool restocksOnArrival(const Character& leader);
 
 // ---- hall record ----
 
-// R31 Hall "Wealthiest" record is replaced only when purse is strictly greater. Pure.
-bool replacesWealthiestRecord(Currency purse, Currency recordPurse);
 
 }  // namespace mordor

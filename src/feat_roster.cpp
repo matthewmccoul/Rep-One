@@ -209,12 +209,3 @@ void register_roster() {
 }
 
 }  // namespace mordor
-
-// Entry points used by the feature test (global scope, as the test links them).
-bool rosterUnload(mordor::Session& s, int member, mordor::Str& reply) {
-  return mordor::rosterUnloadMember(s, static_cast<mordor::i32>(member), reply);
-}
-
-bool rosterLoad(mordor::Session& s, const mordor::Str& name, mordor::Str& reply) {
-  return mordor::rosterLoadMember(s, name, reply);
-}

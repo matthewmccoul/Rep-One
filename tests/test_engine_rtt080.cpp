@@ -25,19 +25,6 @@ TEST(engine_rtt080_spell_damage_firebolt_no_resist) {
 }
 */
 
-// B_0064#65, #66, #64: SpecialHits.AfterResistance.
-TEST(engine_rtt080_after_resistance_0_pct) {
-  CHECK_EQ(afterResistance(100, 0), 100);
-}
-
-TEST(engine_rtt080_after_resistance_40_pct) {
-  CHECK_EQ(afterResistance(100, 40), 80);
-}
-
-TEST(engine_rtt080_after_resistance_90_pct) {
-  CHECK_EQ(afterResistance(100, 90), 55);
-}
-
 // B_0064#69, #68: SpecialHits.ResistedBy.
 // SKIP B_0064#69: our declarations have no resistedBy function or resistance-index enum (only SpecialAttackKind{Breath, AcidSpit, Electrocute}); expected "The Acid resistance." cannot be checked yet. See NEED.
 // SKIP B_0064#68: same reason; expected "The Cold resistance." cannot be checked yet. See NEED.

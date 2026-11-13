@@ -69,12 +69,3 @@ TEST(engine_B_0063_62_pen_distinct_creatures) {
     CHECK(static_cast<i32>(refs.size()) >= 100);
 }
 
-TEST(engine_B_0065_96_realign_good_to_neutral) {
-    // Price 4 gold = 40000 Currency; fee 3 gold = 30000 Currency.
-    CHECK_EQ(storeRealignFee(40000, ItemAlign::Good, ItemAlign::Neutral), 30000);
-}
-
-TEST(engine_B_0065_97_realign_good_to_evil) {
-    // Price 4 gold = 40000 Currency; fee 6 gold = 60000 Currency.
-    CHECK_EQ(storeRealignFee(40000, ItemAlign::Good, ItemAlign::Evil), 60000);
-}

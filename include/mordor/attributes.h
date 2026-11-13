@@ -80,11 +80,7 @@ i32 createBase(const Ctx& ctx, Race race, StatIndex stat);
 // UNKNOWN: race.BonusPoints values other than Human's implied 5 are not in the chunks.
 i32 creationPool(const Ctx& ctx, Race race, const Arr<i32, kStatCount>& base);
 
-// R4 spinner raise: if pool > 0 and stat < StatMax, increment stat and decrement pool
-bool raiseStat(Ctx& ctx, Character& c, StatIndex stat);
 
-// R4 spinner lower: if stat > race.Min, decrement stat and increment pool (may go below base)
-bool lowerStat(Ctx& ctx, Character& c, StatIndex stat);
 
 // R5 engine Create: StatMax from race Max, one membership at level 1 in startGuild,
 // Experience 0, MaxHits = CurHits = 15, GoldOnHand 1500, Area -1, RecalcSP with refill.
@@ -95,26 +91,15 @@ void createCharacter(Ctx& ctx, Character& c, Race race, Guild startGuild,
 // R6 displayed stat: Stats[stat] + StatMods[stat], no floor (used for checks)
 i32 statWithMods(const Character& c, StatIndex stat);
 
-// R7 wearing check: false if StatWithMods(i) + StatModWorth(item.StatsMod[i], fit) < race.Min[i] for any i
-// CONFLICT: rule text mentions item stat requirements; formula compares against race.Min only.
-// UNKNOWN: whether per-item stat requirements are also tested.
-bool canWear(const Ctx& ctx, const Character& c, const Item& item);
 
-// R8 effective stat: max(1, Stats[stat] + sum over equipped items of fitted StatModWorth)
-i32 effectiveStat(const Ctx& ctx, const Character& c, const Inventory& inv, StatIndex stat);
 
 // R9 alignment fit: matched or unaligned Full, adjacent Half, opposed Subtract
 FitClass fitFor(ItemAlign itemAlign, Align charAlign);
 
-// R9 fitted stat modifier for one item modifier value.
-// CONFLICT: adjacent Half rounding ("one step gives half" [c2] vs "floored half" [c23]); engine body UNKNOWN.
-i32 statModWorth(i32 mod, FitClass fit);
 
 // R11/R12 guild A/D: guildAtt = BaseAD + ga, guildDef = BaseAD + gd (input is BestGuildAD parts ga, gd)
 AdPair guildAD(const AdPair& bestGuildAD);
 
-// R13 worn-gear sum of Att or Def over worn items (kind selects which)
-i32 wornSum(const Ctx& ctx, const Inventory& inv, AdKind kind);
 
 // R13 total A/D: att = guildAtt + statsAD - held + itemAtt; def = guildDef + statsAD - held + itemDef
 // held = -combat.storedAdShift. Best guild award comes from the character's guild memberships.
@@ -127,8 +112,6 @@ i32 term(i32 v, i32 lo, i32 hi, i32 w);
 // R14 Stats A/D from six stats with modifiers applied (indexed STR..DEX); CON and CHA excluded
 i32 statsAD(const Arr<i32, kStatCount>& statsWithMods);
 
-// R15 archive form: 2*(Str + Dex) + Int + Wis - 76 (valid only above band floors; unverified archive)
-i32 statsADArchive(i32 str, i32 dex, i32 intel, i32 wis);
 
 // R16 combat A/D (audit form): max(0, 10 + statAD + storedADShift + bestGuildAward + equippedItemAD)
 // CONFLICT: port Char page formula [c1] has no max(0, ...) clamp; audit clamp kept. Port behaviour UNKNOWN.
@@ -138,23 +121,9 @@ i32 combatAD(const Ctx& ctx, const Character& c, const Inventory& inv);
 // UNKNOWN: AH/MH/HitsCapLevel/LateHits values; whether CON term is additive to AH term.
 
 
-// R19 HP loss on forfeit of cost levels starting at from, for guild membership `guild`.
-// UNKNOWN: census signature omits the guild; it is needed to exclude this membership from wasHighest.
-// UNKNOWN: AvgHits, LateHits, HitsCapLevel values (read from GameData guild data).
-void hitsOnForfeit(Ctx& ctx, Character& c, Guild guild, i32 from, i32 cost);
 
-// R21 maximum spell points: 5 * (natural INT + natural WIS); no ctx (pure arithmetic)
-i32 maxSP(const Character& c);
 
-// R5/R21 recalculate MaxSP; if refill, CurSP = MaxSP, otherwise clamp CurSP to MaxSP
-void recalcSP(Ctx& ctx, Character& c, bool refill);
 
-// R22 percent chance to lose 1 natural CON: 50 - conNatural*2
-// UNKNOWN: clamp at 0 is implied but not stated (Ogre at archive max 27 goes negative).
-i32 conLossChance(i32 conNatural);
 
-// R22 after a successful stat raise, roll the chance to lose 1 natural CON (gear excluded)
-// Source is an archive page, unverified against the engine.
-void statRaiseConRoll(Ctx& ctx, Character& c);
 
 }  // namespace mordor

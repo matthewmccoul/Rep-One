@@ -38,16 +38,6 @@ bool groupStanding(const GameState& game, i32 g) {
     return game.encounter.groups[static_cast<u32>(g)].livingCount > 0;
 }
 
-// R4 helper: index of the first living party member, or -1.
-i32 firstLivingIndex(const GameState& game) {
-    for (i32 i = 0; i < game.party.size; ++i) {
-        if (!game.party.members[static_cast<u32>(i)].isDead()) {
-            return i;
-        }
-    }
-    return -1;
-}
-
 bool isCounted(const GameState& game, i32 slot) {
     for (i32 v : game.countedDeadSlots) {
         if (v == slot) {
@@ -55,13 +45,6 @@ bool isCounted(const GameState& game, i32 slot) {
         }
     }
     return false;
-}
-
-// R25: clock stops, sub0A64 runs once, clock restarts [c25].
-void freeRoundAs(Ctx& ctx, GameState& game, i32 caller) {
-    game.combatClockRunning = false;
-    monstersFreeAttack(ctx, game, caller);
-    game.combatClockRunning = true;
 }
 
 }  // namespace
@@ -164,31 +147,6 @@ void noteDeadAndSendUpdate(Ctx& ctx, GameState& game) {
     ctx.say("clock.party_list_update", "Party list update", {static_cast<i64>(game.party.size)}, {});
 }
 
-// R28-R30, P8: PlayClock.Shared.Tick over the members with the current time.
-void playClockTick(Ctx& ctx, Vec<Character>& members, bool paused, i64 nowSeconds) {
-    (void)ctx;
-    const i32 n = static_cast<i32>(members.size());
-    for (i32 i = 0; i < n; ++i) {
-        Character& m = members[static_cast<u32>(i)];
-        if (m.playStart == 0 || m.playSeconds == -1) {  // R30: set start, return early
-            m.playStart = nowSeconds;
-            return;                                     // later members that would tick are skipped [c17]
-        }
-        if (paused) {                                   // R29: paused time is not counted, start still advances
-            m.playStart = nowSeconds;
-            continue;
-        }
-        // R7 gap formula, using the original's 86340 wrap [c17].
-        const i64 gap = (nowSeconds < m.playStart)
-                            ? (kPlayDayWrapSeconds - m.playStart) + nowSeconds
-                            : nowSeconds - m.playStart;
-        // R7: PlaySeconds = round(PlaySeconds + gap, 4).
-        // UNKNOWN: PlaySeconds is i64 whole seconds in the state, so the 4-place rounding is a no-op here.
-        m.playSeconds = m.playSeconds + gap;
-        m.playStart = nowSeconds;
-    }
-}
-
 // R8: ailment timer, guarded by inAilment (mirrors m0026).
 void ailmentTick(Ctx& ctx, GameState& game) {
     if (game.inAilment) {
@@ -271,31 +229,6 @@ void endFight(Ctx& ctx, GameState& game) {
     game.inCombatRound = false;
 }
 
-// R12, P4.1: Fight and Defend become None. A queued spell and its target are kept.
-void checkCast(Ctx& ctx, Character& who) {
-    (void)ctx;
-    if (who.order.kind == CombatOrderKind::Fight || who.order.kind == CombatOrderKind::Defend) {
-        who.order.kind = CombatOrderKind::None;
-    }
-}
-
-// R13, P4.2: opening a spell list sets Att to false, then the cast check applies.
-void openSpellList(Ctx& ctx, Character& who) {
-    // UNKNOWN: "Att" is taken as GuildMembership.att of the active guild; false is 0.
-    who.guilds[static_cast<u32>(who.activeGuild)].att = 0;
-    checkCast(ctx, who);  // Fight and Defend become None; queued spell kept
-}
-
-// R14, P5: Sub102F(-1). Kind = Defend if None or Fight, else Fight. Queued spell dropped.
-void attReorder(Ctx& ctx, Character& who, i32 delta) {
-    (void)ctx;
-    // UNKNOWN: delta is the Att -1 trigger value; the formula changes only Kind and SpellId, so delta is not applied.
-    (void)delta;
-    const bool toDefend = (who.order.kind == CombatOrderKind::None || who.order.kind == CombatOrderKind::Fight);
-    who.order.kind = toDefend ? CombatOrderKind::Defend : CombatOrderKind::Fight;
-    who.order.spellId = 0;
-}
-
 // R15: if the aimed group has no standing monsters, aim at the first standing group.
 void retarget(Ctx& ctx, GameState& game, Character& actor) {
     const i32 aimed = actor.order.aimedGroup;
@@ -319,59 +252,6 @@ i32 standingGroupIndex(const Ctx& ctx, const GameState& game, i32 delta) {
         }
     }
     return -1;
-}
-
-// R16-R18, P6: encounter timer.
-void engagementTick(Ctx& ctx, GameState& game) {
-    // UNKNOWN: countdown semantics. A positive countdown is decremented and the tick waits.
-    if (game.encounter.countdown > 0) {
-        game.encounter.countdown -= 1;
-        return;
-    }
-    const i32 lead = standingGroupIndex(ctx, game, 0);
-    if (lead < 0) {
-        return;
-    }
-    MonsterGroup& grp = game.encounter.groups[static_cast<u32>(lead)];
-
-    if (grp.state == GroupState::Hostile) {
-        // R17: a hostile waiting encounter attacks on the transition tick.
-        // UNKNOWN: caller id for timer attacks; the monsters' own tick (0, no roll) is used.
-        monstersFreeAttack(ctx, game, kCallerMonsterTick);
-        return;
-    }
-    if (grp.state == GroupState::Peaced) {
-        if (grp.joinOffer) {  // R18: a peaced encounter with a pending join offer stays put
-            return;           // UNKNOWN: definition of join offer state
-        }
-        const i32 sel = game.party.selectedIndex;
-        if (sel < 0 || sel >= game.party.size) {
-            return;
-        }
-        Character& who = game.party.members[static_cast<u32>(sel)];
-        // R19: lead monster and selected character, rolled against the hostile base formula.
-        const i32 base = hostileBase(grp.front.align, who.alignment);
-        const i32 cha = who.abilities.stats[static_cast<u32>(kStatIdxCha)];
-        if (hostileRoll(ctx, base, cha)) {
-            // UNKNOWN: effect of a successful roll. Assumed to make the group hostile; it attacks on a later tick.
-            grp.state = GroupState::Hostile;
-        }
-    }
-    // GroupState::Engaged: no timer action in the SRD text.
-}
-
-// R19: hostile base table lookup. Rows monster alignment, columns character alignment [c23].
-i32 hostileBase(CharAlign monsterAlign, Align charAlign) {
-    return kHostileBase[static_cast<i32>(monsterAlign)][static_cast<i32>(charAlign)];
-}
-
-// R19: T = trunc(base - 7.5 * ln(max(1, cha))). True if draw 1..100 is strictly below T.
-bool hostileRoll(Ctx& ctx, i32 base, i32 cha) {
-    const i32 effCha = (cha < 1) ? 1 : cha;  // max(1, cha)
-    const double x = static_cast<double>(base) - kHostileLnCoef * std::log(static_cast<double>(effCha));
-    const i32 threshold = static_cast<i32>(x);  // truncation toward zero, as the SRD trunc()
-    const i32 draw = static_cast<i32>(ctx.rng.below(kHostileRollMax)) + 1;  // 1..100
-    return draw < threshold;
 }
 
 // R22, R26: max(5, 50 + 5 * (monsterDex - charDex)); capped at 98 only when cap is set.
@@ -456,36 +336,6 @@ void monstersFreeAttack(Ctx& ctx, GameState& game, i32 caller) {
         }
     }
     // UNKNOWN: damage resolution is in the combat-resolution module; this module reports the attack decisions.
-}
-
-// R25: one free round for engaged monsters.
-void freeRound(Ctx& ctx, GameState& game) {
-    // UNKNOWN: caller id for the free round; Moved (1) assumed since no argument is given.
-    freeRoundAs(ctx, game, kCallerMoved);
-}
-
-// R21-R23: movement triggers. Same area: none. Moved: no cap. ChangedLevel: cap 98.
-void onMove(Ctx& ctx, GameState& game, i32 arg) {
-    if (arg == kMoveSameArea) {  // R23
-        return;
-    }
-    if (!game.party.engaged) {   // R25: a free round applies only while engaged
-        return;
-    }
-    if (arg == kMoveArgMoved) {  // R21: hostile room arrival, argument 1, uncapped
-        freeRoundAs(ctx, game, kCallerMoved);
-        return;
-    }
-    if (arg == kMoveArgChangedLevel) {  // R22: departure or level change, argument 2, capped at 98
-        freeRoundAs(ctx, game, kCallerChangedLevel);
-    }
-}
-
-// R31, P9.1: display wait on each side of a melee result.
-void meleeHold(Ctx& ctx, i32 ms) {
-    // The core never reads the clock, so the host performs the wait; the core reports the requested hold.
-    // CONFLICT: port uses 250 ms each side; the VB3 trace describes a 500 ms hold per group result [c23]. The caller passes ms.
-    ctx.say("clock.melee_hold", "Melee hold", {static_cast<i64>(ms)}, {});
 }
 
 // R34, P9.4: key pressed while a won round is still drawn.

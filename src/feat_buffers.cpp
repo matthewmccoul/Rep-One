@@ -58,7 +58,6 @@ Str bufferJoin(const Vec<Str>& w, size_t from) {
 }
 
 bool bufferIsItem(i32 b) { return b >= 0 && b < kPackSlots; }
-bool bufferIsSpell(i32 b) { return b >= kPackSlots; }
 i32 bufferSpellIndex(i32 b) { return b - kPackSlots; }
 
 // Spell table position through the data table. Past the end returns nullptr.
@@ -109,18 +108,6 @@ Str bufferMemberName(Session& s, i32 member) {
 
 Str bufferKey(i32 member, i32 slot) {
   return "buffers." + bufferInt(member) + "." + bufferInt(slot);
-}
-
-Str bufferOrderKey(i32 member) {
-  return "order." + bufferInt(member);
-}
-
-void bufferOrderSet(Session& s, i32 member, const Str& order) {
-  s.featureState[bufferOrderKey(member)] = order;
-}
-
-void bufferOrderClear(Session& s, i32 member) {
-  s.featureState.erase(bufferOrderKey(member));
 }
 
 // SpellBuffers.Describe: a pack-slot buffer whose slot is now empty resets to nothing; a spell past the
@@ -225,98 +212,6 @@ i32 buffersRead(Session& s, i32 member, i32 slot) {
   i32 v = 0;
   if (!bufferParseInt(it->second, v)) return kBufferEmpty;
   return v;
-}
-
-// R13: BecomesOrder if monsters are present and either a fight is on or the spell is not
-// NonCombat; otherwise CastNow.
-CastDisposition buffersDisposition(bool monstersPresent, bool fightOn, SpellUse use) {
-  if (monstersPresent && (fightOn || use != SpellUse::NonCombat)) return CastDisposition::BecomesOrder;
-  return CastDisposition::CastNow;
-}
-
-// Firing a buffer with Shift during combat (R13). Items run UseItem.
-BufferFire buffersFireFromShift(i32 buffer, bool monstersPresent, bool fightOn, SpellUse use) {
-  if (buffer < 0) return BufferFire::Nothing;
-  if (bufferIsItem(buffer)) return BufferFire::UseItem;
-  if (!bufferIsSpell(buffer)) return BufferFire::Nothing;
-  return buffersDisposition(monstersPresent, fightOn, use) == CastDisposition::BecomesOrder
-             ? BufferFire::StandingOrder
-             : BufferFire::CastNow;
-}
-
-// CombatSetting >= 3 (P3): a spell buffer becomes the standing order; it is not cast at once.
-BufferFire buffersFireFromCombatSetting(i32 buffer) {
-  if (buffer < 0) return BufferFire::Nothing;
-  if (bufferIsItem(buffer)) return BufferFire::UseItem;
-  if (!bufferIsSpell(buffer)) return BufferFire::Nothing;
-  return BufferFire::StandingOrder;
-}
-
-// R9: the standing order the combat round runs for a member: "none", "fight", "defend" or "spell:<id>".
-Str buffersStandingOrderText(Session& s, i32 member) {
-  auto it = s.featureState.find(bufferOrderKey(member));
-  return it == s.featureState.end() ? Str("none") : it->second;
-}
-
-// R10: the standing order is cleared when the fight ends. CombatSetting itself is not changed.
-void buffersClearStandingOrder(Session& s, i32 member) {
-  bufferOrderClear(s, member);
-}
-
-// P3 / R10: at fight start, CombatSetting sets the standing order. The caller passes the member's
-// CombatSetting value (it is not on the Character layout). Returns:
-//   StandingOrder  a spell buffer was recorded as "spell:<id>",
-//   UseItem        the buffer holds a pack item; the caller runs the Use command,
-//   Nothing        no buffer involved, or the member does not exist.
-// UNKNOWN: CombatSetting 7..12 (buffers 5..10) are not exposed by the four slots; they clear the order.
-BufferFire buffersApplyCombatSetting(Session& s, i32 member, i32 combatSetting) {
-  if (!bufferMemberExists(s, member)) return BufferFire::Nothing;
-  if (combatSetting == 1) {
-    bufferOrderSet(s, member, "fight");
-    return BufferFire::Nothing;
-  }
-  if (combatSetting == 2) {
-    bufferOrderSet(s, member, "defend");
-    return BufferFire::Nothing;
-  }
-  const i32 slot = combatSetting - kCombatSettingBufferBase;
-  if (combatSetting < 3 || slot < 1 || slot > kBufferSlotsExposed) {
-    bufferOrderClear(s, member);
-    return BufferFire::Nothing;
-  }
-  const i32 b = buffersRead(s, member, slot);
-  if (bufferIsItem(b)) {
-    bufferOrderClear(s, member);
-    return BufferFire::UseItem;
-  }
-  if (bufferIsSpell(b)) {
-    const SpellDef* sp = bufferSpellDef(s, bufferSpellIndex(b));
-    if (sp != nullptr) {
-      bufferOrderSet(s, member, "spell:" + bufferInt(sp->id));
-      return BufferFire::StandingOrder;
-    }
-  }
-  bufferOrderClear(s, member);
-  return BufferFire::Nothing;
-}
-
-// Shift + buffer key during combat (R13). A spell that becomes an order is recorded in featureState.
-// CastNow and UseItem are returned to the caller, which runs the cast or the Use command.
-BufferFire buffersFireSlot(Session& s, i32 member, i32 slot, bool monstersPresent, bool fightOn) {
-  if (!bufferMemberExists(s, member)) return BufferFire::Nothing;
-  const i32 b = buffersRead(s, member, slot);
-  SpellUse use = SpellUse::Either;
-  const SpellDef* sp = nullptr;
-  if (bufferIsSpell(b)) {
-    sp = bufferSpellDef(s, bufferSpellIndex(b));
-    if (sp == nullptr) return BufferFire::Nothing;
-    use = spellUse(*sp);
-  }
-  const BufferFire fire = buffersFireFromShift(b, monstersPresent, fightOn, use);
-  if (fire == BufferFire::StandingOrder && sp != nullptr) {
-    bufferOrderSet(s, member, "spell:" + bufferInt(sp->id));
-  }
-  return fire;
 }
 
 void register_buffers() {

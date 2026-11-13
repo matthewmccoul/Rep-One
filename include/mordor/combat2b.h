@@ -90,95 +90,42 @@ struct PlayerChanceParams {
 
 // ---- R7 and R8 player chance and roll (P2 steps 1 and 2) ----
 
-// R7 R8 player crit or backstab chance from the engine formula (c18; weapon term CONFLICT: engine max(p+w, w) preferred).
-f64 playerProcChance(const PlayerChanceParams& p, const ProcRule& rule);
 
-// R7 R8 proc roll: below(100) < chance, against the unrounded chance (c5, c23).
-// CONFLICT: monster roll uses <= with Int(Rnd*100)+1 (see rollMonsterProc); which is intended for monsters is UNKNOWN.
-bool rollPlayerProc(Ctx& ctx, f64 chance);
 
 // ---- R10 damage modifier ----
 
-// R10 damage modifier: +5 if crit, +2 if backstab, both apply when severed (Terms, c23, c25). R10 text not supplied.
-i32 blowDamageModifier(bool crit, bool backstab);
 
 // ---- R11 guild selection per ability ----
 
-// R11 guild for a proc ability: maximises coefficient x guildLevel, strict improvement in table order, zero wins none.
-// Returns the Guild as i32 index, or kNoGuild. UNKNOWN: guild-table order, taken here as the Guild enum order.
-i32 selectGuildForProc(const Character& ch, CombatProc proc);
 
 // ---- P2 player blow (CombatEngine.SwingOnce) ----
 
-// P2 steps 1, 2, 4, 5: crit roll, backstab roll, damage modifier, guild selection.
-// Procs roll before the hit gate. The hit gate (R9) is UNKNOWN and is run by the caller after this.
-PlayerBlowRolls rollPlayerBlow(Ctx& ctx, const Character& attacker, const PlayerBlowInput& in);
 
 // ---- R12 and R13 monster crit and backstab (P3) ----
 
-// R12 monster crit or backstab chance, clamped to the crit or backstab range.
-// UNKNOWN: attackerFloor definition (c18).
-f64 monsterProcChance(i32 attackerGuildLevel, i32 attackerFloor, i32 defenderLevel, bool backstab);
 
-// R13 monster roll: Int(Rnd*100)+1 <= chance (fractions count). Accepts 5 values for a chance of 5.4 (derived, c18).
-bool rollMonsterProc(Ctx& ctx, f64 chance);
 
 // ---- R14 to R17 companion breath sweep (P4) ----
 
-// R14 R15 R16 R17 no-mishap breath sweep over alive groups; kill cap kBreathKillCap; writes no message.
-// R14 trigger for "breath does not hit the party" is UNKNOWN; pass the result in breathHitParty.
-// Quirk: a kill calls Sub0D08 on owner's target record, not on the group the breath is in (c6).
-void companionBreathSweep(Ctx& ctx, Encounter& enc, Character& owner, i32 compLevel, bool breathHitParty);
 
-// P4 step 3 damage: Raw(Breath, compLvl, front.GuildLevel) after resistance. UNKNOWN: Raw formula not supplied (c6).
-i32 companionBreathDamage(Ctx& ctx, i32 compLevel, const Creature& front);
 
 // ---- R18 to R21 combat-setting spell refusal (P5) ----
 
-// R18 the combat spell becomes the standing order (CombatSettingSpell) before the cast check (checkCast, clock.h).
-// UNKNOWN: which CombatOrderKind marks a spell order; the spell id is stored in order.spellId.
-void setCombatSettingSpell(Character& who, i32 spellId);
 
-// R20 R21 apply RefusedOrder(refusal). AntiMagic sets the member to Fight; other refusals clear the order.
-// CONFLICT: an item refusal leaves the order (rule text) vs clears it (engine else-branch); engine preferred, so it clears.
-// CONFLICT: original sets Att = 1 (MULTIMOD.BAS:480-483); port sets Att = False. UNKNOWN whether sub102F reproduces Att = 1.
-void refusedOrder(Character& who, CastRefusal refusal);
 
 // ---- R22 to R24 fight-end Asmodeus check (P6) ----
 
-// R22 R24 UNKNOWN: Asmodeus.Is helper; tests whether a creature is Asmodeus.
-bool asmodeusIs(const Ctx& ctx, const Creature& monster);
 
-// R22 UNKNOWN: BeatAsmodeus contents (c47).
-void beatAsmodeus(Ctx& ctx, GameState& game);
 
-// R22 R23 R24 before any other fight-end processing, and before a join-cleared fight (clearedByJoining, monsters1b).
-// Only the lead group is checked (R24). leadSlot0 is the lead group's first member; the caller resolves it
-// (Encounter: monsters[Foes[0].Ref] if in range; combat: combat.Monsters[0].Def).
-void checkAsmodeusAtFightEnd(Ctx& ctx, GameState& game, const Creature& leadSlot0);
 
 // ---- R25 and R26 quest settlement (P7) ----
 
-// R25 quest kill settles during combat at each kill (CombatEngine.QuestKill).
-// UNKNOWN: which guild membership's quest; the active guild is used.
-// R26: end-of-fight code does not handle quests, so no fight-end quest routine is declared.
-void questKill(Ctx& ctx, Character& who, i32 monsterId);
 
 // ---- R27 and R28 combat experience per kill (P8) ----
 
-// R27 GF = 1 / (1 + L/333). UNKNOWN: meaning of L.
-f64 xpGroupFactor(i32 levelL);
 
-// R27 PF = 1 - 0.04 * (n - 1). UNKNOWN: meaning of n.
-f64 xpPartyFactor(i32 partyN);
 
-// R27 XP = floor[ h(9 - ln(h+1))(20 - ln h)(M+50) * CF * GF / 1000 ] * PF.
-// R28 overkill handling and final rounding are UNKNOWN; returns the unrounded value.
-// UNKNOWN: h = 0 (ln h undefined); source of h; meanings of M and L. Engine implementation of this formula is UNKNOWN (c82).
-f64 combatXpPerKill(i32 hits, i32 monsterM, f64 combatFactor, i32 levelL, i32 partyN);
 
-// R27 award per-kill XP to a character. R28 final rounding is UNKNOWN; implementer uses vbInt on the value.
-void awardKillXp(Ctx& ctx, Character& who, f64 xp);
 
 // ---- R29 monster specials ----
 // R29 monster crit, backstab and spells are speculation in the manual; no engine evidence was supplied, so nothing is declared.

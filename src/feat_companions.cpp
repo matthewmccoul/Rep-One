@@ -111,43 +111,6 @@ bool companionsReleaseSlot(Session& s, i32 member1, i32 slot1, Str& reply) {
   return true;
 }
 
-// Companion Information, idLevel gate text (CompanionInfo.IdLevelText, MAINMOD2.BAS:5029-5038).
-// 0 is knowing everything; larger is knowing less.
-Str companionsIdLevelText(i32 idLevel) {
-  switch (idLevel) {
-    case 0: return "You know All";
-    case 1: return "More to learn";
-    case 2: return "Lots more to learn";
-    default: return "You know Nothing";
-  }
-}
-
-// R34 / CompanionMood.Round: the drift line for a companion that moved a notch and is still at or above zero.
-// UNKNOWN: the other branch's text is truncated in the evidence, so only this branch is written here.
-Str companionsDriftLine(const Str& ownerName, const Str& companionName) {
-  return "\"" + companionsTrimEnd(ownerName) + "\" - " + companionsTrimEnd(companionName) +
-         " has broken a level of binding!";
-}
-
-// R34 / CompanionMood.Round: one drift tick on a signed binding value (positive bound, negative content).
-// The caller holds the binding and the drift score: Drift() is not in the evidence, so driftScore200 is
-// its result on the 0..200 scale that the reference compares against Rnd * 200.
-// Order as the reference: the ForLife test comes first and draws no random number; the draw comes next.
-// Returns true when the binding moved one notch towards zero (or the other way from zero).
-bool companionsDriftTick(Ctx& ctx, i32& binding, i32 driftScore200) {
-  if (binding >= kBindingForLife) return false;
-  if (!(ctx.rng.nextDouble() * 200.0 < static_cast<double>(driftScore200))) return false;
-  binding += binding > 0 ? -1 : 1;
-  return true;
-}
-
-// Says the drift line through the event sink, but only when the binding is still at or above zero,
-// the branch whose text is in the evidence.
-void companionsSayDrift(Ctx& ctx, const Str& ownerName, const Str& companionName, i32 binding) {
-  if (binding < 0) return;
-  ctx.say("companion.drift", companionsDriftLine(ownerName, companionName), {}, {});
-}
-
 namespace {
 
 bool cmdCompanions(Session& s, const Vec<Str>& w, Str& reply) {

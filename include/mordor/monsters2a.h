@@ -127,60 +127,25 @@ struct CompanionSpawnSelection {
 
 // ---- Monster kinds and spawn masks [c13] ----
 
-// [c13] Class index of a kind; numeric match with ClassCount 18. UNKNOWN: mapping confirmation.
-i32 classIndexOfKind(MonsterKind kind);
 
-// [c13] True when SpawnMask bit n (n = kind value) is set for this kind.
-bool spawnMaskAllowsKind(i32 spawnMask, MonsterKind kind);
 
 // ---- Engagement rolls [c7][c18][c19][c24] ----
 
-// [c7][c24] 75% lair named monster.
-bool rollLairNamed(Ctx& ctx);
 
-// [c7] 1% any-class roll: Int(Rnd*100)+1 < 2.
-bool rollAnyClass(Ctx& ctx);
 
-// [c7][c24] 40% Neutral lead peaced. (Neutral monster hostility is the complement, 60% [c7][c97].)
-bool rollNeutralLeadPeaced(Ctx& ctx);
 
-// [c18][c19] Level-gap gate percent for a level gap.
-// UNKNOWN: the SRD gives only the values 90 / 50 / 10 and not their band edges.
-// Preferred: gap <= kLevelGapNearMax -> 90; gap <= kLevelGapMidMax -> 50; otherwise 10.
-i32 levelGapGatePercent(i32 gap);
 
-// [c19] 40% quest class head start.
-bool rollQuestClassHeadStart(Ctx& ctx);
 
-// [c19] Rare monster: Chance < 10.
-bool isRareMonsterChance(i32 chance);
 
-// [c6] Companion breath chance (percent). Base 50; 80 when the lead is more than a quarter stronger;
-// 20 when more than a quarter weaker.
-// UNKNOWN: the stat compared ("strength") is not named in this part; passed in as a power value.
-i32 companionBreathChance(i32 leadPower, i32 companionPower);
 
-// [c23] Melee attempts for a group: min(living count, 5).
-i32 attemptsForGroup(i32 livingCount);
 
-// [c4] Fear release: hits > 0 and not ForLife.
-bool fearReleases(const Character& c);
 
 // ---- Crit and backstab clamps [c23] ----
 
-// [c23] Clamp a crit chance into [kCritLo, kCritHi].
-// UNKNOWN: this part gives lo/hi with k but not the formula that k enters.
-i32 clampCritChance(i32 chance);
 
-// [c23] Clamp a backstab chance into [kBackstabLo, kBackstabHi].
-// UNKNOWN: as for clampCritChance.
-i32 clampBackstabChance(i32 chance);
 
 // ---- Companion spawn modes [c24][c31] ----
 
-// [c24][c31] Resolve a companion spawn mode to its search window or table selection.
-// UNKNOWN: negative modes are not in the table; implementer should treat them as mode 0.
-CompanionSpawnSelection companionSpawnSelection(i32 mode);
 
 // ---- Respawn [c9][c24][c31][c66] ----
 
@@ -191,15 +156,8 @@ CompanionSpawnSelection companionSpawnSelection(i32 mode);
 // per floor and per room of (total - tally). emptiedRooms is taken as (total - tally).
 
 
-// [c24] Stale standing group: older than 2t.
-// UNKNOWN: t is not defined in this part; tMs is taken as that t in milliseconds.
-bool standingGroupStale(i64 groupStampMs, i64 nowMs, i64 tMs);
 
 // ---- Trap-table floor mask [c100] ----
 
-// [c100] Trap-table floor value read as a bitmask: bit (level-1) set means floor `level` is included.
-// e.g. Kobold 31 = floors 1-5; Phoenix 64 = floor 7.
-// UNKNOWN: flag column meanings are not stated; floor 0 rows are probably not floor-placed (mask 0 -> false).
-bool floorMaskPlaces(i32 floorMask, i32 dungeonLevel);
 
 } // namespace mordor

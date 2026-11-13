@@ -48,14 +48,6 @@ Currency penBuyPrice(Currency baseValue, i32 pennedCount) {
     return roundHalfEven(price);  // Long, round half to even
 }
 
-// R23 Pen buy price, Set 2 (port-pinned factors 1.5 and 1.15, no ln term).
-Currency penBuyPriceSet2(Currency baseValue, i32 pennedCount) {
-    if (pennedCount <= 0) {
-        return 0;
-    }
-    return roundHalfEven((1.5 * static_cast<double>(baseValue)) / 1.15);
-}
-
 // R24 Pen sell price.
 Currency penSellPrice(Currency baseValue, i32 pennedCount, bool anyAlignmentPenned, i32 idLevel) {
     i32 stock = pennedCount;
@@ -69,25 +61,6 @@ Currency penSellPrice(Currency baseValue, i32 pennedCount, bool anyAlignmentPenn
                    static_cast<double>(idLevel + 1);
     i64 r = roundHalfEven(price);  // Long
     return r < 0 ? 0 : r;          // floor 0
-}
-
-// R25 Pen identify price. Applies only when idLevel > 0 (step 3 of R20).
-Currency penIdentifyPrice(Currency baseValue, i32 pennedCount, i32 idLevel) {
-    // UNKNOWN: idLevel <= 0 is not an identify case (R20 step 3); returning 0 avoids divide by zero.
-    if (idLevel <= 0) {
-        return 0;
-    }
-    i32 stock = pennedCount;
-    if (stock > 9) {
-        stock = 9;
-    }
-    // As written: the "+ 1" is applied after the division by idLevel (R25 note).
-    double v = ((0.13 * static_cast<double>(baseValue)) /
-                ((static_cast<double>(stock) / 2.0 + 1.0) * 0.9)) /
-                   static_cast<double>(idLevel) +
-               1.0;
-    i64 r = roundHalfEven(v);
-    return r < 0 ? 0 : r;  // floor 0
 }
 
 // R27 Starting companion stock (OpenDejenol Confinement.Fresh, MAINMOD.BAS:522-559): ten creatures, two of each,
@@ -266,97 +239,6 @@ i32 penIndexOfItemAlign(ItemAlign align) {
     return static_cast<i32>(align) - 1;
 }
 
-// R31 Deposit into the bank vault.
-VaultDeposit depositToVault(Ctx& ctx, Inventory& inv, i32 packSlot) {
-    (void)ctx;
-    // Slot 0 and slots 40 and above are refused.
-    if (packSlot <= 0 || packSlot >= kPackSlots) {
-        return VaultDeposit::Refused;
-    }
-    Item& src = inv.pack[static_cast<u32>(packSlot)];
-    // Equipped items are refused.
-    if (src.equipped) {
-        return VaultDeposit::Refused;
-    }
-
-    // hole = first vault index with ItemId <= 0
-    i32 hole = -1;
-    i32 used = 0;
-    for (i32 i = 0; i < kBankSlots; ++i) {
-        if (inv.bank[static_cast<u32>(i)].id <= 0) {
-            if (hole < 0) {
-                hole = i;
-            }
-        } else {
-            ++used;
-        }
-    }
-    // A full vault (40 slots in use, no hole) is refused.
-    if (hole < 0 && used >= kBankSlots) {
-        return VaultDeposit::Refused;
-    }
-    // An empty pack slot succeeds without change.
-    if (src.id <= 0) {
-        return VaultDeposit::EmptySlot;
-    }
-    if (hole < 0) {
-        return VaultDeposit::Refused;  // unreachable: a non-full vault always has a hole
-    }
-    inv.bank[static_cast<u32>(hole)] = src;
-    src = Item{};
-    return VaultDeposit::Stored;
-}
-
-// R32 Withdraw selected vault lines into the first free pack slots.
-i32 withdrawFromVault(Ctx& ctx, Inventory& inv, Party& party, const Vec<i32>& bankSlots) {
-    (void)ctx;
-    i32 moved = 0;
-    for (u32 k = 0; k < static_cast<u32>(bankSlots.size()); ++k) {
-        i32 b = bankSlots[k];
-        if (b < 0 || b >= kBankSlots) {
-            continue;
-        }
-        Item& src = inv.bank[static_cast<u32>(b)];
-        if (src.id <= 0) {
-            continue;
-        }
-        // UNKNOWN: pack slot 0 is refused for deposit, so the free-slot search starts at 1.
-        i32 freeSlot = -1;
-        for (i32 p = 1; p < kPackSlots; ++p) {
-            if (inv.pack[static_cast<u32>(p)].id <= 0) {
-                freeSlot = p;
-                break;
-            }
-        }
-        if (freeSlot < 0) {
-            break;  // R32.2: a full pack stops a multiple withdrawal; the rest stays in the vault
-        }
-        // UNKNOWN: "the item is re-identified" has no defined effect in the SRD; left unchanged.
-        inv.pack[static_cast<u32>(freeSlot)] = src;
-        src = Item{};
-        // Buffers naming that slot are let go.
-        // UNKNOWN: ItemOrder.slot is taken to be the pack slot named by a buffer.
-        for (u32 m = 0; m < static_cast<u32>(kPartyMaxSize); ++m) {
-            if (party.itemOrders[m].slot == freeSlot) {
-                party.itemOrders[m] = ItemOrder{};
-            }
-        }
-        ++moved;
-    }
-    return moved;
-}
-
-// R33 Free vault slots.
-i32 freeVaultSlots(const Inventory& inv) {
-    i32 used = 0;
-    for (i32 i = 0; i < kBankSlots; ++i) {
-        if (inv.bank[static_cast<u32>(i)].id > 0) {
-            ++used;
-        }
-    }
-    return kBankSlots - used;
-}
-
 // R34 Town charge and purse check.
 ChargeResult townCharge(Ctx& ctx, Party& party, i32 payerIndex, Currency cost, const TownModAnswers& mods) {
     ChargeResult res;
@@ -479,67 +361,6 @@ ShortfallCover wouldCoverShortfall(const Party& party, i32 payerIndex, Currency 
     return out;
 }
 
-// CityAltP: ALT-p in town with a party of two or more pools to the character in command.
-AltPoolOutcome chooseAltPPool(const Party& party, bool inTown, const TownModAnswers& mods) {
-    // UNKNOWN: the SRD says the dungeon never asks; no pooling there is assumed (Refused).
-    if (!inTown) {
-        return AltPoolOutcome::Refused;
-    }
-    // A party of one is refused first and is not asked.
-    if (party.size < kAltPoolMinParty) {
-        return AltPoolOutcome::Refused;
-    }
-    // Default PoolOnHand; a mod may choose PoolAndDeposit.
-    if (mods.altPoolAnswered && mods.altPoolDeposit) {
-        return AltPoolOutcome::PoolAndDeposit;
-    }
-    return AltPoolOutcome::PoolOnHand;
-}
-
-// R37.2 and R38: a row is shown unless a StoreRowVisible mod answered false for it.
-bool storeRowVisible(const TownModAnswers& mods, i32 row) {
-    if (mods.liveMods == 0) {
-        return true;
-    }
-    for (u32 i = 0; i < static_cast<u32>(mods.hiddenRows.size()); ++i) {
-        if (mods.hiddenRows[i] == row) {
-            return false;
-        }
-    }
-    return true;
-}
-
-// R39: the row order answer must have the same count and the same multiset of row values.
-bool storeRowOrderAccepted(const Vec<i32>& defaultRows, const Vec<i32>& modRows) {
-    if (defaultRows.size() != modRows.size()) {
-        return false;
-    }
-    for (u32 i = 0; i < static_cast<u32>(defaultRows.size()); ++i) {
-        i32 v = defaultRows[i];
-        u32 countDefault = 0;
-        u32 countMod = 0;
-        for (u32 j = 0; j < static_cast<u32>(defaultRows.size()); ++j) {
-            if (defaultRows[j] == v) {
-                ++countDefault;
-            }
-        }
-        for (u32 j = 0; j < static_cast<u32>(modRows.size()); ++j) {
-            if (modRows[j] == v) {
-                ++countMod;
-            }
-        }
-        if (countDefault != countMod) {
-            return false;
-        }
-    }
-    return true;
-}
-
-// R40: refused unless some mod answered true (a throwing mod is counted as false).
-bool storeRowChangeAllowed(const TownModAnswers& mods) {
-    return mods.rowChangeAllowed;
-}
-
 // R41: the TownIncomeBank answer, if it names a party member; otherwise the seller's hand.
 i32 townIncomePayee(const Party& party, i32 sellerIndex, const TownModAnswers& mods) {
     // R41: a non-member answer counts as null, so the payment goes to the seller's hand.
@@ -551,104 +372,6 @@ i32 townIncomePayee(const Party& party, i32 sellerIndex, const TownModAnswers& m
         }
     }
     return sellerIndex;
-}
-
-// R42: kept = max(1, first non-null mod answer), else 20.
-i32 messageWindowLines(const TownModAnswers& mods) {
-    if (mods.messagesKept <= 0) {
-        return kDefaultMessageLines;
-    }
-    return mods.messagesKept < 1 ? 1 : mods.messagesKept;
-}
-
-// R43: default refused.
-bool storeAlignChoiceUnlocked(const TownModAnswers& mods) {
-    return mods.alignChoiceUnlocked;
-}
-
-// R39 and R44: a mismatch disables that mod's row order for the session.
-void disableRowOrderForSession(TownModAnswers& mods) {
-    mods.rowOrderMatches = false;
-    mods.rowOrderDisabled = true;
-}
-
-// R47: arrival deposit and pool (mod hook).
-ArrivalDepositResult arrivalDepositAndPool(Ctx& ctx, Party& party, const TownModAnswers& mods) {
-    (void)ctx;
-    ArrivalDepositResult res;  // deposited 0, wealthiestCheckDue true (R47 step 5 runs either way)
-    // R47 step 1: no live mods means nothing moves.
-    if (mods.liveMods == 0) {
-        return res;
-    }
-    if (!mods.arrival.answered) {
-        return res;
-    }
-    if (mods.arrival.action == ArrivalAction::PartyDeposit) {
-        res.deposited = partyDepositOnHand(party);
-    } else if (mods.arrival.action == ArrivalAction::PartyPool) {
-        res.deposited = partyPoolOnHandToBank(party, mods.arrival.poolTo);
-    }
-    // R47 step 4: a line is requested only when deposited > 0 and the message is not blank.
-    if (res.deposited > 0 && mods.arrival.hasMessage) {
-        bool blank = true;
-        const Str& msg = mods.arrival.message;
-        for (u32 i = 0; i < static_cast<u32>(msg.size()); ++i) {
-            char c = msg[i];
-            if (!(c == ' ' || c == '\t' || c == '\r' || c == '\n')) {
-                blank = false;
-                break;
-            }
-        }
-        if (!blank) {
-            res.messageDue = true;
-            res.line = msg;
-        }
-    }
-    return res;
-}
-
-// R47 PartyDeposit: each member's gold on hand goes into their own account.
-Currency partyDepositOnHand(Party& party) {
-    Currency total = 0;
-    for (i32 i = 0; i < party.size; ++i) {
-        Character& m = party.members[static_cast<u32>(i)];
-        Currency amt = m.wallet.goldOnHand;
-        if (amt <= 0) {
-            continue;
-        }
-        m.wallet.goldOnHand = 0;
-        m.wallet.goldInBank += amt;
-        total += amt;
-    }
-    return total;
-}
-
-// R47 PartyPool: all members' gold on hand goes into the named member's account.
-// All or nothing on overflow of the target account.
-Currency partyPoolOnHandToBank(Party& party, i32 toMember) {
-    if (toMember < 0 || toMember >= party.size) {
-        return 0;
-    }
-    constexpr Currency kBankCeiling = 9223372036854775807LL;
-    Currency sum = 0;
-    for (i32 i = 0; i < party.size; ++i) {
-        Currency amt = party.members[static_cast<u32>(i)].wallet.goldOnHand;
-        if (amt > 0) {
-            sum += amt;
-        }
-    }
-    Character& target = party.members[static_cast<u32>(toMember)];
-    if (sum > kBankCeiling - target.wallet.goldInBank) {
-        return 0;  // overflow: nothing moves
-    }
-    for (i32 i = 0; i < party.size; ++i) {
-        Character& m = party.members[static_cast<u32>(i)];
-        if (m.wallet.goldOnHand > 0) {
-            m.wallet.goldOnHand = 0;
-        }
-    }
-    target.wallet.goldInBank += sum;
-    return sum;
 }
 
 }  // namespace mordor

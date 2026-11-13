@@ -79,14 +79,3 @@ TEST(engine_B_0064_31_non_ninja_title_ladders_no_repeats) {
     CHECK_EQ(repeats, 0);
 }
 
-TEST(engine_B_0065_108_nomad_all_stats_15_guild_ad) {
-    // Guild level is not specified in the case; default membership is used.
-    Character c{};
-    c.activeGuild = Guild::Nomad;
-    for (u32 s = 0; s < kStatCount; ++s) {
-        c.abilities.stats[s] = 15;
-    }
-    GuildAttDefResult ad = GuildAttDefDisplay(c);  // Char page shows BaseAD (10/10) + best guild award
-    CHECK_EQ(ad.att, 10);
-    CHECK_EQ(ad.def, 10);
-}

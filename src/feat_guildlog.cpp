@@ -207,10 +207,6 @@ bool glClean(Session& s, Str& reply) {
   return true;
 }
 
-// Wording of the appointment line (MODULE2.BAS:638). UNKNOWN: the reference text is cut off after
-// "was appointed"; the tail "GuildMaster." is assumed from the sibling line "became the new GuildMaster.".
-Str glWroteAppointed(const Str& who) { return "\"" + glTrim(who) + "\" was appointed GuildMaster."; }
-
 // guildlog <guild> | guildlog clean
 bool cmdGuildlog(Session& s, const Vec<Str>& w, Str& reply) {
   if (w.size() < 2) {
@@ -241,39 +237,6 @@ bool cmdGuildlog(Session& s, const Vec<Str>& w, Str& reply) {
 }
 
 }  // namespace
-
-// Writes one guild log line (the sub0578 writer). Other features call this with an explicit day.
-void guildlogAppend(Session& s, i32 guild, i64 day, const Str& text) {
-  Vec<GuildlogRow> rows = glLoadAll(s);
-  GuildlogRow r;
-  r.guild = guild;
-  r.day = day;
-  r.text = text;
-  rows.push_back(r);
-  glStoreAll(s, rows);
-}
-
-// MODULE2.BAS:638: the seeded guildmasters are appointed when a new game starts.
-// masterNames[g] is the seeded guildmaster of guild g; an empty name writes nothing for that guild.
-// Runs once per session: a second call is a no-op.
-// Declare in features.h: void guildlogSeedNewGame(Session& s, const Vec<Str>& masterNames);
-void guildlogSeedNewGame(Session& s, const Vec<Str>& masterNames) {
-  if (glGet(s, "guildlog.seeded") == "1") return;
-  Vec<GuildlogRow> rows = glLoadAll(s);
-  const i64 day = glToday(s);
-  const i32 count = glGuildCount(s);
-  for (i32 g = 0; g < count && static_cast<size_t>(g) < masterNames.size(); ++g) {
-    const Str who = glTrim(masterNames[static_cast<size_t>(g)]);
-    if (who.empty()) continue;
-    GuildlogRow r;
-    r.guild = g;
-    r.day = day;
-    r.text = glWroteAppointed(who);
-    rows.push_back(r);
-  }
-  glStoreAll(s, rows);
-  s.featureState["guildlog.seeded"] = "1";
-}
 
 void register_guildlog() {
   registerFeatureCommand({"guildlog", Screen::Town, &cmdGuildlog,

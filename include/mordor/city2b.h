@@ -66,105 +66,26 @@ inline constexpr CompanionPriceBand kCompanionPriceBands[20] = {
     {20, 99999999, 99999999, "The Void", "The Void"}
 };
 
-// ---- R74 Ratio ----
-// R74 ratio_raw = Price(a) / Price(b), unrounded. Example: Giant Spider / Kobold ~ 2.22.
-// UNKNOWN: which price (buy, sell, base) Price() denotes is not stated; caller supplies both.
-// UNKNOWN: zero denominator not stated; return 0.0.
-double ratioRaw(Currency priceNumerator, Currency priceDenominator);
 
-// ---- R3 city rest ----
-// R3 City rest gate: DungeonLevel == 0 and not dead.
-bool cityRestGate(i32 dungeonLevel, bool dead);
-// R3 City rest days: (CurHits < MaxHits) ? round_half_even((100 - CurHits/MaxHits*100) / 3.25) : 0.
-// UNKNOWN: CurHits / MaxHits is decimal (float) in the examples; original integer behaviour unknown.
-// FIXED: return type changed from i32 to i64 to match the existing declaration in city1.h
-// (i64 cityRestDays(i32, i32)); two declarations differing only by return type are ambiguous.
-i64 cityRestDays(i32 curHits, i32 maxHits);
 
-// ---- R11 alignment choice ----
-// R11 Alignment choice is asked when Stocked > 1 (more than one stocked alignment in a row).
-bool alignmentChoiceAsked(i32 stockedAlignmentCount);
 
-// ---- R16 shelving test ----
-// R16 shelves = !cursed AND !(unaligned AND floor == 0) AND alignRowCount < kShelfCap.
-bool shelvingAllowed(bool cursed, bool unaligned, i32 floor, i32 alignRowCount);
 
-// ---- R18 shelf floor cap ----
-// R18 if deepestReached >= kFloorLimit - 1 then deepestReached = kDeepestStocked (14).
-i32 cappedShelfDepth(i32 deepestReached);
 
-// ---- R21 pen add ----
-// R21 if penCount < kShelfCap then penCount += 1. Returns true when a creature was added.
-bool penAddOne(i32& penCount);
 
-// ---- R23 pen buy price, set 2 ----
-// R23 round_half_even(1.5 * BaseValue / 1.15) if penCount > 0, else 0.
-// UNKNOWN: whether the max(BaseValue, 10) floor from the engine buy price applies in set 2.
-Currency penBuyPriceSet2(Currency baseValue, i32 penCount);
 
 // ---- R24 pen sell price and R25 pen identify price ----
 // Declared in the API INDEX as priceToSell and priceToIdentify; not redeclared here.
 
-// ---- R26 store realign fee ----
-// R26 fee = Round(kRealignFactor * price), round_half_even.
-// Example: price 4 -> fee 3.
-Currency realignStoreFee(Currency price);
 
-// ---- R31 vault deposit slot test ----
-// R31 slot is refused if slot <= 0 or slot >= kBankSlots (40). Returns true when accepted.
-bool vaultSlotAccepted(i32 slot);
 
-// ---- R33 bank free slots ----
-// R33 free slots = kBankSlots - count(bank item with id > 0).
-i32 bankFreeSlots(const Inventory& inv);
 
-// ---- R35 shortfall and town charge ----
-// R35 need = max(0, cost - payerPurse).
-Currency shortfallNeed(Currency cost, Currency payerPurse);
-// CharPay: town charge. On-hand gold first, then bank. Refuses without changing state if the
-// purse (on hand + bank) is short. Emits text through ctx.say.
-// FIXED: CharPayOutcome exists nowhere; replaced by ChargeResult (the existing town charge
-// result type used by townCharge in city1.h).
-ChargeResult charPay(Ctx& ctx, Character& payer, Currency cost);
 
-// ---- R62 library day count ----
-// R62 days = |seenSerial - todaySerial|. Serial = whole days since 1899-12-30.
-i64 libraryDaysAgo(i64 seenSerial, i64 todaySerial);
-// T-H library day text selector. todaySerial == 0 gives NotKnown.
-LibraryDayPhrase libraryDayPhrase(i64 todaySerial, i64 days);
 
-// ---- R64 seer ----
-// R64 seer gate: refuse if level > deepestHeCanReach (original kSeerDeepestOriginal).
-bool seerRefuses(i32 level, i32 deepestHeCanReach);
-// R64 seer fee base = kSeerFeeBase * ln(level + 1) * level (natural log).
-// UNKNOWN: rounding of the fractional fee, and the "halved" adjustments, are not stated in this part.
-Currency seerFeeBase(i32 level);
 
-// ---- R65 guild log clean visibility ----
-// R65 Clean visible = GuildLog.NeedsCleaning(...). File reading is done by the caller;
-// this takes the counts it needs.
-// UNKNOWN: NeedsCleaning criterion and KeepOnClean value are not stated in this part.
-bool guildLogCleanVisible(i32 logEntryCount, i32 guildCount);
 
-// ---- R67 gold input rounding ----
-// R67 entered gold is rounded to whole gold, round half to even ("2.5" -> 2, "3.5" -> 4),
-// then converted to Currency.
-// UNKNOWN: whether rounding is to whole gold or to 1/10000; whole gold assumed.
-Currency goldInputToCurrency(double enteredGold);
 
-// ---- R70 class wear ----
-// R70 maxWorn == 0 -> NotWearable; maxWorn == -1 uncapped; maxWorn > 0 and wornCount >= maxWorn -> ClassFull.
-WearRefusal classWearCheck(i32 maxWorn, i32 wornCount);
 
-// ---- T-M item alignment to pen index ----
-// T-M pen index: Good 0, Neutral 1, Evil 2 (item scheme is 1-based).
-// UNKNOWN: pen index for Unaligned; -1 returned.
-i32 penAlignIndex(ItemAlign align);
 
-// ---- T-R companion price band lookup ----
-// Returns the band for a levelFound 1..20.
-// UNKNOWN: behaviour outside 1..20 not stated; caller must pass a level in range.
-CompanionPriceBand companionPriceBand(i32 level);
 
 // ---- rounded index draw ----
 // Terms: rounded index = round_half_even(Rnd * n). Result in 0..n; index n matches nothing,

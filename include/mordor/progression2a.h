@@ -105,69 +105,28 @@ inline constexpr double kJoinC3 = 5356.0;
 
 // ---- R28 Level-XP and gold planning ----
 
-// R28 XP needed at a level, test closed form (engine-aligned). l = level - 1.
-//   xp = 88.09020776*l*l*(GEF/8) + 45.45454*(2l - 1) - 0.264 ; total = round(xp * RaceMult)
-// CONFLICT: test labels use target level; engine uses current level. 'level' is the formula's lvl.
-// UNKNOWN: plain round() tie rule; roundHalfEven is used (CInt).
-i64 levelXpAtTarget(i32 level, Guild g, Race race);
 
-// R28 cumulative gold from the character's current guild level up to targetLevel (gold loop)
-// UNKNOWN: Fn12B2 inputs l03A8, l039E, l03A6 (R35)
-// UNKNOWN: whether gold is deducted on level-up (R35)
-// UNKNOWN: loop definitions R13 and R16 are outside this part
-Currency projectGoldToLevel(const Character& ch, Guild g, i32 targetLevel);
 
 // ---- R29 Optimal route (archive) ----
 
-// R29 archive route target level for a guild (Table T12); 0 when no route target is given
-// UNKNOWN: route targets for guilds not listed in T12
-i32 routeTargetLevel(Guild g);
 
-// R29 archive hits gained on reaching this level (Table T11), before bonus HP
-// UNKNOWN: Nomad 29-30 per level or total (R35); Wizard values past ML; other guilds' ML
-i32 archiveHitsForLevel(Guild g, i32 level);
 
-// R29 archive bonus HP applies: Con >= 17 and level below ML (hitsCapLevel)
-// UNKNOWN: bonus HP amount per level (archive gives none; engine rolls it in levelUp)
-bool archiveBonusHpApplies(i32 con, i32 level, i32 hitsCapLevel);
 
-// R29 race restrictions: Elf and Osiri not Warrior; Giant and Morlok not Wizard; Gnome neither
-// UNKNOWN: restrictions for other race and guild pairs (R35)
-bool raceMayJoinGuild(Race race, Guild g);
 
 // ---- R31 Sanctuary cast (archive) and aging ----
 
 // R31 age a character by days and print the aging message (AgeBy, [c4])
 void ageBy(Ctx& ctx, Character& ch, i32 days);
 
-// R31 sanctuary cast: the caster ages kSanctuaryAgeDays
-// UNKNOWN: target caster or whole party (R35); caster only is used
-// CONFLICT: 365 days (original) vs 28 days (port); 365 is used
-void castSanctuary(Ctx& ctx, Character& caster);
 
 // ---- R33 Documented port deviations ----
 
-// R33 pinned level-up announcement shown. The original does not test MaxLevel; the port does.
-// portTestsMaxLevel selects the port behaviour: the announcement is also gated on level < maxLevel.
-// UNKNOWN: which behaviour is preferred (R33 gives no preference)
-bool shouldAnnouncePinnedLevelUp(const Character& ch, Guild g, i32 maxLevel, bool portTestsMaxLevel);
 
-// R33 gold rounding of a half-up value: the community loop rounds halves up
-// (x87 differs by one gold in 1,130 of 11,976 levels)
-i64 goldRoundHalfUp(double value);
 
 // ---- R34 Other notes ----
 
-// R34 XP striker factor: 1.0 when the character strikes; 0.25 when a companion strikes
-// Applied within XP (engine), not to damage (R34 resolution)
-double xpStrikerFactor(bool byCompanion);
 
-// R34 / R36 party XP factor: 1 - (partySize - 1) * 0.04
-double partyXpFactor(i32 partySize);
 
-// R34 roster order is creation order; a deleted character's slot is reused.
-// Returns the first free index in occupied, or -1 when the roster is full.
-i32 firstFreeRosterSlot(const Vec<bool>& occupied);
 
 // ---- R32 and R35: archive provenance and known gaps ----
 // No executable rules. Items are tracked in the comments above (UNKNOWN / CONFLICT tags).

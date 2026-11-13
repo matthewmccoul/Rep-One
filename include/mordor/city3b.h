@@ -31,42 +31,16 @@ inline constexpr i32 kGuildLogKeepDocumented = 50;
 
 // ---- store stock and replenish ----
 
-// [c22] store replenish chance in percent for a shelf, from days aged
-// UNKNOWN: whether item replenish has the 500-pass cap that creature restock has [c9, c22].
-i32 storeReplenishChance(i32 daysAged);
 
-// [c22] one store replenish roll; consumes ctx.rng
-bool rollStoreReplenish(Ctx& ctx, i32 daysAged);
 
-// [c22] store alignment choice is needed when AlignmentFlags > 1 (numeric test)
-// CONFLICT: [c34] audit says "more than one alignment bit"; preferred: engine numeric test [c22].
-bool storeOffersAlignmentChoice(i32 alignmentFlags);
 
 // ---- companion pricing ----
 
-// [c9][c55] companion buy price for a monster base value and count penned in that alignment.
-// Returns 0 when penned == 0.
-// price = (1.5 * max(baseValue, 10)) / (ln(min(penned - 1, 9) + 1) + 1.15)
-// UNKNOWN: units of baseValue and result (Currency is 1/10000 gold); rounding not stated.
-// CONFLICT: port test form round_half_even(1.5 * BaseValue / 1.15) with no ln term or floor [c55].
-// Preferred: engine form [c9]. Implementer rounds with roundHalfEven from math_util.h.
-Currency companionBuyPrice(i64 baseValue, i32 penned);
 
 // ---- sighting library merge rules ----
 
-// [c12] sighting Known is only ever raised: returns the larger grade
-// CONFLICT: [c57] "Set Known to the grade"; preferred: raise only [c12].
-// UNKNOWN: partial-read grade values below 3 [c57].
-i32 mergeSightingKnown(i32 knownGrade, i32 readGrade);
 
-// [c12] monster merge takes the newer name only when the existing record has Known == 0
-// CONFLICT: [c57] says first recorder's name is kept; preferred: engine [c12].
-bool sightingTakesNewName(i32 existingKnown);
 
-// [c12] an invisible creature is skipped only when the reader is in the dungeon
-// (readerDungeonLevel > 0) and the reader lacks See Invisible.
-// CONFLICT: [c57] skips with no level condition; preferred: engine [c12].
-bool sightingSkipsInvisible(i32 readerDungeonLevel, bool creatureInvisible, bool readerSeesInvisible);
 
 // ---- deliberately not declared (insufficient rule data in this part) ----
 // Realign fee: covered by priceToRealign (items2b.h). Store vs Confinement factor and

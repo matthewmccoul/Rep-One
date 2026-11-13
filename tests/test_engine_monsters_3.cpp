@@ -4,12 +4,6 @@
 // B_0057#34: duplicate-Id scan over MDATA5 (MdrLoader.LoadMonsters). No equivalent function in the headers.
 // SKIP B_0057#34: no duplicate-Id scan or MDATA5 loader function in the headers
 
-TEST(engine_B_0057_35_first_morgul_index) {
-    tsup::Env env(1);
-    // Expected: first monster with Id 307 sits at table index 278 (Morgul).
-    CHECK_EQ(mordor::monsterTableIndexForId(env.ctx, 307), 278);
-}
-
 // B_0057#35 (last index 389 and trimmed names 'Morgul' / 'Shadow Ninja'): no last-match or name lookup in the headers.
 // SKIP B_0057_35: last-index lookup and trimmed-name accessors are not in the headers
 

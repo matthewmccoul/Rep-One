@@ -150,8 +150,6 @@ bool meetsStats(const GuildDef& guildDef, const Arr<i32, kStatCount>& stats);
 bool allowsAlignment(const GuildDef& guildDef, Align align);
 // R15 raceIndex < 0 or absent from RaceData is allowed; else RaceMask bit test
 bool allowsRace(const GuildDef& guildDef, i32 raceIndex);
-// R16 display style for the guild list entry
-EligibilityStyle eligibilityStyle(const GuildDef& guildDef, const Character& character);
 // R13.7 recalculates SpellPoints; refills when refill is true
 void recalcSpellPoints(Ctx& ctx, Character& character, bool refill);
 // R8 / R13.7 appends a log entry stamped with game.today
@@ -161,8 +159,6 @@ void addGuildLog(Ctx& ctx, GameState& game, Guild guild, i32 kind, Str text);
 // ---- R17/R18 active guild ----
 // R17 move the named membership to the front; true if already front
 bool setActiveGuild(Ctx& ctx, Character& character, Guild guild);
-// R18 town-only and cursed/opposite-alignment gate (CONFLICT: engine shows no gate; gate per wiki)
-bool setActiveGuildGated(Ctx& ctx, Character& character, const Inventory& inventory, Guild guild, bool inTown);
 
 // ---- R20 Make Level, R19 levelling ----
 // R20/R55 Make Level procedure at the guild hall
@@ -175,33 +171,11 @@ Currency goldForNextLevel(const GuildMembership& membership);
 // R20.6/R32 raises the level by one; hits and grants follow in the caller
 // UNKNOWN: stat change on level (R20 step 9); body not in this part
 void levelUp(Ctx& ctx, GuildMembership& membership);
-// R21 wiki experience to reach LVL
-i64 expForLevel(const GuildDef& guildDef, const RaceDef& raceDef, i32 level);
-// R24 Actual EP = EP / 8
-f64 actualExpMod(i32 ep);
-// R24 Actual GP = GP / 10 + 1
-f64 actualGoldMod(i32 gp);
-// R23 wiki gold to reach LVL
-i64 goldForLevelWiki(const GuildDef& guildDef, i32 level);
 // R25 engine gold formula for advancing from level L
 Currency goldForLevel(Currency guildGold, i32 level);
 
-// ---- R27 item use, R64 ----
-// R27 max(1, round_half_even((f + f*2.97) * LevelScale))
-i32 itemUseLevel(const ItemDef& item, const GuildDef& guildDef);
-// R27/R64 guild mask and membership level against UseLevel
-// CONFLICT: wiki says use is restricted to the active guild; engine allows any joined guild
-// CONFLICT: CanUse covers only the primary guild (R64 quirk)
-bool meetsUseLevel(Ctx& ctx, const Character& character, const Item& item);
 
-// ---- R29 spell access ----
-// R29 canCast and shown level for spell at guildIndex (SpellMax[k], k = guildIndex)
-// CONFLICT: duplicate spell names resolve to highest level (wiki c104) or most powerful (wiki c83)
-SpellAccessResult spellAccess(const GuildMembership& membership, const SpellDef& spell, i32 guildIndex);
 
-// ---- R30 extra swings ----
-// R30 extra swings from Abilities[3] threshold steps
-i32 swingsFor(const GuildDef& guildDef, const GuildMembership& membership);
 
 // ---- R32 hits ----
 // R32 hits gained on a level; below ML uses AH+random+CON bonus, at/above ML uses MH; cap 999
@@ -209,21 +183,7 @@ i32 swingsFor(const GuildDef& guildDef, const GuildMembership& membership);
 i32 hitsGain(Ctx& ctx, const Character& character, const GuildMembership& membership,
              const GuildDef& guildDef, i32 con);
 
-// ---- R34 combat ability chances ----
-// R34 procedure per encounter: no single routine; composed of the routines below
-// R35 ability chance for one membership (thieving, fighting, perception, other)
-i32 abilityChance(const GuildMembership& membership, i32 ability, const Character& character,
-                  i32 dungeonLevel, i32 monsterGuildLevel);
-// R34.2/R35 best ability chance across the character's memberships
-i32 chanceForAbility(const Character& character, i32 ability, i32 dungeonLevel, i32 monsterGuildLevel);
-// R34.3/R36 guild with best modifier times level (strict improvement, table order)
-Guild winningGuild(Ctx& ctx, const Character& character, i32 ability);
-// R37 Guild tab rating, min 1
-i32 abilityRating(const GuildDef& guildDef, f64 value);
 
-// ---- R38 / R39 / R40 A/D ----
-// R38 interval-accumulation A/D step for a level (Nomad gets +3)
-i32 adInterval(const GuildDef& guildDef, i32 level, bool isNomad);
 // R38 accumulated attack and defence up to min(level, AdMaxLevel)
 AdValue guildAD(const GuildMembership& membership, const GuildDef& guildDef);
 // R38 base A/D added on display (Rules.BaseAD)
@@ -232,8 +192,6 @@ i32 baseAD(Ctx& ctx, const Character& character);
 // R34.5/R39 max attack and max defence across joined guilds
 BestAd bestGuildAD(const GameData& data, const Character& character);
 BestAd bestGuildAD(const Character& character);
-// R40 Nomad A/D sheet value: 10 + 1.5*L for even L in 2..30
-f64 nomadValue(i32 level);
 
 // ---- R42-R44 quest rolls and assignment ----
 // R43 quest roll: returns kRollNone, kRollLetOff, kRollDefeat or kRollFetch
@@ -249,10 +207,6 @@ void assignQuest(Ctx& ctx, GuildMembership& membership, const GuildDef& guildDef
 i32 questTier(i32 guildLevel);
 // R47 Int(tier / 1.5) + 1
 i32 itemBand(i32 tier);
-// R48 highest monster level for a guild level: min(floor(gLevel/25), 10)
-i32 questMonsterMaxLevel(i32 guildLevel);
-// R49 highest item level for a guild level (reconstructed, rounding ambiguous)
-i32 questItemMaxLevel(i32 guildLevel);
 // R51 defeat target as index into ctx.data.monsters; -1 when none (null)
 // R52 rarity reroll (wiki 74%, engine 75%): CONFLICT
 i32 questMonster(Ctx& ctx, i32 tier);
@@ -265,10 +219,6 @@ bool questItemReachable(Ctx& ctx, i32 tier);
 // ---- R45 / R54 / R55 / R56 completion and abandonment ----
 // R45/R55 quest satisfaction; consume removes a fetch item and increments ItemQuestsDone
 bool questSatisfied(Ctx& ctx, Character& character, Inventory& inventory, Guild guild, bool consume);
-// R54 killer's current-guild defeat quest naming monsterId is marked done
-void monsterKill(Ctx& ctx, Party& party, i32 monsterId);
-// R56 forfeit the active guild's pinned quest; refuses on cursed equipped slot
-bool forfeitQuest(Ctx& ctx, Character& character, const Inventory& inventory);
 
 // ---- R57 / R58 / R59 mastership and crest ----
 // R57 mastership claim: level > 0 and (seat empty or held.Level < level)
@@ -283,26 +233,9 @@ CrestOutcome awardCrest(Ctx& ctx, Inventory& inventory, Guild guild);
 // ---- R60 titles, R61 identify skill ----
 // R60 title from level bands; unknown guild returns "Adventurer"
 Str guildTitle(Guild guild, i32 level);
-// R61 identify skill from top guild level and stats
-// UNKNOWN: body of IdentifySkill is not given in the SRD
-i32 identifySkill(i32 topGuildLevel, i32 intStat, i32 wisStat);
 
-// ---- R62 / R63 town recharge ----
-// R62/R63 refill guild items in pack slots 1..39 to MaxCharges
-void townRecharge(Ctx& ctx, Inventory& inventory);
 
-// ---- R65 / R66 guild log ----
-// R65/R66 cleans the guild log to the newest 50 when over threshold
-// UNKNOWN: exact trigger point of log cleaning (R65)
-void cleanGuildLog(Ctx& ctx, GameState& game);
-// R66 "TODAY: ", "1 DAY AGO: " or "N DAYS AGO: " by absolute day gap
-Str logPrefix(i64 entryDay, i64 today);
 
-// ---- R67 companions, R68 new game ----
-// R67 sets MonsterIndex = -1, keeps Name
-void releaseCompanion(Ctx& ctx, Companion& companion);
-// R67 writes Hits and monster index; does not write Name
-void fillCompanion(Ctx& ctx, Companion& companion, i32 hits);
 // R68 installs the twelve seeded guildmasters where no named holder exists
 void newGame(Ctx& ctx, GameState& game);
 

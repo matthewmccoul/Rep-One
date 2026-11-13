@@ -149,8 +149,6 @@ inline bool isAsmodeus(i32 monsterId) { return monsterId == kAsmodeusId; }
 
 // ---- R4 shared Id lookup ---------------------------------------------------
 
-// R4 Id to table index: first entry with that Id, else index 0
-i32 monsterTableIndexForId(const Ctx& ctx, i32 monsterId);
 
 // ---- R8 preconditions ------------------------------------------------------
 
@@ -208,9 +206,6 @@ Vec<ClassRange> buildClassRanges(const Ctx& ctx);
 
 // ---- R15 newbie lead guard -------------------------------------------------
 
-// R15 true when the lead must be rejected (restart) under the newbie condition
-// lead != 4 uses table index 4, not Id 4
-bool newbieLeadRejected(const Ctx& ctx, i32 leadIndex, i32 viewerLevel, i32 areaId);
 
 // ---- R16 group count -------------------------------------------------------
 
@@ -231,38 +226,18 @@ bool rollLeadEngaged(Ctx& ctx, i32 leadAlignmentValue, Align viewerAlign);
 
 // ---- R19 front hits, fog and naming ----------------------------------------
 
-// R19 identify level for a new group: fogged (bit 20) gives CLASS_NAME, otherwise OWN_NAME
-IdentifyLevel initialIdentifyLevel(u32 groupFlags);
 
-// R19 group name: MonsterGroups[MonsterClasses[cls].Index]
-Str monsterGroupName(const Ctx& ctx, i32 classIndex);
 
-// R19 monster display name by identify level (0 own, 1 class, 2 group)
-Str monsterDisplayName(const Ctx& ctx, i32 monsterIndex, i32 classIndex, IdentifyLevel level);
 
 // ---- R20 misidentification -------------------------------------------------
 
-// R20 misidentification pick among kin (realIndex is the real monster's position in kin)
-// CONFLICT: the trigger is roll > bar, but the shift is stated as upward when roll < bar; direction rule must be chosen by implementer.
-// UNKNOWN: Log(0) guard for GuildLevel 0 is not stated; no monster has floor or guild level 0 in MDATA5.
-MisidResult rollMisidentification(Ctx& ctx, f64 readerIdSkill, i32 guildLevel, i32 levelFound,
-                                  i32 realIndex, const Vec<i32>& kin, ClassRange classRange);
 
 // ---- R21 companion groups --------------------------------------------------
 
-// R21 companion pick chained from the previous CompanionType, SpawnMode and Subtype
-// UNKNOWN: the mode table is in the Tables section, not in this part.
-// CONFLICT: Combat.cs invents a +/-1 floor and a same-kind rule; the source re-rolls and fills every group.
-CompanionPick pickCompanionMonster(Ctx& ctx, const CompanionChain& previous, i32 targetFloor, i32 spread);
 
 // ---- R22 spawn eligibility (test-stated) -----------------------------------
 
-// R22 encounter floor for level and Stud flag
-// UNKNOWN: Rules.EncounterFloor formula is not in this part.
-i32 encounterFloor(i32 level, bool stud);
 
-// R22 spawn eligibility: spawn mask bit set for class, Stud flag match, LevelFound <= encounter floor
-bool spawnEligible(const Ctx& ctx, const Area& area, i32 monsterIndex, bool stud, i32 viewerLevel);
 
 // ---- R23 members behind the front ------------------------------------------
 
@@ -276,8 +251,6 @@ i32 unrolledMemberHits(i32 baseHits);
 
 // ---- R25 join offer pause --------------------------------------------------
 
-// R25 true when a group's engagement roll is run (not paused by a live join offer)
-bool groupRollsForEngagement(const MonsterGroup& group);
 
 // ---- R26 engagement effects ------------------------------------------------
 // R26 engagement effects: engagementTick, startFight and onMove are declared in clock.h (API INDEX).
@@ -285,36 +258,16 @@ bool groupRollsForEngagement(const MonsterGroup& group);
 // ---- R27 combat round order ------------------------------------------------
 // R27 step 1 free attack: monstersFreeAttack and freeRound are declared in clock.h (API INDEX).
 
-// R27 step 2 target pick: weights snapshot at start of enemy phase
-// CONFLICT: R33 gives five weights (100,50,25,12,6) for four members; the 53/27/13/7 split does not match 100/50/25/12 (53/27/13/6).
-Arr<i32, kPartyMaxSize> snapshotTargetWeights(const Party& party);
 
 // R27 step 2 target pick by 1-100 roll against cumulative weights; returns party index or -1
 i32 pickMonsterTarget(Ctx& ctx, const Arr<i32, kPartyMaxSize>& weights, const Party& party, i32 livingMembers);
 
-// R27 step 3 melee targeting: true when the draw picks the character rather than a companion
-bool meleeDrawPicksCharacter(Ctx& ctx, i32 livingCompanions);
 
-// R27 step 3 companion sample: returns occupied living slot index, or -1 to fall back to the character
-i32 pickCompanionSlot(Ctx& ctx, const Arr<Companion, kCompanionSlots>& companions);
 
-// R27 step 4 melee blow resolution (uses monster Attack, STR, guild level, target defence, modifier and crit/backstab)
-// UNKNOWN: whose STR (monster or target) is not stated; target's STR is used.
-i32 monsterMeleeBlow(Ctx& ctx, const Creature& attacker, const Character& target, const Inventory& targetInv,
-                     i32 sizeDiff, bool unseenInvisibleTarget);
 
-// R27 step 5 apply accumulated character damage after the loop
-void applyAccumulatedDamage(Ctx& ctx, Party& party, const Arr<i32, kPartyMaxSize>& damage);
 
-// R27 step 5 apply companion damage immediately
-void applyCompanionDamage(Ctx& ctx, Companion& companion, i32 amount);
 
-// R27 step 7 lone body: the first group draws its target once; returns party index or -1
-// UNKNOWN: the body of sub0E85 (leaves on DeathState) is not in this part.
-i32 loneBodyTargetDraw(Ctx& ctx, const Party& party);
 
-// R27 step 8 round continuation: continue while any monster stands and the combat is not over
-bool roundPacedContinues(const Encounter& encounter, bool isOver);
 
 // ---- R28 monster hits ------------------------------------------------------
 
@@ -322,36 +275,20 @@ bool roundPacedContinues(const Encounter& encounter, bool isOver);
 // UNKNOWN: no floor is applied; a 1-hit creature gives 0 or 2.
 RolledHits rollMonsterHits(Ctx& ctx, i32 baseHits);
 
-// R28 audit swing bound: Int(Hits*0.5/2)+1 (c66)
-// CONFLICT: the audit bound is not reached at all values; the engine bound is Int(Def.Hits*0.25)+1.
-i32 auditSwingBound(i32 baseHits);
 
 // ---- R29 standing at nought ------------------------------------------------
 
-// R29 alive state: !Gone && (Hits > 0 || AtNought)
-bool creatureAlive(const Creature& creature);
 
-// R29 write hits; any write clears AtNought
-void setCreatureHits(Creature& creature, i32 hits);
 
 // ---- R30 melee blow modifier -----------------------------------------------
 
-// R30 melee damage modifier: DamageMod (1 if not positive), +0.75 chest, +2 crit, +1 backstab, size term
-// CONFLICT: unseen-invisible -0.5 is audit-only (c23), not in the engine chunk (c18); flag is passed through.
-f64 meleeDamageModifier(f64 monsterDamageMod, bool openingChest, bool crit, bool backstab,
-                        i32 sizeDiff, bool unseenInvisibleTarget);
 
 // ---- R31 crit and backstab thresholds --------------------------------------
 
-// R31 proc threshold: clamp(100*ln(1+M/k)*ln(floor+1) - 100*ln(1+D/999), lo, hi)
-f64 procThreshold(const ProcSpec& spec, i32 attackerGuildLevel, i32 ownerGuildLevel, i32 levelFound);
 
 // R31 proc roll: Int(Rnd*100)+1 <= threshold
 bool rollProc(Ctx& ctx, f64 threshold);
 
-// R31 companion melee defence bonus: +4 crit, +1 backstab
-// CONFLICT: monster melee uses +2/+1 and companion defence uses +4/+1; flags 10 and 11 are said to enable crit and backstab.
-i32 companionDefenceBonus(bool crit, bool backstab);
 
 // ---- R32 free-attack threshold ---------------------------------------------
 // R32 free-attack threshold: freeAttackThreshold is declared in clock.h (API INDEX).
@@ -367,20 +304,10 @@ i32 companionDefenceBonus(bool crit, bool backstab);
 
 // ---- R35 companion breath chance -------------------------------------------
 
-// R35 companion breath chance percent from lead and companion guild levels: 50 default, 80 high, 20 low
-i32 companionBreathChance(i32 leadGuildLevel, i32 compLevel);
 
-// R35 companion breath roll: Floor(rnd()*100) < chance
-// CONFLICT: Log(0) on guild-level 0 breathers errors in the source; the port's status differs. Chance roll is drawn before any error.
-bool rollCompanionBreath(Ctx& ctx, i32 leadGuildLevel, i32 compLevel);
 
 // ---- R36 companion acid ----------------------------------------------------
 
-// R36 companion acid slot draw
-// CONFLICT: acid never hits slot 0 and draws a fifth slot that does not exist; the implementation draws only existing slots 1..kCompanionSlots-1.
-i32 rollAcidSlot(Ctx& ctx);
 
-// R36 breath and acid remove a companion only when hits are below 0; exactly 0 is removed by the next sweep
-bool breathAcidRemoves(i32 hits);
 
 }  // namespace mordor

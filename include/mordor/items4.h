@@ -43,46 +43,12 @@ inline constexpr i32 kIdentifyBarelyGap = 20;        // difficulty - skill >= 20
 
 // ---- rule routines ----
 
-// T3 Item level range adjustment by chest or container.
-// Chest: min +1, max unchanged. Box: unchanged. Container: min -1, max -1.
-// Asmodeus chest: fixed min 14, max 16 (base values ignored).
-// UNKNOWN: ChestClass::NONE is not listed in T3; treated as no adjustment.
-ItemLevelRange adjustLevelRangeForContainer(ChestClass container, i32 baseMin, i32 baseMax);
 
-// T4 Minimum item level for an ItemDropLevel.
-// Values outside 1..16 are clamped to the table ends (UNKNOWN: out-of-range behaviour not stated).
-// Rounding of the raw drop level to the table is banker's rounding (roundHalfEven); author says "probably".
-i32 itemDropMinLevel(i32 itemDropLevel);
 
-// T5 Identification result from skill and difficulty at a dungeon level.
-// Row order: skill >= difficulty and level 1-5 -> MOSTLY; skill >= difficulty and level 6+ -> Unknown;
-// difficulty - skill < 20 -> PARTIAL; difficulty - skill >= 20 -> BARELY.
-// UNKNOWN: the result for skill >= difficulty at level 6+ is not stated; Unknown (no identification) is returned.
-IdLevel identifyLevelFor(i32 skill, i32 difficulty, i32 dungeonLevel);
 
-// T6 Cap an identification level by where it is obtained.
-// Only the General Store reaches ALL; any other source is capped at MOSTLY.
-// UNKNOWN: whether non-General-Store sources cap at MOSTLY is inferred from "only the General Store reaches ALL".
-IdLevel capIdentifyLevel(IdLevel earned, bool generalStore);
 
-// T5 Exchange-form identification recalculation.
-// Through the exchange form (not drag and drop), identification is recalculated using the item whose ID equals levelScale.
-// Example: a BARELY item passed to a PARTIAL-capable character can become MOSTLY.
-// UNKNOWN: levelScale field name in ItemDef and the drag-and-drop behaviour are not stated.
-void recalcExchangeIdentify(Ctx& ctx, const Character& recipient, Item& item);
 
-// T1/T2 Guild use level of an item for a guild (minimum guild level needed to use or wield).
-// Returns kNoGuildUse when the item lists no use level for that guild.
-// Parenthesized numbers in T2 are read as guild levels; the SRD does not state this (UNKNOWN).
-i32 itemUseLevel(const GameData& data, i32 itemId, Guild guild);
 
-// T1/T2 True when the character's active guild level meets the item's use level for that guild.
-// UNKNOWN: restriction logic for "class restricted" items is not defined; only the use-level check is declared.
-bool meetsItemUseLevel(const GameData& data, const Character& c, i32 itemId);
 
-// T2 On use, a spell-point item adds Spell Points to the character.
-// Amounts are kScrollOfSpellsGain or kTomeOfSpellsGain.
-// UNKNOWN: whether the gain is capped at maxSpellPoints is not stated.
-void addSpellPointsFromItem(Ctx& ctx, Character& c, i32 amount);
 
 }  // namespace mordor
