@@ -7,6 +7,7 @@
 namespace mordor {
 namespace {
 
+}  // namespace
 // Parses a plain decimal word without exceptions. Returns false on anything else.
 bool confParseIndex(const Str& w, i32& out) {
   if (w.empty() || w.size() > 6) return false;
@@ -18,6 +19,7 @@ bool confParseIndex(const Str& w, i32& out) {
   out = v;
   return true;
 }
+namespace {
 
 // Members are numbered 1..kPartyMaxSize on screen (same numbering as the access helpers).
 bool confParseMember(const Str& w, i32& member) {
