@@ -90,4 +90,60 @@ Str joinFrom(const Vec<Str>& w, std::size_t from) {
   return r;
 }
 
+Str featureStateOr(const Session& s, const Str& key, const Str& dflt) {
+  auto it = s.featureState.find(key);
+  return it == s.featureState.end() ? dflt : it->second;
+}
+
+// Signed decimal text of a Currency held in 1/10000 gold.
+// fraction selects how the fraction is printed; goldSuffix appends " gold".
+Str formatCurrencyText(Currency units, CurrencyFraction fraction, bool goldSuffix) {
+  const i64 v = static_cast<i64>(units);
+  const bool neg = v < 0;
+  const i64 a = neg ? -v : v;
+  const i64 whole = a / 10000;
+  const i64 frac = a % 10000;
+  Str out = neg ? Str("-") : Str();
+  out += toStr(whole);
+  if (frac != 0 || fraction == CurrencyFraction::FourDigitsAlways) {
+    Str digits = toStr(frac);
+    digits = Str(4 - digits.size(), '0') + digits;
+    if (fraction == CurrencyFraction::TrimmedIfAny) {
+      while (!digits.empty() && digits.back() == '0') digits.pop_back();
+    }
+    out += "." + digits;
+  }
+  if (goldSuffix) out += " gold";
+  return out;
+}
+
+// Maps a pen/alignment index to its label. 0 = Good, 1 = Neutral, 2 = Evil.
+// Any other value returns outOfRange (confinement passes "Evil", alignName passes "?").
+Str alignLabel(i32 align, Str outOfRange) {
+  if (align == 0) return "Good";
+  if (align == 1) return "Neutral";
+  if (align == 2) return "Evil";
+  return outOfRange;
+}
+
+// Adds `days` to ch.ageDays, clamped so the age never drops below 0.
+// When announceCtx is non-null the change is announced ("progression.age"); pass nullptr to stay silent.
+// Reproduces ageBy (announces, days = signed days) and duseYounger (silent, days = -years * kDuseYearDays).
+// UNKNOWN: the SRD gives no floor for negative aging; the zero floor is taken from the existing copies.
+void ageCharacterDays(Character& ch, i32 days, Ctx* announceCtx) {
+    i32 next = ch.ageDays + days;
+    if (next < 0) {
+        next = 0;
+    }
+    ch.ageDays = next;
+    if (announceCtx != nullptr) {
+        announceCtx->say("progression.age", "The character has aged.", {days, ch.ageDays}, {});
+    }
+}
+
+// Builds the featureState key "<prefix><member>.<field>". Raise and hall keys differ only in prefix.
+Str featureMemberKey(const char* prefix, i32 member, const char* field) {
+  return Str(prefix) + std::to_string(member) + "." + field;
+}
+
 }  // namespace mordor

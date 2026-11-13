@@ -150,7 +150,7 @@ void levelUp(Ctx& ctx, Character& ch, Guild g, const GuildHitsRef& rates);
 
 // AgeBy: adds days to ch.ageDays and prints the aging message. UNKNOWN: message wiring for
 // monsters, chest Withering, raises and Kind 25 items [c34][c4].
-void ageBy(Ctx& ctx, Character& ch, i32 days);
+
 
 
 

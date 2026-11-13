@@ -11,6 +11,7 @@
 //   s.data: GameData tables (races, guilds, spells, items, monsters, floors, itemTypes); an ItemDef's id is NOT its table index.
 #pragma once
 #include "mordor/game.h"
+#include "mordor/parse.h"
 
 namespace mordor {
 
@@ -20,14 +21,7 @@ inline Str accLower(const Str& w) {
   return o;
 }
 inline bool accParseInt(const Str& w, i64& out) {
-  if (w.empty()) return false;
-  size_t i = 0; bool neg = false;
-  if (w[0] == '-') { neg = true; i = 1; }
-  if (i >= w.size()) return false;
-  i64 v = 0;
-  for (; i < w.size(); ++i) { if (w[i] < '0' || w[i] > '9') return false; v = v * 10 + (w[i] - '0'); if (v > 4000000000000000000LL) return false; }
-  out = neg ? -v : v;
-  return true;
+  return parseDecimal(w, out, true, 0, 4000000000000000000LL);
 }
 
 // ---- party ----

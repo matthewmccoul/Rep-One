@@ -5,6 +5,7 @@
 #include "mordor/access.h"
 #include "mordor/state_common.h"
 #include "mordor/shared_helpers.h"
+#include "mordor/parse.h"
 
 namespace mordor {
 namespace {
@@ -23,29 +24,13 @@ struct GuildlogRow {
 };
 
 }  // namespace
-Str glGet(const Session& s, const Str& key) {
-  auto it = s.featureState.find(key);
-  return it == s.featureState.end() ? Str() : it->second;
-}
 namespace {
 
 // Parses a decimal integer without exceptions. ok is false on any non-digit.
 i64 glParseInt(const Str& t, bool& ok) {
-  ok = false;
-  size_t i = 0;
-  bool neg = false;
-  if (i < t.size() && t[i] == '-') {
-    neg = true;
-    ++i;
-  }
-  if (i >= t.size()) return 0;
   i64 v = 0;
-  for (; i < t.size(); ++i) {
-    if (t[i] < '0' || t[i] > '9') return 0;
-    v = v * 10 + static_cast<i64>(t[i] - '0');
-  }
-  ok = true;
-  return neg ? -v : v;
+  ok = parseDecimal(t, v, true, 0, -1);
+  return ok ? v : 0;
 }
 
 Str glTrim(const Str& t) {
@@ -58,7 +43,7 @@ Str glTrim(const Str& t) {
 // UNKNOWN: day counter not in GameState; reads 0 until the caller sets guildlog.today.
 i64 glToday(const Session& s) {
   bool ok = false;
-  const i64 d = glParseInt(glGet(s, "guildlog.today"), ok);
+  const i64 d = glParseInt(featureStateOr(s, "guildlog.today", Str()), ok);
   return ok ? d : 0;
 }
 
@@ -106,11 +91,11 @@ bool glUnpack(const Str& raw, GuildlogRow& r) {
 Vec<GuildlogRow> glLoadAll(const Session& s) {
   Vec<GuildlogRow> rows;
   bool ok = false;
-  const i64 n = glParseInt(glGet(s, "guildlog.count"), ok);
+  const i64 n = glParseInt(featureStateOr(s, "guildlog.count", Str()), ok);
   if (!ok || n <= 0) return rows;
   for (i64 i = 0; i < n; ++i) {
     GuildlogRow r;
-    if (glUnpack(glGet(s, glEntryKey(i)), r)) rows.push_back(r);
+    if (glUnpack(featureStateOr(s, glEntryKey(i), Str()), r)) rows.push_back(r);
   }
   return rows;
 }
@@ -118,7 +103,7 @@ Vec<GuildlogRow> glLoadAll(const Session& s) {
 // Replaces the whole log and drops any stale keys past the new end.
 void glStoreAll(Session& s, const Vec<GuildlogRow>& rows) {
   bool ok = false;
-  i64 old = glParseInt(glGet(s, "guildlog.count"), ok);
+  i64 old = glParseInt(featureStateOr(s, "guildlog.count", Str()), ok);
   if (!ok || old < 0) old = 0;
   const i64 n = static_cast<i64>(rows.size());
   for (i64 i = 0; i < n; ++i) s.featureState[glEntryKey(i)] = glPack(rows[static_cast<size_t>(i)]);
@@ -166,7 +151,7 @@ bool glNeedsCleaning(const Session& s) {
 // The clean record, as the GUILDLOG.TXT writer lays it out (CHECK the exact layout against the file).
 // UNKNOWN: the original dates each line with a calendar date; the day serial is stored here instead.
 void glArchive(Session& s, const Vec<GuildlogRow>& removed, i64 today) {
-  Str text = glGet(s, "guildlog.text");
+  Str text = featureStateOr(s, "guildlog.text", Str());
   text += "BEGIN GUILD LOG CLEAN (day " + std::to_string(today) + ")\n";
   text += "Done By: \"" + glLeaderName(s) + "\"\n";
   for (const GuildlogRow& r : removed) {

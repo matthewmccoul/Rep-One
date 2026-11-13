@@ -6,6 +6,8 @@
 #include "mordor/attributes.h"
 #include "mordor/features.h"
 #include "mordor/death3.h"
+#include "mordor/shared_helpers.h"
+#include "mordor/parse.h"
 
 namespace mordor {
 namespace {
@@ -36,22 +38,9 @@ constexpr i32 kRescuePayerMember = 1;
 
 // Digits with an optional leading '-'. No exceptions, so no std::stoi.
 bool rescueParseInt(const Str& text, i32& out) {
-  if (text.empty()) return false;
-  size_t i = 0;
-  bool neg = false;
-  if (text[0] == '-') {
-    neg = true;
-    i = 1;
-    if (text.size() == 1) return false;
-  }
-  i32 v = 0;
-  for (; i < text.size(); ++i) {
-    const char c = text[i];
-    if (c < '0' || c > '9') return false;
-    v = v * 10 + static_cast<i32>(c - '0');
-    if (v > 1000000000) return false;
-  }
-  out = neg ? -v : v;
+  i64 v = 0;
+  if (!parseDecimal(text, v, true, 0, 1000000000)) return false;
+  out = static_cast<i32>(v);
   return true;
 }
 
@@ -181,17 +170,13 @@ bool rescueChargeFee(Session& s, Str& reply) {
 
 // ---- pending raise: state lives in featureState as "raise.<member>.<field>" ----
 
-Str raiseKey(i32 member, const char* field) {
-  return "raise." + std::to_string(member) + "." + field;
-}
-
 // A raise is pending when its kind is recorded. Initiate writes the kind only for a chance above 0.
 bool raiseRecorded(const Session& s, i32 member) {
-  return s.featureState.count(raiseKey(member, "kind")) > 0;
+  return s.featureState.count(featureMemberKey("raise.", member, "kind")) > 0;
 }
 
 i32 raiseGetInt(const Session& s, i32 member, const char* field, i32 fallback) {
-  auto it = s.featureState.find(raiseKey(member, field));
+  auto it = s.featureState.find(featureMemberKey("raise.", member, field));
   if (it == s.featureState.end()) return fallback;
   i32 out = fallback;
   if (!rescueParseInt(it->second, out)) return fallback;
@@ -199,13 +184,13 @@ i32 raiseGetInt(const Session& s, i32 member, const char* field, i32 fallback) {
 }
 
 void raiseClear(Session& s, i32 member) {
-  s.featureState.erase(raiseKey(member, "chance"));
-  s.featureState.erase(raiseKey(member, "kind"));
-  s.featureState.erase(raiseKey(member, "by"));
+  s.featureState.erase(featureMemberKey("raise.", member, "chance"));
+  s.featureState.erase(featureMemberKey("raise.", member, "kind"));
+  s.featureState.erase(featureMemberKey("raise.", member, "by"));
 }
 
 Str raiseBy(const Session& s, i32 member) {
-  auto it = s.featureState.find(raiseKey(member, "by"));
+  auto it = s.featureState.find(featureMemberKey("raise.", member, "by"));
   return it == s.featureState.end() ? Str() : it->second;
 }
 

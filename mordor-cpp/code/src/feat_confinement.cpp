@@ -3,6 +3,7 @@
 #include "mordor/access.h"
 #include "mordor/city1.h"
 #include "mordor/shared_helpers.h"
+#include "mordor/parse.h"
 
 namespace mordor {
 namespace {
@@ -10,13 +11,9 @@ namespace {
 }  // namespace
 // Parses a plain decimal word without exceptions. Returns false on anything else.
 bool confParseIndex(const Str& w, i32& out) {
-  if (w.empty() || w.size() > 6) return false;
-  i32 v = 0;
-  for (char c : w) {
-    if (c < '0' || c > '9') return false;
-    v = v * 10 + static_cast<i32>(c - '0');
-  }
-  out = v;
+  i64 v = 0;
+  if (!parseDecimal(w, v, false, 6, -1)) return false;
+  out = static_cast<i32>(v);
   return true;
 }
 namespace {
@@ -34,12 +31,6 @@ bool confParseSlot(const Str& w, i32& slot) {
 
 // Whole gold from a currency value (i64 in 1/10000 gold).
 Str confGoldText(i64 v) { return bufferInt(v / 10000); }
-
-Str confAlignName(i32 align) {
-  if (align == 0) return "Good";      // pen index: 0 Good, 1 Neutral, 2 Evil (R30)
-  if (align == 1) return "Neutral";
-  return "Evil";
-}
 
 // One pen row: a creature table index (its Ref) and the item alignment (1 Good, 2 Neutral, 3 Evil).
 struct ConfRow {
@@ -116,7 +107,7 @@ bool confinementBuyRow(Session& s, i32 row, i32 member, Str& reply) {
 
   const i64 paid = before - static_cast<i64>(payer->wallet.goldOnHand);
   const Str monsterName = (def != nullptr) ? def->name : Str("a creature");
-  reply = "Bought " + monsterName + " (" + confAlignName(pick.align) + ") for " +
+  reply = "Bought " + monsterName + " (" + alignLabel(pick.align, "Evil") + ") for " +
           confGoldText(paid) + " gold. " + payer->name + " has " +
           confGoldText(static_cast<i64>(payer->wallet.goldOnHand)) + " gold left.";
   return true;
@@ -173,7 +164,7 @@ bool cmdPens(Session& s, const Vec<Str>& w, Str& reply) {
                            ? s.town.pens.byRef[static_cast<size_t>(rows[i].ref)][static_cast<size_t>(rows[i].align)] : 0;
     const Currency price = penBuyPrice(creatureBaseWorth(*def, level), penned);   // R22: the price falls as the pen fills
     text += "\n " + bufferInt(static_cast<i64>(i + 1)) + ". " + def->name + " (" +
-            confAlignName(rows[i].align) + ") x" + bufferInt(penned) + ", " +
+            alignLabel(rows[i].align, "Evil") + ") x" + bufferInt(penned) + ", " +
             confGoldText(static_cast<i64>(price)) + " gold";
   }
   reply = text;

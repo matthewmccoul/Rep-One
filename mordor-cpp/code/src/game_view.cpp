@@ -5,22 +5,19 @@
 #include "mordor/dungeon1a.h"
 #include "mordor/guilds1.h"
 #include "mordor/shared_helpers.h"
+#include "mordor/names.h"
+#include "mordor/squares.h"
 
 namespace mordor {
 namespace {
 
-constexpr i32 kViewMapWidth = 30;     // UNKNOWN: flat map width; SRD R19 addresses squares with a width of 30
 constexpr i32 kViewMaxRadius = 20;
 constexpr i32 kViewTownSections = 5;  // TownSection: Store, Confinement, Morgue, Guild, Bank
 
 
 // Currency is i64 in 1/10000 gold.
 Str viewGold(Currency c) {
-  const bool neg = c < 0;
-  const i64 a = neg ? -c : c;
-  const Str frac = toStr(a % 10000);
-  const Str pad(4 - frac.size(), '0');
-  return Str(neg ? "-" : "") + toStr(a / 10000) + "." + pad + frac;
+  return formatCurrencyText(c, CurrencyFraction::FourDigitsAlways, false);
 }
 
 Str raceName(Race r) {
@@ -41,21 +38,8 @@ Str raceName(Race r) {
 // SIMPLIFIED: GameData race/guild name tables are not visible in the given headers,
 // so names are local switches over the enums.
 Str guildName(Guild g) {
-  switch (g) {
-    case Guild::Nomad: return "Nomad";
-    case Guild::Warrior: return "Warrior";
-    case Guild::Paladin: return "Paladin";
-    case Guild::Ninja: return "Ninja";
-    case Guild::Villain: return "Villain";
-    case Guild::Seeker: return "Seeker";
-    case Guild::Thief: return "Thief";
-    case Guild::Scavenger: return "Scavenger";
-    case Guild::Mage: return "Mage";
-    case Guild::Sorcerer: return "Sorcerer";
-    case Guild::Wizard: return "Wizard";
-    case Guild::Healer: return "Healer";
-  }
-  return "?";
+  const char* n = guildNameOrNull(static_cast<i32>(g));
+  return n ? Str(n) : Str("?");
 }
 
 Str alignName(Align a) {
@@ -177,15 +161,6 @@ const FloorState* viewFloor(const Session& s) {
   return nullptr;
 }
 
-// UNKNOWN: squares are stored row-major, index = y * kViewMapWidth + x, 0-based.
-const SquareState* viewSquare(const FloorState& f, i32 x, i32 y) {
-  // Coordinates are 1-based like the dungeon module (SRD R19): square = x + 30 * (y - 1).
-  if (x < 1 || y < 1 || x > kViewMapWidth) return nullptr;
-  const i32 idx = (y - 1) * kViewMapWidth + (x - 1);
-  if (idx >= static_cast<i32>(f.squares.size())) return nullptr;
-  return &f.squares[static_cast<u32>(idx)];
-}
-
 }  // namespace
 
 Str describeParty(const Session& s) {
@@ -291,7 +266,7 @@ Str describeSquare(const Session& s) {
             ", facing " + facingName(p.facing) + "\n";
   const FloorState* f = viewFloor(s);
   if (f == nullptr) return out + "No map stored for this level.\n";
-  if (viewSquare(*f, p.x, p.y) == nullptr) return out + "Square not on the map.\n";
+  if (squareAt(*f, p.x, p.y) == nullptr) return out + "Square not on the map.\n";
 
   const i32 fi = static_cast<i32>(p.facing);
   out += "Edges:\n";
@@ -302,7 +277,7 @@ Str describeSquare(const Session& s) {
   }
 
   out += "Here:";
-  const SquareState* sq = viewSquare(*f, p.x, p.y);
+  const SquareState* sq = squareAt(*f, p.x, p.y);
   bool any = false;
   u32 fl = 0;
   for (const FloorDef& d : s.data.floors) {
@@ -357,7 +332,7 @@ Str renderAutomap(const Session& s, i32 radius) {
 
   for (i32 y = p.y - r; y <= p.y + r; ++y) {
     for (i32 x = x0; x <= p.x + r; ++x) {
-      const SquareState* sq = viewSquare(*f, x, y);
+      const SquareState* sq = squareAt(*f, x, y);
       if (sq == nullptr) continue;
       const bool known = sq->explored;
       const i32 cc = cellCol(x);

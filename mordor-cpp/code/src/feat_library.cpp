@@ -50,11 +50,6 @@ Str upperCase(const Str& t) {
   return r;
 }
 
-Str factStr(const Session& s, const Str& kind, const Str& name, const char* field) {
-  auto it = s.featureState.find(Str(kRecordPrefix) + kind + "." + name + "." + field);
-  return it == s.featureState.end() ? Str() : it->second;
-}
-
 template <std::size_t N>
 Str nameAt(const char* const (&names)[N], int i) {
   if (i >= 0 && i < static_cast<int>(N)) return Str(names[i]);
@@ -107,33 +102,33 @@ Str monsterPage(const Session& s, const LibEntry& e) {
   Str out = name + "\n";
   if (e.grade >= kLibVeryLittle) {
     int size = -1;
-    parseInt(factStr(s, kKindMonster, name, "size"), size);
+    parseInt(featureStateOr(s, Str(kRecordPrefix) + kKindMonster + "." + name + ".size", Str()), size);
     Str word = nameAt(kSizes, size);
     out += "Size: " + (word.empty() ? Str("oddly") : word) + "\n";  // Librarian.Size(): "oddly" when out of range
   }
   if (e.grade >= kLibAGoodDealMore) {
     // UNKNOWN: class line of the grade-2 page (T-F) is not in evidence; placeholder reads the fact "class".
-    Str cls = factStr(s, kKindMonster, name, "class");
+    Str cls = featureStateOr(s, Str(kRecordPrefix) + kKindMonster + "." + name + ".class", Str());
     out += "Class: " + (cls.empty() ? Str("Unknown") : cls) + "\n";
   }
   if (e.grade >= kLibAlmostEverything) {
     // UNKNOWN: grade-3 statistics layout and its "nobody knows" wording (T-F) are not in evidence.
-    out += "Statistics: " + factStr(s, kKindMonster, name, "stats") + "\n";
+    out += "Statistics: " + featureStateOr(s, Str(kRecordPrefix) + kKindMonster + "." + name + ".stats", Str()) + "\n";
     out += "What it can do is not known.\n";
   }
   if (e.grade >= kLibEverything) {
     int align = -1;
-    parseInt(factStr(s, kKindMonster, name, "alignment"), align);
+    parseInt(featureStateOr(s, Str(kRecordPrefix) + kKindMonster + "." + name + ".alignment", Str()), align);
     Str alignWord = nameAt(kAlignments, align);
     if (!alignWord.empty()) out += "Alignment: " + alignWord + "\n";
     int props = 0;
-    parseInt(factStr(s, kKindMonster, name, "properties"), props);
+    parseInt(featureStateOr(s, Str(kRecordPrefix) + kKindMonster + "." + name + ".properties", Str()), props);
     int attacks = 0;
-    parseInt(factStr(s, kKindMonster, name, "attacks"), attacks);
+    parseInt(featureStateOr(s, Str(kRecordPrefix) + kKindMonster + "." + name + ".attacks", Str()), attacks);
     int spells = 0;
-    parseInt(factStr(s, kKindMonster, name, "spells"), spells);
+    parseInt(featureStateOr(s, Str(kRecordPrefix) + kKindMonster + "." + name + ".spells", Str()), spells);
     int resist = 0;
-    parseInt(factStr(s, kKindMonster, name, "resistances"), resist);
+    parseInt(featureStateOr(s, Str(kRecordPrefix) + kKindMonster + "." + name + ".resistances", Str()), resist);
     Str p = listedBits(props, kMonsterProperties);
     Str a = listedBits(attacks, kMonsterAttacks);
     Str sp = listedBits(spells, kSpellSchools);
@@ -150,7 +145,7 @@ Str itemPage(const Session& s, const LibEntry& e) {
   Str out = e.name + "\n";
   if (e.grade >= kLibEverything) {
     int abilities = 0;
-    parseInt(factStr(s, kKindItem, e.name, "abilities"), abilities);
+    parseInt(featureStateOr(s, Str(kRecordPrefix) + kKindItem + "." + e.name + ".abilities", Str()), abilities);
     Str a = listedBits(abilities, kItemAbilities);
     out += "Abilities: " + (a.empty() ? Str("None") : a) + "\n";
     // UNKNOWN: damage modifier, curse, spell, effects and guild levels (T-G) are not in evidence.

@@ -31,6 +31,7 @@
 
 #include "mordor/game.h"
 #include "mordor/shared_helpers.h"
+#include "mordor/parse.h"
 
 namespace mordor {
 namespace {
@@ -53,24 +54,7 @@ const char* const kBitNames[kBitRows] = {"explored", "identified", "seen"};
 
 
 bool strToI64(const Str& s, i64& out) {
-  std::size_t n = s.size();
-  std::size_t i = 0;
-  bool neg = false;
-  if (n > 0 && s[0] == '-') {
-    neg = true;
-    i = 1;
-  }
-  if (i >= n) return false;
-  i64 acc = 0;
-  for (; i < n; ++i) {
-    char c = s[i];
-    if (c < '0' || c > '9') return false;
-    i64 d = c - '0';
-    if (acc > (kI64Max - d) / 10) return false;  // overflow guard
-    acc = acc * 10 + d;
-  }
-  out = neg ? -acc : acc;
-  return true;
+  return parseDecimal(s, out, true, 0, -1);
 }
 
 bool inRange(i64 v, i64 lo, i64 hi) { return v >= lo && v <= hi; }

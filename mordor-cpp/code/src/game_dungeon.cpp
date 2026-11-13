@@ -18,6 +18,7 @@
 #include "mordor/monsters1a.h"
 #include "mordor/partyb.h"
 #include "mordor/shared_helpers.h"
+#include "mordor/squares.h"
 
 namespace mordor {
 namespace {
@@ -69,15 +70,6 @@ FloorState* floorAt(Session& s, i32 level) {
 
 bool defIndexOk(const Session& s, i32 level) {
     return level >= 1 && static_cast<size_t>(level) <= s.data.floors.size();
-}
-
-// R19: 1-based (x, y) to the flat square array.
-SquareState* squareAt(FloorState& floor, i32 x, i32 y) {
-    if (x < 1 || y < 1 || x > kMapWidth) return nullptr;
-    const i32 idx = (x - 1) + kMapWidth * (y - 1);
-    const i32 n = static_cast<i32>(floor.squares.size());
-    if (idx < 0 || idx >= n) return nullptr;
-    return &floor.squares[static_cast<u32>(idx)];
 }
 
 void syncPosition(Session& s) {
@@ -433,22 +425,6 @@ bool changeLevel(Session& s, Ctx& ctx, i32 delta, Str& reply) {
 }  // namespace
 
 
-// Currency is in 1/10000 gold.
-static Str goldText(i64 units) {
-    const i64 whole = units / 10000;
-    const i64 frac = units % 10000;
-    Str out = toStr(whole);
-    if (frac != 0) {
-        out += ".";
-        i64 d = 1000;
-        while (d >= 1) {
-            out += static_cast<char>('0' + ((frac / d) % 10));
-            d /= 10;
-        }
-    }
-    return out + " gold";
-}
-
 static const char* chestTrapName(ChestTrap t) {
     switch (t) {
         case ChestTrap::PoisonGas: return "poison gas";
@@ -677,7 +653,7 @@ bool dungeonAction(Session& s, const Str& command0, Str& reply) {
                         break;
                     }
                 }
-                text += " Gold: each living member receives " + goldText(share) + ".";
+                text += " Gold: each living member receives " + formatCurrencyText(share, CurrencyFraction::FourDigitsIfAny, true) + ".";
                 if (placed > 0) text += " " + toStr(placed) + " item(s) go into the party's packs.";
                 if (itemsLeft > 0) text += " " + toStr(itemsLeft) + " item(s) did not fit and are lost.";
             } else {

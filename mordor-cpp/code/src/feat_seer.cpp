@@ -104,11 +104,6 @@ bool seerHasPending(const Session& s) {
   return it != s.featureState.end() && !it->second.empty();
 }
 
-Str seerGet(const Session& s, const char* key) {
-  auto it = s.featureState.find(key);
-  return it == s.featureState.end() ? Str() : it->second;
-}
-
 void seerClearPending(Session& s) {
   s.featureState.erase(kSeerKindKey);
   s.featureState.erase(kSeerNameKey);
@@ -188,7 +183,7 @@ bool seerSearchPerson(Session& s, const Str& typed, Str& reply) {
   }
   const i64 fee = seerPersonFee(level);
   seerSetPendingPerson(s, c->name, level);
-  reply = "I can feel their presense.  I will need " + storeGoldText(fee) + " to attempt to locate " + c->name +
+  reply = "I can feel their presense.  I will need " + formatCurrencyText(fee, CurrencyFraction::TrimmedIfAny, true) + " to attempt to locate " + c->name +
           ".\nIs this acceptable?";
   return true;
 }
@@ -204,9 +199,9 @@ bool seerAnswer(Session& s, bool yes, Str& reply) {
     reply = "Cancelled.";  // UNKNOWN: reference shows no text for declining
     return true;
   }
-  const Str name = seerGet(s, kSeerNameKey);
+  const Str name = featureStateOr(s, kSeerNameKey, Str());
   i64 levelWide = 0;
-  accParseInt(seerGet(s, kSeerLevelKey), levelWide);
+  accParseInt(featureStateOr(s, kSeerLevelKey, Str()), levelWide);
   const i32 level = static_cast<i32>(levelWide);
   seerClearPending(s);
 

@@ -116,7 +116,7 @@ inline constexpr double kJoinC3 = 5356.0;
 // ---- R31 Sanctuary cast (archive) and aging ----
 
 // R31 age a character by days and print the aging message (AgeBy, [c4])
-void ageBy(Ctx& ctx, Character& ch, i32 days);
+
 
 
 // ---- R33 Documented port deviations ----

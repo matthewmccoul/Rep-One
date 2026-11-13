@@ -5,6 +5,7 @@
 
 #include "mordor/state_common.h"
 #include "mordor/shared_helpers.h"
+#include "mordor/parse.h"
 
 namespace mordor {
 namespace {
@@ -28,13 +29,8 @@ const char* const kCharNames[] = {"AutoChangeLevel", "Hide", "PreloadCharacter",
 constexpr i32 kCharCount = 4;
 const bool kCharDefaults[] = {true, false, false, false};
 
-Str lowerCopy(const Str& t) {
-  Str r;
-  for (char c : t) r += static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
-  return r;
-}
 
-bool sameName(const Str& word, const char* name) { return lowerCopy(word) == lowerCopy(Str(name)); }
+bool sameName(const Str& word, const char* name) { return lowerAscii(word) == lowerAscii(Str(name)); }
 
 i32 findIndex(const char* const* names, i32 count, const Str& word) {
   for (i32 i = 0; i < count; ++i)
@@ -44,7 +40,7 @@ i32 findIndex(const char* const* names, i32 count, const Str& word) {
 
 
 bool parseBool(const Str& t, bool& out) {
-  Str l = lowerCopy(t);
+  Str l = lowerAscii(t);
   if (l == "on" || l == "true" || l == "yes" || l == "1") { out = true; return true; }
   if (l == "off" || l == "false" || l == "no" || l == "0") { out = false; return true; }
   return false;
@@ -61,11 +57,9 @@ bool parseLevel(const Str& t, i32& out) {
 
 // Parses a party slot number 1..kPartyMaxSize; returns -1 when invalid.
 i32 parseMember(const Str& t) {
-  if (!isDigits(t) || t.size() > 2) return -1;
-  i32 v = 0;
-  for (char c : t) v = v * 10 + (c - '0');
-  if (v < 1 || v > kPartyMaxSize) return -1;
-  return v;
+  i64 v = 0;
+  if (!parseDecimal(t, v, false, 2, -1) || v < 1 || v > kPartyMaxSize) return -1;
+  return static_cast<i32>(v);
 }
 
 Str gameKey(const char* name) { return Str("option.") + name; }
@@ -75,8 +69,7 @@ Str charKey(i32 member, const char* name) {
 }
 
 Str storedOr(const Session& s, const Str& key, const Str& dflt) {
-  auto it = s.featureState.find(key);
-  return it == s.featureState.end() ? dflt : it->second;
+  return featureStateOr(s, key, dflt);
 }
 
 Str gameBoolText(const Session& s, i32 i) {

@@ -3,6 +3,7 @@
 #include "mordor/math_util.h"
 #include "mordor/shared_helpers.h"
 #include "mordor/items2b.h"
+#include "mordor/parse.h"
 
 namespace mordor {
 namespace {
@@ -33,13 +34,9 @@ const char* uncurseRefusal(bool slotCursed, bool equipped) {
 
 // Non-negative decimal integer only. Returns false on anything else. No exceptions.
 bool parseIndex(const Str& text, i32& out) {
-  if (text.empty() || text.size() > 4) return false;
-  i32 value = 0;
-  for (char c : text) {
-    if (c < '0' || c > '9') return false;
-    value = value * 10 + (c - '0');
-  }
-  out = value;
+  i64 v = 0;
+  if (!parseDecimal(text, v, false, 4, -1)) return false;
+  out = static_cast<i32>(v);
   return true;
 }
 

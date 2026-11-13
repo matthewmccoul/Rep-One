@@ -22,16 +22,4 @@ constexpr i64 kCurrencyPerGold = 10000;
 
 }  // namespace
 
-// R22 / T3 [c87]: general aging. Adds `days` to the character's age.
-// UNKNOWN: negative aging (Potion of Youth, Dragon's Blood) is clamped so that age is never
-// below 0; the SRD gives no floor.
-void ageBy(Ctx& ctx, Character& ch, i32 days) {
-    i32 next = ch.ageDays + days;
-    if (next < 0) {
-        next = 0;
-    }
-    ch.ageDays = next;
-    ctx.say("progression.age", "The character has aged.", {days, ch.ageDays}, {});
-}
-
 }  // namespace mordor

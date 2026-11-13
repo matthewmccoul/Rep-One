@@ -6,6 +6,8 @@
 // the max-charges check, and the gear check after stat changes.
 #include "mordor/features.h"
 #include "mordor/access.h"
+#include "mordor/shared_helpers.h"
+#include "mordor/parse.h"
 
 namespace mordor {
 namespace {
@@ -27,13 +29,8 @@ i32 duseAbs(i32 v) { return v < 0 ? -v : v; }
 
 // Digits only, bounded. Rejects signs and empty words.
 bool duseParseIndex(const Str& w, i32& out) {
-  if (w.empty()) return false;
   i64 v = 0;
-  for (char ch : w) {
-    if (ch < '0' || ch > '9') return false;
-    v = v * 10 + (ch - '0');
-    if (v > 100000) return false;
-  }
+  if (!parseDecimal(w, v, false, 0, 100000)) return false;
   out = static_cast<i32>(v);
   return true;
 }
@@ -98,12 +95,6 @@ void duseGainSpellPoints(Character& c, i32 amount) {
   if (c.vitals.curSpellPoints > c.vitals.maxSpellPoints) {
     c.vitals.curSpellPoints = c.vitals.maxSpellPoints;
   }
-}
-
-// Years younger (Potion of Youth, Dragon's Blood). UNKNOWN: floor at zero.
-void duseYounger(Character& c, i32 years) {
-  c.ageDays -= years * kDuseYearDays;
-  if (c.ageDays < 0) c.ageDays = 0;
 }
 
 // Days older (Kind 25 stat item). Applies even when the fit is reversed.
@@ -213,11 +204,11 @@ bool duseUse(Session& s, const Vec<Str>& w, Str& reply) {
       if (!reversed) duseGainSpellPoints(*c, kDuseTomeSpellPoints);
       break;
     case 13:  // Potion of Youth: one year younger, then stat modifiers
-      if (!reversed) duseYounger(*c, 1);
+      if (!reversed) ageCharacterDays(*c, -1 * kDuseYearDays, nullptr);
       statsApplied = duseApplyStatMods(*c, *def, reversed);
       break;
     case 14:  // Dragon's Blood: ten years younger, then stat modifiers
-      if (!reversed) duseYounger(*c, 10);
+      if (!reversed) ageCharacterDays(*c, -10 * kDuseYearDays, nullptr);
       statsApplied = duseApplyStatMods(*c, *def, reversed);
       break;
     default:

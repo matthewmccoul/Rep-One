@@ -4,6 +4,7 @@
 #include "mordor/casting1.h"
 #include "mordor/access.h"
 #include "mordor/shared_helpers.h"
+#include "mordor/parse.h"
 
 namespace mordor {
 namespace {
@@ -74,13 +75,8 @@ DcastPlan dcastPlanOf(i32 effect, i32 damage2, i32 category) {
 
 // Party number from a word: digits only, 1-based. Returns 0 on anything else.
 i32 dcastParseMember(const Str& word) {
-  if (word.empty() || word.size() > static_cast<size_t>(kMaxMemberDigits)) return 0;
-  i32 n = 0;
-  for (char c : word) {
-    if (c < '0' || c > '9') return 0;
-    n = n * 10 + (c - '0');
-  }
-  return n;
+  i64 v = 0;
+  return parseDecimal(word, v, false, static_cast<std::size_t>(kMaxMemberDigits), -1) ? static_cast<i32>(v) : 0;
 }
 
 

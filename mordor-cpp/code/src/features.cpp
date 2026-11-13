@@ -8,6 +8,7 @@ Vec<FeatureCommand>& table() {
   static Vec<FeatureCommand> t;
   return t;
 }
+}  // namespace
 Str lowerAscii(const Str& w) {
   Str o = w;
   for (char& c : o) {
@@ -15,6 +16,7 @@ Str lowerAscii(const Str& w) {
   }
   return o;
 }
+namespace {
 }  // namespace
 Vec<Str> splitWords(const Str& text) {
   Vec<Str> out;

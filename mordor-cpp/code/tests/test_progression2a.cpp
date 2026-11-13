@@ -3,6 +3,7 @@
 
 #include "test_support.h"
 #include "mordor/progression2a.h"
+#include "mordor/shared_helpers.h"
 
 using namespace mordor;
 
@@ -119,8 +120,8 @@ TEST(p2a_age_by_adds_days) {
     Character ch;
     ch.race = Race::Human;
     ch.ageDays = kAgeStartDays;
-    ageBy(env.ctx, ch, kKind25AgeDays);  // +28 days
+    ageCharacterDays(ch, kKind25AgeDays, &env.ctx);  // +28 days
     CHECK_EQ(ch.ageDays, 5868);
-    ageBy(env.ctx, ch, 365);
+    ageCharacterDays(ch, 365, &env.ctx);
     CHECK_EQ(ch.ageDays, 6233);
 }

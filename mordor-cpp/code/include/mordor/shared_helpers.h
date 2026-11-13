@@ -42,10 +42,27 @@ const Character& memberAt(const Party& p, i32 i);
 bool isDigits(const Str& t);
 bool swapSlotInRange(i32 slot);
 Str joinFrom(const Vec<Str>& w, std::size_t from);
-Str glGet(const Session& s, const Str& key);
+Str featureStateOr(const Session& s, const Str& key, const Str& dflt);
 bool parseInt(const Str& t, i32& out);
 Str toStr(i64 v);
 bool confParseIndex(const Str& w, i32& out);
-Str storeGoldText(Currency units);
+enum class CurrencyFraction {
+  FourDigitsAlways,  // "12.0000"
+  FourDigitsIfAny,   // "0.5000"; whole gold alone when the fraction is zero
+  TrimmedIfAny       // "0.5"; trailing zeros dropped; whole gold alone when the fraction is zero
+};
+// Signed decimal text of a Currency held in 1/10000 gold.
+Str formatCurrencyText(Currency units, CurrencyFraction fraction, bool goldSuffix);
 Vec<Str> splitWords(const Str& text);
+// Maps a pen/alignment index to its label. 0 = Good, 1 = Neutral, 2 = Evil.
+// Any other value returns outOfRange.
+Str alignLabel(i32 align, Str outOfRange);
+
+// Adds `days` to ch.ageDays, floored at 0. A non-null announceCtx announces the change; nullptr is silent.
+void ageCharacterDays(Character& ch, i32 days, Ctx* announceCtx);
+
+// Feature-state key "<prefix><member>.<field>", e.g. prefix "raise." or "hall.".
+Str featureMemberKey(const char* prefix, i32 member, const char* field);
+
+Str lowerAscii(const Str& w);
 }  // namespace mordor
