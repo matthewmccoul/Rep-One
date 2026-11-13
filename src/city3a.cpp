@@ -60,25 +60,6 @@ i32 storeItemDraw(Ctx& ctx, i32 floor, i32& carryLast) {
     return -1;
 }
 
-// BLOCKED: needs the Shelf struct and GameData item table names.
-// Quirk to keep: loops run floors 1 to 15 with cap 14 (see deepestStockedFloor).
-void restockStore(Ctx& ctx, Vec<Shelf>& shelves, i32 dungeonFloors) {
-    (void)ctx;
-    (void)shelves;
-    (void)dungeonFloors;
-    // UNKNOWN: BLOCKED stub. Store restock is not performed.
-}
-
-// BLOCKED: needs the Shelf struct.
-// Quirk to keep: the "someone bought one" branch reads Align(l02C2) with
-// l02C2 stuck at 0, so only the Unaligned count is checked (MAINMOD.BAS:1640-1646).
-void replenishStoreAfterPurchase(Ctx& ctx, Vec<Shelf>& shelves, i32 floor) {
-    (void)ctx;
-    (void)shelves;
-    (void)floor;
-    // UNKNOWN: BLOCKED stub. Replenish-on-purchase is not performed.
-}
-
 // R10: engine test is the numeric "AlignmentFlags > 1" (preferred).
 // The audit's bit-count version (StoreStock.cs ~247) is not used.
 bool startingStockAlignmentOk(i32 alignFlags) {

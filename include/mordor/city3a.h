@@ -76,9 +76,9 @@ i32 deepestStockedFloor(i32 dungeonFloors);
 // last value across passes when a run reaches the end of the file (quirk).
 i32 storeItemDraw(Ctx& ctx, i32 floor, i32& carryLast);
 // Full store restock across floors 1..deepestStockedFloor. Uses Ctx rng.
-void restockStore(Ctx& ctx, Vec<Shelf>& shelves, i32 dungeonFloors);
+
 // Replenish branch when someone bought one; only the Unaligned count is checked (quirk).
-void replenishStoreAfterPurchase(Ctx& ctx, Vec<Shelf>& shelves, i32 floor);
+
 // R10 starting-stock alignment test: numeric "AlignmentFlags > 1" (engine).
 bool startingStockAlignmentOk(i32 alignFlags);
 // Store combining at zero charge: allowed for kZeroChargeCombineKinds (port requires Charges > 0). CONFLICT
