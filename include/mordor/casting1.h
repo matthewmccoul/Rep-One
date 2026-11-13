@@ -437,7 +437,7 @@ bool isWholePartyEffect(i32 rawEffect);
 i32 realSpellEffect(i32 rawEffect);
 
 // R64 / R65 binding spell: effects 40..42 or 150 (Life Domination sets ForLife)
-bool isBindingSpell(i32 effect);
+
 
 // R64 charm effect: effects 75..99
 bool isCharmEffect(i32 effect);

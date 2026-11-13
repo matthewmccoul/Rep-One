@@ -428,12 +428,6 @@ i32 realSpellEffect(i32 rawEffect) {
     return rawEffect >= kEffectWholePartyOffset ? rawEffect - kEffectWholePartyOffset : rawEffect;
 }
 
-// R64/R65 binding effects 40..42 and 150 (Life Domination).
-bool isBindingSpell(i32 effect) {
-    return (effect >= kEffectBindingFirst && effect <= kEffectBindingLast)
-           || effect == kEffectLifeDomination;
-}
-
 // R64/R65 charm effects 75..99.
 bool isCharmEffect(i32 effect) {
     return effect >= kEffectCharmFirst && effect <= kEffectCharmLast;
