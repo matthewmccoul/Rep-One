@@ -5,6 +5,7 @@
 #include "mordor/game.h"
 #include "mordor/state_common.h"
 #include "mordor/types.h"
+#include "mordor/items1b.h"
 
 namespace mordor {
 
@@ -56,8 +57,6 @@ Str bufferJoin(const Vec<Str>& w, size_t from) {
   return out;
 }
 
-// SpellBuffers.ForSpell / IsItem / IsSpell / SpellIndexOf (pure arithmetic).
-i32 bufferForSpell(i32 spellIndex) { return kPackSlots + spellIndex; }
 bool bufferIsItem(i32 b) { return b >= 0 && b < kPackSlots; }
 bool bufferIsSpell(i32 b) { return b >= kPackSlots; }
 i32 bufferSpellIndex(i32 b) { return b - kPackSlots; }
