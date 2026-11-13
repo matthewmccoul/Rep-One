@@ -35,12 +35,6 @@ bool confParseSlot(const Str& w, i32& slot) {
 // Whole gold from a currency value (i64 in 1/10000 gold).
 Str confGoldText(i64 v) { return bufferInt(v / 10000); }
 
-Str confAlignName(i32 align) {
-  if (align == 0) return "Good";      // pen index: 0 Good, 1 Neutral, 2 Evil (R30)
-  if (align == 1) return "Neutral";
-  return "Evil";
-}
-
 // One pen row: a creature table index (its Ref) and the item alignment (1 Good, 2 Neutral, 3 Evil).
 struct ConfRow {
   i32 ref;
@@ -116,7 +110,7 @@ bool confinementBuyRow(Session& s, i32 row, i32 member, Str& reply) {
 
   const i64 paid = before - static_cast<i64>(payer->wallet.goldOnHand);
   const Str monsterName = (def != nullptr) ? def->name : Str("a creature");
-  reply = "Bought " + monsterName + " (" + confAlignName(pick.align) + ") for " +
+  reply = "Bought " + monsterName + " (" + alignLabel(pick.align, "Evil") + ") for " +
           confGoldText(paid) + " gold. " + payer->name + " has " +
           confGoldText(static_cast<i64>(payer->wallet.goldOnHand)) + " gold left.";
   return true;
@@ -173,7 +167,7 @@ bool cmdPens(Session& s, const Vec<Str>& w, Str& reply) {
                            ? s.town.pens.byRef[static_cast<size_t>(rows[i].ref)][static_cast<size_t>(rows[i].align)] : 0;
     const Currency price = penBuyPrice(creatureBaseWorth(*def, level), penned);   // R22: the price falls as the pen fills
     text += "\n " + bufferInt(static_cast<i64>(i + 1)) + ". " + def->name + " (" +
-            confAlignName(rows[i].align) + ") x" + bufferInt(penned) + ", " +
+            alignLabel(rows[i].align, "Evil") + ") x" + bufferInt(penned) + ", " +
             confGoldText(static_cast<i64>(price)) + " gold";
   }
   reply = text;

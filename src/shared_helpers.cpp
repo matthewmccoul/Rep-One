@@ -117,4 +117,13 @@ Str formatCurrencyText(Currency units, CurrencyFraction fraction, bool goldSuffi
   return out;
 }
 
+// Maps a pen/alignment index to its label. 0 = Good, 1 = Neutral, 2 = Evil.
+// Any other value returns outOfRange (confinement passes "Evil", alignName passes "?").
+Str alignLabel(i32 align, Str outOfRange) {
+  if (align == 0) return "Good";
+  if (align == 1) return "Neutral";
+  if (align == 2) return "Evil";
+  return outOfRange;
+}
+
 }  // namespace mordor

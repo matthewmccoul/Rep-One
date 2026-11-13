@@ -54,4 +54,8 @@ enum class CurrencyFraction {
 // Signed decimal text of a Currency held in 1/10000 gold.
 Str formatCurrencyText(Currency units, CurrencyFraction fraction, bool goldSuffix);
 Vec<Str> splitWords(const Str& text);
+// Maps a pen/alignment index to its label. 0 = Good, 1 = Neutral, 2 = Evil.
+// Any other value returns outOfRange.
+Str alignLabel(i32 align, Str outOfRange);
+
 }  // namespace mordor
