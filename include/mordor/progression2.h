@@ -112,7 +112,7 @@ i64 goldForNextLevel(const Character& ch, Guild g);
 // ToolbarState: Short if Experience < ExpForNextLevel; Pinned if Experience == cap; else Ready. [c17]
 // CONFLICT: toolbar uses ==, IsPinned uses >=. Toolbar test is kept as written. [c3][c17]
 // FIXED: ToolbarState is not declared anywhere in the API index; using the closest existing type i32 (state code: Short/Pinned/Ready).
-i32 toolbarState(const Character& ch, Guild g);
+
 
 // TotalExperience: sum of Experience over all guilds. [c1][c11]
 i64 totalExperience(const Character& ch);

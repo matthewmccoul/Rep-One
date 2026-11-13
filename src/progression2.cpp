@@ -180,19 +180,6 @@ i64 goldForNextLevel(const Character& ch, Guild g) {
     return roundHalfEven(total);
 }
 
-// Toolbar: needed = ExpForNextLevel; exp < needed -> Short; else exp at pin -> Pinned; else Ready [c17].
-// CONFLICT 4: toolbar test is >= here (doc says a drained pin shows Pinned, not a negative figure [c36]).
-i32 toolbarState(const Character& ch, Guild g) {
-    const i64 exp = memberOf(ch, g).experience;
-    if (exp < expForNextLevel(ch, g)) {
-        return kToolbarShort;
-    }
-    if (exp >= experienceCapOf(ch, g)) {
-        return kToolbarPinned;
-    }
-    return kToolbarReady;
-}
-
 // TotalExperience = sum(guild.Experience for each guild) [c11][c1].
 i64 totalExperience(const Character& ch) {
     i64 total = 0;
