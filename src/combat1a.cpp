@@ -4,6 +4,7 @@
 //   - Vec<T> supports size(), operator[], push_back(); Arr<T,N> supports operator[].
 //   - std::log is used for VB Ln (math_util.h has no log helper).
 #include "mordor/combat1a.h"
+#include "mordor/companions1b.h"
 #include "mordor/math_util.h"
 #include "mordor/rng.h"
 #include "mordor/events.h"
@@ -57,10 +58,7 @@ i32 firstStandingGroup(const Encounter& enc) {
 
 // T5: monster property bit test ("Has(bit n)", R15).
 bool monsterHasBit(const Creature& m, i32 bit) {
-    if (bit < 0 || bit > 31) {
-        return false;
-    }
-    return ((m.specialPropertyFlags >> static_cast<u32>(bit)) & 1u) != 0u;
+    return specialFlagBit(static_cast<u32>(m.specialPropertyFlags), bit);
 }
 
 // ---------------------------------------------------------------------------
