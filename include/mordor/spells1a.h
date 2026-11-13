@@ -211,7 +211,7 @@ i32 protectValueOnRecompute(i32 guildLevel);
 i32 protectionDefenceBonus(i32 protection);
 
 // R31 resistance grant: kind = effect - 50; raise to 95 if lower, then recompute; repeat casts do not stack
-void grantSpellResistance(Ctx& ctx, Character& target, i32 effectId);
+
 
 // R32 companion caster level: clamp(Floor(compDef.GuildLevel / 6.0), 1, 255)
 i32 companionCasterLevel(i32 companionGuildLevel);

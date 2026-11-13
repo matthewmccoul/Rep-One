@@ -561,16 +561,6 @@ i32 protectionDefenceBonus(i32 protection) {
     return static_cast<i32>(roundHalfEven(3.0 * l * l));
 }
 
-// R31: repeat casts do not stack; the grant is 95 and then recompute.
-void grantSpellResistance(Ctx& ctx, Character& target, i32 effectId) {
-    const i32 kind = effectReal(effectId) - kResistEffectBase;
-    if (kind < 0 || kind >= kResistKinds) return;
-    if (target.resistances.resist[kind] < kResistGrant) {
-        target.resistances.resist[kind] = kResistGrant;
-        recomputeSpellStates(ctx, target);
-    }
-}
-
 // ---------------------------------------------------------------------------
 // Companion casts (R32-R36)
 // ---------------------------------------------------------------------------

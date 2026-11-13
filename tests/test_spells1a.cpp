@@ -1,4 +1,5 @@
 #include "test_support.h"
+#include "mordor/spells2.h"
 #include "mordor/spells1a.h"
 
 using namespace mordor;
@@ -152,15 +153,15 @@ TEST(caster_level_clamps) {
 // ---- Resistance grant (R31) ----
 
 TEST(spell_resistance_grant_does_not_stack) {
-    // Effect 50 is resistance kind 0. Effect 52 is kind 2.
+    // Kind 0 is SpellResist slot 0. Kind 2 is SpellResist slot 2.
     // A grant sets SpellResist to 95 only when the current value is below 95.
     tsup::Env env({0.0, 0.0});
     Character c{};
     c.resistances.resist[0] = 0;
     c.resistances.resist[2] = 97;
-    grantSpellResistance(env.ctx, c, 50);
+    castResistSpell(env.ctx, c.resistances, static_cast<SpellResistKind>(0));
     CHECK_EQ(c.resistances.resist[0], 95);
-    grantSpellResistance(env.ctx, c, 52);
+    castResistSpell(env.ctx, c.resistances, static_cast<SpellResistKind>(2));
     CHECK_EQ(c.resistances.resist[2], 97);
 }
 
