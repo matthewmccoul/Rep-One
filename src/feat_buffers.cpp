@@ -26,18 +26,6 @@ constexpr i32 kCombatSettingBufferBase = 2;
 const char* const kBufferUsage = "Usage: buffer <member> | buffer <member> <slot 1-4> <spell>";
 
 
-bool bufferParseInt(const Str& t, i32& out) {
-  if (t.empty() || t.size() > 6) return false;
-  i32 v = 0;
-  for (char c : t) {
-    if (c < '0' || c > '9') return false;
-    v = v * 10 + (c - '0');
-  }
-  out = v;
-  return true;
-}
-
-
 bool bufferIsItem(i32 b) { return b >= 0 && b < kPackSlots; }
 i32 bufferSpellIndex(i32 b) { return b - kPackSlots; }
 
@@ -141,7 +129,7 @@ bool bufferCommand(Session& s, const Vec<Str>& w, Str& reply) {
     return true;
   }
   i32 member = 0;
-  if (!bufferParseInt(w[first], member) || member < 1) {
+  if (!confParseIndex(w[first], member) || member < 1) {
     reply = kBufferUsage;
     return true;
   }
@@ -159,7 +147,7 @@ bool bufferCommand(Session& s, const Vec<Str>& w, Str& reply) {
     return true;
   }
   i32 slot = 0;
-  if (!bufferParseInt(w[first + 1], slot) || slot < 1 || slot > kBufferSlotsExposed) {
+  if (!confParseIndex(w[first + 1], slot) || slot < 1 || slot > kBufferSlotsExposed) {
     reply = "Slot must be 1 to 4.";
     return true;
   }
@@ -191,7 +179,7 @@ i32 buffersRead(Session& s, i32 member, i32 slot) {
   auto it = s.featureState.find(bufferKey(member, slot));
   if (it == s.featureState.end()) return kBufferEmpty;
   i32 v = 0;
-  if (!bufferParseInt(it->second, v)) return kBufferEmpty;
+  if (!confParseIndex(it->second, v)) return kBufferEmpty;
   return v;
 }
 
