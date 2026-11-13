@@ -101,27 +101,6 @@ Str trimCharacterName(const Ctx& ctx, const Str& raw) {
     return out;
 }
 
-// Make a name safe for use as a file name.
-// UNKNOWN: each character that is forbidden in Windows file names, or is a
-// control character, is replaced by '_'.
-Str safeFileName(const Ctx& ctx, const Str& name) {
-    (void)ctx;
-    const char* forbidden = "\\/:*?\"<>|";
-    Str out;
-    i32 n = static_cast<i32>(name.size());
-    for (i32 i = 0; i < n; ++i) {
-        char ch = name[i];
-        bool bad = static_cast<unsigned char>(ch) < 32u;
-        for (const char* p = forbidden; !bad && *p != '\0'; ++p) {
-            if (ch == *p) {
-                bad = true;
-            }
-        }
-        out += bad ? '_' : ch;
-    }
-    return out;
-}
-
 // New character validation. Checks run in the order of the enum:
 // empty name, name contains the forbidden bar, sex, alignment, existing save.
 // UNKNOWN: this evaluation order is taken from the enum order.

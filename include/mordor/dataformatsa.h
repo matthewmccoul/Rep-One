@@ -265,7 +265,7 @@ Str trimCharacterName(const Ctx& ctx, const Str& raw);
 
 // R8 step 6: sanitised file name used for the duplicate-save check
 // UNKNOWN: sanitising rules are not given in the SRD excerpt.
-Str safeFileName(const Ctx& ctx, const Str& name);
+
 
 // R8 steps 2-6: validate trimmed name, sex, alignment and existing save (screen flow out of scope)
 NewCharacterCheck checkNewCharacter(const Ctx& ctx, const Str& trimmedName, bool sexChosen, bool alignmentChosen, bool saveFileExists);
