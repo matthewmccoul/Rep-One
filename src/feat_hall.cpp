@@ -72,7 +72,7 @@ i64 hallParseI(const Str& t) {
 }
 
 i64 hallGetI(const Session& s, i32 k, const char* field) {
-  return hallParseI(glGet(s, hallKey(k, field)));
+  return hallParseI(featureStateOr(s, hallKey(k, field), Str()));
 }
 
 // VB CStr of a Currency held in 1/10000 gold: no trailing zeros, "0.25" style.
@@ -106,7 +106,7 @@ Str hallValueText(i32 k, i64 v) {
 // UNKNOWN: date text; the day serial is shown as a number because no date formatter is available.
 Str hallDescribe(const Session& s, i32 k) {
   HallRow row = hallRow(k);
-  Str holder = glGet(s, hallKey(k, "holder"));
+  Str holder = featureStateOr(s, hallKey(k, "holder"), Str());
   i64 day = hallGetI(s, k, "day");
   Str who = day != 0 ? "Set on day " + std::to_string(day) + " by " : Str("Set by Original RecordHolder ");
   Str out = Str(row.heading) + "\n";

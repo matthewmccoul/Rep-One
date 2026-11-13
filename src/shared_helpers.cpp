@@ -90,4 +90,9 @@ Str joinFrom(const Vec<Str>& w, std::size_t from) {
   return r;
 }
 
+Str featureStateOr(const Session& s, const Str& key, const Str& dflt) {
+  auto it = s.featureState.find(key);
+  return it == s.featureState.end() ? dflt : it->second;
+}
+
 }  // namespace mordor

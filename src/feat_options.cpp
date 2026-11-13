@@ -75,8 +75,7 @@ Str charKey(i32 member, const char* name) {
 }
 
 Str storedOr(const Session& s, const Str& key, const Str& dflt) {
-  auto it = s.featureState.find(key);
-  return it == s.featureState.end() ? dflt : it->second;
+  return featureStateOr(s, key, dflt);
 }
 
 Str gameBoolText(const Session& s, i32 i) {

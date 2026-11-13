@@ -42,7 +42,7 @@ const Character& memberAt(const Party& p, i32 i);
 bool isDigits(const Str& t);
 bool swapSlotInRange(i32 slot);
 Str joinFrom(const Vec<Str>& w, std::size_t from);
-Str glGet(const Session& s, const Str& key);
+Str featureStateOr(const Session& s, const Str& key, const Str& dflt);
 bool parseInt(const Str& t, i32& out);
 Str toStr(i64 v);
 bool confParseIndex(const Str& w, i32& out);
