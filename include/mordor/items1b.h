@@ -212,7 +212,7 @@ i32 wornOfClass(const Ctx& ctx, const Inventory& inv, i32 wearClass);
 // Curse: a slot with SlotCursed set cannot be unequipped (CanUnequip)
 bool canUnequip(const Item& slot);
 // Curse: item puts itself on as it lands (Cursed == 2)
-bool attachesItself(const Item& it);
+
 // Curse: equip-time curse: sets SlotCursed if item cursed or fit is Opposed (ApplyEquipCurse).
 // FitClass mapping assumed: Fine=Full, Adjacent=Half, Opposed=Subtract.
 void applyEquipCurse(Ctx& ctx, Item& slot, FitClass fit);

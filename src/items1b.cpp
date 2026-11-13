@@ -280,9 +280,6 @@ i32 wornOfClass(const Ctx& ctx, const Inventory& inv, i32 wearClass) {
 // R-curse: CanUnequip(slot) = !slot.SlotCursed
 bool canUnequip(const Item& slot) { return !slot.slotCursed; }
 
-// R-curse: AttachesItself(it) = (it.Cursed == 2) [c12]
-bool attachesItself(const Item& it) { return it.cursed == CurseKind2; }
-
 // R-curse: if it.Cursed != 0 -> SlotCursed; if FitFor == Opposed -> SlotCursed.
 // Mapping: FitClass::Subtract = Opposed.
 void applyEquipCurse(Ctx& ctx, Item& slot, FitClass fit) {

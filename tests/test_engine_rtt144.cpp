@@ -1,4 +1,5 @@
 #include "test_support.h"
+#include "mordor/loot1b.h"
 #include "mordor/game_data.h"
 #include "mordor/items1b.h"
 
@@ -13,11 +14,10 @@ TEST(engine_rtt144_attaches_itself_first_cursed1_is_false) {
   }
   CHECK(found != nullptr);
   if (found != nullptr) {
-    // FIXED: attachesItself takes const Item&, but found is an ItemDef. Build a local Item
-    // carrying the cursed flag from the definition. Other fields are left at their defaults.
+    // Build a local Item carrying the cursed flag from the definition. Other fields are left at their defaults.
     Item probe{};
     probe.cursed = static_cast<CurseKind>(found->cursed);
-    CHECK(!attachesItself(probe));
+    CHECK(!curseAttachesItself(probe));
   }
 }
 

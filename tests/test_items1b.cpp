@@ -1,4 +1,5 @@
 #include "test_support.h"
+#include "mordor/loot1b.h"
 #include "mordor/attributes.h"
 #include "mordor/items1b.h"
 #include "mordor/items1a.h"  // FIXED: identifyChance(f64, bool) is declared here
@@ -158,9 +159,9 @@ TEST(curse_flags_and_uncurse_order) {
 
     Item a;
     a.cursed = CurseKind2;
-    CHECK(attachesItself(a));
+    CHECK(curseAttachesItself(a));
     a.cursed = CurseKind1;
-    CHECK(!attachesItself(a));
+    CHECK(!curseAttachesItself(a));
 
     Item c;
     c.cursed = CurseKind1;
