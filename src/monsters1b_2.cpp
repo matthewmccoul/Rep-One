@@ -154,21 +154,6 @@ bool monsterOffersJoin(const Character& ch, i32 monsterGuildLevel) {
     return ch.activeLevel() >= monsterGuildLevel;
 }
 
-// R44 hostility: Good monsters are hostile to Neutral and Evil characters, not Good ones.
-// Neutral monsters are hostile 60% of the time (one draw). Evil monsters are always hostile.
-// CONFLICT: the 60% figure and the Good/Neutral split come from the wiki text only.
-bool alignmentHostileRoll(Ctx& ctx, CharAlign monsterAlign, Align charAlign) {
-    switch (monsterAlign) {
-        case CharAlign::Good:
-            return charAlign != Align::Good;
-        case CharAlign::Neutral:
-            return ctx.rng.percent(60);
-        case CharAlign::Evil:
-            return true;
-    }
-    return true;
-}
-
 // R44 charm percentage (wiki table): joinPct = max(0, (CHA - mLvl + 1) / 3).
 f64 charmJoinPercent(i32 cha, i32 mLvl) {
     const f64 v = (static_cast<f64>(cha) - static_cast<f64>(mLvl) + 1.0) / 3.0;

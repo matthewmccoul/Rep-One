@@ -145,7 +145,7 @@ bool monsterOffersJoin(const Character& ch, i32 monsterGuildLevel);
 // Hostility: Good monsters are hostile to Neutral/Evil characters. Neutral monsters are hostile 60% of the time.
 // Evil monsters are always hostile.
 // CONFLICT: overlaps hostileBase / hostileRoll in clock.h (engagement). Wiki rule is declared here for the join path only.
-bool alignmentHostileRoll(Ctx& ctx, CharAlign monsterAlign, Align charAlign);
+
 // Pure: charm percentage = max(0, (CHA - mLvl + 1) / 3). Table shows decimals, so returns f64.
 // UNKNOWN: whether the table keeps fractional percent.
 f64 charmJoinPercent(i32 cha, i32 mLvl);
