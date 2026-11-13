@@ -27,30 +27,9 @@ TEST(ParseGiveGoldAnswerZeroCases) {
     CHECK_EQ(parseGiveGoldAnswer(Str("250")), 250);
 }
 
-TEST(ParseSwapRequestAccepts) {
-    // T-1: typed input is the player slot (2-40). Internal index = player slot - 1.
-    SwapRequest r = parseSwapRequest(Str("3,7"));
-    CHECK(r.status == SwapParse::Swapped);
-    CHECK_EQ(r.first, 2);
-    CHECK_EQ(r.second, 6);
 
-    // Player slot 40 is the highest valid slot, internal index 39.
-    SwapRequest edge = parseSwapRequest(Str("2,40"));
-    CHECK(edge.status == SwapParse::Swapped);
-    CHECK_EQ(edge.first, 1);
-    CHECK_EQ(edge.second, 39);
-}
 
-TEST(ParseSwapRequestRefusals) {
-    // No comma.
-    CHECK(parseSwapRequest(Str("37")).status == SwapParse::NoComma);
-    // Slot 1 is Hands.
-    CHECK(parseSwapRequest(Str("1,5")).status == SwapParse::Refused);
-    // Slot past 40.
-    CHECK(parseSwapRequest(Str("5,41")).status == SwapParse::Refused);
-    // Input longer than 5 characters (7 here), although both slots are valid.
-    CHECK(parseSwapRequest(Str("00003,4")).status == SwapParse::Refused);
-}
+
 
 TEST(DrawTheftSlotBounds) {
     // slot = Int(Rnd * 39) + 2

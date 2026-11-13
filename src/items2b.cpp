@@ -483,33 +483,6 @@ WithdrawOutcome withdrawFromBank(Ctx& ctx, const Character& c, Inventory& inv, i
     return WithdrawOutcome::Withdrawn;
 }
 
-// ---- R56: swap request parsing. Input is "a,b".
-SwapRequest parseSwapRequest(const Str& input) {
-    SwapRequest r;
-    i32 n = static_cast<i32>(input.size());
-    i32 comma = -1;
-    for (i32 i = 0; i < n && comma < 0; ++i) {
-        if (input[i] == ',') comma = i;
-    }
-    if (comma < 0) {  // R56
-        r.status = SwapParse::NoComma;
-        return r;
-    }
-    if (n > kSwapInputMaxChars) {  // R56
-        r.status = SwapParse::Refused;
-        return r;
-    }
-    double a = 0.0;
-    double b = 0.0;
-    bool okA = scanNumber(input, 0, comma, a);
-    bool okB = scanNumber(input, comma + 1, n, b);
-    r.first = okA ? slotIndexOf(a) : -1;
-    r.second = okB ? slotIndexOf(b) : -1;
-    bool bad = !okA || !okB || !validStorage(r.first) || !validStorage(r.second);  // R56
-    r.status = bad ? SwapParse::Refused : SwapParse::Swapped;
-    return r;
-}
-
 // ---- R57, R58: swap two pack slots. Empty slots may be swapped.
 // CONFLICT: buffer remap on swap. Buffers follow only when buffersFollow is set (R58 passes false).
 SwapResult swapSlots(Ctx& ctx, Character& c, Inventory& inv, i32 a, i32 b, bool buffersFollow) {

@@ -379,7 +379,7 @@ WithdrawOutcome withdrawFromBank(Ctx& ctx, const Character& c, Inventory& inv, i
 // R56 parses "a,b". No comma, input longer than kSwapInputMaxChars, Hands (index 0),
 // or an index past the last pack index are refused.
 // Town refusals are silent and dungeon refusals are shown. The caller decides.
-SwapRequest parseSwapRequest(const Str& input);
+
 
 // R57 empty slots may be swapped. R58 buffersFollow is kTypedSwapBuffersFollow (false) for
 // typed swaps and true for dragged swaps.
