@@ -185,7 +185,7 @@ bool isBindingEffect(i32 effect);
 
 // c21 Apply binding effect to a companion (150 sets binding to 100 and ForLife)
 // UNKNOWN: increment size for effects 40..42.
-void applyBindingEffect(Ctx& ctx, Companion& comp, i32 effect);
+
 
 // c56 Charm effects: 75..99
 bool isCharmEffect(i32 effect);

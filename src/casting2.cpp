@@ -484,24 +484,6 @@ bool isBindingEffect(i32 effect) {
     return (e >= kBindingFirst && e <= kBindingLast) || e == kBindingLifeEffect;
 }
 
-// [c21][c97] 150 sets binding to the maximum and ForLife (Life Domination).
-// 40..42 raise the bind level. UNKNOWN: the per-spell increment is not stated (kBindStep).
-void applyBindingEffect(Ctx& ctx, Companion& comp, i32 effect) {
-    const i32 e = realEffect(effect);
-    if (e == kBindingLifeEffect) {
-        comp.bindingLevel = kBindingMax;
-        comp.forLife = true;
-    } else if (e >= kBindingFirst && e <= kBindingLast) {
-        const i32 next = comp.bindingLevel + kBindStep;
-        comp.bindingLevel = next > kBindingMax ? kBindingMax : next;
-    } else {
-        return;
-    }
-    ctx.say("casting2.bind_raised", "Binding level raised",
-            {static_cast<i64>(comp.bindingLevel)}, {comp.name});
-}
-
-
 // [c56] Charm index = Effect - 75.
 i32 charmIndex(i32 effect) {
     return realEffect(effect) - kCharmFirstEffect;
