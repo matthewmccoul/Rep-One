@@ -271,7 +271,12 @@ bool createCharacter(Session& s, const NewCharacter& nc, Str& err) {
     ch.name = nc.name;
     ch.race = nc.race;
     ch.alignment = nc.alignment;
-    ch.activeGuild = nc.guild;
+    // Every new character starts as a level-1 Nomad, as in the real game and Mordor.Core
+    // (Character.Create: GuildData.StartingGuild at level 1). Another guild is joined afterwards.
+    ch.activeGuild = Guild::Nomad;
+    ch.guilds[static_cast<u32>(Guild::Nomad)].joined = true;
+    ch.guilds[static_cast<u32>(Guild::Nomad)].level = 1;
+    ch.guilds[static_cast<u32>(Guild::Nomad)].experience = 0;
 
     for (i32 i = 0; i < kStatCount; ++i) {
         const u32 idx = static_cast<u32>(i);
@@ -297,10 +302,9 @@ bool createCharacter(Session& s, const NewCharacter& nc, Str& err) {
     // R5: CombatSetting = 1.
     // SIMPLIFIED: no combat-setting field is shown on Character, so it is not stored.
 
-    // One guild membership at level 1, experience 0. Apply through joinGuild, which has
-    // everything it needs: game state and the inventory slot the new member will occupy.
-    // UNKNOWN: joinGuild side effects on the inventory are not documented here.
-    if (!joinGuild(ctx, s.game, ch, party.inventories[static_cast<u32>(party.size)], nc.guild)) {
+    // A guild other than Nomad is joined straight after creation through the normal join rule,
+    // as a player would do in town (the console's quick start asks for one).
+    if (nc.guild != Guild::Nomad && !joinGuild(ctx, s.game, ch, party.inventories[static_cast<u32>(party.size)], nc.guild)) {
         err = "The character could not join that guild.";
         const GuildDef& gd = ctx.data.guilds[static_cast<size_t>(nc.guild)];
         for (const Str& why : unmet(gd, ch)) {
@@ -312,8 +316,12 @@ bool createCharacter(Session& s, const NewCharacter& nc, Str& err) {
     membership.joined = true;
     membership.level = 1;
     membership.experience = 0;
+    ch.activeGuild = nc.guild;
 
-    // STARTER KIT: cheapest usable weapon, then cheapest armour, placed in the new
+    // STARTER KIT (console quick start, not part of creation: the real game and Mordor.Core
+    // create a character with no items and 1500 gold). It buys the cheapest usable weapon and
+    // armour at list price, which for these floor-0 store goods is the store price.
+    // Cheapest usable weapon, then cheapest armour, placed in the new
     // member's inventory (party.inventories[party.size]) and marked worn.
     // Done after the guild join so the guild bit uses the joined guild, and before the
     // character is appended to the party so the gold deduction lands on ch.

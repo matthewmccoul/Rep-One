@@ -377,7 +377,10 @@ bool confinementSell(Ctx& ctx, Party& party, i32 sellerIndex, PenBook& pens,
     }
 
     const Character& seller = party.members[static_cast<u32>(sellerIndex)];
-    const MonsterDef* mdef = monsterDefById(ctx.data, companion.monsterId);   // by id, not by table row
+    // A companion is identified by its table row (ref): monster ids are not unique (307 is both the
+    // Morgul and the Shadow Ninja), as Mordor.Core's CompanionRef notes.
+    const MonsterDef* mdef = (companion.ref >= 0 && companion.ref < static_cast<i32>(ctx.data.monsters.size()))
+                                 ? &ctx.data.monsters[static_cast<u32>(companion.ref)] : nullptr;
     if (mdef == nullptr) return false;
     const Currency base = creatureBaseWorth(*mdef, seller.activeLevel());
     const Currency price = penSellPrice(base, before, anyPenned,
