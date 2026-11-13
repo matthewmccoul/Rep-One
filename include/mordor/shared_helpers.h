@@ -61,4 +61,7 @@ Str alignLabel(i32 align, Str outOfRange);
 // Adds `days` to ch.ageDays, floored at 0. A non-null announceCtx announces the change; nullptr is silent.
 void ageCharacterDays(Character& ch, i32 days, Ctx* announceCtx);
 
+// Feature-state key "<prefix><member>.<field>", e.g. prefix "raise." or "hall.".
+Str featureMemberKey(const char* prefix, i32 member, const char* field);
+
 }  // namespace mordor

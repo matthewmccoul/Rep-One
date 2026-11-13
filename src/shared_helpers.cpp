@@ -141,4 +141,9 @@ void ageCharacterDays(Character& ch, i32 days, Ctx* announceCtx) {
     }
 }
 
+// Builds the featureState key "<prefix><member>.<field>". Raise and hall keys differ only in prefix.
+Str featureMemberKey(const char* prefix, i32 member, const char* field) {
+  return Str(prefix) + std::to_string(member) + "." + field;
+}
+
 }  // namespace mordor

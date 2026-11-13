@@ -50,10 +50,6 @@ HallRow hallRow(i32 k) {
   }
 }
 
-Str hallKey(i32 k, const char* field) {
-  return "hall." + std::to_string(k) + "." + field;
-}
-
 // Plain decimal parse; never throws. Unreadable text reads as 0.
 i64 hallParseI(const Str& t) {
   bool neg = false;
@@ -72,7 +68,7 @@ i64 hallParseI(const Str& t) {
 }
 
 i64 hallGetI(const Session& s, i32 k, const char* field) {
-  return hallParseI(featureStateOr(s, hallKey(k, field), Str()));
+  return hallParseI(featureStateOr(s, featureMemberKey("hall.", k, field), Str()));
 }
 
 Str hallValueText(i32 k, i64 v) {
@@ -86,7 +82,7 @@ Str hallValueText(i32 k, i64 v) {
 // UNKNOWN: date text; the day serial is shown as a number because no date formatter is available.
 Str hallDescribe(const Session& s, i32 k) {
   HallRow row = hallRow(k);
-  Str holder = featureStateOr(s, hallKey(k, "holder"), Str());
+  Str holder = featureStateOr(s, featureMemberKey("hall.", k, "holder"), Str());
   i64 day = hallGetI(s, k, "day");
   Str who = day != 0 ? "Set on day " + std::to_string(day) + " by " : Str("Set by Original RecordHolder ");
   Str out = Str(row.heading) + "\n";
