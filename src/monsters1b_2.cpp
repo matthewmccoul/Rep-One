@@ -6,6 +6,7 @@
 
 #include "mordor/combat3.h"
 #include "mordor/math_util.h"
+#include "mordor/ref_respawn.h"
 
 namespace mordor {
 
@@ -336,12 +337,7 @@ bool isOccupied(const SquareState& sq, i64 nowMs, i32 respawnSec) {
 // CONFLICT: the test set (c66) uses (total - tally) as the operand; the engine form
 // (headerAreas - tally, c9/c24/c31) is used here. The two arguments are passed as areaCount, tally.
 i32 respawnDelaySeconds(i32 level, i32 areaCount, i32 tally) {
-    i32 t = kRespawnBaseSeconds + kRespawnPerLevelSeconds * level;
-    t = t - (areaCount - tally) * kRespawnPerAreaSeconds;
-    if (t < kRespawnMinSeconds) {
-        t = kRespawnMinSeconds;
-    }
-    return t;
+    return static_cast<i32>(respawnDelay(level, areaCount, tally));
 }
 
 // R53 level-gap gate: 90 if charLvl > monLvl + monLvl/4, 10 if charLvl < monLvl - monLvl/4, else 50.
