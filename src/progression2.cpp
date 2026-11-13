@@ -23,6 +23,7 @@
 #include "mordor/attributes.h"
 #include "mordor/math_util.h"
 #include "mordor/progression2.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 namespace {
@@ -164,7 +165,7 @@ i32 restInCity(Ctx& ctx, Character& ch) {
         missingPct = 0.0;  // UNKNOWN: clamp for over-healed members
     }
     const i32 days = restRoundB(missingPct / kRestScale);
-    ageBy(ctx, ch, days);
+    ageCharacterDays(ch, days, &ctx);
     return days;
 }
 

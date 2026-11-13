@@ -58,4 +58,7 @@ Vec<Str> splitWords(const Str& text);
 // Any other value returns outOfRange.
 Str alignLabel(i32 align, Str outOfRange);
 
+// Adds `days` to ch.ageDays, floored at 0. A non-null announceCtx announces the change; nullptr is silent.
+void ageCharacterDays(Character& ch, i32 days, Ctx* announceCtx);
+
 }  // namespace mordor

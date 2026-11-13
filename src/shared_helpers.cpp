@@ -126,4 +126,19 @@ Str alignLabel(i32 align, Str outOfRange) {
   return outOfRange;
 }
 
+// Adds `days` to ch.ageDays, clamped so the age never drops below 0.
+// When announceCtx is non-null the change is announced ("progression.age"); pass nullptr to stay silent.
+// Reproduces ageBy (announces, days = signed days) and duseYounger (silent, days = -years * kDuseYearDays).
+// UNKNOWN: the SRD gives no floor for negative aging; the zero floor is taken from the existing copies.
+void ageCharacterDays(Character& ch, i32 days, Ctx* announceCtx) {
+    i32 next = ch.ageDays + days;
+    if (next < 0) {
+        next = 0;
+    }
+    ch.ageDays = next;
+    if (announceCtx != nullptr) {
+        announceCtx->say("progression.age", "The character has aged.", {days, ch.ageDays}, {});
+    }
+}
+
 }  // namespace mordor

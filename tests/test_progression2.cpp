@@ -2,6 +2,7 @@
 #include "mordor/progression2.h"
 
 #include <cmath>
+#include "mordor/shared_helpers.h"
 
 using namespace mordor;
 
@@ -42,7 +43,7 @@ TEST(prog2_age_by_adds_days) {
     tsup::Env env({0.5, 0.9});
     Character ch;
     ch.ageDays = kAgeStartDays;
-    ageBy(env.ctx, ch, 28);
+    ageCharacterDays(ch, 28, &env.ctx);
     CHECK_EQ(ch.ageDays, kAgeStartDays + 28);
 }
 
