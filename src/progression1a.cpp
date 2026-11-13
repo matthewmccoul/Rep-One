@@ -160,43 +160,6 @@ ToolbarNeed progressToolbar(const Ctx& ctx, const Character& ch, Guild g) {
     return out;
 }
 
-// R8: hit grant on a level gain. Returns the hits to add to MaxHits; the
-// caller applies capMaxHits and fills CurHits.
-// Engine [c2]: ahead-of-every is strict (newLevel > highestOther).
-// UNKNOWN: rng(3) is taken as below(3) (0..2); AvgHits draw uses nextDouble.
-// FIXED: GuildHitsRef has no members hitsCapLevel or lateHits; the only member
-// present is hitsPerLevel. Every former use of hitsCapLevel and lateHits now reads
-// hitsPerLevel as a stand-in so the file compiles. This is NOT the intended
-// behaviour: the ML/MH comparisons and the late-hit grant are wrong until the real
-// fields are supplied. Verify against attributes.h and the LoadGuilds mapping.
-i32 levelHitGain(Ctx& ctx, const Character& ch, Guild g, i32 newLevel,
-                 i32 highestOtherLevel, const GuildHitsRef& rates) {
-    static_cast<void>(g);
-    const bool aheadOfEvery = newLevel > highestOtherLevel;
-
-    // RESOLVED-BY-REFERENCE: LevelUp (MainMod/Character.cs) does
-    // "if (Level > HitsCapLevel || !aheadOfEveryOtherGuild) { if (aheadOfEveryOtherGuild) MaxHits += LateHits; }".
-    // Past ML only MH is given, and only when ahead of every guild. Otherwise nothing is given.
-    // Field mapping per LoadGuilds: AH = hitsPerLevel, ML = hitsCapLevel, MH = lateHits.
-    // FIXED: hitsCapLevel and lateHits stand-ins, see note above.
-    if (newLevel > static_cast<i32>(rates.hitsPerLevel) || !aheadOfEvery) {
-        return aheadOfEvery ? static_cast<i32>(rates.hitsPerLevel) : 0;
-    }
-
-    // Below ML: AH flat, plus two times in three a roll of 1 to AH/5, plus CON-16 when CON > 16.
-    i32 gain = 0;
-    if (ctx.rng.below(3) + 1 <= 2) {
-        gain += static_cast<i32>(vbInt(ctx.rng.nextDouble() * rates.hitsPerLevel / 5.0)) + 1;
-    }
-    gain += static_cast<i32>(rates.hitsPerLevel);
-    const i32 con = ch.abilities.stats[static_cast<u32>(StatIndex::Con)];
-    // FIXED: hitsCapLevel stand-in, see note above.
-    if (con > 16 && newLevel < static_cast<i32>(rates.hitsPerLevel)) {
-        gain += static_cast<i32>(vbInt(ctx.rng.nextDouble() * (con - 16))) + 1;
-    }
-    return gain;
-}
-
 // R8/R9: ceiling MaxHits = min(MaxHits, 999).
 i32 capMaxHits(i32 maxHits) {
     return maxHits < kHitCap ? maxHits : kHitCap;

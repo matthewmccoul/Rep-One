@@ -6,6 +6,7 @@
 // rate values, gold deduction, drain mechanism, MaxLevel value.
 
 #include <cmath>
+#include "mordor/guilds1.h"
 
 #include "test_support.h"
 #include "mordor/progression1a.h"
@@ -173,7 +174,13 @@ TEST(level_hit_gain_zero_when_not_ahead_of_other_guilds) {
     tsup::Env env({0.5, 0.9});
     mordor::Character ch;
     mordor::GuildHitsRef rates{};
-    CHECK_EQ(mordor::levelHitGain(env.ctx, ch, mordor::Guild::Healer, 26, 30, rates), 0);
+    for (auto& m : ch.guilds) {
+        m.level = 30;
+    }
+    ch.guilds[static_cast<std::size_t>(mordor::Guild::Healer)].level = 25;
+    auto before = ch.vitals.maxHits;
+    mordor::levelUp(env.ctx, ch, mordor::Guild::Healer, rates);
+    CHECK_EQ(ch.vitals.maxHits - before, 0);
 }
 
 // R8 tie rule: strict '>' means equal level to the highest other guild gains nothing
@@ -181,7 +188,13 @@ TEST(level_hit_gain_zero_on_tie_with_highest_other_guild) {
     tsup::Env env({0.5, 0.9});
     mordor::Character ch;
     mordor::GuildHitsRef rates{};
-    CHECK_EQ(mordor::levelHitGain(env.ctx, ch, mordor::Guild::Healer, 30, 30, rates), 0);
+    for (auto& m : ch.guilds) {
+        m.level = 30;
+    }
+    ch.guilds[static_cast<std::size_t>(mordor::Guild::Healer)].level = 29;
+    auto before = ch.vitals.maxHits;
+    mordor::levelUp(env.ctx, ch, mordor::Guild::Healer, rates);
+    CHECK_EQ(ch.vitals.maxHits - before, 0);
 }
 
 // R5: toolbar Pinned when exp == cap; amount is 0

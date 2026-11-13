@@ -136,7 +136,7 @@ i32 combatAD(const Ctx& ctx, const Character& c, const Inventory& inv);
 
 // R18 HP gain on level-up in guild; refills CurHits, caps MaxHits at kHitsCap. Returns HP gained.
 // UNKNOWN: AH/MH/HitsCapLevel/LateHits values; whether CON term is additive to AH term.
-i32 hitsOnLevelUp(Ctx& ctx, Character& c, Guild guild);
+
 
 // R19 HP loss on forfeit of cost levels starting at from, for guild membership `guild`.
 // UNKNOWN: census signature omits the guild; it is needed to exclude this membership from wasHighest.

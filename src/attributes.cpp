@@ -317,56 +317,6 @@ i32 combatAD(const Ctx& ctx, const Character& c, const Inventory& inv) {
 // Hit points (R18-R20)
 // ---------------------------------------------------------------------------
 
-// R18: HP gain on level-up. Returns the HP added to MaxHits.
-// Caller is assumed to have already incremented the membership level (UNKNOWN; levelUp in guilds1.h).
-// Gate: the new level must exceed every other membership's level, else no gain and no refill.
-// UNKNOWN: the 999 cap appears only in the audit; applied here.
-// UNKNOWN: whether the CON term is additive to the AH term; additive is chosen.
-// UNKNOWN: overlap of "at or below" and "strictly below" at the cap; the cap level itself takes the AH branch only.
-i32 hitsOnLevelUp(Ctx& ctx, Character& c, Guild guild) {
-    const u32 gi = static_cast<u32>(guild);
-    const i32 newLevel = c.guilds[gi].level;
-
-    // R18.1: gate on every other guild's level.
-    for (u32 g = 0; g < static_cast<u32>(kGuildCount); ++g) {
-        if (g == gi) {
-            continue;
-        }
-        if (c.guilds[g].level >= newLevel) {
-            return 0;
-        }
-    }
-
-    const HitsParams hp = hitsParamsFor(guild);
-    const i32 con = c.abilities.stats[static_cast<u32>(StatIndex::Con)];  // natural CON
-    i32 gain = 0;
-
-    // R18.2 / R18.4: AH at or below cap, MH above cap.
-    if (newLevel <= hp.capLevel) {
-        gain += hp.avg;
-        // R18.2: with probability 2/3 add I(U*AH/5)+1. below(3) < 2 gives 2 in 3.
-        if (ctx.rng.below(kHitsGainDen) < kHitsGainNum) {
-            gain += static_cast<i32>(vbInt(ctx.rng.nextDouble() * hp.avg / kAvgHitsDivisor)) + 1;
-        }
-    } else {
-        gain += hp.late;
-    }
-
-    // R18.3: strictly below cap with natural CON > 16: add I(U*(CON-16))+1.
-    if (newLevel < hp.capLevel && con > kHitsGainConThreshold) {
-        gain += static_cast<i32>(vbInt(ctx.rng.nextDouble() * (con - kHitsGainConThreshold))) + 1;
-    }
-
-    // R18.5: cap at 999 (UNKNOWN, audit only), refill HP on level-up.
-    const i32 newMax = minv(kHitsCap, c.vitals.maxHits + gain);
-    c.vitals.maxHits = newMax;
-    c.vitals.curHits = newMax;
-
-    ctx.say("attributes.hits_gain", "Hit points gained on level-up.",
-            {static_cast<i64>(gain), static_cast<i64>(newMax)}, {});
-    return gain;
-}
-
 // R19: HP loss on forfeit. Levels processed lvl = from down to from - cost + 1.
 // Quirk: a slice that truncates to 0 subtracts -1 (adds one HP back).
 // Quirk: any non-highest level costs no hits.
