@@ -30,6 +30,7 @@
 #include <cstddef>
 
 #include "mordor/game.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 namespace {
@@ -50,18 +51,6 @@ const char* const kBitNames[kBitRows] = {"explored", "identified", "seen"};
 
 // ---------------------------------------------------------------- primitives
 
-Str i64ToStr(i64 v) {
-  Str rev;
-  u64 mag = v < 0 ? static_cast<u64>(0) - static_cast<u64>(v) : static_cast<u64>(v);
-  do {
-    rev += static_cast<char>('0' + static_cast<int>(mag % 10));
-    mag /= 10;
-  } while (mag > 0);
-  if (v < 0) rev += '-';
-  Str out;
-  for (std::size_t k = rev.size(); k > 0; --k) out += rev[k - 1];
-  return out;
-}
 
 bool strToI64(const Str& s, i64& out) {
   std::size_t n = s.size();
@@ -228,7 +217,7 @@ struct Io {
       if (line[i] != key[i]) match = false;
     }
     if (!match) {
-      fail(Str("expected ") + key + " at line " + i64ToStr(static_cast<i64>(pos + 1)));
+      fail(Str("expected ") + key + " at line " + toStr(static_cast<i64>(pos + 1)));
       return false;
     }
     value = line.substr(n + 1);
@@ -249,7 +238,7 @@ struct Io {
       }
       v = static_cast<T>(n);
     } else {
-      put(key, i64ToStr(static_cast<i64>(v)));
+      put(key, toStr(static_cast<i64>(v)));
     }
   }
 
@@ -277,7 +266,7 @@ struct Io {
       Str t;
       for (i32 k = 0; k < n; ++k) {
         if (k > 0) t += ',';
-        t += i64ToStr(v[k]);
+        t += toStr(v[k]);
       }
       put(key, t);
       return;
@@ -317,7 +306,7 @@ struct Scope {
   Io& io;
   Str saved;
   Scope(Io& i, const Str& base, i32 n) : io(i), saved(i.prefix) {
-    io.prefix = saved + base + i64ToStr(static_cast<i64>(n)) + ".";
+    io.prefix = saved + base + toStr(static_cast<i64>(n)) + ".";
   }
   ~Scope() { io.prefix = saved; }
   Scope(const Scope&) = delete;
@@ -427,7 +416,7 @@ void visitCharacter(Io& io, Character& c, Inventory& inv) {
   io.num("carryIndex", inv.carryIndex);
   io.flag("hidden", inv.hidden);
   for (i32 s = 0; s < kPackSlots; ++s) {
-    visitItem(io, Str("p") + i64ToStr(static_cast<i64>(s)), inv.pack[s]);
+    visitItem(io, Str("p") + toStr(static_cast<i64>(s)), inv.pack[s]);
   }
   for (i32 g = 0; g < kGuildCount; ++g) {
     Scope sc(io, "g", g);

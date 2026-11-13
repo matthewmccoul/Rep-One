@@ -2,10 +2,12 @@
 #include "mordor/state_common.h"
 #include "mordor/access.h"
 #include "mordor/city1.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 namespace {
 
+}  // namespace
 // Parses a plain decimal word without exceptions. Returns false on anything else.
 bool confParseIndex(const Str& w, i32& out) {
   if (w.empty() || w.size() > 6) return false;
@@ -17,6 +19,7 @@ bool confParseIndex(const Str& w, i32& out) {
   out = v;
   return true;
 }
+namespace {
 
 // Members are numbered 1..kPartyMaxSize on screen (same numbering as the access helpers).
 bool confParseMember(const Str& w, i32& member) {
@@ -28,22 +31,9 @@ bool confParseSlot(const Str& w, i32& slot) {
   return confParseIndex(w, slot) && slot >= 1 && slot <= kCompanionSlots;
 }
 
-// Plain integer text, no library dependency.
-Str confNumText(i64 v) {
-  if (v == 0) return "0";
-  const bool neg = v < 0;
-  if (neg) v = -v;
-  Str out;
-  while (v > 0) {
-    out.insert(out.begin(), static_cast<char>('0' + static_cast<int>(v % 10)));
-    v /= 10;
-  }
-  if (neg) out.insert(out.begin(), '-');
-  return out;
-}
 
 // Whole gold from a currency value (i64 in 1/10000 gold).
-Str confGoldText(i64 v) { return confNumText(v / 10000); }
+Str confGoldText(i64 v) { return bufferInt(v / 10000); }
 
 Str confAlignName(i32 align) {
   if (align == 0) return "Good";      // pen index: 0 Good, 1 Neutral, 2 Evil (R30)
@@ -161,7 +151,7 @@ bool confinementSellSlot(Session& s, i32 slot, i32 member, Str& reply) {
   const i64 got = static_cast<i64>(seller->wallet.goldOnHand) - before;
   const Str monsterName = (def != nullptr) ? def->name : Str("a creature");
   reply = "Sold " + monsterName + " to the Confinement pens for " + confGoldText(got) +
-          " gold. Slot " + confNumText(slot) + " is empty.";
+          " gold. Slot " + bufferInt(slot) + " is empty.";
   return true;
 }
 
@@ -182,8 +172,8 @@ bool cmdPens(Session& s, const Vec<Str>& w, Str& reply) {
     const i32 penned = (static_cast<size_t>(rows[i].ref) < s.town.pens.byRef.size())
                            ? s.town.pens.byRef[static_cast<size_t>(rows[i].ref)][static_cast<size_t>(rows[i].align)] : 0;
     const Currency price = penBuyPrice(creatureBaseWorth(*def, level), penned);   // R22: the price falls as the pen fills
-    text += "\n " + confNumText(static_cast<i64>(i + 1)) + ". " + def->name + " (" +
-            confAlignName(rows[i].align) + ") x" + confNumText(penned) + ", " +
+    text += "\n " + bufferInt(static_cast<i64>(i + 1)) + ". " + def->name + " (" +
+            confAlignName(rows[i].align) + ") x" + bufferInt(penned) + ", " +
             confGoldText(static_cast<i64>(price)) + " gold";
   }
   reply = text;

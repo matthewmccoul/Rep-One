@@ -17,6 +17,7 @@
 #include "mordor/loot2.h"
 #include "mordor/monsters1a.h"
 #include "mordor/partyb.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 namespace {
@@ -431,23 +432,12 @@ bool changeLevel(Session& s, Ctx& ctx, i32 delta, Str& reply) {
 
 }  // namespace
 
-// Plain-text helpers for the chest reply (no I/O, no locale).
-static Str intStr(i64 v) {
-    if (v == 0) return Str("0");
-    if (v < 0) return Str("-") + intStr(-v);
-    Str digits;
-    while (v > 0) {
-        digits.insert(digits.begin(), static_cast<char>('0' + (v % 10)));
-        v /= 10;
-    }
-    return digits;
-}
 
 // Currency is in 1/10000 gold.
 static Str goldText(i64 units) {
     const i64 whole = units / 10000;
     const i64 frac = units % 10000;
-    Str out = intStr(whole);
+    Str out = toStr(whole);
     if (frac != 0) {
         out += ".";
         i64 d = 1000;
@@ -671,10 +661,10 @@ bool dungeonAction(Session& s, const Str& command0, Str& reply) {
                 text += " Trap! The ";
                 text += chestTrapName(trapKind);
                 text += " trap springs.";
-                if (hitsLost > 0) text += " The party loses " + intStr(hitsLost) + " hit(s) in all.";
-                if (newDeaths > 0) text += " " + intStr(newDeaths) + " member(s) die.";
+                if (hitsLost > 0) text += " The party loses " + toStr(hitsLost) + " hit(s) in all.";
+                if (newDeaths > 0) text += " " + toStr(newDeaths) + " member(s) die.";
                 if (moved) text += " The trap moves the party elsewhere on the level.";
-                if (destroyed > 0) text += " " + intStr(destroyed) + " item(s) destroyed.";
+                if (destroyed > 0) text += " " + toStr(destroyed) + " item(s) destroyed.";
             }
 
             Currency share = 0;
@@ -688,8 +678,8 @@ bool dungeonAction(Session& s, const Str& command0, Str& reply) {
                     }
                 }
                 text += " Gold: each living member receives " + goldText(share) + ".";
-                if (placed > 0) text += " " + intStr(placed) + " item(s) go into the party's packs.";
-                if (itemsLeft > 0) text += " " + intStr(itemsLeft) + " item(s) did not fit and are lost.";
+                if (placed > 0) text += " " + toStr(placed) + " item(s) go into the party's packs.";
+                if (itemsLeft > 0) text += " " + toStr(itemsLeft) + " item(s) did not fit and are lost.";
             } else {
                 // result 3: no payout.
                 if (openerOk && party.members[static_cast<size_t>(openerIdx)].isDead()) {
@@ -699,7 +689,7 @@ bool dungeonAction(Session& s, const Str& command0, Str& reply) {
                 } else {
                     text += " No one is left standing to take the gold or items.";
                 }
-                if (lost > 0) text += " " + intStr(lost) + " item(s) lost.";
+                if (lost > 0) text += " " + toStr(lost) + " item(s) lost.";
             }
 
             ctx.say("dungeon.chest", "The chest was opened.", {placed, lost, share}, {});

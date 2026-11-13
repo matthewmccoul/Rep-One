@@ -249,18 +249,12 @@ i32 spellCostEngine(const Ctx& ctx, const Character& caster, const SpellDef& spe
 // Spell points (recalc and restore)
 // ---------------------------------------------------------------------------
 
-i32 naturalMaxSpellPoints(const Abilities& abilities) {
-    // UNKNOWN: the max-SP formula is the casting2 maxSpellPoints(naturalInt, naturalWis).
-    // Natural Int and Wis are read from the base stats.
-    return maxSpellPoints(abilities.stats[static_cast<u32>(StatIndex::Int)],
-                          abilities.stats[static_cast<u32>(StatIndex::Wis)]);
-}
-
 void recalcSpellPoints(Character& who, bool refill) {
     // UNKNOWN: recalculation rule not in this SRD part. Assumed:
     //   maximum = naturalMaxSpellPoints; refill sets current to maximum;
     //   otherwise current is clamped down to maximum.
-    const i32 mx = naturalMaxSpellPoints(who.abilities);
+    const i32 mx = maxSpellPoints(who.abilities.stats[static_cast<u32>(StatIndex::Int)],
+                                  who.abilities.stats[static_cast<u32>(StatIndex::Wis)]);
     who.vitals.maxSpellPoints = mx;
     if (refill) {
         who.vitals.curSpellPoints = mx;

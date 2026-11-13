@@ -6,6 +6,7 @@
 #include "mordor/access.h"
 #include "mordor/game.h"
 #include "mordor/state_common.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 namespace {
@@ -17,7 +18,6 @@ namespace {
 // UNKNOWN: ForLife is 100 (c21: effect 150 sets the binding to 100 and ForLife); confirm against Binding.ForLife.
 constexpr i32 kBindingForLife = 100;
 
-Str companionsNum(i32 n) { return Str(std::to_string(n)); }
 
 bool companionsParseNumber(const Str& text, i32& out) {
   if (text.empty() || text.size() > 2) return false;
@@ -102,7 +102,7 @@ bool companionsReleaseSlot(Session& s, i32 member1, i32 slot1, Str& reply) {
   }
   Companion& c = (*t.slots)[static_cast<size_t>(slot1 - 1)];
   if (!companionsFilled(c)) {
-    reply = "companion " + companionsNum(slot1) + " is empty.";
+    reply = "companion " + toStr(slot1) + " is empty.";
     return true;
   }
   reply = companionsName(s, c) + " is let go.";
@@ -127,12 +127,12 @@ bool cmdCompanions(Session& s, const Vec<Str>& w, Str& reply) {
   Str out = t.who->name + "'s companions:";
   for (i32 i = 0; i < kCompanionSlots; ++i) {
     const Companion& c = (*t.slots)[static_cast<size_t>(i)];
-    out += "\n" + companionsNum(i + 1) + ". ";
+    out += "\n" + toStr(i + 1) + ". ";
     if (!companionsFilled(c)) {
       out += "empty";
       continue;
     }
-    out += companionsName(s, c) + ", hits " + companionsNum(c.hits);
+    out += companionsName(s, c) + ", hits " + toStr(c.hits);
     if (companionsCarryingSlot(t.inv->carryIndex, i)) out += " (carried)";
   }
   reply = out;
@@ -195,7 +195,7 @@ bool cmdCarry(Session& s, const Vec<Str>& w, Str& reply) {
   const i32 slot0 = slot - 1;
   const Companion& c = (*t.slots)[static_cast<size_t>(slot0)];
   if (!companionsFilled(c)) {
-    reply = "companion " + companionsNum(slot) + " is empty.";
+    reply = "companion " + toStr(slot) + " is empty.";
     return true;
   }
   // UNKNOWN: refusal wording for carrying a morgue body is not in the evidence.
@@ -221,7 +221,7 @@ bool cmdCarry(Session& s, const Vec<Str>& w, Str& reply) {
   if (old >= 0 && old < kCompanionSlots) {
     // CompanionCarry: the "dropped" line names the slot being replaced (MAINMOD2.BAS:2027-2084).
     // UNKNOWN: wording of the dropped line.
-    out = "\"" + companionsTrimEnd(t.who->name) + "\" dropped companion " + companionsNum(old + 1) +
+    out = "\"" + companionsTrimEnd(t.who->name) + "\" dropped companion " + toStr(old + 1) +
           " to carry " + name + ".";
     out += "\n";
   }

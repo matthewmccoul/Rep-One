@@ -4,6 +4,7 @@
 
 #include "mordor/access.h"
 #include "mordor/state_common.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 namespace {
@@ -21,10 +22,12 @@ struct GuildlogRow {
   Str text;
 };
 
+}  // namespace
 Str glGet(const Session& s, const Str& key) {
   auto it = s.featureState.find(key);
   return it == s.featureState.end() ? Str() : it->second;
 }
+namespace {
 
 // Parses a decimal integer without exceptions. ok is false on any non-digit.
 i64 glParseInt(const Str& t, bool& ok) {
@@ -131,15 +134,6 @@ Str glPrefix(i64 day, i64 today) {
   return std::to_string(gap) + " DAYS AGO: ";
 }
 
-// The verb is w[0]; the guild may be an index 0..11 or a guild name (several words allowed).
-Str glJoinArgs(const Vec<Str>& w, size_t from) {
-  Str out;
-  for (size_t i = from; i < w.size(); ++i) {
-    if (!out.empty()) out += " ";
-    out += w[i];
-  }
-  return out;
-}
 
 bool glParseGuild(const Session& s, const Str& arg, i32& guild) {
   const Str want = accLower(glTrim(arg));
@@ -216,7 +210,7 @@ bool cmdGuildlog(Session& s, const Vec<Str>& w, Str& reply) {
   if (accLower(w[1]) == "clean") return glClean(s, reply);
 
   i32 guild = 0;
-  if (!glParseGuild(s, glJoinArgs(w, 1), guild)) {
+  if (!glParseGuild(s, joinFrom(w, 1), guild)) {
     reply = "No such guild.";
     return false;
   }

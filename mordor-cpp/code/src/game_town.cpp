@@ -18,6 +18,7 @@
 #include "mordor/progression2.h"
 #include "mordor/progression2b.h"
 #include "mordor/store_prices.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 namespace {
@@ -41,6 +42,7 @@ const char* const kHelpText =
 
 // ---- small string helpers ----
 
+}  // namespace
 Str toStr(i64 v) {
     if (v == 0) return Str("0");
     const bool neg = v < 0;
@@ -53,6 +55,7 @@ Str toStr(i64 v) {
     if (neg) out.insert(out.begin(), '-');
     return out;
 }
+namespace {
 
 Str lowered(const Str& w) {
     Str r = w;
@@ -62,23 +65,6 @@ Str lowered(const Str& w) {
     return r;
 }
 
-Vec<Str> splitWords(const Str& text) {
-    Vec<Str> out;
-    Str cur;
-    for (u32 i = 0; i < text.size(); ++i) {
-        const char c = text[i];
-        if (c == ' ' || c == '\t') {
-            if (!cur.empty()) {
-                out.push_back(cur);
-                cur.clear();
-            }
-        } else {
-            cur += c;
-        }
-    }
-    if (!cur.empty()) out.push_back(cur);
-    return out;
-}
 
 bool parseNum(const Str& w, i64& out) {
     if (w.empty()) return false;
@@ -143,9 +129,6 @@ Character& memberAt(Party& p, i32 i) {
     return p.members[static_cast<u32>(i)];
 }
 
-const Character& memberAt(const Party& p, i32 i) {
-    return p.members[static_cast<u32>(i)];
-}
 
 Inventory& invAt(Party& p, i32 i) {
     return p.inventories[static_cast<u32>(i)];
@@ -260,17 +243,6 @@ void doJoin(Ctx& ctx, Session& s, i32 idx, Guild g, Str& reply) {
     }
 }
 
-// SIMPLIFIED: prices are not listed; the GameData item price field is not in the API shown.
-// UNKNOWN: Item has no count member, so each shelf entry is listed as one row.
-// UNKNOWN: Item.id is matched to ItemDef.id; the table index is not used as a fallback.
-static const ItemDef* findItemDef(const GameData& data, i32 id) {
-    for (size_t i = 0; i < data.items.size(); ++i) {
-        if (data.items[i].id == id) {
-            return &data.items[i];
-        }
-    }
-    return nullptr;
-}
 
 // ---- src/game_town.cpp :: doShop
 // Helpers for the General Store. This block supersedes the earlier doShop block and contains
@@ -352,7 +324,7 @@ void doShop(Ctx& ctx, Session& s, Str& reply) {
             if (s.town.store[q].id == item.id) ++count;
         }
         ++row;
-        const ItemDef* def = findItemDef(s.data, item.id);
+        const ItemDef* def = itemDefById(s.data, item.id);
         const Str name = def != nullptr ? def->name : Str("?");
         const Str price = def != nullptr ? toStr(storeBuyPriceGold(s.data, s.town.store, item)) : Str("0");
         note(ctx, reply, "town.shop",
@@ -379,7 +351,7 @@ void doBuy(Ctx& ctx, Session& s, i64 row, i32 idx, Str& reply) {
     const size_t rowIndex = static_cast<size_t>(rowIndexSigned);
     const Item shelfItem = s.town.store[rowIndex];
 
-    const ItemDef* def = findItemDef(s.data, shelfItem.id);
+    const ItemDef* def = itemDefById(s.data, shelfItem.id);
     if (def == nullptr) {
         note(ctx, reply, "town.buy", "That item is not in the item table.");
         return;
@@ -429,6 +401,7 @@ void doBuy(Ctx& ctx, Session& s, i64 row, i32 idx, Str& reply) {
          + " gold into pack slot " + toStr(static_cast<i64>(playerSlot)) + ".");
 }
 
+}  // namespace
 // ch.16 sale rule (half of price) is applied by storeSale.
 // UNKNOWN: whether the gold goes to the named member or the leader; the purse gain of the
 // named member decides success. The sold item is cleared only when gold was gained.
@@ -437,7 +410,7 @@ void doBuy(Ctx& ctx, Session& s, i64 row, i32 idx, Str& reply) {
 // The townAction call site must pass s (see NEED below). The prototype, if any, must match.
 // Whole gold with up to four decimals, trailing zeros dropped (e.g. "12 gold", "0.5 gold").
 // Never prints raw 1/10000 units.
-static Str storeGoldText(Currency units) {
+Str storeGoldText(Currency units) {
     const Currency perGold = 10000;
     const bool negative = units < 0;
     const Currency magnitude = negative ? -units : units;
@@ -457,6 +430,7 @@ static Str storeGoldText(Currency units) {
     out += " gold";
     return out;
 }
+namespace {
 
 // FIXED: removed the second, identical definition of storeGoldText (it was a redefinition
 // of the function above). The single definition above is used by doSell.
@@ -488,7 +462,7 @@ void doSell(Ctx& ctx, Session& s, i32 slot, i32 idx, Str& reply) {
         return;
     }
 
-    const ItemDef* def = findItemDef(s.data, item.id);
+    const ItemDef* def = itemDefById(s.data, item.id);
     const Str name = def != nullptr ? def->name : Str("item");
 
     // Keep a copy of the item as it was offered; the pack entry is cleared only on success.
@@ -751,7 +725,6 @@ static void doIdentifyItem(Ctx& ctx, Party& party, i32 member, i32 slot, Str& re
 // FIXED: forward declarations for the gear helpers, which are defined further down this file
 // but are used by the gear verbs below. Declared static to match their definitions.
 static bool gearSlotOk(i32 playerSlot, Str& reply);
-static Str gearNum(i32 v);
 static Str gearItemName(const Ctx& ctx, const Item& it);
 static Str gearAdLine(const Ctx& ctx, const Character& c, const Inventory& inv);
 
@@ -786,7 +759,7 @@ static void gearEquip(Ctx& ctx, Session& s, i32 idx, i32 playerSlot, Str& reply)
     Inventory& inv = invAt(s.game.party, idx);
     Item& it = inv.pack[pack];
     if (it.id <= 0) {
-        reply = Str("Pack slot ") + gearNum(playerSlot) + " is empty.\n";
+        reply = Str("Pack slot ") + toStr(playerSlot) + " is empty.\n";
         return;
     }
     const Str name = gearItemName(ctx, it);
@@ -805,7 +778,7 @@ static void gearEquip(Ctx& ctx, Session& s, i32 idx, i32 playerSlot, Str& reply)
         reply = name + " could not be equipped.\n";
         return;
     }
-    reply = Str("Member ") + gearNum(idx + 1) + " equipped " + name + " from pack slot " + gearNum(playerSlot) + ". ";
+    reply = Str("Member ") + toStr(idx + 1) + " equipped " + name + " from pack slot " + toStr(playerSlot) + ". ";
     // UNKNOWN: the reference gives no wording for an item that becomes cursed on wearing;
     // the curse is reported plainly.
     if (itemSlotCursed(it)) {
@@ -823,7 +796,7 @@ static void gearUnequip(Ctx& ctx, Session& s, i32 idx, i32 playerSlot, Str& repl
     Inventory& inv = invAt(s.game.party, idx);
     Item& it = inv.pack[pack];
     if (it.id <= 0 || !it.equipped) {
-        reply = Str("Nothing worn in pack slot ") + gearNum(playerSlot) + ".\n";
+        reply = Str("Nothing worn in pack slot ") + toStr(playerSlot) + ".\n";
         return;
     }
     const Str name = gearItemName(ctx, it);
@@ -834,7 +807,7 @@ static void gearUnequip(Ctx& ctx, Session& s, i32 idx, i32 playerSlot, Str& repl
         return;
     }
     it.equipped = false;
-    reply = Str("Member ") + gearNum(idx + 1) + " took off " + name + " from pack slot " + gearNum(playerSlot) + ". " + gearAdLine(ctx, c, inv) + "\n";
+    reply = Str("Member ") + toStr(idx + 1) + " took off " + name + " from pack slot " + toStr(playerSlot) + ". " + gearAdLine(ctx, c, inv) + "\n";
 }
 
 // Consumables and charged items. The usability rule (charges) comes from itemUseProblem
@@ -847,7 +820,7 @@ static void gearUse(Ctx& ctx, Session& s, i32 idx, i32 playerSlot, Str& reply) {
     Inventory& inv = invAt(s.game.party, idx);
     Item& it = inv.pack[pack];
     if (it.id <= 0) {
-        reply = Str("Pack slot ") + gearNum(playerSlot) + " is empty.\n";
+        reply = Str("Pack slot ") + toStr(playerSlot) + " is empty.\n";
         return;
     }
     const Str name = gearItemName(ctx, it);
@@ -865,29 +838,17 @@ static void gearUse(Ctx& ctx, Session& s, i32 idx, i32 playerSlot, Str& reply) {
         reply = name + " was not used: its spell effect is not wired yet, so no charge was spent.\n";
         return;
     }
-    reply = Str("Member ") + gearNum(idx + 1) + " used " + name + ". " + effect + " " + gearAdLine(ctx, c, inv) + "\n";
+    reply = Str("Member ") + toStr(idx + 1) + " used " + name + ". " + effect + " " + gearAdLine(ctx, c, inv) + "\n";
 }
 
 // Gear helpers. Rules come from items1b (equipProblem, equipItem), items3a (itemUseProblem)
 // and attributes (totalAD, combatAD). Nothing here re-implements a rule.
 
-// Decimal text for an i32.
-static Str gearNum(i32 v) {
-    if (v == 0) return Str("0");
-    const bool neg = v < 0;
-    i64 n = neg ? -static_cast<i64>(v) : static_cast<i64>(v);
-    Str out;
-    while (n > 0) {
-        out.insert(out.begin(), static_cast<char>('0' + static_cast<int>(n % 10)));
-        n /= 10;
-    }
-    return neg ? Str("-") + out : out;
-}
 
 // Item name from the static data. Named differently from the static itemNameOf stub
 // and from items1b's itemNameOf, which would clash once those headers are included.
 static Str gearItemName(const Ctx& ctx, const Item& it) {
-    const ItemDef* def = findItemDef(ctx.data, it.id);
+    const ItemDef* def = itemDefById(ctx.data, it.id);
     return def != nullptr ? def->name : Str("?");
 }
 
@@ -895,7 +856,7 @@ static Str gearItemName(const Ctx& ctx, const Item& it) {
 static Str gearAdLine(const Ctx& ctx, const Character& c, const Inventory& inv) {
     const AdPair t = totalAD(ctx, c, inv);
     const i32 combat = combatAD(ctx, c, inv);
-    return Str("Combat A/D ") + gearNum(combat) + ", total attack " + gearNum(t.att) + ", total defence " + gearNum(t.def) + ".";
+    return Str("Combat A/D ") + toStr(combat) + ", total attack " + toStr(t.att) + ", total defence " + toStr(t.def) + ".";
 }
 
 // Pack slot 1 is the hands, not an item. The reference refuses item #1 the same way

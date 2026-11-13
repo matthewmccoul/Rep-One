@@ -21,15 +21,13 @@
 #include "mordor/state_creature.h"
 #include "mordor/state_dungeon.h"
 #include "mordor/types.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 namespace {
 
 constexpr i32 kCompanionPickTries = 100;  // R27.3: up to 100 tries
 
-inline u32 uidx(i32 i) {
-    return static_cast<u32>(i);
-}
 
 f64 clampF64(f64 v, f64 lo, f64 hi) {
     if (v < lo) return lo;

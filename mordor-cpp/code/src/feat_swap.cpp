@@ -5,14 +5,11 @@
 
 #include "mordor/access.h"
 #include "mordor/state_common.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 namespace {
 
-// R45 (ch13): a typed swap refuses if either slot is <= 1 or > 40 (player numbering).
-// Slot 1 is your hands and never moves. Reference: SwapCommand.Parse / Character.SwapSlots.
-// The original refuses silently; this port returns a reason line instead.
-bool swapSlotInRange(i32 slot) { return slot > 1 && slot <= kPackSlots; }
 
 // UNKNOWN: party member numbering is not in the evidence packet. Assumed 1-based, 1..kPartyMaxSize.
 bool swapMemberInRange(i32 member) { return member >= 1 && member <= kPartyMaxSize; }

@@ -1,6 +1,8 @@
 #include "mordor/features.h"
 #include "mordor/access.h"
 #include "mordor/math_util.h"
+#include "mordor/shared_helpers.h"
+#include "mordor/items2b.h"
 
 namespace mordor {
 namespace {
@@ -21,8 +23,6 @@ const char* kUncurseDone = "The curse is lifted.";
 // Currency is gold x 10000.
 constexpr i64 kCurrencyPerGold = 10000;
 
-// Pack slots 2..40 hold items; slot 1 is the hands and is never an item.
-bool slotInRange(i32 slot) { return slot >= 2 && slot <= kPackSlots; }
 
 // Returns the clerk's refusal, or nullptr when the uncurse goes ahead (R61).
 const char* uncurseRefusal(bool slotCursed, bool equipped) {
@@ -50,22 +50,6 @@ Currency uncurseFeeForPriceGold(i32 priceGold) {
   return static_cast<Currency>(roundHalfEven(fee)) * kCurrencyPerGold;
 }
 
-// [c55] charPay: hand first, then bank. Refuses when hand + bank cannot cover the amount.
-// Writes nothing on refusal.
-bool chargeUncurseFee(Character& payer, Currency amount) {
-  Currency& hand = payer.wallet.goldOnHand;
-  Currency& bank = payer.wallet.goldInBank;
-  if (hand + bank < amount) return false;
-  if (hand >= amount) {
-    hand -= amount;
-  } else {
-    const Currency rest = amount - hand;
-    hand = 0;
-    bank -= rest;
-  }
-  return true;
-}
-
 bool cmdUncurse(Session& s, const Vec<Str>& w, Str& reply) {
   // w[0] is the verb "uncurse"; the arguments are w[1] (member) and w[2] (slot).
   if (w.size() != 3) {
@@ -80,7 +64,7 @@ bool cmdUncurse(Session& s, const Vec<Str>& w, Str& reply) {
   }
   Character* who = accMember(s, member);
   Item* item = accPackItem(s, member, slot);
-  if (who == nullptr || !slotInRange(slot) || item == nullptr) {
+  if (who == nullptr || !swapSlotInRange(slot) || item == nullptr) {
     reply = kUncurseNoSlot;
     return true;
   }
@@ -110,7 +94,7 @@ bool cmdUncurse(Session& s, const Vec<Str>& w, Str& reply) {
   // uncurse; only the slot flag is cleared here (R61 wording: "the curse").
   item->slotCursed = false;
   // The funds check above guarantees the charge succeeds.
-  chargeUncurseFee(*who, fee);
+  chargePurse(*who, fee);
   reply = kUncurseDone;
   return true;
 }

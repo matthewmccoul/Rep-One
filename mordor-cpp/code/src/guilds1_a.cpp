@@ -113,7 +113,7 @@ bool joinGuild(Ctx& ctx, GameState& game, Character& character, Inventory& inven
     // R13.7: the visited guild becomes active.
     setActiveGuild(ctx, character, guild);
     // R13.7: RecalcSpellPoints(refill: true).
-    recalcSpellPoints(ctx, character, true);
+    recalcSpellPoints(character, true);
     // R13.7: log the join. UNKNOWN: kind value.
     addGuildLog(ctx, game, guild, 0, "Joined the guild.");
     // UNKNOWN: "first class is reselected" has no engine counterpart in c04p1; skipped.
@@ -221,12 +221,6 @@ bool allowsRace(const GuildDef& guildDef, i32 raceIndex) {
     return (guildDef.raceMask & (1 << raceIndex)) != 0;
 }
 
-// R13.7: RecalcSpellPoints(refill). The spell-point formula is not in c04p1.
-// UNKNOWN: delegated to the casting1.h overload recalcSpellPoints(Character&, bool).
-void recalcSpellPoints(Ctx& ctx, Character& character, bool refill) {
-    (void)ctx;
-    mordor::recalcSpellPoints(character, refill);
-}
 
 // R8: the guild log records (day, guild, kind, text). The day is taken from game.today.
 // UNKNOWN: trimming to the newest 50 per guild (R8, R44) is left to cleanGuildLog.

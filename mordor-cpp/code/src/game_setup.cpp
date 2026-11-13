@@ -15,6 +15,7 @@
 #include "mordor/races.h"
 #include "mordor/guilds1.h"
 #include "mordor/clock.h"
+#include "mordor/casting1.h"
 
 namespace mordor {
 namespace {
@@ -321,7 +322,7 @@ bool createCharacter(Session& s, const NewCharacter& nc, Str& err) {
     grantStarterItem(ctx, ch, kitInv, nc.guild, false);
 
     // R5: recalc spell points with refill, then the XP threshold.
-    recalcSpellPoints(ctx, ch, true);
+    recalcSpellPoints(ch, true);
     ch.xpRequired = xpRequired(ctx, ch);
 
     // Append to the party.

@@ -5,6 +5,7 @@
 #include <cmath>
 
 #include "mordor/math_util.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 
@@ -13,9 +14,6 @@ static_assert(static_cast<i32>(DeathState::Stoned) == kDeathCodeStoned, "R3: sto
 
 namespace {
 
-inline u32 uidx(i32 i) {
-    return static_cast<u32>(i);
-}
 
 // R5 step 5 / R6: remove the dead while more than one body is loaded.
 void shiftCounted(Arr<bool, kPartyMaxSize>& counted, i32 index) {

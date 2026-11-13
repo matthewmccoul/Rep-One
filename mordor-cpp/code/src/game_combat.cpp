@@ -14,6 +14,7 @@
 #include "mordor/clock.h"
 #include "mordor/death1a.h"
 #include "mordor/progression2.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 namespace {
@@ -34,25 +35,8 @@ Str lowerStr(const Str& t) {
     return out;
 }
 
-// Splits a command on spaces and tabs.
-Vec<Str> tokenize(const Str& cmd) {
-    Vec<Str> out;
-    Str cur;
-    for (std::size_t i = 0; i < cmd.size(); ++i) {
-        char c = cmd[i];
-        if (c == ' ' || c == '\t') {
-            if (cur.size() > 0) {
-                out.push_back(cur);
-                cur = Str();
-            }
-        } else {
-            cur += c;
-        }
-    }
-    if (cur.size() > 0) out.push_back(cur);
-    return out;
-}
 
+}  // namespace
 // Unsigned decimal parse; rejects anything that is not digits.
 bool parseInt(const Str& t, i32& out) {
     if (t.size() == 0) return false;
@@ -66,25 +50,8 @@ bool parseInt(const Str& t, i32& out) {
     out = static_cast<i32>(v);
     return true;
 }
+namespace {
 
-// Decimal text of an i64 without using the C library.
-Str numStr(i64 v) {
-    Str out;
-    if (v < 0) out += '-';
-    u64 u = (v < 0) ? static_cast<u64>(-(v + 1)) + 1u : static_cast<u64>(v);
-    if (u == 0) {
-        out += '0';
-        return out;
-    }
-    char buf[24];
-    int n = 0;
-    while (u > 0) {
-        buf[n++] = static_cast<char>('0' + (u % 10));
-        u /= 10;
-    }
-    while (n > 0) out += buf[--n];
-    return out;
-}
 
 // Member token: 1-based number or character name (case-insensitive).
 // Returns -1 when it does not name a member slot.
@@ -447,7 +414,7 @@ static void resolveMemberOrder(Ctx& ctx, GameState& g, i32 mi) {
             const i32 recorded = recordedHitsFor(dmg, m.hits);  // R31: overkill not counted
             m.hits -= recorded;
             c.damageRecorded += recorded;
-            ctx.say("combat.hit", c.name + Str(" hits ") + monsterName(ctx, m) + Str(" for ") + numStr(recorded) + Str("."),
+            ctx.say("combat.hit", c.name + Str(" hits ") + monsterName(ctx, m) + Str(" for ") + toStr(recorded) + Str("."),
                     {recorded}, {});
 
             if (recorded > 0) {
@@ -512,7 +479,7 @@ static void resolveMonsterPhase(Ctx& ctx, GameState& g) {
                 continue;
             }
             v.vitals.curHits -= dmg;
-            ctx.say("combat.monsterhit", monsterName(ctx, m) + Str(" hits ") + v.name + Str(" for ") + numStr(dmg) + Str("."),
+            ctx.say("combat.monsterhit", monsterName(ctx, m) + Str(" hits ") + v.name + Str(" for ") + toStr(dmg) + Str("."),
                     {dmg}, {});
             if (v.vitals.curHits <= 0) {
                 v.vitals.curHits = 0;
@@ -524,14 +491,6 @@ static void resolveMonsterPhase(Ctx& ctx, GameState& g) {
     }
 }
 
-// Spell-name helpers for combat casting (file-local).
-static bool castAllDigits(const Str& t) {
-    if (t.empty()) return false;
-    for (std::size_t i = 0; i < t.size(); ++i) {
-        if (t[i] < '0' || t[i] > '9') return false;
-    }
-    return true;
-}
 
 static Str castKey(const Str& t) {
     std::size_t b = 0;
@@ -563,7 +522,7 @@ static const SpellDef* castFindSpell(const GameData& data, const Str& text) {
     for (std::size_t i = 0; i < data.spells.size(); ++i) {
         if (castKey(data.spells[i].name) == want) return &data.spells[i];
     }
-    if (castAllDigits(want) && want.size() <= 9) {
+    if (isDigits(want) && want.size() <= 9) {
         i32 id = 0;
         for (std::size_t i = 0; i < want.size(); ++i) id = id * 10 + static_cast<i32>(want[i] - '0');
         for (std::size_t i = 0; i < data.spells.size(); ++i) {
@@ -614,7 +573,7 @@ bool combatAction(Session& s, const Str& command, Str& reply) {
     reply = Str();
     { bool fok = false; if (runFeatureCommand(s, Screen::Combat, command, reply, fok)) return fok; }   // commands added by features
 
-    Vec<Str> tok = tokenize(command);
+    Vec<Str> tok = splitWords(command);
     if (tok.size() == 0) {
         reply = "Enter a combat command: fight, defend, cast, use or open.";
         return false;
@@ -662,7 +621,7 @@ bool combatAction(Session& s, const Str& command, Str& reply) {
         if (verb == "cast") {
             // Spell name or id; a trailing all-digit word after at least one text word is the group.
             std::size_t textEnd = tok.size();
-            if (textEnd - 2 > 1 && castAllDigits(tok[textEnd - 1])) --textEnd;
+            if (textEnd - 2 > 1 && isDigits(tok[textEnd - 1])) --textEnd;
             const Str text = castJoin(tok, 2, textEnd);
             const SpellDef* sp = castFindSpell(s.data, text);
             if (sp == nullptr) {
@@ -685,7 +644,7 @@ bool combatAction(Session& s, const Str& command, Str& reply) {
             }
             const i32 cost = castCostSp(ctx, caster, *sp, 0);
             if (caster.vitals.curSpellPoints < cost) {
-                reply = caster.name + Str(" lacks the spell points for ") + sp->name + Str(" (needs ") + numStr(cost) + Str(").");
+                reply = caster.name + Str(" lacks the spell points for ") + sp->name + Str(" (needs ") + toStr(cost) + Str(").");
                 return false;
             }
             const i32 group = textEnd < tok.size() ? groupIndex(tok, textEnd) : 0;
@@ -767,7 +726,7 @@ bool combatAction(Session& s, const Str& command, Str& reply) {
         if (reply.size() > 0) reply += '\n';
         reply += s.log.events[i].text;
     }
-    Str summary = g.inCombat ? Str("Round fought: ") + numStr(livingFoes(g)) + Str(" foe(s) left.")
+    Str summary = g.inCombat ? Str("Round fought: ") + toStr(livingFoes(g)) + Str(" foe(s) left.")
                              : Str("Fight over.");
     if (reply.size() > 0) reply += '\n';
     reply += summary;

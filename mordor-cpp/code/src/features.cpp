@@ -1,4 +1,5 @@
 #include "mordor/features.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 
@@ -14,6 +15,7 @@ Str lowerAscii(const Str& w) {
   }
   return o;
 }
+}  // namespace
 Vec<Str> splitWords(const Str& text) {
   Vec<Str> out;
   Str cur;
@@ -27,6 +29,7 @@ Vec<Str> splitWords(const Str& text) {
   if (!cur.empty()) out.push_back(cur);
   return out;
 }
+namespace {
 }  // namespace
 
 void registerFeatureCommand(const FeatureCommand& c) { table().push_back(c); }
