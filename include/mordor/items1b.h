@@ -340,7 +340,7 @@ bool rollRecogniseTick(Ctx& ctx, f64 skill, bool dark);
 bool rollRename(Ctx& ctx, f64 identifySkill, bool inFog);
 // Item name at ID level: All=full+tag+charges+(cursed), Mostly=name, Partial=type,
 // Barely=vaguer text. UNKNOWN: Barely wording not given [c12].
-Str itemNameAtLevel(const Ctx& ctx, const Item& it, IdLevel level);
+
 
 // ---- Alignment flags and found alignment [c13] ----
 // Alignment: allowed alignments from AlignmentFlags (bit 0..3); empty gives Unaligned

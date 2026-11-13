@@ -717,29 +717,6 @@ bool rollRename(Ctx& ctx, f64 identifySkill, bool inFog) {
     return ctx.rng.percent(renameChance(identifySkill, inFog));
 }
 
-// Name at ID level [c12]. All = name + alignment tag + [charges] + (cursed).
-// Mostly = name. Partial = type name. Barely = "Unidentified Item".
-// UNKNOWN: vaguer Barely description not given; generic text used.
-Str itemNameAtLevel(const Ctx& ctx, const Item& it, IdLevel level) {
-    const ItemDef* d = defOf(ctx, it.id);
-    if (!d) return Str();
-    switch (level) {
-        case IdLevel::All: {
-            Str s = d->name;
-            if (it.aligned) s += alignTag(it.alignment);
-            if (it.maxCharges > 0) s += Str(" [") + Str(std::to_string(it.charges)) + Str("]");
-            if (it.cursed != CurseNone) s += Str(" (cursed)");
-            return s;
-        }
-        case IdLevel::Mostly:
-            return d->name;
-        case IdLevel::Partial:
-            return itemKindName(ctx, d->type);
-        default:
-            return Str("Unidentified Item");
-    }
-}
-
 // ---------------------------------------------------------------- Found alignment, charges
 
 // R-align: for a in 0..3, if bit a set add it; empty -> Unaligned.
