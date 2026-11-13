@@ -24,6 +24,8 @@
 
 namespace mordor {
 
+i32 freeStorageSlot(const Inventory& inv);
+
 // ---- constants ----
 
 inline constexpr i32 kLastPackIndex = kPackSlots - 1;

@@ -80,6 +80,7 @@ bool validStorage(i32 index) {
     return index >= 1 && index <= kLastPackIndex;
 }
 
+}  // namespace
 i32 freeStorageSlot(const Inventory& inv) {
     for (i32 i = 1; i <= kLastPackIndex; ++i) {
         if (isEmptySlot(inv.pack[i])) return i;
@@ -87,6 +88,7 @@ i32 freeStorageSlot(const Inventory& inv) {
     return -1;
 }
 
+namespace {
 Str i64Str(i64 v) {
     if (v == 0) return Str("0");
     bool neg = v < 0;

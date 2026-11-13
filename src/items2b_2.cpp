@@ -24,10 +24,7 @@ namespace mordor {
 namespace {
 
 i32 freeSlot(const Inventory& inv) {
-    for (i32 i = 1; i <= kLastPackIndex; ++i) {
-        if (isEmptySlot(inv.pack[i])) return i;
-    }
-    return -1;
+    return freeStorageSlot(inv);
 }
 
 bool validSlot(i32 slot) {
