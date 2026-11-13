@@ -54,6 +54,7 @@ Vec<Str> tokenize(const Str& cmd) {
     return out;
 }
 
+}  // namespace
 // Unsigned decimal parse; rejects anything that is not digits.
 bool parseInt(const Str& t, i32& out) {
     if (t.size() == 0) return false;
@@ -67,6 +68,7 @@ bool parseInt(const Str& t, i32& out) {
     out = static_cast<i32>(v);
     return true;
 }
+namespace {
 
 // Decimal text of an i64 without using the C library.
 Str numStr(i64 v) {

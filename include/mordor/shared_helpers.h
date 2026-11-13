@@ -2,6 +2,15 @@
 // One shared copy of helpers that several modules had each written for themselves.
 #include "mordor/types.h"
 #include "mordor/game_data.h"
+#include "mordor/death1a.h"
+#include "mordor/clock.h"
+#include "mordor/loot1a.h"
+#include "mordor/progression1a.h"
+#include "mordor/monsters1b.h"
+#include "mordor/combat3.h"
+#include "mordor/combat2a.h"
+#include "mordor/combat1b.h"
+#include "mordor/combat1a.h"
 #include "mordor/store_prices.h"
 #include "mordor/progression2b.h"
 #include "mordor/progression2.h"
@@ -34,4 +43,5 @@ bool isDigits(const Str& t);
 bool swapSlotInRange(i32 slot);
 Str joinFrom(const Vec<Str>& w, std::size_t from);
 Str glGet(const Session& s, const Str& key);
+bool parseInt(const Str& t, i32& out);
 }  // namespace mordor
