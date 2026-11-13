@@ -130,7 +130,7 @@ void recordGroupSpellAttack(Ctx& ctx, GroupAttackFlags& flags);
 
 // R39 special attack range: Int((Log(a) + a/15) / Log(1.08) - targetLevel/10 + 1), a = attackerGuildLevel + 1. Pure.
 // UNKNOWN: whether targetLevel/10 is integer or real division. Integer division is used here.
-i32 specialAttackRange(i32 attackerGuildLevel, i32 targetLevel);
+
 
 // R40 share added to the roll: range/4 for breath, range/2 for acid spit and electrocute. Pure.
 i32 specialAttackShare(i32 range, SpecialAttackKind kind);

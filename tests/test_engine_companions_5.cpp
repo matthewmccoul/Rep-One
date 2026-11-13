@@ -1,4 +1,5 @@
 #include "test_support.h"
+#include "mordor/spells1a.h"
 
 #include <cmath>
 #include <cstdlib>
@@ -120,13 +121,13 @@ TEST(engine_B_0064_58_no_mishap_at_least_victims_0_and_2) {
 
 // B_0064#59: breath range matches the original formula for all four pairs.
 TEST(engine_B_0064_59_breath_range_formula) {
-    CHECK_EQ(companionBreathRange(10, 5), expectedBreathRange(10, 5));
-    CHECK_EQ(companionBreathRange(100, 30), expectedBreathRange(100, 30));
-    CHECK_EQ(companionBreathRange(1, 1), expectedBreathRange(1, 1));
-    CHECK_EQ(companionBreathRange(500, 200), expectedBreathRange(500, 200));
+    CHECK_EQ(specialHitRange(10, 5), expectedBreathRange(10, 5));
+    CHECK_EQ(specialHitRange(100, 30), expectedBreathRange(100, 30));
+    CHECK_EQ(specialHitRange(1, 1), expectedBreathRange(1, 1));
+    CHECK_EQ(specialHitRange(500, 200), expectedBreathRange(500, 200));
 }
 
 // B_0064#60: a higher target level yields a smaller range.
 TEST(engine_B_0064_60_range_falls_with_target_level) {
-    CHECK(companionBreathRange(100, 200) < companionBreathRange(100, 10));
+    CHECK(specialHitRange(100, 200) < specialHitRange(100, 10));
 }

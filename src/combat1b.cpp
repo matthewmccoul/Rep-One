@@ -168,15 +168,6 @@ void recordGroupSpellAttack(Ctx& ctx, GroupAttackFlags& flags) {
     flags.attackEnded = true;
 }
 
-// R39. range = Int((Log(a) + a/15) / Log(1.08) - targetLevel/10 + 1), a = attackerGuildLevel+1.
-// UNKNOWN: targetLevel/10 taken as integer division (header divisor is i32).
-i32 specialAttackRange(i32 attackerGuildLevel, i32 targetLevel) {
-    const f64 a = static_cast<f64>(attackerGuildLevel + 1);
-    const f64 value = (std::log(a) + a / kSpecialRangeDivisor) / std::log(kSpecialRangeLogBase) -
-                      static_cast<f64>(targetLevel / kSpecialRangeLevelDivisor) + 1.0;
-    return static_cast<i32>(vbInt(value));
-}
-
 // R40. share = range/4 (breath), range/2 (acid spit, electrocute).
 // UNKNOWN: integer division (header divisors are i32).
 i32 specialAttackShare(i32 range, SpecialAttackKind kind) {

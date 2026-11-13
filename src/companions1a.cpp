@@ -621,16 +621,6 @@ bool companionBreath(Ctx& ctx, GameState& game, Character& owner, Companion& c, 
     return true;
 }
 
-// Companion breath special range (R23, c64):
-//   a = atk + 1
-//   range = Int((Log(a) + a/15) / Log(1.08) - tgt/10 + 1)
-i32 companionBreathRange(i32 atk, i32 tgt) {
-    const f64 a = static_cast<f64>(atk + 1);
-    const f64 v = (std::log(a) + a / kBreathSeedDivisor) / std::log(kBreathLogBase)
-                  - static_cast<f64>(tgt) / 10.0 + 1.0;
-    return static_cast<i32>(vbInt(v));
-}
-
 // Monster's own breath range (sub0E85, c64), deliberately different from the companion one:
 //   seed = Round(monLvl * Log(monLvl+1), ToEven)
 //   range = Int((Log(max(1,seed)) + seed/15)/Log(1.08) - charLevel/20 + 1)

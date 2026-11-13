@@ -254,7 +254,7 @@ bool companionBreath(Ctx& ctx, GameState& game, Character& owner, Companion& c, 
 
 // R23 companion breath range: a = atk + 1; Int((Log(a) + a/15) / Log(1.08) - tgt/10 + 1)
 // UNKNOWN: whether tgt/10 is real or integer division
-i32 companionBreathRange(i32 atk, i32 tgt);
+
 
 // R23 monster's own breath range (sub0E85): seed = round_half_even(monLvl * Log(monLvl+1))
 i32 monsterBreathRange(i32 monLvl, i32 charLevel);

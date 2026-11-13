@@ -1,4 +1,5 @@
 #include <cmath>
+#include "mordor/spells1a.h"
 
 #include "test_support.h"
 #include "mordor/companions1a.h"
@@ -433,8 +434,8 @@ TEST(breath_percent_and_range) {
     CHECK_EQ(mr::companionBreathPercent(12, 4), 20);
 
     // a = atk+1, tgt = 0: Int((ln a + a/15)/ln 1.08 + 1).
-    CHECK_EQ(mr::companionBreathRange(0, 0), 1);   // a=1: 1.87 -> 1
-    CHECK_EQ(mr::companionBreathRange(9, 0), 39);  // a=10: 39.58 -> 39
+    CHECK_EQ(mr::specialHitRange(0, 0), 1);   // a=1: 1.87 -> 1
+    CHECK_EQ(mr::specialHitRange(9, 0), 39);  // a=10: 39.58 -> 39
 }
 
 TEST(mishap_chance_formula_and_clamps) {

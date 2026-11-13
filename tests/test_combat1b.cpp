@@ -1,4 +1,5 @@
 #include <cmath>
+#include "mordor/spells1a.h"
 
 #include "test_support.h"
 #include "mordor/combat1b.h"
@@ -158,9 +159,9 @@ TEST(GroupSpell_OnlyFirstSpellPerGroup) {
 // a=1: 0.866+1 = 1.866 -> 1.
 // a=10: 39.581 -> 39; target 20 subtracts 2 -> 37.581 -> 37.
 TEST(SpecialRange_LogFormulaFloors) {
-    CHECK_EQ(specialAttackRange(0, 0), 1);
-    CHECK_EQ(specialAttackRange(9, 0), 39);
-    CHECK_EQ(specialAttackRange(9, 20), 37);
+    CHECK_EQ(specialHitRange(0, 0), 1);
+    CHECK_EQ(specialHitRange(9, 0), 39);
+    CHECK_EQ(specialHitRange(9, 20), 37);
 }
 
 // R40: share = range/4 for breath, range/2 for acid spit and electrocute.

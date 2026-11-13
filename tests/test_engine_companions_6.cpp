@@ -1,4 +1,5 @@
 #include "test_support.h"
+#include "mordor/spells1a.h"
 #include "mordor/companions1a.h"
 
 using namespace mordor;
@@ -6,15 +7,15 @@ using namespace mordor;
 // Case ids are sanitized for C identifiers: B_0064#NN -> B_0064_NN.
 
 TEST(engine_B_0064_61_special_range_grows_with_attacker) {
-    CHECK(companionBreathRange(300, 50) > companionBreathRange(30, 50));
+    CHECK(specialHitRange(300, 50) > specialHitRange(30, 50));
 }
 
 TEST(engine_B_0064_71_range_not_equal_monster_breath_range) {
-    CHECK(!(companionBreathRange(120, 40) == monsterBreathRange(120, 40)));
+    CHECK(!(specialHitRange(120, 40) == monsterBreathRange(120, 40)));
 }
 
 TEST(engine_B_0064_72_monster_range_exceeds_special_by_at_least_one) {
-    CHECK(monsterBreathRange(120, 40) - companionBreathRange(120, 40) >= 1);
+    CHECK(monsterBreathRange(120, 40) - specialHitRange(120, 40) >= 1);
 }
 
 // SKIP B_0064#62: compares total damage over 20000 simulated rolls; needs a simulation harness.
