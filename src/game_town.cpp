@@ -65,23 +65,6 @@ Str lowered(const Str& w) {
     return r;
 }
 
-Vec<Str> splitWords(const Str& text) {
-    Vec<Str> out;
-    Str cur;
-    for (u32 i = 0; i < text.size(); ++i) {
-        const char c = text[i];
-        if (c == ' ' || c == '\t') {
-            if (!cur.empty()) {
-                out.push_back(cur);
-                cur.clear();
-            }
-        } else {
-            cur += c;
-        }
-    }
-    if (!cur.empty()) out.push_back(cur);
-    return out;
-}
 
 bool parseNum(const Str& w, i64& out) {
     if (w.empty()) return false;

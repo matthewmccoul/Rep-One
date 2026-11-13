@@ -35,24 +35,6 @@ Str lowerStr(const Str& t) {
     return out;
 }
 
-// Splits a command on spaces and tabs.
-Vec<Str> tokenize(const Str& cmd) {
-    Vec<Str> out;
-    Str cur;
-    for (std::size_t i = 0; i < cmd.size(); ++i) {
-        char c = cmd[i];
-        if (c == ' ' || c == '\t') {
-            if (cur.size() > 0) {
-                out.push_back(cur);
-                cur = Str();
-            }
-        } else {
-            cur += c;
-        }
-    }
-    if (cur.size() > 0) out.push_back(cur);
-    return out;
-}
 
 }  // namespace
 // Unsigned decimal parse; rejects anything that is not digits.
@@ -591,7 +573,7 @@ bool combatAction(Session& s, const Str& command, Str& reply) {
     reply = Str();
     { bool fok = false; if (runFeatureCommand(s, Screen::Combat, command, reply, fok)) return fok; }   // commands added by features
 
-    Vec<Str> tok = tokenize(command);
+    Vec<Str> tok = splitWords(command);
     if (tok.size() == 0) {
         reply = "Enter a combat command: fight, defend, cast, use or open.";
         return false;

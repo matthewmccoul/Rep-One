@@ -47,4 +47,5 @@ bool parseInt(const Str& t, i32& out);
 Str toStr(i64 v);
 bool confParseIndex(const Str& w, i32& out);
 Str storeGoldText(Currency units);
+Vec<Str> splitWords(const Str& text);
 }  // namespace mordor
