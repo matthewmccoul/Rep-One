@@ -17,6 +17,7 @@
 #include "mordor/companions1a.h"
 #include "mordor/events.h"
 #include "mordor/rng.h"
+#include "mordor/items2b.h"
 
 namespace mordor {
 
@@ -251,18 +252,11 @@ Currency bindingRaiseCharge(i32 monsterGuildLevel, i32 current) {
 // UNKNOWN: charPay (city2b) is not called; this is a local payment. Pays from on-hand
 // gold first, then bank. A negative amount credits gold (quirk, R9 negative cost).
 bool payCharacterGold(Ctx& ctx, Character& c, Currency amount) {
-    if (amount <= 0) {
-        c.wallet.goldOnHand -= amount;
-        return true;
-    }
-    if (c.purse() < amount) {
+    if (amount > 0 && c.purse() < amount) {
         ctx.say("companion.pay.short", "Not enough gold.", {}, {});
         return false;
     }
-    const Currency fromHand = minv(c.wallet.goldOnHand, amount);
-    c.wallet.goldOnHand -= fromHand;
-    c.wallet.goldInBank -= (amount - fromHand);
-    return true;
+    return chargePurse(c, amount);
 }
 
 // R18: raise binding by one step at Confinement. Binding 100 cannot be bought.
