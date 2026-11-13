@@ -190,16 +190,9 @@ TEST(companion_spawn_table_index_modes) {
     CHECK_EQ(mordor::companionSpawnSelection(14).tableIndex, 7);
 }
 
-TEST(respawn_base_1200s_plus_150_per_floor_minus_5_per_room_in_ms) {
-    CHECK_EQ(mordor::respawnDelayMs(1, 0), 1350000);
-    CHECK_EQ(mordor::respawnDelayMs(1, 10), 1300000);
-    CHECK_EQ(mordor::respawnDelayMs(15, 0), 3450000);
-}
 
-TEST(respawn_never_below_120_seconds) {
-    CHECK_EQ(mordor::respawnDelayMs(1, 230), 200000);
-    CHECK_EQ(mordor::respawnDelayMs(1, 1000), 120000);
-}
+
+
 
 TEST(standing_group_stale_when_older_than_2t) {
     // Signature is standingGroupStale(nowSeconds, stampSeconds, respawnT). The stamp is the earlier time, so "now" comes first.

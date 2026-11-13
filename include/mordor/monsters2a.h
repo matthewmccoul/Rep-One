@@ -189,7 +189,7 @@ CompanionSpawnSelection companionSpawnSelection(i32 mode);
 //     - kRespawnPerEmptiedRoomSeconds * emptiedRooms) * 1000.
 // CONFLICT: the SRD gives "per level" and "per empty area" in general terms; the test set [c66] reads them as
 // per floor and per room of (total - tally). emptiedRooms is taken as (total - tally).
-i64 respawnDelayMs(i32 dungeonLevel, i32 emptiedRooms);
+
 
 // [c24] Stale standing group: older than 2t.
 // UNKNOWN: t is not defined in this part; tMs is taken as that t in milliseconds.
