@@ -301,10 +301,9 @@ MishapResult rollMishap(Ctx& ctx, const Party& party, i32 ownerIndex, MishapKind
 // Victim draw: round_half_even(rng() * (partySize - 1)) + 1 (c8).
 // UNKNOWN: index base versus party indices 0..size-1 (see rollMishap).
 i32 mishapVictimIndex(Ctx& ctx, i32 partySize) {
-    // The 1-based draw: round_half_even(Rnd * (partySize - 1)) + 1. rollMishap turns it into a
-    // 0-based victim (draw - 1) and spares the owner (draw == owner + 1).
-    const f64 x = ctx.rng.nextDouble() * static_cast<f64>(partySize - 1);
-    return static_cast<i32>(roundHalfEven(x)) + 1;
+    // Forwarded to the keeper drawMishapVictim (src/companions1a.cpp), which returns the
+    // 0-based draw; add 1 to keep this function's 1-based contract.
+    return drawMishapVictim(ctx, partySize) + 1;
 }
 
 // Crit bonuses: bit 10 gives +4, bit 11 gives +1 (R28).
