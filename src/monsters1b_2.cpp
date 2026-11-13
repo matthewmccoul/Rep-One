@@ -374,47 +374,6 @@ i32 respawnDelaySeconds(i32 level, i32 areaCount, i32 tally) {
     return t;
 }
 
-// R53. Quest "Defeat One" monster pick. Repeats until a valid pick exists (no cap in the
-// original). Returns -1 for an empty class table (the original would hang; UNKNOWN choice).
-i32 questPickMonster(Ctx& ctx, i32 tier, const Vec<i32>& classFirst, const Vec<i32>& classLast,
-                     const Vec<i32>& levelFound, const Vec<i32>& chance) {
-    if (classFirst.empty()) {
-        return -1;
-    }
-    const i32 nClasses = static_cast<i32>(classFirst.size());
-    i32 pick = -1;
-    i32 last = -1;
-    do {
-        const i32 cls = static_cast<i32>(ctx.rng.below(nClasses));
-        const i32 first = atOr(classFirst, cls);
-        const i32 classEnd = atOr(classLast, cls);
-        // R53: class head start 40% (one draw, evaluated for every candidate).
-        i32 start = (ctx.rng.below(100) < 40) ? first : -1;
-        last = -1;
-        for (i32 i = first; i <= classEnd; ++i) {
-            if (start == -1 && atOr(levelFound, i) >= tier) {
-                start = i;
-            }
-            if (atOr(levelFound, i) > tier || i == classEnd) {
-                last = i - 1;
-                break;
-            }
-        }
-        if (start == -1) {
-            start = first;
-        }
-        const f64 r = ctx.rng.nextDouble();
-        pick = static_cast<i32>(roundHalfEven(r * static_cast<f64>(last - start))) + start;
-        const bool rare = atOr(chance, pick) < 10;
-        // R53: the turn draw happens for every candidate (VB And is not short-circuit).
-        const bool turned = ctx.rng.nextDouble() * 100.0 > 25.0;
-        if (rare && turned) {
-            pick = -1;
-        }
-    } while (last == -1 || atOr(levelFound, last) > tier || pick == -1);
-    return pick;
-}
-
 // R53 level-gap gate: 90 if charLvl > monLvl + monLvl/4, 10 if charLvl < monLvl - monLvl/4, else 50.
 i32 questLevelGapPercent(i32 charLvl, i32 monLvl) {
     const f64 quarter = static_cast<f64>(monLvl) / 4.0;

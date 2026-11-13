@@ -1,4 +1,5 @@
 #include "test_support.h"
+#include "mordor/guilds1.h"
 #include "mordor/guilds3.h"
 
 // SKIP B_0059#52: asks about the structure of the original FRMCTYG.BAS source, not runtime behaviour; no equivalent function

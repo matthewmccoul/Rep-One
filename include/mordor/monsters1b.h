@@ -209,7 +209,7 @@ i32 respawnDelaySeconds(i32 level, i32 areaCount, i32 tally);
 // Tables are the caller's view of monster classes (classFirst[cls], classLast[cls]) and monsters (levelFound, chance).
 // Quirk: no cap in the original. VB And is not short-circuit, so the Rnd draw happens for every candidate.
 // Rare is chance < kRareMonsterWeight. Turned is Rnd*100 > kRareRejectPercent.
-i32 questPickMonster(Ctx& ctx, i32 tier, const Vec<i32>& classFirst, const Vec<i32>& classLast, const Vec<i32>& levelFound, const Vec<i32>& chance);
+
 // Pure: level-gap gate for certain specials. Returns 90, 50 or 10.
 i32 questLevelGapPercent(i32 charLvl, i32 monLvl);
 
