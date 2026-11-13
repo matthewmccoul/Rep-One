@@ -709,12 +709,4 @@ void companionCarryRun(Ctx& ctx, Party& party, Vec<Companion>& companions) {
     (void)companions;
 }
 
-// Help cry threshold. UNKNOWN: the SRD part gives the two constants but not how they combine;
-// a help cry is needed when hits are below either threshold.
-bool helpCryNeeded(const Vitals& v) {
-    // SRD ch17 [c11]: CurHits <= MaxHits * 0.1 (inclusive, as in the reference HelpCry.cs:31)
-    return v.curHits < kHelpCryHitsBelow ||
-           static_cast<double>(v.curHits) <= kHelpCryFraction * static_cast<double>(v.maxHits);
-}
-
 }  // namespace mordor

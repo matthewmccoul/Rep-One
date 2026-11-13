@@ -355,6 +355,6 @@ void companionCarryRun(Ctx& ctx, Party& party, Vec<Companion>& companions);
 // ---- quick-reference formulas ----
 
 // Quick reference: help cry when CurHits < kHelpCryHitsBelow OR CurHits <= MaxHits * kHelpCryFraction.
-bool helpCryNeeded(const Vitals& v);
+
 
 }  // namespace mordor
