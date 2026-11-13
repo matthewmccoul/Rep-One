@@ -1,4 +1,5 @@
 #include "test_support.h"
+#include "mordor/death1b.h"
 #include "mordor/death2b.h"
 
 #include <cmath>
@@ -12,24 +13,18 @@ TEST(old_age_constants_match_srd) {
 }
 
 TEST(old_age_percent_zero_age_is_zero) {
-    mordor::Character ch;
-    ch.ageDays = 0;
-    CHECK(mordor::oldAgePercent(ch, 100) == 0.0);
+    CHECK(mordor::oldAgePercent(0, 100) == 0.0);
 }
 
 TEST(old_age_percent_full_max_age_is_100) {
     // 100 years of 365 days = 36500 days = 100% of a 100-year lifespan.
-    mordor::Character ch;
-    ch.ageDays = 36500;
-    CHECK(std::fabs(mordor::oldAgePercent(ch, 100) - 100.0) < 0.01);
+    CHECK(std::fabs(mordor::oldAgePercent(36500, 100) - 100.0) < 0.01);
 }
 
 TEST(old_age_percent_halves_when_lifespan_doubles) {
     // Same age, double the max age: half the percentage.
-    mordor::Character ch;
-    ch.ageDays = 36500;
-    double at100 = mordor::oldAgePercent(ch, 100);
-    double at200 = mordor::oldAgePercent(ch, 200);
+    double at100 = mordor::oldAgePercent(36500, 100);
+    double at200 = mordor::oldAgePercent(36500, 200);
     CHECK(std::fabs(at100 - 100.0) < 0.01);
     CHECK(std::fabs(at200 - 50.0) < 0.01);
 }

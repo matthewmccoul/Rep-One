@@ -15,7 +15,7 @@ inline constexpr double kOldAgeBaseChance = 5.0;  // R36 base term of the thresh
 // CONFLICT: quick reference names this raceLifespan; the term list names it RaceMaxAge. Treated as the same value.
 // UNKNOWN: race lifespan is not a field of GameData in this part; the caller supplies it in years.
 // VB '/' is floating-point division, so the age in years is fractional.
-double oldAgePercent(const Character& ch, i32 raceLifespanYears);
+
 
 // R36 death threshold 5 + Ln(pct-98) for pct >= 98.
 // UNKNOWN: at exactly pct == 98 the original's Ln(0) is a runtime error. The port guards it by
