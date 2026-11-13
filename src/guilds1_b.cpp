@@ -12,6 +12,7 @@
 //   ctx.data.races is indexed by Race; ctx.data.guilds by Guild.
 #include "mordor/guilds1.h"
 #include "mordor/math_util.h"
+#include "mordor/guilds2.h"
 
 namespace mordor {
 namespace {
@@ -402,20 +403,11 @@ CrestOutcome awardCrest(Ctx& ctx, Inventory& inventory, Guild guild) {
 // unknown guild. Quirk to keep when the tables are added: the Ninja branch has three
 // identical "Case Is < 120" tests, so Ninja and Master Ninja are unreachable.
 Str guildTitle(Guild guild, i32 level) {
-    // UNKNOWN: SRD title table not supplied. Only the Ninja values required by the
-    // failing tests are implemented: Assassin at 119, Shogun at 125 and 135.
-    // The Shogun threshold (somewhere in 120..125) and the Assassin band
-    // lower bound are assumed, not sourced.
-    if (guild == Guild::Ninja) {
-        if (level >= 120) {
-            return Str("Shogun");
-        }
-        if (level >= 100) {  // UNKNOWN: lower bound of Assassin band
-            return Str("Assassin");
-        }
-    }
-    // UNKNOWN: titles for all other guilds/levels not supplied; fallback kept.
-    return Str("Adventurer");
+    // One title table: GuildTitle (guilds2_b.cpp), which matches Mordor.Core's GuildTitles.Of.
+    GuildMembership m;
+    m.joined = true;
+    m.level = level;
+    return GuildTitle(m, guild);
 }
 
 // R68: new game. Installs the seeded guildmasters in guild order, filling only guilds
