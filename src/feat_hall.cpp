@@ -75,29 +75,9 @@ i64 hallGetI(const Session& s, i32 k, const char* field) {
   return hallParseI(featureStateOr(s, hallKey(k, field), Str()));
 }
 
-// VB CStr of a Currency held in 1/10000 gold: no trailing zeros, "0.25" style.
-Str hallCurrencyText(i64 v) {
-  bool neg = v < 0;
-  i64 a = neg ? -v : v;
-  i64 whole = a / 10000;
-  i64 frac = a % 10000;
-  Str out = neg ? "-" : "";
-  out += std::to_string(whole);
-  if (frac != 0) {
-    Str digits;
-    for (int d = 0; d < 4; ++d) {
-      digits += static_cast<char>('0' + frac / 1000);
-      frac = (frac % 1000) * 10;
-    }
-    while (!digits.empty() && digits.back() == '0') digits.pop_back();
-    out += "." + digits;
-  }
-  return out;
-}
-
 Str hallValueText(i32 k, i64 v) {
   if (k == kHallDeadliest) return "Monster id " + std::to_string(v);  // UNKNOWN: creature record value text (FRMHALL)
-  if (k == kHallWealthiest) return hallCurrencyText(v) + " gold";     // UNKNOWN: exact gold wording
+  if (k == kHallWealthiest) return formatCurrencyText(v, CurrencyFraction::TrimmedIfAny, true);     // UNKNOWN: exact gold wording
   if (k >= kHallFirstSkill && k <= kHallLastSkill) return std::to_string(v) + "%";  // UNKNOWN: skill percentage wording
   return std::to_string(v);
 }

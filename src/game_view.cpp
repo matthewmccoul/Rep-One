@@ -16,11 +16,7 @@ constexpr i32 kViewTownSections = 5;  // TownSection: Store, Confinement, Morgue
 
 // Currency is i64 in 1/10000 gold.
 Str viewGold(Currency c) {
-  const bool neg = c < 0;
-  const i64 a = neg ? -c : c;
-  const Str frac = toStr(a % 10000);
-  const Str pad(4 - frac.size(), '0');
-  return Str(neg ? "-" : "") + toStr(a / 10000) + "." + pad + frac;
+  return formatCurrencyText(c, CurrencyFraction::FourDigitsAlways, false);
 }
 
 Str raceName(Race r) {

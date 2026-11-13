@@ -95,4 +95,26 @@ Str featureStateOr(const Session& s, const Str& key, const Str& dflt) {
   return it == s.featureState.end() ? dflt : it->second;
 }
 
+// Signed decimal text of a Currency held in 1/10000 gold.
+// fraction selects how the fraction is printed; goldSuffix appends " gold".
+Str formatCurrencyText(Currency units, CurrencyFraction fraction, bool goldSuffix) {
+  const i64 v = static_cast<i64>(units);
+  const bool neg = v < 0;
+  const i64 a = neg ? -v : v;
+  const i64 whole = a / 10000;
+  const i64 frac = a % 10000;
+  Str out = neg ? Str("-") : Str();
+  out += toStr(whole);
+  if (frac != 0 || fraction == CurrencyFraction::FourDigitsAlways) {
+    Str digits = toStr(frac);
+    digits = Str(4 - digits.size(), '0') + digits;
+    if (fraction == CurrencyFraction::TrimmedIfAny) {
+      while (!digits.empty() && digits.back() == '0') digits.pop_back();
+    }
+    out += "." + digits;
+  }
+  if (goldSuffix) out += " gold";
+  return out;
+}
+
 }  // namespace mordor

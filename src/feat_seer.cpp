@@ -183,7 +183,7 @@ bool seerSearchPerson(Session& s, const Str& typed, Str& reply) {
   }
   const i64 fee = seerPersonFee(level);
   seerSetPendingPerson(s, c->name, level);
-  reply = "I can feel their presense.  I will need " + storeGoldText(fee) + " to attempt to locate " + c->name +
+  reply = "I can feel their presense.  I will need " + formatCurrencyText(fee, CurrencyFraction::TrimmedIfAny, true) + " to attempt to locate " + c->name +
           ".\nIs this acceptable?";
   return true;
 }

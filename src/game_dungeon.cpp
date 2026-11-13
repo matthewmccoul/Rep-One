@@ -433,22 +433,6 @@ bool changeLevel(Session& s, Ctx& ctx, i32 delta, Str& reply) {
 }  // namespace
 
 
-// Currency is in 1/10000 gold.
-static Str goldText(i64 units) {
-    const i64 whole = units / 10000;
-    const i64 frac = units % 10000;
-    Str out = toStr(whole);
-    if (frac != 0) {
-        out += ".";
-        i64 d = 1000;
-        while (d >= 1) {
-            out += static_cast<char>('0' + ((frac / d) % 10));
-            d /= 10;
-        }
-    }
-    return out + " gold";
-}
-
 static const char* chestTrapName(ChestTrap t) {
     switch (t) {
         case ChestTrap::PoisonGas: return "poison gas";
@@ -677,7 +661,7 @@ bool dungeonAction(Session& s, const Str& command0, Str& reply) {
                         break;
                     }
                 }
-                text += " Gold: each living member receives " + goldText(share) + ".";
+                text += " Gold: each living member receives " + formatCurrencyText(share, CurrencyFraction::FourDigitsIfAny, true) + ".";
                 if (placed > 0) text += " " + toStr(placed) + " item(s) go into the party's packs.";
                 if (itemsLeft > 0) text += " " + toStr(itemsLeft) + " item(s) did not fit and are lost.";
             } else {

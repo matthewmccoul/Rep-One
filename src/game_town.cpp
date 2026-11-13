@@ -402,34 +402,6 @@ void doBuy(Ctx& ctx, Session& s, i64 row, i32 idx, Str& reply) {
 }
 
 }  // namespace
-// ch.16 sale rule (half of price) is applied by storeSale.
-// UNKNOWN: whether the gold goes to the named member or the leader; the purse gain of the
-// named member decides success. The sold item is cleared only when gold was gained.
-// ---- src/game_town.cpp :: doSell
-// SIGNATURE CHANGED: now takes Session& so the sold item can go on s.town.store.
-// The townAction call site must pass s (see NEED below). The prototype, if any, must match.
-// Whole gold with up to four decimals, trailing zeros dropped (e.g. "12 gold", "0.5 gold").
-// Never prints raw 1/10000 units.
-Str storeGoldText(Currency units) {
-    const Currency perGold = 10000;
-    const bool negative = units < 0;
-    const Currency magnitude = negative ? -units : units;
-    const Currency whole = magnitude / perGold;
-    Currency frac = magnitude % perGold;
-    Str out = negative ? Str("-") : Str();
-    out += toStr(static_cast<i64>(whole));
-    if (frac != 0) {
-        Str digits;
-        for (int d = 0; d < 4; ++d) {
-            digits.push_back(static_cast<char>('0' + static_cast<int>(frac / 1000)));
-            frac = (frac % 1000) * 10;
-        }
-        while (!digits.empty() && digits.back() == '0') digits.pop_back();
-        out += "." + digits;
-    }
-    out += " gold";
-    return out;
-}
 namespace {
 
 // FIXED: removed the second, identical definition of storeGoldText (it was a redefinition
@@ -496,10 +468,10 @@ void doSell(Ctx& ctx, Session& s, i32 slot, i32 idx, Str& reply) {
 
     if (shelves) {
         note(ctx, reply, "town.sell",
-             "Sold " + name + " for " + storeGoldText(quote) + " and put it on the shelf.");
+             "Sold " + name + " for " + formatCurrencyText(quote, CurrencyFraction::TrimmedIfAny, true) + " and put it on the shelf.");
     } else {
         note(ctx, reply, "town.sell",
-             "Sold " + name + " for " + storeGoldText(quote) + ". The store does not shelve it.");
+             "Sold " + name + " for " + formatCurrencyText(quote, CurrencyFraction::TrimmedIfAny, true) + ". The store does not shelve it.");
     }
 }
 

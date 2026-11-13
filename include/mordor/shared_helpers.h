@@ -46,6 +46,12 @@ Str featureStateOr(const Session& s, const Str& key, const Str& dflt);
 bool parseInt(const Str& t, i32& out);
 Str toStr(i64 v);
 bool confParseIndex(const Str& w, i32& out);
-Str storeGoldText(Currency units);
+enum class CurrencyFraction {
+  FourDigitsAlways,  // "12.0000"
+  FourDigitsIfAny,   // "0.5000"; whole gold alone when the fraction is zero
+  TrimmedIfAny       // "0.5"; trailing zeros dropped; whole gold alone when the fraction is zero
+};
+// Signed decimal text of a Currency held in 1/10000 gold.
+Str formatCurrencyText(Currency units, CurrencyFraction fraction, bool goldSuffix);
 Vec<Str> splitWords(const Str& text);
 }  // namespace mordor
