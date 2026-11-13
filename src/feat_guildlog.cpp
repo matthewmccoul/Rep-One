@@ -5,6 +5,7 @@
 #include "mordor/access.h"
 #include "mordor/state_common.h"
 #include "mordor/shared_helpers.h"
+#include "mordor/parse.h"
 
 namespace mordor {
 namespace {
@@ -27,21 +28,9 @@ namespace {
 
 // Parses a decimal integer without exceptions. ok is false on any non-digit.
 i64 glParseInt(const Str& t, bool& ok) {
-  ok = false;
-  size_t i = 0;
-  bool neg = false;
-  if (i < t.size() && t[i] == '-') {
-    neg = true;
-    ++i;
-  }
-  if (i >= t.size()) return 0;
   i64 v = 0;
-  for (; i < t.size(); ++i) {
-    if (t[i] < '0' || t[i] > '9') return 0;
-    v = v * 10 + static_cast<i64>(t[i] - '0');
-  }
-  ok = true;
-  return neg ? -v : v;
+  ok = parseDecimal(t, v, true, 0, -1);
+  return ok ? v : 0;
 }
 
 Str glTrim(const Str& t) {

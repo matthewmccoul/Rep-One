@@ -7,6 +7,7 @@
 #include "mordor/features.h"
 #include "mordor/death3.h"
 #include "mordor/shared_helpers.h"
+#include "mordor/parse.h"
 
 namespace mordor {
 namespace {
@@ -37,22 +38,9 @@ constexpr i32 kRescuePayerMember = 1;
 
 // Digits with an optional leading '-'. No exceptions, so no std::stoi.
 bool rescueParseInt(const Str& text, i32& out) {
-  if (text.empty()) return false;
-  size_t i = 0;
-  bool neg = false;
-  if (text[0] == '-') {
-    neg = true;
-    i = 1;
-    if (text.size() == 1) return false;
-  }
-  i32 v = 0;
-  for (; i < text.size(); ++i) {
-    const char c = text[i];
-    if (c < '0' || c > '9') return false;
-    v = v * 10 + static_cast<i32>(c - '0');
-    if (v > 1000000000) return false;
-  }
-  out = neg ? -v : v;
+  i64 v = 0;
+  if (!parseDecimal(text, v, true, 0, 1000000000)) return false;
+  out = static_cast<i32>(v);
   return true;
 }
 

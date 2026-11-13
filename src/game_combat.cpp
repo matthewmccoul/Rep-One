@@ -15,6 +15,7 @@
 #include "mordor/death1a.h"
 #include "mordor/progression2.h"
 #include "mordor/shared_helpers.h"
+#include "mordor/parse.h"
 
 namespace mordor {
 namespace {
@@ -39,14 +40,8 @@ Str lowerStr(const Str& t) {
 }  // namespace
 // Unsigned decimal parse; rejects anything that is not digits.
 bool parseInt(const Str& t, i32& out) {
-    if (t.size() == 0) return false;
     i64 v = 0;
-    for (std::size_t i = 0; i < t.size(); ++i) {
-        char c = t[i];
-        if (c < '0' || c > '9') return false;
-        v = v * 10 + (c - '0');
-        if (v > 1000000) return false;
-    }
+    if (!parseDecimal(t, v, false, 0, 1000000)) return false;
     out = static_cast<i32>(v);
     return true;
 }

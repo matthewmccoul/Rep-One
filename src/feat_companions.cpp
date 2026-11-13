@@ -7,6 +7,7 @@
 #include "mordor/game.h"
 #include "mordor/state_common.h"
 #include "mordor/shared_helpers.h"
+#include "mordor/parse.h"
 
 namespace mordor {
 namespace {
@@ -20,13 +21,9 @@ constexpr i32 kBindingForLife = 100;
 
 
 bool companionsParseNumber(const Str& text, i32& out) {
-  if (text.empty() || text.size() > 2) return false;
-  i32 v = 0;
-  for (char ch : text) {
-    if (ch < '0' || ch > '9') return false;
-    v = v * 10 + (ch - '0');
-  }
-  out = v;
+  i64 v = 0;
+  if (!parseDecimal(text, v, false, 2, -1)) return false;
+  out = static_cast<i32>(v);
   return true;
 }
 

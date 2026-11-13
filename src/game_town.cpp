@@ -19,6 +19,7 @@
 #include "mordor/progression2b.h"
 #include "mordor/store_prices.h"
 #include "mordor/shared_helpers.h"
+#include "mordor/parse.h"
 
 namespace mordor {
 namespace {
@@ -67,23 +68,7 @@ Str lowered(const Str& w) {
 
 
 bool parseNum(const Str& w, i64& out) {
-    if (w.empty()) return false;
-    u32 i = 0;
-    bool neg = false;
-    if (w[0] == '-') {
-        neg = true;
-        i = 1;
-    }
-    if (i >= w.size()) return false;
-    i64 v = 0;
-    for (; i < w.size(); ++i) {
-        const char c = w[i];
-        if (c < '0' || c > '9') return false;
-        v = v * 10 + (c - '0');
-        if (v > 1000000000000LL) return false;
-    }
-    out = neg ? -v : v;
-    return true;
+    return parseDecimal(w, out, true, 0, 1000000000000LL);
 }
 
 // Player member number (1-based) to 0-based index.

@@ -7,6 +7,7 @@
 #include "mordor/features.h"
 #include "mordor/access.h"
 #include "mordor/shared_helpers.h"
+#include "mordor/parse.h"
 
 namespace mordor {
 namespace {
@@ -28,13 +29,8 @@ i32 duseAbs(i32 v) { return v < 0 ? -v : v; }
 
 // Digits only, bounded. Rejects signs and empty words.
 bool duseParseIndex(const Str& w, i32& out) {
-  if (w.empty()) return false;
   i64 v = 0;
-  for (char ch : w) {
-    if (ch < '0' || ch > '9') return false;
-    v = v * 10 + (ch - '0');
-    if (v > 100000) return false;
-  }
+  if (!parseDecimal(w, v, false, 0, 100000)) return false;
   out = static_cast<i32>(v);
   return true;
 }

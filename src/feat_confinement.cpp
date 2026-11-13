@@ -3,6 +3,7 @@
 #include "mordor/access.h"
 #include "mordor/city1.h"
 #include "mordor/shared_helpers.h"
+#include "mordor/parse.h"
 
 namespace mordor {
 namespace {
@@ -10,13 +11,9 @@ namespace {
 }  // namespace
 // Parses a plain decimal word without exceptions. Returns false on anything else.
 bool confParseIndex(const Str& w, i32& out) {
-  if (w.empty() || w.size() > 6) return false;
-  i32 v = 0;
-  for (char c : w) {
-    if (c < '0' || c > '9') return false;
-    v = v * 10 + static_cast<i32>(c - '0');
-  }
-  out = v;
+  i64 v = 0;
+  if (!parseDecimal(w, v, false, 6, -1)) return false;
+  out = static_cast<i32>(v);
   return true;
 }
 namespace {
