@@ -37,40 +37,6 @@ i64 minI64(i64 a, i64 b) {
 
 }  // namespace
 
-// R1: inflicted = min(dmg, max(0, target.Hits)).
-i32 inflictedHits(i32 rawDamage, i32 targetHits) {
-    const i32 pool = targetHits > 0 ? targetHits : 0;
-    return rawDamage < pool ? rawDamage : pool;
-}
-
-// R2: per-blow award.
-// Engine: xp = h*(9-Ln(h+1))*(20-Ln(h))*(monGL+50)*cf/(1000*(1+curGL/333));
-//         award = Round((1-(partySize-1)*0.04) * Round(xp)).
-BlowAward blowExperience(i64 inflicted, i32 monsterGuildLevel, i32 attackerGuildLevel,
-                         bool byCompanion, i32 partySize, i32 companionOwnerIndex) {
-    BlowAward out;
-    out.creditOwner = byCompanion;
-    out.ownerIndex = byCompanion ? companionOwnerIndex : -1;
-
-    // R2 step 3: award is zero when h = 0.
-    if (inflicted <= 0) {
-        return out;
-    }
-
-    const double h = static_cast<double>(inflicted);
-    const double companionFactor = byCompanion ? 0.25 : 1.0;  // R2 step 2
-    const double guildFactor =
-        1.0 / (1.0 + static_cast<double>(attackerGuildLevel) / kChestGuildScaleD);
-    const double raw = h * (9.0 - std::log(h + 1.0)) * (20.0 - std::log(h)) *
-                       (static_cast<double>(monsterGuildLevel) + 50.0) * companionFactor *
-                       guildFactor / 1000.0;
-    // CONFLICT: rounding resolved to the engine (round, party factor, round) [c18].
-    const i64 xpRounded = roundHalfEven(raw);
-    const double partyFactor = 1.0 - (partySize - 1) * kPartyStepPerMember;
-    out.xp = roundHalfEven(partyFactor * static_cast<double>(xpRounded));
-    return out;
-}
-
 // R3: clamp at the cap, plus the payout path [c37].
 // gained = 0 if already pinned, else min(award, cap - total).
 // total += gained; a total above the pin is pulled back to the pin.
@@ -110,109 +76,10 @@ i64 giveExperience(Ctx& ctx, Character& ch, Guild g, i64 award) {
     return gained > 0 ? gained : 0;
 }
 
-// R4: chest trap disarmed. Paid only when Fight.ChestTrap > 0.
-// Engine (MONSMOD.BAS:3508-3509): xp = disarm*(GL/2)/(1+firstGL/333);
-// award = Round(party * Round(xp)).
-// UNKNOWN: scale of disarmChance (abilityChance). Used as given.
-i64 chestTrapExperience(i32 fightChestTrap, double disarmChance, i32 monsterGuildLevel,
-                        i32 firstMemberGuildLevel, i32 partySize) {
-    if (fightChestTrap <= 0) {
-        return 0;
-    }
-    const double xp = disarmChance * (static_cast<double>(monsterGuildLevel) / 2.0) /
-                      (1.0 + static_cast<double>(firstMemberGuildLevel) / kChestGuildScaleD);
-    const i64 xpRounded = roundHalfEven(xp);
-    const double partyFactor = 1.0 - (partySize - 1) * kPartyStepPerMember;
-    return roundHalfEven(partyFactor * static_cast<double>(xpRounded));
-}
-
 // R5: ExperienceCap = Fn13ED(level) = Fn12A1(level+1) - 1.
 i64 experienceCap(const Ctx& ctx, const Character& ch, Guild g) {
     const GuildMembership& m = ch.guilds[static_cast<u32>(g)];
     return levelThresholdXp(m.level + 1, guildExpFactor(ctx, g), raceExpFactor(ctx, ch.race)) - 1;
-}
-
-// R5 toolbar [c17]:
-//   needed = ExpForNextLevel(); if exp < needed: Short(needed - exp)
-//   cap = ExperienceCap(); exp at cap: Pinned; else Ready(cap - exp)
-ToolbarNeed progressToolbar(const Ctx& ctx, const Character& ch, Guild g) {
-    const GuildMembership& m = ch.guilds[static_cast<u32>(g)];
-    ToolbarNeed out;
-
-    const i64 needed =
-        levelThresholdXp(m.level, guildExpFactor(ctx, g), raceExpFactor(ctx, ch.race));
-    if (m.experience < needed) {
-        out.kind = ToolbarKind::Short;
-        out.amount = needed - m.experience;
-        return out;
-    }
-
-    const i64 cap = experienceCap(ctx, ch, g);
-    // CONFLICT: engine uses exp == cap [c17]; documentation and port use
-    // "at or above cap shows Pinned" so a drained pin is not shown negative [c36].
-    if (m.experience >= cap) {
-        out.kind = ToolbarKind::Pinned;
-        out.amount = 0;
-        return out;
-    }
-    out.kind = ToolbarKind::Ready;
-    out.amount = cap - m.experience;
-    return out;
-}
-
-// R8/R9: ceiling MaxHits = min(MaxHits, 999).
-i32 capMaxHits(i32 maxHits) {
-    return maxHits < kHitCap ? maxHits : kHitCap;
-}
-
-// R8 step 4: refill spell points on each level.
-// UNKNOWN: refill amount beyond "refill" is not in SRD; full refill used.
-void refillSpellPoints(Character& ch) {
-    ch.vitals.curSpellPoints = ch.vitals.maxSpellPoints;
-}
-
-// R8 step 4: recalculate swings on each level.
-// UNKNOWN: swing formula is not in this SRD part. No-op until supplied.
-void recalculateSwings(Character& ch) {
-    static_cast<void>(ch);
-}
-
-// R10: award-level step [c28]:
-//   step = ((Int(cap)/2) + (acc/18)) / (AdEvery + bonus), rounded to Integer.
-// UNKNOWN: acc and bonus meanings; zero divisor guarded to 0.
-i32 adAwardStep(i64 experienceCapValue, i32 acc, i32 adEvery, i32 bonus) {
-    const double divisor = static_cast<double>(adEvery + bonus);
-    if (divisor == 0.0) {
-        return 0;
-    }
-    const double numerator = static_cast<double>(experienceCapValue) / 2.0 +
-                             static_cast<double>(acc) / 18.0;
-    return static_cast<i32>(roundHalfEven(numerator / divisor));
-}
-
-// R10: the level test is "level Mod step = 0" and only through AdMaxLevel.
-// Guards: a non-positive step or level never awards.
-bool isAdAwardLevel(i32 level, i32 step, i32 adMaxLevel) {
-    if (step <= 0 || level <= 0) {
-        return false;
-    }
-    if (level > adMaxLevel) {
-        return false;
-    }
-    return (level % step) == 0;
-}
-
-// R10: attack and defence grant on a qualifying level.
-void grantLevelAd(Ctx& ctx, Character& ch, Guild g, i32 newLevel, i32 awardStep,
-                  const LevelAdRates& rates) {
-    if (!isAdAwardLevel(newLevel, awardStep, rates.adMaxLevel)) {
-        return;
-    }
-    GuildMembership& m = ch.guilds[static_cast<u32>(g)];
-    m.att += rates.attPerLevel;
-    m.def += rates.defPerLevel;
-    // UNKNOWN: message text not in SRD.
-    ctx.say("progression.adAward", "Your attack and defence improved.", {}, {});
 }
 
 // R12: fixed-point rounding to four decimal places (half-even).

@@ -58,51 +58,17 @@ inline constexpr i32 kCompanionKeepWindow = -1;
 
 // ---- declarations, grouped by rule number
 
-// R31 group-size rounding via engine CInt (audit's B rounding is UNKNOWN; argument form UNKNOWN [c7][c23])
-i32 groupSizeCInt(f64 value);
 
-// R32 attempts per group = min(living count, 5)
-i32 attackAttemptsPerGroup(i32 livingCount);
 
-// R45 member base hits: max(1, base Hits)
-i32 memberBaseHits(i32 baseHits);
 
-// R46 monster swing upper bound: Int(Hits * 0.5 / 2) + 1; bound not attained at every value
-i32 monsterSwingBound(i32 hits);
 
-// R50 lair placement roll (75%); whether area.lairId gates the roll is UNKNOWN [c7][c91]
-bool rollLairPlacement(Ctx& ctx, const Area& area);
 
-// Quick ref respawn (engine): 150 * level seconds
-i64 respawnLevelSeconds(i32 level);
 
-// Quick ref respawn area term: 5 seconds per empty area below header count
-// UNKNOWN: operand meaning of headerCount/emptiedCount; full sub0A91 formula not supplied [c13][c24][c66]
-i64 respawnEmptyAreaSeconds(i32 headerCount, i32 emptiedCount);
 
-// Quick ref join chance threshold: max(0, 10*natCha - 10*(monsterFloor-1))
-// UNKNOWN: natural vs effective CHA; LevelFound vs guild floor vs mLvl [c23][c25][c97]
-i32 joinChanceThreshold(i32 naturalCha, i32 monsterFloor);
 
-// Quick ref join roll: draws 1d3000 from ctx.rng; success when roll <= threshold
-// CONFLICT: <= (audit, wiki) vs < (fidelity) [c23][c25][c97]; this uses <=
-bool joinChanceRoll(Ctx& ctx, i32 naturalCha, i32 monsterFloor);
 
-// Log(CHA) clamp to the engine minimum of 1 [c18]
-// CONFLICT: audit gives no clamp [c25]
-f64 clampLogCha(f64 logCha);
 
-// Neutral-friendliness gate: lead's alignment is Neutral (engine "AlignmentValue==1" [c7])
-// CONFLICT: whether a viewer-alignment check applies to non-good viewers is UNKNOWN [c5][c25]
-bool neutralGateMet(const Character& lead);
 
-// Companion spawn mode to table index mapping (audit [c24]): 4->4, 5->5, 6->4, >7 -> mode-7,
-// mode 7 keeps window; returns kCompanionKeepWindow for window modes.
-// CONFLICT: fidelity [c31] describes modes 0-2 as floor windows; mode 3 UNKNOWN.
-i32 companionModeTableIndex(i32 spawnMode);
 
-// Newbie guard: true when a monster of this guild level is excluded for the lead
-// (guild level > kNewbieMonsterGuildCap). Trigger for the newbie state is UNKNOWN; caller checks it.
-bool newbieGuardExcludes(const Character& lead, i32 monsterGuildLevel);
 
 }  // namespace mordor

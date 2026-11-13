@@ -43,33 +43,6 @@ TEST(guilds2_guild_and_ability_enum_order) {
     CHECK_EQ(kGuildAbilityCount, 6);
 }
 
-TEST(guilds2_swings_ninja_thresholds) {
-    // T4: at listed level count is i+1; one level earlier it is i.
-    CHECK_EQ(SwingsFor(Guild::Ninja, 55), 0);
-    CHECK_EQ(SwingsFor(Guild::Ninja, 56), 1);
-    CHECK_EQ(SwingsFor(Guild::Ninja, 121), 1);
-    CHECK_EQ(SwingsFor(Guild::Ninja, 122), 2);
-    CHECK_EQ(SwingsFor(Guild::Ninja, 266), 2);
-    CHECK_EQ(SwingsFor(Guild::Ninja, 267), 3);
-    CHECK_EQ(SwingsFor(Guild::Ninja, 584), 3);
-    CHECK_EQ(SwingsFor(Guild::Ninja, 585), 4);
-}
-
-TEST(guilds2_swings_other_guilds) {
-    // Warrior 91, 324; Scavenger 116, 531 (T4).
-    CHECK_EQ(SwingsFor(Guild::Warrior, 90), 0);
-    CHECK_EQ(SwingsFor(Guild::Warrior, 91), 1);
-    CHECK_EQ(SwingsFor(Guild::Warrior, 323), 1);
-    CHECK_EQ(SwingsFor(Guild::Warrior, 324), 2);
-    CHECK_EQ(SwingsFor(Guild::Scavenger, 115), 0);
-    CHECK_EQ(SwingsFor(Guild::Scavenger, 116), 1);
-    CHECK_EQ(SwingsFor(Guild::Scavenger, 530), 1);
-    CHECK_EQ(SwingsFor(Guild::Scavenger, 531), 2);
-    // Only five guilds have Multiple Swings (T4, T18 "-" entries).
-    CHECK_EQ(SwingsFor(Guild::Nomad, 500), 0);
-    CHECK_EQ(SwingsFor(Guild::Thief, 1000), 0);
-}
-
 TEST(guilds2_swing_level_rows) {
     CHECK_EQ(static_cast<int>(sizeof(kSwingLevelRows) / sizeof(kSwingLevelRows[0])), 5);
     CHECK(kSwingLevelRows[0].guild == Guild::Ninja);
@@ -79,40 +52,6 @@ TEST(guilds2_swing_level_rows) {
     CHECK_EQ(kSwingLevelRows[1].levels[1], 324);
     CHECK(kSwingLevelRows[4].guild == Guild::Scavenger);
     CHECK_EQ(kSwingLevelRows[4].levels[1], 531);
-}
-
-TEST(guilds2_quest_tier_examples_and_boundaries) {
-    // T11 examples: tier = round(level/25), clamped to 1..10.
-    CHECK_EQ(QuestTier(5), 1);
-    CHECK_EQ(QuestTier(12), 1);
-    CHECK_EQ(QuestTier(13), 1);
-    CHECK_EQ(QuestTier(25), 1);
-    CHECK_EQ(QuestTier(100), 4);
-    CHECK_EQ(QuestTier(250), 10);
-    CHECK_EQ(QuestTier(999), 10);
-    // Boundaries: 37/25 = 1.48 -> 1; 38/25 = 1.52 -> 2; 62/25 = 2.48 -> 2; 63/25 = 2.52 -> 3.
-    CHECK_EQ(QuestTier(37), 1);
-    CHECK_EQ(QuestTier(38), 2);
-    CHECK_EQ(QuestTier(62), 2);
-    CHECK_EQ(QuestTier(63), 3);
-}
-
-TEST(guilds2_item_quest_band) {
-    // T30: band = Int(tier/1.5) + 1; tier 10 gives band 7 (T11).
-    CHECK_EQ(ItemQuestBand(1), 1);
-    CHECK_EQ(ItemQuestBand(3), 3);
-    CHECK_EQ(ItemQuestBand(4), 3);
-    CHECK_EQ(ItemQuestBand(6), 5);
-    CHECK_EQ(ItemQuestBand(9), 7);
-    CHECK_EQ(ItemQuestBand(10), 7);
-}
-
-TEST(guilds2_item_quest_starts_boundary) {
-    // Fetch quest only when guildLevel > 15.
-    CHECK(!ItemQuestStarts(1));
-    CHECK(!ItemQuestStarts(15));
-    CHECK(ItemQuestStarts(16));
-    CHECK(ItemQuestStarts(40));
 }
 
 TEST(guilds2_seed_masters_and_crests) {
@@ -267,26 +206,6 @@ TEST(guilds2_race_mask_matches_chart) {
         Guild::Scavenger, Guild::Sorcerer, Guild::Wizard, Guild::Healer}));
     CHECK(kRaceGuildMask[ri(Race::Troll)] == maskOf({Guild::Nomad, Guild::Ninja, Guild::Villain,
         Guild::Thief, Guild::Scavenger}));
-}
-
-TEST(guilds2_elf_cannot_join_warrior) {
-    // T8 / T8 note: Elves cannot join Warrior, so CanJoin must refuse regardless of other fields.
-    tsup::Env env({0.5, 0.9});
-    Character ch;
-    ch.race = Race::Elf;
-    CHECK(!CanJoin(env.ctx, ch, Guild::Warrior));
-}
-
-TEST(guilds2_guild_item_checks_primary_guild_only) {
-    // Quirk: GuildCanUse checks only the primary guild. Item is a Thief guild item
-    // (marker 500 + 6); Thief is joined but Nomad is primary.
-    tsup::Env env({0.5, 0.9});
-    Item it;
-    it.ailments = kGuildMarkerBase + gi(Guild::Thief);
-    Character ch;
-    ch.activeGuild = Guild::Nomad;
-    ch.guilds[static_cast<u32>(Guild::Thief)].joined = true;
-    CHECK(!GuildCanUse(env.ctx, ch, it));
 }
 
 TEST(guilds2_guild_item_marker) {

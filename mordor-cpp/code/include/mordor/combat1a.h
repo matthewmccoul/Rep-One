@@ -76,8 +76,6 @@ bool monsterHasBit(const Creature& m, i32 bit);
 
 // ---- R1 Arrival into an engaged group ----
 
-// R1 arrival combat starts only if group is non-empty, hostile (group[0]) and has a living member
-bool arrivalCombatStarts(const MonsterGroup& group);
 // R1 monster arrival round and StartCombat/MonstersRound/EndCombat are owned by other modules (not declared here)
 
 // ---- R2-R6 Character turn order and aim ----
@@ -87,28 +85,14 @@ bool aimMustMove(const Encounter& enc, i32 aimedGroup);
 // R3 further swings stay on the aimed group while it stands; otherwise aim moves to fn0DCD(-1)
 // UNKNOWN: fn0DCD body not given in source; returns -1 as placeholder
 i32 furtherSwingAim(const Encounter& enc, i32 aimedGroup);
-// R4 combat setting applies only to characters with no order
-bool combatSettingApplies(const CombatOrder& order);
-// R5 retargeting when the aimed group is gone: use retarget() from clock.h (already declared)
-// R6 an order of Defend suppresses the character's own attack
-bool defendSuppressesAttack(const CombatOrder& order);
 
 // ---- R7-R12 Weapon swings and extra swings ----
 
 // R7 swings per equipped weapon = actor swings + weapon swings
 i32 swingsPerWeapon(i32 actorSwings, i32 weaponSwings);
-// R8 no weapon or total swings below 1: "Using no weapon!" and actor put on Defend; returns true if applied
-// UNKNOWN: whether the "Hands" item (2 swings) counts as an equipped weapon (decides hasWeapon)
-bool applyNoWeaponDefend(Ctx& ctx, Character& actor, bool hasWeapon, i32 totalSwings);
 // R9 every equipped weapon is used (port replaces the original two-hand loop); returns indices into inv.worn
 // UNKNOWN: weapon classification of worn items; equipped flag used as the test
 Vec<i32> equippedWeaponSlots(const Inventory& inv);
-// R10 extra swings from Multiple Swings coefficient m at guildLevel (threshold ladder with round half to even)
-i32 extraSwingsFromMultiple(f64 m, i32 guildLevel);
-// R11 swings never fall; returns the higher of current swings and the award (guilds do not stack)
-i32 raiseSwingsIfHigher(i32 currentSwings, i32 award);
-// R10/R11 recompute Character.combat.swings from every joined guild (Character.RecalcSwings)
-void recalcSwings(Ctx& ctx, Character& c);
 // R12 milestone tables: see kMaxExtraSwings and kCommunityMilestones above
 
 // ---- R13-R15 Weapon effect gates ----
@@ -119,13 +103,9 @@ bool weaponBlockedByNeedsGoodWeapon(const Creature& target, i32 weaponFloor);
 bool weaponNullifiedByImmunity(const Creature& target);
 // R15 weapon gate summary; bit 4 is tested before bit 5
 WeaponGateOutcome checkWeaponGate(const Creature& target, i32 weaponFloor);
-// R13 blocked hand is finished: actor switched to Defend and its item order cleared (party slot)
-void applyBlockedHandDefend(Ctx& ctx, Party& party, i32 actorSlot);
 
 // ---- R16-R19 Physical hit gate and damage ----
 
-// R16 unseen flag passed to damage when target is invisible and actor lacks See Invisible
-bool swingUnseen(const Character& actor, const Creature& target);
 // R17 fn0DEE: shared hit gate and damage routine (engine form); returns damage, 0 on miss
 i32 meleeHitAndDamage(Ctx& ctx, i32 atk, i32 def, i32 level, i32 strength, f64 damMod);
 // R18 hit-gate threshold as percent, clamped to [2, 98]; 50 when atk and def are both 0
@@ -151,10 +131,6 @@ f64 meleeBaseFactor(i32 guildLevel, f64 fightingMod);
 f64 characterDamageMod(i32 guildLevel, f64 fightingMod, f64 weaponMod, bool crit, bool backstab, bool invisibleTarget, i32 sizeDiff);
 // R16/R23 Rules.CharacterDamage: modifier then fn0DEE with defence kPlayerMeleeDefence; returns damage
 i32 characterDamage(Ctx& ctx, i32 guildLevel, f64 fightingMod, f64 weaponMod, i32 strength, i32 sizeDiff, bool crit, bool backstab, i32 attack, bool unseen);
-// R25 companion melee gate defence: target defence plus crit and backstab bonuses on the defence side; no size term
-i32 companionGateDefence(i32 targetDefence, bool crit, bool backstab);
-// R25 companion melee modifier: halved against an unseen target
-f64 companionDamageMod(f64 baseMod, bool unseen);
 // R26 fighting guild whose melee factor is largest among joined guilds
 // UNKNOWN: which guild level the port passes to characterDamage; the audit only says pick the largest F
 i32 chooseFightingGuild(const Ctx& ctx, const Character& c);
@@ -163,26 +139,16 @@ i32 chooseFightingGuild(const Ctx& ctx, const Character& c);
 
 // R28 a character with Hits at nought or below goes through sub0930 when a group picks a target
 bool needsDeathProcessing(const Character& c);
-// R28 sub0E85 leaves at once for anyone with a DeathState
-bool leavesRoundAtOnce(const Character& c);
 // R28 a member killed mid-round: companions released, ailments cleared, party saved and pruned (sub0930)
 void processMidRoundDeath(Ctx& ctx, Party& party, i32 memberIndex);
-// R29 the round loop ends only when one member is left; a lone survivor of two escapes the remaining groups
-bool roundLoopEnds(i32 membersLeft);
 // Original quirk (R29): a lone character killed by a companion's mishap gets one draw and no blow (no declaration; companions module)
 
 // ---- R30 Experience timing ----
 
-// R30 experience paid as each blow lands; "now pinned." and level messages judged by totals before and after the award
-// UNKNOWN: bodies of sub0CDF, sub0F11 and fn12A1 are not given in source
-void awardBlowExperience(Ctx& ctx, Character& actor, i64 xp);
 
 // ---- R31 Damage and kill records ----
 
 // R31 recorded hits = min(hits taken, monster hits remaining); overkill is not counted
 i32 recordedHitsFor(i32 hitsTaken, i32 monsterHpRemaining);
-// R31 records raised per monster struck: a killing blow raises damage then kill; charmed raises kill only;
-// companion damage and kills are credited to the owner (owner passed as owner)
-void recordMonsterStrike(Ctx& ctx, Character& owner, const Creature& target, i32 hitsTaken, bool killingBlow, bool charmed, bool companionCredit);
 
 }  // namespace mordor

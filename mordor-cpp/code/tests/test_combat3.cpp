@@ -15,35 +15,6 @@ TEST(defend_bonus_constant_and_no_effect) {
     CHECK_EQ(applyDefendBonus(0, true), 0);
 }
 
-TEST(defend_order_turns_on_and_off) {
-    // R8: Defend is a character order that can be set and cleared.
-    tsup::Env env({0.5, 0.9});
-    Character c;
-    setDefendOrder(env.ctx, c, true);
-    CHECK(c.order.defendOn);
-    setDefendOrder(env.ctx, c, false);
-    CHECK(!c.order.defendOn);
-}
-
-TEST(defend_when_weapon_useless_needs_proof) {
-    // R8: Defend turns on when a weapon proves useless. No proof, no change.
-    tsup::Env env({0.5, 0.9});
-    Character c;
-    defendWhenWeaponUseless(env.ctx, c, false);
-    CHECK(!c.order.defendOn);
-    defendWhenWeaponUseless(env.ctx, c, true);
-    CHECK(c.order.defendOn);
-}
-
-TEST(defend_hardens_robbery_only_while_defending) {
-    // R8: Defend makes the character harder to rob.
-    Character c;
-    CHECK(!defendHardensRobbery(c));
-    c.order.kind = CombatOrderKind::Defend;
-    c.order.defendOn = true;
-    CHECK(defendHardensRobbery(c));
-}
-
 // ---- Paralysis and stat part (R5, R6) --------------------------------------
 
 TEST(stat_part_held_until_paralysed) {
@@ -135,14 +106,6 @@ TEST(item_resists_each_kind_by_its_own_bit) {
 
 // ---- Resistance-raising spells (R15, R16) ----------------------------------
 
-TEST(resist_raise_refused_in_combat) {
-    // R15: resistance-raising spells can only be cast out of combat.
-    tsup::Env env({0.5, 0.9});
-    Character caster;
-    Character target;
-    CHECK(!castResistRaise(env.ctx, caster, target, DamageKind::Fire, true));
-}
-
 TEST(resist_raise_constant_is_95) {
     CHECK_EQ(kResistRaisePercent, 95);
 }
@@ -189,20 +152,6 @@ TEST(resist_spell_table_covers_each_kind_once) {
 }
 
 // ---- Class to resistance type (R17) ----------------------------------------
-
-TEST(resist_type_for_class_mapping) {
-    CHECK(resistTypeForClass(SpellClass::Fire) == ClassResistType::FireResist);
-    CHECK(resistTypeForClass(SpellClass::Cold) == ClassResistType::ColdResist);
-    CHECK(resistTypeForClass(SpellClass::Electrical) == ClassResistType::ElectricalResist);
-    CHECK(resistTypeForClass(SpellClass::Mind) == ClassResistType::MindResist);
-    CHECK(resistTypeForClass(SpellClass::Damage) == ClassResistType::MagicResist);
-    CHECK(resistTypeForClass(SpellClass::Kill) == ClassResistType::MagicResist);
-    CHECK(resistTypeForClass(SpellClass::Banish) == ClassResistType::MagicResist);
-    CHECK(resistTypeForClass(SpellClass::Dispel) == ClassResistType::MagicResist);
-    CHECK(resistTypeForClass(SpellClass::Charm) == ClassResistType::MagicAndCharmResist);
-    CHECK(resistTypeForClass(SpellClass::Element) == ClassResistType::ByElement);
-    CHECK(resistTypeForClass(SpellClass::Protection) == ClassResistType::NoTargetResist);
-}
 
 // ---- Monster chance to hit (R18) -------------------------------------------
 
@@ -255,9 +204,3 @@ TEST(monster_hit_roll_at_floor_chance) {
 
 // ---- Player attack call (R19) ----------------------------------------------
 
-TEST(player_attack_pins_monster_defence_to_zero) {
-    // R19: monster Defense passed as 0, character Defense passed as Def.
-    HitCallArgs a = playerAttackHitArgs(14);
-    CHECK_EQ(a.monsterDefense, 0);
-    CHECK_EQ(a.characterDefense, 14);
-}

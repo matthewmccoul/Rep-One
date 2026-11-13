@@ -65,20 +65,6 @@ bool monsterHasBit(const Creature& m, i32 bit) {
 // Setup, turn order and aim (R1-R6)
 // ---------------------------------------------------------------------------
 
-// R1: no effect if the group is empty, not hostile (first monster), or has no living member.
-bool arrivalCombatStarts(const MonsterGroup& group) {
-    if (group.count <= 0) {
-        return false;
-    }
-    if (!group.front.hostile) {
-        return false;
-    }
-    if (group.livingCount <= 0) {
-        return false;
-    }
-    return true;
-}
-
 // R2, R3, R5: aim must move if the aimed group is missing or no longer standing.
 bool aimMustMove(const Encounter& enc, i32 aimedGroup) {
     if (!validGroupIndex(aimedGroup)) {
@@ -97,16 +83,6 @@ i32 furtherSwingAim(const Encounter& enc, i32 aimedGroup) {
     return firstStandingGroup(enc);
 }
 
-// R4: the combat setting applies only to characters with no order.
-bool combatSettingApplies(const CombatOrder& order) {
-    return order.kind == CombatOrderKind::None;
-}
-
-// R6: an order of Defend suppresses the character's own attack.
-bool defendSuppressesAttack(const CombatOrder& order) {
-    return order.kind == CombatOrderKind::Defend;
-}
-
 // ---------------------------------------------------------------------------
 // Swings (R7-R12)
 // ---------------------------------------------------------------------------
@@ -114,17 +90,6 @@ bool defendSuppressesAttack(const CombatOrder& order) {
 // R7: swings = actor.Swings + w.Swings.
 i32 swingsPerWeapon(i32 actorSwings, i32 weaponSwings) {
     return actorSwings + weaponSwings;
-}
-
-// R8: no weapon or total swings below 1 -> "Using no weapon!" and actor on Defend.
-// Returns true when the no-weapon defend was applied.
-bool applyNoWeaponDefend(Ctx& ctx, Character& actor, bool hasWeapon, i32 totalSwings) {
-    if (hasWeapon && totalSwings >= 1) {
-        return false;
-    }
-    ctx.say("combat.no_weapon", "Using no weapon!", {}, {actor.name});
-    actor.order.kind = CombatOrderKind::Defend;
-    return true;
 }
 
 // R9: every equipped weapon slot in place of the two-hand loop.
@@ -140,49 +105,6 @@ Vec<i32> equippedWeaponSlots(const Inventory& inv) {
         }
     }
     return slots;
-}
-
-// R10: extra swings earned by the Multiple Swings ladder.
-//   step = ln(11 - m); T = B(50*step); for level 1..guildLevel:
-//     if level > T: extra++; T = B(2*T*step)
-// B = round half to even. Original threshold is an Integer (quirk); i64 used here.
-i32 extraSwingsFromMultiple(f64 m, i32 guildLevel) {
-    if (m <= 0.0) {
-        return 0;
-    }
-    // UNKNOWN: m >= 11 makes ln(11-m) undefined in the SRD; grant nothing.
-    if (m >= 11.0) {
-        return 0;
-    }
-    const f64 step = lnOf(10.0 - m + 1.0);
-    i64 threshold = roundHalfEven(step * 50.0);
-    i32 extra = 0;
-    for (i32 level = 1; level <= guildLevel; ++level) {
-        if (static_cast<i64>(level) > threshold) {
-            ++extra;
-            threshold = roundHalfEven(step * static_cast<f64>(threshold) * 2.0);
-        }
-    }
-    return extra;
-}
-
-// R11: swings never fall; a guild only raises the figure if it beats it.
-i32 raiseSwingsIfHigher(i32 currentSwings, i32 award) {
-    return award > currentSwings ? award : currentSwings;
-}
-
-// R10, R11: recompute the character's swing count from each guild's Multiple Swings rating.
-// UNKNOWN: SRD says m = guild.Abilities[3] (static guild data). GameData guild field names are
-// not visible here, so the per-character GuildMembership::abilityRating[kMultipleSwingsAbility]
-// is used as the nearest known source for m.
-void recalcSwings(Ctx& ctx, Character& c) {
-    (void)ctx;
-    for (i32 g = 0; g < kGuildCount; ++g) {
-        const u32 gi = static_cast<u32>(g);
-        const f64 m = static_cast<f64>(c.guilds[gi].abilityRating[static_cast<u32>(kMultipleSwingsAbility)]);
-        const i32 award = extraSwingsFromMultiple(m, c.guilds[gi].level);
-        c.combat.swings = raiseSwingsIfHigher(c.combat.swings, award);
-    }
 }
 
 // ---------------------------------------------------------------------------
@@ -208,26 +130,6 @@ WeaponGateOutcome checkWeaponGate(const Creature& target, i32 weaponFloor) {
         return WeaponGateOutcome::ImmuneNoEffect;
     }
     return WeaponGateOutcome::Pass;
-}
-
-// R13: hand finished, actor switched to Defend, item order cleared.
-// UNKNOWN: Character::order and Party::combatOrders both hold a CombatOrder; both are set to Defend.
-// The "hand finished" step is the caller's (weapon loop ends).
-void applyBlockedHandDefend(Ctx& ctx, Party& party, i32 actorSlot) {
-    (void)ctx;
-    if (actorSlot < 0 || actorSlot >= party.size) {
-        return;
-    }
-    const u32 s = static_cast<u32>(actorSlot);
-    party.itemOrders[s] = ItemOrder{};
-    party.members[s].order.kind = CombatOrderKind::Defend;
-    party.combatOrders[s].kind = CombatOrderKind::Defend;
-}
-
-// R16: unseen flag passed when the target is invisible and the actor lacks See Invisible.
-// UNKNOWN: "target is invisible" mapped to Creature::unseen.
-bool swingUnseen(const Character& actor, const Creature& target) {
-    return target.unseen && !actor.ailments.seeInvisible;
 }
 
 // ---------------------------------------------------------------------------
@@ -371,23 +273,6 @@ i32 characterDamage(Ctx& ctx, i32 guildLevel, f64 fightingMod, f64 weaponMod, i3
     return meleeHitAndDamage(ctx, attack, kPlayerMeleeDefence, guildLevel, strength, damMod);
 }
 
-// R25: companion defence gets +4 for crit and +1 for backstab (no size adjustment).
-i32 companionGateDefence(i32 targetDefence, bool crit, bool backstab) {
-    i32 d = targetDefence;
-    if (crit) {
-        d += kCompanionCritDefence;
-    }
-    if (backstab) {
-        d += kCompanionBackstabDefence;
-    }
-    return d;
-}
-
-// R25: companion modifier is halved against an unseen target.
-f64 companionDamageMod(f64 baseMod, bool unseen) {
-    return unseen ? baseMod / 2.0 : baseMod;
-}
-
 // R26: which guild's level is passed to CharacterDamage.
 // UNKNOWN: audit says "largest F", but guild fighting coefficients are static data whose field
 // names are not visible here. The active guild index is returned.
@@ -403,11 +288,6 @@ i32 chooseFightingGuild(const Ctx& ctx, const Character& c) {
 // R28: sub0930 runs when the character's Hits are at nought or below.
 bool needsDeathProcessing(const Character& c) {
     return c.vitals.curHits <= 0;
-}
-
-// R28: sub0E85 leaves at once for anyone with a DeathState.
-bool leavesRoundAtOnce(const Character& c) {
-    return c.isDead();
 }
 
 // R28: sub0930 for one member: ailments cleared, member saved, member pruned from the party.
@@ -443,50 +323,9 @@ void processMidRoundDeath(Ctx& ctx, Party& party, i32 memberIndex) {
     ctx.say("combat.member_pruned", "Party member removed after death.", {static_cast<i64>(memberIndex)}, {name});
 }
 
-// R29: the round loop ends when one member (or none) is left, so a lone survivor escapes the
-// remaining groups that round.
-bool roundLoopEnds(i32 membersLeft) {
-    return membersLeft <= 1;
-}
-
-// R30: experience is paid as each blow lands. Level message is judged by the total before and
-// after the award.
-// UNKNOWN: bodies of sub0CDF, sub0F11 and fn12A1 are not given. The "enough experience to make a
-// level" test is taken as experience crossing xpRequired. The "now pinned." message is not
-// implemented.
-void awardBlowExperience(Ctx& ctx, Character& actor, i64 xp) {
-    const i64 before = actor.experience;
-    actor.experience += xp;
-    const bool readyBefore = before >= actor.xpRequired;
-    const bool readyAfter = actor.experience >= actor.xpRequired;
-    if (!readyBefore && readyAfter) {
-        ctx.say("combat.level_ready", "now has enough experience to make a level.", {}, {actor.name});
-    }
-}
-
 // R31: recorded_hits = min(hits_taken, monster_hp_remaining).
 i32 recordedHitsFor(i32 hitsTaken, i32 monsterHpRemaining) {
     return hitsTaken < monsterHpRemaining ? hitsTaken : monsterHpRemaining;
-}
-
-// R31: per monster struck.
-//   - not charmed: one damage record with recorded hits (credited to owner).
-//   - killing blow: one kill record after the damage record (credited to owner).
-// UNKNOWN: owner is credited in both the player and companion cases; companionCredit only
-// labels the event kind. Port credits companion kills to the owner; the original credits nobody (quirk).
-void recordMonsterStrike(Ctx& ctx, Character& owner, const Creature& target, i32 hitsTaken, bool killingBlow, bool charmed, bool companionCredit) {
-    const i32 recorded = recordedHitsFor(hitsTaken, target.hits);
-    const i64 kindFlag = companionCredit ? 1 : 0;
-
-    if (!charmed) {
-        owner.damageRecorded += static_cast<i64>(recorded);
-        ctx.say("combat.damage_record", "Damage recorded.", {static_cast<i64>(recorded), kindFlag}, {});
-    }
-    if (killingBlow) {
-        owner.kills += 1;
-        owner.monsterKills.push_back(target.id);
-        ctx.say("combat.kill_record", "Kill recorded.", {static_cast<i64>(target.id), kindFlag}, {});
-    }
 }
 
 }  // namespace mordor

@@ -148,8 +148,6 @@ void recordFogWallBump(Ctx& ctx, FloorState& floor, i32 x, i32 y, Facing f); // 
 // ground while lost, then (b) tryToWorkItOut while still lost. Leader perception is used.
 void arrivalLostCheck(Ctx& ctx, Party& party, const FloorState& floor, i32 x, i32 y);
 
-// ---- R25-R27 lost state ----
-void becomeLost(Ctx& ctx, LostState& lost);                 // R25/R26 sets LostLevel, LostPosition, LostFacing
 void foundYourself(Ctx& ctx, LostState& lost);              // R25 clears all three; message only if was lost
 // R27/R28 working out position: position roll runs even when only floor or facing is lost.
 // Steps: (a) floor check if LostLevel, (b) facing check if LostFacing, (c) full check (FoundYourself).
@@ -157,107 +155,24 @@ void foundYourself(Ctx& ctx, LostState& lost);              // R25 clears all th
 void tryToWorkItOut(Ctx& ctx, LostState& lost, i32 perception);
 double workingOutWeight(i32 perception);                    // R28 weight = p<=0 ? 0 : Log(p)^2 (Log presumed natural, UNKNOWN base)
 
-// ---- R29 rotator loss ----
-// p = BestAbilityChance(c, 5, DungeonLevel, 2, gear), computed by caller. Failure sets LostPosition and LostFacing;
-// the floor flag is not touched.
-void applyRotatorLoss(Ctx& ctx, LostState& lost, i32 ability5Chance, i32 dungeonLevel);
 
-// ---- R31 newcomer joining ----
-// Copies lost-on-floor, in-position and in-facing from the leader (members[0]) to the newcomer.
-// Runs before dead joiners are refused (original quirk, kept).
-void inheritLostOnJoin(Ctx& ctx, const Party& party, Character& newcomer);
 
-// ---- R32 morgue ----
-void clearLostAtMorgue(Ctx& ctx, LostState& lost);          // R32 clears all three lost flags
 
-// ---- R33 square effects (AfterMove) ----
-// Order: (a) liquids, (b) anti-magic and stud perception, (c) extinguisher, (d) facing bits,
-// (e) rotator, (f) pit falls, (g) stairs caption, (h) teleporter, (i) chute, (j) destination re-run.
-// (a), (g), (h), (i), (j) are delegated to their owning modules and are not declared here.
-// ability5Chance = leader's best ability-5 chance for this level (caller computes).
-void runSquareEffects(Ctx& ctx, Party& party, FloorState& floor, const FloorDef& def, i32 ability5Chance);
 
-// R33(c) extinguisher: clears all protection masks and all eleven protection values for each member.
-// CONFLICT: order of perception vs effect (see R66 in the wider SRD, not in this part).
-void extinguishProtections(Ctx& ctx, Party& party);
 
-// R33(d) facing bits FACE_N, FACE_E, FACE_S, FACE_W: party turns silently to face the bit; written to map (R45).
-void faceSquareBits(Ctx& ctx, Party& party, FloorState& floor, i32 x, i32 y);
 
-// R33(e) rotator: a random facing is set (R94, outside this part; UNKNOWN draw: below(4) assumed).
-Facing rollRotatorFacing(Ctx& ctx);
 
-// ---- R34 anti-magic casting ----
-// Returns true if refused. Prints "Anti-Magic area!" and writes the square's bit (sub087C mc013A).
-// CONFLICT: extinguish squares may also refuse casts per the modding doc (not resolved here).
-bool castBlockedBySquare(Ctx& ctx, FloorState& floor, i32 x, i32 y);
 
-// ---- R35-R40 perception underfoot ----
-// Noticeable types: FACE_N, FACE_E, FACE_S, FACE_W, EXTINGUISHER, ROTATOR, ANTIMAGIC, STUD.
-// A teleporter is always named and mapped, with no roll, unless the leader is lost (R35).
-// messagesOn = false suppresses even the teleporter line (R39).
-void perceiveUnderfoot(Ctx& ctx, const Party& party, FloorState& floor, i32 x, i32 y,
-                       i32 perception, bool messagesOn);
 
-// R36 notice roll Next(100)+1 <= P; identify roll Next(100)+1 <= P/2 (teleporters always identified).
-// Identify maps the square unless the leader is lost. Certainty uses (int)perception.
-SquareNotice rollSquarePerception(Ctx& ctx, i32 perception);
 
-// R37 certainty wording: mapped square reads "completely"; lost reads "absolutely certain" and is not mapped;
-// P <= kCertaintyLowLimit gives "You sense something different here...".
-void reportSquareCertainty(Ctx& ctx, i32 perception, bool squareMapped, bool leaderLost);
 
-// R40 wrong guess for an unidentified square that failed identify. Returns a bit index in [0, kWrongGuessBitCount).
-// UNKNOWN: exclusion count does not match the "eight bits always pass" comment.
-i32 drawWrongGuessBit(Ctx& ctx);
 
-// ---- R41-R46 perceive ahead ----
-// R41 walls, doors and secret doors on the shared edge, and the map edge, block the view (pure).
-bool perceiveAheadBlocked(const FloorState& floor, const FloorDef& def, i32 x, i32 y, Facing f);
 
-// R46 chance = min(best member's ability-5 chance, kPerceiveAheadCap). Pure.
-i32 capPerceiveAheadChance(i32 bestMemberAbility5Chance);
 
-// R46 perception gear lookup: WIS + StatMods/4 (MAINMOD2 1962). UNKNOWN: exact statMods index for WIS.
-i32 perceptionGearLookup(const Character& ch);
 
-// R46 hit test: rng.NextDouble()*100 < chance.
-bool perceiveAheadHit(Ctx& ctx, i32 chance);
 
-// R42-R45 features ahead. aheadX, aheadY is the faced square. Runs on each redraw and each turn spent facing.
-// Each of the eight features rolls separately with the given chance. Quicksand bit is written to the map before
-// the speech test; quicksand is suppressed only while standing in quicksand (standingInQuicksand). No automap
-// check (R43). Named in lone and party forms (MAZEMOD 515-588).
-void perceiveAheadFeatures(Ctx& ctx, FloorState& floor, const FloorDef& def, i32 aheadX, i32 aheadY,
-                           i32 chance, bool standingInQuicksand);
 
-// ---- R47-R51 encounters ----
-bool encountersAllowed(i32 areaId);                         // R47 area id > 0 (pure)
-bool standingGroupKept(i64 nowStamp, const Area& area);     // R48 kept while (now - stamp) > 2 * respawnT (pure)
-// R48 empty room refills once stamp is more than one respawn time old, or if never stamped. Written back immediately.
-void refillRoomIfDue(Ctx& ctx, Area& area, i64 nowStamp, bool neverStamped);
-// R49 ROCK suppresses encounters, STUD raises the spawn floor by one, FOG leaves the group unidentified (pure).
-EncounterSquareTraits encounterTraitsForSquare(bool rock, bool stud, bool fog);
-// R50 spread. roll = Int(Rnd*100)+1; spread = RoundHalfEven((roll<50 ? 1 : 0) + level/5);
-// on stud and Rnd*75 < 50: spread = 1; spread = min(spread, level).
-// CONFLICT: the c24 form uses an undefined B() and a different ladder; the ladder tests "<50" first so the
-// 2 and 3 branches never run. This reproduces c18.
-// The encounter floor itself is encounterFloor(level, stud), already declared in monsters1a.h.
-i32 rollEncounterSpread(Ctx& ctx, i32 level, bool onStud);
 // R51 waiting groups and forced round: UNKNOWN, not covered in this part.
 
-// ---- R52-R55 pits ----
-bool rollPitHover(Ctx& ctx, i32 pitLevel);                  // R52 hovers if 5 + level/4.0 < Rnd*100 (levitating members only)
-// R53 pit damage: RoundHalfEven(Int(Rnd*(((level+1)/2)*15.5)) * Ln(raceSize+2) + 1).
-// CONFLICT: size term and rounding differ between sources (c18, c44, c66); c18 form is used.
-i32 rollPitDamage(Ctx& ctx, i32 pitLevel, i32 raceSize);
-// R54-R55 pit fall for the party. Each member rolls (levitating members may hover). Each fallen member takes damage
-// and the "You have fallen into a pit for N hits." line is shown. Returns true if a lone character died there,
-// which stops the step. raceSize is taken from ctx.data.races for each member.
-bool resolvePitFall(Ctx& ctx, Party& party, i32 pitLevel);
-// R55 party-list update: members at zero or below hits are dropped; a member not yet dead is first marked dead
-// (deaths counted, logged, DIE.WAV). Remaining members move to the leader's square.
-// UNKNOWN: destination of dropped members is not stated in this part (morgueList assumed).
-void pitUpdateParty(Ctx& ctx, Party& party);
 
 }  // namespace mordor

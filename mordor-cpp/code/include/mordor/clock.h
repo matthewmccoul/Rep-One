@@ -87,27 +87,17 @@ void startFight(Ctx& ctx, GameState& game);                 // R10 set standing 
 // UNKNOWN: buffer "holds spell idx" test (assumed spellBuffers value >= 0); SpellDef id field name not visible.
 OrderChoice orderFromSetting(const Ctx& ctx, i32 combatSetting, const Arr<i32, kSpellBuffers>& buffers); // R10 CombatSetting table
 void endFight(Ctx& ctx, GameState& game);                   // R10 clear standing orders; CombatSetting unchanged
-void checkCast(Ctx& ctx, Character& who);                   // R12 Fight and Defend become None; queued spell kept
-void openSpellList(Ctx& ctx, Character& who);               // R13 Att = false; Fight and Defend become None; queued spell kept
-void attReorder(Ctx& ctx, Character& who, i32 delta);       // R14 Sub102F: Att -1 reorder; Kind = Defend if None/Fight, else Fight; spell dropped
 void retarget(Ctx& ctx, GameState& game, Character& actor); // R15 if aimed group has no standing monsters, aim at first standing group
 i32 standingGroupIndex(const Ctx& ctx, const GameState& game, i32 delta); // R15 fn0DCD: index of first standing monster group
 
 // ---- R16-R26 Monster attacks and engagement
 
-void engagementTick(Ctx& ctx, GameState& game);             // R16-R18 encounter timer: hostile waiting attacks; peaced with join offer stays
-i32 hostileBase(CharAlign monsterAlign, Align charAlign);   // R19 hostile base table lookup (rows monster, columns character)
-bool hostileRoll(Ctx& ctx, i32 base, i32 cha);              // R19 T = trunc(base - 7.5*ln(max(1,cha))); true if draw 1..100 < T
 // UNKNOWN: effective CHA derivation is not given; caller supplies cha.
 i32 freeAttackThreshold(i32 monsterDex, i32 charDex, bool cap); // R22/R26 max(5, 50 + 5*(monsterDex - charDex)); capped at 98 when cap set
 void monstersFreeAttack(Ctx& ctx, GameState& game, i32 caller); // R25/R26 sub0A64: caller 0 attacks with no roll; clamp per caller
-void freeRound(Ctx& ctx, GameState& game);                  // R25 clock stops, monstersFreeAttack runs once, clock restarts
-// FIXED: MoveArg is declared nowhere in the project headers; replaced by i32.
-void onMove(Ctx& ctx, GameState& game, i32 arg);            // R21-R24 Moved uncapped; ChangedLevel capped at 98; same-area none
 
 // ---- R31-R34 Display timing (port)
 
-void meleeHold(Ctx& ctx, i32 ms);                           // R31 display wait on each side of a melee result
 void endCombat(Ctx& ctx, GameState& game);                  // R34 key pressed while a won round is shown; keys in a hold are queued
 
 }  // namespace mordor

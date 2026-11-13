@@ -32,23 +32,6 @@ const char* disarmTrapName(i32 trap) {
   }
 }
 
-// Guild level of a character's current guild (0 when no guild is active).
-i32 disarmGuildLevel(const Character& c) {
-  const i32 g = static_cast<i32>(c.activeGuild);
-  if (g < 0 || g >= kGuildCount) return 0;
-  return static_cast<i32>(c.guilds[static_cast<size_t>(g)].level);
-}
-
-// R4 (ch05): xp = disarmChance * (monsterGL/2) / (1 + firstCharGL/333);
-//            party = 1 - (partySize-1)*0.04; award = Round(party * Round(xp)).
-// UNKNOWN: scale of disarmChance; the chest's chance is taken as a percent.
-i64 disarmAward(i32 chance, i32 monsterGuildLevel, i32 firstCharGuildLevel, i32 partySize) {
-  const double xp = static_cast<double>(chance) * (static_cast<double>(monsterGuildLevel) / 2.0)
-                  / (1.0 + static_cast<double>(firstCharGuildLevel) / 333.0);
-  const double party = 1.0 - static_cast<double>(partySize - 1) * 0.04;
-  return static_cast<i64>(static_cast<double>(roundHalfEven(party * static_cast<double>(roundHalfEven(xp)))));
-}
-
 // Parses a party member number from words[1] and checks it against the party size.
 bool disarmParseMember(const Session& s, const Vec<Str>& w, i32& member) {
   if (w.size() < 2) return false;
@@ -106,40 +89,6 @@ bool cmdDisarm(Session& s, const Vec<Str>& w, Str& reply) {
 }
 
 }  // namespace
-
-bool disarmFinish(Session& s, i32 member, bool success, i32 monsterGuildLevel, Str& reply) {
-  SquareState* chest = disarmChestHere(s);
-  if (chest == nullptr) {
-    reply = "There is no chest here.";
-    return false;
-  }
-  Character* who = accMember(s, member);
-  if (who == nullptr) {
-    reply = "No such party member.";
-    return false;
-  }
-  const i32 trap = static_cast<i32>(chest->chestTrap);
-  if (trap == 0) {
-    reply = "This chest is not trapped.";
-    return false;
-  }
-  const char* name = disarmTrapName(trap);
-  if (success) {
-    // R4 (ch05): paid only when a trap is present (it is, here). The level discount uses the
-    // first party member's current guild, not the opener's.
-    const i64 award = disarmAward(static_cast<i32>(chest->chestDisarm), monsterGuildLevel,
-                                  disarmGuildLevel(*accMember(s, 1)), accPartySize(s));
-    who->experience += static_cast<decltype(who->experience)>(award);
-    chest->chestTrap = ChestTrap::NotTrapped;
-    reply = Str("You disarm the ") + name + ". Experience gained: " + std::to_string(award) + ".";
-  } else {
-    // The trap springs and the chest is no longer trapped. The per-trap effects on the party
-    // are not applied here; see the limitations.
-    chest->chestTrap = ChestTrap::NotTrapped;
-    reply = Str("You fail, and the ") + name + " goes off!";
-  }
-  return true;
-}
 
 void register_disarm() {
   registerFeatureCommand({"inspect", Screen::Dungeon, &cmdInspect, "inspect  - tells what trap the chest on this square has"});

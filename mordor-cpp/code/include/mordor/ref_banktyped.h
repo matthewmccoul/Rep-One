@@ -11,9 +11,5 @@ enum class BankAnswer : i32 {
     Moved = 2     // gold moved (the reference's unchecked overflow paths still count as Moved)
 };
 
-// Party.cs:280 BankTyped: deposit (true) or withdraw (false) the typed amount of gold.
-// Currency is i64 in 1/10000 gold. Overflow on the add leaves that account unchanged,
-// but the subtraction is still applied, as in the reference.
-BankAnswer bankTyped(Character& ch, const Str& text, bool deposit);
 
 }  // namespace mordor

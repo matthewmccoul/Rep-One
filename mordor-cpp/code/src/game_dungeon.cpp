@@ -96,23 +96,6 @@ void syncPosition(Session& s) {
 // Static helpers for generateEncounterFor. Only truncation and nearest-even
 // rounding are used on non-negative values, so no <cmath> include is needed.
 
-// R28: hits roll on load. Sign is drawn first, then the swing.
-static i32 rollLoadHits(Ctx& ctx, i32 baseHits) {
-    const i32 sign = ctx.rng.below(2);
-    const double swingRange = static_cast<double>(baseHits) * 0.5 / 2.0;
-    const i32 swing = static_cast<i32>(ctx.rng.nextDouble() * swingRange) + 1;
-    return (sign == 0) ? baseHits - swing : baseHits + swing;
-}
-
-// Round half to even for a non-negative value (SRD CInt).
-static i32 roundHalfEvenNonNeg(double x) {
-    const i32 whole = static_cast<i32>(x);
-    const double frac = x - static_cast<double>(whole);
-    if (frac > 0.5) return whole + 1;
-    if (frac < 0.5) return whole;
-    return (whole % 2 == 0) ? whole : whole + 1;
-}
-
 // Builds a Creature from its monster table row. ref is the table index used
 // for name lookup (s.data.monsters[ref].name).
 static Creature makeMonsterCreature(const MonsterDef& d, i32 monIndex,

@@ -77,45 +77,6 @@ const Character& partyMember(const Party& party, i32 index) {
     return party.members[static_cast<u32>(index)];
 }
 
-i32 partySize(const Party& party) {
-    return party.size;
-}
-
-// Per-member carried inventory storage (Party::inventories, added via APPEND).
-Arr<Inventory, kPartyMaxSize>& partyInventories(Party& party) {
-    return party.inventories;
-}
-
-// Empty pack slot test: UNKNOWN, assumed id == 0 means empty.
-i32 freePackSlot(const Inventory& inv) {
-    for (i32 i = 0; i < kPackSlots; ++i) {
-        if (inv.pack[static_cast<u32>(i)].id == 0) {
-            return i;
-        }
-    }
-    return -1;
-}
-
-// Shelf stock accessors. A Shelf record already belongs to one item and holds
-// its stock per alignment (alignCounts), so itemId is not needed to index it.
-// itemId is kept in the signature so existing call sites are unchanged.
-i32 shelfStockOf(const Shelf& shelf, i32 itemId, ItemAlign align) {
-    (void)itemId;
-    return shelf.alignCounts[static_cast<u32>(align)];
-}
-
-void shelfTakeOne(Shelf& shelf, i32 itemId, ItemAlign align) {
-    (void)itemId;
-    shelf.alignCounts[static_cast<u32>(align)] -= 1;
-}
-
-// FIXED: resistIndex is not declared in any header, so it is defined here as static.
-// UNKNOWN: the DamageKind-to-resistance-slot mapping is not in the supplied materials;
-// the enum value is used directly as the index and must be reconciled.
-i32 resistIndex(DamageKind kind) {
-    return static_cast<i32>(kind);
-}
-
 // ---------------------------------------------------------------------------
 // Treasure class helpers
 // ---------------------------------------------------------------------------
@@ -150,11 +111,6 @@ i32 trapChanceFor(i32 treasureClass) {
 // Fight gold
 // ---------------------------------------------------------------------------
 
-// Gold is paid at victory only when no chest is left (chapter intro, R17).
-Currency victoryGoldPayout(Currency fightGold, bool chestLeft) {
-    return chestLeft ? 0 : fightGold;
-}
-
 // ---------------------------------------------------------------------------
 // Encounter setup
 // ---------------------------------------------------------------------------
@@ -170,20 +126,6 @@ i32 rollTreasureClass(Ctx& ctx, i32 lead) {
     const bool lair = false;  // FIXED: was m.lair (no such member)
     const i32 bonus = lairBonusFor(lair, box2);
     return classFromThresholds(roll, box1, box2, bonus);
-}
-
-// R8/R9 pure form. UNKNOWN: a pure function cannot reach GameData, so the
-// lead's BoxChance thresholds are taken as 0 and the lair bonus as 0 here.
-// rollTreasureClass (with Ctx) is the authoritative path.
-i32 treasureClassForRoll(double roll, i32 lead, i32 bonus) {
-    (void)lead;
-    return classFromThresholds(roll, 0, 0, bonus);
-}
-
-// R9 pure form. UNKNOWN: lair flag not reachable without GameData; returns 0.
-i32 lairTreasureBonus(i32 lead) {
-    (void)lead;
-    return 0;
 }
 
 // R2: trap is cleared on every generation pass; lock is not.
@@ -337,22 +279,6 @@ void storeChestOnSquare(Ctx& ctx, SquareState& chest, i32 treasureClass, ChestTr
     chest.chestGold = gold;
 }
 
-// R6 (F33): -2 when the lead is taken for another monster, else the lead Id.
-// UNKNOWN: the lead's invisibility is not a parameter, so the lead is treated as visible.
-i32 chestFindMonsterId(i32 lead, bool leadTakenForAnother, bool takerSeesInvisible) {
-    // UNKNOWN: the SRD text for chest monster resolution was not supplied, so the
-    // invisible-to-visible rule is inferred from the reference case only:
-    // Shadow Ninja (389) taken by a taker with See Invisible resolves to Ninja (307).
-    // Generalise once the rule and its data mapping are available.
-    if (leadTakenForAnother) {
-        return -2;
-    }
-    if (takerSeesInvisible && lead == 389) {
-        return 307;
-    }
-    return lead;
-}
-
 // R7 (F7): roll = Int(Rnd*100)+1 + class mod (R7 table); add Ln(DL+10)*5 if not magically
 // locked (engine [c7], CONFLICT-21); cap at 90 unless ItemChance == 100; spawn = roll <= IC.
 bool rollChestItemSpawn(Ctx& ctx, i32 treasureClass, i32 itemChance, ChestLock lock,
@@ -481,25 +407,6 @@ Item rollChestItem(Ctx& ctx, const ChestDropBand& band, i32 treasureClass) {
     return Item{};  // UNKNOWN: restart cap reached without a fit
 }
 
-// R20: random taker, then the others in order. Nobody with room -> message and false.
-bool placeChestItem(Ctx& ctx, Arr<Inventory, kPartyMaxSize>& takerInventories, i32 partySize,
-                    const Item& item) {
-    if (partySize > 0) {
-        const i32 start = ctx.rng.below(partySize);
-        for (i32 k = 0; k < partySize; ++k) {
-            const i32 idx = (start + k) % partySize;
-            Inventory& inv = takerInventories[static_cast<u32>(idx)];
-            const i32 slot = freePackSlot(inv);
-            if (slot >= 0) {
-                inv.pack[static_cast<u32>(slot)] = item;
-                return true;
-            }
-        }
-    }
-    ctx.say("chest.noRoom", "An item was found, but nobody had room to carry it.", {}, {});
-    return false;
-}
-
 // Full generation pass for a square with a fight-left chest (R1..R19).
 // Order: trap clear (R2), class (R1), trap (R2), lock (R10), gold (R4/R11), item spawn (R7), items (R18).
 void generateEncounterChest(Ctx& ctx, SquareState& chest, i32 lead,
@@ -553,74 +460,6 @@ void generateEncounterChest(Ctx& ctx, SquareState& chest, i32 lead,
 // Opening a chest mid-fight (R21..R24)
 // ---------------------------------------------------------------------------
 
-// R21: alive, not paralysed, chest not magically locked.
-bool canOpenChestInCombat(const Character& opener, const SquareState& chest) {
-    return !opener.isDead() && !opener.ailments.paralysed &&
-           chest.chestLock != ChestLock::MAGIC_LOCKED;
-}
-
-// F27 (OpeningRounds). UNKNOWN: formula not in the supplied SRD excerpt.
-// Simplest sensible choice: fewer rounds as the disarm chance rises.
-i32 chestOpeningRounds(i32 disarm) {
-    const i32 d = clampChestDisarm(disarm);
-    return static_cast<i32>(vbInt(static_cast<double>(kChestDisarmMax - d) / 25.0));
-}
-
-// R21/R22: refusals first (dead, paralysed, magic lock). With monsters standing and the
-// trap panel visible, a countdown is set; a countdown of 0 opens now.
-ChestOpenStart beginChestOpening(Ctx& ctx, Character& opener, const SquareState& chest,
-                                 bool monstersStanding, bool trapPanelVisible, i32 disarm) {
-    (void)ctx;
-    if (opener.isDead()) {
-        return ChestOpenStart::RefusedDead;
-    }
-    if (opener.ailments.paralysed) {
-        return ChestOpenStart::RefusedParalysed;
-    }
-    if (chest.chestLock == ChestLock::MAGIC_LOCKED) {
-        return ChestOpenStart::RefusedMagicLock;
-    }
-    if (monstersStanding && trapPanelVisible) {
-        const i32 rounds = chestOpeningRounds(disarm);
-        opener.openingChest = true;
-        opener.chestCountdown = rounds;
-        if (rounds <= 0) {
-            return ChestOpenStart::OpenNow;  // R22
-        }
-        return ChestOpenStart::CountdownSet;  // R22
-    }
-    opener.openingChest = true;
-    opener.chestCountdown = 0;
-    return ChestOpenStart::OpenNow;
-}
-
-// R22: each turn the countdown drops; true on the turn it reaches 0.
-bool tickChestCountdown(Ctx& ctx, Character& opener) {
-    (void)ctx;
-    if (opener.chestCountdown <= 0) {
-        return true;
-    }
-    opener.chestCountdown -= 1;
-    return opener.chestCountdown == 0;
-}
-
-// R23 clamp: 5..98 percent.
-i32 clampChestDisarm(i32 percent) {
-    if (percent < kChestDisarmMin) {
-        return kChestDisarmMin;
-    }
-    if (percent > kChestDisarmMax) {
-        return kChestDisarmMax;
-    }
-    return percent;
-}
-
-// R23 step 1. UNKNOWN: comparison direction chosen as roll <= disarm.
-bool rollTrapDisarm(Ctx& ctx, i32 disarm) {
-    const i32 d = clampChestDisarm(disarm);
-    return (ctx.rng.below(100) + 1) <= d;
-}
-
 // F25: dmg = floor(U * d * k * ln(d+2)) + 1.
 i32 chestBlastDamage(Ctx& ctx, i32 d, i32 k) {
     const double u = ctx.rng.nextDouble();
@@ -628,24 +467,6 @@ i32 chestBlastDamage(Ctx& ctx, i32 d, i32 k) {
     const double kk = static_cast<double>(k);
     const i64 base = vbInt(u * dd * kk * std::log(dd + 2.0));
     return static_cast<i32>(base + 1);
-}
-
-// R14 (as written, CONFLICT-6): success when Int-free roll*100 < resistance/2.
-bool rollChestAilment(Ctx& ctx, i32 resistance) {
-    const double r = ctx.rng.nextDouble() * 100.0;
-    return r < static_cast<double>(resistance) / 2.0;
-}
-
-// Fire damage reduction, rounded half to even (engine [c24]; CONFLICT-7).
-i32 chestFireDamage(i32 damage, i32 fireResistance) {
-    const double d = static_cast<double>(damage);
-    const double after = d - d * ((static_cast<double>(fireResistance) / 2.0) * 0.01);
-    return static_cast<i32>(roundHalfEven(after));
-}
-
-// R33: traps that kill or teleport the party stop the payout.
-bool trapStopsPayout(const ChestTrapResult& trap) {
-    return trap.partyKilled || trap.teleported;
 }
 
 // R24: leader Hits below 1. Leader is party member 0.
@@ -740,264 +561,12 @@ ChestTrapResult resolveChestTrap(Ctx& ctx, Party& party, i32 openerIndex, ChestT
     return r;
 }
 
-// R23 full order: disarm roll, trap effects, deadly-trap test, gold, items, record, room.
-ChestOpenResult openChestInFight(Ctx& ctx, Party& party, i32 openerIndex, SquareState& chest,
-                                 i32 disarm) {
-    ChestOpenResult out;
-    Character& opener = partyMember(party, openerIndex);
-    const ChestTrap trap = chest.chestTrap;
-
-    // Step 1: disarm roll.
-    bool disarmed = false;
-    if (trap != ChestTrap::NotTrapped) {
-        disarmed = rollTrapDisarm(ctx, disarm);
-    }
-
-    // Step 2: trap effects.
-    ChestTrapResult tr;
-    if (trap != ChestTrap::NotTrapped && disarmed) {
-        tr.trap = trap;
-        tr.disarmed = true;
-    } else {
-        tr = resolveChestTrap(ctx, party, openerIndex, trap);
-    }
-    out.trap = tr;
-
-    // Step 3: deadly-trap test (R24).
-    out.openerDied = trapKilledLeader(party);
-    if (out.openerDied) {
-        opener.deathState = DeathState::Dead;
-        out.payoutStopped = true;
-        return out;  // fight record not emptied, no gold, no items
-    }
-
-    out.payoutStopped = trapStopsPayout(tr);  // R33
-    const bool payable = chestGoldPayable(true, true) && !out.payoutStopped;
-    const i32 n = partySize(party);
-
-    // Step 4: gold (R16/R17).
-    const Currency pot = chest.chestGold + chest.fightGold;
-    if (payable && pot > 0 && n > 0) {
-        out.goldPaid = goldSharePaid(pot, n) * static_cast<i64>(n);
-        payOutChestGold(ctx, party, pot);
-    }
-
-    // Step 5: items (R20). Loop ends at the first item nobody can carry.
-    Vec<Item> kept;
-    i32 placed = 0;
-    bool stopped = false;
-    if (payable) {
-        Arr<Inventory, kPartyMaxSize>& inv = partyInventories(party);
-        for (const Item& it : chest.chestItems) {
-            if (stopped) {
-                kept.push_back(it);
-                continue;
-            }
-            if (placeChestItem(ctx, inv, n, it)) {
-                placed += 1;
-            } else {
-                stopped = true;
-                kept.push_back(it);
-            }
-        }
-    } else {
-        kept = chest.chestItems;
-    }
-    out.itemsPlaced = placed;
-
-    // Step 6: fight record emptied and room written.
-    chest.fightGold = 0;
-    chest.chestGold = 0;
-    chest.chestItems = kept;
-    chest.hasChest = !kept.empty();
-    out.opened = true;
-    return out;
-}
-
-
-// R16 (F10 paid): CLng(pot / n) in whole gold, half to even.
-Currency goldSharePaid(Currency pot, i32 memberCount) {
-    if (memberCount <= 0) {
-        return 0;
-    }
-    const double whole = static_cast<double>(pot) / static_cast<double>(kCurrencyUnit);
-    const i64 paid = roundHalfEven(whole / static_cast<double>(memberCount));
-    return currencyFromWhole(paid);
-}
-
-// R16 (displayed share): rounds half up, so it may differ from the paid share (CONFLICT-11).
-i64 goldShareDisplayed(Currency pot, i32 memberCount) {
-    if (memberCount <= 0) {
-        return 0;
-    }
-    // Displayed share is expressed in Currency units (1/10000 gold), not whole gold.
-    // Round half up to the nearest Currency unit (the +0.5 before VB Int = floor).
-    const double units = static_cast<double>(pot) / static_cast<double>(memberCount);
-    return vbInt(units + 0.5);
-}
-
-// R16: every party member, dead ones included, receives the share; remainder lost.
-void payOutChestGold(Ctx& ctx, Party& party, Currency pot) {
-    const i32 n = partySize(party);
-    const Currency share = goldSharePaid(pot, n);
-    for (i32 i = 0; i < n; ++i) {
-        partyMember(party, i).wallet.goldOnHand += share;
-    }
-    ctx.say("chest.goldShared", "The chest gold is shared out among the party.",
-            {goldShareDisplayed(pot, n)}, {});
-}
-
 // ---------------------------------------------------------------------------
 // Gold transfers and charges (R25..R27)
 // ---------------------------------------------------------------------------
 
-// R25 (F11/F12): on-hand first, then bank; refuse when cost exceeds on-hand plus bank.
-bool chargeTownCost(Ctx& ctx, Character& payer, Currency cost) {
-    (void)ctx;
-    if (cost <= payer.wallet.goldOnHand) {
-        payer.wallet.goldOnHand -= cost;
-        return true;
-    }
-    if (cost > payer.purse()) {
-        return false;
-    }
-    // RESOLVED-BY-REFERENCE: src/Mordor.Core/Character.cs:567 Pay(): "long rest = owed.RoundToWhole();"
-    // then "TrySubtract(GoldInBank, Saturate(rest), out var bank)". Its doc: "100 owed with 50.5 on hand
-    // takes 50 from the bank (49.5 rounds up), and an account of 49.5 is left at -0.5". The bank's part
-    // is whole gold, rounded half to even. An overflow refuses the charge and moves nothing.
-    // Currency is i64 in 1/10000 gold; all rounding below is integer arithmetic.
-    constexpr Currency kUnit = 10000;                          // one gold in Currency units
-    constexpr Currency kMax = 9223372036854775807LL;
-    constexpr Currency kMin = (-kMax) - 1;
-    const Currency onHand = payer.wallet.goldOnHand;
-    if (onHand < 0 && cost > kMax + onHand) {
-        return false;                                          // owed would overflow
-    }
-    const Currency owed = cost - onHand;                       // > 0 here, since cost > onHand
-    Currency whole = owed / kUnit;
-    const Currency rem = owed % kUnit;
-    if (rem * 2 > kUnit || (rem * 2 == kUnit && (whole % 2) != 0)) {
-        whole += 1;                                            // round half to even
-    }
-    if (whole > kMax / kUnit) {
-        return false;                                          // whole * kUnit would not fit
-    }
-    const Currency take = whole * kUnit;
-    if (payer.wallet.goldInBank < kMin + take) {
-        return false;                                          // bank subtraction would underflow
-    }
-    payer.wallet.goldOnHand = 0;
-    payer.wallet.goldInBank -= take;
-    return true;
-}
-
-// R26: CLng of the typed amount, half to even.
-i64 typedGoldWhole(double typed) {
-    // Reference GiveCommand.GoldAnswer (FRMINTER.BAS:121-132): a typed value below 1, negatives included,
-    // answers "0"; only an amount of 1 or more goes on to be compared with the gold on hand.
-    if (typed < 1.0) {
-        return 0;
-    }
-    return roundHalfEven(typed);
-}
-
-// R26 (F15 Give): zero does nothing; refuse if amount exceeds giver's on-hand gold.
-// UNKNOWN: the "half stays" quirk of the original is not modelled.
-bool giveGold(Ctx& ctx, Character& giver, Character& receiver, i64 wholeGold) {
-    if (wholeGold <= 0) {
-        return false;
-    }
-    const Currency amount = currencyFromWhole(wholeGold);
-    if (amount > giver.wallet.goldOnHand) {
-        return false;
-    }
-    if (receiver.wallet.goldOnHand > kMaxCurrency - amount) {
-        return false;  // overflow refusal
-    }
-    giver.wallet.goldOnHand -= amount;
-    receiver.wallet.goldOnHand += amount;
-    ctx.say("gold.given", "Gold handed over.", {wholeGold}, {});
-    return true;
-}
-
-// R26 (F15 Exchange): invalid or zero amounts do nothing (returns false silently).
-bool exchangeGold(Ctx& ctx, Character& who, i64 wholeGold, bool toBank) {
-    if (wholeGold <= 0) {
-        return false;
-    }
-    const Currency amount = currencyFromWhole(wholeGold);
-    if (toBank) {
-        if (amount > who.wallet.goldOnHand) {
-            return false;
-        }
-        who.wallet.goldOnHand -= amount;
-        who.wallet.goldInBank += amount;
-    } else {
-        if (amount > who.wallet.goldInBank) {
-            return false;
-        }
-        who.wallet.goldInBank -= amount;
-        who.wallet.goldOnHand += amount;
-    }
-    ctx.say("gold.exchanged", "Gold exchanged.", {wholeGold}, {});
-    return true;
-}
-
-// R27 (F13): roll > purse takes CLng(purse). Boundary roll == purse is not pinned
-// (UNKNOWN-9, CONFLICT-23); the roll is kept there.
-Currency thiefTake(Currency roll, Currency purse) {
-    if (roll > purse) {
-        return currencyFromWhole(roundHalfEven(static_cast<double>(purse) /
-                                               static_cast<double>(kCurrencyUnit)));
-    }
-    return roll;
-}
-
-// R27: take from the victim's on-hand gold, floor the remainder at 0.
-Currency thiefRobs(Ctx& ctx, Character& victim, Currency roll) {
-    const Currency take = thiefTake(roll, victim.wallet.goldOnHand);
-    const Currency left = victim.wallet.goldOnHand - take;
-    victim.wallet.goldOnHand = left < 0 ? 0 : left;
-    ctx.say("thief.robs", "Gold was stolen.", {static_cast<i64>(take)}, {});
-    return take;
-}
-
 // ---------------------------------------------------------------------------
 // Shop (R28..R31)
 // ---------------------------------------------------------------------------
-
-// F21 DepletedByBuying: depleted when on a floor or bought with an alignment.
-bool buyDepletesShelf(i32 floor, ItemAlign bought) {
-    return floor > 0 || bought != ItemAlign::Unaligned;
-}
-
-// F21 RemoveOne: checks alignment 0 first, then draws an alignment with stock.
-bool removeOneFromShelf(Ctx& ctx, Shelf& shelf, i32 itemId) {
-    if (shelfStockOf(shelf, itemId, ItemAlign::Unaligned) <= 0) {
-        return false;
-    }
-    i32 a = 0;
-    do {
-        a = ctx.rng.below(4);
-    } while (shelfStockOf(shelf, itemId, static_cast<ItemAlign>(a)) <= 0);
-    shelfTakeOne(shelf, itemId, static_cast<ItemAlign>(a));
-    return true;
-}
-
-// F22 ShelvesSale: not cursed, shelved by selling, and stock below 9.
-bool shelvesSaleItem(const Item& item, i32 floor, ItemAlign align, i32 shelfCount) {
-    const bool shelvedBySelling = !(floor == 0 && align == ItemAlign::Unaligned);
-    return item.cursed == CurseNone && shelvedBySelling && shelfCount < kShelfStockCap;
-}
-
-// R30: shelves and pens restock on arrival only when days aged is above 0.
-bool restocksOnArrival(const Character& leader) {
-    return leader.daysAged > 0;
-}
-
-// R31: strictly greater replaces the Wealthiest record.
-bool replacesWealthiestRecord(Currency purse, Currency recordPurse) {
-    return purse > recordPurse;
-}
 
 }  // namespace mordor

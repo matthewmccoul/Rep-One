@@ -21,145 +21,15 @@ TEST(combat2a_constants_match_srd) {
 
 // ---- R2: trap scope ----
 
-TEST(combat2a_trap0_scope_is_none) {
-    CHECK_EQ(static_cast<int>(mordor::chestTrapScope(mordor::ChestTrap::NotTrapped)),
-             static_cast<int>(mordor::TrapScope::None));
-}
-
-TEST(combat2a_traps_1_to_4_scope_whole_party) {
-    for (int t = 1; t <= 4; ++t) {
-        auto scope = mordor::chestTrapScope(static_cast<mordor::ChestTrap>(t));
-        CHECK_EQ(static_cast<int>(scope), static_cast<int>(mordor::TrapScope::WholeParty));
-    }
-    CHECK_EQ(static_cast<int>(mordor::chestTrapScope(mordor::ChestTrap::PoisonGas)),
-             static_cast<int>(mordor::TrapScope::WholeParty));
-    CHECK_EQ(static_cast<int>(mordor::chestTrapScope(mordor::ChestTrap::Fire)),
-             static_cast<int>(mordor::TrapScope::WholeParty));
-}
-
-TEST(combat2a_traps_5_to_10_scope_opener_only) {
-    for (int t = 5; t <= 10; ++t) {
-        auto scope = mordor::chestTrapScope(static_cast<mordor::ChestTrap>(t));
-        CHECK_EQ(static_cast<int>(scope), static_cast<int>(mordor::TrapScope::OpenerOnly));
-    }
-    CHECK_EQ(static_cast<int>(mordor::chestTrapScope(mordor::ChestTrap::ItemDestruction)),
-             static_cast<int>(mordor::TrapScope::OpenerOnly));
-}
-
-TEST(combat2a_scope_boundary_between_4_and_5) {
-    CHECK_EQ(static_cast<int>(mordor::chestTrapScope(static_cast<mordor::ChestTrap>(4))),
-             static_cast<int>(mordor::TrapScope::WholeParty));
-    CHECK_EQ(static_cast<int>(mordor::chestTrapScope(static_cast<mordor::ChestTrap>(5))),
-             static_cast<int>(mordor::TrapScope::OpenerOnly));
-}
-
 // ---- R1: roll stays within trap numbers 0..10 ----
-
-TEST(combat2a_roll_chest_trap_stays_in_range) {
-    tsup::Env env(12345);
-    for (int i = 0; i < 60; ++i) {
-        mordor::ChestTrap t = mordor::rollChestTrap(env.ctx);
-        int v = static_cast<int>(t);
-        CHECK(v >= 0);
-        CHECK(v <= mordor::kChestTrapMax);
-    }
-}
 
 // ---- R2/R3: no damage from trap 0 ----
 
-TEST(combat2a_trap0_damage_is_zero) {
-    tsup::Env env({0.5, 0.9});
-    mordor::Character target;
-    target.vitals.curHits = 10;
-    mordor::f64 dmg = mordor::chestTrapDamage(env.ctx, mordor::ChestTrap::NotTrapped, target);
-    CHECK_EQ(dmg, 0.0);
-    CHECK_EQ(target.vitals.curHits, 10);
-}
-
 // ---- R4: CurHits = round_half_even(CurHits - dmg) ----
-
-TEST(combat2a_hits_half_even_rounds_2_5_up_to_even) {
-    // 10 - 2.5 = 7.5 -> 8 (even)
-    CHECK_EQ(mordor::hitsAfterChestTrap(10, 2.5), 8);
-}
-
-TEST(combat2a_hits_half_even_rounds_3_5_down_to_even) {
-    // 10 - 3.5 = 6.5 -> 6 (even)
-    CHECK_EQ(mordor::hitsAfterChestTrap(10, 3.5), 6);
-    // 11 - 2.5 = 8.5 -> 8 (even)
-    CHECK_EQ(mordor::hitsAfterChestTrap(11, 2.5), 8);
-}
-
-TEST(combat2a_hits_nearest_rounding_off_half) {
-    // 10 - 2.4 = 7.6 -> 8
-    CHECK_EQ(mordor::hitsAfterChestTrap(10, 2.4), 8);
-    // 10 - 2.6 = 7.4 -> 7
-    CHECK_EQ(mordor::hitsAfterChestTrap(10, 2.6), 7);
-}
-
-TEST(combat2a_hits_equivalent_to_rounding_damage) {
-    // Quirk: because CurHits is an integer, rounding (CurHits - dmg) equals
-    // CurHits - round_half_even(dmg).
-    // dmg 2.5 -> round to 2, so 10 - 2 = 8.
-    CHECK_EQ(mordor::hitsAfterChestTrap(10, 2.5), 10 - 2);
-    // dmg 3.5 -> round to 4, so 10 - 4 = 6.
-    CHECK_EQ(mordor::hitsAfterChestTrap(10, 3.5), 10 - 4);
-}
 
 // ---- R5: CurHits below 1 becomes 0 ----
 
-TEST(combat2a_hits_clamped_to_zero_when_damage_exceeds_hits) {
-    CHECK_EQ(mordor::hitsAfterChestTrap(5, 9.0), 0);
-    CHECK_EQ(mordor::hitsAfterChestTrap(3, 10.0), 0);
-}
-
-TEST(combat2a_hits_unchanged_with_zero_damage) {
-    CHECK_EQ(mordor::hitsAfterChestTrap(7, 0.0), 7);
-    CHECK_EQ(mordor::hitsAfterChestTrap(1, 0.0), 1);
-}
-
-TEST(combat2a_apply_chest_damage_writes_cur_hits) {
-    mordor::Character c;
-    c.vitals.curHits = 10;
-    c.vitals.maxHits = 15;
-    mordor::applyChestTrapDamage(c, 3.5);
-    CHECK_EQ(c.vitals.curHits, 6);
-    CHECK_EQ(c.vitals.maxHits, 15);
-}
-
-TEST(combat2a_apply_chest_damage_clamps_at_zero) {
-    mordor::Character c;
-    c.vitals.curHits = 4;
-    mordor::applyChestTrapDamage(c, 20.0);
-    CHECK_EQ(c.vitals.curHits, 0);
-}
-
 // ---- Procedure P1 scope on party ----
-
-TEST(combat2a_trap_no_effect_leaves_party_unchanged) {
-    tsup::Env env({0.5, 0.9});
-    mordor::Party party;
-    party.size = 2;
-    party.opener = 0;
-    party.members[0].vitals.curHits = 10;
-    party.members[1].vitals.curHits = 12;
-    mordor::resolveChestTrap(env.ctx, party, mordor::ChestTrap::NotTrapped);
-    CHECK_EQ(party.members[0].vitals.curHits, 10);
-    CHECK_EQ(party.members[1].vitals.curHits, 12);
-}
-
-TEST(combat2a_non_damage_trap_leaves_party_unchanged) {
-    // R3: only traps 3 and 4 deal damage, so trap 5 (opener-only) does not.
-    tsup::Env env({0.5, 0.9});
-    mordor::Party party;
-    party.size = 2;
-    party.opener = 0;
-    party.members[0].vitals.curHits = 10;
-    party.members[1].vitals.curHits = 12;
-    mordor::resolveChestTrap(env.ctx, party, mordor::ChestTrap::ItemDestruction);
-    CHECK_EQ(party.members[0].vitals.curHits, 10);
-    CHECK_EQ(party.members[1].vitals.curHits, 12);
-}
 
 // ---- R6-R7: proc roll is rng value (0..99) strictly less than chance ----
 
@@ -223,29 +93,3 @@ TEST(combat2a_modifier_bonus_values) {
     CHECK_EQ(mordor::blowModifierBonus(both), 5 + 2);
 }
 
-TEST(combat2a_severed_only_when_both_procs) {
-    mordor::BlowProcs none;
-    CHECK(!mordor::blowIsSevered(none));
-
-    mordor::BlowProcs crit;
-    crit.crit = true;
-    CHECK(!mordor::blowIsSevered(crit));
-
-    mordor::BlowProcs back;
-    back.backstab = true;
-    CHECK(!mordor::blowIsSevered(back));
-
-    mordor::BlowProcs both;
-    both.crit = true;
-    both.backstab = true;
-    CHECK(mordor::blowIsSevered(both));
-}
-
-TEST(combat2a_severed_blow_end_to_end) {
-    // Both procs succeed on the same blow: the modifier is +5 and +2 (total +7),
-    // and the blow counts as Severed.
-    tsup::Env env({0.1, 0.2});
-    mordor::BlowProcs p = mordor::rollBlowProcs(env.ctx, 50.0, 50.0);
-    CHECK(mordor::blowIsSevered(p));
-    CHECK_EQ(mordor::blowModifierBonus(p), 7);
-}

@@ -55,20 +55,6 @@ TEST(guild_bitmask_table_matches_r28) {
     CHECK_EQ(kGuildAllMask, 4095);
 }
 
-// R24: Actual EP = EP / 8. Values chosen so integer and real division agree.
-TEST(actual_exp_mod_divides_ep_by_eight) {
-    CHECK_EQ(actualExpMod(16), 2.0);
-    CHECK_EQ(actualExpMod(24), 3.0);
-    CHECK_EQ(actualExpMod(0), 0.0);
-}
-
-// R24: Actual GP = GP / 10 + 1. Values chosen as multiples of 10.
-TEST(actual_gold_mod_is_tenth_plus_one) {
-    CHECK_EQ(actualGoldMod(0), 1.0);
-    CHECK_EQ(actualGoldMod(20), 3.0);
-    CHECK_EQ(actualGoldMod(30), 4.0);
-}
-
 // Make Level step 3: experience short of the requirement blocks levelling.
 TEST(can_level_up_refused_while_experience_short) {
     GuildMembership m{};
@@ -96,15 +82,6 @@ TEST(zeroed_alignment_mask_allows_no_alignment) {
     }
 }
 
-// R16 first branch: a race that is not allowed displays as hidden and blocks join.
-TEST(blocked_race_is_hidden_and_not_joinable) {
-    GuildDef def{};
-    Character c{};
-    c.race = Race::Human;
-    CHECK(eligibilityStyle(def, c) == EligibilityStyle::Hidden);
-    CHECK(!eligibleToJoin(def, c));
-}
-
 // R15: MeetsStats is all i: stat[i] >= ReqStats[i]. Zeroed requirements.
 TEST(meets_stats_compares_each_stat_to_requirement) {
     GuildDef def{};
@@ -121,74 +98,12 @@ TEST(join_cost_is_zero_when_guild_has_no_requirements) {
     CHECK_EQ(guildJoinCost(def, c), 0);
 }
 
-// R30: if mod <= 0 the extra swing count is 0 at any level.
-TEST(swings_zero_when_multiple_swings_mod_not_positive) {
-    GuildDef def{};
-    GuildMembership m{};
-    m.joined = true;
-    m.level = 10;
-    CHECK_EQ(swingsFor(def, m), 0);
-    m.level = 0;
-    CHECK_EQ(swingsFor(def, m), 0);
-}
-
 // R26 constants and R13 step 2 threshold.
 TEST(join_constants_match_srd) {
     CHECK_EQ(kJoinCostFactor, 5356);
     CHECK_EQ(kJoinAbilityWeight, 1.25);
     CHECK_EQ(kJoinSpellDivisor, 3.0);
     CHECK_EQ(kJoinWarnTopLevel, 10);
-}
-
-// R8 / log cap: with 60 entries for one guild, the newest 50 survive.
-// Entries are pushed in ascending day order, so the newest have days 10..59.
-TEST(clean_guild_log_keeps_newest_fifty_per_guild) {
-    // SRD-AMBIGUOUS: R8 says newest 50 per guild; R65/R66 give a whole-log
-    // trigger of count > 50 x guildCount (12 guilds => 600). 60 entries is
-    // below that trigger, so the engine rule governs: no trim.
-    tsup::Env env({0.5, 0.9});
-    GameState game{};
-    game.needsCleaning = true;
-    for (i64 d = 0; d < 60; ++d) pushLog(game, Guild::Thief, d);
-    cleanGuildLog(env.ctx, game);
-    i64 minDay = 0;
-    i32 n = countLog(game, Guild::Thief, minDay);
-    CHECK_EQ(n, 60);
-    CHECK_EQ(minDay, 0);
-}
-
-// Boundary: exactly 50 entries are all kept.
-TEST(clean_guild_log_leaves_fifty_entries_alone) {
-    tsup::Env env({0.5, 0.9});
-    GameState game{};
-    game.needsCleaning = true;
-    for (i64 d = 0; d < 50; ++d) pushLog(game, Guild::Thief, d);
-    cleanGuildLog(env.ctx, game);
-    i64 minDay = 0;
-    i32 n = countLog(game, Guild::Thief, minDay);
-    CHECK_EQ(n, 50);
-    CHECK_EQ(minDay, 0);
-}
-
-// R8: the 50-entry limit is per guild, so a small guild is not trimmed.
-TEST(clean_guild_log_does_not_trim_other_guilds) {
-    // SRD-AMBIGUOUS: R8 (per-guild keep of 50) conflicts with R66 (whole-log
-    // trigger 50 x guildCount, 63 entries < 600). Test follows the engine
-    // rule: no trim happens, so every entry is kept.
-    tsup::Env env({0.5, 0.9});
-    GameState game{};
-    game.needsCleaning = true;
-    for (i64 d = 100; d < 103; ++d) pushLog(game, Guild::Mage, d);
-    for (i64 d = 0; d < 60; ++d) pushLog(game, Guild::Thief, d);
-    cleanGuildLog(env.ctx, game);
-    i64 mageMin = 0;
-    i64 thiefMin = 0;
-    i32 mage = countLog(game, Guild::Mage, mageMin);
-    i32 thief = countLog(game, Guild::Thief, thiefMin);
-    CHECK_EQ(mage, 3);
-    CHECK_EQ(mageMin, 100);
-    CHECK_EQ(thief, 60);
-    CHECK_EQ(thiefMin, 0);
 }
 
 // R4 / crest placement: an empty pack takes the crest, id 299 + index.

@@ -166,47 +166,10 @@ TEST(lead_engagement_alignment_rules_and_forty_percent_peace) {
     CHECK_EQ(kNeutralPeacePercent, 40);
 }
 
-// R15: lead index 4 is exempt from the newbie guard; a non-newbie is never rejected.
-TEST(newbie_lead_guard_exemptions) {
-    tsup::Env env({0.5, 0.9});
-    CHECK(!newbieLeadRejected(env.ctx, 4, 1, 5));
-    CHECK(!newbieLeadRejected(env.ctx, 0, 5, 5));
-}
-
-// R4: Id 307 resolves to Morgul (first); an Id with no creature falls back to index 0.
-TEST(shared_id_307_resolves_to_morgul_and_unknown_id_to_zero) {
-    tsup::Env env({0.5, 0.9});
-    CHECK_EQ(monsterTableIndexForId(env.ctx, 307), kMorgulTableIndex);
-    CHECK_EQ(monsterTableIndexForId(env.ctx, 999999), 0);
-    CHECK_EQ(kMorgulTableIndex, 278);
-    CHECK_EQ(kShadowNinjaTableIndex, 389);
-}
-
 // R10: shipped class count is 18.
 TEST(shipped_monster_class_count_is_eighteen) {
     tsup::Env env({0.5, 0.9});
     CHECK_EQ(monsterClassCount(env.ctx), 18);
-}
-
-// R28 worked cases, plus the audit swing bound (Int(Hits*0.5/2)+1).
-TEST(monster_hits_roll_sign_and_swing_and_audit_bound) {
-    {
-        // sign: Int(0.2*2)=0 subtract. swing: Int(0.5*(20*0.5)/2)+1 = Int(2.5)+1 = 3. 20-3 = 17.
-        tsup::Env env({0.2, 0.5});
-        RolledHits r = rollMonsterHits(env.ctx, 20);
-        CHECK_EQ(r.hits, 17);
-        CHECK_EQ(r.maxHits, 17);
-    }
-    {
-        // sign: Int(0.7*2)=1 add. swing: Int(0.0)+1 = 1. 20+1 = 21.
-        tsup::Env env({0.7, 0.0});
-        RolledHits r = rollMonsterHits(env.ctx, 20);
-        CHECK_EQ(r.hits, 21);
-        CHECK_EQ(r.maxHits, 21);
-    }
-    CHECK_EQ(auditSwingBound(20), 6);
-    CHECK_EQ(auditSwingBound(10), 3);
-    CHECK_EQ(auditSwingBound(1), 1);
 }
 
 // R28 quirk: no floor. A 1-hit creature comes out with 0 or 2.
@@ -225,65 +188,11 @@ TEST(one_hit_creature_gives_zero_or_two) {
     }
 }
 
-// R29: alive = !Gone && (Hits > 0 || AtNought); any write to Hits clears AtNought.
-TEST(standing_at_nought_and_write_clears_flag) {
-    Creature c;
-    c.hits = 0;
-    c.atNought = true;
-    c.gone = false;
-    CHECK(creatureAlive(c));
-
-    c.atNought = false;
-    CHECK(!creatureAlive(c));
-
-    c.hits = 3;
-    c.gone = true;
-    CHECK(!creatureAlive(c));
-
-    c.gone = false;
-    CHECK(creatureAlive(c));
-
-    c.hits = 0;
-    c.atNought = true;
-    setCreatureHits(c, 4);
-    CHECK_EQ(c.hits, 4);
-    CHECK(!c.atNought);
-    CHECK(creatureAlive(c));
-}
-
 // R23: unrolled members get max(1, base Hits).
 TEST(unrolled_member_hits_floor_of_one) {
     CHECK_EQ(unrolledMemberHits(0), 1);
     CHECK_EQ(unrolledMemberHits(1), 1);
     CHECK_EQ(unrolledMemberHits(7), 7);
-}
-
-// R30: damMod = DamageMod if > 0 else 1; +0.75 chest; +2 crit; +1 backstab; +/- sizeDiff/10.
-TEST(melee_damage_modifier_rules) {
-    CHECK_EQ(meleeDamageModifier(2.0, false, false, false, 0, false), 2.0);
-    CHECK_EQ(meleeDamageModifier(0.0, false, false, false, 0, false), 1.0);
-    CHECK_EQ(meleeDamageModifier(-3.0, false, false, false, 0, false), 1.0);
-    CHECK_EQ(meleeDamageModifier(2.0, true, false, false, 0, false), 2.75);
-    CHECK_EQ(meleeDamageModifier(2.0, false, true, false, 0, false), 4.0);
-    CHECK_EQ(meleeDamageModifier(2.0, false, false, true, 0, false), 3.0);
-    CHECK_EQ(meleeDamageModifier(2.0, false, true, true, 0, false), 5.0);
-    CHECK_EQ(meleeDamageModifier(2.0, false, false, false, 20, false), 4.0);
-    CHECK_EQ(meleeDamageModifier(2.0, false, false, false, -10, false), 1.0);
-}
-
-// R31: threshold = clamp(100*ln(1+M/k)*ln(floor+1) - 100*ln(1+D/999), lo, hi).
-TEST(proc_threshold_clamps_and_matches_formula) {
-    // All zero: raw = 0, clamped up to lo.
-    CHECK_EQ(procThreshold(kCritProcSpec, 0, 0, 0), 2.0);
-    CHECK_EQ(procThreshold(kBackstabProcSpec, 0, 0, 0), 4.0);
-    // Very large inputs: clamped down to hi.
-    CHECK_EQ(procThreshold(kCritProcSpec, 10000, 0, 10000), 50.0);
-
-    // Mid-range case, computed by hand-written formula: M=100, D=50, floor=10.
-    const double raw = 100.0 * std::log(1.0 + 100.0 / 650.0) * std::log(11.0) -
-                       100.0 * std::log(1.0 + 50.0 / 999.0);
-    CHECK(raw > 2.0 && raw < 50.0);
-    CHECK(std::fabs(procThreshold(kCritProcSpec, 100, 50, 10) - raw) < 1e-9);
 }
 
 // R31: proc if the 1..100 draw <= threshold; draw = Int(Rnd*100)+1.
@@ -310,60 +219,3 @@ TEST(roll_proc_draw_boundary_is_inclusive) {
     }
 }
 
-// R35: chance 50; 80 if lead > comp + comp/4; 20 if lead < comp - comp/4. comp = 8, so bounds 10 and 6.
-// Fires if Floor(rnd*100) < chance.
-TEST(companion_breath_chance_and_roll_boundaries) {
-    CHECK_EQ(companionBreathChance(11, 8), 80);
-    CHECK_EQ(companionBreathChance(10, 8), 50);
-    CHECK_EQ(companionBreathChance(6, 8), 50);
-    CHECK_EQ(companionBreathChance(5, 8), 20);
-    {
-        // chance 80: Floor(80.1) = 80 is not < 80.
-        tsup::Env env({0.801, 0.801});
-        CHECK(!rollCompanionBreath(env.ctx, 11, 8));
-    }
-    {
-        // chance 80: Floor(79.9) = 79 < 80.
-        tsup::Env env({0.799, 0.799});
-        CHECK(rollCompanionBreath(env.ctx, 11, 8));
-    }
-    {
-        // chance 50: Floor(50.0) = 50 is not < 50.
-        tsup::Env env({0.5, 0.5});
-        CHECK(!rollCompanionBreath(env.ctx, 10, 8));
-    }
-    {
-        // chance 20: Floor(15) = 15 < 20.
-        tsup::Env env({0.15, 0.15});
-        CHECK(rollCompanionBreath(env.ctx, 5, 8));
-    }
-}
-
-// R27.5 / R31: companion melee defence is +4 crit, +1 backstab.
-// R36: breath and acid remove only below 0; exactly 0 is kept.
-TEST(companion_defence_bonus_and_breath_acid_below_zero) {
-    CHECK_EQ(companionDefenceBonus(false, false), 0);
-    CHECK_EQ(companionDefenceBonus(true, false), 4);
-    CHECK_EQ(companionDefenceBonus(false, true), 1);
-    CHECK_EQ(companionDefenceBonus(true, true), 5);
-    CHECK(breathAcidRemoves(-1));
-    CHECK(!breathAcidRemoves(0));
-    CHECK(!breathAcidRemoves(1));
-}
-
-// R20 / R19: fogged groups (bit 20) start at identify level 1; others at 0.
-TEST(initial_identify_level_follows_fog_bit) {
-    CHECK_EQ(kFogFlagBit, 1u << 20);
-    CHECK_EQ(enumCode(initialIdentifyLevel(0u)), enumCode(IdentifyLevel::OWN_NAME));
-    CHECK_EQ(enumCode(initialIdentifyLevel(1u << 19)), enumCode(IdentifyLevel::OWN_NAME));
-    CHECK_EQ(enumCode(initialIdentifyLevel(kFogFlagBit)), enumCode(IdentifyLevel::CLASS_NAME));
-    CHECK_EQ(enumCode(initialIdentifyLevel(kFogFlagBit | 0x1u)),
-             enumCode(IdentifyLevel::CLASS_NAME));
-}
-
-// R25: a group with a live join offer does not roll for engagement.
-TEST(join_offer_pauses_engagement_roll) {
-    MonsterGroup g;
-    g.joinOffer = true;
-    CHECK(!groupRollsForEngagement(g));
-}

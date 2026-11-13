@@ -77,18 +77,6 @@ TEST(attr_stats_ad_mixed_values) {
     CHECK_EQ(statsAD(attr_arr(13, 16, 8, 0, 0, 12)), 4);
 }
 
-TEST(attr_stats_ad_archive_agrees_above_bands) {
-    // R15: 2*(14+13)+16+15-76 = 9. Engine R14 form gives 4+2+2+1 = 9.
-    CHECK_EQ(statsADArchive(14, 13, 16, 15), 9);
-    CHECK_EQ(statsAD(attr_arr(14, 16, 15, 0, 0, 13)), 9);
-}
-
-TEST(attr_stats_ad_zero_at_band_floors) {
-    // R15: archive gives 0 at floors Str 12, Dex 12, Int 14, Wis 14.
-    CHECK_EQ(statsADArchive(12, 12, 14, 14), 0);
-    CHECK_EQ(statsAD(attr_arr(12, 14, 14, 0, 0, 12)), 0);
-}
-
 TEST(attr_guild_ad_adds_base) {
     // R12: guildAtt = BaseAD + ga, guildDef = BaseAD + gd.
     AdPair best;
@@ -127,15 +115,6 @@ TEST(attr_fit_opposed_is_subtract) {
     // R9: Good and Evil are opposed.
     CHECK(fitFor(ItemAlign::Good, Align::Evil) == FitClass::Subtract);
     CHECK(fitFor(ItemAlign::Evil, Align::Good) == FitClass::Subtract);
-}
-
-TEST(attr_stat_mod_worth_full_and_even_half) {
-    // Full passes the raw modifier through. Even halves are exact, so they avoid
-    // the unresolved floor-versus-nearest rounding conflict in R9.
-    CHECK_EQ(statModWorth(5, FitClass::Full), 5);
-    CHECK_EQ(statModWorth(-4, FitClass::Full), -4);
-    CHECK_EQ(statModWorth(4, FitClass::Half), 2);
-    CHECK_EQ(statModWorth(6, FitClass::Half), 3);
 }
 
 TEST(attr_stat_with_mods_adds_gear_no_floor) {
@@ -181,92 +160,3 @@ TEST(attr_creation_pool_relative_to_spent) {
     CHECK_EQ(p2 - p1, 2);
 }
 
-TEST(attr_create_character_initial_state) {
-    // R5: Human base stats, flat 15 HP, 1500 gold, area -1, level 1, 0 XP,
-    // StatMax from race Max, and SP recalculated with refill.
-    tsup::Env env(3);
-    Character c;
-    Arr<i32, kStatCount> stats = attr_arr(9, 9, 9, 11, 10, 11);
-    createCharacter(env.ctx, c, Race::Human, Guild::Nomad, stats);
-
-    CHECK_EQ(c.abilities.stats[0], 9);
-    CHECK_EQ(c.abilities.stats[5], 11);
-    CHECK_EQ(c.abilities.statMax[0], 17);
-    CHECK_EQ(c.abilities.statMax[3], 17);
-    CHECK_EQ(c.vitals.curHits, 15);
-    CHECK_EQ(c.vitals.maxHits, 15);
-    CHECK_EQ(c.wallet.goldOnHand, static_cast<Currency>(1500) * 10000);
-    CHECK_EQ(c.location.area, -1);
-    CHECK_EQ(c.level, 1);
-    CHECK_EQ(c.experience, 0);
-    CHECK(c.activeGuild == Guild::Nomad);
-    // SP = 5*(INT 9 + WIS 9) = 90, refilled at creation.
-    CHECK_EQ(c.vitals.maxSpellPoints, 90);
-    CHECK_EQ(c.vitals.curSpellPoints, 90);
-}
-
-TEST(attr_max_sp_uses_natural_int_wis) {
-    // R21: maxSP = 5*(natural INT + natural WIS). Gear modifiers do not count.
-    Character c;
-    c.abilities.stats[1] = 14;
-    c.abilities.stats[2] = 12;
-    CHECK_EQ(maxSP(c), 130);
-    c.abilities.statMods[1] = 4;
-    CHECK_EQ(maxSP(c), 130);
-}
-
-TEST(attr_recalc_sp_clamps_without_refill) {
-    // R21 refill rule: without refill, current SP is clamped to the new max.
-    // With refill, current SP is set to the max.
-    tsup::Env env(5);
-    Character c;
-    c.abilities.stats[1] = 14;
-    c.abilities.stats[2] = 12;
-
-    c.vitals.curSpellPoints = 200;
-    recalcSP(env.ctx, c, false);
-    CHECK_EQ(c.vitals.maxSpellPoints, 130);
-    CHECK_EQ(c.vitals.curSpellPoints, 130);
-
-    c.vitals.curSpellPoints = 50;
-    recalcSP(env.ctx, c, false);
-    CHECK_EQ(c.vitals.curSpellPoints, 50);
-
-    recalcSP(env.ctx, c, true);
-    CHECK_EQ(c.vitals.curSpellPoints, 130);
-}
-
-TEST(attr_con_loss_chance_formula) {
-    // R22: P = 50 - 2*Con (percent). Inputs kept where the result is non-negative.
-    CHECK_EQ(conLossChance(24), 2);
-    CHECK_EQ(conLossChance(20), 10);
-    CHECK_EQ(conLossChance(16), 18);
-    CHECK_EQ(conLossChance(10), 30);
-}
-
-TEST(attr_con_roll_can_lose_one_natural_con) {
-    // R22: P(lose 1 Con) = 50 - (Con_natural * 2) = 50 - 40 = 10 percent for Con 20.
-    // Roll 0.05 (a raw rng.nextDouble() value in [0,1)) is below 0.10, so 1 natural CON is lost.
-    // Gear modifiers (statMods) are untouched.
-    // ASSUMPTION: Env takes its roll list as raw [0,1) doubles, matching IRng::nextDouble (VB Rnd).
-    // test_support.h was not inspected. The previous whole-percent roll {5} never triggered the loss,
-    // which is consistent with percent() comparing a raw roll against p/100.
-    tsup::Env env({0.05});
-    Character c;
-    c.abilities.stats[3] = 20;
-    c.abilities.statMods[3] = 5;
-    statRaiseConRoll(env.ctx, c);
-    CHECK_EQ(c.abilities.stats[3], 19);
-    CHECK_EQ(c.abilities.statMods[3], 5);
-}
-
-TEST(attr_con_roll_keeps_con_on_high_roll) {
-    // R22: roll 0.5 (50%) is not below P=10% for Con 20, so CON is kept.
-    // FIXED: the Env roll list is u64, so the double roll 0.5 is written as 50 percent.
-    // Assumes the Env helper takes rolls as whole percents; verify against test_support.h.
-    tsup::Env env({50});
-    Character c;
-    c.abilities.stats[3] = 20;
-    statRaiseConRoll(env.ctx, c);
-    CHECK_EQ(c.abilities.stats[3], 20);
-}

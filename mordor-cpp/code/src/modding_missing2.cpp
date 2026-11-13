@@ -4,10 +4,4 @@
 
 namespace mordor {
 
-// SIMPLIFIED: the manifest has no toggle list in this header; report "not declared on".
-bool declaredToggleDefault(const ModRef& /*manifest*/, const Str& /*key*/) { return false; }
-
-// SIMPLIFIED: without the choice list the stored text is returned unchanged (SRD ch.21: declared defaults apply only when nothing is stored).
-Str resolveChoice(const ModTag* /*spec*/, const Str& stored) { return stored; }
-
 }  // namespace mordor

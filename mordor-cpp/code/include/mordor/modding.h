@@ -139,127 +139,38 @@ struct TownHookAnswer {
 
 // ---- rules ----
 
-// R1 Locate port source: index of the nearest ancestor containing Mordor.sln, or -1.
-i32 findPortRootIndex(const Vec<AncestorFolder>& chainNearestFirst);
 
-// R2 Resolve mod roots from MORDOR_MODS (';'-separated) or the two default mods folders.
-Vec<Str> resolveModRoots(bool mordorModsSet,
-                         const Str& mordorModsValue,
-                         const Str& gameFolderModsDir,
-                         const Str& programFolderModsDir);
 
-// R3 Discover mods: scan each root's subfolders in case-insensitive name order for mod.json.
-// Duplicate ids are skipped (first kept) and reported via ctx.events. R5
-void discoverMods(Ctx& ctx, ModHost& host, const Vec<ModRootListing>& roots);
 
-// R4 Read manifest: parse mod.json text. Empty text is an error (InvalidDataException in source);
-// returns false and reports an event instead of throwing.
-bool readManifestText(Ctx& ctx, const Str& jsonText, ModRef& out);  // FIXED: ModManifest does not exist anywhere; closest existing mod reference type is ModRef
 
-// R5 / R20 Validate per F1; first failing check wins.
-ManifestProblem validateManifest(const ModRef& manifest);  // FIXED: ModManifest replaced by ModRef (see readManifestText)
 
-// F1 message text for a problem. ManifestProblem::None gives an empty string.
-Str manifestProblemText(ManifestProblem problem);
 
-// R5 True when a mod with this id is already in the host.
-bool isDuplicateModId(const ModHost& host, const Str& id);
 
-// R14 Index of the mod with this id, or -1.
-i32 findModIndexById(const ModHost& host, const Str& id);
 
-// F2 / R21 Display title: (IsBlank(Name) ? Id : Name) + (Version == "" ? "" : " " + Version).
-Str modDisplayTitle(const ModRef& manifest);  // FIXED: ModManifest replaced by ModRef
 
-// F2 helper: true when the text is empty or whitespace only.
-bool isBlankText(const Str& text);
 
-// R6 / F4 Opt-in: enabled only when the stored Enabled flag is true; defaults to false.
-bool isModEnabled(const ModSettingsStore& store, const Str& modId);
 
-// F4 Writes the Enabled flag as True/False.
-void setModEnabled(ModSettingsStore& store, const Str& modId, bool value);
 
-// R7 Load enabled mods at start, in discovery order.
-// UNKNOWN: whether this calls Load then OnEnable on the same path as a live switch-on.
-void loadEnabledMods(Ctx& ctx, ModHost& host);
 
-// R8 First switch-on: call Load, then OnEnable.
-void firstSwitchOn(Ctx& ctx, ModHost& host, i32 modIndex);
 
-// R9 Later activations: call OnEnable and re-note patches.
-void reactivateMod(Ctx& ctx, ModHost& host, i32 modIndex);
 
-// R10 Switch-off: stop calls, run OnDisable, remove Harmony patches.
-// UNKNOWN: Harmony UnpatchAll has no stated signature beyond removing this mod's patches.
-void deactivateMod(Ctx& ctx, ModHost& host, i32 modIndex);
 
-// R11 Live switch from the main menu. Lifecycle mods only; faulted or plain mods are
-// deferred to next start. Settings (Enabled flag) are saved in every case.
-ModSwitchResult switchModLive(Ctx& ctx, ModHost& host, i32 modIndex, bool switchOn);
 
-// R12 True when the original rule answer must be used (HookStatus::Threw or NullDecision).
-bool useOriginalAnswer(HookStatus status);
 
-// R12 / R13 Guarded call result: on Threw, disables the mod for the session, removes its
-// patches, records the reason and logs it. Returns true when the mod's answer may be used.
-bool applyHookReply(Ctx& ctx, LiveMod& mod, const ModHookReply& reply);  // FIXED: LoadedMod replaced by LiveMod
 
-// R13 Mark a mod faulted for the rest of the session, with reason.
-void faultMod(Ctx& ctx, LiveMod& mod, const Str& reason);  // FIXED: LoadedMod replaced by LiveMod
 
-// R14 Setting change: raise Changed(modId, key) for all mods; only matching ids are forwarded.
-// Each handler runs guarded; a throw faults only that mod.
-void raiseSettingChanged(Ctx& ctx, ModHost& host, const Str& modId, const Str& key);
 
-// R15 / F5 Toggle value: stored flag, else declared default (case-insensitive key), else false.
-bool toggleValue(const ModHost& host, i32 modIndex, const Str& key);
 
-// F5 helper: declared default of the toggle whose key matches case-insensitively, else false.
-bool declaredToggleDefault(const ModRef& manifest, const Str& key);  // FIXED: ModManifest replaced by ModRef
 
-// R16 / F6 Choice resolution. spec may be null (returns stored or "").
-// Original takes an unused key parameter; not declared here.
-// Original quirk: an empty Default never matches, so the first option is the fallback.
-Str resolveChoice(const ModTag* spec, const Str& stored);  // FIXED: ModChoiceSpec does not exist anywhere; closest existing type is ModTag
 
-// R17 Read a stored flag, returning defaultValue when none is stored.
-bool readStoredFlag(const ModSettingsStore& store, const Str& modId, const Str& key, bool defaultValue);
 
-// R17 Write a stored flag as True/False.
-void writeStoredFlag(ModSettingsStore& store, const Str& modId, const Str& key, bool value);
 
-// R17 Read stored text for a key; empty when none is stored.
-Str readStoredText(const ModSettingsStore& store, const Str& modId, const Str& key);
 
-// R17 Original quirk (manifest wins): does not replace an existing toggle with the same key.
-// Returns false when the key already exists and the spec is ignored.
-bool declareToggle(ModRef& manifest, const ModTag& spec);  // FIXED: ModManifest replaced by ModRef; ModToggleSpec does not exist anywhere, closest existing type is ModTag
 
-// R17 Original quirk (no write check): writes choice text directly, without checking Options.
-void setChoice(ModSettingsStore& store, const Str& modId, const Str& key, const Str& text);
 
-// R18 Automap right-click. Items arrive in load order including separators. If only separators
-// remain, the menu is discarded and the original right-click (instant re-plot) applies.
-AutomapMenuResult resolveAutomapRightClick(const Vec<AutomapMenuItem>& collectedInLoadOrder);
 
-// R19 ModHost.Active: true when any mod is currently running. With no mod loaded, original rules apply.
-bool anyModActive(const ModHost& host);
 
-// R19 Resolve one town hook. replies[i] is the answer of host.mods[i] (ignored unless active).
-// Replies are tried in load order; the first mod answer that is usable wins.
-// Faults are applied via applyHookReply. Falls back to the original answer otherwise.
-TownHookAnswer queryTownHook(Ctx& ctx,
-                             ModHost& host,
-                             TownHook hook,
-                             Currency original,
-                             const Vec<ModHookReply>& replies);
 
-// R23 API version that introduced a member: the value from kApiMemberVersion.
-// 0 = pre-8, -1 = UNKNOWN.
-// FIXED: ApiMember is not declared anywhere in the API INDEX, so it is replaced by plain i32
-// (the member is identified by its index into kApiMemberVersion).
-i32 apiVersionIntroducedBy(i32 member);
 
 // R24 EventManager and R25 C++ resource definition are port-engine notes, not original rules.
 // They declare no core routine here.

@@ -85,96 +85,42 @@ struct GroupAttackFlags {
 
 // ---- declarations ----
 
-// R32 every swing of every hand counts as one weapon blow (hits, criticals, backstabs, severs, kills).
-void countWeaponBlow(Ctx& ctx, Character& ch);
 
-// R33 free-attack chance in percent: 50 + (monDex - charDex) * 5, cap 98 on ChangedLevel, floor 5. Pure.
-// charDex is the Dex of the drawn character, not the party's best.
-i32 freeAttackChance(AttackKind kind, i32 monDex, i32 charDex);
 
-// R33 roll a free attack. Only on Moved or ChangedLevel; Round never rolls.
-bool rollFreeAttack(Ctx& ctx, AttackKind kind, i32 monDex, i32 charDex);
 
 // R34 target pick: 0 = character, 1..kCompanionSlots = living companion slot.
 // Falls back to 0 (character) after kTargetPickTries failed companion picks.
 // UNKNOWN: whether the returned pick indexes companions[pick-1] or matches Companion.slot.
 i32 pickMonsterTarget(Ctx& ctx, const Party& party, const Arr<Companion, kCompanionSlots>& companions);
 
-// R35 monster melee damage modifier chain (crit and backstab rolls), before MonsterBlow.
-// Uses monsterCritChance (API INDEX). UNKNOWN: whether the LN(DamMod)^2 reduction sits here or in MonsterBlow.
-// CONFLICT: R35 says DamageMod <= 0 becomes 1; T10 table says floor 0.1. R35 formula used.
-f64 meleeDamageModifier(Ctx& ctx, const MeleeModInput& in);
 
-// R35 size adjustment. Target smaller than monster: +sizeDiff/10. Target bigger: -sizeDiff/10. Pure.
-f64 sizeDamageAdjust(i32 targetSize, i32 monsterSize);
 
-// R36 protection bonus: P > 0 ? VbInt(Log(P) * (Log(P) * 3)) : 0. Pure.
-i64 protectionBonus(i32 protection);
 
-// R36 defence with the protection bonus added. Pure.
-i32 defenceWithProtection(i32 defence, i32 protection);
 
 // R37 MonsterBlow: monster melee resolution body. UNKNOWN: body not in sources.
 // Returns damage. Engine player-side random adjust is not part of this declaration.
 // CONFLICT: monster damage reduction form (engine dmg -= a vs archive Base - Random[0..n]). Unresolved.
 i32 monsterBlow(Ctx& ctx, i32 monAtt, i32 targetDef, i32 monLvl, i32 monStr, f64 damMod);
 
-// R37 melee resolution: modifiers (R35), then MonsterBlow.
-i32 resolveMonsterMelee(Ctx& ctx, const MeleeModInput& in, i32 monAtt, i32 targetDef, i32 monStr);
 
-// R38 only the first monster spell attack per group is used. Pure query.
-bool groupMayCastSpell(const GroupAttackFlags& flags);
 
-// R38 record the group's spell attack; it also ends the group's attack.
-void recordGroupSpellAttack(Ctx& ctx, GroupAttackFlags& flags);
 
 // R39 special attack range: Int((Log(a) + a/15) / Log(1.08) - targetLevel/10 + 1), a = attackerGuildLevel + 1. Pure.
 // UNKNOWN: whether targetLevel/10 is integer or real division. Integer division is used here.
 
 
-// R40 share added to the roll: range/4 for breath, range/2 for acid spit and electrocute. Pure.
-i32 specialAttackShare(i32 range, SpecialAttackKind kind);
 
-// R40 raw damage: VbInt((Int((Rnd*range + 1)/2) + share) * 0.7).
-// CONFLICT: text says "rounded half to even per source wording" but the formula uses VbInt. VbInt (floor) used.
-// Electrocute itself is declared in monsters1b.h (API INDEX).
-i32 specialAttackRawDamage(Ctx& ctx, i32 range, SpecialAttackKind kind);
 
-// R40 monster's own breath (sub0E85, MONSMOD.BAS:2702-2704). Not interchangeable with F11/F12.
-// UNKNOWN: exact expression. Starts from level*Log(level+1), divides target level by 20, halves at the end.
-i32 monsterBreathDamage(Ctx& ctx, i32 monLevel, i32 targetLevel);
 
 // R41 monster natural weapons are data only (no routine). Data belongs in GameData.monsters.
 // UNKNOWN: whether a roll is compared to chance, and how the damage bonus applies.
 
-// R42 defend bonus: defence x1.5 when defending (engine comment).
-// CONFLICT: audit says the +50% is overwritten and does not apply. Engine preference kept.
-// UNKNOWN: rounding and where in code the factor is applied. vbInt used.
-i32 defendingDefence(i32 defence, bool defending);
 
-// R43 companion pass for one owner: four slots. A living companion breathes or spits, then casts or strikes.
-// The owner's castThisRound flag is the shared one-cast-per-round gate.
-// UNKNOWN: which foe list (Encounter or Party::foes) the companion pass targets. Encounter used.
-void runOwnerCompanionPass(Ctx& ctx, Party& party, Arr<Companion, kCompanionSlots>& companions,
-                           Encounter& enc, i32 ownerIndex);
 
-// R44 mishap chance in percent: clamp((999/max(1,M)) * (partyBodies/20) * factor, lo, hi). Pure.
-f64 mishapChance(MishapSource source, i32 monsterLevel, i32 partyBodies);
 
-// R45 drawing the owner cancels the misdirection.
-void cancelMisdirectionOnDraw(Ctx& ctx, Character& owner);
 
-// R45 owner is freed from paralysis when companions finish the encounter.
-void freeOwnerFromParalysis(Ctx& ctx, Character& owner, bool companionsFinishedEncounter);
 
-// R46 victory sequence after the last monster falls. Steps 1-7 of the SRD, in order.
-// Steps 1 and 5 (store room) are write-back of value state; no-op here.
-void runVictorySequence(Ctx& ctx, Party& party, FloorState& floor, i32 roomIndex, Encounter& enc,
-                        i64 nowMs, i32 headerAreaCount);
 
-// R46 step 2: mark the room cleared, only if it belongs to a real area (Area > 0).
-// UNKNOWN: exact Area fields written (emptiedAt, stamp, respawnT).
-void markRoomCleared(Ctx& ctx, FloorState& floor, i32 roomIndex, i64 nowMs, i32 headerAreaCount);
 
 // R46 step 3: gold share per party member. Pure. UNKNOWN: remainder handling.
 Currency splitFightGold(Currency fightGold, i32 partySize);
@@ -186,35 +132,18 @@ void payFightGold(Ctx& ctx, Party& party);
 // UNKNOWN: exact fields updated beyond monsterKills and kills.
 void noteMonsterKill(Ctx& ctx, Character& member, const Creature& monster);
 
-// R46 step 7: hall.Check(DeadliestCreature, killer, def.Id, PowerOf). Save is host responsibility.
-// UNKNOWN: body of hall.Check and the MonsterPower definition.
-void checkDeadliestCreature(Ctx& ctx, Character& killer, i32 monsterId);
 
-// R47 announce experience only when it takes a character past a level (MONSMOD.BAS:305-307).
-void announceExperienceIfLevelUp(Ctx& ctx, const Character& ch, i32 levelBefore);
 
-// R48 fight chest availability. Belongs to the area it was made in; no Encounter source or roomArea <= 0
-// means it belongs wherever you stand. Pure.
-bool chestAvailableHere(bool hasEncounterSource, i32 roomArea, i32 standingArea);
 
 // R49 attack/defence composition (StatAD + ItemAD + GuildAD) is already declared as totalAD and guildAD
 // in attributes.h (API INDEX). Not redeclared. Archive form, conflicting.
 
-// R50 archive weapon-resistance threshold: (ItemLevel * 2) + 1. Pure.
-// CONFLICT with R13 bit 4 (engine: floor(LevelFound/2)). Not reconciled. UNKNOWN: level-band mapping.
-i32 archiveWeaponResistThreshold(i32 itemLevel);
 
-// R51 archive chance to hit, as percent in [kArchiveHitMin, kArchiveHitMax]. Pure.
-// Fractions multiplied by 100 (inferred). CONFLICT: engine clamp is 2-98 (R17).
-// UNKNOWN: case Atk == Def with Def != 0 is not stated.
-f64 archiveHitChancePercent(i32 atk, i32 def);
 
 // R52 archive monster base melee damage, with the random reduction Random[0..Int((CharDef-MonAtk)/8)].
 // CONFLICT with R17/R35 engine path. UNKNOWN: lower bound when CharDef < MonAtk.
 f64 archiveMonsterDamage(Ctx& ctx, i32 monStrength, i32 monGuildLevel, f64 damMod,
                          i32 charDef, i32 monAtk);
 
-// R52 archive player form: Final = Base + Rnd[1 to Atk/8] (the "defense bug" form). Inferred shape.
-i32 archivePlayerDamage(Ctx& ctx, f64 baseDamage, i32 atk);
 
 }  // namespace mordor

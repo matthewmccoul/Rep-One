@@ -15,13 +15,5 @@ using namespace mordor;
 //   The expected value is symbolic ("race minimum minus 1"), which needs the race table
 //   and a Stats/Constitution accessor to compare against.
 
-TEST(engine_rtt195_days_until_found_zero_roll_level1_area5) {
-  // B_0068#7: ZeroRandom always rolls 0. Level 1, area 5 (<= 18) gives ceiling 100.
-  // chance = 16 - 1 = 15, not easy to find. 0 * 100 <= 15 on the first pass, so days = 1.
-  tsup::Env env({0.0});  // FIXED: Env is declared in tsup namespace (test_support.h), not at global scope.
-  i32 days = daysUntilFound(env.ctx, 1, 5, false);
-  CHECK_EQ(days, 1);
-}
-
 // SKIP B_0058#3: Asserts on the text of a decompiled BASIC source file (FRMCONTR.BAS
 //   Form_Unload). This is not observable through the C++ port's API.

@@ -270,9 +270,6 @@ bool cmdGive(Session& s, const Vec<Str>& w, Str& reply) {
 
 }  // namespace
 
-// Runs `give gold ...` or `give item ...` on the session. words[0] is "give". Returns true when a reply was produced.
-bool giveRun(Session& s, const Vec<Str>& words, Str& reply) { return cmdGive(s, words, reply); }
-
 void register_give() {
   registerFeatureCommand({"give", Screen::Town, &cmdGive, "give gold <from> <to> <amount> | give item <from> <slot> <to>  - hand gold or a pack item to another member"});
   registerFeatureCommand({"give", Screen::Dungeon, &cmdGive, "give gold <from> <to> <amount> | give item <from> <slot> <to>  - hand gold or a pack item to another member"});

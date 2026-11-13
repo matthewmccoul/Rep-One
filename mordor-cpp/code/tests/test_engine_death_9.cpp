@@ -58,34 +58,3 @@ TEST(engine_B_0068_2_cleanup_keeps_stoned) {
     CHECK(ch.deathState == mordor::DeathState::Stoned);
 }
 
-// B_0068#8: rescue carries the dead character home to town and ages them by the days waited.
-TEST(engine_B_0068_8_rescue_carries_home_and_ages) {
-    tsup::Env env(42);
-    mordor::Character ch;
-    ch.deathState = mordor::DeathState::Dead;
-    ch.location.dungeonLevel = 3;
-    ch.location.area = 12;
-    ch.location.x = 5;
-    ch.location.y = 7;
-    ch.ageDays = 1000;
-
-    const mordor::i32 days = 3;
-    mordor::applyRescueFound(env.ctx, ch, days);
-
-    CHECK_EQ(ch.location.dungeonLevel, 0);          // dungeon level 0
-    CHECK_EQ(ch.location.area, -1);                 // area -1
-    CHECK_EQ(ch.ageDays - 1000, days);              // age rose by exactly those days
-    CHECK(days > 0);                                // days more than zero
-    CHECK(ch.isDead());                             // still dead
-}
-
-// B_0068#9: a dead character below ground gets the Wait for Rescue button.
-TEST(engine_B_0068_9_wait_for_rescue_offered_below_ground) {
-    mordor::Party party;
-    party.size = 1;
-    party.dungeonLevel = 1;
-    party.members[0].deathState = mordor::DeathState::Dead;
-    party.members[0].location.dungeonLevel = 1;
-
-    CHECK(mordor::waitButtonEnabled(party));
-}

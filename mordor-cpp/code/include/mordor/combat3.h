@@ -131,35 +131,19 @@ i32 attackOf(const Ctx& ctx, const Character& c, const Inventory& inv);
 // R2 defence total, floored at zero: max(0, kBaseAD + statsADOf + bestGuildAD.def + sum equipped Def).
 i32 defenseOf(const Ctx& ctx, const Character& c, const Inventory& inv);
 
-// R3 panel variant: live stat contribution (StatsADNow).
-// UNKNOWN: whether StatsADNow + StoredADShift equals statsADOf.
-i32 statsADNow(const Character& c);
 
 // R3 panel variant: kept shift that holds the stat part (StoredADShift).
 i32 storedADShift(const Character& c);
 
-// R3 panel attack/defence totals (reference only where the panel is the reference).
-AdPair panelAD(const Ctx& ctx, const Character& c, const Inventory& inv);
 
-// R5 paralysed character: base, guild and gear values only; stat part shifted out.
-// R7 CONFLICT: "shifted out" vs "stored shift kept for good"; engine preferred.
-AdPair paralysedAD(const Ctx& ctx, const Character& c, const Inventory& inv);
 
-// R6 on level-0 paralysis or city-gate clear, keep the stored shift "for good".
-void keepStoredAdShift(Ctx& ctx, Character& c);
 
 // R6 true while the stat part is held (the stored shift only persists while held).
 // UNKNOWN: exact criterion for "stat part is held".
 bool statPartHeld(const Character& c);
 
-// R8 Defend is a character order: turns it on or off (stops swinging while on).
-void setDefendOrder(Ctx& ctx, Character& c, bool on);
 
-// R8 Defend turns on when a weapon proves useless.
-void defendWhenWeaponUseless(Ctx& ctx, Character& c, bool weaponProvedUseless);
 
-// R8 Defend makes the character harder to rob; no defence bonus is applied.
-bool defendHardensRobbery(const Character& c);
 
 // R9 intended Defend +50% is dead code in the original: returns value unchanged.
 i32 applyDefendBonus(i32 value, bool defendOn);
@@ -189,14 +173,7 @@ i32 gearResistReplace(i32 raceBase, bool itemResists);
 // UNKNOWN: 12th resistance flag (race records store 12, item bitmask has 11).
 bool itemResistsKind(u32 resistanceFlags, DamageKind kind);
 
-// R15 resistance-raising spell: caster's action, raises the target's matching resistance to 95.
-// Only castable out of combat. Returns true if applied.
-// UNKNOWN: whether 95 is a floor, a set, or additive; whether the spell can lower resistance.
-bool castResistRaise(Ctx& ctx, Character& caster, Character& target, DamageKind kind, bool inCombat);
 
-// R17 spell class to resistance type.
-// UNKNOWN: magic-class scaling numbers (none given).
-ClassResistType resistTypeForClass(SpellClass cls);
 
 // R18 monster percent chance to hit, clamped to [2, 98].
 // CONFLICT: archive article is the lowest authority tier [c99].
@@ -207,8 +184,6 @@ f64 monsterHitChance(i32 monAtk, i32 charDef);
 // UNKNOWN: whether the monster form is intended.
 bool monsterHitRoll(Ctx& ctx, i32 monAtk, i32 charDef);
 
-// R19 player-attack call convention: monster Defense passed as 0, character Defense passed as def.
-HitCallArgs playerAttackHitArgs(i32 charDef);
 
 // R20 monster resistance fields are data only (ResFire ... ResSpecial); no routine declared.
 // UNKNOWN: field semantics, value form, and boundaries of ResMagic, ResSpell, ResSpecial.

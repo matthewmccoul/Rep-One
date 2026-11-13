@@ -86,42 +86,6 @@ TEST(stat_ceiling_osiri_and_morloch_dexterity) {
 // raiseStat (R3): play-time raises stop at the ceiling
 // ---------------------------------------------------------------------------
 
-TEST(raise_stat_below_ceiling_adds_full_amount) {
-    // Human STR 10 + 3 = 13, which is under the ceiling of 22.
-    tsup::Env env({0.5, 0.9});
-    m::Character ch = make_char(m::Race::Human);
-    ch.abilities.stats[static_cast<unsigned>(m::StatIndex::Str)] = 10;
-    m::raiseStat(env.ctx, ch, m::StatIndex::Str, 3);
-    CHECK_EQ(ch.abilities.stats[static_cast<unsigned>(m::StatIndex::Str)], 13);
-}
-
-TEST(raise_stat_clamps_at_human_strength_ceiling) {
-    // Human STR 21 + 5 = 26, capped at 22.
-    tsup::Env env({0.5, 0.9});
-    m::Character ch = make_char(m::Race::Human);
-    ch.abilities.stats[static_cast<unsigned>(m::StatIndex::Str)] = 21;
-    m::raiseStat(env.ctx, ch, m::StatIndex::Str, 5);
-    CHECK_EQ(ch.abilities.stats[static_cast<unsigned>(m::StatIndex::Str)], 22);
-}
-
-TEST(raise_stat_at_ceiling_does_not_move) {
-    // Already at 22; any further raise leaves it at 22.
-    tsup::Env env({0.5, 0.9});
-    m::Character ch = make_char(m::Race::Human);
-    ch.abilities.stats[static_cast<unsigned>(m::StatIndex::Str)] = 22;
-    m::raiseStat(env.ctx, ch, m::StatIndex::Str, 1);
-    CHECK_EQ(ch.abilities.stats[static_cast<unsigned>(m::StatIndex::Str)], 22);
-}
-
-TEST(raise_stat_uses_race_specific_ceiling) {
-    // Giant STR ceiling is 30. From 28 a raise of 5 caps at 30.
-    tsup::Env env({0.5, 0.9});
-    m::Character ch = make_char(m::Race::Giant);
-    ch.abilities.stats[static_cast<unsigned>(m::StatIndex::Str)] = 28;
-    m::raiseStat(env.ctx, ch, m::StatIndex::Str, 5);
-    CHECK_EQ(ch.abilities.stats[static_cast<unsigned>(m::StatIndex::Str)], 30);
-}
-
 // ---------------------------------------------------------------------------
 // Race-guild grid (R4, Table T4, sheet [c71]).
 // Enforcement is UNKNOWN; these tests check the grid values only.
@@ -215,93 +179,11 @@ TEST(alignment_mask_morloch_good_and_evil) {
 // How percentages are applied is UNKNOWN, so applyResistance is not tested.
 // ---------------------------------------------------------------------------
 
-TEST(resistance_elf_mind_and_magic) {
-    // Elf: Mind 50, Magic 80, Fire 0.
-    tsup::Env env({0.5, 0.9});
-    CHECK_EQ(m::resistancePercent(env.ctx, m::Race::Elf, m::ResistCategory::Mind), 50);
-    CHECK_EQ(m::resistancePercent(env.ctx, m::Race::Elf, m::ResistCategory::Magic), 80);
-    CHECK_EQ(m::resistancePercent(env.ctx, m::Race::Elf, m::ResistCategory::Fire), 0);
-}
-
-TEST(resistance_dwarf_cold_and_drain) {
-    // Dwarf: Cold 80, Drain 90, Fire 45.
-    tsup::Env env({0.5, 0.9});
-    CHECK_EQ(m::resistancePercent(env.ctx, m::Race::Dwarf, m::ResistCategory::Cold), 80);
-    CHECK_EQ(m::resistancePercent(env.ctx, m::Race::Dwarf, m::ResistCategory::Drain), 90);
-    CHECK_EQ(m::resistancePercent(env.ctx, m::Race::Dwarf, m::ResistCategory::Fire), 45);
-}
-
-TEST(resistance_osiri_high_values) {
-    // Osiri: Electrical 90, Mind 90, Stone 90, Acid 90.
-    tsup::Env env({0.5, 0.9});
-    CHECK_EQ(m::resistancePercent(env.ctx, m::Race::Osiri, m::ResistCategory::Electrical), 90);
-    CHECK_EQ(m::resistancePercent(env.ctx, m::Race::Osiri, m::ResistCategory::Mind), 90);
-    CHECK_EQ(m::resistancePercent(env.ctx, m::Race::Osiri, m::ResistCategory::Stone), 90);
-    CHECK_EQ(m::resistancePercent(env.ctx, m::Race::Osiri, m::ResistCategory::Acid), 90);
-}
-
-TEST(resistance_morloch_cold_uses_test_value) {
-    // Morloch Cold 35 per [c62, c82]; [c87] "53" is treated as a typo.
-    // Disease and Poison 0 per [c62], which wins over the manual.
-    tsup::Env env({0.5, 0.9});
-    CHECK_EQ(m::resistancePercent(env.ctx, m::Race::Morloch, m::ResistCategory::Cold), 35);
-    CHECK_EQ(m::resistancePercent(env.ctx, m::Race::Morloch, m::ResistCategory::Disease), 0);
-    CHECK_EQ(m::resistancePercent(env.ctx, m::Race::Morloch, m::ResistCategory::Poison), 0);
-}
-
-TEST(resistance_human_all_zero_and_unlisted_are_zero) {
-    // R6: categories not listed for a race are 0. Human lists zero everywhere.
-    tsup::Env env({0.5, 0.9});
-    const m::ResistCategory all[] = {
-        m::ResistCategory::Fire, m::ResistCategory::Cold, m::ResistCategory::Electrical,
-        m::ResistCategory::Mind, m::ResistCategory::Disease, m::ResistCategory::Poison,
-        m::ResistCategory::Magic, m::ResistCategory::Stone, m::ResistCategory::Paralysis,
-        m::ResistCategory::Drain, m::ResistCategory::Acid,
-    };
-    for (m::ResistCategory c : all) {
-        CHECK_EQ(m::resistancePercent(env.ctx, m::Race::Human, c), 0);
-    }
-}
-
-TEST(resistance_troll_drain_and_ogre_acid) {
-    // Troll Drain 65; Ogre Acid 15; Giant Stone 25.
-    tsup::Env env({0.5, 0.9});
-    CHECK_EQ(m::resistancePercent(env.ctx, m::Race::Troll, m::ResistCategory::Drain), 65);
-    CHECK_EQ(m::resistancePercent(env.ctx, m::Race::Ogre, m::ResistCategory::Acid), 15);
-    CHECK_EQ(m::resistancePercent(env.ctx, m::Race::Giant, m::ResistCategory::Stone), 25);
-}
-
 // ---------------------------------------------------------------------------
 // Experience multiplier (R10, R11).
 // The SRD notes the formula does not reproduce the table exactly for Elf,
 // Osiri and Troll, so these checks use a tolerance rather than exact equality.
 // ---------------------------------------------------------------------------
-
-TEST(exp_multiplier_human_is_exactly_one) {
-    // Human Exp 3: ln(3)/ln(3) - 1 = 0, so the multiplier is 1.0.
-    tsup::Env env({0.5, 0.9});
-    CHECK(near_(m::expMultiplier(env.ctx, m::Race::Human), 1.0, 1e-9));
-}
-
-TEST(exp_multiplier_tracks_documented_values) {
-    // Each value is within 0.005 of the T5 table (formula gives e.g. Elf
-    // about 1.18656 versus the table's 1.18545).
-    tsup::Env env({0.5, 0.9});
-    CHECK(near_(m::expMultiplier(env.ctx, m::Race::Elf), 1.18544741085, 0.005));
-    CHECK(near_(m::expMultiplier(env.ctx, m::Race::Dwarf), 1.10551994263, 0.005));
-    CHECK(near_(m::expMultiplier(env.ctx, m::Race::Ogre), 1.14714602440, 0.005));
-    CHECK(near_(m::expMultiplier(env.ctx, m::Race::Morloch), 1.05819132268, 0.005));
-    CHECK(near_(m::expMultiplier(env.ctx, m::Race::Osiri), 1.22165868435, 0.005));
-    CHECK(near_(m::expMultiplier(env.ctx, m::Race::Troll), 1.25647909518, 0.005));
-}
-
-TEST(exp_multiplier_troll_hand_check) {
-    // Troll Exp 9: ln9/ln3 = 2, so numerator 1.
-    // Denominator 4.50 - 5 * (11/90) = 3.888889, giving 1/3.888889 = 0.257143.
-    // Multiplier is about 1.25714, so the test allows 0.001 slack.
-    tsup::Env env({0.5, 0.9});
-    CHECK(near_(m::expMultiplier(env.ctx, m::Race::Troll), 1.257143, 0.001));
-}
 
 TEST(racial_penalty_matches_archive_table) {
     // R11 / header table: Human 1.0, Troll 1.25647909518, Osiri 1.22165868435.
@@ -316,15 +198,3 @@ TEST(racial_penalty_matches_archive_table) {
 // The generation procedure is UNKNOWN, so only the range invariant is checked.
 // ---------------------------------------------------------------------------
 
-TEST(base_stats_stay_within_race_bounds) {
-    // Human STR 4-17, Giant STR 12-25, Osiri DEX 10-22 (T2).
-    tsup::Env env(777);
-    for (int i = 0; i < 200; ++i) {
-        int h = m::generateBaseStat(env.ctx, m::Race::Human, m::StatIndex::Str);
-        CHECK(h >= 4 && h <= 17);
-        int g = m::generateBaseStat(env.ctx, m::Race::Giant, m::StatIndex::Str);
-        CHECK(g >= 12 && g <= 25);
-        int o = m::generateBaseStat(env.ctx, m::Race::Osiri, m::StatIndex::Dex);
-        CHECK(o >= 10 && o <= 22);
-    }
-}

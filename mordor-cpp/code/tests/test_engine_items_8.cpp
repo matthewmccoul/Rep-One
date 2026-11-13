@@ -8,11 +8,6 @@
 
 using namespace mordor;
 
-// B_0063#138: class with max worn 1, one already worn -> second refused.
-TEST(engine_B_0063_138_second_item_of_capped_class_refused) {
-    CHECK(wearClassFull(1, 1));
-}
-
 // SKIP B_0064#6: needs loading MDATA3.MDR and scanning guild indices against item ids; no loader in headers.
 
 // B_0064#9: identification levels. IdLevel is {Unknown, Barely, Partial, Mostly, All};

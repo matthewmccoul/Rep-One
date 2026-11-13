@@ -150,87 +150,32 @@ struct BuildSwitches {
 
 // ---- INI helpers (pure queries) --------------------------------------------
 
-// Pure lookup. Returns nullptr when the section or key is absent. Key match is case-insensitive.
-const Str* iniFind(const IniDocument& ini, const Str& section, const Str& key);
 
-// Pure. Flag value: absent key reads as false (R2). Parses "True"/"False" values.
-bool iniFlagValue(const IniDocument& ini, const Str& section, const Str& key);
 
-// Mutating helper. Sets or creates the key in the section.
-void iniSet(IniDocument& ini, const Str& section, const Str& key, const Str& value);
 
 // ---- R1-R7 options: flags, values, fonts -----------------------------------
 
-// R3 options load (GameOptions.Load). Missing keys take defaults; flags read false when absent.
-// UNKNOWN: whether Load runs before or after ReadFonts; this header calls readFonts from loadOptions.
-void loadOptions(Ctx& ctx, const IniDocument& ini, GameOptions& opts);
 
-// R4 font read (ReadFonts). An empty face resets to its default face; the size keeps its read value.
-// UNKNOWN: INI key names of the font face and size sub-keys (only "Pro" and "NonPro" are given).
-void readFonts(Ctx& ctx, const IniDocument& ini, GameOptions& opts);
 
-// R5 options save (GameOptions.Save). Writes flags under their keys into ini.
-// The True branch writes NoToolBar; the False branch writes NoToolbar.
-void saveOptions(Ctx& ctx, const GameOptions& opts, IniDocument& ini);
 
-// R6 default button: restores MusicVolume, FXVolume, Brightness and both fonts to defaults.
-void restoreOptionDefaults(Ctx& ctx, GameOptions& opts);
 
 // ---- R8-R10 automap --------------------------------------------------------
 
-// R10 explored cell index = y * width + x (pure arithmetic).
-i32 exploredIndex(i32 x, i32 y, i32 width);
 
-// R9 automap merge (SharedMap.Merge). Explored cells only grow.
-// UNKNOWN: merge rule for conflicting cells beyond "only grow".
-void mergeSharedMap(Ctx& ctx, SharedMap& target, const SharedMap& incoming);
 
-// R9 legacy absorption (SharedMap.AbsorbLegacy) for a Character.Explored map from older saves.
-// legacyLevelWidths gives the width of each legacy level.
-// UNKNOWN: detailed absorption rule for Character.Explored.
-void absorbLegacyExplored(Ctx& ctx,
-                          SharedMap& map,
-                          const Vec<Vec<bool>>& legacyExplored,
-                          const Vec<i32>& legacyLevelWidths);
 
-// R10 automap display: a level with no explored cells is not shown.
-bool levelShownOnAutomap(Ctx& ctx, const SharedMap& map, i32 level);
 
-// R10 DeepestVisited: maximum level number that has any explored cell (0 if none).
-i32 deepestVisited(Ctx& ctx, const SharedMap& map);
 
 // ---- R11 save folder -------------------------------------------------------
 
-// R11 save folder: override if set; else legacy if non-empty; else AppData.
-SaveFolderChoice resolveSaveFolder(Ctx& ctx, const SaveFolderProbe& probe);
 
 // ---- R12 save import -------------------------------------------------------
 
-// R12 import check: every MDATA file version stamp and MDATA4 record 1 stamp must equal "1.1".
-// Any other stamp refuses the import. Refusal is reported through ctx.say.
-// stamps holds every stamp that must be checked, including MDATA4 record 1.
-bool importAllowed(Ctx& ctx, const Vec<Str>& stamps);
 
 // ---- R13-R15 limited (shareware) build -------------------------------------
 
-// R13 switch table for a build variant (pure table lookup).
-BuildSwitches buildSwitchesFor(BuildVariant variant);
 
-// R14 limited splash check. True when the limited build finds Limited=True in
-// [Loading Information] of MORDOR.INI.
-// UNKNOWN: order of the limited checks against other startup steps.
-// CONFLICT: the limited-build note says no run-time flag marks the full release, yet the full build
-// never clears Limited=True, which implies it reads the key at run time. Only the limited build is
-// modelled here; the author must confirm whether the full build reads Limited from MORDOR.INI.
-bool limitedSplashShown(Ctx& ctx, BuildVariant variant, const IniDocument& ini);
 
-// R15 number of dungeon levels shown in the Limitation Notice (gc0182).
-// Full build value is kFullBuildLevelCap (15).
-// UNKNOWN: limited build value of gc0182 and its ordering beyond "15 in full".
-i32 limitationNoticeLevels(Ctx& ctx, BuildVariant variant);
 
-// R15 shows the Limitation Notice on the limited build and writes Limited=True into ini (gv0180).
-// The full build never clears Limited=True once written (persistence quirk; no routine here).
-void showLimitationNotice(Ctx& ctx, BuildVariant variant, IniDocument& ini);
 
 }  // namespace mordor

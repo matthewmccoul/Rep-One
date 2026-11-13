@@ -83,24 +83,14 @@ inline constexpr double kCompanionShare = 0.25;  // companion strike factor [c18
 inline constexpr double kChestGuildShare = 0.5;
 
 
-// GuildLevelFactor: 1 / (1 + guildLevel / 333). [c104][c18]
-double guildLevelFactor(i32 guildLevel);
 
 // ---------------------------------------------------------------------------
 // Experience queries for a character's guild (pure)
 // ---------------------------------------------------------------------------
 
-// ExperienceCap for the character's guild, using its EP and race. [c3][c36]
-i64 experienceCapOf(const Character& ch, Guild g);
 
-// ExpForThisLevel: 0 at level 1, else Fn12A1(level - 1). [c36]
-i64 expForThisLevel(const Character& ch, Guild g);
 
-// ExpForNextLevel: Fn12A1(level). [c36]
-i64 expForNextLevel(const Character& ch, Guild g);
 
-// IsPinned: Experience >= ExperienceCap. The quest term is absent from the engine. [c3][c37]
-bool isPinned(const Character& ch, Guild g);
 
 // CanLevelUp: level < kMaxGuildLevel and Experience >= Fn12A1(level). [c2][c3]
 // UNKNOWN: engine MaxLevel and quest gate [c2][c91][c102].
@@ -114,30 +104,14 @@ i64 goldForNextLevel(const Character& ch, Guild g);
 // FIXED: ToolbarState is not declared anywhere in the API index; using the closest existing type i32 (state code: Short/Pinned/Ready).
 
 
-// TotalExperience: sum of Experience over all guilds. [c1][c11]
-i64 totalExperience(const Character& ch);
 
-// HighestOtherLevel: max level of guilds other than g; 0 if none. [c2]
-i32 highestOtherLevel(const Character& ch, Guild g);
 
 // ---------------------------------------------------------------------------
 // Kill and chest XP (pure arithmetic)
 // ---------------------------------------------------------------------------
 
-// Kill XP. Round(PartyFactor * Round(xp)), zero when inflicted h == 0. [c5][c18][c23]
-// xp = h*(9-Ln(h+1))*(20-Ln(h))*(monGL+50)*(byCompanion ? 0.25 : 1)*(1/(1+guildLevel/333))/1000
-// CONFLICT: wiki floors and omits final round [c87]. Engine used. [c23]
-i64 expAwarded(i64 inflicted, i32 monsterGuildLevel, i32 guildLevel, bool byCompanion, i32 partySize);
 
-// Chest XP (R4). Round(party * Round(xp)), xp = disarmChance * (monsterGL / 2) / (1 + firstGL / 333). [c18][c27]
-// UNKNOWN: scale of disarmChance (1000 = 100% or 0..1) [c18][c27][c61]; disarmChance is
-// passed as a fraction in 0..1 here. Party factor is applied per CONFLICT [c104] resolved to engine.
-i64 chestAward(i32 partySize, double disarmChance, i32 monsterGuildLevel, i32 firstCharGuildLevel);
 
-// AwardExp: adds amount clamped to [0, experienceCap - total]. Zero when pinned. Experience is
-// clamped at ExperienceCap. Returns the granted amount. [c5][c8][c37]
-// CONFLICT: wiki says "XP keeps accumulating" while pinned [c91]; engine (no gain) used.
-i64 awardExp(Character& ch, Guild g, i64 amount);
 
 // ---------------------------------------------------------------------------
 // Level-up and hits (R18-style, source chunk [c2])
@@ -157,8 +131,6 @@ void levelUp(Ctx& ctx, Character& ch, Guild g, const GuildHitsRef& rates);
 // Forfeit (source chunk [c3][c49])
 // ---------------------------------------------------------------------------
 
-// ForfeitCost: levels to demote. UNKNOWN: log base [c49].
-i32 forfeitCost(const Character& ch, Guild g);
 
 // ForfeitGuild: level = max(1, from - cost); Experience = Fn12A1(level - 1). [c3]
 
@@ -167,57 +139,25 @@ i32 forfeitCost(const Character& ch, Guild g);
 // Attack/defence award step and interval (source chunk [c10][c28])
 // ---------------------------------------------------------------------------
 
-// AdAllowed: level Mod Int(adEvery) == 0 and level <= adMaxLevel. Zero interval never allowed.
-// UNKNOWN: AdEvery and AdMaxLevel values per guild [c10][c106].
-bool adAllowed(i32 level, double adEvery, i32 adMaxLevel);
 
-// AwardStep: ((Int(cap) / 2) + acc / 18) / (adEvery + bonus), rounded to integer. [c28]
-// UNKNOWN: acc and bonus definitions [c28][c35].
-i32 awardStep(i64 cap, double acc, double adEvery, double bonus);
 
-// Fn13D4: next level on which an award falls, with integer rounding applied. [c28]
-// UNKNOWN: exact inputs; (currentLevel, stepInterval) assumed.
-i32 nextAwardLevel(i32 currentLevel, i32 stepInterval);
 
 // ---------------------------------------------------------------------------
 // Aging (T3 events, source chunk [c2][c4][c31][c34][c87])
 // ---------------------------------------------------------------------------
 
-// AgeYears: Age / 365 (integer). [c2][c53]
-i32 ageYears(const Character& ch);
 
-// DescribeDays: weeks and days wording. 7 days prints "7 day(s)" because of "days > 7". [c2]
-Str describeDays(i32 days);
 
 // AgeBy: adds days to ch.ageDays and prints the aging message. UNKNOWN: message wiring for
 // monsters, chest Withering, raises and Kind 25 items [c34][c4].
 void ageBy(Ctx& ctx, Character& ch, i32 days);
 
-// Withering (trap 10): AgeBy(kWitheringDays). [c4][c87]
-void withering(Ctx& ctx, Character& ch);
 
-// Kind 25 stat item: AgeBy(kKind25AgeDays). UNKNOWN: item identity [c31].
-void useKind25(Ctx& ctx, Character& ch);
 
-// Sanctuary cast: caster ages kSanctuaryAgeDays (original). Target UNKNOWN: caster only is used
-// here, per R31 "The caster ages approximately one year" [c31][c34][c106].
-void castSanctuary(Ctx& ctx, Character& caster);
 
-// Complication: Age += 15 years; MaxHP *= kComplicationHpFactor. [c87][c103]
-// CONFLICT: archive 0.8333 vs research 5/6 [c82][c103]; 0.8333 used.
-void complication(Character& ch);
 
-// ComplicationChance: min(1, 2 * ageYears / maxAgeYears). Returns a probability in 0..1. [c82][c61]
-double complicationChance(const Character& ch, i32 maxAgeYears);
 
-// ConLossChance: max(0, 50 - 2*CON) percent. [c82][c61]
-i32 conLossChance(i32 con);
 
-// RaiseCharacter: raise aging (kRaiseAgeDays), CON-loss roll using conLossChance, and a
-// stat -5 with floor at the racial minimum. UNKNOWN: which stat takes the -5. This design
-// applies it to CON when the roll succeeds [c61][c87][c103].
-// racialMinimums is supplied by the caller from the race table (not in this header).
-void raiseCharacter(Ctx& ctx, Character& ch, const Arr<i32, kStatCount>& racialMinimums);
 
 // RestInCity: returns rest days ages the character by them. Days =
 // restRoundB((100 - 100*curHP/maxHP) / kRestCostDivisor). Zero HP = kRestZeroHpDays.

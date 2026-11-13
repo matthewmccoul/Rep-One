@@ -140,75 +140,19 @@ struct CrestCastResult {
 
 // ---- Rule routines ----
 
-// R1 Scope of a movement spell (non-combat unless marked).
-MovementScope movementScopeOf(MovementSpell spell);
 
-// R2 Base value of a movement spell, read from kMovementSpellRows.
-i32 movementSpellBase(MovementSpell spell);
 
-// R3 Stat requirements per movement spell.
-// UNKNOWN: the SRD says they are listed per spell but gives none. The
-// implementation must return true until data is supplied.
-bool meetsMovementStatRequirements(const Character& caster, MovementSpell spell);
 
-// R2 Apply one movement or utility spell to the party and its floor.
-// Ethereal Portal and Displacement may kill the party (outcome PartyKilled);
-// the death state is written to each member by the implementation.
-// Feather Essence levitation may fail; the failure chance is UNKNOWN.
-MovementCastResult castMovementSpell(Ctx& ctx,
-                                     Party& party,
-                                     FloorState& floor,
-                                     const MovementRequest& req,
-                                     MovementSpell spell,
-                                     const Location& sanctuary,
-                                     bool sanctuarySet);
 
-// R5 Chance (percent) that a Teleport combat effect sends a monster into rock.
-// UNKNOWN: the formula relating creature magical resistance to effectiveness is
-// not given. Simplest sensible value: clampv(100 - magicResistance, 0, 100).
-i32 teleportImpalePercent(i32 creatureMagicResistance);
 
-// R5 Teleport in combat: sends up to kTeleportCombatMaxMonsters monsters in up to
-// kTeleportCombatMaxGroups groups away, impaling them in rock.
-// UNKNOWN: group and monster selection order is not stated.
-TeleportCombatResult teleportCombatSendAway(Ctx& ctx, Encounter& encounter);
 
-// R6 Damage Modifier1 = Base + Base*LN(SL+1)/LN(5) + Int((SL/10)*(Power-1)).
-// Pure arithmetic. The SL/10 term is evaluated as real division before Int.
-double damageModifier1(i32 base, i32 sl, i32 power);
 
-// R6 Damage Modifier2 = Int(Rnd*(Modifier1-((SL-1)/SL^2))/2)+1.
-// Draws Rnd from ctx.rng.nextDouble(). Rnd range is UNKNOWN.
-// UNKNOWN: behaviour at SL 0, where (SL-1)/SL^2 is undefined. The implementation
-// treats that term as 0.
-i32 spellModifier2(Ctx& ctx, double modifier1, i32 sl);
 
-// R6 Full damage resolution, steps 1 to 4. Returns Int(Damage*(1-Res/100)).
-// CONFLICT: the rounding of the resistance-scaled damage is UNKNOWN; the
-// implementation truncates with vbInt.
-// UNKNOWN: whether SL is capped at kSpellLevelCap before use (R8).
-i32 spellDamage(Ctx& ctx, i32 base, i32 sl, i32 power, i32 targetResistance);
 
-// R7 Healing Modifier1 = Base + Base*LN(SL)/LN(10) + Int((SL/10)*(Power-1)).
-// Pure arithmetic. Uses the healing log term; there is no resistance step.
-double healingModifier1(i32 base, i32 sl, i32 power);
 
-// R7 Full healing resolution, steps 1 to 3. Returns Int(Modifier1-Modifier2).
-// Uses the same Modifier2 as R6.
-i32 spellHealing(Ctx& ctx, i32 base, i32 sl, i32 power);
 
-// R8 Spell level used in the formulas: clamps to 0..kSpellLevelCap.
-i32 effectiveSpellLevel(i32 sl);
 
-// R10 Crest grant for a guild crest. Returns spell None and charges 0 when the
-// crest grants no spell (Journeyman, Warrior, Ninja, Nomad).
-CrestGrantRow crestGrantFor(Guild crest);
 
-// R10 Cast the spell granted by a crest at the caster's spell level, with the
-// charges listed in kCrestGrants.
-// UNKNOWN: whether crest spells use a separate SL (R11). The implementation uses
-// caster.spellLevel.
-CrestCastResult castCrestSpell(Ctx& ctx, const Character& caster, Guild crest);
 
 // R4 Dependencies: magical resistance (T08) and aging (T05) are used by
 // movement spells but are declared in their own modules, not here.

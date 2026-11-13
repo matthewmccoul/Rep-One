@@ -181,26 +181,12 @@ inline constexpr i64 kAdvanceGoldDivisor = 10;       // R20 input guildGold/10
 
 // ---- rule routines ----
 
-// T4 / R1 swing count for a guild at a level (pure table lookup).
-i32 SwingsFor(Guild guild, i32 level);
 
-// R2 R3 R4 hit gain at this level (random increment; uses ML/AH/MH and CON bonus).
-i32 HitsGain(Ctx& ctx, const Character& ch, const GuildMembership& m, Guild guild);
 
-// T16 R27 attack and defence gained per level within interval and max level.
-AdPair AdGain(Ctx& ctx, Guild guild, i32 level, const Character& ch);
 
-// T6 R34 maximum attack and defence for a guild.
-AdPair MaxAttackDefence(Guild guild);
 
-// T6 R27 maximum attack and defence across joined guilds, each maxed independently.
-AdPair CharacterAdCap(const Character& ch);
 
-// R17 join cost: GuildJoinCost if another guild is held, else 0.
-Currency JoinCost(Ctx& ctx, const Character& ch);
 
-// T8 R15 race chart, stat minimums, alignment, and no cursed worn gear.
-bool CanJoin(Ctx& ctx, const Character& ch, Guild guild);
 
 // R15 R17 sets joined, charges JoinCost, logs join; re-joining a held guild is free.
 
@@ -208,54 +194,21 @@ bool CanJoin(Ctx& ctx, const Character& ch, Guild guild);
 // R22 resets experience to new level floor and rechecks equipment.
 bool Forfeit(Ctx& ctx, Character& ch, Guild guild);
 
-// R16 R19 R20 hands over quest item, checks gold and XP, advances level, rolls HP and stats.
-bool MakeLevel(Ctx& ctx, GameState& game, Character& ch, Guild guild);
 
-// R20 advance gold via Fn12B2 (rate 60.2 applied to guildGold/10).
-Currency AdvanceGold(Currency guildGold, i32 level);
 
-// R9 quest tier = round_half_even(level / 25).
-i32 QuestTier(i32 level);
 
-// R11 item quest band = Int(tier / 1.5) + 1.
-i32 ItemQuestBand(i32 tier);
 
-// R12 item quest starts when guildLevel > 15.
-bool ItemQuestStarts(i32 guildLevel);
 
-// R10 monster eligible while Floor <= tier and tier <= 10.
-bool MonsterEligible(i32 monsterFloor, i32 tier);
 
-// R6 R7 R13 let-off, reroll rules, random type and target. Returns a full GuildQuest (target needed, not only kind).
-GuildQuest RollQuest(Ctx& ctx, const Character& ch, Guild guild);
 
-// R8 item pick range first+1..last; span 0 gives first+1.
-IndexRange ItemPickRange(i32 first, i32 last);
 
-// R23 advances kill quest for the killer only.
-void CountKill(Ctx& ctx, Character& killer, const Creature& creature);
 
-// T12 refills Item.charges to max charges.
-void Recharge(Item& item);
 
-// R14 primary guild only may use guild item.
-bool GuildCanUse(Ctx& ctx, const Character& ch, const Item& item);
 
-// R14 any joined guild meeting UseLevel and bitmask may use item.
-bool MeetsUseLevel(Ctx& ctx, const Character& ch, const Item& item);
 
-// T2 R24 R25 compares level with GuildMaster.level, takeover at level+1, re-awards crest each pass.
-void TestGuildmaster(Ctx& ctx, GameState& game, Guild guild, Character& ch);
 
-// R5 guild with the winning rating for an ability index.
-// UNKNOWN: stale "rating from" display quirk needs a last-winner field; not in Character, caller keeps it.
-GuildChoice AbilityLeader(const Character& ch, GuildAbility ability);
 
-// Quirks: ability chance; thieving folds gear term, perception uses WIS + gearWIS/4.
-f32 AbilityChance(const Character& ch, GuildAbility ability);
 
-// T29 appends a GuildLogEvent stamped with game.today. Text is supplied by caller (16 wordings).
-void GuildLogWrite(GameState& game, GuildLogKind kind, Guild guild, const Str& text);
 
 // T9 T10 title for the guild's current level (Nomad bands, Ninja ladder).
 // UNKNOWN: Nomad band names other than Master Nomad; Ninja Instructor threshold.

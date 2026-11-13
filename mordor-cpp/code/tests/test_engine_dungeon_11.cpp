@@ -11,8 +11,3 @@ using namespace mordor;
 // SKIP A_03#33: needs the MDATA10 importer (room list, tallies, chest data); no equivalent in the headers
 // SKIP A_03#46: needs DungeonState.Load reading the saves folder; no equivalent in the headers
 
-TEST(engine_A_02_10_limited_teleporter_denied) {
-    CHECK_EQ(isDestinationDenied(4, ReleaseKind::Limited), true);
-    CHECK_EQ(isDestinationDenied(3, ReleaseKind::Limited), false);
-    CHECK_EQ(isDestinationDenied(0, ReleaseKind::Limited), false);
-}

@@ -17,23 +17,8 @@ inline constexpr double kOldAgeBaseChance = 5.0;  // R36 base term of the thresh
 // VB '/' is floating-point division, so the age in years is fractional.
 
 
-// R36 death threshold 5 + Ln(pct-98) for pct >= 98.
-// UNKNOWN: at exactly pct == 98 the original's Ln(0) is a runtime error. The port guards it by
-// dropping the Ln term at pct <= 98, so the threshold is 5 there.
-double oldAgeThreshold(double pct);
 
-// R36 whether the random old-age check applies: character alive, in the dungeon, and pct >= 98
-bool oldAgeCheckApplies(const Character& ch, i32 raceLifespanYears, bool inDungeon);
 
-// R36 random old-age death in the dungeon. Rolls ctx.rng.below(100) only when the check applies.
-// On death, marks the character dead through setDead (declared in status1b.h) and emits an event.
-// Death from old age is an ordinary death and can be raised; the archive says it "still [is] not a permanent one".
-// FIXED: OldAgeCheck was not declared in any header; replaced by bool (true = the character died of old age).
-bool rollOldAgeDeath(Ctx& ctx, Character& ch, i32 raceLifespanYears, bool inDungeon);
 
-// R37 port helper: index in party.members of the party's own copy of a picked character; -1 if none.
-// UNKNOWN: the match key is not given in the SRD. This declaration matches on name.
-// UNKNOWN: whether the original does the same is not stated.
-i32 partyCopyIndexOf(const Party& party, const Character& picked);
 
 }  // namespace mordor

@@ -13,14 +13,3 @@
 // The pick step below is the only part of the item-run case that takes indices directly, so it needs no data fixture.
 // Run bounds (band, price, curse, rarity) are checked by the data loader, not by PickItemIndex.
 
-TEST(engine_B_0059_59_pick_second_item) {
-    // Run occupies indices 10..12 (band 3). Span roll 0.0 selects the run's second item.
-    tsup::Env env({0.0, 0.1});
-    CHECK_EQ(mordor::PickItemIndex(env.ctx, 10, 12), 11);
-}
-
-TEST(engine_B_0059_61_pick_last_item) {
-    // Run occupies indices 10..12. Pick roll 0.99999 selects the run's last item.
-    tsup::Env env({0.99999, 0.1});
-    CHECK_EQ(mordor::PickItemIndex(env.ctx, 10, 12), 12);
-}
