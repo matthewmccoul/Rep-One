@@ -28,13 +28,8 @@ const char* const kCharNames[] = {"AutoChangeLevel", "Hide", "PreloadCharacter",
 constexpr i32 kCharCount = 4;
 const bool kCharDefaults[] = {true, false, false, false};
 
-Str lowerCopy(const Str& t) {
-  Str r;
-  for (char c : t) r += static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
-  return r;
-}
 
-bool sameName(const Str& word, const char* name) { return lowerCopy(word) == lowerCopy(Str(name)); }
+bool sameName(const Str& word, const char* name) { return lowerAscii(word) == lowerAscii(Str(name)); }
 
 i32 findIndex(const char* const* names, i32 count, const Str& word) {
   for (i32 i = 0; i < count; ++i)
@@ -44,7 +39,7 @@ i32 findIndex(const char* const* names, i32 count, const Str& word) {
 
 
 bool parseBool(const Str& t, bool& out) {
-  Str l = lowerCopy(t);
+  Str l = lowerAscii(t);
   if (l == "on" || l == "true" || l == "yes" || l == "1") { out = true; return true; }
   if (l == "off" || l == "false" || l == "no" || l == "0") { out = false; return true; }
   return false;

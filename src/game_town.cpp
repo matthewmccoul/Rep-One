@@ -58,13 +58,6 @@ Str toStr(i64 v) {
 }
 namespace {
 
-Str lowered(const Str& w) {
-    Str r = w;
-    for (u32 i = 0; i < r.size(); ++i) {
-        if (r[i] >= 'A' && r[i] <= 'Z') r[i] = static_cast<char>(r[i] - 'A' + 'a');
-    }
-    return r;
-}
 
 
 bool parseNum(const Str& w, i64& out) {
@@ -94,7 +87,7 @@ bool guildFromWord(const Str& w, Guild& g) {
         g = static_cast<Guild>(n);
         return true;
     }
-    const Str lw = lowered(w);
+    const Str lw = lowerAscii(w);
     for (i32 i = 0; i < kGuildCount; ++i) {
         if (lw == Str(kGuildNames[i])) {
             g = static_cast<Guild>(i);
@@ -838,7 +831,7 @@ bool townAction(Session& s, const Str& command, Str& reply) {
         reply = "No command given. Type help.\n";
         return false;
     }
-    const Str verb = lowered(w[0]);
+    const Str verb = lowerAscii(w[0]);
     Ctx ctx = s.ctx();
     Party& party = s.game.party;
     i32 idx = 0;
@@ -895,7 +888,7 @@ bool townAction(Session& s, const Str& command, Str& reply) {
         if (w.size() < 3 || !parseNum(w[2], gold)) {
             return usage(ctx, reply, "bank deposit|withdraw <gold>");
         }
-        const Str op = lowered(w[1]);
+        const Str op = lowerAscii(w[1]);
         if (op == "deposit") {
             doBank(ctx, party, true, gold, reply);
         } else if (op == "withdraw") {

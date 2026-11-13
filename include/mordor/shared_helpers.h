@@ -64,4 +64,5 @@ void ageCharacterDays(Character& ch, i32 days, Ctx* announceCtx);
 // Feature-state key "<prefix><member>.<field>", e.g. prefix "raise." or "hall.".
 Str featureMemberKey(const char* prefix, i32 member, const char* field);
 
+Str lowerAscii(const Str& w);
 }  // namespace mordor

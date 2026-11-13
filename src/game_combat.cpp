@@ -25,16 +25,6 @@ constexpr i64 kCombatTickMs = 1000;
 constexpr i64 kPlayTickMs = 250;
 constexpr i64 kAilmentTickMs = 4000;
 
-// Lower-case ASCII copy of a string (no locale, no clock, no I/O).
-Str lowerStr(const Str& t) {
-    Str out;
-    for (std::size_t i = 0; i < t.size(); ++i) {
-        char c = t[i];
-        if (c >= 'A' && c <= 'Z') c = static_cast<char>(c + 32);
-        out += c;
-    }
-    return out;
-}
 
 
 }  // namespace
@@ -56,9 +46,9 @@ i32 memberIndex(const Party& p, const Str& t) {
         v -= 1;
         return (v >= 0 && v < p.size) ? v : -1;
     }
-    const Str want = lowerStr(t);
+    const Str want = lowerAscii(t);
     for (i32 i = 0; i < p.size; ++i) {
-        if (lowerStr(p.members[static_cast<std::size_t>(i)].name) == want) return i;
+        if (lowerAscii(p.members[static_cast<std::size_t>(i)].name) == want) return i;
     }
     return -1;
 }
@@ -573,7 +563,7 @@ bool combatAction(Session& s, const Str& command, Str& reply) {
         reply = "Enter a combat command: fight, defend, cast, use or open.";
         return false;
     }
-    const Str verb = lowerStr(tok[0]);
+    const Str verb = lowerAscii(tok[0]);
 
     if (verb == "fight") {
         const i32 group = groupIndex(tok, 1);
