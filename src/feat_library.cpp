@@ -50,18 +50,6 @@ Str upperCase(const Str& t) {
   return r;
 }
 
-int parseInt(const Str& t, int fallback) {
-  if (t.empty()) return fallback;
-  int v = 0;
-  for (char c : t) {
-    if (c < '0' || c > '9') return fallback;
-    v = v * 10 + (c - '0');
-    if (v > 1000000) return fallback;
-  }
-  return v;
-}
-
-
 Str factStr(const Session& s, const Str& kind, const Str& name, const char* field) {
   auto it = s.featureState.find(Str(kRecordPrefix) + kind + "." + name + "." + field);
   return it == s.featureState.end() ? Str() : it->second;
@@ -100,7 +88,8 @@ Vec<LibEntry> entries(const Session& s) {
     Str name = rest.substr(dot + 1);
     if (name.find('.') != Str::npos) continue;  // a fact key, not a record
     if (kind != kKindMonster && kind != kKindItem) continue;
-    int grade = parseInt(kv.second, 0);
+    int grade = 0;
+    parseInt(kv.second, grade);
     if (grade < kLibVeryLittle) continue;  // grade 0 = not in the Library
     out.push_back(LibEntry{kind, name, grade});
   }
@@ -117,7 +106,8 @@ Str monsterPage(const Session& s, const LibEntry& e) {
   const Str& name = e.name;
   Str out = name + "\n";
   if (e.grade >= kLibVeryLittle) {
-    int size = parseInt(factStr(s, kKindMonster, name, "size"), -1);
+    int size = -1;
+    parseInt(factStr(s, kKindMonster, name, "size"), size);
     Str word = nameAt(kSizes, size);
     out += "Size: " + (word.empty() ? Str("oddly") : word) + "\n";  // Librarian.Size(): "oddly" when out of range
   }
@@ -132,13 +122,18 @@ Str monsterPage(const Session& s, const LibEntry& e) {
     out += "What it can do is not known.\n";
   }
   if (e.grade >= kLibEverything) {
-    int align = parseInt(factStr(s, kKindMonster, name, "alignment"), -1);
+    int align = -1;
+    parseInt(factStr(s, kKindMonster, name, "alignment"), align);
     Str alignWord = nameAt(kAlignments, align);
     if (!alignWord.empty()) out += "Alignment: " + alignWord + "\n";
-    int props = parseInt(factStr(s, kKindMonster, name, "properties"), 0);
-    int attacks = parseInt(factStr(s, kKindMonster, name, "attacks"), 0);
-    int spells = parseInt(factStr(s, kKindMonster, name, "spells"), 0);
-    int resist = parseInt(factStr(s, kKindMonster, name, "resistances"), 0);
+    int props = 0;
+    parseInt(factStr(s, kKindMonster, name, "properties"), props);
+    int attacks = 0;
+    parseInt(factStr(s, kKindMonster, name, "attacks"), attacks);
+    int spells = 0;
+    parseInt(factStr(s, kKindMonster, name, "spells"), spells);
+    int resist = 0;
+    parseInt(factStr(s, kKindMonster, name, "resistances"), resist);
     Str p = listedBits(props, kMonsterProperties);
     Str a = listedBits(attacks, kMonsterAttacks);
     Str sp = listedBits(spells, kSpellSchools);
@@ -154,7 +149,8 @@ Str monsterPage(const Session& s, const LibEntry& e) {
 Str itemPage(const Session& s, const LibEntry& e) {
   Str out = e.name + "\n";
   if (e.grade >= kLibEverything) {
-    int abilities = parseInt(factStr(s, kKindItem, e.name, "abilities"), 0);
+    int abilities = 0;
+    parseInt(factStr(s, kKindItem, e.name, "abilities"), abilities);
     Str a = listedBits(abilities, kItemAbilities);
     out += "Abilities: " + (a.empty() ? Str("None") : a) + "\n";
     // UNKNOWN: damage modifier, curse, spell, effects and guild levels (T-G) are not in evidence.
