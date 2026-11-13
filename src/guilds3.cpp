@@ -63,42 +63,6 @@ bool HasCursedWorn(const Character& c) {
     return false;
 }
 
-// [c49][c30] Join refused while wearing cursed gear (engine governs).
-// Re-joining a held guild is free [c49].
-bool JoinGuild(Ctx& ctx, Character& c, i32 guild) {
-    if (!validGuild(guild)) {
-        return false;
-    }
-    GuildMembership& m = c.guilds[static_cast<u32>(guild)];
-    if (m.joined) {
-        // Re-joining a held guild is free [c49].
-        // RESOLVED-BY-REFERENCE: SRD ch04 R13 step 1: "It is free and only makes the guild active".
-        c.activeGuild = static_cast<Guild>(guild);
-        return true;
-    }
-    if (HasCursedWorn(c)) {
-        // CONFLICT: refusal text differs between audit [c30] and port [c49]; generic text used.
-        ctx.say("guild.join.cursed", "You cannot join a guild while wearing cursed items.",
-                {}, {});
-        return false;
-    }
-    Currency cost = GuildJoinCost(ctx, c);
-    if (cost > 0) {
-        if (c.wallet.goldOnHand < cost) {
-            ctx.say("guild.join.no_gold", "You cannot afford to join this guild.", {}, {});
-            return false;
-        }
-        c.wallet.goldOnHand -= cost;
-    }
-    m.joined = true;
-    // RESOLVED-BY-REFERENCE: SRD ch04 R13 step 7: "insert {Guild, Level = 1, Experience = 0}".
-    m.level = 1;
-    m.experience = 0;
-    c.activeGuild = static_cast<Guild>(guild);
-    ctx.say("guild.joined", "You have joined the guild.", {static_cast<i64>(guild)}, {});
-    return true;
-}
-
 // UNKNOWN: meaning of "re-acquaint" (to reactivate a held guild) and its refusal are not
 // stated [c49][c104]. Simplest sensible rule: a held guild becomes active.
 bool ReacquaintGuild(Ctx& ctx, Character& c, i32 guild) {

@@ -201,26 +201,6 @@ bool CanJoin(Ctx& ctx, const Character& ch, Guild guild) {
     return true;
 }
 
-// UNKNOWN: whether joining sets level 1, activeGuild or a guild-log entry is not
-// stated in the supplied half. Here it sets joined, pays JoinCost from goldOnHand and
-// leaves level and experience at their current values. game is unused. The guild log
-// (GuildLogWrite) is not called. Its kind enum is not in this module's includes.
-bool Join(Ctx& ctx, GameState& game, Character& ch, Guild guild) {
-    (void)game;
-    if (!CanJoin(ctx, ch, guild)) {
-        ctx.say("guild.join.refused", "You cannot join this guild.", {}, {});
-        return false;
-    }
-
-    const u32 g = static_cast<u32>(guild);
-    const Currency cost = JoinCost(ctx, ch);
-    ch.wallet.goldOnHand -= cost;
-    ch.guilds[g].joined = true;
-
-    ctx.say("guild.join", "You have joined the guild.", {}, {});
-    return true;
-}
-
 // UNKNOWN: the supplied half gives only the misspelt refusal text ("Cnanot") [c3]
 // and not its trigger. This placeholder refuses when the guild is not joined or is
 // Nomad (base guild). On success the membership is reset to defaults, including

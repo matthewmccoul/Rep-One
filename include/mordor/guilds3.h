@@ -54,7 +54,7 @@ Currency GuildJoinCost(const Ctx& ctx, const Character& c);
 bool HasCursedWorn(const Character& c);
 // c49 c30 join a guild; refused while cursed gear is worn; re-joining a held guild is free
 // CONFLICT: audit says cursed gear also refuses re-acquaint [c30]; engine governs (join only) [c49].
-bool JoinGuild(Ctx& ctx, Character& c, i32 guild);
+
 // c104 reactivate a held guild; refusal rule UNKNOWN in engine excerpt
 bool ReacquaintGuild(Ctx& ctx, Character& c, i32 guild);
 

@@ -203,7 +203,7 @@ Currency JoinCost(Ctx& ctx, const Character& ch);
 bool CanJoin(Ctx& ctx, const Character& ch, Guild guild);
 
 // R15 R17 sets joined, charges JoinCost, logs join; re-joining a held guild is free.
-bool Join(Ctx& ctx, GameState& game, Character& ch, Guild guild);
+
 
 // R22 resets experience to new level floor and rechecks equipment.
 bool Forfeit(Ctx& ctx, Character& ch, Guild guild);
