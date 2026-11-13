@@ -23,6 +23,7 @@
 #include <cmath>
 #include <limits>
 #include <string>
+#include "mordor/lookup.h"
 
 namespace mordor {
 namespace {
@@ -47,8 +48,8 @@ constexpr Currency kBalanceCap = std::numeric_limits<Currency>::max();
 bool packIndexValid(i32 i) { return i > 0 && i < kPackSlots; }
 
 const ItemDef* defOf(const Ctx& ctx, i32 itemId) {
-    if (itemId <= 0 || static_cast<u32>(itemId) >= ctx.data.items.size()) return nullptr;
-    return &ctx.data.items[static_cast<u32>(itemId)];
+    if (itemId <= 0) return nullptr;
+    return itemDefById(ctx.data, itemId);   // by id, not by table row
 }
 
 // T-7 item-use factors. UNKNOWN: factors for guilds other than Nomad and Healer.

@@ -2,6 +2,7 @@
 // One shared copy of helpers that several modules had each written for themselves.
 #include "mordor/types.h"
 #include "mordor/game_data.h"
+#include "mordor/lookup.h"
 #include "mordor/death1a.h"
 #include "mordor/clock.h"
 #include "mordor/loot1a.h"
@@ -38,7 +39,6 @@ u32 uidx(i32 i);
 Str seerJoinWords(const Vec<Str>& w, size_t from);
 Str bufferInt(i64 v);
 const Character& memberAt(const Party& p, i32 i);
-const ItemDef* itemDefById(const GameData& data, i32 id);
 bool isDigits(const Str& t);
 bool swapSlotInRange(i32 slot);
 Str joinFrom(const Vec<Str>& w, std::size_t from);

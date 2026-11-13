@@ -23,22 +23,153 @@ You move.
 You step into the square and meet monsters.
 
 [bot] > fight
-Aldric hits Outcast Goblin for 8.
-Aldric kills Outcast Goblin.
-Aldric hits Outcast Goblin for 7.
-Aldric kills Outcast Goblin.
+Aldric hits Outcast Goblin for 5.
+Lyra hits Outcast Goblin for 2.
+Borin hits Outcast Goblin for 1.
+Borin kills Outcast Goblin.
+Borin hits Outcast Goblin for 4.
+Thessa hits Outcast Goblin for 3.
+Thessa kills Outcast Goblin.
 Fight over.
 
 [bot] > forward
 You step into the square and meet monsters.
 
 [bot] > fight
-Aldric hits Gredlan Rogue for 9.
-Aldric kills Gredlan Rogue.
-Aldric hits Gredlan Rogue for 7.
-Lyra hits Gredlan Rogue for 2.
-Borin hits Gredlan Rogue for 1.
-Borin kills Gredlan Rogue.
+Aldric hits Outcast Goblin for 6.
+Aldric kills Outcast Goblin.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > defend
+Giant Spider fails to hurt Aldric.
+Giant Spider fails to hurt Aldric.
+Round fought: 2 foe(s) left.
+
+[bot] > fight
+Aldric hits Giant Spider for 4.
+Lyra hits Giant Spider for 1.
+Borin hits Giant Spider for 3.
+Borin kills Giant Spider.
+Borin hits Giant Spider for 4.
+Thessa misses Giant Spider.
+Giant Spider misses Aldric.
+Round fought: 1 foe(s) left.
+
+[bot] > fight
+Aldric hits Giant Spider for 3.
+Aldric kills Giant Spider.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Giant Spider for 4.
+Lyra hits Giant Spider for 2.
+Borin hits Giant Spider for 2.
+Thessa hits Giant Spider for 1.
+Thessa kills Giant Spider.
+Thessa hits Giant Spider for 2.
+Giant Spider misses Aldric.
+Round fought: 1 foe(s) left.
+
+[bot] > fight
+Aldric hits Giant Spider for 5.
+Aldric kills Giant Spider.
+Fight over.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > search
+You search the square.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Giant Spider for 4.
+Lyra hits Giant Spider for 2.
+Borin hits Giant Spider for 2.
+Borin kills Giant Spider.
+Borin hits Giant Spider for 2.
+Thessa hits Giant Spider for 3.
+Giant Spider fails to hurt Aldric.
+Round fought: 1 foe(s) left.
+
+[bot] > fight
+Aldric hits Giant Spider for 2.
+Aldric kills Giant Spider.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Giant Spider for 5.
+Lyra hits Giant Spider for 1.
+Borin hits Giant Spider for 3.
+Borin kills Giant Spider.
 Fight over.
 
 [bot] > forward
@@ -49,19 +180,397 @@ Outcast Goblin fails to hurt Aldric.
 Round fought: 1 foe(s) left.
 
 [bot] > fight
-Aldric hits Outcast Goblin for 7.
-Lyra hits Outcast Goblin for 2.
+Aldric hits Outcast Goblin for 4.
+Lyra hits Outcast Goblin for 1.
 Lyra kills Outcast Goblin.
 Fight over.
 
 [bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > search
+You search the square.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > open
+There is no chest here.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > open
+There is no chest here.
+
+[bot] > search
+You search the square.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
 You step into the square and meet monsters.
 
 [bot] > fight
-Aldric hits Giant Spider for 8.
-Aldric kills Giant Spider.
-Aldric hits Giant Spider for 7.
-Aldric kills Giant Spider.
+Aldric hits Outcast Goblin for 3.
+Lyra hits Outcast Goblin for 2.
+Borin hits Outcast Goblin for 1.
+Borin kills Outcast Goblin.
+Borin hits Outcast Goblin for 2.
+Thessa hits Outcast Goblin for 3.
+Outcast Goblin fails to hurt Aldric.
+Round fought: 1 foe(s) left.
+
+[bot] > fight
+Aldric hits Outcast Goblin for 2.
+Aldric kills Outcast Goblin.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Outcast Goblin for 5.
+Aldric kills Outcast Goblin.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Outcast Goblin for 7.
+Lyra hits Outcast Goblin for 1.
+Borin hits Outcast Goblin for 1.
+Borin kills Outcast Goblin.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Brown Tyke for 5.
+Lyra hits Brown Tyke for 1.
+Lyra kills Brown Tyke.
+Fight over.
+
+[bot] > search
+You search the square.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Gredlan Rogue for 6.
+Lyra hits Gredlan Rogue for 2.
+Borin hits Gredlan Rogue for 1.
+Borin kills Gredlan Rogue.
+Borin hits Gredlan Rogue for 6.
+Thessa hits Gredlan Rogue for 3.
+Gredlan Rogue misses Aldric.
+Round fought: 1 foe(s) left.
+
+[bot] > fight
+Aldric hits Gredlan Rogue for 1.
+Aldric kills Gredlan Rogue.
+Fight over.
+
+[bot] > open
+There is no chest here.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Giant Owl for 4.
+Aldric kills Giant Owl.
+Fight over.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Outcast Goblin for 3.
+Lyra hits Outcast Goblin for 2.
+Borin hits Outcast Goblin for 1.
+Borin kills Outcast Goblin.
+Borin hits Outcast Goblin for 7.
+Borin kills Outcast Goblin.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Giant Spider for 6.
+Lyra hits Giant Spider for 1.
+Borin hits Giant Spider for 2.
+Borin kills Giant Spider.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Outcast Goblin for 5.
+Aldric kills Outcast Goblin.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > open
+There is no chest here.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > defend
+Large Rat fails to hurt Aldric.
+Large Rat misses Aldric.
+Round fought: 2 foe(s) left.
+
+[bot] > defend
+Large Rat fails to hurt Aldric.
+Large Rat misses Aldric.
+Round fought: 2 foe(s) left.
+
+[bot] > fight
+Aldric hits Large Rat for 2.
+Aldric kills Large Rat.
+Aldric hits Large Rat for 3.
+Aldric kills Large Rat.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Gredlan Rogue for 3.
+Lyra hits Gredlan Rogue for 2.
+Borin misses Gredlan Rogue.
+Thessa hits Gredlan Rogue for 4.
+Thessa kills Gredlan Rogue.
+Thessa hits Gredlan Rogue for 1.
+Gredlan Rogue misses Aldric.
+Round fought: 1 foe(s) left.
+
+[bot] > fight
+Aldric hits Gredlan Rogue for 4.
+Lyra hits Gredlan Rogue for 1.
+Borin hits Gredlan Rogue for 4.
+Borin kills Gredlan Rogue.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Black Bear for 5.
+Lyra hits Black Bear for 2.
+Borin misses Black Bear.
+Thessa hits Black Bear for 1.
+Thessa kills Black Bear.
+Thessa hits Black Bear for 3.
+Black Bear fails to hurt Aldric.
+Round fought: 1 foe(s) left.
+
+[bot] > fight
+Aldric hits Black Bear for 6.
+Lyra hits Black Bear for 1.
+Lyra kills Black Bear.
 Fight over.
 
 [bot] > forward
@@ -76,41 +585,59 @@ You move.
 [bot] > forward
 You move.
 
+[bot] > open
+There is no chest here.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > search
+You search the square.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
 [bot] > forward
 You move.
 
 [bot] > open
-You work at the chest's lock. It is not open yet.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
+There is no chest here.
 
 [bot] > forward
 You move.
@@ -120,6 +647,19 @@ Ouch! A wall blocks the way.
 
 [bot] > right
 You turn.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Brown Tyke for 4.
+Lyra hits Brown Tyke for 1.
+Borin hits Brown Tyke for 3.
+Borin kills Brown Tyke.
+Fight over.
+
+[bot] > forward
+You move.
 
 [bot] > forward
 Ouch! A wall blocks the way.
@@ -128,17 +668,219 @@ Ouch! A wall blocks the way.
 You turn.
 
 [bot] > forward
-You step into the square and meet monsters.
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > search
+You search the square.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
 
 [bot] > open
 You work at the chest's lock. It is not open yet.
 
 [bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > search
+You search the square.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > open
+There is no chest here.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > search
+You search the square.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > open
+You work at the chest's lock. It is not open yet.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
 You step into the square and meet monsters.
 
 [bot] > fight
-Aldric hits Giant Centipede for 6.
-Aldric kills Giant Centipede.
+Aldric hits Zombie for 9.
+Aldric kills Zombie.
+Aldric hits Zombie for 6.
+Lyra hits Zombie for 3.
+Borin hits Zombie for 3.
+Borin kills Zombie.
 Fight over.
 
 [bot] > forward
@@ -147,615 +889,8 @@ You step into the square and meet monsters.
 [bot] > fight
 Aldric hits Kobold for 4.
 Aldric kills Kobold.
-Fight over.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > fight
-Aldric hits Outcast Goblin for 8.
-Aldric kills Outcast Goblin.
-Fight over.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > fight
-Aldric hits Outcast Goblin for 6.
-Aldric kills Outcast Goblin.
-Fight over.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > open
-There is no chest here.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > fight
-Aldric hits Orc for 11.
-Aldric kills Orc.
-Aldric hits Orc for 5.
-Lyra hits Orc for 1.
-Borin hits Orc for 6.
-Thessa hits Orc for 3.
-Thessa kills Orc.
-Fight over.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > search
-You search the square.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > forward
-You move.
-
-[bot] > open
-There is no chest here.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > open
-There is no chest here.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > search
-You search the square.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > open
-There is no chest here.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > open
-You work at the chest's lock. It is not open yet.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > open
-There is no chest here.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > search
-You search the square.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > search
-You search the square.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > search
-You search the square.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > fight
-Aldric hits Giant Spider for 6.
-Aldric kills Giant Spider.
-Fight over.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > fight
-Aldric hits Orc for 8.
-Lyra hits Orc for 1.
-Borin hits Orc for 3.
-Borin kills Orc.
-Borin hits Orc for 13.
-Thessa hits Orc for 3.
-Orc fails to hurt Aldric.
-Orc fails to hurt Aldric.
-Round fought: 2 foe(s) left.
-
-[bot] > fight
-Aldric hits Orc for 2.
-Aldric kills Orc.
-Aldric hits Orc for 4.
-Lyra hits Orc for 1.
-Borin hits Orc for 7.
-Thessa hits Orc for 2.
-Thessa kills Orc.
-Fight over.
-
-[bot] > open
-You work at the chest's lock. It is not open yet.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > defend
-Outcast Goblin fails to hurt Aldric.
-Round fought: 1 foe(s) left.
-
-[bot] > fight
-Aldric hits Outcast Goblin for 6.
-Aldric kills Outcast Goblin.
-Fight over.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > fight
-Aldric hits Giant Centipede for 6.
-Aldric kills Giant Centipede.
-Aldric hits Giant Centipede for 5.
-Aldric kills Giant Centipede.
-Fight over.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > fight
-Aldric misses Giant Spider.
-Lyra hits Giant Spider for 3.
-Borin hits Giant Spider for 3.
-Borin kills Giant Spider.
+Aldric hits Kobold for 5.
+Aldric kills Kobold.
 Fight over.
 
 [bot] > forward
@@ -768,112 +903,26 @@ Aldric hits Giant Centipede for 5.
 Aldric kills Giant Centipede.
 Fight over.
 
-[bot] > forward
-You step into the square and meet monsters.
+[bot] > search
+You search the square.
 
 [bot] > forward
 You step into the square and meet monsters.
 
 [bot] > fight
-Aldric hits Hiksae for 6.
-Lyra hits Hiksae for 2.
-Borin hits Hiksae for 6.
-Thessa hits Hiksae for 4.
-Thessa kills Hiksae.
+Aldric hits Outcast Goblin for 5.
+Lyra hits Outcast Goblin for 1.
+Lyra kills Outcast Goblin.
+Lyra hits Outcast Goblin for 2.
+Borin misses Outcast Goblin.
+Thessa hits Outcast Goblin for 4.
+Outcast Goblin fails to hurt Aldric.
+Round fought: 1 foe(s) left.
+
+[bot] > fight
+Aldric hits Outcast Goblin for 1.
+Aldric kills Outcast Goblin.
 Fight over.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > open
-There is no chest here.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > search
-You search the square.
-
-[bot] > forward
-You move.
-
-[bot] > open
-There is no chest here.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
 
 [bot] > forward
 Ouch! A wall blocks the way.
@@ -885,753 +934,36 @@ You turn.
 You step into the square and meet monsters.
 
 [bot] > fight
-Aldric hits Large Rat for 2.
-Aldric kills Large Rat.
-Aldric hits Large Rat for 3.
-Aldric kills Large Rat.
-Aldric hits Large Rat for 3.
-Aldric kills Large Rat.
-Fight over.
-
-[bot] > forward
-You step into the square and meet monsters.
+Aldric hits Outcast Goblin for 3.
+Lyra hits Outcast Goblin for 1.
+Borin hits Outcast Goblin for 2.
+Thessa hits Outcast Goblin for 2.
+Outcast Goblin fails to hurt Aldric.
+Round fought: 1 foe(s) left.
 
 [bot] > fight
-Aldric hits Margoyle for 11.
-Aldric kills Margoyle.
-Fight over.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > fight
-Aldric hits Outcast Goblin for 8.
+Aldric hits Outcast Goblin for 1.
 Aldric kills Outcast Goblin.
 Fight over.
 
 [bot] > forward
 You step into the square and meet monsters.
 
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > search
-You search the square.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > open
-There is no chest here.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > search
-You search the square.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > open
-You work at the chest's lock. It is not open yet.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > search
-You search the square.
-
-[bot] > open
-There is no chest here.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > open
-There is no chest here.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > search
-You search the square.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > open
-There is no chest here.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > open
-You work at the chest's lock. It is not open yet.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > open
-There is no chest here.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > open
-There is no chest here.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > open
-There is no chest here.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > open
-There is no chest here.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > open
-You work at the chest's lock. It is not open yet.
-
-[bot] > search
-You search the square.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > open
-You work at the chest's lock. It is not open yet.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > back
-You turn.
-
-[bot] > search
-You search the square.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > open
-There is no chest here.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
-
-[bot] > forward
-You step into the square and meet monsters.
-
 [bot] > fight
-Aldric hits Margoyle for 11.
-Aldric kills Margoyle.
+Aldric hits Twisted Dwarf for 4.
+Aldric kills Twisted Dwarf.
+Aldric hits Twisted Dwarf for 5.
+Aldric kills Twisted Dwarf.
 Fight over.
 
 [bot] > forward
 You step into the square and meet monsters.
 
-[bot] > open
-There is no chest here.
-
 [bot] > forward
 You step into the square and meet monsters.
 
-[bot] > fight
-Aldric hits Black Bear for 11.
-Aldric kills Black Bear.
-Fight over.
+[bot] > forward
+You step into the square and meet monsters.
 
 [bot] > forward
 You step into the square and meet monsters.
@@ -1639,20 +971,182 @@ You step into the square and meet monsters.
 [bot] > fight
 Aldric hits Footpad for 6.
 Lyra hits Footpad for 1.
-Lyra kills Footpad.
+Borin hits Footpad for 3.
+Borin kills Footpad.
+Borin hits Footpad for 6.
+Thessa hits Footpad for 2.
+Thessa kills Footpad.
 Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Outcast Goblin for 6.
+Lyra hits Outcast Goblin for 1.
+Borin hits Outcast Goblin for 1.
+Borin kills Outcast Goblin.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > open
+There is no chest here.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > search
+You search the square.
 
 [bot] > forward
 You step into the square and meet monsters.
 
 [bot] > defend
-Footpad misses Aldric.
+Giant Centipede misses Aldric.
+Giant Centipede misses Aldric.
+Round fought: 2 foe(s) left.
+
+[bot] > fight
+Aldric hits Giant Centipede for 6.
+Aldric kills Giant Centipede.
+Aldric hits Giant Centipede for 2.
+Lyra hits Giant Centipede for 3.
+Lyra kills Giant Centipede.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Giant Spider for 4.
+Lyra hits Giant Spider for 1.
+Borin hits Giant Spider for 3.
+Borin kills Giant Spider.
+Borin hits Giant Spider for 5.
+Thessa misses Giant Spider.
+Giant Spider fails to hurt Aldric.
 Round fought: 1 foe(s) left.
 
 [bot] > fight
-Aldric hits Footpad for 9.
-Aldric kills Footpad.
+Aldric hits Giant Spider for 2.
+Aldric kills Giant Spider.
 Fight over.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > search
+You search the square.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Giant Centipede for 3.
+Lyra hits Giant Centipede for 1.
+Lyra kills Giant Centipede.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Giant Spider for 7.
+Lyra hits Giant Spider for 2.
+Lyra kills Giant Spider.
+Fight over.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > forward
+You step into the square and meet monsters.
 
 [bot] > forward
 You step into the square and meet monsters.
@@ -1661,12 +1155,126 @@ You step into the square and meet monsters.
 You step into the square and meet monsters.
 
 [bot] > fight
-Aldric hits Giant Spider for 6.
-Aldric kills Giant Spider.
-Aldric hits Giant Spider for 7.
-You now have enough experience to make a level.
-Aldric kills Giant Spider.
+Aldric hits Giant Owl for 4.
+Aldric kills Giant Owl.
+Aldric hits Giant Owl for 5.
+Aldric kills Giant Owl.
 Fight over.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > search
+You search the square.
+
+[bot] > open
+There is no chest here.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Black Bear for 2.
+Lyra hits Black Bear for 1.
+Borin hits Black Bear for 5.
+Borin kills Black Bear.
+Borin hits Black Bear for 3.
+Thessa hits Black Bear for 1.
+Black Bear misses Aldric.
+Round fought: 1 foe(s) left.
+
+[bot] > fight
+Aldric hits Black Bear for 2.
+Lyra misses Black Bear.
+Borin hits Black Bear for 4.
+Borin kills Black Bear.
+Fight over.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > open
+There is no chest here.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > defend
+Giant Owl fails to hurt Aldric.
+Giant Owl fails to hurt Aldric.
+Round fought: 2 foe(s) left.
+
+[bot] > fight
+Aldric hits Giant Owl for 4.
+You now have enough experience to make a level.
+Aldric kills Giant Owl.
+Aldric hits Giant Owl for 2.
+Lyra hits Giant Owl for 3.
+Lyra kills Giant Owl.
+Fight over.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+You move.
 
 [bot] > forward
 You step into the square and meet monsters.
@@ -1676,6 +1284,617 @@ Ouch! A wall blocks the way.
 
 [bot] > back
 You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > open
+There is no chest here.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > search
+You search the square.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > defend
+Giant Centipede fails to hurt Aldric.
+Round fought: 1 foe(s) left.
+
+[bot] > fight
+Aldric hits Giant Centipede for 4.
+Aldric kills Giant Centipede.
+Fight over.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Footpad for 5.
+Lyra hits Footpad for 2.
+Lyra kills Footpad.
+Fight over.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Outcast Goblin for 4.
+Lyra hits Outcast Goblin for 3.
+Borin hits Outcast Goblin for 1.
+Borin kills Outcast Goblin.
+Fight over.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Margoyle for 4.
+Lyra hits Margoyle for 2.
+Borin hits Margoyle for 5.
+Borin kills Margoyle.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > defend
+Giant Spider fails to hurt Aldric.
+Giant Spider fails to hurt Aldric.
+Round fought: 2 foe(s) left.
+
+[bot] > fight
+Aldric hits Giant Spider for 8.
+Lyra hits Giant Spider for 1.
+Lyra kills Giant Spider.
+Lyra hits Giant Spider for 3.
+Borin hits Giant Spider for 4.
+Borin kills Giant Spider.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Zombie for 5.
+Lyra hits Zombie for 1.
+Borin hits Zombie for 3.
+Thessa hits Zombie for 2.
+Thessa kills Zombie.
+Thessa hits Zombie for 2.
+Zombie fails to hurt Aldric.
+Round fought: 1 foe(s) left.
+
+[bot] > fight
+Aldric hits Zombie for 4.
+Lyra hits Zombie for 3.
+Borin hits Zombie for 3.
+Borin kills Zombie.
+Fight over.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Giant Spider for 7.
+Lyra hits Giant Spider for 1.
+Lyra kills Giant Spider.
+Lyra hits Giant Spider for 3.
+Borin hits Giant Spider for 4.
+Borin kills Giant Spider.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Kobold for 2.
+Lyra hits Kobold for 2.
+Lyra kills Kobold.
+Lyra hits Kobold for 2.
+Borin hits Kobold for 3.
+Borin kills Kobold.
+Fight over.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > open
+There is no chest here.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > search
+You search the square.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > open
+You work at the chest's lock. It is not open yet.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > open
+There is no chest here.
+
+[bot] > search
+You search the square.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Margoyle for 7.
+Lyra hits Margoyle for 2.
+Borin hits Margoyle for 1.
+Borin kills Margoyle.
+Fight over.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > defend
+Margoyle hits Aldric for 1.
+Round fought: 1 foe(s) left.
+
+[bot] > fight
+Aldric hits Margoyle for 7.
+Lyra hits Margoyle for 1.
+Borin hits Margoyle for 5.
+Borin kills Margoyle.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > defend
+Giant Spider fails to hurt Aldric.
+Giant Spider fails to hurt Aldric.
+Round fought: 2 foe(s) left.
+
+[bot] > defend
+Giant Spider fails to hurt Aldric.
+Giant Spider misses Aldric.
+Round fought: 2 foe(s) left.
+
+[bot] > fight
+Aldric hits Giant Spider for 6.
+Aldric kills Giant Spider.
+Aldric hits Giant Spider for 6.
+Lyra hits Giant Spider for 1.
+Lyra kills Giant Spider.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Giant Centipede for 4.
+Lyra hits Giant Centipede for 1.
+Borin hits Giant Centipede for 1.
+Borin kills Giant Centipede.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > defend
+Margoyle fails to hurt Aldric.
+Round fought: 1 foe(s) left.
+
+[bot] > fight
+Aldric hits Margoyle for 3.
+Lyra hits Margoyle for 2.
+Borin hits Margoyle for 5.
+Thessa hits Margoyle for 3.
+Margoyle hits Aldric for 1.
+Round fought: 1 foe(s) left.
+
+[bot] > defend
+Margoyle hits Aldric for 1.
+Round fought: 1 foe(s) left.
+
+[bot] > fight
+Aldric hits Margoyle for 1.
+Aldric kills Margoyle.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Margoyle for 7.
+Lyra hits Margoyle for 2.
+Borin hits Margoyle for 2.
+Thessa hits Margoyle for 2.
+Thessa kills Margoyle.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Outcast Goblin for 6.
+Lyra hits Outcast Goblin for 1.
+Borin hits Outcast Goblin for 1.
+Borin kills Outcast Goblin.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Outcast Goblin for 6.
+Lyra hits Outcast Goblin for 2.
+Borin hits Outcast Goblin for 1.
+Borin kills Outcast Goblin.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Margoyle for 6.
+Lyra hits Margoyle for 1.
+Borin hits Margoyle for 4.
+Thessa hits Margoyle for 3.
+Margoyle fails to hurt Aldric.
+Round fought: 1 foe(s) left.
+
+[bot] > fight
+Aldric hits Margoyle for 1.
+Aldric kills Margoyle.
+Fight over.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Giant Spider for 6.
+Aldric kills Giant Spider.
+Fight over.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+You step into the square and meet monsters.
+
+[bot] > fight
+Aldric hits Giant Spider for 6.
+Lyra hits Giant Spider for 2.
+Lyra kills Giant Spider.
+Lyra hits Giant Spider for 2.
+Borin hits Giant Spider for 5.
+Borin kills Giant Spider.
+Fight over.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
 
 [bot] > forward
 You move.
@@ -1708,10 +1927,7 @@ You move.
 You move.
 
 [bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > left
-You turn.
+You move.
 
 [bot] > forward
 Ouch! A wall blocks the way.
@@ -1730,123 +1946,6 @@ Ouch! A wall blocks the way.
 
 [bot] > left
 You turn.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > open
-There is no chest here.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-You move.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > fight
-Aldric hits Giant Centipede for 4.
-Lyra hits Giant Centipede for 2.
-Lyra kills Giant Centipede.
-Lyra hits Giant Centipede for 3.
-Borin hits Giant Centipede for 2.
-Borin kills Giant Centipede.
-Fight over.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > fight
-Aldric hits Giant Spider for 6.
-Aldric kills Giant Spider.
-Fight over.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > fight
-Aldric hits Orc for 8.
-Lyra hits Orc for 1.
-Borin hits Orc for 8.
-Borin kills Orc.
-Borin hits Orc for 12.
-Thessa hits Orc for 2.
-Thessa kills Orc.
-Thessa hits Orc for 6.
-Orc fails to hurt Aldric.
-Round fought: 1 foe(s) left.
-
-[bot] > fight
-Aldric hits Orc for 5.
-Aldric kills Orc.
-Fight over.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > fight
-Aldric hits Footpad for 6.
-Aldric kills Footpad.
-Fight over.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > fight
-Aldric hits Giant Owl for 6.
-Aldric kills Giant Owl.
-Aldric hits Giant Owl for 4.
-Lyra hits Giant Owl for 1.
-Lyra kills Giant Owl.
-Fight over.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > fight
-Aldric hits Giant Owl for 6.
-Aldric kills Giant Owl.
-Fight over.
-
-[bot] > forward
-You step into the square and meet monsters.
-
-[bot] > fight
-Aldric hits Brown Tyke for 6.
-Aldric kills Brown Tyke.
-Fight over.
 
 [bot] > forward
 Ouch! A wall blocks the way.
@@ -1855,13 +1954,10 @@ Ouch! A wall blocks the way.
 You turn.
 
 [bot] > forward
-You move.
+Ouch! A wall blocks the way.
 
-[bot] > forward
-You move.
-
-[bot] > search
-You search the square.
+[bot] > left
+You turn.
 
 [bot] > forward
 Ouch! A wall blocks the way.
@@ -1869,6 +1965,48 @@ Ouch! A wall blocks the way.
 [bot] > left
 You turn.
 
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
 [bot] > open
 There is no chest here.
 
@@ -1891,18 +2029,6 @@ You move.
 You move.
 
 [bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
-Ouch! A wall blocks the way.
-
-[bot] > right
-You turn.
-
-[bot] > forward
 You move.
 
 [bot] > forward
@@ -1916,17 +2042,11 @@ You move.
 
 [bot] > forward
 You move.
-
-[bot] > forward
-You move.
-
-[bot] > open
-There is no chest here.
 
 [bot] > forward
 Ouch! A wall blocks the way.
 
-[bot] > right
+[bot] > back
 You turn.
 
 [bot] > search
@@ -1935,8 +2055,77 @@ You search the square.
 [bot] > forward
 You move.
 
-[1] Aldric, Human, Warrior level 1, HP 15/15, SP 80/80, xp 273, gold 5434.7048
-[2] Lyra, Elf, Mage level 1, HP 15/15, SP 125/125, xp 20, gold 5369.7007
-[3] Borin, Osiri, Thief level 1, HP 15/15, SP 110/110, xp 61, gold 5434.7007
-[4] Thessa, Osiri, Healer level 1, HP 15/15, SP 145/145, xp 20, gold 5434.7007
+[bot] > forward
+You move.
+
+[bot] > open
+You work at the chest's lock. It is not open yet.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > right
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > back
+You turn.
+
+[bot] > forward
+Ouch! A wall blocks the way.
+
+[bot] > left
+You turn.
+
+[bot] > forward
+You move.
+
+[bot] > forward
+You move.
+
+[bot] > search
+You search the square.
+
+[bot] > forward
+You move.
+
+[1] Aldric, Human, Warrior level 1, HP 12/15, SP 80/80, xp 338, gold 7825.1332
+[2] Lyra, Elf, Mage level 1, HP 15/15, SP 125/125, xp 85, gold 7760.1249
+[3] Borin, Osiri, Thief level 1, HP 15/15, SP 110/110, xp 132, gold 7825.1249
+[4] Thessa, Osiri, Healer level 1, HP 15/15, SP 145/145, xp 45, gold 7825.1249
 

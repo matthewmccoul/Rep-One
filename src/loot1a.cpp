@@ -398,7 +398,7 @@ Item rollChestItem(Ctx& ctx, const ChestDropBand& band, i32 treasureClass) {
         }
 
         Item it;
-        it.id = chosen;
+        it.id = ctx.data.items[static_cast<u32>(chosen)].id;   // chosen is a table row; store the item's id
         it.type = static_cast<ItemType>(entry);
         return it;
     }

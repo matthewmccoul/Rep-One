@@ -55,6 +55,13 @@ const Character& memberAt(const Party& p, i32 i) {
     return p.members[static_cast<u32>(i)];
 }
 
+const MonsterDef* monsterDefById(const GameData& data, i32 id) {
+    for (const MonsterDef& d : data.monsters) {
+        if (d.id == id) return &d;
+    }
+    return nullptr;
+}
+
 const ItemDef* itemDefById(const GameData& data, i32 id) {
     for (const ItemDef& d : data.items) {
         if (d.id == id) return &d;

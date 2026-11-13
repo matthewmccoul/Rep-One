@@ -188,8 +188,8 @@ static void grantStarterItem(const Ctx& ctx, Character& ch, Inventory& inv, Guil
     const ItemDef& def = ctx.data.items[static_cast<size_t>(pick)];
 
     Item it;
-    // UNKNOWN: Item.id is assumed to hold the table index (Hands is id 0 at table index 0).
-    it.id = def.tableIndex;
+    // Item.id holds the item's id (as Mordor.Core and the original's save slots do), not its table row.
+    it.id = def.id;
     // Starter items are sold fully identified.
     it.idLevel = IdLevel::All;
     it.cursed = CurseNone;
