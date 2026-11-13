@@ -6,11 +6,11 @@
 #include "mordor/guilds1.h"
 #include "mordor/shared_helpers.h"
 #include "mordor/names.h"
+#include "mordor/squares.h"
 
 namespace mordor {
 namespace {
 
-constexpr i32 kViewMapWidth = 30;     // UNKNOWN: flat map width; SRD R19 addresses squares with a width of 30
 constexpr i32 kViewMaxRadius = 20;
 constexpr i32 kViewTownSections = 5;  // TownSection: Store, Confinement, Morgue, Guild, Bank
 
@@ -161,15 +161,6 @@ const FloorState* viewFloor(const Session& s) {
   return nullptr;
 }
 
-// UNKNOWN: squares are stored row-major, index = y * kViewMapWidth + x, 0-based.
-const SquareState* viewSquare(const FloorState& f, i32 x, i32 y) {
-  // Coordinates are 1-based like the dungeon module (SRD R19): square = x + 30 * (y - 1).
-  if (x < 1 || y < 1 || x > kViewMapWidth) return nullptr;
-  const i32 idx = (y - 1) * kViewMapWidth + (x - 1);
-  if (idx >= static_cast<i32>(f.squares.size())) return nullptr;
-  return &f.squares[static_cast<u32>(idx)];
-}
-
 }  // namespace
 
 Str describeParty(const Session& s) {
@@ -275,7 +266,7 @@ Str describeSquare(const Session& s) {
             ", facing " + facingName(p.facing) + "\n";
   const FloorState* f = viewFloor(s);
   if (f == nullptr) return out + "No map stored for this level.\n";
-  if (viewSquare(*f, p.x, p.y) == nullptr) return out + "Square not on the map.\n";
+  if (squareAt(*f, p.x, p.y) == nullptr) return out + "Square not on the map.\n";
 
   const i32 fi = static_cast<i32>(p.facing);
   out += "Edges:\n";
@@ -286,7 +277,7 @@ Str describeSquare(const Session& s) {
   }
 
   out += "Here:";
-  const SquareState* sq = viewSquare(*f, p.x, p.y);
+  const SquareState* sq = squareAt(*f, p.x, p.y);
   bool any = false;
   u32 fl = 0;
   for (const FloorDef& d : s.data.floors) {
@@ -341,7 +332,7 @@ Str renderAutomap(const Session& s, i32 radius) {
 
   for (i32 y = p.y - r; y <= p.y + r; ++y) {
     for (i32 x = x0; x <= p.x + r; ++x) {
-      const SquareState* sq = viewSquare(*f, x, y);
+      const SquareState* sq = squareAt(*f, x, y);
       if (sq == nullptr) continue;
       const bool known = sq->explored;
       const i32 cc = cellCol(x);

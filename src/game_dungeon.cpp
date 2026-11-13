@@ -18,6 +18,7 @@
 #include "mordor/monsters1a.h"
 #include "mordor/partyb.h"
 #include "mordor/shared_helpers.h"
+#include "mordor/squares.h"
 
 namespace mordor {
 namespace {
@@ -69,15 +70,6 @@ FloorState* floorAt(Session& s, i32 level) {
 
 bool defIndexOk(const Session& s, i32 level) {
     return level >= 1 && static_cast<size_t>(level) <= s.data.floors.size();
-}
-
-// R19: 1-based (x, y) to the flat square array.
-SquareState* squareAt(FloorState& floor, i32 x, i32 y) {
-    if (x < 1 || y < 1 || x > kMapWidth) return nullptr;
-    const i32 idx = (x - 1) + kMapWidth * (y - 1);
-    const i32 n = static_cast<i32>(floor.squares.size());
-    if (idx < 0 || idx >= n) return nullptr;
-    return &floor.squares[static_cast<u32>(idx)];
 }
 
 void syncPosition(Session& s) {

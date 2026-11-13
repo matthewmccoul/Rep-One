@@ -5,6 +5,7 @@
 
 #include "mordor/state_common.h"
 #include "mordor/shared_helpers.h"
+#include "mordor/parse.h"
 
 namespace mordor {
 namespace {
@@ -56,11 +57,9 @@ bool parseLevel(const Str& t, i32& out) {
 
 // Parses a party slot number 1..kPartyMaxSize; returns -1 when invalid.
 i32 parseMember(const Str& t) {
-  if (!isDigits(t) || t.size() > 2) return -1;
-  i32 v = 0;
-  for (char c : t) v = v * 10 + (c - '0');
-  if (v < 1 || v > kPartyMaxSize) return -1;
-  return v;
+  i64 v = 0;
+  if (!parseDecimal(t, v, false, 2, -1) || v < 1 || v > kPartyMaxSize) return -1;
+  return static_cast<i32>(v);
 }
 
 Str gameKey(const char* name) { return Str("option.") + name; }
