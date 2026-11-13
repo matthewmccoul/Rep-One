@@ -380,13 +380,8 @@ i32 maxSP(const Character& c) {
 // R21: refill only when requested; otherwise clamp current SP to the new maximum.
 void recalcSP(Ctx& ctx, Character& c, bool refill) {
     (void)ctx;
-    const i32 mx = maxSP(c);
-    c.vitals.maxSpellPoints = mx;
-    if (refill) {
-        c.vitals.curSpellPoints = mx;
-    } else {
-        c.vitals.curSpellPoints = minv(c.vitals.curSpellPoints, mx);
-    }
+    void recalcSpellPoints(Character& who, bool refill);
+    recalcSpellPoints(c, refill);
 }
 
 // ---------------------------------------------------------------------------
