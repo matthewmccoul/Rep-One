@@ -5,6 +5,7 @@
 #include "mordor/access.h"
 #include "mordor/attributes.h"
 #include "mordor/features.h"
+#include "mordor/death3.h"
 
 namespace mordor {
 namespace {
@@ -210,13 +211,6 @@ void raiseClear(Session& s, i32 member) {
 Str raiseBy(const Session& s, i32 member) {
   auto it = s.featureState.find(raiseKey(member, "by"));
   return it == s.featureState.end() ? Str() : it->second;
-}
-
-// Raising.cs: the age a raise costs, by the state of the body.
-i32 raiseAgeCost(DeathState st) {
-  if (st == DeathState::Rock) return kRaiseAgeRock;
-  if (st == DeathState::Stoned) return kRaiseAgeStoned;
-  return kRaiseAgeOrdinary;
 }
 
 // NEED: race lifespan field on RaceDef. Until it is named, a failed non-rock raise never complicates.
