@@ -21,19 +21,6 @@ const char* const kSeerSeveralMonsters = "The name you provided is shared by mor
 const char* const kSeerSeveralItems = "The name you provided is shared by more than one item.";
 const char* const kSeerCannotDetect = "I am unable to detect the creature in the depths below. ";
 
-// UNKNOWN: fee display format. Fees are Currency (1/10000 gold), the same units as the reference long.
-Str seerMoney(i64 units) {
-  const bool neg = units < 0;
-  const i64 a = neg ? -units : units;
-  std::string frac = std::to_string(a % 10000);
-  frac.insert(0, 4 - frac.size(), '0');
-  while (frac.size() > 1 && frac.back() == '0') frac.pop_back();
-  Str out = std::to_string(a / 10000);
-  if (frac != "0") out += "." + frac;
-  out += " gold";
-  return neg ? "-" + out : out;
-}
-
 // R63, FRMSEEK.BAS:336. Person search: fixed fee of the depth they are at, no random element.
 i64 seerPersonFee(i32 level) {
   const double lv = static_cast<double>(level);
@@ -201,7 +188,7 @@ bool seerSearchPerson(Session& s, const Str& typed, Str& reply) {
   }
   const i64 fee = seerPersonFee(level);
   seerSetPendingPerson(s, c->name, level);
-  reply = "I can feel their presense.  I will need " + seerMoney(fee) + " to attempt to locate " + c->name +
+  reply = "I can feel their presense.  I will need " + storeGoldText(fee) + " to attempt to locate " + c->name +
           ".\nIs this acceptable?";
   return true;
 }
