@@ -154,21 +154,6 @@ bool monsterOffersJoin(const Character& ch, i32 monsterGuildLevel) {
     return ch.activeLevel() >= monsterGuildLevel;
 }
 
-// R44 alignment gate: Good monsters join only Good characters; Neutral monsters may join any
-// character; Evil monsters never join (always hostile).
-// CONFLICT: the SRD gives this rule in prose with its own conflict note; this is the stated gate.
-bool alignmentMayJoin(CharAlign monsterAlign, Align charAlign) {
-    switch (monsterAlign) {
-        case CharAlign::Good:
-            return charAlign == Align::Good;
-        case CharAlign::Neutral:
-            return true;
-        case CharAlign::Evil:
-            return false;
-    }
-    return false;
-}
-
 // R44 hostility: Good monsters are hostile to Neutral and Evil characters, not Good ones.
 // Neutral monsters are hostile 60% of the time (one draw). Evil monsters are always hostile.
 // CONFLICT: the 60% figure and the Good/Neutral split come from the wiki text only.

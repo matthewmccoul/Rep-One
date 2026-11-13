@@ -141,7 +141,7 @@ bool charmForcesJoin(i32 spellDamage, i32 monsterHitsRemaining);
 // Archive says "character's current Guild Level >= monster's Guild Level". Archive is used here.
 bool monsterOffersJoin(const Character& ch, i32 monsterGuildLevel);
 // Pure: Good monsters join only Good characters. Neutral monsters can join any character. Evil monsters never join.
-bool alignmentMayJoin(CharAlign monsterAlign, Align charAlign);
+
 // Hostility: Good monsters are hostile to Neutral/Evil characters. Neutral monsters are hostile 60% of the time.
 // Evil monsters are always hostile.
 // CONFLICT: overlaps hostileBase / hostileRoll in clock.h (engagement). Wiki rule is declared here for the join path only.
