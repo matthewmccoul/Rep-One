@@ -1,0 +1,3232 @@
+{
+"a0598": {
+"defn": "idLevelFromLegacyIdentified@src/dataformatsb.cpp:191",
+"kind": "RULE",
+"what": "Converts the legacy boolean \"Identified\" save flag into an identification level, mapping true to fully identified (All) and false to Unknown, per the SRD's c32 section.",
+"tags": [
+32,
+35
+],
+"tag_sources": [
+"port audit/fidelity notes",
+"port docs/mod system"
+],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0087": {
+"defn": "guildCeiling@src/casting2.cpp:70",
+"kind": "RULE",
+"what": "Returns the highest per-category spell maximum across a guild's spell-max table, which sets the guild's overall spell ceiling for the game's casting rules.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1151": {
+"defn": "cmdRoster@src/feat_roster.cpp:164",
+"kind": "FLOW",
+"what": "Handles the player's roster command by building a description of the current party and appending a \"Not in party\" line for each character left behind, returning the combined text as the reply.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0497": {
+"defn": "charAlignOf@src/companions2a.cpp:504",
+"kind": "RULE",
+"what": "Converts a companion's alignment value to the game's Align type by subtracting one from its enum index, the inverse of itemAlignOf.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2340": {
+"defn": "isFetchWithinReach@src/spells1b.cpp:155",
+"kind": "RULE",
+"what": "Tests whether a body's dungeon level is deeper than kFetchMaxDungeonLevel, returning true when it is within reach for the fetch spell.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"CONFLICT"
+]
+},
+"a0812": {
+"defn": "leadGroupCreature@src/dungeon1b_b.cpp:256",
+"kind": "RULE",
+"what": "Picks the creature the party's attention falls on for R97 \"LeadGroup\": the first monster if any monsters are in combat (returning null if none are alive), otherwise the first waiting creature, or null if there is none.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1095": {
+"defn": "gameBoolText@src/feat_options.cpp:87",
+"kind": "RULE",
+"what": "Returns the on/off display text for one of the twelve game option checkboxes, reading its stored \"1\" or \"0\" value from the session and mapping it to \"on\" or \"off\".",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0142": {
+"defn": "costAtLeastMinimum@src/casting3.cpp:85",
+"kind": "RULE",
+"what": "Enforces the engine's minimum cost by returning the greater of the computed cost and the minimum, so a spell or action never costs less than the floor.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1531": {
+"defn": "slimeGold@src/items1b.cpp:480",
+"kind": "RULE",
+"what": "Computes the gold dropped when a slime is killed, as a random amount scaled by dungeon level, the monster's attack and level, and the guild level (divided by the guild level, floored at 1).",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a2394": {
+"defn": "castCrestSpell@src/spells3_b.cpp:121",
+"kind": "RULE",
+"what": "Grants a crest its spell, if the crest has one in the table, by returning that spell with its charges and the caster's current spell level, and posts a \"Crest grants a spell\" message.",
+"tags": [
+106,
+107
+],
+"tag_sources": [
+"forum archive"
+],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0988": {
+"defn": "dcastDepth@src/feat_dcast.cpp:96",
+"kind": "RULE",
+"what": "Depth Perception (SpellEffect 12) announces to the party the dungeon level they are currently standing on, as the spell's applied effect.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1084": {
+"defn": "register_look@src/feat_look.cpp:142",
+"kind": "FLOW",
+"what": "Registers the \"look\" typed command on the Dungeon screen, binding it to the cmdLook handler so the player can describe the square they stand on.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2433": {
+"defn": "drainCharacter@src/status1a.cpp:499",
+"kind": "RULE",
+"what": "Rolls a number of drain trials (scaled by the attacker's level), lets each trial be resisted by the target's drain resistance or Constitution-based save, and collects Table E drain picks for each trial that fails.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0907": {
+"defn": "isLimitedBuild@src/dungeon3.cpp:74",
+"kind": "RULE",
+"what": "Reports whether the dungeon is a shareware/limited build by comparing the dungeon level count against the full game's level count (kFullDungeonLevelCount).",
+"tags": [
+33,
+35
+],
+"tag_sources": [
+"port audit/fidelity notes",
+"port docs/mod system"
+],
+"markers": []
+},
+"a2016": {
+"defn": "pariahLevelEligible@src/monsters2b.cpp:160",
+"kind": "RULE",
+"what": "Returns true when the dungeon level falls within the range 12 to 15 (inclusive), the only levels where the mythical Pariah monster can spawn.",
+"tags": [
+106
+],
+"tag_sources": [
+"forum archive"
+],
+"markers": []
+},
+"a1006": {
+"defn": "duseCharAlign@src/feat_duse.cpp:62",
+"kind": "RULE",
+"what": "Returns a character's alignment as an integer, which the item-use code reads when checking whether an item's alignment restriction applies to that character.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1283": {
+"defn": "loadSession@src/game_save.cpp:627",
+"kind": "RULE",
+"what": "Loads a saved game session from text, validating the format version and end marker, then replaces the session's game state with the loaded state while leaving the data tables and RNG untouched.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2168": {
+"defn": "raceMultForRawExp@src/progression1b.cpp:139",
+"kind": "RULE",
+"what": "Returns the race experience multiplier (R14 T1) for a given raw Exp value, using the tabulated values for 4 through 9, 1.0 for 3 or less, and an approximation for anything higher.",
+"tags": [
+61
+],
+"tag_sources": [
+"port self-check tests"
+],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1079": {
+"defn": "guildNameOf@src/feat_look.cpp:38",
+"kind": "RULE",
+"what": "Looks up the guild name for a character's active guild from the loaded game data, returning an empty string if the guild index is out of range.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0527": {
+"defn": "clampPurchaseHits@src/companions2b.cpp:334",
+"kind": "RULE",
+"what": "Caps the number of hits a purchased companion gets at the definition's maximum, returning the lower of the rolled hits and the definition's hits.",
+"tags": [
+8
+],
+"tag_sources": [
+"Mordor.Core"
+],
+"markers": []
+},
+"a1144": {
+"defn": "rosterCapacity@src/feat_roster.cpp:69",
+"kind": "RULE",
+"what": "Returns how many party-record slots are available for the roster, computed as the smallest of the party member count, inventory count, and companion count.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0706": {
+"defn": "quoteRevival@src/death3.cpp:91",
+"kind": "RULE",
+"what": "Quotes a character's revival price, works out whether the guild pays for it, and flags whether the payer must be asked, based on the character's top guild level.",
+"tags": [
+17,
+28,
+50
+],
+"tag_sources": [
+"Mordor.App (game screens)",
+"Mordor.Core",
+"port audit/fidelity notes"
+],
+"markers": []
+},
+"a2172": {
+"defn": "guildParameterPercent@src/progression1b.cpp:185",
+"kind": "RULE",
+"what": "Converts a guild parameter value into a percentage by dividing it by the guild's divisor (kGefDivisor, 8) and multiplying by 100, per the R14 rule.",
+"tags": [
+88
+],
+"tag_sources": [
+"community wiki"
+],
+"markers": []
+},
+"a0486": {
+"defn": "companionStoneChance@src/companions2a.cpp:334",
+"kind": "RULE",
+"what": "Computes the chance that a companion's stone succeeds, from the companion's Constitution and the level at which it was found, capped at a fixed maximum (SRD rule R30).",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0447": {
+"defn": "carryPickTest@src/companions1b_2.cpp:96",
+"kind": "RULE",
+"what": "Decides whether a creature of body size `bodySize` can be picked up by a carrier of size `carrierSize`, returning true when the size difference is at most 1 (per rule R37.3).",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0600": {
+"defn": "warnStoredGuildAttDef@src/dataformatsb.cpp:217",
+"kind": "DATA",
+"what": "Emits a warning message to the player (via ctx.say) that stored guild Att/Def values from a save or data file are being ignored and recomputed from guild level, with the guild and stored values attached as arguments.",
+"tags": [
+35
+],
+"tag_sources": [
+"port docs/mod system"
+],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1950": {
+"defn": "resolveMonsterAttack@src/monsters1b.cpp:170",
+"kind": "RULE",
+"what": "Resolves one monster's turn-ending attack by running the pre-attack step, then melee (skipped if the monster cast a spell), then the post-attack step, which includes electrocution for spellcasters, against a chosen party member.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0980": {
+"defn": "confinementSellSlot@src/feat_confinement.cpp:137",
+"kind": "FLOW",
+"what": "Handles the player's pen-sell command for a companion, refusing empty or invalid slots, running the confinement sale, and producing the reply text that reports the gold received and that the slot is now empty.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0474": {
+"defn": "monsterJoinsCharacter@src/companions2a.cpp:88",
+"kind": "RULE",
+"what": "Decides whether a monster can join a character based on alignment, where Neutral monsters can join any character and other monsters must match the character's alignment.",
+"tags": [
+7,
+91
+],
+"tag_sources": [
+"Mordor.Core",
+"community wiki"
+],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0579": {
+"defn": "mayDeleteDataFile@src/dataformatsa_c.cpp:165",
+"kind": "RULE",
+"what": "Decides whether a data file may be deleted, allowing deletion only for files classed as non-vital (provisional rule, since the SRD deletion rule was not supplied).",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2445": {
+"defn": "archiveStoneChance@src/status1a.cpp:657",
+"kind": "RULE",
+"what": "Computes the chance that an archive stone effect triggers, starting from 100 plus the spawn level and subtracting a CON-based penalty (CON\u00b7ln(CON)\u00b71.09), clamped to a minimum floor value.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1514": {
+"defn": "slimeHits@src/items1b.cpp:157",
+"kind": "RULE",
+"what": "Decides whether a slime attack hits by comparing a roll against a base value plus a bonus that scales with dungeon level.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1820": {
+"defn": "u128Shl@src/misc_2.cpp:19",
+"kind": "RULE",
+"what": "Shifts a 128-bit unsigned value left by n bits, carrying bits across the 64-bit halves, which the X87 extended-precision arithmetic uses to align mantissas.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0676": {
+"defn": "companionRaiseCon@src/death1b.cpp:332",
+"kind": "RULE",
+"what": "Returns the Constitution stat used for a companion's raise-dead rule (R16.3), taking the companion's own CON score when its monster definition exists and a fixed fallback value otherwise.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2369": {
+"defn": "spellVerb@src/spells2.cpp:302",
+"kind": "RULE",
+"what": "Determines the verb shown for a spell's effect in the game: a kill spell (effect 100) reads \"KILLED\", a charm spell (effect 80\u201399) reads \"CHARMED\", and any other spell uses its data-file verb index, or NONE if the spell or index is invalid.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1513": {
+"defn": "slimeRollValue@src/items1b.cpp:156",
+"kind": "RULE",
+"what": "Rolls a d100 for a slime attack, returning a value from 1 to 100 that is compared against the hit threshold (50 + dungeon level \u00d7 2) to decide whether the slime hits.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1872": {
+"defn": "validateManifest@src/modding.cpp:488",
+"kind": "RULE",
+"what": "Checks a mod's manifest against the chapter 21 validation rule (F1), returning the first problem found: a blank id, an id containing forbidden characters, a blank assembly, or a blank entry type, or None if the manifest is valid.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2067": {
+"defn": "newbieGuardExcludes@src/monsters3b.cpp:125",
+"kind": "RULE",
+"what": "Returns true when a newbie lead (character level 1 or below) faces a monster whose guild level exceeds the newbie monster cap, so that monster is excluded from the encounter.",
+"tags": [
+7,
+24,
+31,
+34,
+66
+],
+"tag_sources": [
+"Mordor.Core",
+"port audit/fidelity notes",
+"port self-check tests"
+],
+"markers": [
+"CONFLICT",
+"UNKNOWN"
+]
+},
+"a1914": {
+"defn": "newbieLeadRejected@src/monsters1a.cpp:280",
+"kind": "RULE",
+"what": "Decides whether a newbie lead is rejected for a party, returning true when the lead's guild level is above the newbie cap, the lead is not the exempt table index, and the viewer counts as a newbie in that area.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0035": {
+"defn": "archiveLevelForDesiredCost@src/casting1_a.cpp:459",
+"kind": "RULE",
+"what": "Computes the archive spell level needed to reach a desired cost, using the formula ceil(StartSpellLevel \u00d7 SpellPointRatio \u00d7 BaseMod\u00b2 \u00d7 1.9 / (DesiredCost + 1)), returning 0 if the divisor is zero.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1566": {
+"defn": "slimeTakesEffect@src/items2a.cpp:214",
+"kind": "RULE",
+"what": "Rolls d100 and returns true when the roll is below 50 + 2 \u00d7 dungeon level, deciding whether the slime effect takes hold on the player.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1202": {
+"defn": "runFeatureCommand@src/features.cpp:34",
+"kind": "FLOW",
+"what": "Routes a typed player command to the matching feature handler for the current screen (combat, dungeon, or town), registering features first and returning whether a handler was found and whether it succeeded.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0051": {
+"defn": "applyMonsterSpellHits@src/casting1_b.cpp:43",
+"kind": "RULE",
+"what": "Applies a monster spell's damage to the leading party members (up to the spell's affect group plus one), subtracting the spell's damage from each one's current hits, and returns that damage.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1992": {
+"defn": "fearReleases@src/monsters2a.cpp:61",
+"kind": "RULE",
+"what": "Returns true when a character's fear effect releases, which happens only if the character still has hit points above zero and is not under the ForLife status.",
+"tags": [
+4,
+9,
+24,
+66
+],
+"tag_sources": [
+"Mordor.Core",
+"port audit/fidelity notes",
+"port self-check tests"
+],
+"markers": []
+},
+"a2507": {
+"defn": "drainPickFromDraw@src/status2.cpp:467",
+"kind": "RULE",
+"what": "Maps a d6 draw to a Table E drain result: draws 1 to 5 drain the matching stat index by 1, draw 6 drains MaxHits by 2, and anything else drains nothing.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0575": {
+"defn": "applyLegacyIdentified@src/dataformatsa_c.cpp:78",
+"kind": "RULE",
+"what": "Sets an item's identification level from a legacy boolean flag (identified maps to All, unidentified maps to Unknown) unless a modern known-level field is already present, in which case it does nothing.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1900": {
+"defn": "apiVersionIntroducedBy@src/modding.cpp:874",
+"kind": "RULE",
+"what": "Maps a mod API member (toggle, Has/Remove, choices, table/list settings, settings window, OptionDescriptions) to the Mordor mod API version that introduced it, returning -1 for unknown or out-of-range members.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1739": {
+"defn": "openKeyEnabled@src/loot1b.cpp:218",
+"kind": "RULE",
+"what": "Returns whether the Open key is enabled, which in game terms is true only when the trap label is showing, so a hidden trap panel blocks opening the chest.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1956": {
+"defn": "electrocutionBaseDamage@src/monsters1b.cpp:214",
+"kind": "RULE",
+"what": "Returns the base damage for an electrocution attack by passing the acid-modifier value for the given monster and character guild levels into the shared second-block damage roll, which uses one random draw.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2447": {
+"defn": "archiveAgeChance@src/status1a.cpp:670",
+"kind": "RULE",
+"what": "Computes the chance that a character's archive (spawned item or record) ages, as 100 plus twice the spawn level minus 2.5 times the Constitution, truncated to an integer.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1922": {
+"defn": "groupRollsForEngagement@src/monsters1a.cpp:451",
+"kind": "RULE",
+"what": "Implements R25 of the Mordor rules by returning false when a monster group has a live join offer, so that group does not roll for engagement.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0278": {
+"defn": "lnOf@src/combat1a.cpp:19",
+"kind": "RULE",
+"what": "Computes the natural logarithm of a value, used by the game's melee rules (per VB Ln) in formulas such as the scaled-magnitude and protection calculations.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2365": {
+"defn": "sheetScaledBase@src/spells2.cpp:246",
+"kind": "RULE",
+"what": "Scales a spell's base magnitude by the caster's sheet factors (C \u00d7 Q \u00d7 R \u00d7 kSheetFactor divided by SL, minus a small epsilon, floored), never letting the result drop below the base value, and returns the base unchanged if SL is zero or negative.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1101": {
+"defn": "charCommand@src/feat_options.cpp:152",
+"kind": "FLOW",
+"what": "Handles the player's typed \"char\" command in the options screen, parsing a party member number and a character option name, then either reporting that option's current on/off state or setting it and returning a confirmation message.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1952": {
+"defn": "realBreathModifier@src/monsters1b.cpp:185",
+"kind": "RULE",
+"what": "Computes the breath-weapon damage modifier for a monster from its guild level relative to the character's guild level, using a logarithmic level-modifier formula from the game's rules (R39).",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0974": {
+"defn": "confParseSlot@src/feat_confinement.cpp:27",
+"kind": "RULE",
+"what": "Checks whether a typed word is a valid companion slot number from 1 to kCompanionSlots, and the slots are fixed in place (never compacted) per rule R67.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0841": {
+"defn": "finishActionRun@src/dungeon2a.cpp:106",
+"kind": "RULE",
+"what": "Ends an action run by closing the current context and marking the run as no longer active.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1059": {
+"defn": "hallOfferValue@src/feat_hall.cpp:120",
+"kind": "RULE",
+"what": "Returns the value a character contributes to one of the Hall of Records categories (maxHits for Constitution, total experience for Most Experience, gold on hand plus in bank for Wealthiest, otherwise the matching ability score).",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1915": {
+"defn": "rollGroupCount@src/monsters1a.cpp:289",
+"kind": "RULE",
+"what": "Rolls the number of monster groups in an encounter from the lead monster's NumGroups, with a chance (per R16) to subtract a random cut, then clamps the result to the allowed 1\u20134 range.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2087": {
+"defn": "limitedSplashShown@src/options.cpp:481",
+"kind": "RULE",
+"what": "Returns whether the limited-release splash should be shown, which is true only if the build variant supports the limited prefix and the MORDOR.INI [Loading Information] Limited flag is set.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1792": {
+"defn": "buyOutRemoveOne@src/loot2.cpp:545",
+"kind": "RULE",
+"what": "Removes one randomly drawn item from a shop's stock as a buy-out, making up to maxDraws random picks (unbounded if negative) and accepting the first draw, since the acceptance test is not yet specified.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1109": {
+"defn": "questsSetOpen@src/feat_quests.cpp:67",
+"kind": "RULE",
+"what": "Opens or closes a quest for a party member and guild by setting or clearing that quest's flag in the session's feature state.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2253": {
+"defn": "canUseItem@src/races.cpp:209",
+"kind": "RULE",
+"what": "Blocks an Elf character from using an item that requires great strength, returning false in that case and true otherwise.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1528": {
+"defn": "slimeStrikes@src/items1b.cpp:450",
+"kind": "RULE",
+"what": "Decides whether a slime attack has any effect by comparing a slime roll against a threshold of 50 plus twice the dungeon level, so deeper levels make slime strikes more likely to hit.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1400": {
+"defn": "nomadValue@src/guilds1_b.cpp:292",
+"kind": "RULE",
+"what": "Returns the Nomad guild's value for a given level, which is 10 at level 1, 10 + 1.5\u00d7level for even levels 2 through 30, and 0 for all other levels.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0982": {
+"defn": "cmdPenBuy@src/feat_confinement.cpp:193",
+"kind": "FLOW",
+"what": "Parses the typed \"pen buy <row> <member>\" command, validating its arguments and producing the player's error messages before handing the purchase to the confinement-buy routine.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2001": {
+"defn": "rollQuestClassHeadStart@src/monsters2b.cpp:36",
+"kind": "RULE",
+"what": "Rolls a 40% chance, using the context's RNG, for whether a character gets the quest class head start.",
+"tags": [
+19
+],
+"tag_sources": [
+"Mordor.Core"
+],
+"markers": []
+},
+"a1106": {
+"defn": "questsMembershipOf@src/feat_quests.cpp:39",
+"kind": "FLOW",
+"what": "Resolves which guild membership a quest, claim, or titles command acts on by preferring the character's active joined guild, otherwise the first joined guild, and reports that guild back to the caller.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1284": {
+"defn": "ctxView@src/game_setup.cpp:26",
+"kind": "RULE",
+"what": "Builds a game context view for const callers by casting away const on the session and returning its non-const context, so the read-only rule helpers (createBase, creationPool, statCeiling) used during character creation can run against game state without mutating it.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1885": {
+"defn": "useOriginalAnswer@src/modding.cpp:672",
+"kind": "RULE",
+"what": "Given a hook's status, it decides whether the original game answer is used: only an Ok status lets the mod's decision stand, while a null decision or a throw falls back to the original's answer (rule R12.3).",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0522": {
+"defn": "companionCastDraw@src/companions2b.cpp:273",
+"kind": "RULE",
+"what": "Draws the chance for a companion to successfully cast a spell: level-1 casters succeed 40% of the time, other levels 100%, and a companion with no cast level never casts.",
+"tags": [
+8
+],
+"tag_sources": [
+"Mordor.Core"
+],
+"markers": []
+},
+"a0386": {
+"defn": "isLiving@src/companions1a.cpp:35",
+"kind": "RULE",
+"what": "Reports whether a companion slot is a living participant in combat, meaning it is occupied, has Hits above zero, and is not dead.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0406": {
+"defn": "rejectSubtypeDraw@src/companions1a.cpp:402",
+"kind": "RULE",
+"what": "Records one rejected subtype draw for the companion's subtype selection, resetting the subtype to 0 after more than 150 tries and marking the pick as failed after more than 300.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0322": {
+"defn": "cancelMisdirectionOnDraw@src/combat1b.cpp:255",
+"kind": "RULE",
+"what": "Drawing the owner cancels that character's misdirection by clearing its misdirected flag, per rule R45 of the Mordor SRD.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1481": {
+"defn": "slimeRollReaches@src/items1a_c.cpp:393",
+"kind": "RULE",
+"what": "Rolls a d100 and reports whether the roll is at or below 50 plus twice the dungeon level, which decides whether a slime attack reaches the player.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1805": {
+"defn": "isValidTeleportSquare@src/misc.cpp:158",
+"kind": "RULE",
+"what": "Decides whether a wall word marks a legal teleporter destination by checking that the square has neither the Rock bit nor the Teleporter bit set.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2174": {
+"defn": "projectedLevel@src/progression1b.cpp:202",
+"kind": "RULE",
+"what": "Projects a character's level from the ratio of desired to current experience points, scaled by the current level via a square root, returning 0 when current XP is non-positive.",
+"tags": [
+96,
+104
+],
+"tag_sources": [
+"community wiki",
+"forum archive"
+],
+"markers": []
+},
+"a1128": {
+"defn": "rescueFeeFor@src/feat_rescue.cpp:157",
+"kind": "RULE",
+"what": "Returns the morgue rescuer's fee for a rescue, which is currently a placeholder constant (kRescueFeeUnpriced) because the real price is not yet known from the game's source.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1275": {
+"defn": "visitGuild@src/game_save.cpp:369",
+"kind": "RULE",
+"what": "Serializes one guild membership record to or from the save file, covering the member's guild level, experience, attack and defense, guild gold, and the state of their guild quest (kind, progress, target, level, count, and whether it is done or pinned), with range limits on the quest kind and state.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1203": {
+"defn": "featureHelp@src/features.cpp:48",
+"kind": "FLOW",
+"what": "Builds the help text shown to the player for a given game screen by collecting the help lines of every feature command registered to that screen.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1248": {
+"defn": "squareAt@src/game_dungeon.cpp:74",
+"kind": "RULE",
+"what": "Maps a 1-based dungeon square coordinate (x, y) to its slot in the floor's flat square array, returning a pointer to that square or null when the coordinate falls outside the map.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1660": {
+"defn": "addItemSpellPoints@src/items3b.cpp:364",
+"kind": "RULE",
+"what": "Adds the item's spell-point bonus to the user's current spell points on use (e.g. Scroll of Spells +50, Tome of Spells +200) and announces the restored amount to the player, with no cap applied.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1611": {
+"defn": "uncurseFee@src/items2b_2.cpp:172",
+"kind": "RULE",
+"what": "Computes the gold fee for uncursing an item as a fixed fraction (0.8 times the divisor, per the given factors) of its list price, rounded half to even.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a2042": {
+"defn": "joinLevelEligible@src/monsters3a.cpp:216",
+"kind": "RULE",
+"what": "Decides whether a character's guild level is high enough to join a monster's guild, returning true when the character's level is equal to or greater than the monster's.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"CONFLICT"
+]
+},
+"a1381": {
+"defn": "actualExpMod@src/guilds1_a.cpp:436",
+"kind": "RULE",
+"what": "Converts an experience point total into an actual EP value for the Mordor rules by dividing it by 8 (R24).",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0211": {
+"defn": "ecvScore@src/city2a.cpp:656",
+"kind": "RULE",
+"what": "Computes the Mordor ECV score (per SRD rule R73) as a weighted sum of attack, defense, hits, and the Strength stat, weighting attack 1x, defense 4x, hits 2x, and Strength 2x.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2216": {
+"defn": "routeTargetLevel@src/progression2a.cpp:85",
+"kind": "RULE",
+"what": "Returns the archive route target level for a guild, which is 28 for Warrior, 30 for Nomad, and 41 for Wizard, and 0 for any other guild since no target is defined.",
+"tags": [
+106
+],
+"tag_sources": [
+"forum archive"
+],
+"markers": [
+"UNKNOWN"
+]
+},
+"a2477": {
+"defn": "bandPercent@src/status2.cpp:51",
+"kind": "RULE",
+"what": "Classifies a victim's level against a reference level using 1.25x and 0.75x ratio bands (Table D), returning the high, mid, or low outcome used by breath, spit, and electrocution effects.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0192": {
+"defn": "libraryItemListed@src/city2a.cpp:65",
+"kind": "RULE",
+"what": "Decides whether a library item is listed for sale, returning true only when its grade is at least Mostly (rule R56 of the Mordor rules).",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1753": {
+"defn": "trapFate@src/loot1b.cpp:374",
+"kind": "RULE",
+"what": "Rerolls the trap opener's current hit points to a random value from 1 to max HP and current spell points to a random value from 0 to max SP, as the T3 chest-trap fate effect.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0798": {
+"defn": "carrierIndex@src/dungeon1b_b.cpp:52",
+"kind": "RULE",
+"what": "Returns the index of the party member currently carrying a dead character's body, or -1 if the party is not carrying a dead body or no member is carrying one.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1985": {
+"defn": "companionSpawns@src/monsters1b_2.cpp:357",
+"kind": "RULE",
+"what": "Decides whether a companion monster spawns, either always, by rolling a percentage chance, or only when there is space available, according to the selected spawn mode.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1100": {
+"defn": "gameCommand@src/feat_options.cpp:121",
+"kind": "FLOW",
+"what": "Handles the player's typed options command in the game, either reporting the current value of a named option or setting it on or off, or to a number from 0 to 100, and returns the message to show.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1953": {
+"defn": "realAcidModifier@src/monsters1b.cpp:197",
+"kind": "RULE",
+"what": "Computes the acid damage modifier for a monster attack from the monster's and character's guild levels, using a logarithmic formula from the game's R39 rules and truncating the result to an integer.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2024": {
+"defn": "seedFloorTally@src/monsters2b.cpp:316",
+"kind": "RULE",
+"what": "Seeds a floor's room-count tally and room total from the header's area count, so that the shortfall used later in markAreaEmptied is defined.",
+"tags": [
+9,
+24,
+66
+],
+"tag_sources": [
+"Mordor.Core",
+"port audit/fidelity notes",
+"port self-check tests"
+],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0763": {
+"defn": "isTeleporterSquare@src/dungeon1b_a.cpp:203",
+"kind": "RULE",
+"what": "Reports whether a teleporter record stands on the given square of a dungeon level, per rule R75 of the Mordor rules.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2241": {
+"defn": "generateBaseStat@src/races.cpp:108",
+"kind": "RULE",
+"what": "Rolls a race's base value for one stat by drawing uniformly at random between that race's minimum and maximum for that stat.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a2505": {
+"defn": "rollAgingDays@src/status2.cpp:447",
+"kind": "RULE",
+"what": "Rolls a random number of aging days for a monster, capped at 365 times a scale factor derived from the monster's guild level (clamped between 1 and 5).",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1168": {
+"defn": "seerHasPending@src/feat_seer.cpp:123",
+"kind": "FLOW",
+"what": "Reports whether a seer's person offer is still pending in the session, by checking that the seer's feature-state entry exists and is non-empty.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1998": {
+"defn": "rollAnyClass@src/monsters2b.cpp:18",
+"kind": "RULE",
+"what": "Rolls a d100 percentile die and returns true when the result is 1, implementing the any-class check from the Mordor SRD (a 1% chance).",
+"tags": [
+7,
+24
+],
+"tag_sources": [
+"Mordor.Core",
+"port audit/fidelity notes"
+],
+"markers": []
+},
+"a1946": {
+"defn": "electrocute@src/monsters1b.cpp:128",
+"kind": "RULE",
+"what": "Applies electrocution damage from a monster's electrical breath attack to the targeted party member, but only when the attacker's breath type is Electrical, and reports the hit to the player.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1149": {
+"defn": "rosterUnloadMember@src/feat_roster.cpp:99",
+"kind": "RULE",
+"what": "Removes the party member in the given position (refusing the leader, the last remaining member, or a full roster) and sends that record to the end of the roster, leaving the party's remaining members in order.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0375": {
+"defn": "defendHardensRobbery@src/combat3.cpp:184",
+"kind": "RULE",
+"what": "Returns whether the character's Defend order is active, which in game terms makes that character harder to rob.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1652": {
+"defn": "listCandidateItems@src/items3b.cpp:134",
+"kind": "RULE",
+"what": "Builds the list of item IDs eligible to appear for a given level range and item category, taking one contiguous run of matching items starting at the first match, per SRD rule R7.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1768": {
+"defn": "rollChestLock@src/loot2.cpp:56",
+"kind": "RULE",
+"what": "Rolls a d100 against the chest's lock chance and the chest class to decide whether the chest is unlocked or magically locked, with magic locks suppressed in squares where magic doesn't work (ANTIMAGIC or EXTINGUISHER).",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0989": {
+"defn": "dcastFacing@src/feat_dcast.cpp:105",
+"kind": "RULE",
+"what": "Find Direction (reference effect 13) reports the party's current facing as a compass code in a spell-cast message for dcast.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2040": {
+"defn": "neutralFriendlyGate@src/monsters3a.cpp:195",
+"kind": "RULE",
+"what": "In the Mordor rules, a neutral lead character gets a 40% chance to be friendly, rolled only when the lead's alignment is Neutral.",
+"tags": [
+7
+],
+"tag_sources": [
+"Mordor.Core"
+],
+"markers": []
+},
+"a0201": {
+"defn": "seerFrequencyLineRolled@src/city2a.cpp:351",
+"kind": "RULE",
+"what": "Rolls the seer's frequency-line check by drawing a random number and returning true when it falls below kSeerFrequencyPercent (75) out of 100, per rule R64 step 4 of the Seer locate-monster service.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2185": {
+"defn": "forfeitRegainBonusHits@src/progression1b.cpp:318",
+"kind": "FLOW",
+"what": "Reports to the player, via a message, that levels were regained below the character's maximum level, without applying the bonus hit points since their amount is not modelled.",
+"tags": [
+106
+],
+"tag_sources": [
+"forum archive"
+],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0058": {
+"defn": "charmLastSlotFallout@src/casting1_b.cpp:169",
+"kind": "RULE",
+"what": "When a charm fills the last companion slot, the charmed creature leaves the fight, the next creature in its group is felled, and the third creature in the group is set to nought hits and not unrolled, per the game's charm fallout rules.",
+"tags": [
+56
+],
+"tag_sources": [
+"port self-check tests"
+],
+"markers": [
+"UNKNOWN"
+]
+},
+"a2423": {
+"defn": "ratioBand@src/status1a.cpp:387",
+"kind": "RULE",
+"what": "Classifies a monster-versus-character level comparison into High, Low, or Even bands using 0.75\u00d7 and 1.25\u00d7 thresholds, which feeds game mechanics such as breath and spit attack chances.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2431": {
+"defn": "companionStoneValue@src/status1a.cpp:476",
+"kind": "RULE",
+"what": "Computes a companion's stone value from its Constitution score via a logarithmic formula (CON \u00d7 ln(max(1, CON)) / ln 2.5), minus a floor amount, per the R30 rule.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0106": {
+"defn": "spellCeilingAcrossGuilds@src/casting2.cpp:242",
+"kind": "RULE",
+"what": "Returns the highest spell ceiling among all guilds that have a spell table, computed as the best guildCeiling value over those guilds (0 if none qualify), which determines the strongest spell level a party can reach through the guilds.",
+"tags": [
+62
+],
+"tag_sources": [
+"port self-check tests"
+],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0150": {
+"defn": "castGatesApplyToBuffer@src/casting3.cpp:154",
+"kind": "RULE",
+"what": "Returns true only when an item's level is 0, so that the level-0 item gates apply to buffers and level-0 items in the Mordor spell-casting rules.",
+"tags": [
+1,
+34
+],
+"tag_sources": [
+"Mordor.Core",
+"port audit/fidelity notes"
+],
+"markers": [
+"CONFLICT"
+]
+},
+"a1654": {
+"defn": "rollItemSpawn@src/items3b.cpp:190",
+"kind": "RULE",
+"what": "Rolls a percentage die and walks the spawn table's cumulative percentages to pick which item, if any, spawns for the player.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1767": {
+"defn": "classAllowsLock@src/loot2.cpp:28",
+"kind": "RULE",
+"what": "Gates lock eligibility by chest class, allowing locks only on BOX, CHEST, and ASMODEUS chests (any class above 1).",
+"tags": [
+5
+],
+"tag_sources": [
+"Mordor.Core"
+],
+"markers": [
+"CONFLICT"
+]
+},
+"a0538": {
+"defn": "advanceSpawnTries@src/companions2b.cpp:456",
+"kind": "RULE",
+"what": "Advances the spawn-try counter by one for each attempt at placing a monster group, a bookkeeping step in the game's spawn procedure that the caller resets per group.",
+"tags": [
+8
+],
+"tag_sources": [
+"Mordor.Core"
+],
+"markers": []
+},
+"a0294": {
+"defn": "weaponNullifiedByImmunity@src/combat1a.cpp:198",
+"kind": "RULE",
+"what": "Returns true when the target creature has the immunity-to-weapons bit set (bit 5), which nullifies any weapon attack against it per rules R14 and R15.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2188": {
+"defn": "ailmentTickDue@src/progression1b.cpp:380",
+"kind": "RULE",
+"what": "Checks whether at least kAilmentTickMs milliseconds have passed since the last ailment tick, so that the game's ailment effects advance every 4 seconds of real time (rule R21).",
+"tags": [
+23
+],
+"tag_sources": [
+"port audit/fidelity notes"
+],
+"markers": []
+},
+"a0618": {
+"defn": "isRegeneratedMdata@src/dataformatsb.cpp:595",
+"kind": "DATA",
+"what": "Checks whether a given file number is in the list of regenerated mdata files, returning true if it is and false otherwise.",
+"tags": [
+35
+],
+"tag_sources": [
+"port docs/mod system"
+],
+"markers": []
+},
+"a1238": {
+"defn": "readItemDef@src/game_data_json.cpp:81",
+"kind": "DATA",
+"what": "Copies one item definition's fields from a parsed JSON object into an ItemDef record, reading each named integer, double, string, or array value, as generated code for the game's data files.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0524": {
+"defn": "carryChoiceApplies@src/companions2b.cpp:294",
+"kind": "RULE",
+"what": "Returns false only while a dead character's body is being carried in the morgue, which skips the carry choice in the game's rules.",
+"tags": [
+8
+],
+"tag_sources": [
+"Mordor.Core"
+],
+"markers": []
+},
+"a0165": {
+"defn": "settleStoreSelection@src/city1_a.cpp:481",
+"kind": "RULE",
+"what": "When a store's highlighted row is sold out or hidden, it disables the BUY and INFO options, withdraws any pending alignment choice, and cancels choosing.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0741": {
+"defn": "extinguishProtections@src/dungeon1a.cpp:559",
+"kind": "RULE",
+"what": "Clears every party member's protection masks and all eleven protection values to zero, then announces that the party's protections are extinguished.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2364": {
+"defn": "sheetBaseValue@src/spells2.cpp:240",
+"kind": "RULE",
+"what": "Computes a sheet base value for a character attribute by multiplying Q and R by the sheet factor (1.9), subtracting a small epsilon, and truncating to an integer, per SRD rule R6.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2389": {
+"defn": "teleportCombatSendAway@src/spells3_a.cpp:91",
+"kind": "RULE",
+"what": "Teleport-in-combat spell: sends up to a capped number of monsters away from an encounter, one group at a time, rolling a per-monster chance to impale each one into rock.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0343": {
+"defn": "blowIsSevered@src/combat2a.cpp:293",
+"kind": "RULE",
+"what": "Determines whether a single blow counts as \"Severed\" in the game's combat rules, which happens when the blow has both a critical-hit proc and a backstab proc.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0462": {
+"defn": "monsterMayJoin@src/companions1b_2.cpp:427",
+"kind": "RULE",
+"what": "Decides whether a monster of a given alignment may join a character of a given alignment: Good monsters join only Good characters, Neutral monsters join anyone, and Evil monsters never join.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1756": {
+"defn": "trapFearCompanions@src/loot1b.cpp:412",
+"kind": "RULE",
+"what": "Applies the fear effect from the T3 trap: every living companion whose binding level is below 100 is driven off (marked unoccupied and not present), and the \"Your companions were scared away!\" message is shown.",
+"tags": [
+24
+],
+"tag_sources": [
+"port audit/fidelity notes"
+],
+"markers": [
+"UNKNOWN"
+]
+},
+"a2388": {
+"defn": "teleportImpalePercent@src/spells3_a.cpp:74",
+"kind": "RULE",
+"what": "Computes the chance that a teleport spell cast in combat sends an enemy into rock, as 100 minus the creature's magic resistance clamped to 0\u2013100 (a guessed formula, since the SRD gives none).",
+"tags": [
+83
+],
+"tag_sources": [
+"research notes/manual"
+],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1646": {
+"defn": "categoryMatches@src/items3b.cpp:50",
+"kind": "RULE",
+"what": "Decides whether an item definition matches a requested category, where a category value of -1 acts as a wildcard that matches every category.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1995": {
+"defn": "companionSpawnSelection@src/monsters2a.cpp:90",
+"kind": "RULE",
+"what": "Maps a companion spawn mode number to the rules for choosing a monster: a floor-offset range (-3..-1, -3..0, or 0), repeating the previous monster, a fixed monster table index, or keeping the previous window, with unknown negative modes selecting nothing.",
+"tags": [
+9,
+24,
+31,
+66
+],
+"tag_sources": [
+"Mordor.Core",
+"port audit/fidelity notes",
+"port self-check tests"
+],
+"markers": [
+"CONFLICT"
+]
+},
+"a1841": {
+"defn": "isRareQuestMonster@src/misc_2.cpp:332",
+"kind": "RULE",
+"what": "Returns true when a monster's spawn weight is at or below the quest-rare threshold, marking it as a rare quest monster under rule R34.",
+"tags": [
+91
+],
+"tag_sources": [
+"community wiki"
+],
+"markers": []
+},
+"a1272": {
+"defn": "getBit@src/game_save.cpp:174",
+"kind": "RULE",
+"what": "Reads one of a square's three flags by index for save purposes: explored and identified as stored, and automap as true when nonzero (the code's own comment marks the automap flag as simplified to a seen flag).",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0428": {
+"defn": "stoneChance@src/companions1b.cpp:160",
+"kind": "RULE",
+"what": "Computes a companion's stoning chance from their Constitution and the level at which they were found, capping the result at 95%.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0813": {
+"defn": "isAsmodeusLead@src/dungeon1b_b.cpp:272",
+"kind": "RULE",
+"what": "Returns true when the given creature is the lead character named \"Asmodeus\" (matched by its knownAs text), which the rules use to identify Asmodeus as the party leader, and false if there is no lead.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0399": {
+"defn": "joinBar@src/companions1a.cpp:290",
+"kind": "RULE",
+"what": "Computes a companion's join bar as Charisma times 10, reduced by 10 for each level above the first the monster was found at, floored at zero (per SRD c12p1).",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1909": {
+"defn": "isNewbie@src/monsters1a.cpp:134",
+"kind": "RULE",
+"what": "Returns true when the viewer is a newbie under the game's R10 rule, meaning their character level is 1 and the area they are in has an id below the newbie cutoff.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0829": {
+"defn": "stepChestCountdown@src/dungeon1b_b.cpp:577",
+"kind": "RULE",
+"what": "Advances the chest countdown by one step before the opener acts, and announces \"The guards are alerted!\" when the countdown reaches zero.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1530": {
+"defn": "destroyChance@src/items1b.cpp:459",
+"kind": "RULE",
+"what": "Computes the chance, in clamped 25 to 90 range, that a character's item is destroyed by a slime attack, using the character's level found, dexterity, the monster's dexterity, and whether the character is paralysed.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0407": {
+"defn": "spawnPickForMode@src/companions1a.cpp:417",
+"kind": "RULE",
+"what": "Maps a monster spawn mode number to the spawn window (how far above or below the party's level a creature may come from) and to a fixed monster table entry, or to \"lead itself,\" with modes 7 and negatives leaving the previous window unchanged.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a2035": {
+"defn": "newbieGuardActive@src/monsters3a.cpp:124",
+"kind": "RULE",
+"what": "Returns true when a character is at level 1 and the dungeon level is above the newbie depth limit, which switches on the newbie guard protection for low-level characters in shallow areas.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1524": {
+"defn": "shouldReidentifyOnRetrieval@src/items1b.cpp:378",
+"kind": "RULE",
+"what": "Decides whether an item should be re-identified when retrieved, returning true when the probe roll exceeds the threshold (the port's chosen reading of the SRD rule, which says re-identify when the probe is below the threshold).",
+"tags": [
+28
+],
+"tag_sources": [
+"port audit/fidelity notes"
+],
+"markers": [
+"CONFLICT"
+]
+},
+"a1975": {
+"defn": "charmJoinPercent@src/monsters1b_2.cpp:159",
+"kind": "RULE",
+"what": "Computes the percentage chance of charming a monster into joining the party, from the player's Charisma minus the monster's level plus one, divided by three, floored at zero.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2508": {
+"defn": "rollDrain@src/status2.cpp:482",
+"kind": "RULE",
+"what": "Rolls a d6 on the drain table (Table E) and returns the drain result that the roll maps to.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1693": {
+"defn": "applyMagicLock@src/loot1a.cpp:257",
+"kind": "RULE",
+"what": "Decides whether a chest gets a magic lock by checking whether the square allows one, then rolls the lock against the chest's locked chance and treasure class.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"FIXED"
+]
+},
+"a0213": {
+"defn": "ratioRaw@src/city2b.cpp:22",
+"kind": "RULE",
+"what": "Returns the game's ratio of one monster's price to another's (R74), giving 0.0 when the denominator price is zero.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a2039": {
+"defn": "companionSubtypeGivesUp@src/monsters3a.cpp:188",
+"kind": "RULE",
+"what": "Returns true once a companion subtype's count of attempts reaches the retry limit, at which point it gives up.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a2403": {
+"defn": "effectiveCon@src/status1a.cpp:49",
+"kind": "RULE",
+"what": "Computes a character's effective Constitution for status-effect checks by adding the gear-granted CON bonus to base CON, following the SRD legend rather than the port's gear-less tick.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"CONFLICT"
+]
+},
+"a1154": {
+"defn": "register_roster@src/feat_roster.cpp:205",
+"kind": "FLOW",
+"what": "Registers the party-management town commands \"roster\", \"unload\", and \"load\" (the latter capped at 4 party members) so the player can list the party, remove a member while keeping their record, or bring a left-out member back.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0487": {
+"defn": "companionStoneRoll@src/companions2a.cpp:345",
+"kind": "RULE",
+"what": "Rolls a percent chance against the companion stone chance (computed from the companion's Constitution and the level at which the stone was found) to decide whether the stone succeeds.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1668": {
+"defn": "capIdentifyLevel@src/items4.cpp:92",
+"kind": "RULE",
+"what": "Caps an identification level earned by an exchange-form item at MOSTLY unless it was obtained at the General Store, which is the only source allowed to reach full (ALL) identification under the game's T6 table.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0490": {
+"defn": "alignmentTurns@src/companions2a.cpp:418",
+"kind": "RULE",
+"what": "Decides whether a creature with alignment `creatureAlign` turns against its owner, returning true when the two alignments are more than one step apart (R36).",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1639": {
+"defn": "weaponResisted@src/items3a.cpp:399",
+"kind": "RULE",
+"what": "Decides whether a given weapon is resisted at the current dungeon level by checking it against the weapon list for that level band, returning false for level 1 and for any level above 16.",
+"tags": [
+102
+],
+"tag_sources": [
+"forum archive"
+],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1829": {
+"defn": "signedOrSaturate@src/misc_2.cpp:121",
+"kind": "RULE",
+"what": "Converts an unsigned magnitude into a signed 64-bit game value, clamping it to the i64 range so that out-of-range results saturate at the limits instead of overflowing.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2036": {
+"defn": "newbieRerollsLead@src/monsters3a.cpp:129",
+"kind": "RULE",
+"what": "Returns true when the newbie guard is active, the lead character's guild level is above the newbie maximum, and the class is not the exempt class index, meaning the lead's rerolls are not protected by the newbie rule.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2363": {
+"defn": "hpNoteShown@src/spells2.cpp:231",
+"kind": "RULE",
+"what": "Reports whether the HP note should be shown for a spell, which requires both that a damage range exists and that the spell row's HP flag is \"Y\".",
+"tags": [
+74
+],
+"tag_sources": [
+"spell spreadsheet/play guide"
+],
+"markers": []
+},
+"a2003": {
+"defn": "widenEncounterSpread@src/monsters2b.cpp:50",
+"kind": "RULE",
+"what": "Widens an encounter's LevelFound spread by kSpreadStep when no monster is found, and reports the new spread to the player.",
+"tags": [
+7
+],
+"tag_sources": [
+"Mordor.Core"
+],
+"markers": []
+},
+"a2337": {
+"defn": "classifyLocate@src/spells1b.cpp:56",
+"kind": "RULE",
+"what": "Classifies where a target stands relative to the locator, returning \"too far\" if the dungeon levels differ by more than the locate range, \"in the city\" if the target is in the city area, and otherwise a relative compass direction.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0371": {
+"defn": "keepStoredAdShift@src/combat3.cpp:146",
+"kind": "RULE",
+"what": "When paralysis at level 0 or a city-gate clear happens, the character's current stat shift is copied into the stored stat shift so it persists, and a \"Stored stat shift kept.\" message is shown.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1193": {
+"defn": "uncurseFeeForPriceGold@src/feat_uncurse.cpp:48",
+"kind": "RULE",
+"what": "Computes the gold fee for uncursing an item as 80% of its base price divided by 0.5 (rounded half-even), returned in internal currency units (gold \u00d7 10000).",
+"tags": [
+52
+],
+"tag_sources": [
+"Mordor.App (game screens)"
+],
+"markers": []
+},
+"a0309": {
+"defn": "recordedHitsFor@src/combat1a.cpp:468",
+"kind": "RULE",
+"what": "Caps the number of hits recorded against a monster at the monster's remaining hit points, per rule R31 of the melee rules, so a monster is never recorded as taking more damage than it has left.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1361": {
+"defn": "relName@src/game_view.cpp:134",
+"kind": "RULE",
+"what": "Maps a facing-relative direction index (0 to 3) to the word the player sees for it: ahead, right, behind, or left.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2368": {
+"defn": "spellReach@src/spells2.cpp:282",
+"kind": "RULE",
+"what": "Determines a spell's reach in combat: whole-party spells (effect 200 and up), class-filtered charm and control spells (effects 75-99), monster-targeting combat spells (effects 0 and 100), and caster-only spells otherwise, defaulting to caster-only when the spell is missing.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a2441": {
+"defn": "theftGoldAttempted@src/status1a.cpp:609",
+"kind": "RULE",
+"what": "Decides whether a theft of gold is attempted by checking if the thief's score minus a weighted monster guild level penalty falls below a threshold (rule R36).",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1933": {
+"defn": "companionDefenceBonus@src/monsters1a.cpp:630",
+"kind": "RULE",
+"what": "Computes the companion's melee defence bonus in the Mordor rules, adding +4 for a critical hit and +1 for a backstab.",
+"tags": [
+23
+],
+"tag_sources": [
+"port audit/fidelity notes"
+],
+"markers": [
+"CONFLICT"
+]
+},
+"a2250": {
+"defn": "expMultiplier@src/races.cpp:186",
+"kind": "RULE",
+"what": "Computes an approximate experience-point multiplier for a given race from that race's Exp value, using a logarithmic formula that the code notes does not match the reference table for Elf, Osiri and Troll.",
+"tags": [
+97
+],
+"tag_sources": [
+"wiki+forum archive"
+],
+"markers": [
+"CONFLICT"
+]
+},
+"a0229": {
+"defn": "companionPriceBand@src/city2b.cpp:213",
+"kind": "RULE",
+"what": "Returns the companion price band for a given found level, clamping the level to the valid range of the price table so out-of-range levels use the first or last band.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1627": {
+"defn": "meetsStatItemRequirements@src/items3a.cpp:87",
+"kind": "RULE",
+"what": "Checks whether a character has at least 10 Wisdom and at least 10 Intelligence, the prerequisite for using stat items in Mordor.",
+"tags": [
+91
+],
+"tag_sources": [
+"community wiki"
+],
+"markers": []
+},
+"a0673": {
+"defn": "companionRaiseRefused@src/death1b.cpp:291",
+"kind": "RULE",
+"what": "Returns true when the party's carrying slot holds a dead character, which blocks the companion raise (rule R16.1: a caster carrying a character cannot raise).",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2506": {
+"defn": "rollDrainSave@src/status2.cpp:460",
+"kind": "RULE",
+"what": "Makes a percentile drain saving throw by rolling d100 and returning true (resisted) when the roll is at or below the character's drain resistance percentage.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0328": {
+"defn": "archiveWeaponResistThreshold@src/combat1b.cpp:377",
+"kind": "RULE",
+"what": "Computes an archived weapon resistance threshold from an item's level as itemLevel \u00d7 2 + 1, a formula the source marks as unverified and in conflict with R13.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"CONFLICT"
+]
+},
+"a2438": {
+"defn": "destructionSaveChance@src/status1a.cpp:572",
+"kind": "RULE",
+"what": "Computes the chance that a character survives a destruction save, starting from a base of 45, lowered by the monster's floor value, raised by four times the character's DEX, lowered by twice the monster's DEX, and clamped between 25 and 90.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0580": {
+"defn": "keepsTableRecordZero@src/dataformatsa_c.cpp:177",
+"kind": "RULE",
+"what": "Decides whether record 0 of a given MDATA table is kept when loading the game's table data, skipping only MDATA5's record 0 because it duplicates Outcast Goblin.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1155": {
+"defn": "rosterUnload@src/feat_roster.cpp:214",
+"kind": "FLOW",
+"what": "Exposes a global-scope test entry point that forwards a roster-unload request for a party member (by index) to the game's rosterUnloadMember routine, passing back a reply string.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2173": {
+"defn": "projectedXp@src/progression1b.cpp:192",
+"kind": "RULE",
+"what": "Projects a character's experience points forward to a desired level by scaling current XP by the square of the level ratio (returning 0 when the current level is invalid).",
+"tags": [
+96,
+104
+],
+"tag_sources": [
+"community wiki",
+"forum archive"
+],
+"markers": []
+},
+"a1603": {
+"defn": "buyFromStore@src/items2b_2.cpp:43",
+"kind": "RULE",
+"what": "Buys an item from a store for a player: if the pack has a free slot and the buyer can pay the price from their gold, the item is added to the pack fully identified, otherwise the player gets a \"pack is full\" or \"not enough gold\" message.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0917": {
+"defn": "facingArrowCell@src/dungeon3.cpp:179",
+"kind": "RULE",
+"what": "Maps a facing direction to the dungeon cell holding the facing arrow by adding a fixed offset (kFacingArrowOffset), though its comment flags an unresolved clash where facing 1 lands on cell 23, the same cell as the RESCUE floor bit.",
+"tags": [
+63
+],
+"tag_sources": [
+"port self-check tests"
+],
+"markers": []
+},
+"a1888": {
+"defn": "raiseSettingChanged@src/modding.cpp:704",
+"kind": "RULE",
+"what": "When the mod settings store changes a setting, it raises one \"setting changed\" event and then forwards that event to each loaded mod whose id matches the changed mod's id.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2012": {
+"defn": "newbieProtected@src/monsters2b.cpp:124",
+"kind": "RULE",
+"what": "Newbie protection: a character is protected in the early areas only if it is level 1 and the area id is below the newbie area limit (area 0 is assumed protected because the SRD does not say otherwise).",
+"tags": [
+7
+],
+"tag_sources": [
+"Mordor.Core"
+],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1959": {
+"defn": "fearReleases@src/monsters1b.cpp:261",
+"kind": "RULE",
+"what": "Decides whether a companion is released from fear, returning true when the companion is occupied, has Hits above zero, and is not ForLife; the owner is ignored.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a2393": {
+"defn": "crestGrantFor@src/spells3_b.cpp:109",
+"kind": "RULE",
+"what": "Looks up a crest's spell grant in the R10 table, returning the row for that crest, or a row with no spell and zero if the crest (such as Journeyman, Warrior, or Ninja) has no entry.",
+"tags": [
+106,
+107
+],
+"tag_sources": [
+"forum archive"
+],
+"markers": [
+"CONFLICT"
+]
+},
+"a0103": {
+"defn": "castBlockedInTown@src/casting2.cpp:208",
+"kind": "RULE",
+"what": "Blocks casting spells from the character window while the party is in town, per the SRD rule that spellcasting is refused there.",
+"tags": [
+17,
+58
+],
+"tag_sources": [
+"Mordor.Core",
+"port self-check tests"
+],
+"markers": []
+},
+"a1280": {
+"defn": "visitTown@src/game_save.cpp:559",
+"kind": "DATA",
+"what": "Writes the town's income, store stock and row counts, and each guildmaster's holder, level and name to the save file, or reads them back when loading.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1552": {
+"defn": "typeIsHands@src/items2a.cpp:31",
+"kind": "RULE",
+"what": "Reports whether an item's type code is 0, which the game treats as the Hands slot type.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0794": {
+"defn": "soulSearchDirection@src/dungeon1b_a.cpp:816",
+"kind": "RULE",
+"what": "Given the signed right and forward offsets from a Soul Search origin, it returns which of the eight compass directions (relative to the searcher's facing) the target lies in, with zero offsets treated as the cardinal axes.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2134": {
+"defn": "checkWealthiest@src/partyb.cpp:463",
+"kind": "RULE",
+"what": "Sets the party's gold leader to whichever member has the most gold in their purse, with ties going to the lowest-indexed member, and does nothing for an empty party.",
+"tags": [
+10,
+59
+],
+"tag_sources": [
+"Mordor.Core",
+"port self-check tests"
+],
+"markers": []
+},
+"a1270": {
+"defn": "applyItemFlags@src/game_save.cpp:159",
+"kind": "RULE",
+"what": "Unpacks a 7-bit flag integer into the item's boolean properties (guild-issued, aligned, chest teleporter, destructible, equipped, lost, slot-cursed) during save loading.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1617": {
+"defn": "realignOptions@src/items2b_2.cpp:231",
+"kind": "RULE",
+"what": "Builds the list of the two alignments a companion does not currently have (Good, Neutral, Evil minus the companion's own), which is the set of options offered when realigning that companion under game rule R72.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1661": {
+"defn": "applyItemStatMods@src/items3b.cpp:373",
+"kind": "RULE",
+"what": "When a character equips or unequips an item, its stat modifiers are added to or removed from the character's ability stat modifiers, and a message is shown.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0262": {
+"defn": "companionsAct@src/clock.cpp:135",
+"kind": "RULE",
+"what": "When the owner is paralysed, living companions still get to act, so the function emits a \"Companions act\" event naming the owner and the number of living companions (or does nothing if there are none).",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0523": {
+"defn": "spellHealsNoOne@src/companions2b.cpp:285",
+"kind": "RULE",
+"what": "Returns true when a spell's healing value (M5B1D) is zero, meaning the spell heals no one in Mordor's rules.",
+"tags": [
+8
+],
+"tag_sources": [
+"Mordor.Core"
+],
+"markers": []
+},
+"a2437": {
+"defn": "petrifyCheck@src/status1a.cpp:554",
+"kind": "RULE",
+"what": "Checks whether a character is petrified by making two successive saving throws against stone resistance, with the second save's threshold derived from the target's Constitution and the monster's floor, and sets the character to Stoned on failing both.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0916": {
+"defn": "deadBodyFacing@src/dungeon3.cpp:173",
+"kind": "RULE",
+"what": "Computes the facing direction of a dead party member's body in the dungeon by offsetting the lead character's facing by a constant and wrapping it to four directions, though the base of the result is unresolved.",
+"tags": [
+48
+],
+"tag_sources": [
+"Mordor.App (game screens)"
+],
+"markers": []
+},
+"a2322": {
+"defn": "rollAcidSpit@src/spells1a.cpp:664",
+"kind": "RULE",
+"what": "Rolls a percentage chance, using the acid spit chance derived from the monster's and character's guild levels, to decide whether an acid spit attack succeeds.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1532": {
+"defn": "theftFlags@src/items1b.cpp:487",
+"kind": "RULE",
+"what": "Computes a player's theft outcome against a monster by subtracting twice the monster's level from the theft score, then reports whether gold can be stolen (value under 50) and whether an item can be stolen (value at most 10).",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0951": {
+"defn": "register_buffers@src/feat_buffers.cpp:322",
+"kind": "FLOW",
+"what": "Registers the \"buffer\" player command on both the Town and Combat screens, so a player can set or list spell buffers for a party member with the usage line shown in help.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0820": {
+"defn": "loadSavedBodyOnRock@src/dungeon1b_b.cpp:507",
+"kind": "RULE",
+"what": "When a body that was saved on a rock square is loaded, it is placed back onto that rock square's body list and a message announces that a body lies on the rock, provided the square exists and is rock.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0983": {
+"defn": "cmdPenSell@src/feat_confinement.cpp:211",
+"kind": "FLOW",
+"what": "Handles the typed `pen sell <slot> <member>` command by validating its argument count and parsing the companion slot and party position, then asks the confinement logic to sell that slot's companion, or replies with a usage or range error.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1737": {
+"defn": "chestLockOf@src/loot1b.cpp:192",
+"kind": "RULE",
+"what": "Returns the lock type (ChestLock) stored on a chest's square record, which the original game uses as the chest's lock state.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0210": {
+"defn": "priceFromFit@src/city2a.cpp:648",
+"kind": "RULE",
+"what": "Computes a shop or library price for an item as a linear fit over its attack, defense, hit points, resistance sum and guild level, then rounds it and clamps it to a minimum price floor.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0758": {
+"defn": "toDisplaceOutcome@src/dungeon1b_a.cpp:133",
+"kind": "RULE",
+"what": "Maps a walked-into-the-dungeon arrival outcome (falls from the sky, lands in rock, or arrives normally) onto the matching displacement outcome for the party, as used when the party is displaced by a teleporter or similar effect.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"FIXED"
+]
+},
+"a1124": {
+"defn": "rescueIsBody@src/feat_rescue.cpp:117",
+"kind": "RULE",
+"what": "Decides whether a character counts as a body (a dead character that rescue can recover) by treating any death state other than Alive or Stoned as a body.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0978": {
+"defn": "confBaseLevel@src/feat_confinement.cpp:75",
+"kind": "RULE",
+"what": "Returns the level used as the base for the guild level in the pen listing, taking the first party member's level or 1 when the party is empty.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a2509": {
+"defn": "applyDrain@src/status2.cpp:487",
+"kind": "RULE",
+"what": "Applies a stat or maximum-hits drain from a status effect to the character, lowering max hits (capping current hits to match) or reducing an ability stat by the drained amount, and announces the result to the player.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0477": {
+"defn": "dominationCharmCount@src/companions2a.cpp:213",
+"kind": "RULE",
+"what": "Domination charm reduces the number of creatures a charm can affect in one group to the lower of the group count and the cap of four, returning zero for empty groups.",
+"tags": [
+83
+],
+"tag_sources": [
+"research notes/manual"
+],
+"markers": []
+},
+"a0449": {
+"defn": "sweepFallenCompanions@src/companions1b_2.cpp:153",
+"kind": "RULE",
+"what": "After a companion is kept in the carry choice, every other companion slot whose hit points have dropped to zero or below is cleared and marked released, per rule R37.4.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2429": {
+"defn": "stoneChance@src/status1a.cpp:453",
+"kind": "RULE",
+"what": "Computes the stoning chance for a target as its Constitution times a log-based factor, minus the attacker's level, capped at a maximum value.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0346": {
+"defn": "coefficientFor@src/combat2b.cpp:32",
+"kind": "RULE",
+"what": "Looks up a guild's critical-hit or backstab coefficient (CritMod or BSMod) for a given ability, returning 0 when the character has no guild or the guild has no entry in the table.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0577": {
+"defn": "warnStoredGuildStatsDiffer@src/dataformatsa_c.cpp:124",
+"kind": "RULE",
+"what": "Compares a guild's stored attack and defence values against the recomputed ones and, if they differ, emits a \"guild.stats_differ\" warning event to the player/game context listing the guild index and both sets of values.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0405": {
+"defn": "charmForcesJoin@src/companions1a.cpp:396",
+"kind": "RULE",
+"what": "Decides whether a Charm forces a companion to join the party, returning true when the damage inflicted in combat exceeds the monster's remaining hits (per R13.3 of the game's rules).",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0115": {
+"defn": "monsterSpellAccepted@src/casting2.cpp:360",
+"kind": "RULE",
+"what": "Decides whether a monster's spell is accepted for casting, returning true only when both its damage value and its spell effect value are positive (per SRD [c14]).",
+"tags": [
+14
+],
+"tag_sources": [
+"Mordor.Core"
+],
+"markers": []
+},
+"a2297": {
+"defn": "companionOpeningGroup@src/spells1a.cpp:328",
+"kind": "RULE",
+"what": "Resolves a companion's opening spell group at the moment of casting by delegating to spellStartGroup with a -1 argument, which sets the group that the companion's spell takes effect in.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2478": {
+"defn": "rerollOneTo@src/status2.cpp:64",
+"kind": "RULE",
+"what": "Rerolls a random value from 1 to max using the game's RNG, as used for chest fate (Table F), and returns 0 if max is not positive.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1971": {
+"defn": "friendlyJoinThreshold@src/monsters1b_2.cpp:132",
+"kind": "RULE",
+"what": "Computes the friendly-join threshold for a monster, which is the Charisma-based score (CHA\u00d710) reduced by 10 for each level below the first at which the monster was found.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1097": {
+"defn": "charBoolText@src/feat_options.cpp:96",
+"kind": "FLOW",
+"what": "Returns \"on\" or \"off\" for a character's boolean option, reading the stored INI value for that member and key (falling back to the default), for display in the character command and option listings.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1126": {
+"defn": "rescueSquareAt@src/feat_rescue.cpp:128",
+"kind": "RULE",
+"what": "Returns a pointer to the square at the given 1-based x/y coordinates on the requested dungeon level, using that floor's width from the data files, or null if the level or coordinates are out of range.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0502": {
+"defn": "isLiveCompanion@src/companions2b.cpp:24",
+"kind": "RULE",
+"what": "Reports whether a companion slot is still active in the game, meaning it is occupied and neither dead nor stoned (in Normal death state).",
+"tags": [
+8
+],
+"tag_sources": [
+"Mordor.Core"
+],
+"markers": []
+},
+"a1171": {
+"defn": "seerSetPendingPerson@src/feat_seer.cpp:139",
+"kind": "DATA",
+"what": "Stores a pending person offer (kind \"person\", the person's name, and their level) into the session's feature state so it persists until the player answers it.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1863": {
+"defn": "jsonSkipValue@src/modding.cpp:255",
+"kind": "DATA",
+"what": "Skips over one JSON value starting at the given position in a text buffer, handling strings, nested objects/arrays, and bare tokens, and advances the position past it so the parser can continue reading a mod manifest.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1055": {
+"defn": "hallGetI@src/feat_hall.cpp:78",
+"kind": "RULE",
+"what": "Reads a named integer field for one of the twelve Hall of Records entries from session feature state and parses it into a number, which the hall check and description logic use to compare or show records.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0686": {
+"defn": "hallStatField@src/death1b.cpp:647",
+"kind": "RULE",
+"what": "Converts a hall-of-fame stat value into its stored form by multiplying it by kHallStatMultiplier (10000), which the header comment identifies as a death/raise rule (R22) encoding.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1990": {
+"defn": "isRareMonsterChance@src/monsters2a.cpp:49",
+"kind": "RULE",
+"what": "Decides whether a monster is quest-rare by checking that the roll chance is below the kRareChanceBelow threshold (10).",
+"tags": [
+9,
+19,
+24,
+66
+],
+"tag_sources": [
+"Mordor.Core",
+"port audit/fidelity notes",
+"port self-check tests"
+],
+"markers": []
+},
+"a0885": {
+"defn": "suspendCombatClockSameArea@src/dungeon2b.cpp:401",
+"kind": "RULE",
+"what": "Pauses the combat clock for an encounter in the same area by zeroing its countdown and announcing that the combat clock is paused.",
+"tags": [
+30,
+44
+],
+"tag_sources": [
+"Mordor.App (game screens)",
+"port audit/fidelity notes"
+],
+"markers": [
+"CONFLICT",
+"UNKNOWN"
+]
+},
+"a2282": {
+"defn": "effectHas@src/spells1a.cpp:86",
+"kind": "RULE",
+"what": "Checks whether a character currently has a given game effect active by scanning the character's list of active effect ids and returning true if the effect is present.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1868": {
+"defn": "findPortRootIndex@src/modding.cpp:351",
+"kind": "RULE",
+"what": "Finds the port tree root by returning the index of the nearest ancestor folder that contains Mordor.sln (rule R1), or -1 if none does.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0984": {
+"defn": "cmdPen@src/feat_confinement.cpp:229",
+"kind": "FLOW",
+"what": "Dispatches the player's typed \"pen\" command to either the buy or sell handler, and returns a usage message when the command is missing or malformed.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0640": {
+"defn": "deadScreenOwed@src/death1a.cpp:147",
+"kind": "RULE",
+"what": "Returns true when a character is dead and the party has been reduced to just that one member, which is the condition that triggers the dead-character screen under the game's rule R4.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2367": {
+"defn": "spellTargetCaps@src/spells2.cpp:268",
+"kind": "RULE",
+"what": "Looks up a combat spell's monster and group targeting caps (numM and numG) from its spell definition, returning zeros if the spell index is invalid.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1069": {
+"defn": "factStr@src/feat_library.cpp:72",
+"kind": "RULE",
+"what": "Looks up a stored knowledge record for a given monster or item kind and name in the session's feature state and returns the requested field (such as a knowledge grade), or an empty string if no record exists.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0212": {
+"defn": "ecvStandardPrice@src/city2a.cpp:662",
+"kind": "RULE",
+"what": "Computes the standard price of an item from its ECV score (scaled by a fixed multiplier and rounded half-to-even), using attack, defense, hits, and strength stats.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2379": {
+"defn": "controlDragonFailed@src/spells2.cpp:457",
+"kind": "RULE",
+"what": "When a Control Dragon spell fails, the targeted monster group turns hostile and loses its charmed status, and the player is told the targets respond adversely.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a2499": {
+"defn": "rollStoning@src/status2.cpp:361",
+"kind": "RULE",
+"what": "Rolls two percentile checks against the character's Constitution-based stoning chance and stone resistance, and returns true only if both fail, meaning the character is turned to stone.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0708": {
+"defn": "guildPaysRevival@src/death3.cpp:109",
+"kind": "RULE",
+"what": "Returns true when a character whose top guild level is 5 or lower cannot cover the revival fee from their purse, meaning the guild pays for the revival.",
+"tags": [
+50
+],
+"tag_sources": [
+"Mordor.App (game screens)"
+],
+"markers": []
+},
+"a2430": {
+"defn": "stoneCheck@src/status1a.cpp:464",
+"kind": "RULE",
+"what": "Rolls a d100 against the target's stoning chance and, if the roll exceeds it, marks the character as Stoned and records a status message.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1983": {
+"defn": "anyStanding@src/monsters1b_2.cpp:290",
+"kind": "RULE",
+"what": "Reports whether a square currently has any foe group with members left and a standing front member, which the game uses to decide if the square is still occupied by fighting monsters.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1022": {
+"defn": "giveMember@src/feat_give.cpp:111",
+"kind": "PARSING",
+"what": "Parses a typed party-member number from command text and checks it lies within 1 to the party size limit, reporting failure otherwise.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1927": {
+"defn": "applyCompanionDamage@src/monsters1a.cpp:544",
+"kind": "RULE",
+"what": "Applies damage to a companion by subtracting the amount from its hits, and marks it dead with the Dead death state once hits drop below zero (R27.5, with the threshold taken from R36).",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1840": {
+"defn": "drawQuestLevel@src/misc_2.cpp:326",
+"kind": "RULE",
+"what": "Draws a quest level uniformly at random from 1 up to the given cap (inclusive), treating any cap below 1 as 1.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0767": {
+"defn": "planChuteFall@src/dungeon1b_a.cpp:249",
+"kind": "RULE",
+"what": "Given the leader's and followers' float rolls and whether the player chose Yes to Follow Leader, it plans who falls down the chute, who floats and goes nowhere, and whether to ask the Follow Leader question (R57/R58).",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2513": {
+"defn": "diseasedHealing@src/status2.cpp:554",
+"kind": "RULE",
+"what": "Halves a character's healing amount, rounding down, while the character has a disease (diseaseLevel above zero), and otherwise returns the heal unchanged.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0906": {
+"defn": "mazeModExcluded@src/dungeon3.cpp:67",
+"kind": "RULE",
+"what": "Returns true when a teleporter draw must reject a given mazeMod value, using a fixed range (1798-1808) taken from the SRD that excludes rock and teleporter squares.",
+"tags": [
+13
+],
+"tag_sources": [
+"Mordor.Core"
+],
+"markers": []
+},
+"a2000": {
+"defn": "rollNeutralLeadPeaced@src/monsters2b.cpp:30",
+"kind": "RULE",
+"what": "Rolls a 40% chance, using the context's random number generator, that a neutral lead is peaced.",
+"tags": [
+7,
+24
+],
+"tag_sources": [
+"Mordor.Core",
+"port audit/fidelity notes"
+],
+"markers": []
+},
+"a2327": {
+"defn": "readTypedOffsets@src/spells1a.cpp:789",
+"kind": "RULE",
+"what": "Reads a spell's displacement or teleport offsets from a list of values (Right, Forward, and Down for teleport only), failing if fewer than two values are given.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1135": {
+"defn": "raiseBy@src/feat_rescue.cpp:211",
+"kind": "RULE",
+"what": "Looks up the stored \"by\" value for a pending rescue of a party member in the session's feature state, returning an empty string if none is recorded.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1147": {
+"defn": "rosterRotateRecords@src/feat_roster.cpp:86",
+"kind": "RULE",
+"what": "Rotates the member, inventory, and companion records for a range of party slots together so that each member's gear and companions move with them when the party roster changes.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1962": {
+"defn": "rollDice@src/monsters1b.cpp:300",
+"kind": "RULE",
+"what": "Rolls the given number of dice with the given number of sides, adds a flat bonus, and returns the total, which the game uses for damage and other random dice results.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a2063": {
+"defn": "joinChanceThreshold@src/monsters3b.cpp:72",
+"kind": "RULE",
+"what": "Computes the join-chance threshold for a monster, starting from the character's natural Charisma and reducing it by the monster's floor level (minus one), never going below zero.",
+"tags": [
+23,
+25,
+97
+],
+"tag_sources": [
+"port audit/fidelity notes",
+"wiki+forum archive"
+],
+"markers": [
+"CONFLICT",
+"UNKNOWN"
+]
+},
+"a1675": {
+"defn": "itemRarity@src/loot1a.cpp:57",
+"kind": "RULE",
+"what": "Returns the rarity value of the item at the given index in the game data, which the chest-item generation logic uses as a weight when rolling loot.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0156": {
+"defn": "protectionBaseForGuild@src/casting3.cpp:230",
+"kind": "RULE",
+"what": "Returns the base protection value for Sorcerer and Wizard guilds (kProtectionBaseSorWiz) and 0 for every other guild, since the base for other guilds is not given in this part of the rules.",
+"tags": [
+74,
+79,
+84,
+107
+],
+"tag_sources": [
+"forum archive",
+"research notes/manual",
+"spell spreadsheet/play guide"
+],
+"markers": [
+"CONFLICT",
+"UNKNOWN"
+]
+},
+"a0420": {
+"defn": "companionCastFizzles@src/companions1b.cpp:46",
+"kind": "RULE",
+"what": "In the Mordor rules (R27.5), a companion caster who is not a Mage has a fixed percentage chance (kCasterFizzlePercent, half the time) of their spell fizzling, which the function rolls on the context's RNG.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1930": {
+"defn": "creatureAlive@src/monsters1a.cpp:589",
+"kind": "RULE",
+"what": "Decides whether a creature is still in the fight (R29), returning true only if it has not been removed and either has hit points left or is flagged as at nought.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1612": {
+"defn": "combineEnabled@src/items2b_2.cpp:178",
+"kind": "RULE",
+"what": "Makes the combine action available only when the player's combine slot list has at least one item in it, which is the game's rule for when combining can be attempted.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1291": {
+"defn": "grantStarterItem@src/game_setup.cpp:174",
+"kind": "RULE",
+"what": "Grants a starter weapon or armour to a new character at creation, picking the cheapest eligible item (preferring floor 1 or below), marking it fully identified and worn, and deducting its price from the character's gold.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0915": {
+"defn": "blurSpreadSquares@src/dungeon3.cpp:167",
+"kind": "RULE",
+"what": "Returns the number of squares a blur spread covers, which is 4 for a monster and 0 for characters and items (the latter being an assumed value, since the game's rule for them is unknown).",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2169": {
+"defn": "raceActualExpApprox@src/progression1b.cpp:157",
+"kind": "RULE",
+"what": "Approximates the Actual_Exp multiplier from raw experience points for R14 of the SRD, returning 1.0 for non-positive raw Exp and otherwise applying the logarithmic formula.",
+"tags": [
+96
+],
+"tag_sources": [
+"community wiki"
+],
+"markers": []
+},
+"a1172": {
+"defn": "seerTakeGold@src/feat_seer.cpp:147",
+"kind": "RULE",
+"what": "Takes the requested amount of gold from the party's gold on hand, drawing from members in roster order, and returns false without taking anything if the party cannot cover the full amount.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0613": {
+"defn": "skipsRecordZero@src/dataformatsb.cpp:541",
+"kind": "RULE",
+"what": "Reports whether record 0 of a given Mordor data file must be skipped during loading, which is true only for the monster file, where record 0 is a duplicate \"GOBLIE\" entry.",
+"tags": [
+35,
+62
+],
+"tag_sources": [
+"port docs/mod system",
+"port self-check tests"
+],
+"markers": []
+},
+"a1026": {
+"defn": "cmdGive@src/feat_give.cpp:260",
+"kind": "FLOW",
+"what": "Parses a typed \"give\" command and routes it to the gold or item handler, replying with usage text when the subcommand is missing or unrecognized.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0651": {
+"defn": "guildPaysRaiseFee@src/death1a.cpp:347",
+"kind": "RULE",
+"what": "Decides whether the guild covers the raise fee: it does when the top guild level is at or below the guild-pays maximum and the party's purse is short of the fee.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2356": {
+"defn": "rollAboveMinimum@src/spells2.cpp:95",
+"kind": "RULE",
+"what": "Rolls a random value of the given minimum plus 1 to the minimum (in game terms, a damage or heal roll per SRD R10/R13), with the span clamped to at least 1.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0403": {
+"defn": "monsterJoinRoll@src/companions1a.cpp:382",
+"kind": "RULE",
+"what": "Rolls a d3000 percentile-style check against the player's Charisma minus a level penalty to decide whether a monster joins the party.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1150": {
+"defn": "rosterLoadMember@src/feat_roster.cpp:135",
+"kind": "RULE",
+"what": "Brings the named party member who was left behind back to the end of the party, failing if no one by that name is out, the party is full, or the roster has no room, then updates the roster and reports the rejoin to the player.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1103": {
+"defn": "register_options@src/feat_options.cpp:184",
+"kind": "FLOW",
+"what": "Registers the \"options\" console command in both the town and dungeon screens, so the player can list or change game options from either place.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0844": {
+"defn": "monstersInArea@src/dungeon2a.cpp:135",
+"kind": "RULE",
+"what": "Checks whether monsters are present in the party's current area, returning true if any party foe is alive, any living foe sits in the leader's area, or the leader's area has a standing monster group.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1423": {
+"defn": "validGuild@src/guilds3.cpp:12",
+"kind": "RULE",
+"what": "Checks whether a guild index falls within the valid range of guilds (0 up to kGuildCount), which the guild rules rely on before looking up or assigning a guild.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1115": {
+"defn": "realignAlignCode@src/feat_realign.cpp:19",
+"kind": "FLOW",
+"what": "Parses the player's typed word (\"good\", \"neutral\", or \"evil\", case-insensitive) into an item alignment code for the realign command, returning -1 if the word isn't recognised.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1991": {
+"defn": "attemptsForGroup@src/monsters2a.cpp:56",
+"kind": "RULE",
+"what": "In the Mordor monster rules, the number of attempts a monster group gets per turn is its living count, capped at 5.",
+"tags": [
+9,
+23,
+24,
+66,
+99
+],
+"tag_sources": [
+"Mordor.Core",
+"forum archive",
+"port audit/fidelity notes",
+"port self-check tests"
+],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1424": {
+"defn": "guildMaxLevel@src/guilds3.cpp:19",
+"kind": "RULE",
+"what": "Returns the maximum character level for the Nomad, Sorcerer, and Wizard guilds (30, 29, and 41 respectively), with 0 for all other guilds as an unknown placeholder.",
+"tags": [
+82,
+87,
+88,
+91,
+104
+],
+"tag_sources": [
+"community wiki",
+"forum archive",
+"research notes/manual"
+],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0468": {
+"defn": "controlDragonFailure@src/companions1b_2.cpp:514",
+"kind": "RULE",
+"what": "When a Control Dragon attempt fails, the target creature is flagged as hostile and the player is told that the dragon resists control.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a2435": {
+"defn": "agingSaveChance@src/status1a.cpp:528",
+"kind": "RULE",
+"what": "Computes the aging saving-throw chance for a character as 2.5 times their base Constitution minus 2 times the monster's floor level, as a rule from the game's aging mechanic.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0784": {
+"defn": "fourSecondTickDue@src/dungeon1b_a.cpp:528",
+"kind": "RULE",
+"what": "Returns true when at least four seconds (kFourSecondsMs) have elapsed since the last tick, which is the game's R73 timing check that decides when the four-second tick fires.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2057": {
+"defn": "attackAttemptsPerGroup@src/monsters3b.cpp:19",
+"kind": "RULE",
+"what": "Caps the number of attack attempts a monster group gets per round at the lower of its living member count and kAttackAttemptCap (5), per SRD rule R32.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1170": {
+"defn": "seerClearPending@src/feat_seer.cpp:133",
+"kind": "STATE",
+"what": "Clears the pending seer person offer (its kind, name, and level) from the session's feature state once it has been answered.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1649": {
+"defn": "magicSackCapacity@src/items3b.cpp:71",
+"kind": "RULE",
+"what": "Computes the magic sack's slot capacity by subtracting the number of wielded items and a hand-pair deduction from a reported base slot count, with no clamp, so it can go negative if more than 38 items are wielded.",
+"tags": [
+102,
+103
+],
+"tag_sources": [
+"forum archive"
+],
+"markers": [
+"CONFLICT",
+"UNKNOWN"
+]
+},
+"a2007": {
+"defn": "countsAsAlive@src/monsters2b.cpp:81",
+"kind": "RULE",
+"what": "Reports whether a creature still counts as alive, which in game terms is true for a member at 0 hits until its hits are written (per SRD [c5]).",
+"tags": [
+5
+],
+"tag_sources": [
+"Mordor.Core"
+],
+"markers": []
+},
+"a1292": {
+"defn": "currentScreen@src/game_setup.cpp:335",
+"kind": "FLOW",
+"what": "Decides which screen the player sees (new game, combat, dungeon, town, or game over) by checking whether the party is empty, whether all members are dead, and whether the party is in combat, in the dungeon, or in town.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1005": {
+"defn": "duseItemAlign@src/feat_duse.cpp:61",
+"kind": "RULE",
+"what": "Returns an item's alignment as an integer, which the item-use code uses in its Mordor game-rule checks.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0301": {
+"defn": "weaponChainContinues@src/combat1a.cpp:331",
+"kind": "RULE",
+"what": "Decides whether a melee weapon chain continues after a swing, returning true only when the swing killed the target and the damage was not a missed swing (engine reading of SRD R27).",
+"tags": [
+103
+],
+"tag_sources": [
+"forum archive"
+],
+"markers": [
+"CONFLICT"
+]
+},
+"a2074": {
+"defn": "flagGet@src/options.cpp:123",
+"kind": "RULE",
+"what": "Reports whether option flag number idx (0\u20137, in kNamedFlagKeys order) is set in the player's OptionFlags, returning false for any other index.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0079": {
+"defn": "spellCeiling@src/casting1_b.cpp:476",
+"kind": "RULE",
+"what": "Computes the spell ceiling for a category by taking the largest SpellMax value for that category across all guilds that have a spell table, which caps how high a spell level a character can reach in that category.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"FIXED",
+"UNKNOWN"
+]
+},
+"a0811": {
+"defn": "rollRotatorFacing@src/dungeon1b_b.cpp:250",
+"kind": "RULE",
+"what": "Picks a random facing for a rotator (rule R96) by drawing a uniform value from 0 to 3 from the context's RNG and casting it to a Facing.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1282": {
+"defn": "saveSession@src/game_save.cpp:615",
+"kind": "RULE",
+"what": "Serializes the current session's game state (party, members, guilds, pack, floors, guildmasters) into the ASCII save text, prefixed by a format version and terminated by an end marker.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0444": {
+"defn": "keptSlotOf@src/companions1b_2.cpp:34",
+"kind": "RULE",
+"what": "Returns the slot index of the companion the player is carrying, or -1 if nothing or a body is carried, which the carry-choice logic uses to decide which companion is kept.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0236": {
+"defn": "storeChoiceClears@src/city3a.cpp:81",
+"kind": "RULE",
+"what": "Decides whether a store choice gets cleared when its row is hidden by a mod, returning the hidden flag unchanged (so with no mod, nothing is cleared).",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0421": {
+"defn": "companionCastFails@src/companions1b.cpp:54",
+"kind": "RULE",
+"what": "Rolls a percent chance (kCasterFailPercent, 50 per the R27.5 note) that a companion's spellcasting attempt fails.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0154": {
+"defn": "monstersPresentPort@src/casting3.cpp:208",
+"kind": "RULE",
+"what": "Reports whether monsters are still present in an encounter, returning true when combat is not over or when waiting monsters remain to join.",
+"tags": [
+43
+],
+"tag_sources": [
+"Mordor.App (game screens)"
+],
+"markers": [
+"UNKNOWN"
+]
+},
+"a2415": {
+"defn": "healingWhileDiseased@src/status1a.cpp:203",
+"kind": "RULE",
+"what": "While the character has a disease (diseaseLevel above zero), any healing they receive is halved, rounded down.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0541": {
+"defn": "distinctLiveCompanionIds@src/companions2b.cpp:503",
+"kind": "RULE",
+"what": "Counts how many distinct monster types are represented among the party's living companions, grouping live companions by their monsterId so each type is counted once, which determines the number of groups in the Port's roster.",
+"tags": [
+8
+],
+"tag_sources": [
+"Mordor.Core"
+],
+"markers": []
+},
+"a1326": {
+"defn": "doDescend@src/game_town.cpp:693",
+"kind": "FLOW",
+"what": "Handles the town menu's descend command by refusing if the party is already underground or has no living member, otherwise placing the party on the level-1 up-stairs with its members' positions and lost flags set, and reporting the descent to the player.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2510": {
+"defn": "chestFate@src/status2.cpp:511",
+"kind": "RULE",
+"what": "Chest trap 6 (\"Fate\") rerolls the character's current hit points and spell points to random values between 1 and their maximums, then tells the player.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1488": {
+"defn": "theftDecided@src/items1a_d.cpp:98",
+"kind": "RULE",
+"what": "Decides whether a theft against a monster succeeds, using a percent chance equal to the thief's score minus twice the monster's level, clamped to 0\u2013100.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a2021": {
+"defn": "companionSpawnWindow@src/monsters2b.cpp:203",
+"kind": "RULE",
+"what": "Maps a companion's spawn mode number to the window of floor offsets, repeat/keep-previous behavior, or spawn table index used to place a companion monster in the dungeon.",
+"tags": [
+24,
+31
+],
+"tag_sources": [
+"port audit/fidelity notes"
+],
+"markers": []
+},
+"a0700": {
+"defn": "naturalCon@src/death3.cpp:38",
+"kind": "RULE",
+"what": "Computes the character's natural Constitution, the stored CON stat with no modifier applied, which the morgue, raise, and revival chances use as their input.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"FIXED"
+]
+},
+"a2066": {
+"defn": "companionModeTableIndex@src/monsters3b.cpp:104",
+"kind": "RULE",
+"what": "Maps a companion's spawn mode to a monster table index for the companion spawn rule, returning mode 6 as index 4, modes above 7 as mode minus 7, and the keep-window sentinel for mode 7 and for the unresolved modes 0-3.",
+"tags": [
+24,
+31
+],
+"tag_sources": [
+"port audit/fidelity notes"
+],
+"markers": [
+"CONFLICT",
+"UNKNOWN"
+]
+},
+"a2037": {
+"defn": "resolveCompanionMode@src/monsters3a.cpp:139",
+"kind": "RULE",
+"what": "Maps a companion spawn mode to its spawn behavior: a floor window, keeping the previous window, or a spawn-table index, with unresolved modes falling back to a floor window.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"CONFLICT",
+"UNKNOWN"
+]
+},
+"a2034": {
+"defn": "bypassRollPasses@src/monsters3a.cpp:118",
+"kind": "RULE",
+"what": "Rolls a percent chance (kBypassRollPercent) that always gets drawn, and returns true only if that roll succeeds and the newbie guard is not active, so the newbie guard suppresses the bypass effect.",
+"tags": [
+7
+],
+"tag_sources": [
+"Mordor.Core"
+],
+"markers": []
+},
+"a1510": {
+"defn": "alignCompatible@src/items1b.cpp:134",
+"kind": "RULE",
+"what": "Decides whether two item alignments can be combined, returning true when they match or either item is Unaligned, a rule the SRD does not specify and this code marks as an assumption.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0754": {
+"defn": "findTeleporter@src/dungeon1b_a.cpp:59",
+"kind": "RULE",
+"what": "Looks up the teleporter record placed on a given floor square (converting the 0-based square to the 1-based record coordinates), returning it or null if none exists.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0404": {
+"defn": "voluntaryJoinProbability@src/companions1a.cpp:388",
+"kind": "RULE",
+"what": "Computes the probability that a monster voluntarily joins the party as CHA minus monster level plus one, floored at zero, divided by 300.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1691": {
+"defn": "rollChestLock@src/loot1a.cpp:233",
+"kind": "RULE",
+"what": "Rolls a d100 for a chest and returns MAGIC_LOCKED if the roll is at or under the lock chance, the chest class is above CONTAINER, and the square allows magic; otherwise UNLOCKED.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"CONFLICT",
+"FIXED"
+]
+},
+"a1340": {
+"defn": "townAction@src/game_town.cpp:971",
+"kind": "FLOW",
+"what": "Parses a typed town command (help, rest, guild, levelup, join, shop, buy, sell, bank, equip/unequip/use) and routes it to the matching town action, replying with the result or a usage line.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0672": {
+"defn": "morgueGuildPays@src/death1b.cpp:280",
+"kind": "RULE",
+"what": "Decides whether the morgue guild pays a raise cost for a character, which it does when the character's top guild level is 5 or lower and their total purse (on hand plus bank) is less than the cost.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1073": {
+"defn": "pageFor@src/feat_library.cpp:175",
+"kind": "FLOW",
+"what": "Chooses which library page to show for a knowledge entry, sending monster entries to the monster page builder and everything else to the item page builder.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2015": {
+"defn": "floorMaskAllows@src/monsters2b.cpp:152",
+"kind": "RULE",
+"what": "Checks whether a monster is allowed on a given dungeon level by testing the bit for that level (level minus one) in the monster's floor bitmask, returning false for levels outside the valid floor range.",
+"tags": [
+100
+],
+"tag_sources": [
+"forum archive"
+],
+"markers": [
+"UNKNOWN"
+]
+},
+"a0224": {
+"defn": "seerRefuses@src/city2b.cpp:155",
+"kind": "RULE",
+"what": "Returns true when the character's level is below the seer's level gate (original T-L level 12), so the seer refuses service to characters under that level; the deepestHeCanReach parameter is ignored because the source doesn't specify how it factors in.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a2366": {
+"defn": "sheetColumnK@src/spells2.cpp:257",
+"kind": "RULE",
+"what": "Computes the Mordor sheet column value K from the SRD R7 formula, rounding up C\u00b7Q\u00b7R\u00b71.9/(C+1) and returning twice that minus one, though its in-game purpose is unknown.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a2065": {
+"defn": "neutralGateMet@src/monsters3b.cpp:94",
+"kind": "RULE",
+"what": "Returns whether the party's lead character is Neutral-aligned, which is the check the engine uses for the neutral-alignment gate in the game's rules (R?? neutral gate, c7).",
+"tags": [
+5,
+7,
+25
+],
+"tag_sources": [
+"Mordor.Core",
+"port audit/fidelity notes"
+],
+"markers": [
+"CONFLICT",
+"UNKNOWN"
+]
+},
+"a2371": {
+"defn": "archiveDamageRoll@src/spells2.cpp:357",
+"kind": "RULE",
+"what": "Rolls a spell's base damage as the minimum value plus a random amount from 1 up to that minimum, per SRD rule R10.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2295": {
+"defn": "setTurnDamageFromSpell@src/spells1a.cpp:314",
+"kind": "RULE",
+"what": "For a monster spell, it sets the turn's damage total to the spell's damage value, replacing any damage already accumulated that turn rather than adding to it.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0576": {
+"defn": "goldToSaveFields@src/dataformatsa_c.cpp:94",
+"kind": "RULE",
+"what": "Converts a character's gold balance into the save-file fields, recording the whole gold amount and setting a flag to store the exact value only when the balance has a fractional part.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1447": {
+"defn": "anyGuildJoined@src/items1a_a.cpp:55",
+"kind": "RULE",
+"what": "Returns true if the character has joined any guild, checking each guild slot in turn, which the equipment check uses as a gate on equipping items.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1133": {
+"defn": "raiseSetInt@src/feat_rescue.cpp:201",
+"kind": "RULE",
+"what": "Stores an integer value for a named field of a rescue-raise state for a party member in the session's feature state, as a string under a key built from the member and field.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2350": {
+"defn": "sheetOf@src/spells2.cpp:36",
+"kind": "RULE",
+"what": "Builds a spell's sheet from its definition, mapping its damage values to base and power, flagging it as blank when both are zero, clamping its kill-effect index into the 0\u20138 verb range, and classing it as Detrimental or Beneficial by its effect when it has damage.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2361": {
+"defn": "damageRange@src/spells2.cpp:206",
+"kind": "RULE",
+"what": "Computes the damage range of a detrimental spell from its magnitude, giving a minimum of half the damage modifier minus one and a maximum of the full modifier minus one, and returns no range for blank magnitudes or beneficial spells.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2516": {
+"defn": "deathSpellEffectByName@src/status2.cpp:604",
+"kind": "RULE",
+"what": "Looks up a spell name against the killed-spell and drained-spell lists and returns whether that spell kills outright, drains levels, or has no such effect.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1913": {
+"defn": "spreadExhausted@src/monsters1a.cpp:249",
+"kind": "RULE",
+"what": "Returns true when the encounter spread value exceeds the restart limit, which under R13.2 means the encounter restarts.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1632": {
+"defn": "storeFeeFromPrice@src/items3a.cpp:242",
+"kind": "RULE",
+"what": "Computes the store's fee for an item from its price by multiplying by 0.8, dividing by 0.5, and rounding half-to-even, per SRD chapter 13's item and equipment rules.",
+"tags": [
+52
+],
+"tag_sources": [
+"Mordor.App (game screens)"
+],
+"markers": []
+},
+"a1495": {
+"defn": "uncurseFee@src/items1a_d.cpp:231",
+"kind": "RULE",
+"what": "Computes the gold fee to uncurse an item by looking up its list price in the item data and applying the SRD's uncurse-fee formula, returning 0 if the item isn't found.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2115": {
+"defn": "planDisband@src/partya.cpp:371",
+"kind": "RULE",
+"what": "Works out whether the party can disband (leave the dungeon or quit) while monsters are present, refusing unless the leader is dead, and flags whether a reload from autoload should be offered when the party has more than one member.",
+"tags": [],
+"tag_sources": [],
+"markers": [
+"UNKNOWN"
+]
+},
+"a2008": {
+"defn": "endsBlowSequence@src/monsters2b.cpp:88",
+"kind": "RULE",
+"what": "Reports whether a monster's blow sequence is ended by a character's state, treating any state other than Alive as ending it (an assumed rule, since the SRD does not specify which states do).",
+"tags": [
+56
+],
+"tag_sources": [
+"port self-check tests"
+],
+"markers": [
+"UNKNOWN"
+]
+},
+"a1825": {
+"defn": "topBit@src/misc_2.cpp:58",
+"kind": "RULE",
+"what": "Returns the index of the highest set bit in a 128-bit value (or -1 if it is zero), a helper used in the game's currency-normalisation rounding logic.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0382": {
+"defn": "resistTypeForClass@src/combat3.cpp:291",
+"kind": "RULE",
+"what": "Maps a spell's class (Fire, Cold, Electrical, Mind, Damage, Kill, Banish, Dispel, Charm, Element, Protection) to the resistance category a target uses to defend against it, so the game's resistance rules apply correctly.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0910": {
+"defn": "trapDisarmLogTerm@src/dungeon3.cpp:103",
+"kind": "RULE",
+"what": "Returns the natural log of the trap-disarm input m, clamped to a minimum of 2, as the logarithmic term in the game's trap disarm chance formula.",
+"tags": [
+24,
+97
+],
+"tag_sources": [
+"port audit/fidelity notes",
+"wiki+forum archive"
+],
+"markers": []
+},
+"a1367": {
+"defn": "renderAutomap@src/game_view.cpp:337",
+"kind": "RULE",
+"what": "Renders the party's automap as a text grid centered on the party, showing explored squares, walls, secret doors, and doors around them, with the party marked and its facing shown as an arrow.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a2434": {
+"defn": "applyDrainPick@src/status1a.cpp:517",
+"kind": "RULE",
+"what": "Applies a Table E drain result from a monster's special attack: a pick of 1\u20135 lowers the matching ability stat by 1, and a pick of 6 lowers the character's maximum hits by the drain amount, with a note logged either way.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1306": {
+"defn": "doGuildList@src/game_town.cpp:192",
+"kind": "FLOW",
+"what": "Produces the guild listing shown in the town menu, reporting each party member's active guild and, for each guild, either their level, experience still needed, and gold for next level, or the join cost if they haven't joined.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a0990": {
+"defn": "register_dcast@src/feat_dcast.cpp:212",
+"kind": "FLOW",
+"what": "Registers the \"cast\" dungeon-screen command, which lets a player cast a non-combat spell for a party member by typed name or id, and wires it to the dcastRun handler.",
+"tags": [],
+"tag_sources": [],
+"markers": []
+},
+"a1033": {
+"defn": "glGuildCount@src/feat_guildlog.cpp:63",
+"kind": "RULE",
+"what": "Reports how many guild halls exist in the game session, capped at the fixed guild count constant (kGuildCount).",
+"tags": [],
+"tag_sources": [],
+"markers": []
+}
+}
