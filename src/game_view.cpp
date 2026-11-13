@@ -4,6 +4,7 @@
 #include "mordor/city1.h"
 #include "mordor/dungeon1a.h"
 #include "mordor/guilds1.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 namespace {
@@ -12,23 +13,14 @@ constexpr i32 kViewMapWidth = 30;     // UNKNOWN: flat map width; SRD R19 addres
 constexpr i32 kViewMaxRadius = 20;
 constexpr i32 kViewTownSections = 5;  // TownSection: Store, Confinement, Morgue, Guild, Bank
 
-Str viewInt(i64 v) {
-  if (v < 0) return "-" + viewInt(-v);
-  Str out;
-  do {
-    out.insert(out.begin(), static_cast<char>('0' + v % 10));
-    v /= 10;
-  } while (v > 0);
-  return out;
-}
 
 // Currency is i64 in 1/10000 gold.
 Str viewGold(Currency c) {
   const bool neg = c < 0;
   const i64 a = neg ? -c : c;
-  const Str frac = viewInt(a % 10000);
+  const Str frac = toStr(a % 10000);
   const Str pad(4 - frac.size(), '0');
-  return Str(neg ? "-" : "") + viewInt(a / 10000) + "." + pad + frac;
+  return Str(neg ? "-" : "") + toStr(a / 10000) + "." + pad + frac;
 }
 
 Str raceName(Race r) {
@@ -203,13 +195,13 @@ Str describeParty(const Session& s) {
   Str out;
   for (i32 i = 0; i < n; ++i) {
     const Character& c = p.members[static_cast<u32>(i)];
-    out += "[" + viewInt(i + 1) + "] " + c.name  /* members are numbered from 1 in commands */ + ", " + raceName(c.race) + ", " +
-           guildName(c.activeGuild) + " level " + viewInt(c.activeLevel());
-    out += ", HP " + viewInt(c.vitals.curHits) + "/" + viewInt(c.vitals.maxHits);
-    out += ", SP " + viewInt(c.vitals.curSpellPoints) + "/" + viewInt(c.vitals.maxSpellPoints);
+    out += "[" + toStr(i + 1) + "] " + c.name  /* members are numbered from 1 in commands */ + ", " + raceName(c.race) + ", " +
+           guildName(c.activeGuild) + " level " + toStr(c.activeLevel());
+    out += ", HP " + toStr(c.vitals.curHits) + "/" + toStr(c.vitals.maxHits);
+    out += ", SP " + toStr(c.vitals.curSpellPoints) + "/" + toStr(c.vitals.maxSpellPoints);
     const Str status = viewStatus(c);
     if (!status.empty()) out += ", " + status;
-    out += ", xp " + viewInt(static_cast<i32>(c.guilds[static_cast<u32>(c.activeGuild)].experience)) + ", gold " + viewGold(c.wallet.goldOnHand) + "\n";
+    out += ", xp " + toStr(static_cast<i32>(c.guilds[static_cast<u32>(c.activeGuild)].experience)) + ", gold " + viewGold(c.wallet.goldOnHand) + "\n";
   }
   return out;
 }
@@ -224,7 +216,7 @@ Str describeCharacter(const Session& s, i32 member) {
   out += c.name + "\n";
   // UNKNOWN: age years = (kAgeStartDays + ageDays) / 365; the SRD day-to-year rule is not in the given context.
   out += "Race " + raceName(c.race) + ", " + alignName(c.alignment) + ", age " +
-         viewInt((kAgeStartDays + c.ageDays) / 365) + " years\n";
+         toStr((kAgeStartDays + c.ageDays) / 365) + " years\n";
 
   out += "Guilds:\n";
   for (i32 g = 0; g < kGuildCount; ++g) {
@@ -232,16 +224,16 @@ Str describeCharacter(const Session& s, i32 member) {
     if (!m.joined) continue;
     const bool active = (g == static_cast<i32>(c.activeGuild));
     out += active ? "  * " : "    ";
-    out += guildName(static_cast<Guild>(g)) + " level " + viewInt(m.level) + " (" +
-           guildTitle(static_cast<Guild>(g), m.level) + ") experience " + viewInt(m.experience) + "\n";
+    out += guildName(static_cast<Guild>(g)) + " level " + toStr(m.level) + " (" +
+           guildTitle(static_cast<Guild>(g), m.level) + ") experience " + toStr(m.experience) + "\n";
   }
 
   // Natural value, then value with mods from statWithMods.
   out += "Stats:";
   for (i32 k = 0; k < kStatCount; ++k) {
     const StatIndex st = static_cast<StatIndex>(k);
-    out += " " + statAbbrev(k) + " " + viewInt(c.abilities.stats[static_cast<u32>(k)]) +
-           " (" + viewInt(statWithMods(c, st)) + ")";
+    out += " " + statAbbrev(k) + " " + toStr(c.abilities.stats[static_cast<u32>(k)]) +
+           " (" + toStr(statWithMods(c, st)) + ")";
   }
   out += "\n";
 
@@ -252,31 +244,31 @@ Str describeCharacter(const Session& s, i32 member) {
     EventLog viewLog;
     const Ctx adCtx(s.data, viewRng, viewLog);
     const AdPair total = totalAD(adCtx, c, inv);
-    out += "Attack " + viewInt(total.att) + ", defence " + viewInt(total.def) + " (combat A/D " + viewInt(combatAD(adCtx, c, inv)) + ")\n";
+    out += "Attack " + toStr(total.att) + ", defence " + toStr(total.def) + " (combat A/D " + toStr(combatAD(adCtx, c, inv)) + ")\n";
   }
 
   out += "Resistances:";
   for (i32 k = 0; k < kResistKinds; ++k) {
-    out += " " + viewInt(c.resistances.resist[static_cast<u32>(k)]);
+    out += " " + toStr(c.resistances.resist[static_cast<u32>(k)]);
   }
-  out += ", poison " + viewInt(c.resistances.poisonResist) + "\n";
+  out += ", poison " + toStr(c.resistances.poisonResist) + "\n";
 
   out += "Pack:\n";
   for (i32 k = 0; k < kPackSlots; ++k) {
     const Item& it = inv.pack[static_cast<u32>(k)];
     // UNKNOWN: an item id of 0 is treated as an empty slot.
     if (it.id == 0) continue;
-    Str itemName = "item " + viewInt(it.id);
+    Str itemName = "item " + toStr(it.id);
     for (const ItemDef& d : s.data.items) {
       if (d.id == it.id) { itemName = d.name; break; }
     }
-    out += "  slot " + viewInt(k + 1) + ": " + itemName + (it.equipped ? " (worn)" : "") + "\n";
+    out += "  slot " + toStr(k + 1) + ": " + itemName + (it.equipped ? " (worn)" : "") + "\n";
   }
-  out += "Worn items: " + viewInt(static_cast<i64>(inv.worn.size())) + "\n";
+  out += "Worn items: " + toStr(static_cast<i64>(inv.worn.size())) + "\n";
 
-  out += "Companions: alive " + viewInt(p.aliveCompanions);
+  out += "Companions: alive " + toStr(p.aliveCompanions);
   if (p.carryingSlot == CarryingSlot::Companion && p.carryingCompanion >= 0) {
-    out += ", carrying companion " + viewInt(p.carryingCompanion);
+    out += ", carrying companion " + toStr(p.carryingCompanion);
   }
   // SIMPLIFIED: the full companion list is not reachable from the Session state given.
   out += "\n";
@@ -290,12 +282,12 @@ Str describeSquare(const Session& s) {
     // Town menu: the TownSection order from city1.h.
     Str out = "Town. Places:\n";
     for (i32 k = 0; k < kViewTownSections; ++k) {
-      out += "  " + viewInt(k + 1) + ". " + townSectionName(static_cast<TownSection>(k)) + "\n";
+      out += "  " + toStr(k + 1) + ". " + townSectionName(static_cast<TownSection>(k)) + "\n";
     }
     return out;
   }
 
-  Str out = "Level " + viewInt(p.dungeonLevel) + ", x " + viewInt(p.x) + ", y " + viewInt(p.y) +
+  Str out = "Level " + toStr(p.dungeonLevel) + ", x " + toStr(p.x) + ", y " + toStr(p.y) +
             ", facing " + facingName(p.facing) + "\n";
   const FloorState* f = viewFloor(s);
   if (f == nullptr) return out + "No map stored for this level.\n";
@@ -404,8 +396,8 @@ Str renderAutomap(const Session& s, i32 radius) {
     put(ac, ar, arrow);
   }
 
-  Str out = "Level " + viewInt(p.dungeonLevel) + " around x " + viewInt(p.x) + ", y " +
-            viewInt(p.y) + ", facing " + facingName(p.facing) + "\n";
+  Str out = "Level " + toStr(p.dungeonLevel) + " around x " + toStr(p.x) + ", y " +
+            toStr(p.y) + ", facing " + facingName(p.facing) + "\n";
   out += grid;
   out += "@ party, . known open, # wall, + door, ^ > v < facing, blank unknown or open edge\n";
   return out;
@@ -421,8 +413,8 @@ Str describeFight(const Session& s) {
     Str name = mg.knownAs.empty() ? mg.front.knownAs : mg.knownAs;
     if (name.empty() && mg.front.ref >= 0 && static_cast<size_t>(mg.front.ref) < s.data.monsters.size()) name = s.data.monsters[static_cast<size_t>(mg.front.ref)].name;
     if (name.empty()) name = "monster";
-    out += "Group " + viewInt(g) + ": " + viewInt(mg.count) + " x " + name + " (" +
-           groupStateName(mg.state) + ", " + viewInt(mg.livingCount) + " living)";
+    out += "Group " + toStr(g) + ": " + toStr(mg.count) + " x " + name + " (" +
+           groupStateName(mg.state) + ", " + toStr(mg.livingCount) + " living)";
     // UNKNOWN: aimedGroup is treated as a 0-based index into encounter.groups.
     for (i32 k = 0; k < p.size && k < kPartyMaxSize; ++k) {
       const CombatOrder& co = p.combatOrders[static_cast<u32>(k)];

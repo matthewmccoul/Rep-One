@@ -742,7 +742,6 @@ static void doIdentifyItem(Ctx& ctx, Party& party, i32 member, i32 slot, Str& re
 // FIXED: forward declarations for the gear helpers, which are defined further down this file
 // but are used by the gear verbs below. Declared static to match their definitions.
 static bool gearSlotOk(i32 playerSlot, Str& reply);
-static Str gearNum(i32 v);
 static Str gearItemName(const Ctx& ctx, const Item& it);
 static Str gearAdLine(const Ctx& ctx, const Character& c, const Inventory& inv);
 
@@ -777,7 +776,7 @@ static void gearEquip(Ctx& ctx, Session& s, i32 idx, i32 playerSlot, Str& reply)
     Inventory& inv = invAt(s.game.party, idx);
     Item& it = inv.pack[pack];
     if (it.id <= 0) {
-        reply = Str("Pack slot ") + gearNum(playerSlot) + " is empty.\n";
+        reply = Str("Pack slot ") + toStr(playerSlot) + " is empty.\n";
         return;
     }
     const Str name = gearItemName(ctx, it);
@@ -796,7 +795,7 @@ static void gearEquip(Ctx& ctx, Session& s, i32 idx, i32 playerSlot, Str& reply)
         reply = name + " could not be equipped.\n";
         return;
     }
-    reply = Str("Member ") + gearNum(idx + 1) + " equipped " + name + " from pack slot " + gearNum(playerSlot) + ". ";
+    reply = Str("Member ") + toStr(idx + 1) + " equipped " + name + " from pack slot " + toStr(playerSlot) + ". ";
     // UNKNOWN: the reference gives no wording for an item that becomes cursed on wearing;
     // the curse is reported plainly.
     if (itemSlotCursed(it)) {
@@ -814,7 +813,7 @@ static void gearUnequip(Ctx& ctx, Session& s, i32 idx, i32 playerSlot, Str& repl
     Inventory& inv = invAt(s.game.party, idx);
     Item& it = inv.pack[pack];
     if (it.id <= 0 || !it.equipped) {
-        reply = Str("Nothing worn in pack slot ") + gearNum(playerSlot) + ".\n";
+        reply = Str("Nothing worn in pack slot ") + toStr(playerSlot) + ".\n";
         return;
     }
     const Str name = gearItemName(ctx, it);
@@ -825,7 +824,7 @@ static void gearUnequip(Ctx& ctx, Session& s, i32 idx, i32 playerSlot, Str& repl
         return;
     }
     it.equipped = false;
-    reply = Str("Member ") + gearNum(idx + 1) + " took off " + name + " from pack slot " + gearNum(playerSlot) + ". " + gearAdLine(ctx, c, inv) + "\n";
+    reply = Str("Member ") + toStr(idx + 1) + " took off " + name + " from pack slot " + toStr(playerSlot) + ". " + gearAdLine(ctx, c, inv) + "\n";
 }
 
 // Consumables and charged items. The usability rule (charges) comes from itemUseProblem
@@ -838,7 +837,7 @@ static void gearUse(Ctx& ctx, Session& s, i32 idx, i32 playerSlot, Str& reply) {
     Inventory& inv = invAt(s.game.party, idx);
     Item& it = inv.pack[pack];
     if (it.id <= 0) {
-        reply = Str("Pack slot ") + gearNum(playerSlot) + " is empty.\n";
+        reply = Str("Pack slot ") + toStr(playerSlot) + " is empty.\n";
         return;
     }
     const Str name = gearItemName(ctx, it);
@@ -856,24 +855,12 @@ static void gearUse(Ctx& ctx, Session& s, i32 idx, i32 playerSlot, Str& reply) {
         reply = name + " was not used: its spell effect is not wired yet, so no charge was spent.\n";
         return;
     }
-    reply = Str("Member ") + gearNum(idx + 1) + " used " + name + ". " + effect + " " + gearAdLine(ctx, c, inv) + "\n";
+    reply = Str("Member ") + toStr(idx + 1) + " used " + name + ". " + effect + " " + gearAdLine(ctx, c, inv) + "\n";
 }
 
 // Gear helpers. Rules come from items1b (equipProblem, equipItem), items3a (itemUseProblem)
 // and attributes (totalAD, combatAD). Nothing here re-implements a rule.
 
-// Decimal text for an i32.
-static Str gearNum(i32 v) {
-    if (v == 0) return Str("0");
-    const bool neg = v < 0;
-    i64 n = neg ? -static_cast<i64>(v) : static_cast<i64>(v);
-    Str out;
-    while (n > 0) {
-        out.insert(out.begin(), static_cast<char>('0' + static_cast<int>(n % 10)));
-        n /= 10;
-    }
-    return neg ? Str("-") + out : out;
-}
 
 // Item name from the static data. Named differently from the static itemNameOf stub
 // and from items1b's itemNameOf, which would clash once those headers are included.
@@ -886,7 +873,7 @@ static Str gearItemName(const Ctx& ctx, const Item& it) {
 static Str gearAdLine(const Ctx& ctx, const Character& c, const Inventory& inv) {
     const AdPair t = totalAD(ctx, c, inv);
     const i32 combat = combatAD(ctx, c, inv);
-    return Str("Combat A/D ") + gearNum(combat) + ", total attack " + gearNum(t.att) + ", total defence " + gearNum(t.def) + ".";
+    return Str("Combat A/D ") + toStr(combat) + ", total attack " + toStr(t.att) + ", total defence " + toStr(t.def) + ".";
 }
 
 // Pack slot 1 is the hands, not an item. The reference refuses item #1 the same way

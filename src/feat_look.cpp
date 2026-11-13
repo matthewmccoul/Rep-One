@@ -2,6 +2,7 @@
 
 #include "mordor/access.h"
 #include "mordor/features.h"
+#include "mordor/shared_helpers.h"
 
 namespace mordor {
 namespace {
@@ -23,7 +24,6 @@ struct RoomWalk {
   i32 dead = 0;
 };
 
-Str numText(i64 v) { return std::to_string(static_cast<long long>(v)); }
 
 // Pads or cuts a field to a fixed column width (Look page columns 1, 9, 15, 19).
 Str padTo(const Str& text, size_t width) {
@@ -74,10 +74,10 @@ RoomWalk walkRoom(Session& s) {
 
 // Readout "x,y,level facing [ n ]", or "[ n+d ]" when anyone dead is here (LookAround.Readout).
 Str readoutLine(const Session& s, i32 living, i32 dead) {
-  Str line = numText(s.game.party.x) + "," + numText(s.game.party.y) + "," +
-             numText(s.game.party.dungeonLevel) + " " +
-             facingLetter(static_cast<i32>(s.game.party.facing)) + " [ " + numText(living);
-  if (dead > 0) line += "+" + numText(dead);
+  Str line = toStr(s.game.party.x) + "," + toStr(s.game.party.y) + "," +
+             toStr(s.game.party.dungeonLevel) + " " +
+             facingLetter(static_cast<i32>(s.game.party.facing)) + " [ " + toStr(living);
+  if (dead > 0) line += "+" + toStr(dead);
   line += " ]";
   return line;
 }
@@ -119,7 +119,7 @@ Str lookText(Session& s) {
   if (!w.here.empty()) {
     out += padTo("Name", 8) + padTo("Guild", 6) + padTo("Level", 4) + "Hits\n";
     for (const LookRow& r : w.here) {
-      out += padTo(r.name, 8) + padTo(r.guild, 6) + padTo(numText(r.level), 4) + numText(r.hits) + "\n";
+      out += padTo(r.name, 8) + padTo(r.guild, 6) + padTo(toStr(r.level), 4) + toStr(r.hits) + "\n";
     }
   }
   return out;

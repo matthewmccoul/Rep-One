@@ -70,24 +70,6 @@ bool parseInt(const Str& t, i32& out) {
 }
 namespace {
 
-// Decimal text of an i64 without using the C library.
-Str numStr(i64 v) {
-    Str out;
-    if (v < 0) out += '-';
-    u64 u = (v < 0) ? static_cast<u64>(-(v + 1)) + 1u : static_cast<u64>(v);
-    if (u == 0) {
-        out += '0';
-        return out;
-    }
-    char buf[24];
-    int n = 0;
-    while (u > 0) {
-        buf[n++] = static_cast<char>('0' + (u % 10));
-        u /= 10;
-    }
-    while (n > 0) out += buf[--n];
-    return out;
-}
 
 // Member token: 1-based number or character name (case-insensitive).
 // Returns -1 when it does not name a member slot.
@@ -450,7 +432,7 @@ static void resolveMemberOrder(Ctx& ctx, GameState& g, i32 mi) {
             const i32 recorded = recordedHitsFor(dmg, m.hits);  // R31: overkill not counted
             m.hits -= recorded;
             c.damageRecorded += recorded;
-            ctx.say("combat.hit", c.name + Str(" hits ") + monsterName(ctx, m) + Str(" for ") + numStr(recorded) + Str("."),
+            ctx.say("combat.hit", c.name + Str(" hits ") + monsterName(ctx, m) + Str(" for ") + toStr(recorded) + Str("."),
                     {recorded}, {});
 
             if (recorded > 0) {
@@ -515,7 +497,7 @@ static void resolveMonsterPhase(Ctx& ctx, GameState& g) {
                 continue;
             }
             v.vitals.curHits -= dmg;
-            ctx.say("combat.monsterhit", monsterName(ctx, m) + Str(" hits ") + v.name + Str(" for ") + numStr(dmg) + Str("."),
+            ctx.say("combat.monsterhit", monsterName(ctx, m) + Str(" hits ") + v.name + Str(" for ") + toStr(dmg) + Str("."),
                     {dmg}, {});
             if (v.vitals.curHits <= 0) {
                 v.vitals.curHits = 0;
@@ -680,7 +662,7 @@ bool combatAction(Session& s, const Str& command, Str& reply) {
             }
             const i32 cost = castCostSp(ctx, caster, *sp, 0);
             if (caster.vitals.curSpellPoints < cost) {
-                reply = caster.name + Str(" lacks the spell points for ") + sp->name + Str(" (needs ") + numStr(cost) + Str(").");
+                reply = caster.name + Str(" lacks the spell points for ") + sp->name + Str(" (needs ") + toStr(cost) + Str(").");
                 return false;
             }
             const i32 group = textEnd < tok.size() ? groupIndex(tok, textEnd) : 0;
@@ -762,7 +744,7 @@ bool combatAction(Session& s, const Str& command, Str& reply) {
         if (reply.size() > 0) reply += '\n';
         reply += s.log.events[i].text;
     }
-    Str summary = g.inCombat ? Str("Round fought: ") + numStr(livingFoes(g)) + Str(" foe(s) left.")
+    Str summary = g.inCombat ? Str("Round fought: ") + toStr(livingFoes(g)) + Str(" foe(s) left.")
                              : Str("Fight over.");
     if (reply.size() > 0) reply += '\n';
     reply += summary;
