@@ -5,6 +5,7 @@
 // the confinement buy and sell.
 #include "mordor/city1.h"
 #include "mordor/attributes.h"
+#include "mordor/lookup.h"
 
 namespace mordor {
 
@@ -259,10 +260,11 @@ i32 roundedIndex(Ctx& ctx, i32 n) {
 // Source FRMCTYS.BAS:264-267.
 // ---------------------------------------------------------------------------
 bool storeShelvesItem(const Ctx& ctx, const Item& item, const Vec<Item>& store) {
-    if (item.id < 0 || item.id >= static_cast<i32>(ctx.data.items.size())) {
+    const ItemDef* defp = itemDefById(ctx.data, item.id);   // by id, not by table row
+    if (defp == nullptr) {
         return false;
     }
-    const ItemDef& def = ctx.data.items[static_cast<u32>(item.id)];
+    const ItemDef& def = *defp;
     const bool cursed = item.cursed != CurseNone;
     const bool unaligned = item.alignment == ItemAlign::Unaligned;
     const bool floorZero = def.floor == 0;
@@ -375,8 +377,9 @@ bool confinementSell(Ctx& ctx, Party& party, i32 sellerIndex, PenBook& pens,
     }
 
     const Character& seller = party.members[static_cast<u32>(sellerIndex)];
-    const Currency base = creatureBaseWorth(
-        ctx.data.monsters[static_cast<u32>(companion.monsterId)], seller.activeLevel());
+    const MonsterDef* mdef = monsterDefById(ctx.data, companion.monsterId);   // by id, not by table row
+    if (mdef == nullptr) return false;
+    const Currency base = creatureBaseWorth(*mdef, seller.activeLevel());
     const Currency price = penSellPrice(base, before, anyPenned,
                                         static_cast<i32>(companion.idLevel));
 

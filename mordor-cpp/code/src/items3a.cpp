@@ -9,6 +9,7 @@
 #include "mordor/items1a.h"
 #include "mordor/items1b.h"
 #include "mordor/casting3.h"
+#include "mordor/lookup.h"
 
 namespace mordor {
 namespace {
@@ -41,7 +42,7 @@ constexpr i32 kUseItem = 2;
 constexpr i64 kMaxLongGoldUnits = 2147483647LL * 10000LL;
 
 bool validItemId(const Ctx& ctx, const Item& it) {
-    return it.id > 0 && static_cast<i64>(it.id) < static_cast<i64>(ctx.data.items.size());
+    return it.id > 0 && itemDefById(ctx.data, it.id) != nullptr;   // by id, not by table row
 }
 
 // Weapon Resistance lists by dungeon level band [c102].
@@ -76,8 +77,8 @@ i64 priceOfItem(const Ctx& ctx, const Item& item, ItemAlign alignment) {
     if (!validItemId(ctx, item)) {
         return 0;
     }
-    const ItemDef& def = ctx.data.items[static_cast<u32>(item.id)];
-    return def.price;
+    const ItemDef* def = itemDefById(ctx.data, item.id);   // by id, not by table row
+    return def ? def->price : 0;
 }
 
 // [c87] idFee ~= sellValue ("The Clerk's Rule").

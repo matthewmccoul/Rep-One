@@ -1,4 +1,5 @@
 #include "mordor/combat3.h"
+#include "mordor/lookup.h"
 
 namespace mordor {
 namespace {
@@ -9,11 +10,7 @@ const ItemDef* itemDefOf(const Ctx& ctx, const Item& item) {
     if (item.id < 0) {
         return nullptr;
     }
-    u64 idx = static_cast<u64>(item.id);
-    if (idx >= ctx.data.items.size()) {
-        return nullptr;
-    }
-    return &ctx.data.items[idx];
+    return itemDefById(ctx.data, item.id);   // by id, not by table row
 }
 
 u64 resistIndex(DamageKind kind) {

@@ -10,6 +10,7 @@
 #include "mordor/combat3.h"
 #include "mordor/game_data.h"
 #include "mordor/guilds1.h"
+#include "mordor/lookup.h"
 
 namespace mordor {
 namespace {
@@ -30,8 +31,10 @@ const RaceDef& raceDefOf(const Ctx& ctx, Race race) {
 }
 
 const ItemDef& itemDefOf(const Ctx& ctx, const Item& item) {
-    // UNKNOWN: items table indexed directly by item.id.
-    return ctx.data.items[static_cast<u32>(item.id)];
+    // Items are identified by id, not by table row (ids and rows differ for 356 of 366 shareware items).
+    static const ItemDef kNone{};
+    const ItemDef* d = itemDefById(ctx.data, item.id);
+    return d ? *d : kNone;
 }
 
 // FIXED: ItemDef has no attack/defence members under those names (game_data.h not in index).
