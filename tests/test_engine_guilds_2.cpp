@@ -40,14 +40,14 @@ TEST(engine_B_0061_6_warrior_join_cost) {
     // R26 / T5: reference GuildJoinCost(Warrior) = 5,009,672. The formula has no per-guild base term.
     const auto& guildDef = tsup::data().guilds[static_cast<u32>(mordor::Guild::Warrior)];
     Character ch{};
-    i64 cost = mordor::guildJoinCost(guildDef, ch);
+    i64 cost = mordor::guildJoinCost(guildDef, ch) / mordor::kCurrencyScale;   // whole gold, as the reference reports it
     CHECK_EQ(cost, i64{5009672});
 }
 
 TEST(engine_B_0061_7_ninja_join_cost) {
     const auto& guildDef = tsup::data().guilds[static_cast<u32>(mordor::Guild::Ninja)];
     Character ch{};
-    i64 cost = mordor::guildJoinCost(guildDef, ch);
+    i64 cost = mordor::guildJoinCost(guildDef, ch) / mordor::kCurrencyScale;   // whole gold, as the reference reports it
     CHECK_EQ(cost, 10886091);
 }
 
@@ -55,6 +55,6 @@ TEST(engine_B_0061_8_thief_join_cost) {
     // R26 / T5: reference GuildJoinCost(Thief) = 7,465,060. The formula has no per-guild base term.
     const auto& guildDef = tsup::data().guilds[static_cast<u32>(mordor::Guild::Thief)];
     Character ch{};
-    i64 cost = mordor::guildJoinCost(guildDef, ch);
+    i64 cost = mordor::guildJoinCost(guildDef, ch) / mordor::kCurrencyScale;   // whole gold, as the reference reports it
     CHECK_EQ(cost, i64{7465060});
 }
