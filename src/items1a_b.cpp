@@ -9,18 +9,6 @@
 
 namespace mordor {
 
-// R23 / R89: charges are rolled with RollCharges.
-// R89 gives the spread as Int(rng x charges / 2) (kFoundChargesDivisor).
-// UNKNOWN: the exact roll around the spread is not in the supplied SRD.
-// Chosen behaviour: roll uniformly in [charges - spread, charges + spread].
-i32 rollCharges(Ctx& ctx, i32 charges) {
-    if (charges <= 0) return charges;  // UNKNOWN: no roll for non-positive charges
-    const i32 spread = static_cast<i32>(
-        vbInt(ctx.rng.nextDouble() * charges / kFoundChargesDivisor));
-    const i32 low = charges - spread;
-    return low + static_cast<i32>(ctx.rng.below(2 * spread + 1));
-}
-
 // R25: identification on pickup runs through the reading formula
 // (see Identification section).
 // UNKNOWN: the reading formula is not in the supplied SRD extract.

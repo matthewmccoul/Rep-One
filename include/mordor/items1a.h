@@ -173,7 +173,7 @@ LevelBand asmodeusDropBand(i32 itemDropLevel);
 ItemAlign rollItemAlignment(Ctx& ctx, u8 alignFlags);
 // R23 R89 found charges: max(0, n) with random +/- Int(rng x charges / 2)
 // UNKNOWN: exact value of n and the sign roll are in Formulas section, not supplied
-i32 rollCharges(Ctx& ctx, i32 charges);
+
 
 // R77 reading difficulty compared with identify skill; never reaches All (see Quirks for numbering)
 IdLevel readableLevel(Ctx& ctx, const Character& reader, const Item& item);
