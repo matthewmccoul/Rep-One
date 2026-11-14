@@ -81,13 +81,22 @@ cs::String Guildmasters::PathFor(cs::String savesDir) {
 }
 
 cs::Ref<Guildmasters> Guildmasters::Load(cs::String savesDir) {
-    (void)savesDir;
-    throw cs::NotSupportedException("not translated: JSON deserialization of guildmasters.json");
+    try
+    {
+        cs::String p = PathFor(savesDir);
+        if (cs::File::Exists(p)) { auto r = cs::Json::Deserialize<cs::Ref<Guildmasters>>(cs::File::ReadAllText(p)); return r ? r : cs::New<Guildmasters>(); }
+    }
+    catch (...) { }
+    return cs::New<Guildmasters>();
 }
 
 void Guildmasters::Save(cs::String savesDir) {
-    (void)savesDir;
-    throw cs::NotSupportedException("not translated: JSON serialization of guildmasters.json");
+    try
+    {
+        cs::Directory::CreateDirectory(savesDir);
+        cs::File::WriteAllText(PathFor(savesDir), cs::Json::Serialize(*this, cs::Json::Indented()));
+    }
+    catch (...) { }
 }
 
 }  // namespace mc

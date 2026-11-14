@@ -51,7 +51,7 @@ cs::Nullable<int64_t> GiveCommand::CLng(cs::String s) {
     } else {
         // VB takes D for a Double's exponent as well as E; .NET only E
         cs::String e = cs::Str::Replace(cs::Str::Replace(t, 'D', 'E'), 'd', 'E');
-        if (!cs::Parse::TryParse(e, v) || std::isnan(v) || std::isinf(v))
+        if (!cs::Parse::TryParse(e, cs::Parse::Float | cs::Parse::AllowThousands, cs::Parse::CurrentCulture(), v) || std::isnan(v) || std::isinf(v))
             return {};  // not a number, or "Infinity"/"NaN" (not numbers to VB), or past a Double
     }
     if (std::isinf(v)) return {};
@@ -145,7 +145,7 @@ double GiveCommand::Val(cs::String s) {
         if (k > j) i = k;  // an exponent with no digits is not read
     }
     cs::String num = cs::Str::Substring(x, 0, mantissa) + (i > mantissa ? "E" + cs::Str::Substring(x, mantissa + 1, i - (mantissa + 1)) : "");
-    return cs::Parse::Parse<double>(num);
+    double r = 0; if (!cs::Parse::TryParse(num, cs::Parse::Float, cs::Parse::InvariantCulture(), r)) throw cs::FormatException("The input string '" + num + "' was not in a correct format."); return r;
 }
 
 }  // namespace mc

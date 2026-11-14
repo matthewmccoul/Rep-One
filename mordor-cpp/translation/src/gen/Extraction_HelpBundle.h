@@ -38,7 +38,7 @@ struct HelpBundle {
 
     static int32_t ContentsIndex(cs::List<cs::Ref<HelpBundle_Topic>> topics);
 
-    inline static cs::Ref<cs::JsonSerializerOptions> Json = [] { auto _o = cs::New<cs::JsonSerializerOptions>(); _o->WriteIndented = false; return _o; }();
+    inline static cs::Ref<cs::JsonSerializerOptions> Json = [] { auto _o = cs::New<cs::JsonSerializerOptions>(); _o->WriteIndented = false; _o->DefaultIgnoreCondition = cs::Json::JsonIgnoreCondition::WhenWritingNull; return _o; }();
 
     static cs::String Serialize(cs::List<cs::Ref<HelpBundle_Topic>> topics);
     static cs::List<cs::Ref<HelpBundle_Topic>> Deserialize(cs::String json);

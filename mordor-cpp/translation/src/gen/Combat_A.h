@@ -84,8 +84,15 @@ struct RoomRecord {
     cs::Ref<RoomRecord> Copy();
 };
 
-struct Encounter : cs::List<cs::Ref<CombatMonster>> {
-    Encounter() : cs::List<cs::Ref<CombatMonster>>(cs::List<cs::Ref<CombatMonster>>::New()) {}
+struct Encounter : cs::List<cs::Ref<CombatMonster>>, std::enable_shared_from_this<Encounter> {
+    Encounter() : cs::List<cs::Ref<CombatMonster>>(cs::List<cs::Ref<CombatMonster>>::New()) { Registry()[Identity()] = this; }
+    ~Encounter() { auto it = Registry().find(Identity()); if (it != Registry().end() && it->second == this) Registry().erase(it); }
+    // `x is Encounter e` for a List<CombatMonster> handle: the Encounter whose list it is, or null
+    static cs::Ref<Encounter> Of(const cs::List<cs::Ref<CombatMonster>>& l) {
+        auto it = Registry().find(l.Identity()); if (l.IsNull() || it == Registry().end()) return nullptr;
+        return cs::Ref<Encounter>(it->second->weak_from_this().lock());
+    }
+    static std::map<const void*, Encounter*>& Registry() { static std::map<const void*, Encounter*> r; return r; }
 
     cs::List<cs::Ref<FoeSlot>> Foes = cs::List<cs::Ref<FoeSlot>>::Of({cs::New<FoeSlot>(), cs::New<FoeSlot>(), cs::New<FoeSlot>(), cs::New<FoeSlot>()});
     int32_t TreasureClass = 0;

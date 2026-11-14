@@ -180,13 +180,102 @@ cs::Ref<RgbaImage> Dib::DecodeIcon(cs::List<uint8_t> b, int32_t offset) {
 }
 
 cs::List<uint8_t> Png::Encode(cs::Ref<RgbaImage> img) {
-    (void)img;
-    throw cs::NotSupportedException("not translated: PNG encoding (MemoryStream/ZLibStream)");
+    std::vector<uint8_t> raw; raw.reserve((size_t)img->Height * (size_t)(img->Width * 4 + 1));
+    for (int32_t y = 0; y < img->Height; y++)
+    {
+        raw.push_back(0);
+        for (int32_t x = 0; x < img->Width; x++)
+        {
+            uint32_t p = img->Pixels[y * img->Width + x];
+            raw.push_back((uint8_t)(p >> 16)); raw.push_back((uint8_t)(p >> 8)); raw.push_back((uint8_t)p); raw.push_back((uint8_t)(p >> 24));
+        }
+    }
+    auto z = cs::Compression::Deflate(raw.data(), raw.size(), cs::Compression::CompressionLevel::Optimal, 15);   // ZLibStream, Optimal
+    auto ss = std::make_shared<std::stringstream>(std::ios::in | std::ios::out | std::ios::binary);
+    cs::Ref<std::iostream> o(ss);
+    o->write((const char*)Signature.Raw().data(), (std::streamsize)Signature.Count());
+    auto ihdr = cs::List<uint8_t>::New(13);
+    BigEndian(ihdr, 0, img->Width); BigEndian(ihdr, 4, img->Height);
+    ihdr[8] = 8; ihdr[9] = 6;                    // 8 bits a channel, RGBA
+    Chunk(o, "IHDR", ihdr);
+    Chunk(o, "IDAT", z);
+    Chunk(o, "IEND", cs::List<uint8_t>::New());
+    cs::String bytes = ss->str();
+    return cs::List<uint8_t>(std::vector<uint8_t>(bytes.begin(), bytes.end()));
 }
 
 cs::Ref<RgbaImage> Png::Decode(cs::List<uint8_t> f) {
-    (void)f;
-    throw cs::NotSupportedException("not translated: PNG decoding (MemoryStream/ZLibStream)");
+    if (f.Length() < 8 || !f.Take(8).SequenceEqual(Signature)) throw cs::InvalidDataException("not a PNG file");
+    int32_t p = 8, w = 0, h = 0, depth = 0, ct = 0;
+    std::vector<uint8_t> idat;
+    cs::List<uint32_t> pal = nullptr;
+    cs::List<uint8_t> trns = nullptr;
+    auto span = [&](int32_t at, int32_t len) {   // f.AsSpan(at, len) / Stream.Write(f, at, len): range-checked
+        if (at < 0 || len < 0 || (int64_t)at + len > f.Length()) throw cs::ArgumentOutOfRangeException("Specified argument was out of the range of valid values.");
+        return std::vector<uint8_t>(f.Raw().begin() + at, f.Raw().begin() + at + len); };
+    while (p + 8 <= f.Length())
+    {
+        int32_t len = ReadBigEndian(f, p);
+        cs::String type = cs::Encoding::ASCIIGetString(cs::List<uint8_t>(span(p + 4, 4)));
+        int32_t d = p + 8;
+        if (type == "IHDR") {
+            w = ReadBigEndian(f, d); h = ReadBigEndian(f, d + 4); depth = f[d + 8]; ct = f[d + 9];
+            if (f[d + 12] != 0) throw cs::InvalidDataException("interlaced PNGs are not read");
+            if (depth > 8) throw cs::InvalidDataException("16-bit PNGs are not read");
+        } else if (type == "PLTE") {
+            pal = cs::List<uint32_t>::New(len / 3);
+            for (int32_t i = 0; i < pal.Length(); i++) pal[i] = 0xFF000000u | ((uint32_t)f[d + i * 3] << 16) | ((uint32_t)f[d + i * 3 + 1] << 8) | f[d + i * 3 + 2];
+        } else if (type == "tRNS") { trns = cs::List<uint8_t>(span(d, len)); }
+        else if (type == "IDAT") { auto part = span(d, len); idat.insert(idat.end(), part.begin(), part.end()); }
+        if (type == "IEND") break;
+        p += 12 + len;
+    }
+    auto r = cs::Compression::Inflate(idat.data(), idat.size(), 15);   // ZLibStream, Decompress
+    int32_t channels = ct == 0 ? 1 : ct == 2 ? 3 : ct == 3 ? 1 : ct == 4 ? 2 : ct == 6 ? 4 : throw cs::InvalidDataException("PNG colour type " + cs::ToStr(ct));
+    int32_t bpp = cs::Math::Max(1, channels * depth / 8);
+    int32_t stride = (w * channels * depth + 7) / 8;
+    auto cur = cs::List<uint8_t>::New(stride);
+    auto prev = cs::List<uint8_t>::New(stride);
+    auto img = cs::New<RgbaImage>(w, h);
+    int32_t q = 0;
+    for (int32_t y = 0; y < h; y++)
+    {
+        int32_t filter = r[q++];
+        if (q < 0 || (int64_t)q + stride > r.Length()) throw cs::ArgumentException("Source array was not long enough. Check the source index, length, and the array's lower bounds.");
+        for (int32_t k = 0; k < stride; k++) cur[k] = r[q + k];
+        q += stride;
+        for (int32_t i = 0; i < stride; i++)
+        {
+            int32_t a = i >= bpp ? cur[i - bpp] : 0, b = prev[i], c = i >= bpp ? prev[i - bpp] : 0;
+            int32_t v = cur[i];
+            v += filter == 1 ? a : filter == 2 ? b : filter == 3 ? (a + b) / 2 : filter == 4 ? Paeth(a, b, c) : 0;
+            cur[i] = (uint8_t)v;
+        }
+        for (int32_t x = 0; x < w; x++)
+        {
+            auto Sample = [&](int32_t index) {
+                int32_t bit = index * depth;
+                int32_t v = (cur[bit / 8] >> (8 - depth - bit % 8)) & ((1 << depth) - 1);
+                return depth == 8 ? v : v * 255 / ((1 << depth) - 1);
+            };
+            uint32_t px;
+            if (ct == 3)
+            {
+                int32_t bit = x * depth;
+                int32_t i = (cur[bit / 8] >> (8 - depth - bit % 8)) & ((1 << depth) - 1);
+                if (pal.IsNull()) throw cs::NullReferenceException();
+                px = pal[i];
+                if (!trns.IsNull() && i < trns.Length()) px = (px & 0xFFFFFF) | ((uint32_t)trns[i] << 24);
+            }
+            else if (ct == 2) px = 0xFF000000u | ((uint32_t)cur[x * 3] << 16) | ((uint32_t)cur[x * 3 + 1] << 8) | cur[x * 3 + 2];
+            else if (ct == 6) px = ((uint32_t)cur[x * 4 + 3] << 24) | ((uint32_t)cur[x * 4] << 16) | ((uint32_t)cur[x * 4 + 1] << 8) | cur[x * 4 + 2];
+            else if (ct == 4) { uint32_t g = cur[x * 2]; px = ((uint32_t)cur[x * 2 + 1] << 24) | (g * 0x010101u); }
+            else { uint32_t g = (uint32_t)Sample(x); px = 0xFF000000u | (g * 0x010101u); }
+            img->Pixels[y * w + x] = px;
+        }
+        std::swap(cur, prev);
+    }
+    return img;
 }
 
 int32_t Png::Paeth(int32_t a, int32_t b, int32_t c) {

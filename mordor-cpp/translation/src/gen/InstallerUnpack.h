@@ -125,7 +125,11 @@ struct InstallerUnpack {
     static uint64_t U64(cs::List<uint8_t> a, int32_t at);
 
     // InstallerUnpack.Zip.cs
-    inline static cs::List<uint32_t> ZipCrcTable;
+    inline static cs::List<uint32_t> ZipCrcTable = cs::Enumerable::Range(0, 256).Select([](auto n) {
+        uint32_t crc = (uint32_t)n;
+        for (int32_t bit = 0; bit < 8; bit++) crc = (crc & 1) != 0 ? 0xEDB88320u ^ (crc >> 1) : crc >> 1;
+        return crc;
+    }).ToArray();
     static cs::Ref<InstallerUnpack_Contents> ReadLegacyZip(cs::List<uint8_t> bytes);
     static cs::Dictionary<cs::String, cs::ZipArchiveEntry> ZipIndex(cs::Ref<cs::ZipArchive> zip, int32_t& entriesLeft);
     static cs::List<uint8_t> ZipBytes(cs::ZipArchiveEntry entry, int32_t& bytesLeft);

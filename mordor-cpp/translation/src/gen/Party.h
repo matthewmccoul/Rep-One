@@ -33,6 +33,7 @@ struct Party {
     cs::Dictionary<cs::Ref<Character>, cs::Ref<CombatOrder>> Orders = cs::Dictionary<cs::Ref<Character>, cs::Ref<CombatOrder>>::New();
 
     Party(cs::List<cs::Ref<Character>> members);
+    Party() : Party(cs::List<cs::Ref<Character>>::New()) {}   // new Party() with no params
 
     cs::Ref<Character> Selected();
     cs::Ref<Character> Leader();

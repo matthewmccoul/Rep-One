@@ -444,7 +444,7 @@ bool Party::SaveParty(cs::String savesDir, bool remember, cs::Func<void(cs::Stri
         }
         cs::Directory::CreateDirectory(savesDir);
         auto r = [&] { auto _o = cs::New<Party_Roster>(); _o->Leader = Leader()->Name; _o->Members = Members.Select([&](auto& m) { return m->Name; }).ToList(); return _o; }();
-        cs::File::WriteAllText(p, cs::Json::Serialize(r));
+        cs::File::WriteAllText(p, cs::Json::Serialize(r, cs::Json::Indented()));
         return true;
     } catch (const std::exception& ex) {
         if (errorLog) errorLog("Error '" + cs::String(ex.what()) + "' in MULTIMOD:mdrmulSaveParty");

@@ -27,7 +27,9 @@ bool VbConvert::TryCLng(cs::String text, int32_t& value) {
     cs::String e = cs::Str::Replace(cs::Str::Replace(s, 'D', 'E'), 'd', 'E');
     double v = 0;
     // double.TryParse(e, Styles, CultureInfo.CurrentCulture, out v)
-    if (!cs::Parse::TryParse(e, v)) return false;
+    const int Styles = cs::Parse::AllowLeadingWhite | cs::Parse::AllowTrailingWhite | cs::Parse::AllowLeadingSign | cs::Parse::AllowThousands
+        | cs::Parse::AllowDecimalPoint | cs::Parse::AllowExponent | cs::Parse::AllowCurrencySymbol;
+    if (!cs::Parse::TryParse(e, Styles, cs::Parse::CurrentCulture(), v)) return false;
     v = cs::Math::Round(v, cs::MidpointRounding::ToEven);
     if (std::isnan(v) || v < (double)INT32_MIN || v > (double)INT32_MAX) return false;
     value = cs::CastDouble<int32_t>(v);

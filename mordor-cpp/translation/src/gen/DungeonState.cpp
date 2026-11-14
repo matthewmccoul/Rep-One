@@ -87,7 +87,6 @@ cs::Ref<DungeonState> DungeonState::Load(cs::String savesDir) {
     try {
         cs::String p = PathFor(savesDir);
         if (cs::File::Exists(p)) {
-            // JSON deserialization is not translated (cs::Json throws; swallowed below as in C#)
             auto loaded = cs::Json::Deserialize<cs::Ref<DungeonState>>(cs::File::ReadAllText(p));
             auto state = (loaded ? loaded : cs::New<DungeonState>());
             state->TakeLegacyStamps();
@@ -120,9 +119,8 @@ void DungeonState::Save(cs::String savesDir) {
         cs::JsonSerializerOptions opts{};
         opts.WriteIndented = true;
         (void)opts;
-        // JSON serialization is not translated (cs::Json throws; swallowed below as in C#)
-        cs::File::WriteAllText(temp, cs::Json::Serialize(*this));
-        cs::File::Move(temp, p);
+        cs::File::WriteAllText(temp, cs::Json::Serialize(*this, cs::Json::Indented()));
+        cs::File::Move(temp, p, true);
     } catch (...) {
     }
 }

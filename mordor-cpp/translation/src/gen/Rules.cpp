@@ -495,7 +495,8 @@ int32_t Rules::ChestClass(cs::Ref<Monster> m, double roll0To99, bool isLairMonst
 double Rules::GroupGold(cs::Ref<Monster> m, int32_t count, cs::Ref<cs::Random> rng) {
     double g = cs::Math::Max(0, m->GoldFactor);
     double a = (g * cs::Math::Pow(10, g - 0.5)) / 4;
-    a = (a / 4 + rng->NextDouble() * (a / 2) + rng->NextDouble() * (a / 2))
+    double r1 = rng->NextDouble(); double r2 = rng->NextDouble();   // C# draws left to right; C++ leaves operand order unspecified
+    a = (a / 4 + r1 * (a / 2) + r2 * (a / 2))
         * cs::Math::Log((m->LevelFound + 1) / cs::Math::Log(2));
     if (a < 500) a = cs::CastDouble<int32_t>(rng->NextDouble() * 500) + 2;
     double n = cs::Math::Log(count + 1);

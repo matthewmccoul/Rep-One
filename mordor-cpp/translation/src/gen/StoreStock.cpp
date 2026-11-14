@@ -111,13 +111,22 @@ cs::Ref<StoreStock> StoreStock::Load(cs::String savesDir, cs::List<cs::Ref<Item>
 }
 
 cs::Ref<StoreStock> StoreStock::Load(cs::String savesDir) {
-    (void)savesDir;
-    throw cs::NotSupportedException("not translated: StoreStock JSON deserialization");
+    try
+    {
+        cs::String p = PathFor(savesDir);
+        if (cs::File::Exists(p)) { auto r = cs::Json::Deserialize<cs::Ref<StoreStock>>(cs::File::ReadAllText(p)); return r ? r : cs::New<StoreStock>(); }
+    }
+    catch (...) { }
+    return cs::New<StoreStock>();
 }
 
 void StoreStock::Save(cs::String savesDir) {
-    (void)savesDir;
-    throw cs::NotSupportedException("not translated: StoreStock JSON serialization");
+    try
+    {
+        cs::Directory::CreateDirectory(savesDir);
+        cs::File::WriteAllText(PathFor(savesDir), cs::Json::Serialize(*this, cs::Json::Indented()));
+    }
+    catch (...) { }
 }
 
 cs::Ref<StoreStock> StoreStock::CreateInitial(cs::List<cs::Ref<Item>> items) {

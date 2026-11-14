@@ -14,7 +14,7 @@ DesignFont DesignFont::Plain() {
 cs::Nullable<double> DesignFont::FixedPoints() {
     const cs::String& t = Tag;
     double p = 0;
-    if ((int32_t)t.size() > 1 && t[0] == ':' && cs::Parse::TryParse(cs::Str::Substring(t, 1), p))
+    if ((int32_t)t.size() > 1 && t[0] == ':' && cs::Parse::TryParse(cs::Str::Substring(t, 1), cs::Parse::Float, cs::Parse::InvariantCulture(), p))
         return p;
     return {};
 }

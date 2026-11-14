@@ -151,9 +151,9 @@ cs::Ref<FramePlacement> FramePlacement::Parse(cs::String text) {
     int32_t t = 0;
     if (!cs::Parse::TryParse<int32_t>(cs::Str::Trim(p[1]), t)) return nullptr;
     double w = 0;
-    if (!cs::Parse::TryParse(cs::Str::Trim(p[2]), w) || w < 100) return nullptr;
+    if (!cs::Parse::TryParse(cs::Str::Trim(p[2]), cs::Parse::Float, cs::Parse::InvariantCulture(), w) || w < 100) return nullptr;
     double h = 0;
-    if (!cs::Parse::TryParse(cs::Str::Trim(p[3]), h) || h < 100) return nullptr;
+    if (!cs::Parse::TryParse(cs::Str::Trim(p[3]), cs::Parse::Float, cs::Parse::InvariantCulture(), h) || h < 100) return nullptr;
     return cs::New<FramePlacement>(l, t, w, h, cs::Str::Trim(p[4]) == "1");
 }
 

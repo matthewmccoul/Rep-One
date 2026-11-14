@@ -9,11 +9,8 @@ bool IsWhiteSpace(char c) { return WhiteSpace.find(c) != cs::String::npos; }
 cs::String TrimWs(const cs::String& s) { return cs::Str::Trim(s, WhiteSpace); }
 cs::String TrimEndWs(const cs::String& s) { return cs::Str::TrimEnd(s, WhiteSpace); }
 
-// object items are std::shared_ptr<void>, which keeps no runtime type to test against
-template <class T> cs::Ref<T> ItemAs(const std::shared_ptr<void>& o) {
-    (void)o;
-    throw cs::NotSupportedException("not translated: type test on an object item (shared_ptr<void> keeps no runtime type)");
-}
+// `item is T t` on an object item
+template <class T> cs::Ref<T> ItemAs(const cs::Ref<cs::Object>& o) { return cs::Ref<T>(std::dynamic_pointer_cast<T>(o)); }
 }  // namespace
 
 int32_t HelpBundle::ContentsIndex(cs::List<cs::Ref<HelpBundle_Topic>> topics) {
@@ -21,14 +18,11 @@ int32_t HelpBundle::ContentsIndex(cs::List<cs::Ref<HelpBundle_Topic>> topics) {
     return 0;
 }
 
-cs::String HelpBundle::Serialize(cs::List<cs::Ref<HelpBundle_Topic>> topics) {
-    (void)topics;
-    throw cs::NotSupportedException("not translated: System.Text.Json serialization");
-}
+cs::String HelpBundle::Serialize(cs::List<cs::Ref<HelpBundle_Topic>> topics) { return cs::Json::Serialize(topics, Json); }
 
 cs::List<cs::Ref<HelpBundle_Topic>> HelpBundle::Deserialize(cs::String json) {
-    (void)json;
-    throw cs::NotSupportedException("not translated: System.Text.Json deserialization");
+    auto r = cs::Json::Deserialize<cs::List<cs::Ref<HelpBundle_Topic>>>(json, Json);
+    return r.IsNull() ? cs::List<cs::Ref<HelpBundle_Topic>>::New() : r;
 }
 
 cs::List<cs::Ref<HelpBundle_Topic>> HelpBundle::FromHelpFile(cs::Ref<WinHelpFile> hlp) {

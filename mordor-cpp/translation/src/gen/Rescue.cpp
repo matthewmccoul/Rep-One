@@ -70,7 +70,7 @@ int32_t Rescue::Val(cs::String s) {
         break;
     }
     double v = 0;
-    return cs::Parse::TryParse(t->ToString(), v)
+    return cs::Parse::TryParse(t->ToString(), cs::Parse::Float, cs::Parse::InvariantCulture(), v)
         ? cs::CastDouble<int32_t>(cs::Math::Round(v, cs::MidpointRounding::ToEven)) : 0;
 }
 

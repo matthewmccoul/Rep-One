@@ -30,22 +30,40 @@ namespace cs {
 
 // ------------------------------------------------------------------ basics
 using String = std::string;  // C# string (Latin-1 bytes; null strings become "")
-template <class T> using Ref = std::shared_ptr<T>;  // a C# class reference (nullptr = null)
-template <class T, class... A> Ref<T> New(A&&... a) { return std::make_shared<T>(std::forward<A>(a)...); }
 template <class T> using Nullable = std::optional<T>;  // T? for value types
 template <class F> using Func = std::function<F>;
 inline constexpr std::nullopt_t null_value = std::nullopt;
 
 struct Exception : std::runtime_error { using std::runtime_error::runtime_error; Exception() : std::runtime_error("Exception") {} };
-#define CS_EXCEPTION(N) struct N : Exception { using Exception::Exception; N() : Exception(#N) {} };
-CS_EXCEPTION(InvalidOperationException) CS_EXCEPTION(ArgumentException) CS_EXCEPTION(ArgumentNullException)
-CS_EXCEPTION(ArgumentOutOfRangeException) CS_EXCEPTION(IndexOutOfRangeException) CS_EXCEPTION(KeyNotFoundException)
-CS_EXCEPTION(FormatException) CS_EXCEPTION(IOException) CS_EXCEPTION(FileNotFoundException) CS_EXCEPTION(DirectoryNotFoundException)
-CS_EXCEPTION(DivideByZeroException) CS_EXCEPTION(NotSupportedException) CS_EXCEPTION(NotImplementedException)
-CS_EXCEPTION(OverflowException) CS_EXCEPTION(UnauthorizedAccessException) CS_EXCEPTION(NullReferenceException)
-CS_EXCEPTION(EndOfStreamException) CS_EXCEPTION(InvalidDataException) CS_EXCEPTION(JsonException)
+// the .NET exception hierarchy, so that catch (const cs::ArgumentException&) also takes ArgumentOutOfRangeException, etc.
+#define CS_EXCEPTION(N, B) struct N : B { using B::B; N() : B(#N) {} };
+CS_EXCEPTION(SystemException, Exception)
+CS_EXCEPTION(ArgumentException, SystemException) CS_EXCEPTION(ArgumentNullException, ArgumentException) CS_EXCEPTION(ArgumentOutOfRangeException, ArgumentException)
+CS_EXCEPTION(InvalidOperationException, SystemException) CS_EXCEPTION(ObjectDisposedException, InvalidOperationException)
+CS_EXCEPTION(IndexOutOfRangeException, SystemException) CS_EXCEPTION(KeyNotFoundException, SystemException) CS_EXCEPTION(FormatException, SystemException)
+CS_EXCEPTION(IOException, SystemException) CS_EXCEPTION(FileNotFoundException, IOException) CS_EXCEPTION(DirectoryNotFoundException, IOException)
+CS_EXCEPTION(EndOfStreamException, IOException) CS_EXCEPTION(InvalidDataException, SystemException)
+CS_EXCEPTION(ArithmeticException, SystemException) CS_EXCEPTION(DivideByZeroException, ArithmeticException) CS_EXCEPTION(OverflowException, ArithmeticException)
+CS_EXCEPTION(NotSupportedException, SystemException) CS_EXCEPTION(NotImplementedException, SystemException)
+CS_EXCEPTION(UnauthorizedAccessException, SystemException) CS_EXCEPTION(NullReferenceException, SystemException)
+CS_EXCEPTION(JsonException, Exception)
 #undef CS_EXCEPTION
 
+// A C# class reference (nullptr = null). Member access through a null reference throws
+// NullReferenceException, as in C#, instead of being undefined behaviour.
+template <class T> class Ref : public std::shared_ptr<T> {
+public:
+    using std::shared_ptr<T>::shared_ptr;
+    Ref() = default;
+    Ref(std::nullptr_t) {}
+    template <class U, class = std::enable_if_t<std::is_convertible<U*, T*>::value>> Ref(const std::shared_ptr<U>& p) : std::shared_ptr<T>(p) {}
+    template <class U, class = std::enable_if_t<std::is_convertible<U*, T*>::value>> Ref(std::shared_ptr<U>&& p) : std::shared_ptr<T>(std::move(p)) {}
+    T* operator->() const { T* p = this->get(); if (!p) throw NullReferenceException(); return p; }
+    T& operator*() const { T* p = this->get(); if (!p) throw NullReferenceException(); return *p; }
+};
+// C# object, for the members Core types as object: a polymorphic root that type tests (dynamic_pointer_cast) work on
+struct Object { virtual ~Object() = default; };
+template <class T, class... A> Ref<T> New(A&&... a) { return Ref<T>(std::make_shared<T>(std::forward<A>(a)...)); }
 template <class T> T& deref(const Ref<T>& r) { if (!r) throw NullReferenceException(); return *r; }
 
 // ------------------------------------------------------------------ numbers
@@ -278,19 +296,17 @@ inline String ToStr(char c) { return String(1, c); }
 inline String ToStr(bool b) { return b ? "True" : "False"; }
 template <class I, std::enable_if_t<std::is_integral<I>::value && !std::is_same<I, bool>::value && !std::is_same<I, char>::value, int> = 0>
 String ToStr(I v) { return std::to_string(v); }
-// double.ToString(): shortest round-trip, .NET style ("1E+16" for large exponents)
-inline String ToStr(double d) {
-    if (std::isnan(d)) return "NaN"; if (std::isinf(d)) return d > 0 ? "∞" : "-∞";
-    char buf[64]; auto r = std::to_chars(buf, buf + sizeof buf, d); String s(buf, r.ptr);
-    size_t e = s.find('e');
-    if (e != String::npos) {  // to_chars may choose scientific; .NET uses it only for exponents >= 15 or <= -5
-        int exp = std::stoi(s.substr(e + 1)); String mant = s.substr(0, e);
-        if (exp < 15 && exp > -5) { char b2[64]; auto r2 = std::to_chars(b2, b2 + sizeof b2, d, std::chars_format::fixed); s = String(b2, r2.ptr); }
-        else s = mant + "E" + (exp < 0 ? "-" : "+") + (std::abs(exp) < 10 ? "0" : "") + std::to_string(std::abs(exp));
-    }
-    return s;
+// double/float.ToString() (.NET Core 3.0+): shortest round-trip digits; scientific ("1E+17", "1E-05") when the
+// decimal exponent is >= 17 (double) / >= 9 (float), or <= -5
+template <class F> String ShortestText(F d, int sciFrom) {
+    if (std::isnan(d)) return "NaN"; if (std::isinf(d)) return d > 0 ? "Infinity" : "-Infinity";  // invariant culture (.NET Core 3.0+)
+    char buf[64]; auto r = std::to_chars(buf, buf + sizeof buf, d, std::chars_format::scientific); String s(buf, r.ptr);
+    size_t e = s.find('e'); int exp = std::stoi(s.substr(e + 1)); String mant = s.substr(0, e);
+    if (exp >= sciFrom || exp <= -5) return mant + "E" + (exp < 0 ? "-" : "+") + (std::abs(exp) < 10 ? "0" : "") + std::to_string(std::abs(exp));
+    char b2[400]; auto r2 = std::to_chars(b2, b2 + sizeof b2, d, std::chars_format::fixed); return String(b2, r2.ptr);
 }
-inline String ToStr(float f) { char buf[64]; auto r = std::to_chars(buf, buf + sizeof buf, f); return String(buf, r.ptr); }
+inline String ToStr(double d) { return ShortestText(d, 17); }
+inline String ToStr(float f) { return ShortestText(f, 9); }
 inline String ToStr(const Decimal& d) { return d.ToString(); }
 inline String ToStr(const BigInteger& b) { return b.ToString(); }
 template <class T> String ToStr(const Nullable<T>& v) { return v ? ToStr(*v) : String(); }
@@ -422,6 +438,17 @@ template <class T> using Array = List<T>;        // arrays are fixed-size Lists 
 template <class K, class V> struct KeyValuePair { K Key; V Value; };
 
 template <class T> using Store = std::conditional_t<std::is_same<T, bool>::value, std::deque<bool>, std::vector<T>>;  // std::vector<bool> has no element references
+// Enumerable.Sum: int and long sums are checked (OverflowException); narrower integers sum as int;
+// a float sum is accumulated in double, as .NET does
+template <class R> struct SumOf {
+    using Acc = std::conditional_t<std::is_integral<R>::value && sizeof(R) < 4, int32_t, std::conditional_t<std::is_same<R, float>::value, double, R>>;
+    Acc s{};
+    void Add(const R& x) {
+        if constexpr (std::is_integral<Acc>::value) { if (__builtin_add_overflow(s, (Acc)x, &s)) throw OverflowException("Arithmetic operation resulted in an overflow."); }
+        else s = s + x;
+    }
+    auto Result() const { if constexpr (std::is_same<R, float>::value) return (float)s; else return s; }
+};
 template <class T>
 class List {
     std::shared_ptr<Store<T>> p;
@@ -437,6 +464,7 @@ public:
     static List Of(std::initializer_list<T> il) { return List(std::vector<T>(il)); }
     template <class Seq> static List From(const Seq& s) { List r = New(); for (const auto& x : s) r.v().push_back(x); return r; }
     bool IsNull() const { return !p; }
+    const void* Identity() const { return p.get(); }   // which list object this handle refers to
     explicit operator bool() const { return (bool)p; }
     friend bool operator==(const List& a, std::nullptr_t) { return !a.p; }
     friend bool operator!=(const List& a, std::nullptr_t) { return (bool)a.p; }
@@ -481,8 +509,8 @@ public:
     template <class F> bool Any(F f) const { for (auto& x : v()) if (f(x)) return true; return false; }
     template <class F> bool All(F f) const { for (auto& x : v()) if (!f(x)) return false; return true; }
     template <class F> int Count(F f) const { int n = 0; for (auto& x : v()) if (f(x)) n++; return n; }
-    template <class F> auto Sum(F f) const { using R = std::decay_t<decltype(f(std::declval<T&>()))>; R s{}; for (auto& x : v()) s = s + f(x); return s; }
-    T Sum() const { T s{}; for (auto& x : v()) s = s + x; return s; }
+    template <class F> auto Sum(F f) const { using R = std::decay_t<decltype(f(std::declval<T&>()))>; SumOf<R> s; for (auto& x : v()) s.Add(f(x)); return s.Result(); }
+    auto Sum() const { SumOf<T> s; for (auto& x : v()) s.Add(x); return s.Result(); }
     template <class F> auto Max(F f) const { if (v().empty()) throw InvalidOperationException("Sequence contains no elements"); auto m = f(v()[0]); for (auto& x : v()) { auto y = f(x); if (y > m) m = y; } return m; }
     T Max() const { if (v().empty()) throw InvalidOperationException("Sequence contains no elements"); T m = v()[0]; for (auto& x : v()) if (x > m) m = x; return m; }
     template <class F> auto Min(F f) const { if (v().empty()) throw InvalidOperationException("Sequence contains no elements"); auto m = f(v()[0]); for (auto& x : v()) { auto y = f(x); if (y < m) m = y; } return m; }
@@ -631,8 +659,93 @@ inline bool TryInt(const String& t, long long& out, long long lo = LLONG_MIN, lo
     if (neg) v = -v; if (v < BigInteger(lo) || v > BigInteger(hi)) return false; out = (long long)v; return true;
 }
 template <class I> bool TryParse(const String& t, I& out) { long long v; if (!TryInt(t, v, (long long)std::numeric_limits<I>::min(), (long long)std::numeric_limits<I>::max())) { out = 0; return false; } out = (I)v; return true; }
-inline bool TryParse(const String& t, double& out) { String s = Str::Trim(t); if (s.empty()) return false; char* e = nullptr; out = std::strtod(s.c_str(), &e); return e && *e == 0; }
-inline bool TryParse(const String& t, Decimal& out) { return Decimal::TryParse(t, out); }
+// System.Globalization: NumberStyles and the culture symbols number parsing reads
+enum NumberStyles { None = 0, AllowLeadingWhite = 1, AllowTrailingWhite = 2, AllowLeadingSign = 4, AllowTrailingSign = 8, AllowParentheses = 16,
+    AllowDecimalPoint = 32, AllowThousands = 64, AllowExponent = 128, AllowCurrencySymbol = 256, AllowHexSpecifier = 512,
+    Integer = 7, Number = 111, Float = 167, Currency = 383, Any = 511 };
+struct NumberFormat { String PositiveSign = "+", NegativeSign = "-", DecimalSeparator = ".", GroupSeparator = ",", CurrencySymbol = "\xa4",
+    CurrencyDecimalSeparator = ".", CurrencyGroupSeparator = ","; };
+inline const NumberFormat& InvariantCulture() { static NumberFormat f; return f; }
+// CultureInfo.CurrentCulture: the invariant culture's symbols unless the host sets others (e.g. en-US: CurrencySymbol "$")
+inline NumberFormat& CurrentCulture() { static NumberFormat f; return f; }
+// Number.TryParseNumber (.NET): sign, digits, group and decimal separators, exponent, currency symbol, by the styles given.
+// On success: neg, the digits (integer part then fraction) and the decimal exponent applied to them.
+inline bool TryParseNumber(const String& s, int st, const NumberFormat& nf, bool& neg, String& digits, long long& exp10) {
+    auto white = [](char c) { return c == 0x20 || (c >= 0x09 && c <= 0x0D); };
+    auto match = [&](size_t p, const String& m) { return !m.empty() && s.compare(p, m.size(), m) == 0; };
+    bool cur = (st & AllowCurrencySymbol) != 0;
+    String currSym = cur ? nf.CurrencySymbol : String();
+    const String& dec = cur ? nf.CurrencyDecimalSeparator : nf.DecimalSeparator;
+    const String& grp = cur ? nf.CurrencyGroupSeparator : nf.GroupSeparator;
+    size_t p = 0, n = s.size(); bool sign = false, currency = false; neg = false; digits.clear(); exp10 = 0;
+    while (p < n) {   // leading part
+        char ch = s[p];
+        if (white(ch) && (st & AllowLeadingWhite) && !(sign && !currency)) { p++; continue; }
+        if ((st & AllowLeadingSign) && !sign && match(p, nf.PositiveSign)) { sign = true; p += nf.PositiveSign.size(); continue; }
+        if ((st & AllowLeadingSign) && !sign && match(p, nf.NegativeSign)) { sign = true; neg = true; p += nf.NegativeSign.size(); continue; }
+        if (!currSym.empty() && match(p, currSym)) { currency = true; p += currSym.size(); currSym.clear(); continue; }
+        break;
+    }
+    bool anyDigit = false, inFrac = false; long long fracCount = 0;
+    while (p < n) {   // digits
+        char ch = s[p];
+        if (ch >= '0' && ch <= '9') { anyDigit = true; digits += ch; if (inFrac) fracCount++; p++; continue; }
+        if ((st & AllowDecimalPoint) && !inFrac && match(p, dec)) { inFrac = true; p += dec.size(); continue; }
+        if ((st & AllowThousands) && anyDigit && !inFrac && match(p, grp)) { p += grp.size(); continue; }
+        break;
+    }
+    if (!anyDigit) return false;
+    exp10 = -fracCount;
+    if ((st & AllowExponent) && p < n && (s[p] == 'e' || s[p] == 'E')) {
+        size_t q = p + 1; bool eneg = false;
+        if (match(q, nf.PositiveSign)) q += nf.PositiveSign.size(); else if (match(q, nf.NegativeSign)) { eneg = true; q += nf.NegativeSign.size(); }
+        if (q < n && s[q] >= '0' && s[q] <= '9') {
+            long long e = 0; while (q < n && s[q] >= '0' && s[q] <= '9') { if (e < 100000000) e = e * 10 + (s[q] - '0'); q++; }
+            exp10 += eneg ? -e : e; p = q;
+        }   // an E with no digits is left unread (and fails below)
+    }
+    while (p < n) {   // trailing part
+        char ch = s[p];
+        if (white(ch) && (st & AllowTrailingWhite)) { p++; continue; }
+        if ((st & AllowTrailingSign) && !sign && match(p, nf.PositiveSign)) { sign = true; p += nf.PositiveSign.size(); continue; }
+        if ((st & AllowTrailingSign) && !sign && match(p, nf.NegativeSign)) { sign = true; neg = true; p += nf.NegativeSign.size(); continue; }
+        if (!currSym.empty() && match(p, currSym)) { p += currSym.size(); currSym.clear(); continue; }
+        break;
+    }
+    while (p < n && s[p] == 0) p++;   // trailing NULs are allowed
+    return p == n;
+}
+// double.TryParse(s, styles, culture): IEEE-correct rounding; out of range gives +-Infinity (.NET Core 3.0+);
+// the culture's "Infinity" / "-Infinity" / "NaN" symbols are read too
+inline bool TryParse(const String& t, int st, const NumberFormat& nf, double& out) {
+    bool neg; String dg; long long e;
+    if (!TryParseNumber(t, st, nf, neg, dg, e)) {
+        String u = Str::Trim(t); for (auto& c : u) c = (char)std::tolower((unsigned char)c);
+        if (u == "infinity" || u == "+infinity" || u == "\xe2\x88\x9e") { out = INFINITY; return true; }
+        if (u == "-infinity" || u == "-\xe2\x88\x9e") { out = -INFINITY; return true; }
+        if (u == "nan" || u == "-nan" || u == "+nan") { uint64_t bits = 0xFFF8000000000000ULL; std::memcpy(&out, &bits, 8); return true; }   // double.NaN
+        out = 0; return false;
+    }
+    if (e > 400000) e = 400000; if (e < -400000) e = -400000;
+    String lit = (neg ? "-" : "") + dg + "e" + std::to_string(e);
+    out = std::strtod(lit.c_str(), nullptr); return true;
+}
+// decimal.TryParse(s, styles, culture): false past decimal's range; more than 28 places round half to even
+inline bool TryParse(const String& t, int st, const NumberFormat& nf, Decimal& out) {
+    bool neg; String dg; long long e;
+    if (!TryParseNumber(t, st, nf, neg, dg, e)) { out = Decimal(); return false; }
+    size_t nz = dg.find_first_not_of('0'); dg = nz == String::npos ? "0" : dg.substr(nz);
+    if (dg != "0" && (long long)dg.size() + e > 29) { out = Decimal(); return false; }
+    Decimal d; if (e >= 0) { if (!Decimal::TryParse(dg + String((size_t)e, '0'), d)) return false; }
+    else { long long sc = -e; if (sc > 400) { dg = "0"; sc = 0; } d = Decimal::Raw(BigInteger(0), 0); Decimal::TryParse(dg, d); d = Decimal::Raw(d.m, (int)sc); while (d.scale > 28) d = Decimal::Round(d, d.scale - 1, MidpointRounding::ToEven); }
+    if (neg) d = -d;
+    static const BigInteger maxM = [] { Decimal x; Decimal::TryParse("79228162514264337593543950335", x); return x.m; }();
+    if (BigInteger::Abs(d.m) > maxM) { out = Decimal(); return false; }
+    out = d; return true;
+}
+// double.TryParse(s) / decimal.TryParse(s): NumberStyles.Float | AllowThousands (decimal: Number), current culture
+inline bool TryParse(const String& t, double& out) { return TryParse(t, Float | AllowThousands, CurrentCulture(), out); }
+inline bool TryParse(const String& t, Decimal& out) { return TryParse(t, Number, CurrentCulture(), out); }
 template <class I> I Parse(const String& t) { I v; if (!TryParse(t, v)) throw FormatException("Input string was not in a correct format."); return v; }
 }  // namespace Parse
 
@@ -697,21 +810,43 @@ namespace Encoding {
 inline String Latin1GetString(const uint8_t* p, int n) { return String((const char*)p, (size_t)n); }
 inline String Latin1GetString(const Bytes& b) { return String(b.Raw().begin(), b.Raw().end()); }
 inline Bytes Latin1GetBytes(const String& s) { return Bytes(std::vector<uint8_t>(s.begin(), s.end())); }
-inline String ASCIIGetString(const Bytes& b) { return Latin1GetString(b); }
+inline String ASCIIGetString(const Bytes& b) { String s = Latin1GetString(b); for (auto& c : s) if ((unsigned char)c >= 0x80) c = '?'; return s; }   // non-ASCII bytes decode as '?'
 inline Bytes ASCIIGetBytes(const String& s) { return Latin1GetBytes(s); }
-inline String UTF8GetString(const Bytes& b) { return Latin1GetString(b); }  // bytes passed through
-inline Bytes UTF8GetBytes(const String& s) { return Latin1GetBytes(s); }
+// UTF-8 <-> String (Latin-1): characters past U+00FF, and malformed bytes (U+FFFD in .NET), become '?'
+inline String Utf8Decode(const uint8_t* p, size_t n) {
+    String o; size_t i = 0;
+    while (i < n) {
+        uint8_t c = p[i];
+        if (c < 0x80) { o += (char)c; i++; continue; }
+        int k = c >= 0xF0 && c < 0xF8 ? 3 : c >= 0xE0 ? 2 : c >= 0xC2 && c < 0xE0 ? 1 : 0;
+        if (k == 0 || (c >= 0xF8)) { o += '?'; i++; continue; }
+        unsigned cp = c & (0x3F >> k); size_t j = 1;
+        for (; j <= (size_t)k; j++) { if (i + j >= n || (p[i + j] & 0xC0) != 0x80) break; cp = (cp << 6) | (p[i + j] & 0x3F); }
+        if (j <= (size_t)k) { o += '?'; i += j; continue; }
+        o += cp <= 0xFF ? (char)cp : '?'; i += (size_t)k + 1;
+    }
+    return o;
+}
+inline String Utf8Encode(const String& s) { String o; for (unsigned char c : s) { if (c < 0x80) o += (char)c; else { o += (char)(0xC0 | (c >> 6)); o += (char)(0x80 | (c & 0x3F)); } } return o; }
+inline String UTF8GetString(const Bytes& b) { return Utf8Decode(b.Raw().data(), (size_t)b.Count()); }
+inline Bytes UTF8GetBytes(const String& s) { return Latin1GetBytes(Utf8Encode(s)); }
 }  // namespace Encoding
 namespace File {
 inline bool Exists(const String& p) { std::error_code e; return std::filesystem::is_regular_file(p, e); }
 inline Bytes ReadAllBytes(const String& p) { std::ifstream f(p, std::ios::binary); if (!f) throw FileNotFoundException("Could not find file '" + p + "'."); return Bytes(std::vector<uint8_t>((std::istreambuf_iterator<char>(f)), std::istreambuf_iterator<char>())); }
-inline String ReadAllText(const String& p) { std::ifstream f(p, std::ios::binary); if (!f) throw FileNotFoundException("Could not find file '" + p + "'."); std::stringstream ss; ss << f.rdbuf(); return ss.str(); }
+// File.ReadAllText / WriteAllText: UTF-8 (a UTF-8 BOM is skipped on reading; none is written)
+inline String ReadAllText(const String& p) { std::ifstream f(p, std::ios::binary); if (!f) throw FileNotFoundException("Could not find file '" + p + "'."); std::stringstream ss; ss << f.rdbuf(); String raw = ss.str();
+    size_t b = raw.size() >= 3 && (uint8_t)raw[0] == 0xEF && (uint8_t)raw[1] == 0xBB && (uint8_t)raw[2] == 0xBF ? 3 : 0;
+    return Encoding::Utf8Decode((const uint8_t*)raw.data() + b, raw.size() - b); }
 inline List<String> ReadAllLines(const String& p) { List<String> r = Str::SplitLines(ReadAllText(p)); if (r.Count() && r[r.Count() - 1].empty()) r.RemoveAt(r.Count() - 1); return r; }
 inline void WriteAllBytes(const String& p, const Bytes& b) { std::ofstream f(p, std::ios::binary); if (!f) throw IOException("cannot write " + p); f.write((const char*)b.Raw().data(), (std::streamsize)b.Count()); }
-inline void WriteAllText(const String& p, const String& s) { std::ofstream f(p, std::ios::binary); if (!f) throw IOException("cannot write " + p); f << s; }
+inline void WriteAllText(const String& p, const String& s) { std::ofstream f(p, std::ios::binary); if (!f) throw IOException("cannot write " + p); f << Encoding::Utf8Encode(s); }
 inline void Delete(const String& p) { std::error_code e; std::filesystem::remove(p, e); }
 inline void Copy(const String& a, const String& b, bool over = false) { std::filesystem::copy_file(a, b, over ? std::filesystem::copy_options::overwrite_existing : std::filesystem::copy_options::none); }
-inline void Move(const String& a, const String& b) { std::filesystem::rename(a, b); }
+inline void Move(const String& a, const String& b, bool overwrite = false) {   // File.Move(a, b, overwrite)
+    if (!std::filesystem::exists(a)) throw FileNotFoundException("Could not find file '" + a + "'.");
+    if (!overwrite && std::filesystem::exists(b)) throw IOException("The file '" + b + "' already exists.");
+    std::filesystem::rename(a, b); }
 }  // namespace File
 namespace Directory {
 inline bool Exists(const String& p) { std::error_code e; return std::filesystem::is_directory(p, e); }
@@ -754,11 +889,7 @@ struct Regex {
     bool IsMatch(const String& s) const { return std::regex_search(s, rx); }
 };
 
-// ------------------------------------------------------------------ JSON (not translated: .NET's JsonSerializer works by reflection)
-namespace Json {
-template <class T> String Serialize(const T&) { throw NotSupportedException("JSON serialization (System.Text.Json reflection) is not translated"); }
-template <class T> T Deserialize(const String&) { throw NotSupportedException("JSON deserialization (System.Text.Json reflection) is not translated"); }
-}  // namespace Json
+
 
 
 // decimal literal: 2.5m -> cs::Dec("2.5")
@@ -766,15 +897,10 @@ inline Decimal Dec(const String& s) { Decimal d; if (!Decimal::TryParse(s, d)) t
 
 // ------------------------------------------------------------------ not translated (stubs that keep signatures compiling)
 // System.Text.Json readers/writers/options, streams, zip archives and reflection have no mechanical C++ equivalent.
-struct JsonSerializerOptions { bool WriteIndented = false; };
-struct Utf8JsonReader { };
-struct Utf8JsonWriter { };
 struct Type { String Name; };
 struct Stream { Bytes Data; int Position = 0; };
 using MemoryStream = Stream;
 using FileStream = Stream;
-struct ZipArchiveEntry { String FullName; String Name; long long Length = 0; };
-struct ZipArchive { List<ZipArchiveEntry> Entries; };
 struct DirectoryInfo { String FullName; };
 using Guid = String;
 
@@ -789,3 +915,5 @@ struct TimeSpan { long long ticks = 0; double TotalSeconds() const { return tick
 namespace Environment { inline int TickCount() { return (int)(std::chrono::steady_clock::now().time_since_epoch() / std::chrono::milliseconds(1)); } }
 
 }  // namespace cs
+#include "cs_json.h"
+#include "cs_io.h"

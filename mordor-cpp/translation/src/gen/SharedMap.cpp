@@ -48,13 +48,22 @@ cs::String SharedMap::PathFor(cs::String savesDir) {
 }
 
 cs::Ref<SharedMap> SharedMap::Load(cs::String savesDir) {
-    (void)savesDir;
-    throw cs::NotSupportedException("not translated: JSON deserialization of SharedMap");
+    try
+    {
+        cs::String p = PathFor(savesDir);
+        if (cs::File::Exists(p)) { auto r = cs::Json::Deserialize<cs::Ref<SharedMap>>(cs::File::ReadAllText(p)); return r ? r : cs::New<SharedMap>(); }
+    }
+    catch (...) { }
+    return cs::New<SharedMap>();
 }
 
 void SharedMap::Save(cs::String savesDir) {
-    (void)savesDir;
-    throw cs::NotSupportedException("not translated: JSON serialization of SharedMap");
+    try
+    {
+        cs::Directory::CreateDirectory(savesDir);
+        cs::File::WriteAllText(PathFor(savesDir), cs::Json::Serialize(*this, cs::Json::Indented()));
+    }
+    catch (...) { }
 }
 
 cs::HashSet<Tup_x_y_82717> SharedMap::CellsFor(int32_t level, int32_t width) {

@@ -47,8 +47,14 @@ cs::String GameArt::Find(cs::String gameDir, cs::String name) {
 }
 
 cs::String GameArt::Key(cs::String gameDir) {
-    (void)gameDir;
-    throw cs::NotSupportedException("not translated: SHA256 hashing of the source files");
+    auto all = cs::New<cs::StringBuilder>("mordor-art v" + cs::ToStr(Version) + "\n");
+    for (auto& s : Sources)
+    {
+        cs::String p = Find(gameDir, s->Name);
+        if (p.empty()) { all->Append(s->Name).Append(" absent\n"); continue; }
+        all->Append(s->Name).Append(" ").Append(cs::Convert::ToHexString(cs::SHA256::HashFile(p))).Append("\n");
+    }
+    return cs::Str::ToLowerInvariant(cs::Str::Substring(cs::Convert::ToHexString(cs::SHA256::HashData(cs::Encoding::UTF8GetBytes(all->ToString()))), 0, 16));
 }
 
 cs::Ref<GameArtResult> GameArt::Prepare(cs::String gameDir, cs::String cacheRoot) {
@@ -113,17 +119,47 @@ bool GameArt::IsReady(cs::String gameDir, cs::String cacheRoot) {
 bool GameArt::Complete(cs::String dir) {
     cs::String manifest = cs::Path::Combine(dir, ManifestFile);
     if (!cs::File::Exists(manifest) || !Pictures.All([&](auto& p) { return cs::File::Exists(cs::Path::Combine(dir, p->Name)); })) return false;
-    throw cs::NotSupportedException("not translated: JsonDocument read of the manifest");
+    try
+    {
+        auto doc = cs::Json::Parse(cs::File::ReadAllText(manifest));
+        if (doc.kind != cs::Json::Node::Object) throw cs::InvalidOperationException("The requested operation requires an element of type 'Object'.");
+        auto h = doc.Find("help");
+        bool help = h != nullptr && h->kind == cs::Json::Node::True;
+        return !help || cs::File::Exists(cs::Path::Combine(dir, HelpFile));
+    }
+    catch (const cs::JsonException&) { return false; }
 }
 
 cs::String GameArt::HelpTitle(cs::String cacheDir) {
-    (void)cacheDir;
-    throw cs::NotSupportedException("not translated: JsonDocument read of the manifest");
+    try
+    {
+        auto doc = cs::Json::Parse(cs::File::ReadAllText(cs::Path::Combine(cacheDir, ManifestFile)));
+        if (doc.kind != cs::Json::Node::Object) throw cs::InvalidOperationException("The requested operation requires an element of type 'Object'.");
+        auto t = doc.Find("helpTitle");
+        return t != nullptr && t->kind == cs::Json::Node::Str && t->text.size() > 0 ? t->text : cs::String();
+    }
+    catch (const cs::IOException&) { return {}; }
+    catch (const cs::JsonException&) { return {}; }
+    catch (const cs::UnauthorizedAccessException&) { return {}; }
 }
 
 cs::List<cs::String> GameArt::ReadNotes(cs::String manifest) {
-    (void)manifest;
-    throw cs::NotSupportedException("not translated: JsonDocument read of the manifest");
+    try
+    {
+        auto doc = cs::Json::Parse(cs::File::ReadAllText(manifest));
+        if (doc.kind != cs::Json::Node::Object) throw cs::InvalidOperationException("The requested operation requires an element of type 'Object'.");
+        auto n = doc.Find("notes");
+        if (n == nullptr) return cs::List<cs::String>::New();
+        if (n->kind != cs::Json::Node::Array) throw cs::InvalidOperationException("The requested operation requires an element of type 'Array'.");
+        auto r = cs::List<cs::String>::New();
+        for (auto& e : n->items) {
+            if (e.kind == cs::Json::Node::Null) r.Add("");
+            else if (e.kind == cs::Json::Node::Str) r.Add(e.text);
+            else throw cs::InvalidOperationException("The requested operation requires an element of type 'String'.");
+        }
+        return r;
+    }
+    catch (...) { return cs::List<cs::String>::New(); }
 }
 
 void GameArt::TryDelete(cs::String dir) {
@@ -284,7 +320,20 @@ cs::List<cs::String> GameArt::Extract(cs::String gameDir, cs::String outDir) {
         notes.Add("no help: MORDOR.HLP is not here");
     }
 
-    throw cs::NotSupportedException("not translated: JSON serialization of the extraction manifest");
+    // the anonymous manifest object, its properties in declaration order
+    bool helpMade = cs::File::Exists(cs::Path::Combine(outDir, HelpFile));
+    auto manifest = cs::Json::Node::Obj();
+    manifest.Add("version", cs::Json::ToJson(Version));
+    manifest.Add("game", cs::Json::ToJson(cs::Path::GetFullPath(gameDir)));
+    manifest.Add("made", cs::Json::ToJson(cs::DateTime::UtcNow().ToString("u")));
+    auto pics = cs::Json::Node::Arr();
+    for (auto& p : Pictures) { auto o = cs::Json::Node::Obj(); o.Add("name", cs::Json::ToJson(p->Name)); o.Add("from", cs::Json::ToJson(p->From)); pics.items.push_back(o); }
+    manifest.Add("pictures", pics);
+    manifest.Add("help", cs::Json::ToJson(helpMade));
+    manifest.Add("helpTitle", helpMade && hlp != nullptr ? cs::Json::ToJson(hlp->Title) : cs::Json::Node());
+    manifest.Add("notes", cs::Json::ToJson(notes));
+    cs::File::WriteAllText(cs::Path::Combine(outDir, ManifestFile), cs::Json::Write(manifest, true));
+    return notes;
 }
 
 }  // namespace mc

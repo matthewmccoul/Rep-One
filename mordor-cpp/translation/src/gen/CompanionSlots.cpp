@@ -112,11 +112,33 @@ int32_t CompanionSlots::SlotOf(cs::Ref<Companion> c) {
 }
 
 cs::Ref<CompanionSlots> CompanionSlotsJson::Read(cs::Utf8JsonReader& reader, cs::Type typeToConvert, cs::Ref<cs::JsonSerializerOptions> options) {
-    throw cs::NotSupportedException("not translated: System.Text.Json converter Read");
+    (void)typeToConvert; (void)options;
+    auto slots = cs::New<CompanionSlots>();
+    if (reader.TokenType() == cs::Json::JsonTokenType::Null) return slots;
+    auto list = cs::Json::DeserializeAt<cs::List<cs::Ref<Companion>>>(reader);
+    if (list.IsNull()) list = cs::List<cs::Ref<Companion>>::New();
+    for (int32_t i = 0; i < list.Count() && i < CompanionSlots::Slots; i++)
+    {
+        // an empty slot's leftover record (MAINMOD2.BAS:383-400): the slot stays empty
+        auto c = list[i];
+        if (c != nullptr && c->Vacant) slots->SetRemains(i, c);
+        else slots->SetIndex(i, list[i]);
+    }
+    return slots;
 }
 
 void CompanionSlotsJson::Write(cs::Utf8JsonWriter writer, cs::Ref<CompanionSlots> value, cs::Ref<cs::JsonSerializerOptions> options) {
-    throw cs::NotSupportedException("not translated: System.Text.Json converter Write");
+    (void)options;
+    auto list = cs::List<cs::Ref<Companion>>::New();
+    for (int32_t i = 0; i < CompanionSlots::Slots; i++)
+    {
+        auto c = value->Index(i);
+        if (c != nullptr) { list.Add(c); continue; }
+        auto r = value->Remains(i);
+        list.Add(r == nullptr ? nullptr : [&] { auto _o = cs::New<Companion>(); _o->Ref = r->Ref; _o->MonsterId = r->MonsterId; _o->Name = r->Name; _o->Hits = r->Hits; _o->MaxHits = r->MaxHits;
+            _o->Alignment = r->Alignment; _o->IdLevel = r->IdLevel; _o->BindingLevel = r->BindingLevel; _o->Vacant = true; return _o; }());
+    }
+    writer.WriteValue(cs::Json::ToJson(list));
 }
 
 }  // namespace mc

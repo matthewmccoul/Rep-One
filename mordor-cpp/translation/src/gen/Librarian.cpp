@@ -314,7 +314,6 @@ cs::Ref<Librarian_Store> Librarian_Store::Read(cs::String savesDir)
     }
     try
     {
-        // JSON deserialization is not translated (cs::Json throws NotSupportedException)
         auto s = cs::Json::Deserialize<cs::Ref<Librarian_Store>>(text);
         if (s != nullptr)
         {
@@ -351,9 +350,8 @@ void Librarian_Store::Save(cs::String savesDir)
     {
         cs::Directory::CreateDirectory(savesDir);
         cs::String temp = p + ".tmp";
-        // JSON serialization is not translated (cs::Json throws NotSupportedException)
-        cs::File::WriteAllText(temp, cs::Json::Serialize(this));
-        cs::File::Move(temp, p);
+        cs::File::WriteAllText(temp, cs::Json::Serialize(this, cs::Json::Indented()));
+        cs::File::Move(temp, p, true);
     }
     catch (const std::exception& ex) { if (Note) Note(p + " could not be written (" + cs::String(ex.what()) + ")"); }
 }

@@ -169,7 +169,9 @@ bool VbCurrency::TryParse(cs::String text, VbCurrency& value) {
     }
     cs::String e = cs::Str::Replace(cs::Str::Replace(s, 'D', 'E'), 'd', 'E');
     cs::Decimal m{};
-    if (!cs::Decimal::TryParse(e, m)) return false;
+    const int Styles = cs::Parse::AllowLeadingWhite | cs::Parse::AllowTrailingWhite | cs::Parse::AllowLeadingSign | cs::Parse::AllowThousands
+        | cs::Parse::AllowDecimalPoint | cs::Parse::AllowExponent | cs::Parse::AllowCurrencySymbol;
+    if (!cs::Parse::TryParse(e, Styles, cs::Parse::CurrentCulture(), m)) return false;
     try {
         value = FromDecimal(m);
         return true;
@@ -179,25 +181,32 @@ bool VbCurrency::TryParse(cs::String text, VbCurrency& value) {
 }
 
 int64_t SavedWholeJson::Read(cs::Utf8JsonReader& reader, cs::Type typeToConvert, cs::Ref<cs::JsonSerializerOptions> options) {
-    (void)reader; (void)typeToConvert; (void)options;
-    throw cs::NotSupportedException("not translated: System.Text.Json converter");
+    (void)typeToConvert; (void)options;
+    if (reader.TokenType() != cs::Json::JsonTokenType::Number) { reader.Skip(); return 0; }
+    int64_t n = 0;
+    if (reader.TryGetInt64(n)) return n;
+    double d = reader.GetDouble();   // a JSON number always reads as a double, if a rough one
+    return std::isnan(d) ? 0 : d >= 9.2e18 ? std::numeric_limits<int64_t>::max() : d <= -9.2e18 ? std::numeric_limits<int64_t>::min() : cs::CastDouble<int64_t>(std::trunc(d));
 }
 
 void SavedWholeJson::Write(cs::Utf8JsonWriter writer, int64_t value, cs::Ref<cs::JsonSerializerOptions> options) {
-    (void)writer; (void)value; (void)options;
-    throw cs::NotSupportedException("not translated: System.Text.Json converter");
+    (void)options;
+    writer.WriteNumberValue(value);
 }
 
 bool SavedExactJson::HandleNull() { return true; }
 
 cs::Nullable<cs::Decimal> SavedExactJson::Read(cs::Utf8JsonReader& reader, cs::Type typeToConvert, cs::Ref<cs::JsonSerializerOptions> options) {
-    (void)reader; (void)typeToConvert; (void)options;
-    throw cs::NotSupportedException("not translated: System.Text.Json converter");
+    (void)typeToConvert; (void)options;
+    cs::Decimal m;
+    if (reader.TokenType() == cs::Json::JsonTokenType::Number && reader.TryGetDecimal(m)) return m;
+    reader.Skip();
+    return {};
 }
 
 void SavedExactJson::Write(cs::Utf8JsonWriter writer, cs::Nullable<cs::Decimal> value, cs::Ref<cs::JsonSerializerOptions> options) {
-    (void)writer; (void)value; (void)options;
-    throw cs::NotSupportedException("not translated: System.Text.Json converter");
+    (void)options;
+    if (value.has_value()) writer.WriteNumberValue(value.value()); else writer.WriteNullValue();
 }
 
 }  // namespace mc

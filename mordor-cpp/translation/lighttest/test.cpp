@@ -4,7 +4,7 @@
 #include <fstream>
 #include <map>
 using namespace mc;
-static std::string V(const cs::String& s) { return "\"" + s + "\""; }
+static std::string V(const cs::String& s) { return "\"" + cs::Encoding::Utf8Encode(s) + "\""; }   // ref.txt is UTF-8
 static std::string V(float f) { return "f" + std::to_string(cs::BitConverter::SingleToInt32Bits(f)); }
 static std::string V(double d) { return "d" + std::to_string(cs::BitConverter::DoubleToInt64Bits(d)); }
 static std::string V(bool b) { return b ? "1" : "0"; }

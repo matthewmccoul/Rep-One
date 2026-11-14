@@ -1,0 +1,3100 @@
+[
+  {
+    "type": "Party\u002BRoster",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "Leader",
+        "member": "Leader",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Members",
+        "member": "Members",
+        "memberKind": "Property",
+        "type": "List\u003CSystem.String\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "StoreStock",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "Shelf",
+        "member": "Shelf",
+        "memberKind": "Property",
+        "type": "Dictionary\u003CSystem.String,System.Int32\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "Confinement",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "Pens",
+        "member": "Pens",
+        "memberKind": "Property",
+        "type": "Dictionary\u003CSystem.String,System.Int32\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "KeyedBy",
+        "member": "KeyedBy",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Entries",
+        "member": "Entries",
+        "memberKind": "Property",
+        "type": "IEnumerable\u003CValueTuple\u003CSystem.Int32,ItemAlignment,System.Int32\u003E\u003E",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "SharedMap",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "Explored",
+        "member": "Explored",
+        "memberKind": "Property",
+        "type": "Dictionary\u003CSystem.Int32,List\u003CSystem.Int32\u003E\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Noticed",
+        "member": "Noticed",
+        "memberKind": "Property",
+        "type": "Dictionary\u003CSystem.String,List\u003CSystem.Int32\u003E\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Seen",
+        "member": "Seen",
+        "memberKind": "Property",
+        "type": "Dictionary\u003CSystem.String,System.Int64\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "DeepestVisited",
+        "member": "DeepestVisited",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": false,
+        "set": false,
+        "ignore": "Always",
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "Guildmasters",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "Held",
+        "member": "Held",
+        "memberKind": "Property",
+        "type": "Dictionary\u003CSystem.Int32,Guildmasters\u002BHolder\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "List\u003CSystem.String\u003E",
+    "kind": "Enumerable",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "elem": "System.String"
+  },
+  {
+    "type": "DungeonState",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "Rooms",
+        "member": "Rooms",
+        "memberKind": "Property",
+        "type": "Dictionary\u003CSystem.String,RoomRecord\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Cleared",
+        "member": "Cleared",
+        "memberKind": "Property",
+        "type": "Dictionary\u003CSystem.String,System.Double\u003E",
+        "get": true,
+        "set": true,
+        "ignore": "WhenWritingNull",
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Spawned",
+        "member": "Spawned",
+        "memberKind": "Property",
+        "type": "Dictionary\u003CSystem.String,System.Double\u003E",
+        "get": true,
+        "set": true,
+        "ignore": "WhenWritingNull",
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "DeepestReached",
+        "member": "DeepestReached",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Tally",
+        "member": "Tally",
+        "memberKind": "Property",
+        "type": "Dictionary\u003CSystem.Int32,System.Int32\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "HallRecords",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "Records",
+        "member": "Records",
+        "memberKind": "Property",
+        "type": "Dictionary\u003CSystem.Int32,HallRecords\u002BRecord\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "Character",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "Name",
+        "member": "Name",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Race",
+        "member": "Race",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Alignment",
+        "member": "Alignment",
+        "memberKind": "Property",
+        "type": "Alignment",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Sex",
+        "member": "Sex",
+        "memberKind": "Property",
+        "type": "Sex",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Stats",
+        "member": "Stats",
+        "memberKind": "Property",
+        "type": "System.Int32[]",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "StatMax",
+        "member": "StatMax",
+        "memberKind": "Property",
+        "type": "System.Int32[]",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "MaxHits",
+        "member": "MaxHits",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "CurHits",
+        "member": "CurHits",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "MaxSpellPoints",
+        "member": "MaxSpellPoints",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "CurSpellPoints",
+        "member": "CurSpellPoints",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Poisoned",
+        "member": "Poisoned",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Diseased",
+        "member": "Diseased",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Stoned",
+        "member": "Stoned",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "PoisonLevel",
+        "member": "PoisonLevel",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "DiseaseLevel",
+        "member": "DiseaseLevel",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "AilmentSteps",
+        "member": "AilmentSteps",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "ParalysisLevel",
+        "member": "ParalysisLevel",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Paralysed",
+        "member": "Paralysed",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": false,
+        "set": false,
+        "ignore": "Always",
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "ADShift",
+        "member": "ADShift",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "ADShiftUnsettled",
+        "member": "ADShiftUnsettled",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "AilmentText",
+        "member": "AilmentText",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "SpellEffects",
+        "member": "SpellEffects",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "SpellResist",
+        "member": "SpellResist",
+        "memberKind": "Property",
+        "type": "System.Int32[]",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "CombatSetting",
+        "member": "CombatSetting",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Buffers",
+        "member": "Buffers",
+        "memberKind": "Property",
+        "type": "System.Int32[]",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "CarryingCompanion",
+        "member": "CarryingCompanion",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "CarryingCharacter",
+        "member": "CarryingCharacter",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "IsCarrying",
+        "member": "IsCarrying",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "CarryText",
+        "member": "CarryText",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Levitating",
+        "member": "Levitating",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "InvisibleNow",
+        "member": "InvisibleNow",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "SeeingInvisible",
+        "member": "SeeingInvisible",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Protection",
+        "member": "Protection",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "LostLevel",
+        "member": "LostLevel",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "LostPosition",
+        "member": "LostPosition",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "LostFacing",
+        "member": "LostFacing",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "CauseOfDeath",
+        "member": "CauseOfDeath",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "RaiseChance",
+        "member": "RaiseChance",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "RaisedBy",
+        "member": "RaisedBy",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "RaiseKind",
+        "member": "RaiseKind",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "IsLost",
+        "member": "IsLost",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "GoldOnHand",
+        "member": "GoldOnHandWhole",
+        "memberKind": "Property",
+        "type": "System.Int64",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": "SavedWholeJson",
+        "order": 0
+      },
+      {
+        "json": "GoldInBank",
+        "member": "GoldInBankWhole",
+        "memberKind": "Property",
+        "type": "System.Int64",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": "SavedWholeJson",
+        "order": 0
+      },
+      {
+        "json": "GoldOnHandExact",
+        "member": "GoldOnHandExact",
+        "memberKind": "Property",
+        "type": "Nullable\u003CSystem.Decimal\u003E",
+        "get": true,
+        "set": true,
+        "ignore": "WhenWritingNull",
+        "converter": "SavedExactJson",
+        "order": 0
+      },
+      {
+        "json": "GoldInBankExact",
+        "member": "GoldInBankExact",
+        "memberKind": "Property",
+        "type": "Nullable\u003CSystem.Decimal\u003E",
+        "get": true,
+        "set": true,
+        "ignore": "WhenWritingNull",
+        "converter": "SavedExactJson",
+        "order": 0
+      },
+      {
+        "json": "Purse",
+        "member": "Purse",
+        "memberKind": "Property",
+        "type": "VbCurrency",
+        "get": false,
+        "set": false,
+        "ignore": "Always",
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Age",
+        "member": "Age",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "IsDead",
+        "member": "IsDead",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Kills",
+        "member": "Kills",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Deaths",
+        "member": "Deaths",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Complications",
+        "member": "Complications",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "MonsterQuestsDone",
+        "member": "MonsterQuestsDone",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "ItemQuestsDone",
+        "member": "ItemQuestsDone",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "PlaySeconds",
+        "member": "PlaySeconds",
+        "memberKind": "Property",
+        "type": "System.Double",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "CreatedOn",
+        "member": "CreatedOn",
+        "memberKind": "Property",
+        "type": "System.Double",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Guilds",
+        "member": "Guilds",
+        "memberKind": "Property",
+        "type": "List\u003CGuildMembership\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Pack",
+        "member": "Pack",
+        "memberKind": "Property",
+        "type": "InventorySlot[]",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Inventory",
+        "member": "LegacyInventory",
+        "memberKind": "Property",
+        "type": "List\u003CInventorySlot\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Bank",
+        "member": "Bank",
+        "memberKind": "Property",
+        "type": "List\u003CInventorySlot\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Password",
+        "member": "Password",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Options",
+        "member": "Options",
+        "memberKind": "Property",
+        "type": "CharacterOptions",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Windows",
+        "member": "Windows",
+        "memberKind": "Property",
+        "type": "WindowRect[]",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "WindowsRevision",
+        "member": "WindowsRevision",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "HasPassword",
+        "member": "HasPassword",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Companions",
+        "member": "Companions",
+        "memberKind": "Property",
+        "type": "CompanionSlots",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "MaxCompanions",
+        "member": "MaxCompanions",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "DungeonLevel",
+        "member": "DungeonLevel",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "X",
+        "member": "X",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Y",
+        "member": "Y",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Facing",
+        "member": "Facing",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Area",
+        "member": "Area",
+        "memberKind": "Property",
+        "type": "Nullable\u003CSystem.Int32\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "SanctuaryX",
+        "member": "SanctuaryX",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "SanctuaryY",
+        "member": "SanctuaryY",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "SanctuaryLevel",
+        "member": "SanctuaryLevel",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "HasSanctuary",
+        "member": "HasSanctuary",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Explored",
+        "member": "Explored",
+        "memberKind": "Property",
+        "type": "Dictionary\u003CSystem.Int32,List\u003CSystem.Int32\u003E\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "AgeYears",
+        "member": "AgeYears",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "GuildTitle",
+        "member": "GuildTitle",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Title",
+        "member": "Title",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "MonstersSeen",
+        "member": "MonstersSeen",
+        "memberKind": "Property",
+        "type": "Dictionary\u003CSystem.Int32,System.Int32\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "ItemsSeen",
+        "member": "ItemsSeen",
+        "memberKind": "Property",
+        "type": "HashSet\u003CSystem.Int32\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "TotalLevel",
+        "member": "TotalLevel",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "TopGuildLevel",
+        "member": "TopGuildLevel",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "PrimaryGuild",
+        "member": "PrimaryGuild",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Guild",
+        "member": "Guild",
+        "memberKind": "Property",
+        "type": "GuildMembership",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "LastLevelGains",
+        "member": "LastLevelGains",
+        "memberKind": "Property",
+        "type": "List\u003CSystem.String\u003E",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "RaceDef",
+        "member": "RaceDef",
+        "memberKind": "Property",
+        "type": "Race",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "ActiveGuildDef",
+        "member": "ActiveGuildDef",
+        "memberKind": "Property",
+        "type": "GuildDef",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Swings",
+        "member": "Swings",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "IsPinned",
+        "member": "IsPinned",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Mods",
+        "member": "Mods",
+        "memberKind": "Property",
+        "type": "List\u003CSystem.String\u003E",
+        "get": true,
+        "set": true,
+        "ignore": "WhenWritingNull",
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "ModsWhenLoaded",
+        "member": "ModsWhenLoaded",
+        "memberKind": "Property",
+        "type": "List\u003CSystem.String\u003E",
+        "get": false,
+        "set": false,
+        "ignore": "Always",
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": true,
+    "abstractOrIface": false
+  },
+  {
+    "type": "Librarian\u002BStore",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "Entries",
+        "member": "Entries",
+        "memberKind": "Property",
+        "type": "Dictionary\u003CSystem.String,LibraryRecord\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "MonstersUnsettled",
+        "member": "MonstersUnsettled",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": false,
+        "set": false,
+        "ignore": "Always",
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "ReadOnly",
+        "member": "ReadOnly",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": false,
+        "set": false,
+        "ignore": "Always",
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "MovedAside",
+        "member": "MovedAside",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": false,
+        "set": false,
+        "ignore": "Always",
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "List\u003CExtraction.HelpBundle\u002BTopic\u003E",
+    "kind": "Enumerable",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": true,
+    "elem": "Extraction.HelpBundle\u002BTopic"
+  },
+  {
+    "type": "Dictionary\u003CSystem.String,System.Int32\u003E",
+    "kind": "Dictionary",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "key": "System.String",
+    "elem": "System.Int32"
+  },
+  {
+    "type": "IEnumerable\u003CValueTuple\u003CSystem.Int32,ItemAlignment,System.Int32\u003E\u003E",
+    "kind": "Enumerable",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "elem": "ValueTuple\u003CSystem.Int32,ItemAlignment,System.Int32\u003E"
+  },
+  {
+    "type": "Dictionary\u003CSystem.Int32,List\u003CSystem.Int32\u003E\u003E",
+    "kind": "Dictionary",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "key": "System.Int32",
+    "elem": "List\u003CSystem.Int32\u003E"
+  },
+  {
+    "type": "Dictionary\u003CSystem.String,List\u003CSystem.Int32\u003E\u003E",
+    "kind": "Dictionary",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "key": "System.String",
+    "elem": "List\u003CSystem.Int32\u003E"
+  },
+  {
+    "type": "Dictionary\u003CSystem.String,System.Int64\u003E",
+    "kind": "Dictionary",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "key": "System.String",
+    "elem": "System.Int64"
+  },
+  {
+    "type": "Dictionary\u003CSystem.Int32,Guildmasters\u002BHolder\u003E",
+    "kind": "Dictionary",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "key": "System.Int32",
+    "elem": "Guildmasters\u002BHolder"
+  },
+  {
+    "type": "Dictionary\u003CSystem.String,RoomRecord\u003E",
+    "kind": "Dictionary",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "key": "System.String",
+    "elem": "RoomRecord"
+  },
+  {
+    "type": "Dictionary\u003CSystem.String,System.Double\u003E",
+    "kind": "Dictionary",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "key": "System.String",
+    "elem": "System.Double"
+  },
+  {
+    "type": "Dictionary\u003CSystem.Int32,System.Int32\u003E",
+    "kind": "Dictionary",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "key": "System.Int32",
+    "elem": "System.Int32"
+  },
+  {
+    "type": "Dictionary\u003CSystem.Int32,HallRecords\u002BRecord\u003E",
+    "kind": "Dictionary",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "key": "System.Int32",
+    "elem": "HallRecords\u002BRecord"
+  },
+  {
+    "type": "Alignment",
+    "kind": "None",
+    "isValue": true,
+    "converter": null,
+    "helpOpts": false
+  },
+  {
+    "type": "Sex",
+    "kind": "None",
+    "isValue": true,
+    "converter": null,
+    "helpOpts": false
+  },
+  {
+    "type": "VbCurrency",
+    "kind": "Object",
+    "isValue": true,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "Raw",
+        "member": "Raw",
+        "memberKind": "Property",
+        "type": "System.Int64",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Whole",
+        "member": "Whole",
+        "memberKind": "Property",
+        "type": "System.Int64",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "IsWhole",
+        "member": "IsWhole",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "ExactForSave",
+        "member": "ExactForSave",
+        "memberKind": "Property",
+        "type": "Nullable\u003CSystem.Decimal\u003E",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "List\u003CGuildMembership\u003E",
+    "kind": "Enumerable",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "elem": "GuildMembership"
+  },
+  {
+    "type": "InventorySlot[]",
+    "kind": "Enumerable",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "elem": "InventorySlot"
+  },
+  {
+    "type": "List\u003CInventorySlot\u003E",
+    "kind": "Enumerable",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "elem": "InventorySlot"
+  },
+  {
+    "type": "CharacterOptions",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "AutoChangeLevel",
+        "member": "AutoChangeLevel",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Hide",
+        "member": "Hide",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "PreloadCharacter",
+        "member": "PreloadCharacter",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "NoPerceptionMessages",
+        "member": "NoPerceptionMessages",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "WindowRect[]",
+    "kind": "Enumerable",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "elem": "WindowRect"
+  },
+  {
+    "type": "CompanionSlots",
+    "kind": "None",
+    "isValue": false,
+    "converter": "CompanionSlotsJson",
+    "helpOpts": false
+  },
+  {
+    "type": "HashSet\u003CSystem.Int32\u003E",
+    "kind": "Enumerable",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "elem": "System.Int32"
+  },
+  {
+    "type": "GuildMembership",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "Guild",
+        "member": "Guild",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Level",
+        "member": "Level",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Experience",
+        "member": "Experience",
+        "memberKind": "Property",
+        "type": "System.Int64",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "QuestType",
+        "member": "QuestType",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "QuestTarget",
+        "member": "QuestTarget",
+        "memberKind": "Property",
+        "type": "System.Int16",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "QuestDone",
+        "member": "QuestDone",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "Race",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "Name",
+        "member": "Name",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Min",
+        "member": "Min",
+        "memberKind": "Property",
+        "type": "System.Int32[]",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Max",
+        "member": "Max",
+        "memberKind": "Property",
+        "type": "System.Int32[]",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Size",
+        "member": "Size",
+        "memberKind": "Property",
+        "type": "RaceSize",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "AlignMask",
+        "member": "AlignMask",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "BonusPoints",
+        "member": "BonusPoints",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "MaxAge",
+        "member": "MaxAge",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "ExpFactor",
+        "member": "ExpFactor",
+        "memberKind": "Property",
+        "type": "System.Single",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Resistances",
+        "member": "Resistances",
+        "memberKind": "Property",
+        "type": "System.Int32[]",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Alignments",
+        "member": "Alignments",
+        "memberKind": "Property",
+        "type": "Alignment[]",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "MinTotal",
+        "member": "MinTotal",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "MaxTotal",
+        "member": "MaxTotal",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "GuildDef",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "Name",
+        "member": "Name",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "MaxLevel",
+        "member": "MaxLevel",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "ReqStats",
+        "member": "ReqStats",
+        "memberKind": "Property",
+        "type": "System.Int32[]",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "AlignMask",
+        "member": "AlignMask",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "RaceMask",
+        "member": "RaceMask",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "AvgHits",
+        "member": "AvgHits",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "HitsCapLevel",
+        "member": "HitsCapLevel",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "LateHits",
+        "member": "LateHits",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "AttPerLevel",
+        "member": "AttPerLevel",
+        "memberKind": "Property",
+        "type": "System.Single",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "DefPerLevel",
+        "member": "DefPerLevel",
+        "memberKind": "Property",
+        "type": "System.Single",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "GoldFactor",
+        "member": "GoldFactor",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "ItemUseFactor",
+        "member": "ItemUseFactor",
+        "memberKind": "Property",
+        "type": "System.Single",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "AdMaxLevel",
+        "member": "AdMaxLevel",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "AdEvery",
+        "member": "AdEvery",
+        "memberKind": "Property",
+        "type": "System.Single",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Abilities",
+        "member": "Abilities",
+        "memberKind": "Property",
+        "type": "System.Single[]",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Thieving",
+        "member": "Thieving",
+        "memberKind": "Property",
+        "type": "System.Single",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Backstab",
+        "member": "Backstab",
+        "memberKind": "Property",
+        "type": "System.Single",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "CriticalHit",
+        "member": "CriticalHit",
+        "memberKind": "Property",
+        "type": "System.Single",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "ExtraSwings",
+        "member": "ExtraSwings",
+        "memberKind": "Property",
+        "type": "System.Single",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Perception",
+        "member": "Perception",
+        "memberKind": "Property",
+        "type": "System.Single",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "ExpFactor",
+        "member": "ExpFactor",
+        "memberKind": "Property",
+        "type": "System.Single",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "QuestPercent",
+        "member": "QuestPercent",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "SpellRate",
+        "member": "SpellRate",
+        "memberKind": "Property",
+        "type": "System.Single[]",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "SpellMax",
+        "member": "SpellMax",
+        "memberKind": "Property",
+        "type": "System.Int32[]",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "HasSpellTable",
+        "member": "HasSpellTable",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "Dictionary\u003CSystem.String,LibraryRecord\u003E",
+    "kind": "Dictionary",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "key": "System.String",
+    "elem": "LibraryRecord"
+  },
+  {
+    "type": "Extraction.HelpBundle\u002BTopic",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": true,
+    "props": [
+      {
+        "json": "Title",
+        "member": "Title",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Text",
+        "member": "Text",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Tabs",
+        "member": "Tabs",
+        "memberKind": "Property",
+        "type": "List\u003CExtraction.HelpBundle\u002BTabRow\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Links",
+        "member": "Links",
+        "memberKind": "Property",
+        "type": "List\u003CExtraction.HelpBundle\u002BLink\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Contents",
+        "member": "Contents",
+        "memberKind": "Property",
+        "type": "Nullable\u003CSystem.Boolean\u003E",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": [
+      "Title:System.String",
+      "Text:System.String",
+      "Tabs:List\u003CExtraction.HelpBundle\u002BTabRow\u003E",
+      "Links:List\u003CExtraction.HelpBundle\u002BLink\u003E",
+      "Contents:Nullable\u003CSystem.Boolean\u003E"
+    ],
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "ValueTuple\u003CSystem.Int32,ItemAlignment,System.Int32\u003E",
+    "kind": "Object",
+    "isValue": true,
+    "converter": null,
+    "helpOpts": false,
+    "props": [],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "List\u003CSystem.Int32\u003E",
+    "kind": "Enumerable",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "elem": "System.Int32"
+  },
+  {
+    "type": "Guildmasters\u002BHolder",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "Name",
+        "member": "Name",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Level",
+        "member": "Level",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "RoomRecord",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "Foes",
+        "member": "Foes",
+        "memberKind": "Property",
+        "type": "FoeSlot[]",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "TreasureClass",
+        "member": "TreasureClass",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Lead",
+        "member": "Lead",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Gold",
+        "member": "Gold",
+        "memberKind": "Property",
+        "type": "System.Decimal",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "ChestTrap",
+        "member": "ChestTrap",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "ChestLock",
+        "member": "ChestLock",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "AnyStanding",
+        "member": "AnyStanding",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "HallRecords\u002BRecord",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "Value",
+        "member": "ValueWhole",
+        "memberKind": "Property",
+        "type": "System.Int64",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": "SavedWholeJson",
+        "order": 0
+      },
+      {
+        "json": "ValueExact",
+        "member": "ValueExact",
+        "memberKind": "Property",
+        "type": "Nullable\u003CSystem.Decimal\u003E",
+        "get": true,
+        "set": true,
+        "ignore": "WhenWritingNull",
+        "converter": "SavedExactJson",
+        "order": 0
+      },
+      {
+        "json": "Holder",
+        "member": "Holder",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Day",
+        "member": "Day",
+        "memberKind": "Property",
+        "type": "System.Int64",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": true,
+    "abstractOrIface": false
+  },
+  {
+    "type": "InventorySlot",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "ItemId",
+        "member": "ItemId",
+        "memberKind": "Property",
+        "type": "System.Int16",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Equipped",
+        "member": "Equipped",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Charges",
+        "member": "Charges",
+        "memberKind": "Property",
+        "type": "System.Int16",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Known",
+        "member": "Known",
+        "memberKind": "Property",
+        "type": "IdLevel",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Identified",
+        "member": "LegacyIdentified",
+        "memberKind": "Property",
+        "type": "Nullable\u003CSystem.Boolean\u003E",
+        "get": true,
+        "set": true,
+        "ignore": "WhenWritingNull",
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "SlotCursed",
+        "member": "SlotCursed",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Alignment",
+        "member": "Alignment",
+        "memberKind": "Property",
+        "type": "ItemAlignment",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "WindowRect",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "Left",
+        "member": "Left",
+        "memberKind": "Property",
+        "type": "System.Double",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Top",
+        "member": "Top",
+        "memberKind": "Property",
+        "type": "System.Double",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Width",
+        "member": "Width",
+        "memberKind": "Property",
+        "type": "System.Double",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Height",
+        "member": "Height",
+        "memberKind": "Property",
+        "type": "System.Double",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "State",
+        "member": "State",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "HasSize",
+        "member": "HasSize",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": false,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "List\u003CCompanion\u003E",
+    "kind": "Enumerable",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "elem": "Companion"
+  },
+  {
+    "type": "RaceSize",
+    "kind": "None",
+    "isValue": true,
+    "converter": null,
+    "helpOpts": false
+  },
+  {
+    "type": "Alignment[]",
+    "kind": "Enumerable",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "elem": "Alignment"
+  },
+  {
+    "type": "LibraryRecord",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "Id",
+        "member": "Id",
+        "memberKind": "Property",
+        "type": "System.Int16",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Known",
+        "member": "Known",
+        "memberKind": "Property",
+        "type": "System.Int16",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "NSeen",
+        "member": "NSeen",
+        "memberKind": "Property",
+        "type": "System.Int64",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Name",
+        "member": "Name",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "MonId",
+        "member": "MonId",
+        "memberKind": "Property",
+        "type": "System.Int16",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "LastSeen",
+        "member": "LastSeen",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Location",
+        "member": "Location",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "NDeaths",
+        "member": "NDeaths",
+        "memberKind": "Property",
+        "type": "System.Int16",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "List\u003CExtraction.HelpBundle\u002BTabRow\u003E",
+    "kind": "Enumerable",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": true,
+    "elem": "Extraction.HelpBundle\u002BTabRow"
+  },
+  {
+    "type": "List\u003CExtraction.HelpBundle\u002BLink\u003E",
+    "kind": "Enumerable",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": true,
+    "elem": "Extraction.HelpBundle\u002BLink"
+  },
+  {
+    "type": "FoeSlot[]",
+    "kind": "Enumerable",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "elem": "FoeSlot"
+  },
+  {
+    "type": "IdLevel",
+    "kind": "None",
+    "isValue": true,
+    "converter": null,
+    "helpOpts": false
+  },
+  {
+    "type": "ItemAlignment",
+    "kind": "None",
+    "isValue": true,
+    "converter": null,
+    "helpOpts": false
+  },
+  {
+    "type": "Companion",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "Ref",
+        "member": "Ref",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "MonsterId",
+        "member": "MonsterId",
+        "memberKind": "Property",
+        "type": "System.Int16",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Name",
+        "member": "Name",
+        "memberKind": "Property",
+        "type": "System.String",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Hits",
+        "member": "Hits",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "MaxHits",
+        "member": "MaxHits",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Alignment",
+        "member": "Alignment",
+        "memberKind": "Property",
+        "type": "ItemAlignment",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "IdLevel",
+        "member": "IdLevel",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "BindingLevel",
+        "member": "BindingLevel",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "IsDead",
+        "member": "IsDead",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": false,
+        "set": false,
+        "ignore": "Always",
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Vacant",
+        "member": "Vacant",
+        "memberKind": "Property",
+        "type": "System.Boolean",
+        "get": true,
+        "set": true,
+        "ignore": "WhenWritingDefault",
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "Extraction.HelpBundle\u002BTabRow",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": true,
+    "props": [
+      {
+        "json": "Start",
+        "member": "Start",
+        "memberKind": "Property",
+        "type": "System.Double",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Stops",
+        "member": "Stops",
+        "memberKind": "Property",
+        "type": "System.Double[]",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": [
+      "Start:System.Double",
+      "Stops:System.Double[]"
+    ],
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "Extraction.HelpBundle\u002BLink",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": true,
+    "props": [
+      {
+        "json": "Start",
+        "member": "Start",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Length",
+        "member": "Length",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "To",
+        "member": "To",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": [
+      "Start:System.Int32",
+      "Length:System.Int32",
+      "To:System.Int32"
+    ],
+    "onDeserialized": false,
+    "abstractOrIface": false
+  },
+  {
+    "type": "FoeSlot",
+    "kind": "Object",
+    "isValue": false,
+    "converter": null,
+    "helpOpts": false,
+    "props": [
+      {
+        "json": "Ref",
+        "member": "Ref",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "KnownAs",
+        "member": "KnownAs",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "GroupCount",
+        "member": "GroupCount",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Att",
+        "member": "Att",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Def",
+        "member": "Def",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Hits",
+        "member": "Hits",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "MaxHits",
+        "member": "MaxHits",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Alignment",
+        "member": "Alignment",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "IdLevel",
+        "member": "IdLevel",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Engaged",
+        "member": "Engaged",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "JoinOffer",
+        "member": "JoinOffer",
+        "memberKind": "Property",
+        "type": "System.Int32",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      },
+      {
+        "json": "Stamp",
+        "member": "Stamp",
+        "memberKind": "Property",
+        "type": "System.Double",
+        "get": true,
+        "set": true,
+        "ignore": null,
+        "converter": null,
+        "order": 0
+      }
+    ],
+    "ctorParams": null,
+    "onDeserialized": false,
+    "abstractOrIface": false
+  }
+]

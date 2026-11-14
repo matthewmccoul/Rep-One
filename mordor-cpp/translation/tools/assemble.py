@@ -38,5 +38,5 @@ open(f"{X}/cpp/tuples.h", "w").write('#pragma once\n#include "fwd.h"\n#include "
 struct_hdrs = [n for n in order if defs[n] & structs]; rest = [n for n in order if n not in struct_hdrs]
 body = "".join(f'#include "gen/{n}"\n' for n in struct_hdrs)
 body += '\nnamespace mc {\n' + "\n".join(late) + '\n}  // namespace mc\n\n' + "".join(f'#include "gen/{n}"\n' for n in rest)
-open(f"{X}/cpp/core.h", "w").write('#pragma once\n// Umbrella: every translated header, struct (value) types first, in dependency order.\n#include "cs.h"\n#include "fwd.h"\n#include "enums.h"\n#include "tuples.h"\n' + body)
+open(f"{X}/cpp/core.h", "w").write('#pragma once\n// Umbrella: every translated header, struct (value) types first, in dependency order.\n#include "cs.h"\n#include "fwd.h"\n#include "enums.h"\n#include "tuples.h"\n' + body + "#include \"gen/JsonContracts.h\"\n")
 print(len(defs), "headers;", len(struct_hdrs), "with structs; late tuples", len(late), "; missing blocks:", missing)

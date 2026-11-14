@@ -67,7 +67,7 @@ struct HelpRun {
         : Kind(kind), Text(text), Hash(hash), Offset(offset), Popup(popup), Macro(macro), External(external) {}
 };
 
-struct HelpParagraphData {
+struct HelpParagraphData : cs::Object {
     cs::Ref<HelpParagraphFormat> Format;
     int32_t Column = 0;
     cs::List<cs::Ref<HelpRun>> Runs = cs::List<cs::Ref<HelpRun>>::New();
@@ -76,7 +76,7 @@ struct HelpParagraphData {
     HelpParagraphData(cs::Ref<HelpParagraphFormat> format, int32_t column);
 };
 
-struct HelpTableData {
+struct HelpTableData : cs::Object {
     cs::List<Tup_Gap_Width_b1cfb> Columns;
     cs::List<cs::Ref<HelpParagraphData>> Cells = cs::List<cs::Ref<HelpParagraphData>>::New();
     HelpTableData(cs::List<Tup_Gap_Width_b1cfb> columns);
@@ -85,7 +85,7 @@ struct HelpTableData {
 struct HelpTopicData {
     int32_t Offset = 0;
     cs::String Title{};
-    cs::List<std::shared_ptr<void>> Items = cs::List<std::shared_ptr<void>>::New();
+    cs::List<cs::Ref<cs::Object>> Items = cs::List<cs::Ref<cs::Object>>::New();
     HelpTopicData(int32_t offset, cs::String title);
 };
 

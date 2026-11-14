@@ -8,7 +8,6 @@ cs::List<cs::String> Roster::Records(cs::String savesDir) {
     try {
         cs::String p = PathFor(savesDir);
         if (cs::File::Exists(p)) {
-            // JSON deserialization is not translated: the stub throws and is swallowed below
             auto l = cs::Json::Deserialize<cs::List<cs::String>>(cs::File::ReadAllText(p));
             return l ? l : cs::List<cs::String>::New();
         }
@@ -23,8 +22,7 @@ void Roster::Write(cs::String savesDir, cs::List<cs::String> records) {
         cs::JsonSerializerOptions _o{};
         _o.WriteIndented = true;
         (void)_o;
-        // JSON serialization is not translated: the stub throws and is swallowed below
-        cs::File::WriteAllText(PathFor(savesDir), cs::Json::Serialize(records));
+        cs::File::WriteAllText(PathFor(savesDir), cs::Json::Serialize(records, cs::Json::Indented()));
     } catch (...) {
     }
 }

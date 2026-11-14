@@ -33,8 +33,7 @@ CombatEngine::CombatEngine(cs::Ref<mc::Party> party, cs::List<cs::Ref<CombatMons
     auto kinds = Monsters.GroupBy([&](auto& m) { return m->Def; }).ToList();
     // the chest the encounter rolled (MONSMOD.BAS:1651-1697)
     cs::Ref<Monster> lead = Monsters.Count() > 0 ? Monsters[0]->Def : cs::Ref<Monster>();
-    // `monsters is Encounter`: a cs::List handle cannot carry the derived Encounter type
-    cs::Ref<Encounter> rolled = nullptr;
+    cs::Ref<Encounter> rolled = Encounter::Of(monsters);   // monsters is Encounter rolled
     if (rolled)
     {
         Source = rolled;

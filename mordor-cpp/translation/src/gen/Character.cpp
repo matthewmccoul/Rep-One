@@ -707,7 +707,11 @@ void Character::AreaForRockDeath() {
 }
 
 void Character::Save(cs::String path) {
-    throw cs::NotSupportedException("not translated: JSON serialization of Character");
+    Mods = Saves::ModTag ? Saves::ModTag() : cs::List<cs::String>();
+    // a per-user saves folder (Saves.DirFor) is only named until something is first written there
+    auto dir = cs::Path::GetDirectoryName(path);
+    if (!dir.empty()) cs::Directory::CreateDirectory(dir);
+    cs::File::WriteAllText(path, cs::Json::Serialize(*this, JsonOpts));
 }
 
 void Character::CheckNames(cs::String path) {
@@ -719,11 +723,22 @@ void Character::CheckNames(cs::String path) {
 }
 
 cs::Ref<Character> Character::ReadRaw(cs::String path) {
-    throw cs::NotSupportedException("not translated: JSON deserialization of Character");
+    auto c = cs::Json::Deserialize<cs::Ref<Character>>(cs::File::ReadAllText(path));
+    if (c == nullptr) throw cs::InvalidDataException("Bad save file");
+    return c;
 }
 
 cs::Ref<Character> Character::Load(cs::String path) {
-    throw cs::NotSupportedException("not translated: JSON deserialization of Character");
+    cs::String json = cs::File::ReadAllText(path);
+    auto c = cs::Json::Deserialize<cs::Ref<Character>>(json);
+    if (c == nullptr) throw cs::InvalidDataException("Bad save file");
+    c->CheckNames(path);
+    c->ModsWhenLoaded = c->Mods;
+    // a save from before ADShift, paralysed: its stat part was missing while held
+    if (c->ParalysisLevel != 0 && !cs::Str::Contains(json, "\"ADShift\"")) c->ADShiftUnsettled = true;
+    c->MigrateLegacyPack();   // a save from before the pack had fixed slots held a plain list
+    c->RecalcSwings();   // derived from guild levels; a save from before it existed has 0
+    return c;
 }
 
 cs::List<cs::Ref<Character>> Character::LoadAllFrom(cs::String savesDir) {

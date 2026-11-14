@@ -186,7 +186,7 @@ cs::Ref<HallRecords> HallRecords::Load(cs::String savesDir) {
 void HallRecords::Save(cs::String savesDir) {
     try {
         cs::Directory::CreateDirectory(savesDir);
-        cs::File::WriteAllText(PathFor(savesDir), cs::Json::Serialize(*this));
+        cs::File::WriteAllText(PathFor(savesDir), cs::Json::Serialize(*this, cs::Json::Indented()));
     } catch (...) {
     }
 }

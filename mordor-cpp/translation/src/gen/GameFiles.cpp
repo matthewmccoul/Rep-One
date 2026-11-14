@@ -178,9 +178,12 @@ cs::String GameFiles::DataVersion(cs::String path) {
 }
 
 cs::String GameFiles::Recognise(cs::String exe) {
-    // SHA-256 of the file is not available here; the C# returns null on any failure
-    (void)exe;
-    return {};
+    try
+    {
+        cs::String name;
+        return KnownExe.TryGetValue(cs::Convert::ToHexString(cs::SHA256::HashFile(exe)), name) ? name : cs::String();
+    }
+    catch (...) { return {}; }
 }
 
 bool GameFolderResolution::IsFull() { return (Found ? Found->IsFull() : false) == true; }

@@ -109,7 +109,7 @@ void Confinement::Save(cs::String savesDir) {
         if (_idKeyed) return;   // Id keys never go back out labelled as table indices
         cs::Directory::CreateDirectory(savesDir);
         KeyedBy = ByRef;   // every pen this port makes is keyed by table index
-        cs::File::WriteAllText(PathFor(savesDir), cs::Json::Serialize(*this));
+        cs::File::WriteAllText(PathFor(savesDir), cs::Json::Serialize(*this, cs::Json::Indented()));
     } catch (...) { }
 }
 

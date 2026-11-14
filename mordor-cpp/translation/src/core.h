@@ -130,3 +130,4 @@ namespace mc {
 #include "gen/VbConvert.h"
 #include "gen/WaveMix.h"
 #include "gen/WholeRows.h"
+#include "gen/JsonContracts.h"
