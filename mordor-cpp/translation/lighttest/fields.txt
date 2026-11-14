@@ -1,0 +1,3 @@
+Name,Id,Att,Def,Price,Floor,Rarity,Abilities,Swings,SpecialType,SpellIndex,SpellId,Charges,Guilds,LevelScale,DamageMod,AlignmentFlags,NHands,Type,ResistanceFlags,StatsRequired,StatsMod,Cursed,SpellLvl,ClassRestricted
+Ref,Name,Att,Def,Id,Hits,NumGroups,PicId,LockedChance,LevelFound,Resistances,SpecialPropertyFlags,SpecialAttackFlags,SpellFlags,Chance,BoxChance,AlignmentValue,InGroup,GoldFactor,TrapFlags,GuildLevel,Stats,Type,DamageMod,CompanionType,CompanionSpawnMode,CompanionId,Items,Subtype,CompanionSubtype,Size,ItemDropLevel,ItemChance
+Name,Id,Category,Level,U4,KillEffect,AffectMonster,AffectGroup,Damage1,Damage2,SpecialEffect,Effect,Required,ResistIndex
