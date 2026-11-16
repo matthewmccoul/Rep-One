@@ -7,8 +7,8 @@
 | Run logs | [`delve-deeper/assignment5_runs/20261116-042545/`](delve-deeper/assignment5_runs/20261116-042545/RUN_LOG.md) (the run that wrote the feature), [`20261116-043146/`](delve-deeper/assignment5_runs/20261116-043146/RUN_LOG.md) (the second run, which found nothing to do). On Windows: [`20261116-002713/`](delve-deeper/assignment5_runs/20261116-002713/RUN_LOG.md) (run with the build, exit 0), [`20261116-002643/`](delve-deeper/assignment5_runs/20261116-002643/RUN_LOG.md) (first attempt, failed on text encoding before any model call), [`windows_20261116/build_01.log`](delve-deeper/assignment5_runs/windows_20261116/build_01.log) (the standalone UE build) |
 
 **Status, stated plainly:** the agent ran and wrote the feature. On Windows with UE 5.8.3 the feature **built** with no code
-changes and the headless smoke test passed (17 of 17). The author then played `DemoLevel` and reported that it ran fine; the
-individual steps were not written down. See "What is verified".
+changes and the headless smoke test passed (17 of 17). The author then played `DemoLevel`, and the
+Unreal log recorded all nine toll outcomes, including the locked and unlocked descent. See "What is verified".
 
 ## What the agent did
 
@@ -42,7 +42,7 @@ evidence. The ranking worked, but it did not discriminate between them here.
 | Unreal build (UE 5.8.3, Windows, Visual Studio Build Tools 2022, MSVC 14.44) with `build_ue.bat` | **Pass.** `Result: Succeeded`, 29 compile and link steps, 0 errors, 172 s ([`build_01.log`](delve-deeper/assignment5_runs/windows_20261116/build_01.log)). No code was changed to make it build |
 | Headless smoke test (17 checks: floor map, storeroom puzzle, quest) | **Pass.** 17 PASS, 0 FAIL, "DONE: 0 failure(s)" ([`smoke_result.txt`](delve-deeper/3_unreal_project/DelveDeeperTest/Tests/smoke_result.txt)). It does not cover the boss, gold or descent |
 | Agent run on Windows with the build (`20261116-002713`) | Exit code 0, "SUCCESS". All four requirements scanned as implemented, nothing was written (`git status` showed no change to any source file), the build check passed (99 s), one model call, cost $0.34 |
-| Playing `DemoLevel` | **Done by the author on 2026-11-16**, in the Unreal Editor on Windows (UE 5.8.3). The author reported that it ran fine. The result of each step below (locked descent, cannot pay, pay, win) was not written down, and no screenshot or recording was kept. Anyone can repeat the steps to check |
+| Playing `DemoLevel` | **Done by the author on 2026-11-16**, in the Unreal Editor on Windows (UE 5.8.3). The game's own messages in the Unreal log ([`playtest_log.txt`](delve-deeper/assignment5_runs/windows_20261116/playtest_log.txt), session 06:49:55 to 06:51:08 UTC) record nine outcomes in one playthrough: descent barred before paying; boss demands 100 gold; cannot pay with no gold; descent still barred after walking away; purse gives 100 gold; toll paid; second pay attempt answered "already paid"; boss says the toll is paid; descent wins the demo. The log holds messages only: the on-screen gold counter, the win banner and input stopping are not in it, and no screenshot or recording was kept. The author reported that the demo ran fine |
 
 **Windows notes.** The first attempt at that run (`20261116-002643`) failed with exit code 1 before any model call ($0.00): the
 runner sent its prompt to `claude` in the Windows default encoding (cp1252), which cannot encode the "●" character in the prompt.

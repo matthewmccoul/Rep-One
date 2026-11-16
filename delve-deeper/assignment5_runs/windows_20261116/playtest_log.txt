@@ -1,0 +1,24 @@
+Playtest of DemoLevel in the Unreal Editor (UE 5.8.3, Windows), 2026-11-16, played by the author.
+Excerpt of Saved/Logs/DelveDeeperTest.log: every [Demo] game message plus the play-session start and stop lines. Times are UTC.
+The second session (06:49:55 to 06:51:08) covers all nine toll outcomes.
+
+[2026.11.16-06.49.01:791][257]LogWorld: Bringing World /Game/Maps/UEDPIE_0_DemoLevel.DemoLevel up for play (max tick rate 60) at 2026.11.16-01.49.01
+[2026.11.16-06.49.01:850][257]LogTemp: Display: [Demo] Demo: Floor 1, the storeroom puzzle and the Mysterious Figure quest, running through the DelveDeeperContent plugin.
+[2026.11.16-06.49.17:689][194]LogTemp: Display: [Demo] Bandit boss: Well now, adventurer. The way down costs 100 gold. Pay it, and we'll pretend we never met.
+[2026.11.16-06.49.17:689][194]LogTemp: Display: [Demo] Demo: Press Q facing the boss to pay the toll (100 gold).
+[2026.11.16-06.49.21:824][442]LogTemp: Display: [Demo] Bandit boss: Short of 100 gold? Then you're short of a way down. Come back richer, or find another way to persuade me.
+[2026.11.16-06.49.31:475][ 19]LogWorld: BeginTearingDown for /Game/Maps/UEDPIE_0_DemoLevel
+[2026.11.16-06.49.55:001][ 22]LogWorld: Bringing World /Game/Maps/UEDPIE_0_DemoLevel.DemoLevel up for play (max tick rate 60) at 2026.11.16-01.49.55
+[2026.11.16-06.49.55:050][ 22]LogTemp: Display: [Demo] Demo: Floor 1, the storeroom puzzle and the Mysterious Figure quest, running through the DelveDeeperContent plugin.
+[2026.11.16-06.50.17:718][227]LogTemp: Display: [Demo] Demo: The bandit boss bars the way down. Pay his toll first.
+[2026.11.16-06.50.22:218][497]LogTemp: Display: [Demo] Bandit boss: Well now, adventurer. The way down costs 100 gold. Pay it, and we'll pretend we never met.
+[2026.11.16-06.50.22:218][497]LogTemp: Display: [Demo] Demo: Press Q facing the boss to pay the toll (100 gold).
+[2026.11.16-06.50.26:018][725]LogTemp: Display: [Demo] Bandit boss: Short of 100 gold? Then you're short of a way down. Come back richer, or find another way to persuade me.
+[2026.11.16-06.50.32:127][ 90]LogTemp: Display: [Demo] Demo: The bandit boss bars the way down. Pay his toll first.
+[2026.11.16-06.50.45:445][889]LogTemp: Display: [Demo] Loot: You take 100 gold. Gold: 100.
+[2026.11.16-06.50.51:478][251]LogTemp: Display: [Demo] Bandit boss: Pleasure doing business, adventurer. Mind your step down there. We don't refund the dead.
+[2026.11.16-06.50.51:478][251]LogTemp: Display: [Demo] Log: You paid the bandit boss 100 gold. The way down is open.
+[2026.11.16-06.50.54:162][412]LogTemp: Display: [Demo] Bandit boss: You have already paid. The way is open.
+[2026.11.16-06.50.58:496][672]LogTemp: Display: [Demo] Bandit boss: Toll's paid. Go on down.
+[2026.11.16-06.51.03:513][973]LogTemp: Display: [Demo] Demo: You go down the descent. YOU WIN - the demo is over.
+[2026.11.16-06.51.08:376][262]LogWorld: BeginTearingDown for /Game/Maps/UEDPIE_0_DemoLevel
