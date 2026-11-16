@@ -66,14 +66,11 @@ should stop at the win. Both still need confirming in play.
 five steps (`diff_01.patch` to `diff_05.patch`). The Windows build succeeded with no code change, so nothing in the feature was
 edited by hand.
 
-<details>
-<summary>Footnote</summary>
+# **CLAUDE CODE'S ERROR, CAUGHT BY THE AUTHOR**
 
-Claude Code first filed the three Windows fixes below under "Manual changes". That was a false flag. They were developments to the
-agent, not changes to the content the agent generated. The author caught it, called Claude Code an insufferable toaster, and made
-it fix the error. This section and the next are the corrected record.
-
-</details>
+> ## **Claude Code first filed the three Windows fixes below under "Manual changes". THAT WAS A FALSE FLAG.**
+>
+> **They were developments to the agent, NOT changes to the content the agent generated. The author caught it, called Claude Code an insufferable toaster, and made it fix the error. This section and the next are the corrected record.**
 
 ## Changes to the agent after its first Windows run
 
