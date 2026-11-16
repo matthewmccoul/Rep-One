@@ -110,3 +110,12 @@ Route from the start: entry hall, collapsed gallery, old ore lift, barracks (pur
 - The 100 gold toll and purse are the Assignment 3 crew's `EXPERIMENTAL` values (`delve-deeper/inputs/crew_encounter/`), not approved GDD design.
 - Unreal build output (`Binaries/`, `Intermediate/`) is gitignored and is rebuilt on the first build.
 - The project and the GDD came from the Drive file "Assignment 4 Post Feedback revamp.zip".
+
+<details>
+<summary>Footnote</summary>
+
+Claude Code first filed the three Windows fixes under "Manual changes". That was a false flag. They were developments to the
+agent, not changes to the content the agent generated. The author caught it, called Claude Code an insufferable toaster, and made
+it fix the error. The two sections above are the corrected version.
+
+</details>
