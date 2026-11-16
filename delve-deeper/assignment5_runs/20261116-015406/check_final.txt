@@ -1,0 +1,14 @@
+Using bundled DotNet SDK version: 10.0 win-x64
+Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" DelveDeeperTestEditor Win64 Development -Project="C:\src\Rep-One\delve-deeper\tools\assignment5\..\..\3_unreal_project\DelveDeeperTest\DelveDeeperTest.uproject" -WaitMutex
+Log file: C:\Users\matth\AppData\Local\UnrealBuildTool\Log.txt
+Determining max actions to execute in parallel (24 physical cores, 32 logical cores)
+  Executing up to 24 processes, one per physical core
+  Requested 1.5 GB memory per action, 29.71 GB available: limiting max parallel actions to 19
+Creating makefile for DelveDeeperTestEditor (.uproject file is newer)
+UbaServer - Listening on 0.0.0.0:1345
+UHT compiled-in object format Default
+Unable to build while Live Coding is active. Exit the editor and game, or press Ctrl+Alt+F11 if iterating on code in the editor or game
+
+Result: Failed (OtherCompilationError)
+Total execution time: 16.55 seconds
+Trace written to file C:\Users\matth\AppData\Local\UnrealBuildTool\Trace.uba with size 3.4kb

@@ -1,0 +1,484 @@
+{
+  "model_output": {
+    "results": [
+      {
+        "id": "DD-GOLD-01",
+        "status": "implemented",
+        "summary": "The gold balance starts at 0 and the status text shows 'Gold: %d'. A gold purse at the barracks node is spawned in BeginPlay; E on it adds PurseGold (100) once, sets bPurseTaken and destroys the purse, so a second pickup gives nothing. Read only: the build has never run and the pickup has not been played.",
+        "evidence": [
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h",
+            "symbol": "PurseGold",
+            "note": "Gold = 0 start, bPurseTaken flag, PurseGold = 100 demo value labelled as the crew's EXPERIMENTAL toll value."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "gold_purse",
+            "note": "BeginPlay spawns the purse at NodeLocation(\"barracks\"), kind Purse."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "HandleInteract",
+            "note": "case EDDDemoKind::Purse: if (!bAlt && !bPurseTaken) adds PurseGold, announces it, destroys the purse."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "Gold: %d",
+            "note": "GetStatusLines adds the gold line to the on-screen status."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoHUD.cpp",
+            "symbol": "GetStatusLines",
+            "note": "DrawHUD draws the director's status lines top left."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoInteractable.cpp",
+            "symbol": "Interact",
+            "note": "E reaches the director through Interact(false)."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoCharacter.cpp",
+            "symbol": "InteractAction",
+            "note": "E (EKeys::E) is mapped to InteractAction and bound to Interact."
+          },
+          {
+            "path": "2_generated_content_T001/map/floor1_map.json",
+            "symbol": "barracks",
+            "note": "Node exists and is reachable from town_entrance through plain doors e02, e04, e10, e11."
+          }
+        ],
+        "impact": 3,
+        "urgency": 0,
+        "unblocks": 2,
+        "score_reason": "GDD Currency: Gold (line 319) and the HUD (lines 395-397) need a gold balance, and the toll in TOLL-02 cannot be paid without it. It is already implemented, so urgency is 0; TOLL-02 depends on it, so unblocks is 2."
+      },
+      {
+        "id": "DD-TOLL-01",
+        "status": "implemented",
+        "summary": "A bandit boss is spawned at boss_room. E on him at the threatening stage shows bandit_boss_stage_threatening_01 with {toll_amount} filled from toll_gold (100) and a hint to press Q. The name is the literal 'adventurer' in the demo. Read only: the build has never run.",
+        "evidence": [
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "LoadBanditData",
+            "note": "Reads bandit_strings.csv and faction_stages.json, takes TollGold from the threatening stage's toll_gold."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "bandit_boss_stage_threatening_01",
+            "note": "Boss E branch (not paid) shows BossLine of this string, then the 'Press Q' hint."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "BossLine",
+            "note": "Replaces {adventurer_name} with 'adventurer' and {toll_amount} with TollGold."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "bandit_boss",
+            "note": "BeginPlay spawns the Boss interactable at NodeLocation(\"boss_room\")."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Plugins/DelveDeeperContent/Content/Data/bandit_strings.csv",
+            "symbol": "bandit_boss_stage_threatening_01",
+            "note": "Runtime copy; byte-identical to inputs/crew_encounter/bandit_strings.csv (cmp)."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Plugins/DelveDeeperContent/Content/Data/faction_stages.json",
+            "symbol": "toll_gold",
+            "note": "Runtime copy with threatening toll_gold 100; byte-identical to inputs/crew_encounter/faction_stages.json (cmp)."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Plugins/DelveDeeperContent/Source/DelveDeeperContent/Private/DDText.cpp",
+            "symbol": "LoadDataFile",
+            "note": "Loads from the plugin's Content/Data folder, where the copies sit."
+          },
+          {
+            "path": "2_generated_content_T001/map/floor1_map.json",
+            "symbol": "boss_room",
+            "note": "Node exists; reached from toll_hall via e14 (plain door)."
+          }
+        ],
+        "impact": 3,
+        "urgency": 0,
+        "unblocks": 2,
+        "score_reason": "GDD Boss and standing (lines 385-387) says the boss starts at threatening and demands a toll, which is the first thing the player meets at the descent. The boss is already in place with its strings loaded, so urgency is 0; TOLL-02 depends on it, so unblocks is 2."
+      },
+      {
+        "id": "DD-TOLL-02",
+        "status": "implemented",
+        "summary": "Q on the boss pays. With gold >= TollGold it subtracts exactly TollGold, sets bTollPaid and shows bandit_boss_toll_paid_01 with log_toll_paid. With less gold it shows bandit_boss_cannot_pay_01 and takes nothing. Once paid, further Q presses only say 'already paid' and no gold is taken again. No favor value exists to change. Read only: the build has never run and no payment has been played.",
+        "evidence": [
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "bTollPaid",
+            "note": "Boss Alt branch: already paid check, then Gold >= TollGold subtracts TollGold and sets bTollPaid, else the cannot-pay line."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "bandit_boss_cannot_pay_01",
+            "note": "Shown when Gold < TollGold; no gold change, bTollPaid stays false."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "bandit_boss_toll_paid_01",
+            "note": "Shown on successful payment, with log_toll_paid."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "PromptFor",
+            "note": "Boss prompt offers 'Q Pay the toll' only while bTollPaid is false."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h",
+            "symbol": "bTollPaid",
+            "note": "Per-run flag, read by the descent (DD-DESC-01)."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoCharacter.cpp",
+            "symbol": "AltInteract",
+            "note": "Q (EKeys::Q, AltAction) is bound to AltInteract, which calls Interact(true) on the focused interactable."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoCharacter.cpp",
+            "symbol": "Tick",
+            "note": "Focus is the nearest interactable with a prompt within InteractRange (280)."
+          },
+          {
+            "path": "inputs/crew_encounter/player_options.csv",
+            "symbol": "TOLL-03",
+            "note": "Rule text: gold >= toll_locked AND toll_paid_this_visit = 0; favor_delta 0. The code uses a per-run flag rather than a per-visit one, which the scope's 'never charged twice' allows."
+          }
+        ],
+        "impact": 3,
+        "urgency": 0,
+        "unblocks": 2,
+        "score_reason": "GDD Boss and standing (lines 385-387) and crew rule TOLL-03 make paying the toll the only way past the boss, so this is central to the ending. The payment branches are already in the code, so urgency is 0; DESC-01 depends on it, so unblocks is 2."
+      },
+      {
+        "id": "DD-DESC-01",
+        "status": "implemented",
+        "summary": "The descent is spawned at node descent. Before the toll is paid, E says the boss bars the way and the demo continues. After payment, E ends the demo: a YOU WIN message is logged, bDemoOver stops further interaction, pawn input is disabled, and the HUD keeps a win banner up. Read only: the build has never run and the win has not been played.",
+        "evidence": [
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "bDemoOver",
+            "note": "HandleInteract Descent branch: not paid shows 'bars the way down'; paid sets bDemoOver, adds the win message and calls DisableInput on the pawn."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "YOU WIN",
+            "note": "Win message text; PromptFor returns no prompt once bDemoOver is set."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "descent",
+            "note": "BeginPlay spawns the Descent interactable at NodeLocation(\"descent\")."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h",
+            "symbol": "IsDemoOver",
+            "note": "Public accessor read by the HUD for the win banner."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoHUD.cpp",
+            "symbol": "IsDemoOver",
+            "note": "DrawHUD draws 'YOU WIN - You went down the descent. The demo is over.' while the demo is over."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoGameMode.cpp",
+            "symbol": "SpawnActor<ADDDemoDirector>",
+            "note": "GameMode spawns the director if the level has none, so the descent and HUD are reached in DemoLevel."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Config/DefaultEngine.ini",
+            "symbol": "DDDemoGameMode",
+            "note": "GlobalDefaultGameMode is DDDemoGameMode."
+          },
+          {
+            "path": "2_generated_content_T001/map/floor1_map.json",
+            "symbol": "descent",
+            "note": "Node exists; reached from boss_room via e15 (plain door)."
+          }
+        ],
+        "impact": 3,
+        "urgency": 0,
+        "unblocks": 0,
+        "score_reason": "GDD Win (lines 44-45) and Boss Encounter Winning (line 390) say going down the descent ends the demo, so this is the milestone's last step. It is already implemented, so urgency is 0 and nothing depends on it, so unblocks is 0."
+      }
+    ]
+  },
+  "verified": {
+    "DD-GOLD-01": {
+      "status": "implemented",
+      "model_status": "implemented",
+      "summary": "The gold balance starts at 0 and the status text shows 'Gold: %d'. A gold purse at the barracks node is spawned in BeginPlay; E on it adds PurseGold (100) once, sets bPurseTaken and destroys the purse, so a second pickup gives nothing. Read only: the build has never run and the pickup has not been played.",
+      "evidence": [
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h",
+          "symbol": "PurseGold",
+          "note": "Gold = 0 start, bPurseTaken flag, PurseGold = 100 demo value labelled as the crew's EXPERIMENTAL toll value.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "gold_purse",
+          "note": "BeginPlay spawns the purse at NodeLocation(\"barracks\"), kind Purse.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "HandleInteract",
+          "note": "case EDDDemoKind::Purse: if (!bAlt && !bPurseTaken) adds PurseGold, announces it, destroys the purse.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "Gold: %d",
+          "note": "GetStatusLines adds the gold line to the on-screen status.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoHUD.cpp",
+          "symbol": "GetStatusLines",
+          "note": "DrawHUD draws the director's status lines top left.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoInteractable.cpp",
+          "symbol": "Interact",
+          "note": "E reaches the director through Interact(false).",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoCharacter.cpp",
+          "symbol": "InteractAction",
+          "note": "E (EKeys::E) is mapped to InteractAction and bound to Interact.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "2_generated_content_T001/map/floor1_map.json",
+          "symbol": "barracks",
+          "note": "Node exists and is reachable from town_entrance through plain doors e02, e04, e10, e11.",
+          "verified": true,
+          "check": "symbol found"
+        }
+      ],
+      "impact": 3,
+      "urgency": 0,
+      "unblocks": 2,
+      "score_reason": "GDD Currency: Gold (line 319) and the HUD (lines 395-397) need a gold balance, and the toll in TOLL-02 cannot be paid without it. It is already implemented, so urgency is 0; TOLL-02 depends on it, so unblocks is 2."
+    },
+    "DD-TOLL-01": {
+      "status": "implemented",
+      "model_status": "implemented",
+      "summary": "A bandit boss is spawned at boss_room. E on him at the threatening stage shows bandit_boss_stage_threatening_01 with {toll_amount} filled from toll_gold (100) and a hint to press Q. The name is the literal 'adventurer' in the demo. Read only: the build has never run.",
+      "evidence": [
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "LoadBanditData",
+          "note": "Reads bandit_strings.csv and faction_stages.json, takes TollGold from the threatening stage's toll_gold.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "bandit_boss_stage_threatening_01",
+          "note": "Boss E branch (not paid) shows BossLine of this string, then the 'Press Q' hint.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "BossLine",
+          "note": "Replaces {adventurer_name} with 'adventurer' and {toll_amount} with TollGold.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "bandit_boss",
+          "note": "BeginPlay spawns the Boss interactable at NodeLocation(\"boss_room\").",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Plugins/DelveDeeperContent/Content/Data/bandit_strings.csv",
+          "symbol": "bandit_boss_stage_threatening_01",
+          "note": "Runtime copy; byte-identical to inputs/crew_encounter/bandit_strings.csv (cmp).",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Plugins/DelveDeeperContent/Content/Data/faction_stages.json",
+          "symbol": "toll_gold",
+          "note": "Runtime copy with threatening toll_gold 100; byte-identical to inputs/crew_encounter/faction_stages.json (cmp).",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Plugins/DelveDeeperContent/Source/DelveDeeperContent/Private/DDText.cpp",
+          "symbol": "LoadDataFile",
+          "note": "Loads from the plugin's Content/Data folder, where the copies sit.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "2_generated_content_T001/map/floor1_map.json",
+          "symbol": "boss_room",
+          "note": "Node exists; reached from toll_hall via e14 (plain door).",
+          "verified": true,
+          "check": "symbol found"
+        }
+      ],
+      "impact": 3,
+      "urgency": 0,
+      "unblocks": 2,
+      "score_reason": "GDD Boss and standing (lines 385-387) says the boss starts at threatening and demands a toll, which is the first thing the player meets at the descent. The boss is already in place with its strings loaded, so urgency is 0; TOLL-02 depends on it, so unblocks is 2."
+    },
+    "DD-TOLL-02": {
+      "status": "implemented",
+      "model_status": "implemented",
+      "summary": "Q on the boss pays. With gold >= TollGold it subtracts exactly TollGold, sets bTollPaid and shows bandit_boss_toll_paid_01 with log_toll_paid. With less gold it shows bandit_boss_cannot_pay_01 and takes nothing. Once paid, further Q presses only say 'already paid' and no gold is taken again. No favor value exists to change. Read only: the build has never run and no payment has been played.",
+      "evidence": [
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "bTollPaid",
+          "note": "Boss Alt branch: already paid check, then Gold >= TollGold subtracts TollGold and sets bTollPaid, else the cannot-pay line.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "bandit_boss_cannot_pay_01",
+          "note": "Shown when Gold < TollGold; no gold change, bTollPaid stays false.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "bandit_boss_toll_paid_01",
+          "note": "Shown on successful payment, with log_toll_paid.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "PromptFor",
+          "note": "Boss prompt offers 'Q Pay the toll' only while bTollPaid is false.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h",
+          "symbol": "bTollPaid",
+          "note": "Per-run flag, read by the descent (DD-DESC-01).",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoCharacter.cpp",
+          "symbol": "AltInteract",
+          "note": "Q (EKeys::Q, AltAction) is bound to AltInteract, which calls Interact(true) on the focused interactable.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoCharacter.cpp",
+          "symbol": "Tick",
+          "note": "Focus is the nearest interactable with a prompt within InteractRange (280).",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "inputs/crew_encounter/player_options.csv",
+          "symbol": "TOLL-03",
+          "note": "Rule text: gold >= toll_locked AND toll_paid_this_visit = 0; favor_delta 0. The code uses a per-run flag rather than a per-visit one, which the scope's 'never charged twice' allows.",
+          "verified": true,
+          "check": "symbol found"
+        }
+      ],
+      "impact": 3,
+      "urgency": 0,
+      "unblocks": 2,
+      "score_reason": "GDD Boss and standing (lines 385-387) and crew rule TOLL-03 make paying the toll the only way past the boss, so this is central to the ending. The payment branches are already in the code, so urgency is 0; DESC-01 depends on it, so unblocks is 2."
+    },
+    "DD-DESC-01": {
+      "status": "implemented",
+      "model_status": "implemented",
+      "summary": "The descent is spawned at node descent. Before the toll is paid, E says the boss bars the way and the demo continues. After payment, E ends the demo: a YOU WIN message is logged, bDemoOver stops further interaction, pawn input is disabled, and the HUD keeps a win banner up. Read only: the build has never run and the win has not been played.",
+      "evidence": [
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "bDemoOver",
+          "note": "HandleInteract Descent branch: not paid shows 'bars the way down'; paid sets bDemoOver, adds the win message and calls DisableInput on the pawn.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "YOU WIN",
+          "note": "Win message text; PromptFor returns no prompt once bDemoOver is set.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "descent",
+          "note": "BeginPlay spawns the Descent interactable at NodeLocation(\"descent\").",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h",
+          "symbol": "IsDemoOver",
+          "note": "Public accessor read by the HUD for the win banner.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoHUD.cpp",
+          "symbol": "IsDemoOver",
+          "note": "DrawHUD draws 'YOU WIN - You went down the descent. The demo is over.' while the demo is over.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoGameMode.cpp",
+          "symbol": "SpawnActor<ADDDemoDirector>",
+          "note": "GameMode spawns the director if the level has none, so the descent and HUD are reached in DemoLevel.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Config/DefaultEngine.ini",
+          "symbol": "DDDemoGameMode",
+          "note": "GlobalDefaultGameMode is DDDemoGameMode.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "2_generated_content_T001/map/floor1_map.json",
+          "symbol": "descent",
+          "note": "Node exists; reached from boss_room via e15 (plain door).",
+          "verified": true,
+          "check": "symbol found"
+        }
+      ],
+      "impact": 3,
+      "urgency": 0,
+      "unblocks": 0,
+      "score_reason": "GDD Win (lines 44-45) and Boss Encounter Winning (line 390) say going down the descent ends the demo, so this is the milestone's last step. It is already implemented, so urgency is 0 and nothing depends on it, so unblocks is 0."
+    }
+  },
+  "cost_usd": 0.07393959,
+  "models": [
+    "claude-haiku-5-5"
+  ]
+}

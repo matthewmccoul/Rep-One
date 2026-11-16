@@ -1,0 +1,34 @@
+{
+  "run_id": "20261116-030156",
+  "started": "2026-11-16T08:01:56Z",
+  "milestone": "M1 first-floor ending",
+  "iterations": [],
+  "scans": [
+    {
+      "n": 1,
+      "statuses": {
+        "DD-GOLD-01": "implemented",
+        "DD-TOLL-01": "implemented",
+        "DD-TOLL-02": "implemented",
+        "DD-DESC-01": "implemented"
+      }
+    }
+  ],
+  "claude_calls": [
+    {
+      "stage": "scan 1",
+      "cost_usd": 0.07393959,
+      "turns": 24,
+      "session_id": "6d8df1bf-d56b-4bbe-9c05-565b501f6995",
+      "models": [
+        "claude-haiku-5-5"
+      ],
+      "duration_ms": 70759
+    }
+  ],
+  "ended": "2026-11-16T08:05:40Z",
+  "result": "SUCCESS",
+  "exit_code": 0,
+  "why": "All scoped requirements are implemented with verified evidence and the build check passed. No files were written in this run.",
+  "total_cost_usd": 0.0739
+}
