@@ -205,10 +205,22 @@ IMPLEMENT_SCHEMA = {
 }
 
 
+def split_command(command: str, windows: bool | None = None) -> list[str]:
+    """Split a command line into arguments. shlex's POSIX rules drop the backslashes of a Windows path
+    (C:\\Users\\me\\claude.exe becomes C:Usersmeclaude.exe), so on Windows split without escapes and strip
+    the quotes around each argument. Pass windows=True or False to override the platform."""
+    if windows is None:
+        windows = os.name == "nt"
+    if not windows:
+        return shlex.split(command)
+    return [a[1:-1] if len(a) >= 2 and a[0] == a[-1] and a[0] in "\"'" else a
+            for a in shlex.split(command, posix=False)]
+
+
 def call_claude(claude_bin: str, prompt: str, cwd: Path, *, schema: dict, model: str | None, allowed_tools: str,
                 permission_mode: str, max_turns: int, max_budget: float, timeout: int) -> dict:
     """Run one non-interactive Claude Code call and return the parsed, validated response."""
-    cmd = shlex.split(claude_bin) + ["-p", "--output-format", "json", "--json-schema", json.dumps(schema),
+    cmd = split_command(claude_bin) + ["-p", "--output-format", "json", "--json-schema", json.dumps(schema),
                                      f"--allowedTools={allowed_tools}", "--permission-mode", permission_mode,
                                      "--max-turns", str(max_turns), "--max-budget-usd", str(max_budget)]
     if model:
@@ -429,6 +441,15 @@ def run_build(build_cmd: str | None, root: Path, timeout: int) -> dict:
 # Run log (a plain Markdown blackboard)
 # --------------------------------------------------------------------------------------------------------------
 
+def console_print(text: str) -> None:
+    """print() that never fails on a character the console encoding cannot represent (cp1252 on Windows)."""
+    try:
+        print(text, flush=True)
+    except UnicodeEncodeError:
+        encoding = getattr(sys.stdout, "encoding", None) or "ascii"
+        print(text.encode(encoding, errors="replace").decode(encoding), flush=True)
+
+
 class RunLog:
     def __init__(self, run_dir: Path):
         self.dir = run_dir
@@ -439,7 +460,7 @@ class RunLog:
     def write(self, text: str) -> None:
         with self.path.open("a", encoding="utf-8") as f:
             f.write(text.rstrip() + "\n\n")
-        print(text.rstrip(), flush=True)
+        console_print(text.rstrip())
 
     def save(self, name: str, content) -> None:
         text = content if isinstance(content, str) else json.dumps(content, indent=2)
