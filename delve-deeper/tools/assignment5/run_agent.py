@@ -214,7 +214,8 @@ def call_claude(claude_bin: str, prompt: str, cwd: Path, *, schema: dict, model:
     if model:
         cmd += ["--model", model]
     try:
-        proc = subprocess.run(cmd, input=prompt, capture_output=True, text=True, cwd=str(cwd), timeout=timeout)
+        proc = subprocess.run(cmd, input=prompt, capture_output=True, text=True, encoding="utf-8", errors="replace",
+                              cwd=str(cwd), timeout=timeout)
     except FileNotFoundError as exc:
         raise StageError(f"cannot run '{claude_bin}': {exc}") from exc
     except subprocess.TimeoutExpired as exc:
@@ -412,7 +413,8 @@ def run_build(build_cmd: str | None, root: Path, timeout: int) -> dict:
         return {"state": "not_run", "log": "No build command configured (--build-cmd or DD_BUILD_CMD); "
                                            "Unreal builds need UE 5.8 on Windows.", "errors": ""}
     try:
-        proc = subprocess.run(build_cmd, shell=True, cwd=str(root), capture_output=True, text=True, timeout=timeout)
+        proc = subprocess.run(build_cmd, shell=True, cwd=str(root), capture_output=True, text=True, encoding="utf-8",
+                              errors="replace", timeout=timeout)
     except subprocess.TimeoutExpired:
         return {"state": "failed", "log": f"build timed out after {timeout}s", "errors": f"build timed out after {timeout}s"}
     log = (proc.stdout or "") + (proc.stderr or "")
