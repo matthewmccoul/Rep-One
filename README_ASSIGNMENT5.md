@@ -35,7 +35,7 @@ evidence. The ranking worked, but it did not discriminate between them here.
 
 | Check | Result |
 |---|---|
-| Runner logic tests (`tests/test_agent.py`, 21 tests): score formula, dependency order, tie-break, stop on failed build, no rewrite of finished work, evidence checks | Pass |
+| Runner logic tests (`tests/test_agent.py`, 21 tests): score formula, dependency order, tie-break, stop on failed build, no rewrite of finished work, evidence checks | Pass in the Linux sandbox. **On Windows 12 of 21 pass and the 9 `AgentLoop` tests fail**, the same before and after the encoding fix: the tests build the stub's command with a backslash path, which the runner's `shlex.split` mangles (see Windows notes) |
 | Starting scan, five steps, five rescans, with real model calls (11 calls, $2.24) | Done |
 | Second run on the finished code | Found all four implemented, wrote nothing (code hash identical before and after), cost $0.24 |
 | Static checks on every changed file (balanced braces, JSON and CSV parse, `.generated.h` last) | Pass |
@@ -45,9 +45,12 @@ evidence. The ranking worked, but it did not discriminate between them here.
 | **Playing `DemoLevel`** | **Not run.** The boss, gold, toll and descent behaviour is untested in play until someone does the steps below |
 
 **Windows notes.** The first attempt at that run (`20261116-002643`) failed with exit code 1 before any model call ($0.00): the
-runner sends its prompt to `claude` in the Windows default encoding (cp1252), which cannot encode the "●" character in the prompt.
-Setting `PYTHONUTF8=1` fixed it with no code change, and `run_agent.py` itself was not edited. `claude` was not on the PATH on this
-machine, so the run used the Claude desktop app's bundled `claude.exe` through `--claude-bin`.
+runner sent its prompt to `claude` in the Windows default encoding (cp1252), which cannot encode the "●" character in the prompt.
+The successful run (`20261116-002713`) got past it with `PYTHONUTF8=1` and no code change. The runner's two `subprocess.run`
+calls were fixed afterwards (see "Manual changes"). Two Windows problems remain unfixed. The runner's console output still uses the
+default encoding, so a model reply with a character outside cp1252 can raise `UnicodeEncodeError` unless `PYTHONUTF8=1` is set.
+And `--claude-bin` goes through `shlex.split`, which drops the backslashes from a Windows path, so use forward slashes. `claude` was
+not on the PATH on this machine, so the run used the Claude desktop app's bundled `claude.exe` through `--claude-bin`.
 
 The runner exits with code 3, "IMPLEMENTED, BUILD UNVERIFIED", when every requirement scans as implemented but no build ran.
 It reports success (exit 0) only after a passing build. The agent also listed what it could not confirm without a build, in
@@ -61,7 +64,7 @@ should stop at the win. Both still need confirming in play.
 agent's five steps (`diff_01.patch` to `diff_05.patch`). If the Windows build or playtest needs a fix, it will be added below as
 its own commit with the reason.
 
-- _(none yet)_
+- `delve-deeper/tools/assignment5/run_agent.py`: added `encoding="utf-8", errors="replace"` to the two `subprocess.run` calls (`call_claude`, `run_build`). On Windows they used cp1252 and the first run failed on the "●" in the prompt. This is runner code, not feature code.
 
 ## Run the agent
 
