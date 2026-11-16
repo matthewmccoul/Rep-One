@@ -35,7 +35,7 @@ evidence. The ranking worked, but it did not discriminate between them here.
 
 | Check | Result |
 |---|---|
-| Runner logic tests (`tests/test_agent.py`, 21 tests): score formula, dependency order, tie-break, stop on failed build, no rewrite of finished work, evidence checks | Pass in the Linux sandbox. **On Windows 12 of 21 pass and the 9 `AgentLoop` tests fail**, the same before and after the encoding fix: the tests build the stub's command with a backslash path, which the runner's `shlex.split` mangles (see Windows notes) |
+| Runner logic tests (`tests/test_agent.py`, 21 tests): score formula, dependency order, tie-break, stop on failed build, no rewrite of finished work, evidence checks | Pass in the Linux sandbox. **On Windows 18 of 21 pass.** Only 12 passed before the backslash-path fix in `run_agent.py`. The 3 that still fail (`AgentLoop`: `test_builds_in_dependency_order_not_in_score_order`, `test_completed_work_is_not_rewritten`, `test_success_is_not_reported_when_the_build_fails`) pass POSIX shell build commands (`true`, `echo '...'; exit 1`) that `cmd.exe` runs differently, so they are test problems, not runner bugs. With a `true` command on the PATH the first two pass. The tests themselves are unchanged |
 | Starting scan, five steps, five rescans, with real model calls (11 calls, $2.24) | Done |
 | Second run on the finished code | Found all four implemented, wrote nothing (code hash identical before and after), cost $0.24 |
 | Static checks on every changed file (balanced braces, JSON and CSV parse, `.generated.h` last) | Pass |
@@ -46,10 +46,10 @@ evidence. The ranking worked, but it did not discriminate between them here.
 
 **Windows notes.** The first attempt at that run (`20261116-002643`) failed with exit code 1 before any model call ($0.00): the
 runner sent its prompt to `claude` in the Windows default encoding (cp1252), which cannot encode the "●" character in the prompt.
-The successful run (`20261116-002713`) got past it with `PYTHONUTF8=1` and no code change. The runner's two `subprocess.run`
-calls were fixed afterwards (see "Manual changes"). Two Windows problems remain unfixed. The runner's console output still uses the
-default encoding, so a model reply with a character outside cp1252 can raise `UnicodeEncodeError` unless `PYTHONUTF8=1` is set.
-And `--claude-bin` goes through `shlex.split`, which drops the backslashes from a Windows path, so use forward slashes. `claude` was
+The successful run (`20261116-002713`) got past it with `PYTHONUTF8=1` and no code change, and it was made before the runner fixes
+below. It was not repeated afterwards. The runner was fixed after that (see "Manual changes"): the two `subprocess.run` calls use
+UTF-8, `--claude-bin` keeps the backslashes of a Windows path, and console output no longer fails on a character outside cp1252.
+Those fixes were checked on their own with `PYTHONUTF8` unset, using a stand-in `claude`, not with a real model call. `claude` was
 not on the PATH on this machine, so the run used the Claude desktop app's bundled `claude.exe` through `--claude-bin`.
 
 The runner exits with code 3, "IMPLEMENTED, BUILD UNVERIFIED", when every requirement scans as implemented but no build ran.
@@ -64,7 +64,8 @@ should stop at the win. Both still need confirming in play.
 agent's five steps (`diff_01.patch` to `diff_05.patch`). If the Windows build or playtest needs a fix, it will be added below as
 its own commit with the reason.
 
-- `delve-deeper/tools/assignment5/run_agent.py`: added `encoding="utf-8", errors="replace"` to the two `subprocess.run` calls (`call_claude`, `run_build`). On Windows they used cp1252 and the first run failed on the "●" in the prompt. This is runner code, not feature code.
+- `delve-deeper/tools/assignment5/run_agent.py` (commit `b7fb70e`): added `encoding="utf-8", errors="replace"` to the two `subprocess.run` calls (`call_claude`, `run_build`). On Windows they used cp1252 and the first run failed on the "●" in the prompt. This is runner code, not feature code.
+- `delve-deeper/tools/assignment5/run_agent.py` (commit `2c95e1e`): new `split_command()` so `--claude-bin` keeps the backslashes of a Windows path (POSIX `shlex.split` had dropped them), and new `console_print()` so a run-log line with a character outside cp1252 no longer raises `UnicodeEncodeError` on a redirected console. Runner code, not feature code.
 
 ## Run the agent
 
@@ -81,8 +82,7 @@ py -3 delve-deeper/tools/assignment5/run_agent.py --build-cmd "tools\assignment5
 ```
 
 `build_ue.bat` wraps the UE 5.8 build (set `UE_ROOT` if Unreal is not in `C:\Program Files\Epic Games\UE_5.8`). It ran on 2026-11-16 and succeeded.
-On Windows, if the run fails with `UnicodeEncodeError`, set `PYTHONUTF8=1` first (PowerShell: `$env:PYTHONUTF8 = "1"`). If `claude` is not
-on your PATH, add `--claude-bin "<forward-slash path to claude.exe>"`.
+If `claude` is not on your PATH, add `--claude-bin "<path to claude.exe>"` (Windows paths with backslashes work; quote the path if it has spaces).
 Use `--scan-only` to scan and score without writing. Run the tests with `python3 delve-deeper/tools/assignment5/tests/test_agent.py`.
 
 ## See the feature in the game (needs Windows and UE 5.8)
