@@ -22,6 +22,9 @@ sys.path.insert(0, str(HERE.parent))
 import run_agent as ra  # noqa: E402
 
 STUB = f"{sys.executable} {HERE / 'stub_claude.py'}"
+# Build commands that behave the same under sh and cmd.exe (the runner runs --build-cmd with shell=True).
+BUILD_OK = f'"{sys.executable}" -c "import sys; sys.exit(0)"'
+BUILD_FAIL = f'"{sys.executable}" -c "import sys; print(\'error C2065: undeclared identifier\'); sys.exit(1)"'
 GDD = ra.DEFAULT_ROOT / "1_pipeline" / "08_Final_GDD_Extracted.txt"
 # DD-TOLL-02 has the highest score but depends on GOLD-01 and TOLL-01, so it must wait for them.
 SCORES = {"DD-GOLD-01": [2, 2, 2], "DD-TOLL-01": [3, 2, 3], "DD-TOLL-02": [3, 3, 2], "DD-DESC-01": [3, 3, 0]}
@@ -129,14 +132,14 @@ class AgentLoop(unittest.TestCase):
         return code, json.loads((run_dir / "summary.json").read_text()), run_dir
 
     def test_builds_in_dependency_order_not_in_score_order(self):
-        code, summary, run_dir = self.go("--build-cmd", "true")
+        code, summary, run_dir = self.go("--build-cmd", BUILD_OK)
         self.assertEqual(self.state()["order"], ["DD-TOLL-01", "DD-GOLD-01", "DD-TOLL-02", "DD-DESC-01"])
         self.assertEqual(code, ra.EXIT_OK)
         self.assertEqual(summary["result"], "SUCCESS")
         self.assertTrue((run_dir / "RUN_LOG.md").read_text().count("Selected:") == 4)
 
     def test_success_is_not_reported_when_the_build_fails(self):
-        code, summary, _ = self.go("--build-cmd", "echo 'error C2065: undeclared identifier'; exit 1")
+        code, summary, _ = self.go("--build-cmd", BUILD_FAIL)
         self.assertEqual(code, ra.EXIT_BLOCKED)
         self.assertNotEqual(summary["result"], "SUCCESS")
         self.assertEqual(self.state()["order"], ["DD-TOLL-01", "DD-TOLL-01"])  # two attempts at one gap, then it stops
@@ -148,28 +151,28 @@ class AgentLoop(unittest.TestCase):
         self.assertEqual(summary["result"], "IMPLEMENTED, BUILD UNVERIFIED")
 
     def test_completed_work_is_not_rewritten(self):
-        self.go("--build-cmd", "true")
+        self.go("--build-cmd", BUILD_OK)
         before = self.state()["order"][:]
-        code, summary, _ = self.go("--build-cmd", "true")
+        code, summary, _ = self.go("--build-cmd", BUILD_OK)
         self.assertEqual(code, ra.EXIT_OK)
         self.assertEqual(self.state()["order"], before)  # no implement call on the second run
         self.assertEqual(summary["iterations"], [])
 
     def test_a_stalled_agent_stops_with_a_blocker(self):
         self.set_state(mode="noop")
-        code, summary, _ = self.go("--build-cmd", "true")
+        code, summary, _ = self.go("--build-cmd", BUILD_OK)
         self.assertEqual(code, ra.EXIT_BLOCKED)
         self.assertEqual(summary["result"], "STALLED")
 
     def test_edits_outside_the_allowed_paths_are_reverted(self):
         self.set_state(mode="outside")
-        code, _, _ = self.go("--build-cmd", "true")
+        code, _, _ = self.go("--build-cmd", BUILD_OK)
         self.assertEqual(code, ra.EXIT_BLOCKED)
         self.assertFalse((self.ws / "docs/outside.txt").exists())
 
     def test_malformed_cpp_counts_as_a_failed_check(self):
         self.set_state(mode="badbrace")
-        code, summary, _ = self.go("--build-cmd", "true")
+        code, summary, _ = self.go("--build-cmd", BUILD_OK)
         self.assertEqual(code, ra.EXIT_BLOCKED)
         self.assertEqual(summary["iterations"][0]["check"], "failed")
         self.assertEqual(self.state()["order"], ["DD-TOLL-01", "DD-TOLL-01"])  # did not move on to another gap
