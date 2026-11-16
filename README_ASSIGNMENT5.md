@@ -43,8 +43,9 @@ evidence. The ranking worked, but it did not discriminate between them here.
 
 The runner exits with code 3, "IMPLEMENTED, BUILD UNVERIFIED", when every requirement scans as implemented but no build ran.
 It reports success (exit 0) only after a passing build. The agent also listed what it could not confirm without a build, in
-`RUN_LOG.md` (for example whether `DisableInput` stops Enhanced Input movement, and whether the purse and boss sit where the
-player's interact trace can hit them).
+`RUN_LOG.md`. Reading the player code answers two of them on paper: interaction is by proximity (the nearest interactable in
+range with a prompt, no line trace), and `DisableInput` on the pawn removes the pawn's Enhanced Input bindings, so movement
+should stop at the win. Both still need confirming in play.
 
 ## Manual changes
 
