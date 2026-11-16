@@ -66,6 +66,15 @@ should stop at the win. Both still need confirming in play.
 five steps (`diff_01.patch` to `diff_05.patch`). The Windows build succeeded with no code change, so nothing in the feature was
 edited by hand.
 
+<details>
+<summary>Footnote</summary>
+
+Claude Code first filed the three Windows fixes below under "Manual changes". That was a false flag. They were developments to the
+agent, not changes to the content the agent generated. The author caught it, called Claude Code an insufferable toaster, and made
+it fix the error. This section and the next are the corrected record.
+
+</details>
+
 ## Changes to the agent after its first Windows run
 
 These are changes to the agent itself, made as part of building and testing it, not to the feature it generated. The agent was
@@ -110,12 +119,3 @@ Route from the start: entry hall, collapsed gallery, old ore lift, barracks (pur
 - The 100 gold toll and purse are the Assignment 3 crew's `EXPERIMENTAL` values (`delve-deeper/inputs/crew_encounter/`), not approved GDD design.
 - Unreal build output (`Binaries/`, `Intermediate/`) is gitignored and is rebuilt on the first build.
 - The project and the GDD came from the Drive file "Assignment 4 Post Feedback revamp.zip".
-
-<details>
-<summary>Footnote</summary>
-
-Claude Code first filed the three Windows fixes under "Manual changes". That was a false flag. They were developments to the
-agent, not changes to the content the agent generated. The author caught it, called Claude Code an insufferable toaster, and made
-it fix the error. The two sections above are the corrected version.
-
-</details>
