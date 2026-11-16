@@ -35,7 +35,7 @@ evidence. The ranking worked, but it did not discriminate between them here.
 
 | Check | Result |
 |---|---|
-| Runner logic tests (`tests/test_agent.py`, 21 tests): score formula, dependency order, tie-break, stop on failed build, no rewrite of finished work, evidence checks | Pass in the Linux sandbox. **On Windows 21 of 21 pass** (checked with `PYTHONUTF8` unset). As first run on Windows only 12 passed: the backslash-path bug in `run_agent.py` took it to 18, and making the tests' build commands work under `cmd.exe` took it to 21 (see "Manual changes"). Not re-run on Linux after those changes |
+| Runner logic tests (`tests/test_agent.py`, 21 tests): score formula, dependency order, tie-break, stop on failed build, no rewrite of finished work, evidence checks | Pass in the Linux sandbox. **On Windows 21 of 21 pass** (checked with `PYTHONUTF8` unset). As first run on Windows only 12 passed: the backslash-path bug in `run_agent.py` took it to 18, and making the tests' build commands work under `cmd.exe` took it to 21 (see "Changes to the agent after its first Windows run"). Not re-run on Linux after those changes |
 | Starting scan, five steps, five rescans, with real model calls (11 calls, $2.24) | Done |
 | Second run on the finished code | Found all four implemented, wrote nothing (code hash identical before and after), cost $0.24 |
 | Static checks on every changed file (balanced braces, JSON and CSV parse, `.generated.h` last) | Pass |
@@ -48,7 +48,7 @@ evidence. The ranking worked, but it did not discriminate between them here.
 **Windows notes.** The first attempt at that run (`20261116-002643`) failed with exit code 1 before any model call ($0.00): the
 runner sent its prompt to `claude` in the Windows default encoding (cp1252), which cannot encode the "●" character in the prompt.
 The successful run (`20261116-002713`) got past it with `PYTHONUTF8=1` and no code change, and it was made before the runner fixes
-below. The runner was fixed after that (see "Manual changes"): the two `subprocess.run` calls use
+below. The agent was fixed after that (see "Changes to the agent after its first Windows run"): the two `subprocess.run` calls use
 UTF-8, `--claude-bin` keeps the backslashes of a Windows path, and console output no longer fails on a character outside cp1252.
 Those fixes were first checked on their own with `PYTHONUTF8` unset, using a stand-in `claude`. They were then confirmed with a
 real model call in run `20261116-030156` (Haiku 5.5, effort medium, `PYTHONUTF8` unset), which ended with exit code 0. `claude` was
@@ -62,13 +62,19 @@ should stop at the win. Both still need confirming in play.
 
 ## Manual changes
 
-**None to the feature code.** Every line under `Source/` and the two data files in the plugin's `Content/Data/` came from the
-agent's five steps (`diff_01.patch` to `diff_05.patch`). If the Windows build or playtest needs a fix, it will be added below as
-its own commit with the reason.
+**None.** Every line under `Source/` and the two data files in the plugin's `Content/Data/` is exactly what the agent wrote in its
+five steps (`diff_01.patch` to `diff_05.patch`). The Windows build succeeded with no code change, so nothing in the feature was
+edited by hand.
 
-- `delve-deeper/tools/assignment5/run_agent.py` (commit `b7fb70e`): added `encoding="utf-8", errors="replace"` to the two `subprocess.run` calls (`call_claude`, `run_build`). On Windows they used cp1252 and the first run failed on the "●" in the prompt. This is runner code, not feature code.
-- `delve-deeper/tools/assignment5/run_agent.py` (commit `2c95e1e`): new `split_command()` so `--claude-bin` keeps the backslashes of a Windows path (POSIX `shlex.split` had dropped them), and new `console_print()` so a run-log line with a character outside cp1252 no longer raises `UnicodeEncodeError` on a redirected console. Runner code, not feature code.
-- `delve-deeper/tools/assignment5/tests/test_agent.py` (commit `92955ba`): the build commands the tests pass were POSIX shell strings (`true`, `echo '...'; exit 1`), which `cmd.exe` runs differently, so 3 tests failed on Windows. They now use `BUILD_OK` and `BUILD_FAIL`, which run the current Python. Test code, not feature code or runner code.
+## Changes to the agent after its first Windows run
+
+These are changes to the agent itself, made as part of building and testing it, not to the feature it generated. The agent was
+first run on Windows on 2026-11-16 and three Windows-only problems showed up. None changes how the agent scans, scores or chooses
+what to build.
+
+- `delve-deeper/tools/assignment5/run_agent.py`: added `encoding="utf-8", errors="replace"` to the two `subprocess.run` calls (`call_claude`, `run_build`). On Windows they used cp1252 and the first run failed on the "●" in the prompt.
+- `delve-deeper/tools/assignment5/run_agent.py`: new `split_command()` so `--claude-bin` keeps the backslashes of a Windows path (POSIX `shlex.split` had dropped them), and new `console_print()` so a run-log line with a character outside cp1252 no longer raises `UnicodeEncodeError` on a redirected console.
+- `delve-deeper/tools/assignment5/tests/test_agent.py`: the build commands the tests pass were POSIX shell strings (`true`, `echo '...'; exit 1`), which `cmd.exe` runs differently, so 3 tests failed on Windows. They now use `BUILD_OK` and `BUILD_FAIL`, which run the current Python.
 
 ## Run the agent
 
