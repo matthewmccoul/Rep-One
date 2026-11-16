@@ -1,0 +1,4 @@
+$ work/T001/build/map_check validate work/T001/qa/fixtures/map_opens_edge.json
+exit: 1
+--- output ---
+FAIL PUZZLE_EDGE: puzzle opens_edge e03 is not a locked door

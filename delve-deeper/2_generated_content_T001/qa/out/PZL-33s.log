@@ -1,0 +1,21 @@
+$ ctest --test-dir work/T001/qa/build_mut/puzzle_noreset --output-on-failure -R puzzle_
+exit: 0
+--- output ---
+Internal ctest changing into directory: /home/user/content_pipeline/work/T001/qa/build_mut/puzzle_noreset
+Test project /home/user/content_pipeline/work/T001/qa/build_mut/puzzle_noreset
+    Start 28: map_puzzle_rules
+1/6 Test #28: map_puzzle_rules .................   Passed    0.01 sec
+    Start 61: puzzle_no_lockout
+2/6 Test #61: puzzle_no_lockout ................   Passed    0.00 sec
+    Start 62: puzzle_second_open
+3/6 Test #62: puzzle_second_open ...............   Passed    0.00 sec
+    Start 63: puzzle_roundtrip_bypass
+4/6 Test #63: puzzle_roundtrip_bypass ..........   Passed    0.00 sec
+    Start 64: puzzle_persist_open
+5/6 Test #64: puzzle_persist_open ..............   Passed    0.00 sec
+    Start 65: puzzle_xp_claim
+6/6 Test #65: puzzle_xp_claim ..................   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 6
+
+Total Test time (real) =   0.03 sec

@@ -1,0 +1,6 @@
+$ work/T001/build/map_check neighbours work/T001/map/floor1_map.json entry_hall
+exit: 0
+--- output ---
+collapsed_gallery
+mess_hall
+town_entrance

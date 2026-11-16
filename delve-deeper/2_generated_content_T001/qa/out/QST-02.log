@@ -1,0 +1,8 @@
+$ python3 -I work/T001/quest/validate_quest.py work/T001/quest work/T001/map/floor1_map.json --log work/T001/qa/out/validate_quest.log
+exit: 0
+--- output ---
+validate_quest.py Version 3 (revision 2 of 2)
+log: work/T001/qa/out/validate_quest.log
+rows=25 keys_json=25 tests=10
+RESULT: PASS
+exit code 0

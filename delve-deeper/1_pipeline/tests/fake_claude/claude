@@ -1,0 +1,75 @@
+#!/usr/bin/env python3
+"""Stand-in for `claude -p`, used only by tests/test_pipeline.py so the pipeline can be tested without spending money."""
+import sys, json, os, re, subprocess, pathlib, time
+a = sys.argv[1:]
+agent = a[a.index("--agent") + 1]
+prompt = a[-1]
+plan = json.load(open(os.environ["FAKE_PLAN"]))
+MODEL_IDS = {"haiku": "claude-haiku-5-5", "sonnet": "claude-sonnet-5-5"}
+ROLES = ["Systems Designer", "World Designer", "Narrative Designer", "UI/UX Designer", "Software Engineer", "AI Integration Engineer",
+         "Asset Curator", "QA Tester", "Critic", "Development Systems Analyst"]
+def served():
+    asked = a[a.index("--model") + 1] if "--model" in a else "none"
+    return plan.get("serve_model", {}).get(agent, MODEL_IDS.get(asked, asked))
+def out(cost, text="STATUS: done"):
+    print(json.dumps({"is_error": False, "num_turns": 2, "total_cost_usd": cost, "modelUsage": {served(): {"costUSD": cost}},
+                      "usage": {"input_tokens": 10, "output_tokens": 5}, "session_id": "fake", "result": text}))
+if agent != "development-producer":
+    asked = a[a.index("--model") + 1] if "--model" in a else "none"
+    consult = "CONSULTED" in prompt
+    tools = a[a.index("--allowedTools") + 1] if "--allowedTools" in a else ""
+    cap = a[a.index("--max-budget-usd") + 1] if "--max-budget-usd" in a else "none"
+    open(os.environ["FAKE_LOG"], "a").write(f"ran {agent} with model {asked}" + (f" as a consultation with tools [{tools}]" if consult else "") + f" cap {cap}\n")
+    cost = plan.get("costs", {}).get(agent, plan.get("specialist_cost", 0.01))
+    out(cost, "CONSULT-REPLY: AGREE (no job for me now)" if consult else "STATUS: done"); sys.exit(0)
+brief = re.search(r"task brief at (\S+\.md)", prompt).group(1)
+txt = pathlib.Path(brief).read_text()
+data = json.loads(re.search(r"```json\n(.*?)\n```", txt, re.S).group(1))
+box = data["box"]
+p = plan.get(box, {})
+log = open(os.environ["FAKE_LOG"], "a")
+if p.get("hang"):
+    time.sleep(p["hang"])
+def dispatch(role, label_tail, bp_name):
+    bp = pathlib.Path(f"work/{data['task']}/briefs/{data['step']:03d}-{bp_name}.md"); bp.parent.mkdir(parents=True, exist_ok=True)
+    bp.write_text("brief")
+    r = subprocess.run(["orchestration/invoke_agent.sh", role, str(bp), data["label_prefix"] + label_tail, "--staged"], capture_output=True, text=True)
+    log.write(f"{box} dispatch {role} -> exit {r.returncode} (label {label_tail}) {r.stderr.strip()[:140]}\n")
+for role in p.get("consult", []):
+    short = role.replace("development-", "")
+    dispatch(role, "consult-" + short, "consult-" + short)
+for role in p.get("dispatch", []):
+    dispatch(role, role.replace("development-", ""), role)
+for i, fl in enumerate(p.get("flag_assess", [])):
+    dispatch("development-development-systems-analyst", f"flag-{i + 1}", f"flag-{i + 1}")
+    if fl.get("text") is not None:
+        fp = pathlib.Path(f"work/{data['task']}/flags/{fl['label']}.md"); fp.parent.mkdir(parents=True, exist_ok=True); fp.write_text(fl["text"])
+if p.get("bad_label_flag"):   # a flag-mode agent started WITHOUT -flag- in its label must be refused
+    dispatch("development-development-systems-analyst", "analyst-no-flag-word", "x")
+if p.get("tamper"):
+    pathlib.Path("pipeline_state/state.json").write_text("{}")
+if p.get("no_result"):
+    out(p.get("cost", 0.1)); sys.exit(0)
+outputs = []
+for o in p.get("outputs", ["x.md"]):
+    op = pathlib.Path(f"work/{data['task']}/{o}"); op.parent.mkdir(parents=True, exist_ok=True); op.write_text("content")
+    outputs.append(str(op))
+res = {"status": p.get("status", "done"), "summary": f"fake summary for {box}", "outputs": outputs, "questions_for_user": p.get("questions", [])}
+if "next" in p: res["next"] = p["next"]
+if "report" in p:
+    rp = pathlib.Path(f"work/{data['task']}/critic/critic_report.md"); rp.parent.mkdir(parents=True, exist_ok=True); rp.write_text(p["report"]); res["critic_report"] = str(rp)
+if data["budget_needed"]: res["budget_usd"] = p.get("budget_usd", 3.0)
+to_dec = any(x["to_is_decision"] for x in data["arrows"])
+def packet_text():
+    if "packet_text" in p:
+        return p["packet_text"]
+    s = f"# Packet for {box}\n## Test evidence and known limits\nfake\n## Decisions needed\nfake\n"
+    if data["budget_needed"]:
+        s += ("## Budget\nPrices per million tokens (Anthropic) and the tokens assumed per dispatch.\n| Role | Runs | Cost |\n| QA Tester | 2 | 0.50 |\n"
+              "| Haiku roles | 5 | 0.40 | Haiku tiers: prompts up to 100,000 tokens and over 100,000 tokens |\n")
+        s += "## Roster\n" + "".join(f"- {r}: {p.get('roster_lines', {}).get(r, 'TASKED (fake)')}\n" for r in ROLES)
+    return s
+if to_dec and not p.get("no_packet"):
+    pk = pathlib.Path(data["packet"]); pk.parent.mkdir(parents=True, exist_ok=True); pk.write_text(packet_text()); res["packet"] = str(pk)
+pathlib.Path(data["result"]).write_text(json.dumps(res))
+out(p.get("cost", 0.1))

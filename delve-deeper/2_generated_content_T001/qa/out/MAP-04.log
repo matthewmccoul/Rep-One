@@ -1,0 +1,4 @@
+$ work/T001/build/map_check validate work/T001/qa/fixtures/map_dup_edge.json
+exit: 1
+--- output ---
+FAIL DUP_ID: duplicate edge id e14

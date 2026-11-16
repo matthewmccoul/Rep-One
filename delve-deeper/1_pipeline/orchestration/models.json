@@ -1,0 +1,25 @@
+{
+  "_comment": "Model per agent, read by orchestration/invoke_agent.sh for every run (passed as --model). Only the model differs between roles: the briefs, role files, allowed tools, effort level and caps are the same for all. Set 2026-11-11: the four roles below on sonnet, the other seven on haiku (Haiku 5.5). _price_lookup: the name each price source uses for each model alias (run_pipeline.py fetches prices with it).",
+  "_default": "sonnet",
+  "development-producer": "sonnet",
+  "development-qa-tester": "sonnet",
+  "development-critic": "sonnet",
+  "development-development-systems-analyst": "sonnet",
+  "development-systems-designer": "haiku",
+  "development-world-designer": "haiku",
+  "development-narrative-designer": "haiku",
+  "development-ui-ux-designer": "haiku",
+  "development-software-engineer": "haiku",
+  "development-ai-integration-engineer": "haiku",
+  "development-asset-curator": "haiku",
+  "_price_lookup": {
+    "sonnet": {
+      "anthropic": "Claude Sonnet 5.5",
+      "vercel": "anthropic/claude-sonnet-5.5"
+    },
+    "haiku": {
+      "anthropic": "Claude Haiku 5.5",
+      "vercel": "anthropic/claude-haiku-5.5"
+    }
+  }
+}

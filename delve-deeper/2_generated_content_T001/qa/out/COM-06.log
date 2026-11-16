@@ -1,0 +1,4 @@
+$ work/T001/build/com_check json work/T001/qa/fixtures/com_nonstrict.json
+exit: 1
+--- output ---
+FAIL JSON_SYNTAX: unexpected single quote (strings use double quotes), expected a string key (line 1, column 2)

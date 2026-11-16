@@ -1,0 +1,14 @@
+{
+ "status": "done",
+ "summary": "Read the request, GDD and workflow. Recommended first task T001-A: a combat rules specification and data schema by the Systems Designer (generic, no content), with proposed milestones M1-M4, an 8 USD task budget and a 2-round revision bound. Found that the 'mordor combat research' is not in the project, so design should not start until the user supplies it. Unreal access and implementation method are undecided and noted as NOT RUN. Everything is a proposal; evidence is STATIC.",
+ "outputs": ["work/T001/packets/s001-packet.md", "work/T001/step_results/s001-P0.json"],
+ "questions_for_user": [
+  "Where is the mordor combat research data? It is not in the project folder.",
+  "Approve T001-A (combat rules spec and data schema) as the first task, or revise it?",
+  "Approve the 8.00 USD task budget and 2-round revision bound?",
+  "Should combat be built in C++, Blueprints or data tables, and how will agents access Unreal?",
+  "Is M4 (combat feedback/UI) in scope?"
+ ],
+ "packet": "work/T001/packets/s001-packet.md",
+ "budget_usd": 8.0
+}

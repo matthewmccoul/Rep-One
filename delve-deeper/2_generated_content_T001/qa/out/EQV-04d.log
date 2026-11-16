@@ -1,0 +1,4 @@
+$ python3 -I work/T001/code/tools/gen_golden.py --diff work/T001/qa/out/golden.json work/T001/qa/out/golden_changed.json
+exit: 1
+--- output ---
+DIFFERENT: 315 vectors differ

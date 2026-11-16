@@ -1,0 +1,76 @@
+check_id,result,label,command,exit_code,log_path,defect_id,note
+QST-01,pass,EXECUTED,work/T001/build/quest_check validate QJ QCSV MAP,0,work/T001/qa/out/QST-01.log,,"abbreviations: QJ QCSV MAP as in spec Section 0; Q=work/T001/build/quest_check; run via qa/run_check.py; OK quest rows=25 route=5"
+QST-02,pass,EXECUTED,python3 -I work/T001/quest/validate_quest.py work/T001/quest work/T001/map/floor1_map.json --log work/T001/qa/out/validate_quest.log,0,work/T001/qa/out/QST-02.log,,"log file written at the given path; second run without --log (QST-02b exit 0 log work/T001/qa/out/QST-02b.log) left work/T001/quest/validate_quest.log timestamp unchanged (stat 05:01:49 before and after)"
+QST-03,pass,EXECUTED,Q validate q_bad_dest.json QCSV MAP,1,work/T001/qa/out/QST-03.log,,(B) fixture edit: destination.node=ore_cellar; FAIL UNKNOWN_NODE
+QST-04,pass,EXECUTED,Q validate q_dest_mismatch.json QCSV MAP,1,work/T001/qa/out/QST-04.log,,(B) fixture edit: destination.node=barracks; FAIL DEST_MISMATCH
+QST-05,pass,EXECUTED,Q validate q_bad_giver.json QCSV MAP,1,work/T001/qa/out/QST-05.log,,(B) fixture edit: giver.node=drain; FAIL UNKNOWN_NODE
+QST-06,pass,EXECUTED,Q validate q_bad_route_edge.json QCSV MAP,1,work/T001/qa/out/QST-06.log,,(B) fixture edit: route_edges[2] e04 -> e03; FAIL ROUTE_EDGE
+QST-07,pass,EXECUTED,Q validate QJ QCSV q_route_locked_map.json,1,work/T001/qa/out/QST-07.log,,"(B) substituted fixture: MAP copy with e10 made locked (spec's QJ rewrite cannot end at ore_lift); FAIL ROUTE_NOT_PLAIN e10; see contract_decisions_qst.md"
+QST-08,pass,EXECUTED,Q validate q_route_unknown_edge.json QCSV MAP,1,work/T001/qa/out/QST-08.log,,(B) fixture edit: route_edges[3]=e77; FAIL UNKNOWN_EDGE
+QST-09,pass,EXECUTED,Q validate QJ q_missing_key.csv MAP,1,work/T001/qa/out/QST-09.log,,(B) fixture edit: row fig_reward_none deleted; FAIL MISSING_KEY fig_reward_none
+QST-10,pass,EXECUTED,Q validate QJ q_extra_key.csv MAP,1,work/T001/qa/out/QST-10.log,,(B) fixture edit: row fig_extra appended; FAIL ORPHAN_KEY
+QST-11,pass,EXECUTED,Q validate QJ q_dup_key.csv MAP,1,work/T001/qa/out/QST-11.log,,(B) fixture edit: fig_offer_cold row duplicated; FAIL DUP_KEY
+QST-12,pass,EXECUTED,Q validate QJ q_bad_blank.csv MAP,1,work/T001/qa/out/QST-12.log,,(B) fixture edit: {gold} appended to fig_report_nothing text; FAIL BAD_BLANK
+QST-13,pass,EXECUTED,Q validate QJ q_blank_unlisted.csv MAP,1,work/T001/qa/out/QST-13.log,,(B) fixture edit: blanks of fig_repeat_done emptied; FAIL BLANK_MISMATCH
+QST-14,pass,EXECUTED,Q validate QJ q_bad_stage.csv MAP,1,work/T001/qa/out/QST-14.log,,(B) fixture edit: fig_offer_warm stage_max=3; FAIL STAGE_RANGE
+QST-15,pass,EXECUTED,Q validate QJ q_overlap.csv MAP,1,work/T001/qa/out/QST-15.log,,(B) fixture edit: fig_report_present_cold stage_max=1; FAIL STAGE_OVERLAP
+QST-16,pass,EXECUTED,Q validate QJ q_reason.csv MAP,1,work/T001/qa/out/QST-16.log,,(B) fixture edit: fig_offer_cold text ends with a because-sentence; FAIL BANNED_PHRASE 'because'
+QST-17,fail,EXECUTED,python3 -I work/T001/code/tools/check_text_guard.py QCSV,1,work/T001/qa/out/QST-17.log,DEF-T001-3,expected exit 0; tool only parses JSON: FAIL JSON_SYNTAX on the real CSV
+QST-18,fail,EXECUTED,python3 -I work/T001/code/tools/check_text_guard.py q_reason.csv,1,work/T001/qa/out/QST-18.log,DEF-T001-3,(B) exit 1 is for JSON_SYNTAX not the leak; does not name fig_offer_cold; same output as the clean CSV so the checker cannot tell them apart
+QST-19,pass,EXECUTED,Q stage <score> for 0 19 20 39 40 59 60 79 80 100,0 (all ten),work/T001/qa/out/QST-19-0.log to QST-19-100.log (QST-19-<score>.log),,printed -2 -2 -1 -1 0 0 1 1 2 2 as listed
+QST-20,pass,EXECUTED,Q stage 101 / -1 / abc,1/1/1,work/T001/qa/out/QST-20-101.log; QST-20-m1.log; QST-20-abc.log,,(B) FAIL SCORE_RANGE each
+QST-21,pass,EXECUTED,Q line QCSV <key> <stage> for refused -2; cold -1 0; warm 1 2; cold 2,0 x6; 1 for cold at 2,work/T001/qa/out/QST-21-a.log to QST-21-f.log,,cold at stage 2: FAIL NO_LINE
+QST-22,pass,EXECUTED,Q run QJ QCSV MAP offer@-2 offer@0 offer@1,0,work/T001/qa/out/QST-22.log,,keys fig_offer_refused then fig_offer_cold then fig_offer_warm
+QST-23,pass,EXECUTED,Q run ... offer@-2 accept,0,work/T001/qa/out/QST-23.log,,accept rejected refused; final state=not_offered
+QST-24,pass,EXECUTED,Q run ... offer@0 accept,0,work/T001/qa/out/QST-24.log,,state=active; log_quest_accepted; fig_accept_ack
+QST-25,pass,EXECUTED,Q run ... offer@0 decline accept,0,work/T001/qa/out/QST-25.log,,fig_decline_reply then declined then active
+QST-26,pass,EXECUTED,Q run ... offer@0 accept arrive@ore_lift:present,0,work/T001/qa/out/QST-26.log,,lift_arrival_present; log_lift_observed_present; state=observed_present
+QST-27,pass,EXECUTED,Q run ... offer@0 accept arrive@ore_lift:gone,0,work/T001/qa/out/QST-27.log,,lift_arrival_gone; log_lift_observed_gone; state=observed_gone
+QST-28,pass,EXECUTED,Q run ... offer@0 accept arrive@ore_lift,0,work/T001/qa/out/QST-28.log,,default chain present; state=observed_present. Chain change in play is TBD not testable
+QST-29,pass,EXECUTED,Q run ... arrive@ore_lift:present accept,0,work/T001/qa/out/QST-29.log,,(B) arrival rejected not_observing state=not_offered; accept then active (not observed)
+QST-30,pass,EXECUTED,Q run ... offer@0 decline arrive@ore_lift:present,0,work/T001/qa/out/QST-30.log,,(B) rejected; state=declined
+QST-31,pass,EXECUTED,Q run ... offer@0 accept arrive@collapsed_gallery,0,work/T001/qa/out/QST-31.log,,(B) rejected not_observing; state=active
+QST-32,pass,EXECUTED,Q run ... offer@0 accept arrive@ore_cellar,1,work/T001/qa/out/QST-32.log,,(B) FAIL UNKNOWN_NODE ore_cellar
+QST-33,pass,EXECUTED,Q run ... offer@0 accept arrive@ore_lift:present arrive@ore_lift:gone,0,work/T001/qa/out/QST-33.log,,second arrival rejected; state=observed_present chain=present; one observed log line
+QST-34,pass,EXECUTED,Q run ... offer@0 accept arrive@ore_lift:present report@sewer_grate,0,work/T001/qa/out/QST-34.log,,fig_report_present_cold; log_quest_done; state=completed
+QST-35,pass,EXECUTED,Q run ... offer@2 accept arrive@ore_lift:gone report@sewer_grate,0,work/T001/qa/out/QST-35.log,,fig_report_gone_warm; state=completed
+QST-36,pass,EXECUTED,Q run ... offer@0 accept report@sewer_grate,0,work/T001/qa/out/QST-36.log,,(B) fig_report_not_yet; state=active; rolls=0
+QST-37,pass,EXECUTED,Q run ... offer@0 accept arrive@ore_lift:present report@barracks,0,work/T001/qa/out/QST-37.log,,(B) rejected wrong_node; state=observed_present
+QST-38,pass,EXECUTED,Q run ... report@sewer_grate (a) and offer@0 decline report@sewer_grate (b),0/0,work/T001/qa/out/QST-38a.log; QST-38b.log,,(B) fig_report_no_offer both; states not_offered and declined unchanged
+QST-39,pass,EXECUTED,Q run ... day=7 offer@0 accept arrive@ore_lift report@sewer_grate report@sewer_grate,0,work/T001/qa/out/QST-39.log,,second report fig_repeat_done 'Day 7'; one log_quest_done; rolls=1. Uses Q2 extra event day=
+QST-40,not-run,NOT RUN,n/a,,,,TBD not testable: long-absence threshold is TBD (Systems); the {days_since} fill is covered by QST-47
+QST-41,pass,EXECUTED,Q run ... char=A offer@0 accept arrive@ore_lift char=B report@sewer_grate char=A report@sewer_grate,0,work/T001/qa/out/QST-41.log,,B gets fig_report_no_offer; A completes
+QST-42,pass,EXECUTED,Q reward roll=0.0 / roll=0.999999 / roll=0.0 again / roll=0.0 --items "",0 x4,work/T001/qa/out/QST-42a.log; QST-42b.log; QST-42c.log; QST-42d.log,,roll 0 gives fig_reward_item (placeholder item Test_Item - not a game value); 0.999999 gives fig_reward_none; repeat identical; empty item list gives fig_reward_none no crash. Chance and items TBD not tested
+QST-43,pass,EXECUTED,Q reward roll=1.5 / -0.1 / 1.0 / abc,1 x4,work/T001/qa/out/QST-43a.log to QST-43d.log,,(B) FAIL ROLL_RANGE each
+QST-44,pass,EXECUTED,ctest --test-dir work/T001/build -R quest_reward_once,0,work/T001/qa/out/QST-44.log,,1 test passed; test code read: counting source calls=1 after two reports and after a reload
+QST-45,pass,EXECUTED,Q fill QCSV fig_repeat_done 0 day=7,0,work/T001/qa/out/QST-45.log,,text has 'Day 7.'; no braces
+QST-46,pass,EXECUTED,Q fill QCSV fig_report_present_cold 0 reward_line=@fig_reward_item reward_item=Brass_Key,0,work/T001/qa/out/QST-46.log,,ends 'Take this. Brass_Key. Do not ask.'
+QST-47,pass,EXECUTED,Q fill QCSV fig_report_nothing 0 days_since=12,0,work/T001/qa/out/QST-47.log,,'12 days'
+QST-48,pass,EXECUTED,Q fill QCSV fig_repeat_done 0,1,work/T001/qa/out/QST-48.log,,(B) FAIL UNFILLED_BLANK day
+QST-49,pass,EXECUTED,Q fill QCSV fig_repeat_done 0 day={day},0,work/T001/qa/out/QST-49.log,,literal {day} shown once; no loop
+QST-50,pass,EXECUTED,ctest --test-dir work/T001/build -R quest_fill_all,0,work/T001/qa/out/QST-50.log,,test code read: fills every row at every stage and removes each blank in turn
+QST-51,pass,EXECUTED,Q line QCSV fig_report_not_yet -2,0,work/T001/qa/out/QST-51.log,,row text printed
+QST-52,pass,EXECUTED,ctest --test-dir work/T001/build -R quest_,0,work/T001/qa/out/QST-52.log,,26 of 26 passed (100% tests passed on log line 59); repeat run QST-52t exit 0
+QST-53,pass,EXECUTED,ctest --test-dir work/T001/qa/build_mut/qst_noobs -R quest_ --output-log work/T001/qa/out/QST-53-ctest.log,8,work/T001/qa/out/QST-53.log,,(B) mutation: report with quest active completes; quest_report_variants and quest_hostile_midquest Failed. Mutation dir qa/mut/qst_noobs; build logs QST-53-cfg.log QST-53-build.log
+QST-54,pass,EXECUTED,ctest --test-dir work/T001/build -R quest_roundtrip,0,work/T001/qa/out/QST-54.log,,test code read: per-character state chain reward flag and item compared after restore
+QST-55,pass,EXECUTED,ctest --test-dir work/T001/build -R quest_load_invalid,0,work/T001/qa/out/QST-55.log,,test code read: unknown state and completed-without-chain both rejected with named codes; further bad saves also rejected
+QST-56,pass,EXECUTED,Q line QCSV <key> -2 for the ten keys,0 x10,work/T001/qa/out/QST-56-<accept_ack|decline_reply|report_not_yet|report_nothing|report_no_offer|present_cold|gone_cold|reward_none|repeat_done|reward_item>.log,,all ten printed a non-empty row text
+QST-57,pass,EXECUTED,Q line QCSV <key> -2 for present_warm gone_warm offer_cold offer_warm,1 x4,work/T001/qa/out/QST-57-<present_warm|gone_warm|offer_cold|offer_warm>.log,,(B) FAIL NO_LINE each
+QST-58,pass,EXECUTED,Q validate QJ q_cov_<key>.csv MAP for the ten keys,1 x10,work/T001/qa/out/QST-58-<accept_ack|decline_reply|report_not_yet|report_nothing|report_no_offer|present_cold|gone_cold|reward_none|repeat_done|reward_item>.log,,(B) fixture edit per key: stage_min -2 -> -1; FAIL STAGE_COVERAGE <key> each
+QST-59,pass,EXECUTED,Q validate QJ q_cov_refused_lost.csv MAP and q_cov_offer_cold_hostile.csv,1/1,work/T001/qa/out/QST-59a.log; QST-59b.log,,(B) refused stage_min -1: FAIL STAGE_COVERAGE (also STAGE_RANGE since min>max); cold stage_min -2: FAIL STAGE_COVERAGE (also STAGE_OVERLAP)
+QST-60,pass,EXECUTED,Q run ... offer@0 accept arrive@ore_lift:present stage=-2 report@sewer_grate,0,work/T001/qa/out/QST-60.log,,fig_report_present_cold; log_quest_done; completed. Discriminating run QST-60x (offer@2 then stage=-2: still cold) exit 0 log work/T001/qa/out/QST-60x.log
+QST-61,pass,EXECUTED,Q run ... offer@-1 accept arrive@ore_lift:gone stage=-2 report@sewer_grate,0,work/T001/qa/out/QST-61.log,,fig_report_gone_cold; completed
+QST-62,pass,EXECUTED,Q run ... offer@-1 accept stage=-2 report@sewer_grate,0,work/T001/qa/out/QST-62.log,,fig_report_not_yet; state=active
+QST-63,pass,EXECUTED,Q run ... offer@0 decline stage=-2 report@sewer_grate (a); stage=-2 report@sewer_grate (b),0/0,work/T001/qa/out/QST-63a.log; QST-63b.log,,fig_report_no_offer; states declined and not_offered
+QST-64,pass,EXECUTED,Q run ... day=5 offer@0 accept arrive@ore_lift:present report@sewer_grate stage=-2 report@sewer_grate,0,work/T001/qa/out/QST-64.log,,second report fig_repeat_done 'Day 5' no braces; one log_quest_done; rolls=1
+QST-65,pass,EXECUTED,ctest --test-dir work/T001/build -R quest_hostile_reward,0,work/T001/qa/out/QST-65.log,,test passed; its teeth shown by QST-71 (fails under mutation). I did not read this test's source
+QST-66,pass,EXECUTED,Q run ... stage=-2 offer@-2 accept,0,work/T001/qa/out/QST-66.log,,fig_offer_refused; accept rejected refused; state=not_offered. Offer at 0 then drop to -2 then accept: NOT TESTED per spec
+QST-67,pass,EXECUTED,Q run ... stage=3 / stage=-3 / stage=abc / stage=,1 x4,work/T001/qa/out/QST-67a.log to QST-67d.log,,(B) FAIL STAGE_RANGE each
+QST-68,pass,EXECUTED,Q run ... char=A offer@0 accept arrive@ore_lift:present char=B stage=2 char=A report@sewer_grate,0,work/T001/qa/out/QST-68.log,,A gets fig_report_present_cold; completed. Discriminating run QST-68x (B at 2 gets gone_warm while A at 0 observes) exit 0 log work/T001/qa/out/QST-68x.log
+QST-69,pass,EXECUTED,Q run ... offer@0 accept stage=-2 (a); stage=2 (b),0/0,work/T001/qa/out/QST-69a.log; QST-69b.log,,state=active both; no output line for stage=
+QST-70,pass,EXECUTED,ctest --test-dir work/T001/build -R quest_hostile,0,work/T001/qa/out/QST-70.log,,2 of 2 passed (hostile_midquest hostile_reward); count > 0
+QST-71,pass,EXECUTED,ctest --test-dir work/T001/qa/build_mut/qst_hostile_noline -R quest_hostile --output-log work/T001/qa/out/QST-71-ctest.log,8,work/T001/qa/out/QST-71.log,,(B) mutation: report at stage -2 returns NO_LINE; both hostile tests Failed (ended in SEGFAULT after failed CHECKs). Mutation dir qa/mut/qst_hostile_noline
+EQV-11,pass,EXECUTED,see QST-01 and QST-02,0/0,work/T001/qa/out/QST-01.log; work/T001/qa/out/QST-02.log,,both validators accept the real quest data
+EQV-12,pass,EXECUTED,python3 -I work/T001/quest/validate_quest.py <broken dir> MAP for q_bad_dest_dir q_missing_key_dir q_dup_key_dir q_bad_blank_dir q_reason_dir,1 x5,work/T001/qa/out/EQV-12-<dest|missing|dup|blank|reason>.log,,(B) Python rejected all five; C++ exit 1 on the same edits (QST-03 09 11 12 16); no disagreement
+EQV-13,pass,EXECUTED,ctest --test-dir work/T001/build -R quest_transition_table,0,work/T001/qa/out/EQV-13.log,,test passed but compares the table with data read from the same table (see DEF-T001-4); pass is recorded as the spec's accept case only
+EQV-14,fail,EXECUTED,ctest --test-dir work/T001/qa/build_mut/qst_extra_row -R quest_transition_table --output-log work/T001/qa/out/EQV-14-ctest.log,0,work/T001/qa/out/EQV-14.log,DEF-T001-4,(B) expected non-zero; mutated table (extra not_offered report completed) passes the test. quest_check validate does reject the mutated JSON (EQV-14b exit 1 work/T001/qa/out/EQV-14b.log)

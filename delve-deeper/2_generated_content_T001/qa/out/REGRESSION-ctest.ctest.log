@@ -1,0 +1,256 @@
+[OUTPUT] 
+Internal ctest changing into directory: /home/user/content_pipeline/work/T001/build
+
+[HANDLER_OUTPUT] 
+Test project /home/user/content_pipeline/work/T001/build
+
+        Start   1: unr_core_purity
+  1/123 Test   #1: unr_core_purity ........................   Passed    0.09 sec
+        Start   2: unr_cmake_no_unreal
+  2/123 Test   #2: unr_cmake_no_unreal ....................   Passed    0.03 sec
+        Start   3: com_json_valid_real_files
+  3/123 Test   #3: com_json_valid_real_files ..............   Passed    0.00 sec
+        Start   4: com_json_escapes
+  4/123 Test   #4: com_json_escapes .......................   Passed    0.00 sec
+        Start   5: com_json_numbers_literals
+  5/123 Test   #5: com_json_numbers_literals ..............   Passed    0.00 sec
+        Start   6: com_json_trailing_comma
+  6/123 Test   #6: com_json_trailing_comma ................   Passed    0.00 sec
+        Start   7: com_json_truncated
+  7/123 Test   #7: com_json_truncated .....................   Passed    0.00 sec
+        Start   8: com_json_dup_key
+  8/123 Test   #8: com_json_dup_key .......................   Passed    0.00 sec
+        Start   9: com_json_nonstrict
+  9/123 Test   #9: com_json_nonstrict .....................   Passed    0.00 sec
+        Start  10: com_json_empty
+ 10/123 Test  #10: com_json_empty .........................   Passed    0.00 sec
+        Start  11: com_json_depth
+ 11/123 Test  #11: com_json_depth .........................   Passed    0.00 sec
+        Start  12: com_json_error_paths
+ 12/123 Test  #12: com_json_error_paths ...................   Passed    0.00 sec
+        Start  13: com_cli_json_exit_codes
+ 13/123 Test  #13: com_cli_json_exit_codes ................   Passed    0.00 sec
+        Start  14: com_csv_valid_real
+ 14/123 Test  #14: com_csv_valid_real .....................   Passed    0.00 sec
+        Start  15: com_csv_quoted_fields
+ 15/123 Test  #15: com_csv_quoted_fields ..................   Passed    0.00 sec
+        Start  16: com_csv_ragged
+ 16/123 Test  #16: com_csv_ragged .........................   Passed    0.00 sec
+        Start  17: com_csv_open_quote
+ 17/123 Test  #17: com_csv_open_quote .....................   Passed    0.00 sec
+        Start  18: com_csv_header_rules
+ 18/123 Test  #18: com_csv_header_rules ...................   Passed    0.00 sec
+        Start  19: map_real_validates
+ 19/123 Test  #19: map_real_validates .....................   Passed    0.00 sec
+        Start  20: map_dup_ids
+ 20/123 Test  #20: map_dup_ids ............................   Passed    0.00 sec
+        Start  21: map_bad_door_type
+ 21/123 Test  #21: map_bad_door_type ......................   Passed    0.00 sec
+        Start  22: map_unknown_refs
+ 22/123 Test  #22: map_unknown_refs .......................   Passed    0.00 sec
+        Start  23: map_locked_door_rules
+ 23/123 Test  #23: map_locked_door_rules ..................   Passed    0.00 sec
+        Start  24: map_stuck_door_rules
+ 24/123 Test  #24: map_stuck_door_rules ...................   Passed    0.00 sec
+        Start  25: map_secret_door_rules
+ 25/123 Test  #25: map_secret_door_rules ..................   Passed    0.00 sec
+        Start  26: map_descent_rules
+ 26/123 Test  #26: map_descent_rules ......................   Passed    0.00 sec
+        Start  27: map_orphan_rooms
+ 27/123 Test  #27: map_orphan_rooms .......................   Passed    0.00 sec
+        Start  28: map_puzzle_rules
+ 28/123 Test  #28: map_puzzle_rules .......................   Passed    0.00 sec
+        Start  29: map_count_rules
+ 29/123 Test  #29: map_count_rules ........................   Passed    0.01 sec
+        Start  30: map_cell_clash
+ 30/123 Test  #30: map_cell_clash .........................   Passed    0.00 sec
+        Start  31: map_cells
+ 31/123 Test  #31: map_cells ..............................   Passed    0.00 sec
+        Start  32: map_neighbours
+ 32/123 Test  #32: map_neighbours .........................   Passed    0.00 sec
+        Start  33: map_door_ways
+ 33/123 Test  #33: map_door_ways ..........................   Passed    0.00 sec
+        Start  34: map_reach
+ 34/123 Test  #34: map_reach ..............................   Passed    0.01 sec
+        Start  35: map_cli_failures
+ 35/123 Test  #35: map_cli_failures .......................   Passed    0.00 sec
+        Start  36: map_schema_errors
+ 36/123 Test  #36: map_schema_errors ......................   Passed    0.00 sec
+        Start  37: pzl_data_real
+ 37/123 Test  #37: pzl_data_real ..........................   Passed    0.00 sec
+        Start  38: pzl_data_errors
+ 38/123 Test  #38: pzl_data_errors ........................   Passed    0.00 sec
+        Start  39: pzl_map_cross_real
+ 39/123 Test  #39: pzl_map_cross_real .....................   Passed    0.00 sec
+        Start  40: pzl_map_cross_broken
+ 40/123 Test  #40: pzl_map_cross_broken ...................   Passed    0.01 sec
+        Start  41: pzl_all_orderings
+ 41/123 Test  #41: pzl_all_orderings ......................   Passed    0.00 sec
+        Start  42: pzl_oracle_sequences
+ 42/123 Test  #42: pzl_oracle_sequences ...................   Passed    0.03 sec
+        Start  43: pzl_repeat_and_reset
+ 43/123 Test  #43: pzl_repeat_and_reset ...................   Passed    0.00 sec
+        Start  44: pzl_solve
+ 44/123 Test  #44: pzl_solve ..............................   Passed    0.00 sec
+        Start  45: pzl_no_lockout
+ 45/123 Test  #45: pzl_no_lockout .........................   Passed    0.00 sec
+        Start  46: pzl_unknown_control
+ 46/123 Test  #46: pzl_unknown_control ....................   Passed    0.01 sec
+        Start  47: pzl_bypass_routes
+ 47/123 Test  #47: pzl_bypass_routes ......................   Passed    0.00 sec
+        Start  48: pzl_bypass_after_progress
+ 48/123 Test  #48: pzl_bypass_after_progress ..............   Passed    0.00 sec
+        Start  49: pzl_second_open
+ 49/123 Test  #49: pzl_second_open ........................   Passed    0.01 sec
+        Start  50: pzl_solve_after_bypass
+ 50/123 Test  #50: pzl_solve_after_bypass .................   Passed    0.00 sec
+        Start  51: pzl_roundtrip_prefixes
+ 51/123 Test  #51: pzl_roundtrip_prefixes .................   Passed    0.02 sec
+        Start  52: pzl_roundtrip_bypass
+ 52/123 Test  #52: pzl_roundtrip_bypass ...................   Passed    0.00 sec
+        Start  53: pzl_persist_open
+ 53/123 Test  #53: pzl_persist_open .......................   Passed    0.00 sec
+        Start  54: pzl_xp_claim
+ 54/123 Test  #54: pzl_xp_claim ...........................   Passed    0.00 sec
+        Start  55: pzl_bad_state_text
+ 55/123 Test  #55: pzl_bad_state_text .....................   Passed    0.01 sec
+        Start  56: pzl_state_fixtures
+ 56/123 Test  #56: pzl_state_fixtures .....................   Passed    0.00 sec
+        Start  57: pzl_load_keeps_state_on_reject
+ 57/123 Test  #57: pzl_load_keeps_state_on_reject .........   Passed    0.00 sec
+        Start  58: pzl_ref_python_cases
+ 58/123 Test  #58: pzl_ref_python_cases ...................   Passed    0.01 sec
+        Start  59: pzl_strings_exist
+ 59/123 Test  #59: pzl_strings_exist ......................   Passed    0.00 sec
+        Start  60: pzl_cli_functions
+ 60/123 Test  #60: pzl_cli_functions ......................   Passed    0.01 sec
+        Start  61: puzzle_no_lockout
+ 61/123 Test  #61: puzzle_no_lockout ......................   Passed    0.00 sec
+        Start  62: puzzle_second_open
+ 62/123 Test  #62: puzzle_second_open .....................   Passed    0.00 sec
+        Start  63: puzzle_roundtrip_bypass
+ 63/123 Test  #63: puzzle_roundtrip_bypass ................   Passed    0.00 sec
+        Start  64: puzzle_persist_open
+ 64/123 Test  #64: puzzle_persist_open ....................   Passed    0.00 sec
+        Start  65: puzzle_xp_claim
+ 65/123 Test  #65: puzzle_xp_claim ........................   Passed    0.00 sec
+        Start  66: pzl_exe_validate
+ 66/123 Test  #66: pzl_exe_validate .......................   Passed    0.00 sec
+        Start  67: pzl_exe_seq_solve
+ 67/123 Test  #67: pzl_exe_seq_solve ......................   Passed    0.00 sec
+        Start  68: pzl_exe_seq_wrong
+ 68/123 Test  #68: pzl_exe_seq_wrong ......................   Passed    0.00 sec
+        Start  69: pzl_exe_bypass
+ 69/123 Test  #69: pzl_exe_bypass .........................   Passed    0.00 sec
+        Start  70: pzl_exe_roundtrip
+ 70/123 Test  #70: pzl_exe_roundtrip ......................   Passed    0.00 sec
+        Start  71: pzl_exe_load
+ 71/123 Test  #71: pzl_exe_load ...........................   Passed    0.00 sec
+        Start  72: pzl_exe_bad_unknown_control
+ 72/123 Test  #72: pzl_exe_bad_unknown_control ............   Passed    0.01 sec
+        Start  73: pzl_exe_bad_unknown_route
+ 73/123 Test  #73: pzl_exe_bad_unknown_route ..............   Passed    0.01 sec
+        Start  74: pzl_exe_bad_save_missing
+ 74/123 Test  #74: pzl_exe_bad_save_missing ...............   Passed    0.01 sec
+        Start  75: pzl_exe_bad_save_inconsistent
+ 75/123 Test  #75: pzl_exe_bad_save_inconsistent ..........   Passed    0.01 sec
+        Start  76: pzl_exe_bad_save_value
+ 76/123 Test  #76: pzl_exe_bad_save_value .................   Passed    0.01 sec
+        Start  77: pzl_exe_bad_edge
+ 77/123 Test  #77: pzl_exe_bad_edge .......................   Passed    0.01 sec
+        Start  78: qst_quest_real_validates
+ 78/123 Test  #78: qst_quest_real_validates ...............   Passed    0.00 sec
+        Start  79: qst_quest_stage_bands
+ 79/123 Test  #79: qst_quest_stage_bands ..................   Passed    0.00 sec
+        Start  80: qst_quest_dialogue_agrees_csv
+ 80/123 Test  #80: qst_quest_dialogue_agrees_csv ..........   Passed    0.00 sec
+        Start  81: qst_quest_fill_all
+ 81/123 Test  #81: qst_quest_fill_all .....................   Passed    0.00 sec
+        Start  82: qst_quest_fill_rules
+ 82/123 Test  #82: qst_quest_fill_rules ...................   Passed    0.00 sec
+        Start  83: qst_quest_offer_variants
+ 83/123 Test  #83: qst_quest_offer_variants ...............   Passed    0.00 sec
+        Start  84: qst_quest_accept_decline
+ 84/123 Test  #84: qst_quest_accept_decline ...............   Passed    0.00 sec
+        Start  85: qst_quest_arrive_variants
+ 85/123 Test  #85: qst_quest_arrive_variants ..............   Passed    0.00 sec
+        Start  86: qst_quest_report_variants
+ 86/123 Test  #86: qst_quest_report_variants ..............   Passed    0.00 sec
+        Start  87: qst_quest_per_character
+ 87/123 Test  #87: qst_quest_per_character ................   Passed    0.00 sec
+        Start  88: qst_quest_hostile_midquest
+ 88/123 Test  #88: qst_quest_hostile_midquest .............   Passed    0.00 sec
+        Start  89: qst_quest_hostile_reward
+ 89/123 Test  #89: qst_quest_hostile_reward ...............   Passed    0.00 sec
+        Start  90: qst_quest_reward_once
+ 90/123 Test  #90: qst_quest_reward_once ..................   Passed    0.00 sec
+        Start  91: qst_quest_reward_roll
+ 91/123 Test  #91: qst_quest_reward_roll ..................   Passed    0.00 sec
+        Start  92: qst_quest_roundtrip
+ 92/123 Test  #92: qst_quest_roundtrip ....................   Passed    0.00 sec
+        Start  93: qst_quest_load_invalid
+ 93/123 Test  #93: qst_quest_load_invalid .................   Passed    0.00 sec
+        Start  94: qst_quest_id_checks
+ 94/123 Test  #94: qst_quest_id_checks ....................   Passed    0.01 sec
+        Start  95: qst_quest_csv_rules
+ 95/123 Test  #95: qst_quest_csv_rules ....................   Passed    0.01 sec
+        Start  96: qst_quest_coverage_rule
+ 96/123 Test  #96: qst_quest_coverage_rule ................   Passed    0.01 sec
+        Start  97: qst_quest_transition_table
+ 97/123 Test  #97: qst_quest_transition_table .............   Passed    0.00 sec
+        Start  98: qst_quest_cli_validate
+ 98/123 Test  #98: qst_quest_cli_validate .................   Passed    0.03 sec
+        Start  99: qst_quest_cli_stage_line_fill
+ 99/123 Test  #99: qst_quest_cli_stage_line_fill ..........   Passed    0.08 sec
+        Start 100: qst_quest_cli_run
+100/123 Test #100: qst_quest_cli_run ......................   Passed    0.08 sec
+        Start 101: qst_quest_cli_hostile
+101/123 Test #101: qst_quest_cli_hostile ..................   Passed    0.05 sec
+        Start 102: qst_quest_cli_reward
+102/123 Test #102: qst_quest_cli_reward ...................   Passed    0.06 sec
+        Start 103: qst_quest_transition_table_extra_row
+103/123 Test #103: qst_quest_transition_table_extra_row ...   Passed    0.00 sec
+        Start 104: qst_quest_python_reference
+104/123 Test #104: qst_quest_python_reference .............   Passed    0.02 sec
+        Start 105: eqv_gen_and_match
+105/123 Test #105: eqv_gen_and_match ......................   Passed    0.21 sec
+        Start 106: eqv_gen_missing_reference
+106/123 Test #106: eqv_gen_missing_reference ..............   Passed    0.20 sec
+        Start 107: eqv_gen_depends_on_reference
+107/123 Test #107: eqv_gen_depends_on_reference ...........   Passed    0.37 sec
+        Start 108: eqv_tampered
+108/123 Test #108: eqv_tampered ...........................   Passed    0.41 sec
+        Start 109: eqv_empty
+109/123 Test #109: eqv_empty ..............................   Passed    0.04 sec
+        Start 110: eqv_changed_reference
+110/123 Test #110: eqv_changed_reference ..................   Passed    0.31 sec
+        Start 111: eqv_bad_files
+111/123 Test #111: eqv_bad_files ..........................   Passed    0.18 sec
+        Start 112: eqv_guard_real
+112/123 Test #112: eqv_guard_real .........................   Passed    0.07 sec
+        Start 113: eqv_guard_leaks
+113/123 Test #113: eqv_guard_leaks ........................   Passed    0.67 sec
+        Start 114: eqv_guard_csv_real
+114/123 Test #114: eqv_guard_csv_real .....................   Passed    0.06 sec
+        Start 115: eqv_guard_csv_leaks
+115/123 Test #115: eqv_guard_csv_leaks ....................   Passed    0.58 sec
+        Start 116: eqv_pzl_text_guard_real
+116/123 Test #116: eqv_pzl_text_guard_real ................   Passed    0.03 sec
+        Start 117: eqv_qst_text_guard_real
+117/123 Test #117: eqv_qst_text_guard_real ................   Passed    0.02 sec
+        Start 118: eqv_qst_text_guard_leak_fixture
+118/123 Test #118: eqv_qst_text_guard_leak_fixture ........   Passed    0.03 sec
+        Start 119: eqv_gen_golden
+119/123 Test #119: eqv_gen_golden .........................   Passed    0.05 sec
+        Start 120: eqv_check_golden
+120/123 Test #120: eqv_check_golden .......................   Passed    0.08 sec
+        Start 121: com_cli_real_map
+121/123 Test #121: com_cli_real_map .......................   Passed    0.00 sec
+        Start 122: com_cli_real_csv
+122/123 Test #122: com_cli_real_csv .......................   Passed    0.00 sec
+        Start 123: map_cli_real_validate
+123/123 Test #123: map_cli_real_validate ..................   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 123
+
+Total Test time (real) =   4.23 sec

@@ -1,0 +1,4 @@
+$ work/T001/build/quest_check reward roll=-0.1
+exit: 1
+--- output ---
+FAIL ROLL_RANGE -0.1

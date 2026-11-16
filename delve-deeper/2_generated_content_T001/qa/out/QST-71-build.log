@@ -1,0 +1,31 @@
+$ cmake --build work/T001/qa/build_mut/qst_hostile_noline2 -j 4
+exit: 0
+--- output ---
+-- Configuring done (0.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/user/content_pipeline/work/T001/qa/build_mut/qst_hostile_noline2
+[  9%] Built target dd_common
+[ 15%] Built target dd_map
+[ 21%] Built target dd_puzzle
+[ 28%] Built target dd_quest
+[ 37%] Built target dd_cli
+[ 40%] Building CXX object common/CMakeFiles/com_tests.dir/__/tests/common/test_common.cpp.o
+[ 46%] Built target dd_puzzle_cli
+[ 50%] Building CXX object map/CMakeFiles/map_tests.dir/__/tests/map/test_map.cpp.o
+[ 56%] Built target quest_check
+[ 59%] Building CXX object eqv/CMakeFiles/eqv_check.dir/src/eqv_check.cpp.o
+[ 65%] Built target com_check
+[ 71%] Built target map_check
+[ 78%] Built target puzzle_check
+[ 81%] Building CXX object puzzle/CMakeFiles/puzzle_tests.dir/__/tests/puzzle/test_puzzle.cpp.o
+[ 84%] Linking CXX executable ../eqv_check
+[ 84%] Built target eqv_check
+[ 87%] Building CXX object quest/CMakeFiles/quest_tests.dir/__/tests/quest/test_quest.cpp.o
+[ 90%] Linking CXX executable ../map_tests
+[ 93%] Linking CXX executable ../com_tests
+[ 93%] Built target map_tests
+[ 93%] Built target com_tests
+[ 96%] Linking CXX executable ../puzzle_tests
+[ 96%] Built target puzzle_tests
+[100%] Linking CXX executable ../quest_tests
+[100%] Built target quest_tests

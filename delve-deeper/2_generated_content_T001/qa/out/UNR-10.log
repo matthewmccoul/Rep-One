@@ -1,0 +1,8 @@
+$ python3 -I work/T001/code/tools/check_unreal_wrapper.py work/T001/qa/fixtures/unr_wrapper_empty
+exit: 1
+--- output ---
+3 wrapper files scanned (generated Core copies skipped)
+CLASS UDDPuzzleComponent (Public/DDPuzzleComponent.h, Private/DDPuzzleComponent.cpp): 0 core call(s)
+VIOLATION Public/DDPuzzleComponent.h:1: class UDDPuzzleComponent makes no call into the core
+1 class(es), 1 violation(s)
+RESULT FAIL

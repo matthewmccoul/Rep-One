@@ -1,0 +1,6 @@
+$ python3 -I work/T001/code/tools/check_no_unreal.py --cmake work/T001/qa/fixtures/unr_cmake_leak
+exit: 1
+--- output ---
+VIOLATION CMakeLists.txt:58: CMake names an unreal/ source: add_subdirectory(unreal)
+1 CMake files scanned, 1 violation(s)
+RESULT FAIL

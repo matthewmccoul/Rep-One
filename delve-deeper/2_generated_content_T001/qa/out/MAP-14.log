@@ -1,0 +1,13 @@
+$ work/T001/build/map_check validate work/T001/qa/fixtures/map_orphan.json
+exit: 1
+--- output ---
+FAIL UNREACHABLE_NODE: node collapsed_gallery not reachable from town_entrance
+  also UNREACHABLE_NODE: node ore_lift not reachable from town_entrance
+  also UNREACHABLE_NODE: node barracks not reachable from town_entrance
+  also UNREACHABLE_NODE: node toll_hall not reachable from town_entrance
+  also UNREACHABLE_NODE: node boss_room not reachable from town_entrance
+  also UNREACHABLE_NODE: node descent not reachable from town_entrance
+  also NO_OPEN_ROUTE: no plain-door route from town_entrance to ore_lift
+  also NO_OPEN_ROUTE_TO_DESCENT: no plain-door route from town_entrance to boss_room
+  also NO_OPEN_ROUTE_TO_DESCENT: no plain-door route from town_entrance to descent
+  also DOOR_TYPES_USED: no edge uses door type stuck

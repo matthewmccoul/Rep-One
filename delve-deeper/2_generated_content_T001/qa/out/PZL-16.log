@@ -1,0 +1,4 @@
+$ work/T001/build/puzzle_check seq work/T001/puzzle/storeroom_puzzle.json ctl_door
+exit: 1
+--- output ---
+FAIL UNKNOWN_CONTROL: ctl_door

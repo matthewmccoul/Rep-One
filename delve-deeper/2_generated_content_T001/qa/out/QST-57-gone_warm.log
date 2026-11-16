@@ -1,0 +1,4 @@
+$ work/T001/build/quest_check line work/T001/quest/figure_ore_lift_strings.csv fig_report_gone_warm -2
+exit: 1
+--- output ---
+FAIL NO_LINE fig_report_gone_warm at stage -2

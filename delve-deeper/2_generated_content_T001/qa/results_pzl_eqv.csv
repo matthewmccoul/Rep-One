@@ -1,0 +1,42 @@
+check_id,result,label,command,exit_code,log_path,defect_id,note
+PZL-01,pass,EXECUTED,work/T001/build/puzzle_check validate PUZ MAP,0,work/T001/qa/out/PZL-01.log,,
+PZL-02,pass,EXECUTED,puzzle_check validate pz_bad_solution.json MAP,1,work/T001/qa/out/PZL-02.log,,(B) fixture edit: solution[2]=ctl_lever; rejected FAIL BAD_SOLUTION
+PZL-03,pass,EXECUTED,puzzle_check validate pz_bad_edge.json MAP,1,work/T001/qa/out/PZL-03.log,,(B) fixture edit: opens_edge=e03; FAIL PUZZLE_EDGE
+PZL-04,pass,EXECUTED,puzzle_check validate pz_bad_site.json MAP,1,work/T001/qa/out/PZL-04.log,,(B) fixture edit: controls_site=smelter_room; FAIL UNKNOWN_NODE
+PZL-05,pass,EXECUTED,puzzle_check validate pz_bad_routes.json MAP,1,work/T001/qa/out/PZL-05.log,,(B) fixture edit: other_routes=[magic_key;pick_lock]; FAIL ROUTES_MISMATCH
+PZL-06,pass,EXECUTED,puzzle_check seq PUZ ctl_pick ctl_cart ctl_furnace,0,work/T001/qa/out/PZL-06.log,,state line and step keys match spec
+PZL-07,pass,EXECUTED,puzzle_check seq PUZ ctl_pick ctl_furnace ctl_cart,0,work/T001/qa/out/PZL-07.log,,(B) door stays closed; state matches spec
+PZL-08,pass,EXECUTED,puzzle_check seq PUZ ctl_cart ctl_pick ctl_furnace,0,work/T001/qa/out/PZL-08.log,,(B) state matches spec
+PZL-09,pass,EXECUTED,puzzle_check seq PUZ ctl_cart ctl_furnace ctl_pick,0,work/T001/qa/out/PZL-09.log,,(B) state matches spec
+PZL-10,pass,EXECUTED,puzzle_check seq PUZ ctl_furnace ctl_pick ctl_cart,0,work/T001/qa/out/PZL-10.log,,(B) state matches spec
+PZL-11,pass,EXECUTED,puzzle_check seq PUZ ctl_furnace ctl_cart ctl_pick,0,work/T001/qa/out/PZL-11.log,,(B) state matches spec
+PZL-12,pass,EXECUTED,puzzle_check seq PUZ ctl_pick ctl_pick,0,work/T001/qa/out/PZL-12.log,,(B) state matches spec
+PZL-13,pass,EXECUTED,puzzle_check seq PUZ ctl_cart ctl_pick ctl_cart ctl_furnace,0,work/T001/qa/out/PZL-13.log,,solves with wrong=1
+PZL-14,pass,EXECUTED,ctest -R puzzle_no_lockout,0,work/T001/qa/out/PZL-14.log,,test body read: 20 wrong presses then solve
+PZL-15,pass,EXECUTED,puzzle_check seq PUZ pick cart furnace pick,0,work/T001/qa/out/PZL-15.log,,last press inert; final state equals PZL-06
+PZL-16,pass,EXECUTED,puzzle_check seq PUZ ctl_door,1,work/T001/qa/out/PZL-16.log,,(B) FAIL UNKNOWN_CONTROL
+PZL-17,pass,EXECUTED,puzzle_check bypass PUZ magic_key,0,work/T001/qa/out/PZL-17.log,,
+PZL-18,pass,EXECUTED,puzzle_check bypass PUZ break; and pick_lock,0,work/T001/qa/out/PZL-18a.log; work/T001/qa/out/PZL-18b.log,,two runs both exit 0 with correct opened_via
+PZL-19,pass,EXECUTED,puzzle_check bypass PUZ magic_key ctl_pick,0,work/T001/qa/out/PZL-19.log,,one press before route then inert press; progress empty (SE reading P4 accepted)
+PZL-20,pass,EXECUTED,ctest -R puzzle_second_open,0,work/T001/qa/out/PZL-20.log,,test body read
+PZL-21,pass,EXECUTED,puzzle_check bypass PUZ kick,1,work/T001/qa/out/PZL-21.log,,(B) FAIL UNKNOWN_ROUTE
+PZL-22,pass,EXECUTED,puzzle_check roundtrip PUZ ctl_pick ctl_cart,0,work/T001/qa/out/PZL-22.log,,state equal after load; the following-furnace-solves part and all prefixes come from ctest pzl_roundtrip_prefixes (passed in PZL-32b log)
+PZL-23,pass,EXECUTED,ctest -R puzzle_roundtrip_bypass,0,work/T001/qa/out/PZL-23.log,,all three routes (test body read)
+PZL-24,pass,EXECUTED,ctest -R puzzle_persist_open,0,work/T001/qa/out/PZL-24.log,,"puzzle has no calendar input (STATIC argument from API); test covers repeated save/load/reset keeping door open. Day-passing itself is not exercisable in this module"
+PZL-25,pass,EXECUTED,puzzle_check load PUZ pz_save_missing.json,1,work/T001/qa/out/PZL-25.log,,(B) fixture edit: wrong_count removed; FAIL SAVE_FIELD
+PZL-26,pass,EXECUTED,puzzle_check load PUZ pz_save_inconsistent.json,1,work/T001/qa/out/PZL-26.log,,(B) fixture: solved=true door_open=false opened_via=puzzle full progress; FAIL SAVE_STATE. Control run on good save pz_save_good.json exit 0 (PZL-27g.log)
+PZL-27,pass,EXECUTED,puzzle_check load PUZ pz_save_bad_via.json; pz_save_long.json; pz_save_unknown_ctl.json,1,work/T001/qa/out/PZL-27a.log; work/T001/qa/out/PZL-27b.log; work/T001/qa/out/PZL-27c.log,,(B) three fixtures each one edit; each FAIL SAVE_VALUE
+PZL-28,pass,EXECUTED,ctest -R puzzle_xp_claim,0,work/T001/qa/out/PZL-28.log,,reference behaviour (PROPOSAL); XP existence and amount TBD not tested
+PZL-29,not-run,NOT RUN,n/a,,,,TBD in GDD and spec; not testable
+PZL-30,pass,EXECUTED,python3 -I check_text_guard.py PUZ,0,work/T001/qa/out/PZL-30.log,,script read before run
+PZL-31,pass,EXECUTED,python3 -I check_text_guard.py pz_text_leak.json,1,work/T001/qa/out/PZL-31.log,,(B) fixture edit: str.carving.text = The dwarves built this mine.; names key and word
+PZL-32,pass,EXECUTED,ctest -R pzl_,0,work/T001/qa/out/PZL-32b.log,,"spec regex puzzle_ (log PZL-32.log; exit 0) selects only 5 aliases plus map_puzzle_rules (6 tests); the real group is pzl_ (37 of 37 passed). Spec regex defect is QA's own, see contract_decisions P1"
+PZL-33,pass,EXECUTED,ctest --test-dir work/T001/qa/build_mut/puzzle_noreset -R pzl_,8,work/T001/qa/out/PZL-33.log,,"mutation: wrong press no longer clears progress (puzzle.cpp, one edit; second non-mutation edit: DD_REPO_ROOT set to absolute repo root in the copy CMakeLists so test data paths resolve). 5 of 37 failed: pzl_oracle_sequences pzl_repeat_and_reset pzl_ref_python_cases pzl_cli_functions pzl_exe_seq_wrong. Spec literal -R puzzle_ on the mutant exits 0 (work/T001/qa/out/PZL-33s.log): the five aliases do not catch it. First mutant run (all fail) was invalid: wrong data path; superseded"
+EQV-01,pass,EXECUTED,python3 -I work/T001/puzzle/test_puzzle.py,0,work/T001/qa/out/EQV-01.log,,19 tests ok
+EQV-02,pass,EXECUTED,python3 -I gen_golden.py work/T001/qa/out/golden.json,0,work/T001/qa/out/EQV-02.log,,331 vectors; sequences=120
+EQV-03,pass,EXECUTED,python3 -I gen_golden.py --reference eqv_no_reference.py golden_bad.json,2,work/T001/qa/out/EQV-03.log,,(B) nonexistent reference; exit 2; no output file (golden_bad.json and .part absent in out/)
+EQV-04,pass,EXECUTED,python3 -I gen_golden.py --reference eqv_ref_changed.py golden_changed.json; then --diff,0,work/T001/qa/out/EQV-04.log; work/T001/qa/out/EQV-04d.log,,(B) fixture edit: reference line self.solution = list(self.data[solution]) replaced by furnace;cart;pick. Generator exit 0; diff exit 1 DIFFERENT 315 vectors
+EQV-05,pass,EXECUTED,work/T001/build/eqv_check golden.json,0,work/T001/qa/out/EQV-05.log,,331 vectors 0 mismatches; N equals generator count
+EQV-06,pass,EXECUTED,work/T001/build/eqv_check eqv_tampered.json,1,work/T001/qa/out/EQV-06.log,,(B) fixture edit: seq-006 expected door_open flipped false to true; names seq-006
+EQV-07,pass,EXECUTED,work/T001/build/eqv_check golden_changed.json,1,work/T001/qa/out/EQV-07.log,,(B) 315 mismatches of 331
+EQV-08,pass,EXECUTED,work/T001/build/eqv_check eqv_empty.json,1,work/T001/qa/out/EQV-08.log,,(B) FAIL NO_VECTORS

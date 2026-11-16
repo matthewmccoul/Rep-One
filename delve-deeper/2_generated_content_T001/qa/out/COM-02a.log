@@ -1,0 +1,4 @@
+$ work/T001/build/com_check json work/T001/puzzle/storeroom_puzzle.json
+exit: 0
+--- output ---
+OK json

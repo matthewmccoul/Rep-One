@@ -1,0 +1,5 @@
+validate_quest.py Version 3 (revision 2 of 2)
+log: work/T001/qa/out/validate_quest.log
+rows=25 keys_json=25 tests=10
+RESULT: PASS
+exit code 0

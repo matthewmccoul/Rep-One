@@ -1,0 +1,49 @@
+[OUTPUT] 
+Internal ctest changing into directory: /home/user/content_pipeline/work/T001/build_fix
+
+[HANDLER_VERBOSE_OUTPUT] 
+UpdateCTestConfiguration  from :/home/user/content_pipeline/work/T001/build_fix/DartConfiguration.tcl
+
+UpdateCTestConfiguration  from :/home/user/content_pipeline/work/T001/build_fix/DartConfiguration.tcl
+[HANDLER_OUTPUT] 
+Test project /home/user/content_pipeline/work/T001/build_fix
+
+[HANDLER_VERBOSE_OUTPUT] 
+Constructing a list of tests
+
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 103
+[HANDLER_OUTPUT] 
+    Start 103: qst_quest_transition_table_extra_row
+
+[HANDLER_VERBOSE_OUTPUT] 
+
+103: Test command: /home/user/content_pipeline/work/T001/build_fix/quest_tests "quest_transition_table"
+
+103: Working Directory: /home/user/content_pipeline/work/T001/build_fix/quest
+103: Environment variables: 
+103:  DD_QUEST_JSON=/home/user/content_pipeline/work/T001/code/tests/quest/fixtures/q_extra_transition.json
+103: Test timeout computed to be: 10000000
+103: engine(real file): DISAGREE not_offered --report--> engine gives not_offered, table says completed (listed)
+103: /home/user/content_pipeline/work/T001/code/tests/quest/test_quest.cpp:916: CHECK failed: badA == 0 (got [1] vs [0])
+103: engine(file under test): DISAGREE not_offered --report--> engine gives not_offered, table says completed (listed)
+103: /home/user/content_pipeline/work/T001/code/tests/quest/test_quest.cpp:919: CHECK failed: badB == 0 (got [1] vs [0])
+103:   FAIL quest_transition_table
+[HANDLER_OUTPUT] 
+1/1 Test #103: qst_quest_transition_table_extra_row ...
+   Passed    0.00 sec
+[HANDLER_VERBOSE_OUTPUT] 
+
+The following tests passed:
+
+	qst_quest_transition_table_extra_row
+[HANDLER_OUTPUT] 
+
+100% tests passed, 0 tests failed out of 1
+
+
+Total Test time (real) =   0.01 sec

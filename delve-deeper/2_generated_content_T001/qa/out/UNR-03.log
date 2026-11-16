@@ -1,0 +1,6 @@
+$ python3 -I work/T001/code/tools/check_no_unreal.py work/T001/qa/fixtures/unr_core_macro
+exit: 1
+--- output ---
+VIOLATION puzzle/include/dd/puzzle.h:104: Unreal marker: UPROPERTY(
+10 core files scanned, 1 violation(s)
+RESULT FAIL

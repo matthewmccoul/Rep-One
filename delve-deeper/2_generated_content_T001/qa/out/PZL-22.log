@@ -1,0 +1,7 @@
+$ work/T001/build/puzzle_check roundtrip work/T001/puzzle/storeroom_puzzle.json ctl_pick ctl_cart
+exit: 0
+--- output ---
+ctl_pick step_ok str.use.step_1
+ctl_cart step_ok str.use.step_2
+saved {"progress":["ctl_pick","ctl_cart"],"solved":false,"door_open":false,"opened_via":null,"wrong_count":0,"xp_awarded":false}
+state=partial door_open=0 opened_via=none wrong=0 progress=ctl_pick,ctl_cart

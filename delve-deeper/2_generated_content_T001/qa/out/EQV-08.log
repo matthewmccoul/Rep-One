@@ -1,0 +1,4 @@
+$ work/T001/build/eqv_check work/T001/qa/fixtures/eqv_empty.json
+exit: 1
+--- output ---
+FAIL NO_VECTORS: the golden file holds zero vectors

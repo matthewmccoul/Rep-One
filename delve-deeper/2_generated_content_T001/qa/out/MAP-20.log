@@ -1,0 +1,5 @@
+$ work/T001/build/map_check validate work/T001/qa/fixtures/map_two_monsters.json
+exit: 1
+--- output ---
+FAIL MONSTER_TYPES: declared monster types 2, expected 3
+  also UNKNOWN_MONSTER_TYPE: encounter enc_lift_1 monster type unknown: mon_type_3

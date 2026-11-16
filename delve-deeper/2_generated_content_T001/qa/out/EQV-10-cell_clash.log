@@ -1,0 +1,4 @@
+$ python3 -I work/T001/map/validate_map.py work/T001/qa/fixtures/map_cell_clash.json
+exit: 0
+--- output ---
+PASS: 17 nodes, 15 edges, 3 monster types, 3 traps, 1 puzzle, 4 door types, plain-only route to descent exists

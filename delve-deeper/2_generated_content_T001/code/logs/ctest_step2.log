@@ -1,0 +1,166 @@
+[OUTPUT] 
+Internal ctest changing into directory: /home/user/content_pipeline/work/T001/build_puzzle
+
+[HANDLER_OUTPUT] 
+Test project /home/user/content_pipeline/work/T001/build_puzzle
+
+      Start  3: com_json_valid_real_files
+ 1/78 Test  #3: com_json_valid_real_files ........   Passed    0.01 sec
+      Start  4: com_json_escapes
+ 2/78 Test  #4: com_json_escapes .................   Passed    0.00 sec
+      Start  5: com_json_numbers_literals
+ 3/78 Test  #5: com_json_numbers_literals ........   Passed    0.00 sec
+      Start  6: com_json_trailing_comma
+ 4/78 Test  #6: com_json_trailing_comma ..........   Passed    0.00 sec
+      Start  7: com_json_truncated
+ 5/78 Test  #7: com_json_truncated ...............   Passed    0.00 sec
+      Start  8: com_json_dup_key
+ 6/78 Test  #8: com_json_dup_key .................   Passed    0.00 sec
+      Start  9: com_json_nonstrict
+ 7/78 Test  #9: com_json_nonstrict ...............   Passed    0.00 sec
+      Start 10: com_json_empty
+ 8/78 Test #10: com_json_empty ...................   Passed    0.00 sec
+      Start 11: com_json_depth
+ 9/78 Test #11: com_json_depth ...................   Passed    0.00 sec
+      Start 12: com_json_error_paths
+10/78 Test #12: com_json_error_paths .............   Passed    0.00 sec
+      Start 13: com_cli_json_exit_codes
+11/78 Test #13: com_cli_json_exit_codes ..........   Passed    0.00 sec
+      Start 14: com_csv_valid_real
+12/78 Test #14: com_csv_valid_real ...............   Passed    0.00 sec
+      Start 15: com_csv_quoted_fields
+13/78 Test #15: com_csv_quoted_fields ............   Passed    0.00 sec
+      Start 16: com_csv_ragged
+14/78 Test #16: com_csv_ragged ...................   Passed    0.00 sec
+      Start 17: com_csv_open_quote
+15/78 Test #17: com_csv_open_quote ...............   Passed    0.00 sec
+      Start 18: com_csv_header_rules
+16/78 Test #18: com_csv_header_rules .............   Passed    0.00 sec
+      Start 19: map_real_validates
+17/78 Test #19: map_real_validates ...............   Passed    0.00 sec
+      Start 20: map_dup_ids
+18/78 Test #20: map_dup_ids ......................   Passed    0.00 sec
+      Start 21: map_bad_door_type
+19/78 Test #21: map_bad_door_type ................   Passed    0.01 sec
+      Start 22: map_unknown_refs
+20/78 Test #22: map_unknown_refs .................   Passed    0.00 sec
+      Start 23: map_locked_door_rules
+21/78 Test #23: map_locked_door_rules ............   Passed    0.00 sec
+      Start 24: map_stuck_door_rules
+22/78 Test #24: map_stuck_door_rules .............   Passed    0.00 sec
+      Start 25: map_secret_door_rules
+23/78 Test #25: map_secret_door_rules ............   Passed    0.00 sec
+      Start 26: map_descent_rules
+24/78 Test #26: map_descent_rules ................   Passed    0.00 sec
+      Start 27: map_orphan_rooms
+25/78 Test #27: map_orphan_rooms .................   Passed    0.00 sec
+      Start 28: map_puzzle_rules
+26/78 Test #28: map_puzzle_rules .................   Passed    0.00 sec
+      Start 29: map_count_rules
+27/78 Test #29: map_count_rules ..................   Passed    0.00 sec
+      Start 30: map_cell_clash
+28/78 Test #30: map_cell_clash ...................   Passed    0.00 sec
+      Start 31: map_cells
+29/78 Test #31: map_cells ........................   Passed    0.00 sec
+      Start 32: map_neighbours
+30/78 Test #32: map_neighbours ...................   Passed    0.00 sec
+      Start 33: map_door_ways
+31/78 Test #33: map_door_ways ....................   Passed    0.00 sec
+      Start 34: map_reach
+32/78 Test #34: map_reach ........................   Passed    0.00 sec
+      Start 35: map_cli_failures
+33/78 Test #35: map_cli_failures .................   Passed    0.00 sec
+      Start 36: map_schema_errors
+34/78 Test #36: map_schema_errors ................   Passed    0.00 sec
+      Start 37: pzl_data_real
+35/78 Test #37: pzl_data_real ....................   Passed    0.00 sec
+      Start 38: pzl_data_errors
+36/78 Test #38: pzl_data_errors ..................   Passed    0.00 sec
+      Start 39: pzl_map_cross_real
+37/78 Test #39: pzl_map_cross_real ...............   Passed    0.00 sec
+      Start 40: pzl_map_cross_broken
+38/78 Test #40: pzl_map_cross_broken .............   Passed    0.01 sec
+      Start 41: pzl_all_orderings
+39/78 Test #41: pzl_all_orderings ................   Passed    0.00 sec
+      Start 42: pzl_oracle_sequences
+40/78 Test #42: pzl_oracle_sequences .............   Passed    0.02 sec
+      Start 43: pzl_repeat_and_reset
+41/78 Test #43: pzl_repeat_and_reset .............   Passed    0.00 sec
+      Start 44: pzl_solve
+42/78 Test #44: pzl_solve ........................   Passed    0.00 sec
+      Start 45: pzl_no_lockout
+43/78 Test #45: pzl_no_lockout ...................   Passed    0.00 sec
+      Start 46: pzl_unknown_control
+44/78 Test #46: pzl_unknown_control ..............   Passed    0.00 sec
+      Start 47: pzl_bypass_routes
+45/78 Test #47: pzl_bypass_routes ................   Passed    0.00 sec
+      Start 48: pzl_bypass_after_progress
+46/78 Test #48: pzl_bypass_after_progress ........   Passed    0.00 sec
+      Start 49: pzl_second_open
+47/78 Test #49: pzl_second_open ..................   Passed    0.00 sec
+      Start 50: pzl_solve_after_bypass
+48/78 Test #50: pzl_solve_after_bypass ...........   Passed    0.00 sec
+      Start 51: pzl_roundtrip_prefixes
+49/78 Test #51: pzl_roundtrip_prefixes ...........   Passed    0.03 sec
+      Start 52: pzl_roundtrip_bypass
+50/78 Test #52: pzl_roundtrip_bypass .............   Passed    0.00 sec
+      Start 53: pzl_persist_open
+51/78 Test #53: pzl_persist_open .................   Passed    0.00 sec
+      Start 54: pzl_xp_claim
+52/78 Test #54: pzl_xp_claim .....................   Passed    0.01 sec
+      Start 55: pzl_bad_state_text
+53/78 Test #55: pzl_bad_state_text ...............   Passed    0.01 sec
+      Start 56: pzl_state_fixtures
+54/78 Test #56: pzl_state_fixtures ...............   Passed    0.00 sec
+      Start 57: pzl_load_keeps_state_on_reject
+55/78 Test #57: pzl_load_keeps_state_on_reject ...   Passed    0.00 sec
+      Start 58: pzl_ref_python_cases
+56/78 Test #58: pzl_ref_python_cases .............   Passed    0.00 sec
+      Start 59: pzl_strings_exist
+57/78 Test #59: pzl_strings_exist ................   Passed    0.00 sec
+      Start 60: pzl_cli_functions
+58/78 Test #60: pzl_cli_functions ................   Passed    0.01 sec
+      Start 61: puzzle_no_lockout
+59/78 Test #61: puzzle_no_lockout ................   Passed    0.00 sec
+      Start 62: puzzle_second_open
+60/78 Test #62: puzzle_second_open ...............   Passed    0.00 sec
+      Start 63: puzzle_roundtrip_bypass
+61/78 Test #63: puzzle_roundtrip_bypass ..........   Passed    0.00 sec
+      Start 64: puzzle_persist_open
+62/78 Test #64: puzzle_persist_open ..............   Passed    0.00 sec
+      Start 65: puzzle_xp_claim
+63/78 Test #65: puzzle_xp_claim ..................   Passed    0.00 sec
+      Start 66: pzl_exe_validate
+64/78 Test #66: pzl_exe_validate .................   Passed    0.00 sec
+      Start 67: pzl_exe_seq_solve
+65/78 Test #67: pzl_exe_seq_solve ................   Passed    0.00 sec
+      Start 68: pzl_exe_seq_wrong
+66/78 Test #68: pzl_exe_seq_wrong ................   Passed    0.00 sec
+      Start 69: pzl_exe_bypass
+67/78 Test #69: pzl_exe_bypass ...................   Passed    0.00 sec
+      Start 70: pzl_exe_roundtrip
+68/78 Test #70: pzl_exe_roundtrip ................   Passed    0.00 sec
+      Start 71: pzl_exe_load
+69/78 Test #71: pzl_exe_load .....................   Passed    0.00 sec
+      Start 72: pzl_exe_bad_unknown_control
+70/78 Test #72: pzl_exe_bad_unknown_control ......   Passed    0.01 sec
+      Start 73: pzl_exe_bad_unknown_route
+71/78 Test #73: pzl_exe_bad_unknown_route ........   Passed    0.01 sec
+      Start 74: pzl_exe_bad_save_missing
+72/78 Test #74: pzl_exe_bad_save_missing .........   Passed    0.01 sec
+      Start 75: pzl_exe_bad_save_inconsistent
+73/78 Test #75: pzl_exe_bad_save_inconsistent ....   Passed    0.01 sec
+      Start 76: pzl_exe_bad_save_value
+74/78 Test #76: pzl_exe_bad_save_value ...........   Passed    0.01 sec
+      Start 77: pzl_exe_bad_edge
+75/78 Test #77: pzl_exe_bad_edge .................   Passed    0.02 sec
+      Start 78: com_cli_real_map
+76/78 Test #78: com_cli_real_map .................   Passed    0.00 sec
+      Start 79: com_cli_real_csv
+77/78 Test #79: com_cli_real_csv .................   Passed    0.00 sec
+      Start 80: map_cli_real_validate
+78/78 Test #80: map_cli_real_validate ............   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 78
+
+Total Test time (real) =   0.37 sec

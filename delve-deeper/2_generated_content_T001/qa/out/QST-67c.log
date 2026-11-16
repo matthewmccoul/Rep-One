@@ -1,0 +1,4 @@
+$ work/T001/build/quest_check run work/T001/quest/figure_ore_lift_quest.json work/T001/quest/figure_ore_lift_strings.csv work/T001/map/floor1_map.json stage=abc
+exit: 1
+--- output ---
+FAIL STAGE_RANGE stage=abc

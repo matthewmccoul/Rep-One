@@ -1,0 +1,4 @@
+$ work/T001/build/com_check json work/T001/quest/figure_ore_lift_quest.json
+exit: 0
+--- output ---
+OK json

@@ -1,0 +1,11 @@
+$ ctest --test-dir work/T001/build --output-on-failure -R quest_load_invalid
+exit: 0
+--- output ---
+Internal ctest changing into directory: /home/user/content_pipeline/work/T001/build
+Test project /home/user/content_pipeline/work/T001/build
+    Start 93: qst_quest_load_invalid
+1/1 Test #93: qst_quest_load_invalid ...........   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.01 sec

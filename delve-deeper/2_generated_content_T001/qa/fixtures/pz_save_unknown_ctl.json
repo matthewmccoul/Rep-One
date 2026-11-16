@@ -1,0 +1,10 @@
+{
+ "progress": [
+  "ctl_lever"
+ ],
+ "solved": false,
+ "door_open": false,
+ "opened_via": null,
+ "wrong_count": 0,
+ "xp_awarded": false
+}

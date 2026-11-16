@@ -1,0 +1,5 @@
+$ work/T001/build/puzzle_check load work/T001/puzzle/storeroom_puzzle.json work/T001/qa/fixtures/pz_save_good.json
+exit: 0
+--- output ---
+OK load
+state=partial door_open=0 opened_via=none wrong=1 progress=ctl_pick,ctl_cart

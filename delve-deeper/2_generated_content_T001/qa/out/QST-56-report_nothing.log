@@ -1,0 +1,4 @@
+$ work/T001/build/quest_check line work/T001/quest/figure_ore_lift_strings.csv fig_report_nothing -2
+exit: 0
+--- output ---
+*Pointed fingers drum the bars.* {days_since} days. Nothing to tell me? Then the work is not done.

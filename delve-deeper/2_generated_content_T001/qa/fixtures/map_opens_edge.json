@@ -1,0 +1,366 @@
+{
+ "version": "Version 2 (revision 1 of 2)",
+ "task": "T001-s005-world",
+ "status": "PROPOSAL map v0 (not approved by user)",
+ "legal_door_types": [
+  "plain",
+  "secret",
+  "locked",
+  "stuck"
+ ],
+ "grid_note": "coords are minimap grid cells x (right), y (down); town_entrance at top",
+ "areas": {
+  "area_upper": "encounter-rate area (PROPOSAL grouping; rates TBD)",
+  "area_lift": "encounter-rate area (PROPOSAL grouping; rates TBD)",
+  "area_bandit": "encounter-rate area (PROPOSAL grouping; rates TBD)"
+ },
+ "monster_types": [
+  "mon_type_1",
+  "mon_type_2",
+  "mon_type_3"
+ ],
+ "nodes": [
+  {
+   "id": "town_entrance",
+   "type": "entrance",
+   "name": "Mine mouth from town",
+   "area": "area_upper",
+   "x": 2,
+   "y": 0
+  },
+  {
+   "id": "sewer_grate",
+   "type": "npc_site",
+   "name": "Drain grate of the Mysterious Figure",
+   "area": "area_upper",
+   "x": 1,
+   "y": 0,
+   "npc": "mysterious_figure",
+   "note": "PROPOSAL placement: GDD lists the Figure among town characters but does not say where the drain is"
+  },
+  {
+   "id": "entry_hall",
+   "type": "room",
+   "name": "Entry hall",
+   "area": "area_upper",
+   "x": 2,
+   "y": 1
+  },
+  {
+   "id": "mess_hall",
+   "type": "room",
+   "name": "Miners' mess hall",
+   "area": "area_upper",
+   "x": 1,
+   "y": 2,
+   "encounters": [
+    {
+     "slot": "enc_mess_1",
+     "kind": "monster",
+     "monster_type": "mon_type_1"
+    }
+   ]
+  },
+  {
+   "id": "foreman_office",
+   "type": "room",
+   "name": "Foreman's office",
+   "area": "area_upper",
+   "x": 0,
+   "y": 2
+  },
+  {
+   "id": "puzzle_clue_site",
+   "type": "puzzle_clue",
+   "name": "Carved wall panel in the foreman's office (text TBD, Narrative/Systems)",
+   "area": "area_upper",
+   "x": 0,
+   "y": 2,
+   "inside_room": "foreman_office"
+  },
+  {
+   "id": "slag_passage",
+   "type": "corridor",
+   "name": "Slag passage",
+   "area": "area_upper",
+   "x": 1,
+   "y": 3,
+   "traps": [
+    {
+     "slot": "trap_dart",
+     "trap_kind": "dart_volley",
+     "note": "PROPOSAL kind; effects Systems"
+    }
+   ]
+  },
+  {
+   "id": "smelter_hall",
+   "type": "room",
+   "name": "Smelter hall",
+   "area": "area_upper",
+   "x": 1,
+   "y": 4
+  },
+  {
+   "id": "puzzle_controls_site",
+   "type": "puzzle_controls",
+   "name": "Pick rack, ore cart, furnace (three controls)",
+   "area": "area_upper",
+   "x": 1,
+   "y": 4,
+   "inside_room": "smelter_hall",
+   "controls": [
+    "ctl_pick",
+    "ctl_cart",
+    "ctl_furnace"
+   ]
+  },
+  {
+   "id": "storeroom",
+   "type": "room",
+   "name": "Mine storeroom",
+   "area": "area_upper",
+   "x": 0,
+   "y": 4,
+   "loot_slots": [
+    "loot_store_1",
+    "loot_store_2"
+   ],
+   "traps": [
+    {
+     "slot": "trap_store",
+     "trap_kind": "needle_lock",
+     "note": "PROPOSAL kind; trapped chest inside storeroom"
+    }
+   ]
+  },
+  {
+   "id": "hidden_cache",
+   "type": "room",
+   "name": "Hidden cache",
+   "area": "area_lift",
+   "x": 2,
+   "y": 5,
+   "hidden": true,
+   "loot_slots": [
+    "loot_cache_1"
+   ]
+  },
+  {
+   "id": "collapsed_gallery",
+   "type": "room",
+   "name": "Collapsed gallery",
+   "area": "area_upper",
+   "x": 3,
+   "y": 2,
+   "encounters": [
+    {
+     "slot": "enc_gallery_1",
+     "kind": "monster",
+     "monster_type": "mon_type_2"
+    }
+   ],
+   "traps": [
+    {
+     "slot": "trap_pit",
+     "trap_kind": "pit",
+     "note": "PROPOSAL kind; effects Systems"
+    }
+   ]
+  },
+  {
+   "id": "ore_lift",
+   "type": "landmark",
+   "name": "Old ore lift (chain and drum)",
+   "area": "area_lift",
+   "x": 3,
+   "y": 3,
+   "encounters": [
+    {
+     "slot": "enc_lift_1",
+     "kind": "monster",
+     "monster_type": "mon_type_3"
+    }
+   ]
+  },
+  {
+   "id": "barracks",
+   "type": "room",
+   "name": "Bandit barracks",
+   "area": "area_bandit",
+   "x": 3,
+   "y": 4,
+   "encounters": [
+    {
+     "slot": "enc_bandit_patrol",
+     "kind": "bandits"
+    }
+   ]
+  },
+  {
+   "id": "toll_hall",
+   "type": "room",
+   "name": "Toll hall",
+   "area": "area_bandit",
+   "x": 3,
+   "y": 5,
+   "encounters": [
+    {
+     "slot": "enc_bandit_toll",
+     "kind": "bandits",
+     "note": "PROPOSAL: bandits here are crew (fight, negotiate or befriend; befriending individuals can influence the faction's daily assessment). The boss demands the toll at boss_room (slot enc_boss), not here."
+    }
+   ]
+  },
+  {
+   "id": "boss_room",
+   "type": "boss_room",
+   "name": "Bandit leader's room",
+   "area": "area_bandit",
+   "x": 3,
+   "y": 6,
+   "encounters": [
+    {
+     "slot": "enc_boss",
+     "kind": "boss",
+     "faction": "bandits"
+    }
+   ]
+  },
+  {
+   "id": "descent",
+   "type": "descent",
+   "name": "Descent to floor 2 (wins the demo)",
+   "area": "area_bandit",
+   "x": 3,
+   "y": 7
+  }
+ ],
+ "edges": [
+  {
+   "id": "e01",
+   "from": "town_entrance",
+   "to": "sewer_grate",
+   "door": "plain"
+  },
+  {
+   "id": "e02",
+   "from": "town_entrance",
+   "to": "entry_hall",
+   "door": "plain"
+  },
+  {
+   "id": "e03",
+   "from": "entry_hall",
+   "to": "mess_hall",
+   "door": "plain"
+  },
+  {
+   "id": "e04",
+   "from": "entry_hall",
+   "to": "collapsed_gallery",
+   "door": "plain"
+  },
+  {
+   "id": "e05",
+   "from": "mess_hall",
+   "to": "foreman_office",
+   "door": "plain"
+  },
+  {
+   "id": "e06",
+   "from": "mess_hall",
+   "to": "slag_passage",
+   "door": "plain"
+  },
+  {
+   "id": "e07",
+   "from": "slag_passage",
+   "to": "smelter_hall",
+   "door": "plain"
+  },
+  {
+   "id": "e08",
+   "from": "smelter_hall",
+   "to": "storeroom",
+   "door": "locked",
+   "solutions": [
+    "puzzle",
+    "magic_key",
+    "pick_lock",
+    "break"
+   ],
+   "note": "closed door guards storeroom; puzzle opens it (PROPOSAL, puzzle is Systems'/team's)"
+  },
+  {
+   "id": "e09",
+   "from": "smelter_hall",
+   "to": "hidden_cache",
+   "door": "secret",
+   "base": "plain",
+   "solutions": [
+    "search",
+    "magic"
+   ]
+  },
+  {
+   "id": "e10",
+   "from": "collapsed_gallery",
+   "to": "ore_lift",
+   "door": "plain"
+  },
+  {
+   "id": "e11",
+   "from": "ore_lift",
+   "to": "barracks",
+   "door": "plain"
+  },
+  {
+   "id": "e12",
+   "from": "barracks",
+   "to": "toll_hall",
+   "door": "plain"
+  },
+  {
+   "id": "e13",
+   "from": "hidden_cache",
+   "to": "toll_hall",
+   "door": "stuck",
+   "solutions": [
+    "break"
+   ],
+   "note": "optional shortcut; stuck doors can only be broken"
+  },
+  {
+   "id": "e14",
+   "from": "toll_hall",
+   "to": "boss_room",
+   "door": "plain"
+  },
+  {
+   "id": "e15",
+   "from": "boss_room",
+   "to": "descent",
+   "door": "plain"
+  }
+ ],
+ "reserved": [
+  "town_entrance",
+  "storeroom",
+  "puzzle_clue_site",
+  "puzzle_controls_site",
+  "ore_lift",
+  "sewer_grate",
+  "boss_room",
+  "descent"
+ ],
+ "quest_destinations": {
+  "figure_task_destination": "ore_lift"
+ },
+ "puzzle": {
+  "id": "puzzle_storeroom",
+  "clue": "puzzle_clue_site",
+  "controls": "puzzle_controls_site",
+  "opens_edge": "e03"
+ }
+}

@@ -1,0 +1,125 @@
+{
+  "_about": "Pipeline definition read by run_pipeline.py. The arrows and the questions come from the diagram file named below; this file says who may work in each box and sets the models, caps and timeouts. Every box in the diagram must have an entry here, and every role named here must have a role file in agent_design/development_candidates/; run_pipeline.py checks both before it does anything.",
+  "diagram": "03_DEVELOPMENT_WORKFLOW.mmd",
+  "input_box": "G",
+  "start_box": "P0",
+  "opening_question": "Producer: How can I help with development?",
+  "ask_opening_question_when_arriving_from": [
+    "K"
+  ],
+  "budget_proposed_in_box": "P0",
+  "budget_approved_by": {
+    "diamond": "H0",
+    "arrow": "Approved brief"
+  },
+  "producer_agent": "development-producer",
+  "model": "sonnet",
+  "effort": "medium",
+  "per_run_cap_usd": 2.0,
+  "producer_box_timeout_s": 5400,
+  "boxes": {
+    "P0": {
+      "roles": [],
+      "guide": "02_GAME_DEVELOPMENT_PROCESS.md, 'Startup and relationship to the definition project', and your role file's 'First task'. Base the recommendation on what the user asked (request.md) and on any revision notes in decisions.md."
+    },
+    "P": {
+      "roles": [],
+      "guide": "02_GAME_DEVELOPMENT_PROCESS.md, 'The development roles' and 'How feedback moves between workflows'. Choose the arrow out of this box that the approved brief needs now."
+    },
+    "D1": {
+      "roles": [
+        "development-systems-designer"
+      ],
+      "guide": "02_GAME_DEVELOPMENT_PROCESS.md, section 1, steps 1, 2 and 5, and 'Comparable-game research'."
+    },
+    "D2": {
+      "roles": [
+        "development-world-designer",
+        "development-narrative-designer",
+        "development-ui-ux-designer",
+        "development-software-engineer",
+        "development-ai-integration-engineer",
+        "development-asset-curator",
+        "development-qa-tester"
+      ],
+      "guide": "02_GAME_DEVELOPMENT_PROCESS.md, section 1, step 3. Dispatch the specialists the work in front of them makes relevant, and QA."
+    },
+    "U": {
+      "roles": [
+        "development-ui-ux-designer"
+      ],
+      "guide": "02_GAME_DEVELOPMENT_PROCESS.md, 'The development roles' (UI/UX Designer), and the three arrows out of this box in the diagram."
+    },
+    "I1": {
+      "roles": [
+        "development-software-engineer",
+        "development-ai-integration-engineer"
+      ],
+      "guide": "02_GAME_DEVELOPMENT_PROCESS.md, section 2, steps 1 and 2."
+    },
+    "I2": {
+      "roles": [
+        "development-qa-tester"
+      ],
+      "guide": "02_GAME_DEVELOPMENT_PROCESS.md, section 2, step 3. The user's playtest happens at the next decision; prepare what the user needs for it."
+    },
+    "C1": {
+      "roles": [
+        "development-world-designer",
+        "development-systems-designer",
+        "development-narrative-designer",
+        "development-asset-curator"
+      ],
+      "guide": "02_GAME_DEVELOPMENT_PROCESS.md, section 3, steps 1 to 3."
+    },
+    "C2": {
+      "roles": [
+        "development-world-designer",
+        "development-software-engineer",
+        "development-qa-tester"
+      ],
+      "guide": "02_GAME_DEVELOPMENT_PROCESS.md, section 3, steps 4 and 5."
+    },
+    "K": {
+      "roles": [],
+      "guide": "02_GAME_DEVELOPMENT_PROCESS.md, 'Human authority and handoffs' (content catalogue) and section 3 'Pass forward'. Add the accepted package to work/catalogue.md (create it if missing; never remove earlier entries), and append the lore the package established (names, identities, facts about the world) to work/lore.md (append only; the GDD is separate), then choose the arrow."
+    },
+    "A": {
+      "roles": [
+        "development-development-systems-analyst"
+      ],
+      "guide": "02_GAME_DEVELOPMENT_PROCESS.md, 'How feedback moves between workflows' (last row) and 'The development roles' (Development Systems Analyst)."
+    },
+    "CR": {
+      "roles": [
+        "development-critic"
+      ],
+      "verify_quotes": true,
+      "guide": "Your role file development-critic.md, section 4. Dispatch the critic once with a brief naming every new content file from the last C1 step (paths under work/<task>/), the GDD and work/lore.md. Pick 'Consistent with GDD and lore' only if the critic's report ends 'Verdict: CONSISTENT'; otherwise pick 'Contradictions found'. Add 'critic_report' to your result with the report's path.",
+      "verdict_arrows": {
+        "CONSISTENT": "Consistent with GDD and lore",
+        "CONTRADICTIONS": "Contradictions found"
+      }
+    }
+  },
+  "loop_caps": [
+    {
+      "box": "CR",
+      "arrow": "Contradictions found",
+      "max": 2
+    }
+  ],
+  "cost_flags": {
+    "sonnet": 1.0,
+    "haiku": 0.25
+  },
+  "flag_analyst": "development-development-systems-analyst",
+  "consult_boxes": [
+    "P0",
+    "P"
+  ],
+  "consult_cap_usd": 0.3,
+  "stuck_minutes": 15,
+  "_cost_flags_note": "A run costing more than this (USD, by the agent's model in orchestration/models.json) is flagged: the Producer is told, and dispatches the Development Systems Analyst alongside the normal work to assess it from the raw logs. The per-run cap stays as it is.",
+  "analyst_box": "A"
+}

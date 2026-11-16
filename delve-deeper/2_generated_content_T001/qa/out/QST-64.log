@@ -1,0 +1,18 @@
+$ work/T001/build/quest_check run work/T001/quest/figure_ore_lift_quest.json work/T001/quest/figure_ore_lift_strings.csv work/T001/map/floor1_map.json day=5 offer@0 accept arrive@ore_lift:present report@sewer_grate stage=-2 report@sewer_grate
+exit: 0
+--- output ---
+offer@0 ok key=fig_offer_cold state=not_offered
+  fig_offer_cold: *Eyes flare behind the bars. A green finger points.* You. The old ore lift. Is the chain still on the drum? Go. Look. Come back and say.
+accept ok key=fig_accept_ack log=log_quest_accepted state=active
+  fig_accept_ack: *A finger points the way.* Down the entry hall. Past the gallery. The lift.
+  log_quest_accepted: The figure behind the grate wants to know if the chain is still on the drum of the old ore lift. (Old ore lift (chain and drum))
+arrive@ore_lift:present ok text=lift_arrival_present log=log_lift_observed_present state=observed_present
+  lift_arrival_present: The old ore lift. A heavy chain still hangs from the iron drum, rusted but whole.
+  log_lift_observed_present: You note it: the chain is still on the drum. Day 5.
+report@sewer_grate ok key=fig_report_present_cold log=log_quest_done log=log_reward_none state=completed
+  fig_report_present_cold: *A long pause.* The chain is on the drum. Good. Good. There is still much work to be done.
+  log_quest_done: You told the figure what you saw at the Old ore lift (chain and drum).
+  log_reward_none: The figure gave you nothing.
+report@sewer_grate ok key=fig_repeat_done state=completed
+  fig_repeat_done: *The eyes blink slowly.* You told me already. Day 5. Enough.
+state=completed chain=present reward_rolled=1 rolls=1

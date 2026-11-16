@@ -1,0 +1,109 @@
+[OUTPUT] 
+Internal ctest changing into directory: /home/user/content_pipeline/work/T001/qa/build_mut/com
+
+[HANDLER_OUTPUT] 
+Test project /home/user/content_pipeline/work/T001/qa/build_mut/com
+
+      Start   3: com_json_valid_real_files
+ 1/18 Test   #3: com_json_valid_real_files ........***Failed    0.00 sec
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:45: CHECK failed: cli({"json", root() + f}, out) == 0 (got [1] vs [0])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:45: CHECK failed: cli({"json", root() + f}, out) == 0 (got [1] vs [0])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:45: CHECK failed: cli({"json", root() + f}, out) == 0 (got [1] vs [0])
+  FAIL com_json_valid_real_files
+
+      Start   4: com_json_escapes
+ 2/18 Test   #4: com_json_escapes .................***Failed    0.00 sec
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:53: CHECK failed: dd::json::parse("{\"a\":\"\\u00e9 \\\"q\\\" \\n x \xC3\xA9 \\ud83d\\ude00 \\/\"}", v, e)
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:55: CHECK failed: a != nullptr
+  FAIL com_json_escapes
+
+      Start   5: com_json_numbers_literals
+ 3/18 Test   #5: com_json_numbers_literals ........   Passed    0.00 sec
+      Start   6: com_json_trailing_comma
+ 4/18 Test   #6: com_json_trailing_comma ..........***Failed    0.00 sec
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:85: CHECK failed: code == std::string("JSON_TRAILING_COMMA") (got [JSON_SYNTAX] vs [JSON_TRAILING_COMMA])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:87: CHECK failed: code == std::string("JSON_TRAILING_COMMA") (got [JSON_SYNTAX] vs [JSON_TRAILING_COMMA])
+  FAIL com_json_trailing_comma
+
+      Start   7: com_json_truncated
+ 5/18 Test   #7: com_json_truncated ...............***Failed    0.00 sec
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:95: CHECK failed: code == std::string("JSON_TRUNCATED") (got [JSON_SYNTAX] vs [JSON_TRUNCATED])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:97: CHECK failed: code == std::string("JSON_TRUNCATED") (got [JSON_SYNTAX] vs [JSON_TRUNCATED])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:99: CHECK failed: code == std::string("JSON_TRUNCATED") (got [JSON_SYNTAX] vs [JSON_TRUNCATED])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:101: CHECK failed: code == std::string("JSON_TRUNCATED") (got [JSON_SYNTAX] vs [JSON_TRUNCATED])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:110: CHECK failed: code == std::string("JSON_TRUNCATED") (got [JSON_SYNTAX] vs [JSON_TRUNCATED])
+  FAIL com_json_truncated
+
+      Start   8: com_json_dup_key
+ 6/18 Test   #8: com_json_dup_key .................***Failed    0.00 sec
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:116: CHECK failed: code == std::string("JSON_DUP_KEY") (got [JSON_SYNTAX] vs [JSON_DUP_KEY])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:118: CHECK failed: code == std::string("JSON_DUP_KEY") (got [JSON_SYNTAX] vs [JSON_DUP_KEY])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:120: CHECK failed: parseJson("{\"x\":{\"a\":1},\"y\":{\"a\":2},\"z\":[{\"a\":1},{\"a\":2}]}")
+  FAIL com_json_dup_key
+
+      Start   9: com_json_nonstrict
+ 7/18 Test   #9: com_json_nonstrict ...............   Passed    0.00 sec
+      Start  10: com_json_empty
+ 8/18 Test  #10: com_json_empty ...................   Passed    0.00 sec
+      Start  11: com_json_depth
+ 9/18 Test  #11: com_json_depth ...................   Passed    0.00 sec
+      Start  12: com_json_error_paths
+10/18 Test  #12: com_json_error_paths .............***Failed    0.00 sec
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:192: CHECK failed: e.code == std::string(c.code) (got [JSON_SYNTAX] vs [JSON_TRAILING_CONTENT])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:193: CHECK failed: e.line == c.line (got [1] vs [2])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:193: CHECK failed: e.line == c.line (got [1] vs [2])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:192: CHECK failed: e.code == std::string(c.code) (got [JSON_SYNTAX] vs [JSON_CONTROL_CHAR])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:193: CHECK failed: e.line == c.line (got [2] vs [1])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:192: CHECK failed: e.code == std::string(c.code) (got [JSON_SYNTAX] vs [JSON_BAD_ESCAPE])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:192: CHECK failed: e.code == std::string(c.code) (got [JSON_SYNTAX] vs [JSON_BAD_ESCAPE])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:192: CHECK failed: e.code == std::string(c.code) (got [JSON_SYNTAX] vs [JSON_BAD_ESCAPE])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:192: CHECK failed: e.code == std::string(c.code) (got [JSON_SYNTAX] vs [JSON_BAD_ESCAPE])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:192: CHECK failed: e.code == std::string(c.code) (got [JSON_SYNTAX] vs [JSON_BAD_ESCAPE])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:192: CHECK failed: e.code == std::string(c.code) (got [JSON_SYNTAX] vs [JSON_TRAILING_COMMA])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:193: CHECK failed: e.line == c.line (got [1] vs [2])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:192: CHECK failed: e.code == std::string(c.code) (got [JSON_SYNTAX] vs [JSON_DUP_KEY])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:193: CHECK failed: e.line == c.line (got [1] vs [2])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:192: CHECK failed: e.code == std::string(c.code) (got [JSON_SYNTAX] vs [JSON_TRUNCATED])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:192: CHECK failed: e.code == std::string(c.code) (got [JSON_SYNTAX] vs [JSON_TRUNCATED])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:192: CHECK failed: e.code == std::string(c.code) (got [JSON_SYNTAX] vs [JSON_TRUNCATED])
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:192: CHECK failed: e.code == std::string(c.code) (got [JSON_SYNTAX] vs [JSON_TRUNCATED])
+  FAIL com_json_error_paths
+
+      Start  13: com_cli_json_exit_codes
+11/18 Test  #13: com_cli_json_exit_codes ..........***Failed    0.00 sec
+/home/user/content_pipeline/work/T001/qa/mut/com/tests/common/test_common.cpp:214: CHECK failed: cli({"json", writeTmp("ok.json", "{\"a\":1}")}, out) == 0 (got [1] vs [0])
+  FAIL com_cli_json_exit_codes
+
+      Start  14: com_csv_valid_real
+12/18 Test  #14: com_csv_valid_real ...............   Passed    0.00 sec
+      Start  15: com_csv_quoted_fields
+13/18 Test  #15: com_csv_quoted_fields ............   Passed    0.00 sec
+      Start  16: com_csv_ragged
+14/18 Test  #16: com_csv_ragged ...................   Passed    0.00 sec
+      Start  17: com_csv_open_quote
+15/18 Test  #17: com_csv_open_quote ...............   Passed    0.00 sec
+      Start  18: com_csv_header_rules
+16/18 Test  #18: com_csv_header_rules .............   Passed    0.00 sec
+      Start 116: com_cli_real_map
+17/18 Test #116: com_cli_real_map .................***Failed    0.00 sec
+FAIL JSON_SYNTAX: unexpected character 'e', expected ':' (line 2, column 5)
+
+      Start 117: com_cli_real_csv
+18/18 Test #117: com_cli_real_csv .................   Passed    0.00 sec
+
+56% tests passed, 8 tests failed out of 18
+
+Total Test time (real) =   0.05 sec
+
+The following tests FAILED:
+	  3 - com_json_valid_real_files (Failed)
+	  4 - com_json_escapes (Failed)
+	  6 - com_json_trailing_comma (Failed)
+	  7 - com_json_truncated (Failed)
+	  8 - com_json_dup_key (Failed)
+	 12 - com_json_error_paths (Failed)
+	 13 - com_cli_json_exit_codes (Failed)
+	116 - com_cli_real_map (Failed)
+[ERROR_MESSAGE] 
+Errors while running CTest
+

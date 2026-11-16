@@ -1,0 +1,4 @@
+$ work/T001/build/quest_check line work/T001/quest/figure_ore_lift_strings.csv fig_repeat_done -2
+exit: 0
+--- output ---
+*The eyes blink slowly.* You told me already. Day {day}. Enough.

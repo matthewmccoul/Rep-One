@@ -1,0 +1,26 @@
+test_puzzle.py run by python3; log written by this script (Version 3, revision 2 of 2)
+test_all_orderings (__main__.T.test_all_orderings) ... ok
+test_all_orderings_then_correct_still_works (__main__.T.test_all_orderings_then_correct_still_works) ... ok
+test_break_after_partial_progress (__main__.T.test_break_after_partial_progress) ... ok
+test_break_after_solve_is_noop (__main__.T.test_break_after_solve_is_noop) ... ok
+test_break_route (__main__.T.test_break_route) ... ok
+test_break_save_load (__main__.T.test_break_save_load) ... ok
+test_clue_and_controls_reachable_with_e08_closed (__main__.T.test_clue_and_controls_reachable_with_e08_closed) ... ok
+test_json_ids_in_map (__main__.T.test_json_ids_in_map) ... ok
+test_other_routes (__main__.T.test_other_routes) ... ok
+test_other_routes_strings_match_json (__main__.T.test_other_routes_strings_match_json) ... ok
+test_partial (__main__.T.test_partial) ... ok
+test_repeat_after_solve (__main__.T.test_repeat_after_solve) ... ok
+test_repeat_same_control_is_wrong (__main__.T.test_repeat_same_control_is_wrong) ... ok
+test_reset (__main__.T.test_reset) ... ok
+test_save_load (__main__.T.test_save_load) ... ok
+test_solve_after_break_is_noop (__main__.T.test_solve_after_break_is_noop) ... ok
+test_string_keys_used_exist (__main__.T.test_string_keys_used_exist) ... ok
+test_unknown_control (__main__.T.test_unknown_control) ... ok
+test_wrong_then_right (__main__.T.test_wrong_then_right) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.003s
+
+OK
+EXIT CODE: 0

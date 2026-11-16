@@ -1,0 +1,4 @@
+$ work/T001/build/quest_check reward roll=0.0 --items 
+exit: 0
+--- output ---
+reward roll=0 key=fig_reward_none log=log_reward_none

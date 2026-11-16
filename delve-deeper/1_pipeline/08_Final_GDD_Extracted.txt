@@ -1,0 +1,830 @@
+FINAL GDD — READABLE EXTRACTION
+Original: 07_Final_GDD.pdf. Text extracted from the same Drive PDF; layout may be flattened.
+
+Delve Deeper
+Game Design Document | Demo — Final Revision
+Delve into a dungeon where your choices shape what awaits your return.
+Student Course Version Due date
+Matthew McCoul Multi-Agent AI for Game Development Final revision Per course curriculum
+01 Executive Summary
+Field Response
+Game title Delve Deeper (working title)
+Genre and category Dark pulp fantasy dungeon crawler RPG
+Target platform PC, single-player, online-only
+Player role One player controls one active adventurer at a time in this demo, choosing their race,
+starting class, and alignment. Other existing or newly created characters can be selected for
+death recovery, not simultaneous party control. The planned full game remains single-player,
+with a party of up to four characters.
+Primary objective Reach and use the boss-guarded descent beyond the first dungeon floor.
+Player experience An old-school first-person dungeon crawl in the style of the reference games below, of which
+Delve Deeper is a spiritual successor and homage, with rich lore and a responsive world: a
+deeper, more immersive example of the genre, using LLM tools in ways they have never
+been used before.
+Intended audience Primarily nostalgic gamers looking to recapture the feel these games had for them as
+children. The game is also meant to be playable by people without that nostalgia, as a novel
+LLM-powered RPG.
+Reference games Phantasy Star; Shining in the Darkness; Mordor: The Depths of Dejenol.
+High Concept
+Delve Deeper is a first-person dungeon crawler demo in which one adventurer explores, fights, flees, negotiates,
+and searches before returning to town to recover and advance. Gods, NPCs, and a faction assess the
+adventurer’s recorded actions whenever the day advances, through a rest attempt or a Wait after death, changing
+relationships and predefined responses. Local encounter rates also change at these daily updates according to
+creatures killed, their type and/or alignment, and the area where the actions occurred. Even in the dark, someone
+is always watching.
+Premise
+High in remote mountains at the edge of the kingdom, far from civilization, a small mining town has accidentally
+broken into an enormous ancient dwarven mine. It was abandoned long ago and is filled with traps, forgotten
+magics, countless strange creatures, and untold riches. No one knows how deep it goes, what lies at the bottom,
+or what happened to its makers. Adventurers are just beginning to arrive, drawn by the chance to make their
+fortunes.
+Core Loop
+Loop Delve into the dungeon, face challenges and get rewards, return to town to advance and recuperate, go
+back into a dungeon changed by player actions.
+Multi-Agent AI for Game Development | Assignment 02Win and Loss Conditions
+Win Reach and use the descent beyond the first dungeon floor, guarded by the faction’s boss; this ends the
+demo.
+Loss and revival When the active adventurer dies, the player chooses Wait or Switch. Wait advances time until
+someone finds the body and returns it for revival; the delay depends on dungeon floor depth and a random roll.
+Switch selects an existing character, or allows the player to create one, to attempt retrieval of the dead
+adventurer’s body for revival.
+Scope of This Demo
+● One town with a shop, rest, healing, a seer, and character creation; one dungeon floor ending at a
+boss-guarded descent.
+● One active player-controlled adventurer at a time; four races, three classes, and three alignments;
+point-buy stats, one starting class with more classes added later, levels, and skill points. Death recovery
+can use a different existing or newly created character.
+● Three monster types; three traps; four door types (plain, secret, locked, and stuck); one puzzle; at least
+three spells, three weapons, three armor pieces, and three consumables.
+● Three AI NPCs, three AI gods, and one AI faction with one boss. Rest-triggered daily relationships and
+changing encounter rates make choices about whom to fight or avoid and where to explore matter on
+later visits.
+● The demo includes exploration, combat, searching, inventory, loot, trading, recovery, and saving.
+Additional dungeon floors are outside this capstone build.
+Demo Foundation and Ongoing Development
+This GDD defines a playable first-floor demo, not the full scope of Delve Deeper. Its stated content counts are
+bounded demo deliverables and examples of the systems and content patterns that the larger game will use,
+rather than an exhaustive catalogue of the full game’s content or features.
+Full-game party goal: one human player will control a party of up to four characters, not a multiplayer group of four
+people. One character is actively controlled at a time. During free-movement exploration, the remaining party
+members follow that character in single file. When combat begins, adventurers occupy fixed positions in the room
+until combat ends; free movement then resumes. Switching the first-person viewpoint selects the character whose
+target and action the player can set. Unselected characters continue their last assigned action until told otherwise:
+for example, swing an axe, cast fireball, hide, or block. If a targeted enemy is gone, they continue the assigned
+action against the next available enemy. Actions such as blocking do not necessarily require a target. These
+party-following and persistent-order systems are future full-game goals, not part of the single-adventurer demo
+deliverable. Combat unfolds in real time, with assigned actions governed by timers rather than alternating turns.
+Full-game story: As adventurers delve deeper, they will discover that the ancient dwarves were not the mine’s
+makers. Like the town today, the dwarves were a wave of newcomers who colonized the mines to study them.
+Deeper floors reveal clues to the dwarves’ fate, along with many more mysteries. The demo presents only the
+surface premise.
+The demo establishes the foundational gameplay systems, design principles, and reusable agentic development
+workflow. The workflow used to produce the first floor is intended to be run again with new content briefs to create
+the second and later floors, alongside other additions, in the established pattern. This is an AI-assisted
+development process, not a commitment to automatic in-game generation.
+Delve Deeper is intended to evolve through regular new content. A future version 1.0 is a release milestone, not
+the end of development or a permanently finished content set. Broader full-game content and goals are outside
+the course demo’s deliverables; later additions remain subject to human direction, review, and integration.
+Planned paid expansions — custom side-dungeons: As part of ongoing content, multi-agent AI development
+workflows will make custom, one-of-a-kind side-dungeons for players. Different agents will develop a concept,
+draw a map, create new creatures, items, and traps, populate the side-dungeon, evaluate balance, and check that
+the content is playable. Because each side-dungeon is one of a kind, it cannot be looked up online. This brings
+Multi-Agent AI for Game Development | Assignment 02back the sense of mystery and exploration lost since the explosion of the internet, and brings it for the first time to
+younger players who may never have experienced it. Side-dungeons are paid expansion content. After purchase,
+a portal opens somewhere difficulty-appropriate in the dungeon. In lore, each portal leads to another remote part
+of the mines, or another location belonging to the same original makers. Mechanically, each side-dungeon is a
+small, isolated side-map connected to the main map only by its single portal. Expansions give players reasons to
+keep spending after the initial game without microtransactions or pay-to-win mechanics that could cheapen the
+game’s integrity.
+Multi-Agent AI for Game Development | Assignment 0202 Game Mechanics
+Player Facing Actions
+Action Player Input Visible Result Purpose in the Loop
+Delve Move the adventurer freely
+through the dungeon outside
+combat, choosing areas to enter
+or revisit.
+The first-person viewpoint
+follows the adventurer;
+exploration clears minimap fog.
+Choose routes through
+encounters changed by
+past actions.
+Fight / Flee /
+Negotiate
+Choose to fight, flee, or
+negotiate with encountered
+creatures.
+Outcomes affect survival,
+rewards, and relationships.
+Balance immediate gains
+against later
+consequences.
+Search Select an object or the room to
+search.
+Traps, secret doors, hidden loot,
+or other features may be
+revealed.
+Find concealed hazards,
+routes, and rewards.
+Equip a
+character
+Assign gear in the adventurer’s
+inventory.
+That adventurer’s equipment
+changes.
+Prepare the adventurer for
+dungeon challenges.
+Buy / Sell /
+Haggle
+Select items to buy or sell, or
+choose to haggle.
+Items and currency change; the
+shopkeeper responds.
+Turn loot into supplies and
+equipment.
+Wait / Switch
+after death
+Choose Wait for someone to
+recover the body, or Switch to
+an existing or newly created
+character and attempt body
+retrieval.
+Waiting advances days until the
+body is recovered for revival;
+switching gives control of
+another adventurer for a retrieval
+attempt.
+Choose between delayed
+rescue and an active
+recovery expedition.
+Rest Choose to rest in town or in the
+dungeon.
+A day passes. Successful rest
+restores fatigue and 10 +
+Constitution HP, up to maximum
+HP; grants pending levels; and
+lifts the XP cap. Dungeon
+ambushes prevent these
+benefits.
+Recover, apply earned
+advancement, and trigger
+daily world updates;
+dungeon resting carries
+ambush risk.
+Create a
+character
+Choose race and alignment,
+buy stats with points, and select
+an eligible class in town.
+A new playable adventurer is
+created and can be selected as
+the active character.
+Begin play or create a
+character for a
+body-retrieval attempt
+after a death.
+Level up Complete a successful rest to
+apply a pending level-up, then
+choose where to spend the
+granted skill point.
+Class-dependent level rewards
+are applied and the selected stat
+improves.
+Develop capabilities for
+later challenges.
+Core Gameplay Loop
+Step Player Experience
+1 Delve into the dungeon.
+2 Face challenges and get rewards.
+3 Return to town to advance and recuperate.
+4 Go back into a dungeon changed by player actions.
+Multi-Agent AI for Game Development | Assignment 02Systems, Resources, and Progression
+Systems
+● Character creation and advancement: Point-buy creation in town with race, alignment, stats, and a starting
+class; leveling, skill points, and additional classes later. Only one adventurer is active at a time; the player may
+select an existing character or create one to attempt body recovery after another character dies. Details are
+under Character Creation and Advancement.
+● Exploration and combat: Move freely in first person outside combat, reveal the minimap, and search rooms or
+objects. Combat is real-time fighting with character stats, weapons, armor, and spells: when it begins, the
+adventurer occupies a fixed position in the room until it ends, after which free movement resumes. Character
+actions run on timers rather than alternating turns; exact action timings remain to be tuned. Full-game party
+movement and orders are described under Demo Foundation and Ongoing Development.
+● Encounters: Creatures, traps, doors, and a puzzle; choices and outcomes are described under Encounter
+Choices and Outcomes. At each daily update, recorded kills temporarily reduce local spawn odds for matching
+creature types and/or alignments. Reduced odds recover by a percentage per day toward their normal rates;
+visiting alone neither reduces rates nor interrupts recovery. Further qualifying actions can change them.
+Suppression duration, reduction amounts, and recovery percentages remain to be specified.
+● Inventory and equipment: The adventurer’s inventory, equipment, consumables, and hotbar.
+● Loot and trading: Loot, the shop, haggling, and town services are described under Loot, Resources, and Town
+Services.
+● AI relationships: Daily assessments of player actions produce relationship scores that select authored
+responses, as described under Watchers and Town Characters and Assessment Consequences.
+● Recovery and death: Rest in town always succeeds; dungeon rest can be interrupted by an ambush. Only
+successful rest restores fatigue, heals 10 + Constitution HP up to maximum HP, grants pending levels, and lifts
+the XP cap; an interrupted rest provides none of those benefits. Town healing services remain available. After
+death, the player chooses Wait or Switch, as described under Death and Persistent World State. Around ten
+days on the first floor versus years on much deeper future floors illustrates the intended Wait scaling, not fixed
+balance values; only the first floor is in this demo.
+● Time: A rest attempt advances the calendar by one in-game day; entering town or ordinary exploration alone
+does not. Both successful and ambushed rests advance the day and trigger daily AI relationship assessments
+and encounter-rate adjustments. Only successful rest grants recovery and advancement benefits. Choosing
+Wait after death is a separate time-advancement case: a floor-dependent recovery delay, with random
+variation, passes before the body is found and returned for revival. AI assessments and encounter updates run
+once for the whole waiting interval, taking its length into account. Real-time combat timers are separate from
+calendar advancement.
+Resources
+● Loot and trading
+○ Currency and items
+● Inventory and equipment
+○ Gear and consumables
+● Combat, recovery, and death
+○ Health and mana
+● Character advancement
+○ Skill points and XP
+● AI relationships
+○ Divine favor, NPC relationships, and faction relationships
+Progression
+● Character progression: Surviving encounters—including traps and searches—earns XP, with some resolutions
+awarding more than others. XP gains stop at one point below the cumulative threshold for the second level
+above the selected class’s current level until a successful rest applies the pending level-up. For example, if
+level 2 requires 150 total XP and level 3 requires 500, a level-1 class stops earning XP at 499 until successfully
+resting; these numbers illustrate the rule rather than define the final XP table. Leveling grants class-dependent
+rewards, such as spells, equipment proficiencies, action bonuses, and increased HP and mana, plus a skill
+point to spend where the player chooses. Characters can take additional classes when they meet
+requirements: stats, race, and alignment.
+● Equipment progression: Obtain gear through monster and chest loot and shop trading to improve the
+adventurer’s equipment.
+● Relationship progression: Player actions change divine favor and NPC/faction relationships, affecting loot and
+how others respond to the adventurer.
+Multi-Agent AI for Game Development | Assignment 02● Dungeon progression: Advance toward the boss-guarded descent beyond the first floor, where the demo ends.
+The adventurer’s actions change local encounter rates at rest-triggered daily updates; suppressed rates
+gradually recover by a percentage per day, including on days when the area is visited without further qualifying
+actions.
+Encounter Choices and Outcomes
+● Favor and hostility: Each monster group, including the faction, has a favor score that sets its hostility status on
+a five-stage scale: hostile (−2, attacks on sight), threatening (−1), neutral (0), friendly (+1), and allied (+2).
+● Fight: Real-time combat, as described under Combat. Defeating a group earns its full XP, and its loot comes
+from authored drop tables modified by divine favor.
+● Flee: Each enemy gets one free attack on the fleeing adventurer. A successful flee leaves the adventurer
+wherever they moved while fleeing. Fleeing fails only if the adventurer cannot act, for example when paralyzed
+or stunned. Fleeing grants very low XP.
+● Negotiate: Possible outcomes include improved favor, information about the dungeon, or a group agreeing to
+sell or give up its loot. Success is decided by a negotiation formula, to be developed, using level, Charisma,
+Wisdom, Intelligence, gifts, and the group’s preferences (for example, “loves gold, hates weapons” or “inclined
+to trade, not inclined to give out information”). Higher favor makes every other negotiation more likely to
+succeed. Improving favor is the hardest outcome and often requires gold, items, equipment, or quests, such as
+slaying a monster of an opposed alignment. Failure lowers favor according to its severity and can close off
+options until favor improves. Negotiation can also influence faction standing.
+● Negotiated loot: Persuading a group to give up its loot outright yields the same loot as fighting, but is difficult
+even with friendly groups and lowers favor. Trading or buying is much easier and does not lower favor, but
+yields less net loot. Friendlier groups offer better prices and trades; less favorable groups offer worse ones.
+● Negotiation XP: Raising a group’s stage grants XP, and so do other negotiated outcomes, such as loot or help.
+Each stage change grants XP only once per group. The negotiation path is meant to yield more XP than
+combat. Specific values are TBD in balancing, set by the development team through prototyping and
+playtesting.
+● The faction: The demo’s one faction is a crew of bandits whose leader is the boss. They begin threatening, turn
+hostile if attacked, robbed, or repeatedly offended, and respond well to gifts and quests. They are greedy and
+morally ambiguous, so killing a few of the crew is not necessarily permanent if the adventurer later proves a
+useful partner. Befriending individual bandits can influence the faction’s daily assessment of the adventurer,
+and the bandit leader’s own favor also factors into that assessment.
+● Search: A search formula, to be developed, using Intelligence, Wisdom, level, and class, determines whether
+searching an object or room reveals hidden features.
+● Traps: A found trap can be disarmed or avoided. A triggered trap goes off.
+● Doors: Plain doors are ordinary doors. Locked doors must be picked, unlocked with magic, or broken. Stuck
+doors must be broken. Secret doors can be plain, locked, or stuck, and must first be found by searching or with
+magic.
+● Puzzle: One puzzle, to be designed by the development team.
+Character Creation and Advancement
+● Stats: Strength, Intelligence, Wisdom, Constitution, Charisma, and Dexterity. Players buy starting stats with
+points at creation.
+● Races: Human, Elf, Dwarf, and Yeti. Race sets starting stat minimums and maximums, final stat maximums,
+class eligibility, and resistances.
+● Alignments: Good, Neutral, and Evil.
+● Classes: Warrior, Thief, and Mage. Each class requires minimum stats, an eligible race, and an eligible
+alignment; specific requirements are TBD in testing. A new character selects one eligible class at creation;
+more classes can be added later once their requirements are met.
+● Earning XP: When resting, the player may select which of the character’s classes earns XP until the next rest.
+A new character starts with their creation class selected. Each class keeps its own XP total, which determines
+its level on that class’s progression table; the character also shows a combined XP total across all classes.
+● Leveling: Each class’s progression table sets the XP needed for each level; having several classes does not
+change those requirements. On a successful rest, the selected class gains a level if its XP is enough. The XP
+cap applies to the selected class: its XP stops one point below the threshold for its second level above its
+current level until a successful rest.
+● Skill points: Each level grants one skill point, spent on any of the six stats, up to the race’s final stat maximums.
+● Multiple classes: For each class-derived value, such as HP, mana, bonuses, and proficiencies, a character
+uses the highest value any of their classes provides at its current level. For example, a Warrior 2/Mage 2 has a
+Multi-Agent AI for Game Development | Assignment 02Warrior’s HP and a Mage’s mana, while a Mage 9/Warrior 2 may instead have higher HP from the Mage class
+because of the Mage’s much higher level.
+● Demo range: Levels 1–10 on the first floor.
+Loot, Resources, and Town Services
+● Currency: Gold.
+● Loot: Monsters and chests drop loot from authored drop tables modified by divine favor. Monster groups can
+also sell, trade, or give up loot through negotiation.
+● Shop: The shop sells basic gear and consumables and buys items. Prices are TBD in testing and balancing.
+● Haggling: Once per in-game day, the player may attempt to negotiate better buy and sell rates, using stats,
+roles, and the shopkeeper’s latest AI assessment. Rate changes are TBD in testing and balancing.
+● Healer: For gold, a healer instantly heals all afflictions. Rates are TBD in testing and balancing.
+● Revival: The same healer revives a returned body for gold. Each revival carries a small chance of losing one
+Constitution point and a very slim chance of permanent death; both percentages are TBD.
+● Consumables: Healing potions, mana crystals, and magic keys. A magic key opens one lock, once, so
+characters who cannot pick locks or unlock them with magic can still make their way through the game.
+Death and Persistent World State
+● Death: When the active adventurer dies, the player chooses Wait or Switch, as described under Win and Loss
+Conditions. The dead adventurer’s gear and gold stay with the body.
+● Per-character relationships: Relationships with gods, NPCs, the faction, and monster groups are held
+separately for each character in a world. For example, the evil god can regard three characters in the same
+world differently.
+● Shared world state: Map discovery is shared by all characters in a world. Encounter-rate changes also persist:
+monster numbers and behavior reflect what adventurers have done in the dungeon over time, not which
+character is currently delving.
+● Waiting: Choosing Wait triggers a single daily update for the whole wait, which takes its length into account. A
+one-day absence and a 30-day absence are both reported. For example, if the bandit leader asked the
+adventurer to slay a monster that is still alive and has not seen them in 30 days, that report can affect his
+judgment.
+● Backups: Restoring a backup is mainly meant to recover from catastrophic glitches, though players can use it
+otherwise. The development team will make backing up and restoring deliberately clunky to access, to
+discourage their use as quick saves.
+Watchers and Town Characters
+● AI watchers: Seven characters receive daily LLM assessments: three NPCs, three gods, and the bandit faction.
+Each keeps a separate relationship with each character in a world.
+● Shopkeeper (AI NPC, loosely Neutral): Runs the shop and informs haggling as described above. The
+shopkeeper’s favor rises when the adventurer sells low, buys high, makes big purchases, or sells him new,
+rare, or valuable items.
+● Beggar (AI NPC, loosely Good): Asks for coin and can be asked for rumors, chosen at random, such as where
+monsters or items are, or the adventurer’s standing with the gods. Rumors become more accurate and more
+helpful the more the beggar likes the adventurer.
+● Mysterious Figure (AI NPC, loosely Evil): A pair of glowing eyes behind the bars of a sewer drain, with lanky
+green arms and pointed fingers. He asks the adventurer to do things for him, such as slay a monster, bring him
+an item, or go to specific coordinates and return to report what was there, and never reveals what these tasks
+are for. Usually he gives no reward, saying there is still much work to be done; rarely, he rewards the
+adventurer with rare items.
+● NPCs and their gods: The adventurer’s standing with each NPC affects, but does not define, the opinion of the
+god of that NPC’s alignment.
+● Gods (AI): A Good god, a Neutral god, and an Evil god. Their identities are to be developed by the AI
+development team. Divine favor modifies loot as described above.
+● The bandits (AI faction): Led by the boss, the bandits have taken to extorting people going in and out of the
+mine. They are morally grey and self-serving, but not actively malicious or murderous. They respond especially
+well to gifts; their other reactions to the adventurer are described under Encounter Choices and Outcomes.
+● Seer (not AI): For gold, the seer has a chance to tell the adventurer approximate information, such as where
+monsters, items, or bodies currently are, give or take, and the adventurer’s general standing with a god or a
+faction.
+● Healer (not AI): The healer is intentionally not an AI watcher, so they heal anyone, regardless of standing.
+Multi-Agent AI for Game Development | Assignment 02Assessment Consequences
+● Score bands: Each assessment returns a 0–100 relationship score, which maps to the five stages in even
+bands of 20: hostile (0–19), threatening (20–39), neutral (40–59), friendly (60–79), and allied (80–100).
+● Gods: A god’s favor or disfavor can temporarily modify drop rates, stat bonuses and penalties, and success
+rates on checks such as haggling, negotiation, and searching. Gods can also place enemies of their choosing
+in places of their choosing, within reason, and put specific items in the possession of specific creatures in the
+dungeon. Gods choose these interventions from authored options within authored limits; the LLM does not
+invent new mechanics. The full range of divine actions and how much influence gods have are TBD in
+development and testing.
+● NPCs: Standing changes the tone and content of NPC dialogue, which can also reflect how others regard the
+adventurer. For example, if the Evil god truly hates the adventurer, the beggar may say, “I’ll bet ____ curses
+your name,” or “They say ____ checks for you under his bed at night.”
+● Alignment: The adventurer’s alignment affects the gods’ opinions of them.
+Boss Encounter
+● Boss and standing: The bandit boss guards the descent and starts at threatening, demanding a toll to let the
+adventurer pass. At neutral and friendly the toll is lower; at allied he lets the adventurer through; at hostile he
+attacks on sight.
+● Fighting the bandits: Bandits present when the adventurer attacks become hostile, because they have been
+attacked. The bandit faction as a whole decides how to respond during its next daily assessment.
+● Winning: Going down the descent wins the demo, however the adventurer got past the boss.
+Player Feedback
+● Dungeon view
+○ First-person view from the adventurer; visible monsters, objects, traps, and chests use 3D models.
+Hidden features stay concealed until found.
+● HUD and map
+○ The adventurer’s name, HP, mana, hotbar, inventory, and stats; creature names/portraits, general
+condition, and demeanor. Enemy HP and mana remain hidden.
+○ Visible loot, chest, and trap indicators; the in-game day/date and rest outcomes; an expandable
+minimap with fog of war.
+● Selection and targeting
+○ The controlled adventurer and their selected creature or object are clearly identified.
+● Animations and floating text
+○ Real-time 3D animations show actions and effects; floating text such as “hit” and “miss” communicates
+immediate results over targets.
+● Message log
+○ Records events and outcomes, including combat, escape attempts, negotiations, searches, rewards,
+advancement, shop transactions, and successful or ambushed rests.
+● Dialogue boxes and menus
+○ Dialogue boxes convey NPC interactions and AI decisions. Menus cover creation, stats, inventory,
+class information, leveling, shopping, and a help menu/manual through which players learn the game;
+shop transactions also use messages, animations, and dialogue.
+Multi-Agent AI for Game Development | Assignment 0203 AI Architecture
+Ten development roles support this specific demo. They are task assignments used as needed under the human
+coordinator’s direction.
+The AI Integration Engineer builds the seven daily in-game assessors. The Systems Designer defines their
+gameplay rules; the Narrative Designer supplies their values and voices; the Software Engineer integrates shared
+game systems; QA tests the resulting behavior.
+Agent Name Development Role Input Output Effect on the Game
+Producer Coordinates approved scope,
+tasks, dependencies, deadlines,
+budgets, handoffs, and reviews.
+GDD,
+budgets,
+progress
+Task briefs,
+milestone plans,
+and status reports
+(Markdown)
+A connected
+town-and-dungeon demo
+reaches completion.
+Development
+Systems Analyst
+Examines outcomes, prompts,
+repeated failures, documented
+rationales, token use, and relevant
+industry practices to improve the
+development process.
+Retrievable
+project
+records and
+reviews
+Process findings,
+alternatives, and
+questions
+(Markdown
+reports)
+Problems in combat, UI,
+and AI development are
+identified and addressed.
+Systems
+Designer
+Designs and balances creation,
+multiple classes, encounters,
+combat, progression, loot, recovery,
+time, and relationship
+consequences.
+Game design,
+playtests
+Rules
+specifications
+(Markdown);
+counters,
+thresholds, and
+balance values
+(CSV/JSON data
+tables)
+Player choices
+consistently change
+survival, rewards, and
+future encounters.
+World Designer Designs and assembles the town
+and dungeon floor, with routes,
+services, encounters, secrets,
+puzzle, and boss-guarded descent.
+Systems,
+setting, assets
+Layout and
+placement specs
+(Markdown with
+map diagrams);
+assembled town
+and dungeon
+levels (Unreal
+maps)
+Players explore
+meaningful routes and
+challenges toward the
+descent.
+UI/UX Designer Designs adventurer controls, HUD,
+maps, menus, targeting, dialogue,
+logs, and action feedback.
+Player actions
+and
+information
+needs
+Interface and
+feedback
+specifications
+(Markdown with
+wireframes)
+Players can manage the
+adventurer and
+understand discoveries
+and consequences.
+Narrative
+Designer
+Defines identities, values, voices,
+dialogue, and descriptions for the
+three NPCs, three gods, faction,
+and boss, and writes voice profiles,
+preferences, and negotiation lines
+for the three monster types. The
+game fills each line’s blanks, such
+as items, prices, and quest targets,
+from current game state.
+Setting,
+relationship
+mechanics
+Watcher profiles
+and assessment
+context (JSON);
+negotiation lines
+and game text
+(CSV string
+tables)
+Characters express
+distinct attitudes toward
+the adventurer’s actions.
+Software
+Engineer
+Architects and implements Unreal
+gameplay, interfaces, shared data,
+asset integration, saving, tools,
+performance, and PC builds.
+Approved
+specifications
+and assets
+Integrated Unreal
+systems (code
+and Blueprints)
+and packaged PC
+builds
+Exploration, combat,
+town services,
+progression, and
+recovery work together.
+Multi-Agent AI for Game Development | Assignment 02Agent Name Development Role Input Output Effect on the Game
+AI Integration
+Engineer
+Builds the runtime pipeline from
+recorded actions to daily LLM
+assessments, relationship scores,
+and predefined gameplay
+responses.
+Counters,
+profiles,
+relationship
+rules
+Prompt templates
+(text), API
+integration code,
+validation
+schemas (JSON
+Schema), and call
+logs (JSON)
+Gods, NPCs, and faction
+change their responses
+to player behavior.
+Asset Curator Sources, selects, organizes, and
+prepares mainly premade art,
+animation, music, and sound,
+adapting or creating assets only as
+needed.
+Visual/audio
+direction and
+collections
+Unreal-ready
+assets (models,
+textures,
+animation, and
+audio files) and
+source and
+license records
+(CSV)
+The town, dungeon,
+characters, and feedback
+share a coherent style.
+QA Tester Tests approved gameplay and
+runtime AI behavior, reproduces
+defects, verifies fixes, and gathers
+playtest evidence.
+Builds, design,
+test cases,
+logs
+Test cases and
+results (CSV);
+defect reports
+with reproduction
+steps and logs
+(Markdown)
+Encounters,
+relationships, recovery,
+and saving remain
+reliable and
+understandable.
+Runtime AI: Daily Relationships
+Whenever the in-game day advances, through a rest attempt or a Wait after death, relevant action counts are sent
+separately to the three NPCs, three gods, and one faction: seven assessments. This happens after both
+successful and ambushed rest attempts. Each receives its profile, prior relationship, and a compact record of
+relevant actions, and returns one short assessment plus a relationship percentage. Only the active character is
+assessed. The boss belongs to the faction; it does not require an eighth assessor.
+● Gods: favor or disfavor can temporarily modify loot, stats, check success rates, and enemy and item
+placement, as described under Assessment Consequences.
+● NPCs: their attitudes, dialogue, and interactions reflect their assessment; the shopkeeper’s latest
+assessment also informs haggling.
+● Faction: its relationship selects predefined behavior, such as allied, friendly, neutral, threatening, or
+hostile; later actions can improve or worsen it.
+The game applies validated scores through fixed rules. For example, a hostile threshold can make previously
+neutral creatures attack on a later visit. Combat actions and daily encounter-rate adjustments stay in ordinary
+game code. Daily changes are communicated through demeanor and dialogue.
+One Wow Agent
+Agent AI Integration Engineer
+The AI Integration Engineer makes the dungeon’s social world respond to the adventurer’s history: a later visit can
+bring different attitudes, hostility, shop interactions, and rewards because of earlier choices.
+Coordination and Human Review
+Workflow
+The Producer turns approved goals into bounded tasks with inputs, expected outputs, dependencies, deadlines,
+and token allowances. Systems, World, UI/UX, Narrative, and Asset Curator roles provide specifications and
+content to the Software and AI Integration Engineers. QA tests the integrated result and returns reproducible
+issues. The Development Systems Analyst reviews outcomes and repeated failures, researches alternatives, and
+raises questions about the process. Brief context files and linked records preserve decisions without loading the
+Multi-Agent AI for Game Development | Assignment 02whole project into every task. The development team decides how work enters Unreal, such as C++ code,
+Blueprints, or data tables.
+Human review gate
+A human coordinator directs the project and approves changes to scope, game rules, architecture, art direction,
+budget, and release readiness. Agents present concrete proposals, playable results, test evidence, or
+comparisons; recommendations do not authorize a change. Routine work may proceed within an approved task.
+Each completed feature returns for review before becoming the basis for further work.
+04 Technical Strategy
+Technical Choice Plan
+Engine or framework Unreal Engine, using reusable gameplay components and data-driven rules to support
+the first-person 3D view, real-time timer-driven combat, single-adventurer systems, and
+rest-triggered daily AI updates.
+Target platform PC, single-player, online-only. Demo: one active adventurer. Planned full game: one
+player controls a party of up to four characters, not four human players.
+Primary AI tools or models Claude Pro models and ChatGPT/Codex support design, engineering, review, and
+analysis; Galaxy.AI provides additional model access. Meshy supports occasional asset
+creation. Runtime assessments use a fallback ladder of five progressively lower-cost
+models; DeepSeek is the initial candidate, Qwen, GLM, and MiMo are candidates for
+the other rungs, and the fifth model is TBD. Model choice is checked against response
+quality, latency, and usage.
+Existing assets or plugins Primarily premade models, materials, animations, music, sound, and suitable plugins
+from Humble Bundle and Bundlefoundry. The Asset Curator checks style, compatibility,
+and source records; the Software Engineer handles integration.
+Saving and loading Autosave runs continuously and preserves character progress, inventory, map
+discovery, day, action counters, encounter state, and relationships. If the game closes
+during a daily update, completed assessments are kept and are not rerun; unfinished
+assessments resume on loading where they left off on the five-model fallback ladder
+until one succeeds. Backups can be created and restored, returning the world to the
+backup’s state; they are mainly for recovering from catastrophic glitches and are
+deliberately clunky to access.
+Token Budget
+Estimate covers development and 30 test sessions of 20 in-game days. Development task totals include model
+calls, tool context, revisions, input, and output. Runtime calls are counted separately.
+Agent or Task Estimated Runs Tokens per Run Estimated Total
+Engineering and integration 100 bounded tasks 40,000 total 4,000,000
+Design, world, UI, narrative, assets 100 bounded tasks 12,000 total 1,200,000
+Production, analysis, QA 80 bounded tasks 15,000 total 1,200,000
+Development reserve 25% of development
+subtotal
+Allowance 1,600,000
+Runtime playtesting 30 sessions × 20 days × 7 =
+4,200 calls
+1,200 input + 300
+output
+6,300,000
+Multi-Agent AI for Game Development | Assignment 02Agent or Task Estimated Runs Tokens per Run Estimated Total
+Runtime retries and model fallbacks 10% = 420 extra calls (each
+request may use up to 10
+calls: a try and a retry on
+each of five models)
+1,500 total 630,000
+Total projected tokens 14,930,000
+Runtime baseline: 10,500 tokens/day or 210,000 per 20-day test. Calls allow about 1,200 input and 300 output
+tokens; test-session assumptions do not limit gameplay days. Track actual usage and revise estimates after the
+integrated prototype. Subscription allowances and Meshy credits are separate; API currency cost uses current
+input/output prices.
+Constraints and Mitigation
+Constraint Why It Matters Planned Response
+Semester scope and
+integration
+One developer must connect a
+first-person 3D RPG demo’s
+systems within the course.
+Build a basic town–dungeon–return loop first; validate
+one daily relationship change early; then complete the
+stated content counts. Use premade assets and shared
+systems. Scope changes require the developer’s
+approval.
+API latency,
+availability, and limits
+Seven daily requests depend on
+network/service availability;
+throttling or delay must not freeze
+play.
+Send all seven requests at once, each with a
+15-second request timeout. A failed request is retried
+once; if the retry also fails, the request falls back to the
+next of five progressively lower-cost models, which
+follows the same try-and-retry pattern. If all five models
+fail (10 calls), the development team will decide how to
+handle it during development. Delve Deeper is an
+online-only game.
+Unreliable or
+inconsistent LLM
+output
+Malformed scores or invented
+events could cause incoherent
+hostility or rewards.
+Require a short assessment and a 0–100 score in
+structured output. Validate the schema, entity and day;
+accept one update per entity/day. Gameplay
+consequences come only from authored rules. A
+response that fails validation is treated as a failed call
+and goes through the same retry and five-model
+fallback ladder.
+Development context
+and token growth
+Repeated failures or whole-project
+prompts consume budget without
+improving the demo.
+Use focused task briefs and retrievable context files.
+Record outputs, review results, and usage. The analyst
+flags repeated failures and high-cost work; revise the
+method with the developer before extending the
+budget.
+Revision Planning Basis
+This revised demo GDD records approved design decisions. The demo’s completion date is set by the course
+curriculum. Intermediate milestones are left to the Producer: this agentic development process is showcased as
+much as the game itself. Working title, implementation sequence, API candidate, request limits, and token
+estimates remain provisional, not measured performance or spending commitments. Exploration uses free
+movement; adventurers occupy fixed room positions during real-time, timer-driven combat. The planned full-game
+party follows the active character in single file outside combat. Numerical action timings, numerical revival delays,
+and later technical decisions remain open where explicitly identified.
+API reference (20 October 2026): DeepSeek — Rate Limit & Isolation; Error Codes. Published constraints include
+concurrency throttling and service errors; the limits above are this game’s settings.
+Multi-Agent AI for Game Development | Assignment 0205 Revision Record
+This revision responds to the AI review board’s stress test, in which six reviewer agents raised 31 findings. The
+table records how each finding was handled: accepted, partially accepted, superseded, or rejected, with the
+reason.
+Finding(s) Disposition What changed / why
+SD-F1, FL-F5, QA-F1, PP-F5: no
+day trigger
+Accepted Each rest attempt advances one day; Wait triggers one
+update for the whole wait.
+FL-F2: control and combat timing Accepted Free movement while exploring, fixed positions in combat,
+real-time timers.
+SD-F2: town services cost
+nothing
+Partial Healer, revival, and shop cost gold, with prices TBD; rest
+stays free.
+SD-F3: no progression curve Partial Per-class progression tables and a level 1–10 demo range;
+exact numbers set in testing; multiclassing kept.
+SD-F4, PP-F3:
+fight/flee/negotiate trade-offs
+Accepted Rules for all three; negotiation is meant to give more XP
+than combat; negotiated and traded loot.
+SD-F5: thresholds only
+exemplified
+Accepted Even 20-point bands; god and NPC consequences defined,
+with magnitudes TBD.
+NC-F1, QA-F5: boss and win Accepted Toll by standing, allied passes, hostile attacks; any way
+down the descent wins.
+NC-F2, BA-F3: setting and
+audience
+Accepted Premise, player experience, audience, and reference
+games.
+NC-F3: who sees what Partial The seven watchers are defined; how each one knows
+things is not explained.
+NC-F4, BA-F2: gods have no
+presence
+Partial Gods modify checks and stats and place enemies and
+items; NPC dialogue reflects them; identities go to the dev
+team.
+NC-F5, BA-F4: alignment
+disconnected
+Accepted Alignment affects the gods’ opinions; NPCs are linked to the
+gods; alignment is a class requirement.
+NC-R2-B1: nobody writes
+monster lines
+Accepted The Narrative Designer writes monster negotiation lines
+during development.
+PP-F1: signature system hard to
+perceive
+Partial Shown through demeanor, dialogue, the beggar, and the
+seer; explicit displays rejected because hidden information
+is the point.
+PP-F2: no onboarding Partial Help menu/manual added; no tutorial or starter party.
+PP-F4, QA-F4: party wipe and
+backups
+Superseded /
+Partial
+The wipe rule is replaced by Wait/Switch and persistent
+world state; backups kept but deliberately clunky.
+QA-F3: backups reroll
+assessments
+Partial Restore returns the world to the backup’s state; backups are
+mainly for glitches and clunky to access.
+FL-F1, BA-F1: no cut list or
+schedule
+Partial Completion date per the course curriculum; milestones go to
+the Producer; suggested cuts rejected.
+FL-F3: Unreal work is
+editor-bound
+Partial The dev team decides how work enters Unreal; editor and
+asset work were already assigned to roles.
+FL-F4: requests can’t finish in
+the window
+Accepted All seven calls run at once; window removed; five-model
+fallback ladder.
+Multi-Agent AI for Game Development | Assignment 02QA-F2: going offline bypasses
+consequences
+Accepted Online-only; failed calls fall back to the next model and are
+never skipped.
+BA-F5: depends on a paid online
+API
+Partial Online-only accepted, with cheaper fallback models;
+long-term funding not addressed.
+Multi-Agent AI for Game Development | Assignment 02

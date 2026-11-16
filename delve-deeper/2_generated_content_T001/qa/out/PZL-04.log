@@ -1,0 +1,5 @@
+$ work/T001/build/puzzle_check validate work/T001/qa/fixtures/pz_bad_site.json work/T001/map/floor1_map.json
+exit: 1
+--- output ---
+FAIL UNKNOWN_NODE: controls_site not in map: smelter_room
+  also PUZZLE_REF: map puzzle controls site differs: puzzle_controls_site

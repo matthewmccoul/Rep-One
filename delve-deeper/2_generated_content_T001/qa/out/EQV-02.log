@@ -1,0 +1,4 @@
+$ python3 -I work/T001/code/tools/gen_golden.py work/T001/qa/out/golden.json
+exit: 0
+--- output ---
+OK 331 vectors (sequences=120 bypass=42 save_load=163 edge=6) written to work/T001/qa/out/golden.json

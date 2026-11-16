@@ -1,0 +1,4 @@
+$ work/T001/build/map_check validate work/T001/qa/fixtures/map_cell_clash.json
+exit: 1
+--- output ---
+FAIL CELL_CLASH: nodes barracks and toll_hall share cell (3,5) but neither is inside_room of the other

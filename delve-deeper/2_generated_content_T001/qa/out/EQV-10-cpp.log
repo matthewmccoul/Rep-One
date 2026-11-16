@@ -1,0 +1,4 @@
+$ work/T001/build/map_check validate work/T001/qa/fixtures/map_e08_no_break.json
+exit: 1
+--- output ---
+FAIL LOCKED_NEEDS_BREAK: locked edge e08 must list break

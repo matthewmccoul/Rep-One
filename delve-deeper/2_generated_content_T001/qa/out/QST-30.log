@@ -1,0 +1,9 @@
+$ work/T001/build/quest_check run work/T001/quest/figure_ore_lift_quest.json work/T001/quest/figure_ore_lift_strings.csv work/T001/map/floor1_map.json offer@0 decline arrive@ore_lift:present
+exit: 0
+--- output ---
+offer@0 ok key=fig_offer_cold state=not_offered
+  fig_offer_cold: *Eyes flare behind the bars. A green finger points.* You. The old ore lift. Is the chain still on the drum? Go. Look. Come back and say.
+decline ok key=fig_decline_reply state=declined
+  fig_decline_reply: *The eyes dim.* Then go.
+arrive@ore_lift:present rejected not_observing state=declined
+state=declined chain=none reward_rolled=0 rolls=0

@@ -1,0 +1,69 @@
+$ ctest --test-dir work/T001/qa/build_mut/map_reach --output-on-failure -R map_ --output-log work/T001/qa/out/MAP-37_ctest.log
+exit: 8
+--- output ---
+Internal ctest changing into directory: /home/user/content_pipeline/work/T001/qa/build_mut/map_reach
+Test project /home/user/content_pipeline/work/T001/qa/build_mut/map_reach
+      Start  19: map_real_validates
+ 1/21 Test  #19: map_real_validates ...............   Passed    0.00 sec
+      Start  20: map_dup_ids
+ 2/21 Test  #20: map_dup_ids ......................   Passed    0.01 sec
+      Start  21: map_bad_door_type
+ 3/21 Test  #21: map_bad_door_type ................   Passed    0.01 sec
+      Start  22: map_unknown_refs
+ 4/21 Test  #22: map_unknown_refs .................   Passed    0.00 sec
+      Start  23: map_locked_door_rules
+ 5/21 Test  #23: map_locked_door_rules ............   Passed    0.00 sec
+      Start  24: map_stuck_door_rules
+ 6/21 Test  #24: map_stuck_door_rules .............   Passed    0.01 sec
+      Start  25: map_secret_door_rules
+ 7/21 Test  #25: map_secret_door_rules ............   Passed    0.00 sec
+      Start  26: map_descent_rules
+ 8/21 Test  #26: map_descent_rules ................   Passed    0.00 sec
+      Start  27: map_orphan_rooms
+ 9/21 Test  #27: map_orphan_rooms .................   Passed    0.00 sec
+      Start  28: map_puzzle_rules
+10/21 Test  #28: map_puzzle_rules .................***Failed    0.00 sec
+/home/user/content_pipeline/work/T001/qa/mut/map_reach/tests/map/test_map.cpp:158: CHECK failed: firstCode(mutate(t, "\"inside_room\": \"foreman_office\"", "\"inside_room\": \"storeroom\"")) == std::string("PUZZLE_CLUE_BEHIND_DOOR") (got [NO_OPEN_ROUTE] vs [PUZZLE_CLUE_BEHIND_DOOR])
+/home/user/content_pipeline/work/T001/qa/mut/map_reach/tests/map/test_map.cpp:160: CHECK failed: firstCode(mutate(t, "\"x\": 1, \"y\": 4, \"inside_room\": \"smelter_hall\"", "\"x\": 0, \"y\": 4, \"inside_room\": \"storeroom\"")) == std::string("PUZZLE_CONTROLS_BEHIND_DOOR") (got [NO_OPEN_ROUTE] vs [PUZZLE_CONTROLS_BEHIND_DOOR])
+  FAIL map_puzzle_rules
+
+      Start  29: map_count_rules
+11/21 Test  #29: map_count_rules ..................   Passed    0.00 sec
+      Start  30: map_cell_clash
+12/21 Test  #30: map_cell_clash ...................   Passed    0.00 sec
+      Start  31: map_cells
+13/21 Test  #31: map_cells ........................   Passed    0.00 sec
+      Start  32: map_neighbours
+14/21 Test  #32: map_neighbours ...................   Passed    0.00 sec
+      Start  33: map_door_ways
+15/21 Test  #33: map_door_ways ....................   Passed    0.00 sec
+      Start  34: map_reach
+16/21 Test  #34: map_reach ........................***Failed    0.00 sec
+/home/user/content_pipeline/work/T001/qa/mut/map_reach/tests/map/test_map.cpp:237: CHECK failed: !reach(m, "town_entrance", "descent", {"e14"})
+/home/user/content_pipeline/work/T001/qa/mut/map_reach/tests/map/test_map.cpp:238: CHECK failed: !reach(m, "town_entrance", "storeroom", {"e08"})
+/home/user/content_pipeline/work/T001/qa/mut/map_reach/tests/map/test_map.cpp:242: CHECK failed: !reach(m, "town_entrance", "ore_lift", {"e04", "e09"})
+/home/user/content_pipeline/work/T001/qa/mut/map_reach/tests/map/test_map.cpp:256: CHECK failed: out == std::string("unreachable\n") (got [reachable
+] vs [unreachable
+])
+  FAIL map_reach
+
+      Start  35: map_cli_failures
+17/21 Test  #35: map_cli_failures .................   Passed    0.00 sec
+      Start  36: map_schema_errors
+18/21 Test  #36: map_schema_errors ................   Passed    0.00 sec
+      Start  39: pzl_map_cross_real
+19/21 Test  #39: pzl_map_cross_real ...............   Passed    0.00 sec
+      Start  40: pzl_map_cross_broken
+20/21 Test  #40: pzl_map_cross_broken .............   Passed    0.01 sec
+      Start 118: map_cli_real_validate
+21/21 Test #118: map_cli_real_validate ............   Passed    0.00 sec
+
+90% tests passed, 2 tests failed out of 21
+
+Total Test time (real) =   0.10 sec
+
+The following tests FAILED:
+	 28 - map_puzzle_rules (Failed)
+	 34 - map_reach (Failed)
+[stderr]
+Errors while running CTest

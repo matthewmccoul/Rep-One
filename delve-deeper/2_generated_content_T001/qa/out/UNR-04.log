@@ -1,0 +1,8 @@
+$ python3 -I work/T001/code/tools/check_no_unreal.py work/T001/qa/fixtures/unr_core_forms
+exit: 1
+--- output ---
+VIOLATION common/include/dd/csv.h:34: Unreal include: #include "CoreMinimal.h"
+VIOLATION map/src/extra.inl:1: Unreal include: #include "Engine.h"
+VIOLATION quest/src/quest.cpp:771: Unreal include: #  include   <GameFramework/Actor.h>
+11 core files scanned, 3 violation(s)
+RESULT FAIL

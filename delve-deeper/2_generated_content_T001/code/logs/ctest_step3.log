@@ -1,0 +1,136 @@
+[OUTPUT] 
+Internal ctest changing into directory: /home/user/content_pipeline/work/T001/build_quest
+
+[HANDLER_OUTPUT] 
+Test project /home/user/content_pipeline/work/T001/build_quest
+
+      Start  3: com_json_valid_real_files
+ 1/63 Test  #3: com_json_valid_real_files ........   Passed    0.00 sec
+      Start  4: com_json_escapes
+ 2/63 Test  #4: com_json_escapes .................   Passed    0.00 sec
+      Start  5: com_json_numbers_literals
+ 3/63 Test  #5: com_json_numbers_literals ........   Passed    0.00 sec
+      Start  6: com_json_trailing_comma
+ 4/63 Test  #6: com_json_trailing_comma ..........   Passed    0.00 sec
+      Start  7: com_json_truncated
+ 5/63 Test  #7: com_json_truncated ...............   Passed    0.00 sec
+      Start  8: com_json_dup_key
+ 6/63 Test  #8: com_json_dup_key .................   Passed    0.00 sec
+      Start  9: com_json_nonstrict
+ 7/63 Test  #9: com_json_nonstrict ...............   Passed    0.00 sec
+      Start 10: com_json_empty
+ 8/63 Test #10: com_json_empty ...................   Passed    0.00 sec
+      Start 11: com_json_depth
+ 9/63 Test #11: com_json_depth ...................   Passed    0.00 sec
+      Start 12: com_json_error_paths
+10/63 Test #12: com_json_error_paths .............   Passed    0.00 sec
+      Start 13: com_cli_json_exit_codes
+11/63 Test #13: com_cli_json_exit_codes ..........   Passed    0.00 sec
+      Start 14: com_csv_valid_real
+12/63 Test #14: com_csv_valid_real ...............   Passed    0.00 sec
+      Start 15: com_csv_quoted_fields
+13/63 Test #15: com_csv_quoted_fields ............   Passed    0.00 sec
+      Start 16: com_csv_ragged
+14/63 Test #16: com_csv_ragged ...................   Passed    0.00 sec
+      Start 17: com_csv_open_quote
+15/63 Test #17: com_csv_open_quote ...............   Passed    0.00 sec
+      Start 18: com_csv_header_rules
+16/63 Test #18: com_csv_header_rules .............   Passed    0.00 sec
+      Start 19: map_real_validates
+17/63 Test #19: map_real_validates ...............   Passed    0.00 sec
+      Start 20: map_dup_ids
+18/63 Test #20: map_dup_ids ......................   Passed    0.00 sec
+      Start 21: map_bad_door_type
+19/63 Test #21: map_bad_door_type ................   Passed    0.00 sec
+      Start 22: map_unknown_refs
+20/63 Test #22: map_unknown_refs .................   Passed    0.00 sec
+      Start 23: map_locked_door_rules
+21/63 Test #23: map_locked_door_rules ............   Passed    0.00 sec
+      Start 24: map_stuck_door_rules
+22/63 Test #24: map_stuck_door_rules .............   Passed    0.00 sec
+      Start 25: map_secret_door_rules
+23/63 Test #25: map_secret_door_rules ............   Passed    0.00 sec
+      Start 26: map_descent_rules
+24/63 Test #26: map_descent_rules ................   Passed    0.00 sec
+      Start 27: map_orphan_rooms
+25/63 Test #27: map_orphan_rooms .................   Passed    0.00 sec
+      Start 28: map_puzzle_rules
+26/63 Test #28: map_puzzle_rules .................   Passed    0.01 sec
+      Start 29: map_count_rules
+27/63 Test #29: map_count_rules ..................   Passed    0.00 sec
+      Start 30: map_cell_clash
+28/63 Test #30: map_cell_clash ...................   Passed    0.01 sec
+      Start 31: map_cells
+29/63 Test #31: map_cells ........................   Passed    0.00 sec
+      Start 32: map_neighbours
+30/63 Test #32: map_neighbours ...................   Passed    0.00 sec
+      Start 33: map_door_ways
+31/63 Test #33: map_door_ways ....................   Passed    0.00 sec
+      Start 34: map_reach
+32/63 Test #34: map_reach ........................   Passed    0.00 sec
+      Start 35: map_cli_failures
+33/63 Test #35: map_cli_failures .................   Passed    0.00 sec
+      Start 36: map_schema_errors
+34/63 Test #36: map_schema_errors ................   Passed    0.00 sec
+      Start 37: qst_quest_real_validates
+35/63 Test #37: qst_quest_real_validates .........   Passed    0.00 sec
+      Start 38: qst_quest_stage_bands
+36/63 Test #38: qst_quest_stage_bands ............   Passed    0.00 sec
+      Start 39: qst_quest_dialogue_agrees_csv
+37/63 Test #39: qst_quest_dialogue_agrees_csv ....   Passed    0.00 sec
+      Start 40: qst_quest_fill_all
+38/63 Test #40: qst_quest_fill_all ...............   Passed    0.00 sec
+      Start 41: qst_quest_fill_rules
+39/63 Test #41: qst_quest_fill_rules .............   Passed    0.00 sec
+      Start 42: qst_quest_offer_variants
+40/63 Test #42: qst_quest_offer_variants .........   Passed    0.00 sec
+      Start 43: qst_quest_accept_decline
+41/63 Test #43: qst_quest_accept_decline .........   Passed    0.00 sec
+      Start 44: qst_quest_arrive_variants
+42/63 Test #44: qst_quest_arrive_variants ........   Passed    0.00 sec
+      Start 45: qst_quest_report_variants
+43/63 Test #45: qst_quest_report_variants ........   Passed    0.00 sec
+      Start 46: qst_quest_per_character
+44/63 Test #46: qst_quest_per_character ..........   Passed    0.00 sec
+      Start 47: qst_quest_hostile_midquest
+45/63 Test #47: qst_quest_hostile_midquest .......   Passed    0.00 sec
+      Start 48: qst_quest_hostile_reward
+46/63 Test #48: qst_quest_hostile_reward .........   Passed    0.00 sec
+      Start 49: qst_quest_reward_once
+47/63 Test #49: qst_quest_reward_once ............   Passed    0.00 sec
+      Start 50: qst_quest_reward_roll
+48/63 Test #50: qst_quest_reward_roll ............   Passed    0.00 sec
+      Start 51: qst_quest_roundtrip
+49/63 Test #51: qst_quest_roundtrip ..............   Passed    0.00 sec
+      Start 52: qst_quest_load_invalid
+50/63 Test #52: qst_quest_load_invalid ...........   Passed    0.00 sec
+      Start 53: qst_quest_id_checks
+51/63 Test #53: qst_quest_id_checks ..............   Passed    0.01 sec
+      Start 54: qst_quest_csv_rules
+52/63 Test #54: qst_quest_csv_rules ..............   Passed    0.02 sec
+      Start 55: qst_quest_coverage_rule
+53/63 Test #55: qst_quest_coverage_rule ..........   Passed    0.01 sec
+      Start 56: qst_quest_transition_table
+54/63 Test #56: qst_quest_transition_table .......   Passed    0.00 sec
+      Start 57: qst_quest_cli_validate
+55/63 Test #57: qst_quest_cli_validate ...........   Passed    0.02 sec
+      Start 58: qst_quest_cli_stage_line_fill
+56/63 Test #58: qst_quest_cli_stage_line_fill ....   Passed    0.08 sec
+      Start 59: qst_quest_cli_run
+57/63 Test #59: qst_quest_cli_run ................   Passed    0.07 sec
+      Start 60: qst_quest_cli_hostile
+58/63 Test #60: qst_quest_cli_hostile ............   Passed    0.05 sec
+      Start 61: qst_quest_cli_reward
+59/63 Test #61: qst_quest_cli_reward .............   Passed    0.05 sec
+      Start 62: qst_quest_python_reference
+60/63 Test #62: qst_quest_python_reference .......   Passed    0.03 sec
+      Start 63: com_cli_real_map
+61/63 Test #63: com_cli_real_map .................   Passed    0.00 sec
+      Start 64: com_cli_real_csv
+62/63 Test #64: com_cli_real_csv .................   Passed    0.00 sec
+      Start 65: map_cli_real_validate
+63/63 Test #65: map_cli_real_validate ............   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 63
+
+Total Test time (real) =   0.53 sec

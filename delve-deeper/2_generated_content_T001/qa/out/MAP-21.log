@@ -1,0 +1,5 @@
+$ work/T001/build/map_check validate work/T001/qa/fixtures/map_bad_monster.json
+exit: 1
+--- output ---
+FAIL UNKNOWN_MONSTER_TYPE: encounter enc_gallery_1 monster type unknown: mon_type_9
+  also MONSTER_UNUSED: monster type mon_type_2 has no encounter slot

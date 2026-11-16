@@ -1,0 +1,4 @@
+$ work/T001/build/com_check csv work/T001/qa/fixtures/com_no_text_col.csv --require 
+exit: 0
+--- output ---
+OK csv columns=6 rows=25

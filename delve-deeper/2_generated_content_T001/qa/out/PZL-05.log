@@ -1,0 +1,4 @@
+$ work/T001/build/puzzle_check validate work/T001/qa/fixtures/pz_bad_routes.json work/T001/map/floor1_map.json
+exit: 1
+--- output ---
+FAIL ROUTES_MISMATCH: other_routes differ from the map's e08 solutions minus puzzle

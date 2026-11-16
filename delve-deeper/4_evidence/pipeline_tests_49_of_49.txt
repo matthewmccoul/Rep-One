@@ -1,0 +1,52 @@
+﻿# python3 tests/test_pipeline.py, run on a copy of 1_pipeline/ (Ubuntu on WSL, Python 3.14.4, 2026-11-12). Uses the bundled stand-in for Claude Code, so no model calls or cost.
+PASS  the diagram and pipeline.json match (run_pipeline.py --check)
+PASS  all eleven role files exist after unpacking, including the critic shipped as its own file
+PASS  the first thing it does is ask the opening question, and nothing runs
+PASS  after the request it stops at the starting-brief decision, offering exactly the diagram's arrows plus 'end'
+PASS  the Producer's brief tells it which model every agent runs on
+PASS  the Producer's brief carries prices fetched from the Anthropic source, with both of Haiku's price tiers
+PASS  if Anthropic fails the prices come from Vercel, and the brief says Anthropic failed
+PASS  if both sources fail the brief says FAILED, names both failures, and has the Producer say it has no prices BEFORE giving labelled remembered ones
+PASS  the request is stored word for word
+PASS  a reply that names no choice is not taken as approval
+PASS  a reply naming two different choices picks neither
+PASS  approving runs P, D1 and D2 in the diagram's order, then stops at 'You approve design or experiment?'
+PASS  a role that belongs in D2 but not D1 was refused in D1
+PASS  the roles listed for a box were allowed in it
+PASS  each agent is started on its own model: haiku for the Narrative Designer, sonnet for QA
+PASS  the budget the user approved is the one in force
+PASS  starting an agent by hand, outside run_pipeline.py, is refused
+PASS  a box that edits pipeline_state/ is stopped and the user is told
+PASS  a box with specialists that dispatches none of them is stopped (the Producer may not do their work itself)
+PASS  the diagram's feature question 'Feature accepted?' reaches the user
+PASS  new content goes through the critic box before assembly, and a critic quote that does not match its file stops the box
+PASS  with verified quotes and a CONSISTENT verdict the content goes on to assembly and then to the user
+PASS  when the critic finds contradictions the content goes back to C1, and after the loop limit the user is asked
+PASS  the user can send it on to assembly despite the contradictions, and it reaches 'You accept content?'
+PASS  an arrow the Producer invents is rejected
+PASS  'New goal or changed boundaries' ends the task and asks the opening question again
+PASS  a task whose spending reaches its approved budget stops before the next box
+PASS  raising the budget needs a new total above what is spent
+PASS  raising the budget takes the new total from the user's own words
+PASS  a packet with no evidence, decision, budget or roster section stops the box and says what is missing
+PASS  a budget with QA lumped in with other roles, no prices or tokens, no Haiku price tiers, and 'see ISSUES' with no ISSUES section is refused
+PASS  benching an agent that was never consulted is refused
+PASS  an agent consulted first and then benched is allowed, runs read-only with a small cap, and the roster record sorts it into 'consulted, then benched'
+PASS  an agent consulted and then tasked is recorded as 'consulted, then tasked'
+PASS  saying an agent was CONSULTED when no consultation run exists is refused
+PASS  a packet that leaves out the roster is refused: no agent may simply be dropped
+PASS  consultation mode: allowed only for an agent on the consult list and a label with -consult-
+PASS  flag mode: allowed only for the Analyst with -flag- in the label, and only while a flag is open
+PASS  a Haiku run over 0.25 USD and a Sonnet run over 1.00 USD are flagged; the per-run cap is untouched
+PASS  the next brief tells the Producer about the open flag, points to the raw files, and says it is a consultation that never replaces QA
+PASS  the Analyst's assessment with a Verdict line closes its flag, the other stays open, QA still ran, and the user's question reports both
+PASS  dispatching the Analyst on a flag without getting an assessment file stops the box
+PASS  a Haiku run at 0.20 USD and a Sonnet run at 0.90 USD are not flagged
+PASS  a run served a different model from the one models.json names stops the box and says which
+PASS  a box that shows no activity for the stuck limit is stopped and the user is told why (here after 3 seconds, not 25)
+PASS  run_check.sh prints the program's output and its exit code, and refuses programs that are not allowed
+PASS  compilers are granted to the Software Engineer and QA only; WebFetch to the Systems Designer only; the Critic has its own entry without WebSearch
+PASS  every role that can run python also has run_check.sh
+PASS  the Producer's brief carries the team, tools, build-tool advice, inputs, prices, measured cost history, consultation and roster rules
+
+49 of 49 checks passed

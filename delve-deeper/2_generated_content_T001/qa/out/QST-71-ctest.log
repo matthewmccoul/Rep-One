@@ -1,0 +1,35 @@
+[OUTPUT] 
+Internal ctest changing into directory: /home/user/content_pipeline/work/T001/qa/build_mut/qst_hostile_noline
+
+[HANDLER_OUTPUT] 
+Test project /home/user/content_pipeline/work/T001/qa/build_mut/qst_hostile_noline
+
+    Start 88: qst_quest_hostile_midquest
+1/2 Test #88: qst_quest_hostile_midquest .......***Exception: SegFault  0.00 sec
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline/tests/quest/test_quest.cpp:463: CHECK failed: s.ok && !s.fatal
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline/tests/quest/test_quest.cpp:464: CHECK failed: keyOf(s, 0) == std::string("fig_report_present_cold") (got [<none>] vs [fig_report_present_cold])
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline/tests/quest/test_quest.cpp:465: CHECK failed: keyOf(s, 1) == std::string("log_quest_done") (got [<none>] vs [log_quest_done])
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline/tests/quest/test_quest.cpp:466: CHECK failed: std::string(stateOf(e, "A")) == std::string("completed") (got [observed_present] vs [completed])
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline/tests/quest/test_quest.cpp:472: CHECK failed: keyOf(s, 0) == std::string("fig_report_gone_cold") (got [<none>] vs [fig_report_gone_cold])
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline/tests/quest/test_quest.cpp:473: CHECK failed: std::string(stateOf(e, "A")) == std::string("completed") (got [observed_gone] vs [completed])
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline/tests/quest/test_quest.cpp:480: CHECK failed: keyOf(s) == std::string("fig_report_not_yet") (got [<none>] vs [fig_report_not_yet])
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline/tests/quest/test_quest.cpp:487: CHECK failed: keyOf(e.report("A", "sewer_grate", -2, c, src)) == std::string("fig_report_no_offer") (got [<none>] vs [fig_report_no_offer])
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline/tests/quest/test_quest.cpp:490: CHECK failed: keyOf(f.report("A", "sewer_grate", -2, c, src)) == std::string("fig_report_no_offer") (got [<none>] vs [fig_report_no_offer])
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline/tests/quest/test_quest.cpp:498: CHECK failed: keyOf(s) == std::string("fig_repeat_done") (got [<none>] vs [fig_repeat_done])
+
+    Start 89: qst_quest_hostile_reward
+2/2 Test #89: qst_quest_hostile_reward .........***Exception: SegFault  0.00 sec
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline/tests/quest/test_quest.cpp:563: CHECK failed: s.ok
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline/tests/quest/test_quest.cpp:564: CHECK failed: keyOf(s, 2) == std::string(pass == 0 ? "log_reward_item" : "log_reward_none") (got [<none>] vs [log_reward_item])
+
+
+0% tests passed, 2 tests failed out of 2
+
+Total Test time (real) =   0.01 sec
+
+The following tests FAILED:
+	 88 - qst_quest_hostile_midquest (SEGFAULT)
+	 89 - qst_quest_hostile_reward (SEGFAULT)
+[ERROR_MESSAGE] 
+Errors while running CTest
+

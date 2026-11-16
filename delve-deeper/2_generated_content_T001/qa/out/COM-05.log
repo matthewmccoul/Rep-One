@@ -1,0 +1,4 @@
+$ work/T001/build/com_check json work/T001/qa/fixtures/com_dup_key.json
+exit: 1
+--- output ---
+FAIL JSON_DUP_KEY: duplicate key "a" in one object (line 1, column 8)

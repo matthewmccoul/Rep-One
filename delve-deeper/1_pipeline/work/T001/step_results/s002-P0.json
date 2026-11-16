@@ -1,0 +1,8 @@
+{
+ "status": "done",
+ "summary": "Revised the starting brief after the user's rejection. Scope now covers the full workflow to finished, testable Unreal combat code: research digest, rules spec and data, minimal feedback spec, implementation, QA, acceptance, with a gate before each milestone. The team, not the user, chooses the code method. Budget raised to 20 USD with prices and token assumptions shown. Research on Google Drive cannot be read by any agent (no Drive tool); it was not found in the project and nothing was guessed. Unreal is NOT RUN. Evidence is STATIC.",
+ "outputs": ["work/T001/packets/s002-packet.md", "work/T001/step_results/s002-P0.json"],
+ "questions_for_user": [],
+ "packet": "work/T001/packets/s002-packet.md",
+ "budget_usd": 20
+}

@@ -1,0 +1,4 @@
+$ work/T001/build/quest_check validate work/T001/quest/figure_ore_lift_quest.json work/T001/qa/fixtures/q_bad_stage.csv work/T001/map/floor1_map.json
+exit: 1
+--- output ---
+FAIL STAGE_RANGE fig_offer_warm (1..3)

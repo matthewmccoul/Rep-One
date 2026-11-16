@@ -1,0 +1,27 @@
+$ work/T001/build/quest_check run work/T001/quest/figure_ore_lift_quest.json work/T001/quest/figure_ore_lift_strings.csv work/T001/map/floor1_map.json char=B stage=2 offer@2 accept arrive@ore_lift:gone char=A offer@0 accept arrive@ore_lift:gone char=B report@sewer_grate
+exit: 0
+--- output ---
+char=B
+offer@2 ok key=fig_offer_warm state=not_offered
+  fig_offer_warm: *The eyes tilt, almost pleased. A long finger beckons.* You again. The old miners' ore lift. Is the chain still on the drum? Look for me. Come back and say.
+accept ok key=fig_accept_ack log=log_quest_accepted state=active
+  fig_accept_ack: *A finger points the way.* Down the entry hall. Past the gallery. The lift.
+  log_quest_accepted: The figure behind the grate wants to know if the chain is still on the drum of the old ore lift. (Old ore lift (chain and drum))
+arrive@ore_lift:gone ok text=lift_arrival_gone log=log_lift_observed_gone state=observed_gone
+  lift_arrival_gone: The old ore lift. The iron drum is bare. Where the chain hung, only a pale scar of rust is left.
+  log_lift_observed_gone: You note it: the drum is bare, the chain is gone. Day 1.
+char=A
+offer@0 ok key=fig_offer_cold state=not_offered
+  fig_offer_cold: *Eyes flare behind the bars. A green finger points.* You. The old ore lift. Is the chain still on the drum? Go. Look. Come back and say.
+accept ok key=fig_accept_ack log=log_quest_accepted state=active
+  fig_accept_ack: *A finger points the way.* Down the entry hall. Past the gallery. The lift.
+  log_quest_accepted: The figure behind the grate wants to know if the chain is still on the drum of the old ore lift. (Old ore lift (chain and drum))
+arrive@ore_lift:gone ok text=lift_arrival_gone log=log_lift_observed_gone state=observed_gone
+  lift_arrival_gone: The old ore lift. The iron drum is bare. Where the chain hung, only a pale scar of rust is left.
+  log_lift_observed_gone: You note it: the drum is bare, the chain is gone. Day 1.
+char=B
+report@sewer_grate ok key=fig_report_gone_warm log=log_quest_done log=log_reward_none state=completed
+  fig_report_gone_warm: *A hiss through the bars.* Gone from the drum. You are sure. You saw the bare drum. There is still much work to be done.
+  log_quest_done: You told the figure what you saw at the Old ore lift (chain and drum).
+  log_reward_none: The figure gave you nothing.
+state=completed chain=gone reward_rolled=1 rolls=1

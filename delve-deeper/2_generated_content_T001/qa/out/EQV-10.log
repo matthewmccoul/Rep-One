@@ -1,0 +1,9 @@
+$ python3 -I work/T001/map/validate_map.py work/T001/qa/fixtures/map_e08_no_break.json
+exit: 1
+--- output ---
+FAIL
+ - node puzzle_clue_site name contains parentheses
+ - node puzzle_controls_site name contains parentheses
+ - node ore_lift name contains parentheses
+ - node descent name contains parentheses
+ - locked edge e08 missing solution break

@@ -1,0 +1,4 @@
+$ work/T001/build/map_check reach work/T001/map/floor1_map.json town_entrance storeroom e08
+exit: 0
+--- output ---
+unreachable

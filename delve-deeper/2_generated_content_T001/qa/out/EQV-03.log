@@ -1,0 +1,4 @@
+$ python3 -I work/T001/code/tools/gen_golden.py --reference work/T001/qa/fixtures/eqv_no_reference.py work/T001/qa/out/golden_bad.json
+exit: 2
+--- output ---
+FAIL GENERATOR: reference not found: work/T001/qa/fixtures/eqv_no_reference.py

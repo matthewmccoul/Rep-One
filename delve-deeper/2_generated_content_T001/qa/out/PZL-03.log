@@ -1,0 +1,8 @@
+$ work/T001/build/puzzle_check validate work/T001/qa/fixtures/pz_bad_edge.json work/T001/map/floor1_map.json
+exit: 1
+--- output ---
+FAIL PUZZLE_EDGE: opens_edge is not a locked door: e03
+  also PUZZLE_EDGE: opens_edge does not list the puzzle as a solution: e03
+  also PUZZLE_EDGE: opens_edge does not lead to opens_room: e03
+  also ROUTES_MISMATCH: other_routes differ from the map's e03 solutions minus puzzle
+  also PUZZLE_REF: map puzzle opens_edge differs: e08

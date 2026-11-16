@@ -1,0 +1,5 @@
+$ python3 -I work/T001/map/validate_map.py work/T001/qa/fixtures/map_dup_edge.json
+exit: 1
+--- output ---
+FAIL
+ - duplicate edge ids

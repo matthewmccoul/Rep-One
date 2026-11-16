@@ -1,0 +1,4 @@
+$ work/T001/build/com_check json work/T001/qa/fixtures/com_missing_nonexistent.json
+exit: 2
+--- output ---
+ERROR cannot read file: work/T001/qa/fixtures/com_missing_nonexistent.json

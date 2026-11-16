@@ -1,0 +1,4 @@
+$ work/T001/build/map_check validate work/T001/qa/fixtures/map_secret_nobase.json
+exit: 1
+--- output ---
+FAIL SECRET_BASE: secret edge e09 needs base plain, locked or stuck

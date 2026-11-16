@@ -1,0 +1,4 @@
+$ work/T001/build/quest_check line work/T001/quest/figure_ore_lift_strings.csv fig_report_gone_cold -2
+exit: 0
+--- output ---
+*The arms go still.* The drum is bare. Gone. Hm. {reward_line}

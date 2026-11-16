@@ -1,0 +1,12 @@
+{
+ "progress": [
+  "ctl_pick",
+  "ctl_cart",
+  "ctl_furnace"
+ ],
+ "solved": true,
+ "door_open": false,
+ "opened_via": "puzzle",
+ "wrong_count": 0,
+ "xp_awarded": false
+}

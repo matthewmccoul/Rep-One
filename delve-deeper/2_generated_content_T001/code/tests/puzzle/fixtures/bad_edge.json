@@ -1,0 +1,20 @@
+{
+  "puzzle_id": "puzzle_storeroom",
+  "clue_site": "puzzle_clue_site",
+  "clue_room": "foreman_office",
+  "controls_site": "puzzle_controls_site",
+  "controls_room": "smelter_hall",
+  "controls": ["ctl_pick", "ctl_cart", "ctl_furnace"],
+  "solution": ["ctl_pick", "ctl_cart", "ctl_furnace"],
+  "opens_edge": "e03",
+  "opens_room": "storeroom",
+  "other_routes": ["magic_key", "pick_lock", "break"],
+  "xp_class": "puzzle_solve",
+  "strings": {
+    "str.use.step_1": "a",
+    "str.use.step_2": "b",
+    "str.use.solved": "c",
+    "str.use.wrong": "d",
+    "str.use.inert": "e"
+  }
+}

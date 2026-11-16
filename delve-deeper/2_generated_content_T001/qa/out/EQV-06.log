@@ -1,0 +1,5 @@
+$ work/T001/build/eqv_check work/T001/qa/fixtures/eqv_tampered.json
+exit: 1
+--- output ---
+MISMATCH seq-006: final state differs: door_open(expected=true)
+331 vectors, 1 mismatches

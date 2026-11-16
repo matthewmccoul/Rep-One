@@ -1,0 +1,4 @@
+$ work/T001/build/map_check validate work/T001/qa/fixtures/map_descent_bypass.json
+exit: 1
+--- output ---
+FAIL DESCENT_NOT_VIA_BOSS: descent is reachable without passing boss_room

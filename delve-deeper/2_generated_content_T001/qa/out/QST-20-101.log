@@ -1,0 +1,4 @@
+$ work/T001/build/quest_check stage 101
+exit: 1
+--- output ---
+FAIL SCORE_RANGE 101

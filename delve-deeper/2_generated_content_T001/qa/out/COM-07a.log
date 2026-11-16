@@ -1,0 +1,4 @@
+$ work/T001/build/com_check json work/T001/qa/fixtures/com_empty.json
+exit: 1
+--- output ---
+FAIL JSON_EMPTY: empty input (no JSON value) (line 1, column 1)

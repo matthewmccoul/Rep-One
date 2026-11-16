@@ -1,0 +1,6 @@
+$ python3 -I work/T001/map/validate_map.py work/T001/qa/fixtures/map_clue_behind_e08.json
+exit: 1
+--- output ---
+FAIL
+ - puzzle_clue_site not reachable with storeroom closed
+ - puzzle_clue_site needs non-plain door

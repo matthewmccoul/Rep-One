@@ -1,0 +1,27 @@
+option_id,rule_id,action,condition,score_cap,available_at_stages,favor_delta,status,notes
+O01,FIGHT-01,fight,always,,hostile;threatening;neutral;friendly;allied,,GDD,Real-time combat; bandits present when attacked become hostile
+O02,FIGHT-02,fight,first attack on any bandit in this visit,19,hostile;threatening;neutral;friendly;allied,,EXPERIMENTAL,Immediate: score = min(score; score_cap); at score 19 or below no change; at 20 becomes 19; v3 merge: this single faction-wide cap is how bandits present at the attack become hostile (replaces retired FIGHT-04); hostility lasts until the score rises not only for the visit
+O03,FIGHT-03,fight,each bandit killed after the first attack,,hostile;threatening;neutral;friendly;allied,-5,EXPERIMENTAL,Per additional kill; score floor 0; tunable 0 to -10
+O05,FLEE-01,flee,always,,hostile;threatening;neutral;friendly;allied,,GDD,One free attack per enemy; fails only if unable to act; very low XP
+O06,FLEE-02,flee,flee succeeds,,hostile;threatening;neutral;friendly;allied,0,EXPERIMENTAL,No score change for fleeing
+O07,FLEE-03,flee,flee succeeds,,hostile;threatening;neutral;friendly;allied,,EXPERIMENTAL,Adventurer ends on the door tile outside the room; visit_flag cleared; bandits do not pursue; set last_exit_reason=flee and flee_day=day_count
+O08,NEG-01,negotiate,always,,threatening;neutral;friendly,,GDD,Outcomes: favor; information; loot; failure lowers favor by severity
+O09,NEG-02,negotiate,roll succeeds (p per spec s4) AND negotiate_attempts_today<attempt_limit,,threatening;neutral;friendly,10,EXPERIMENTAL,Success delta; tunable 5 to 15
+O10,NEG-03,negotiate,roll fails AND severity=normal,,threatening;neutral;friendly,-5,EXPERIMENTAL,Default failure; tunable -5 to -15
+O11,NEG-04,negotiate,roll fails AND severity=severe (insulting or failed demand),,threatening;neutral;friendly,-15,EXPERIMENTAL,Severe failure; severity trigger wording needs Narrative
+O12,NEG-05,negotiate,negotiate_attempts_today>=attempt_limit,,threatening;neutral;friendly,,EXPERIMENTAL,Option greyed with refusal by demeanor; attempt_limit=1 (tunable 1 to 3); counter resets when the day advances
+O13,NEG-06,negotiate,stage=hostile,,hostile,,EXPERIMENTAL,v3: never available with the boss at hostile (boss attacks on sight; GDD); hostile_unlock does NOT enable it; v2 unlock exception removed
+O14,TOLL-01,pay_toll,stage_at_dialogue_open in threatening;neutral;friendly,,threatening;neutral;friendly,,GDD,Boss demands toll; lower at neutral and friendly; amount is toll_locked
+O15,TOLL-02,pay_toll,stage_at_dialogue_open=allied,,allied,,GDD,Allied lets adventurer through; toll_locked=0; no payment step
+O16,TOLL-03,pay_toll,gold>=toll_locked AND toll_paid_this_visit=0,,threatening;neutral;friendly,0,EXPERIMENTAL,Full payment opens descent; toll_paid_this_visit=1 so never charged twice per visit; no favor change
+O17,TOLL-04,pay_toll,gold<toll_locked AND barter_value<toll_locked-gold,,threatening;neutral;friendly,,PROPOSAL,Cannot pay and cannot barter: boss refuses; player turns back; no score change; other options stay available; shortfall = toll_locked-gold
+O18,TOLL-05,pay_toll,gold<toll_locked AND barter_value>=toll_locked-gold,,threatening;neutral;friendly,0,PROPOSAL,Barter: items at 50 percent of shop sell value count toward the shortfall; no score change; shop prices TBD
+O19,TOLL-06,pay_toll,offered payment<toll_locked AND no barter made,,threatening;neutral;friendly,0,PROPOSAL,Inadequate offer is a failed request with no penalty
+O20,GIFT-01,gift,always,,threatening;neutral;friendly;allied,,GDD,Faction responds especially well to gifts
+O21,GIFT-02,gift,stage not hostile,,threatening;neutral;friendly;allied,15,EXPERIMENTAL,Per-gift maximum: delta = min(15; floor(gift_value_gold/10)); tunable cap 10 to 20
+O22,GIFT-03,gift,gift_score_gained_today<daily_gift_cap,,threatening;neutral;friendly;allied,15,EXPERIMENTAL,Daily maximum total from gifts: daily_gift_cap=15 (tunable 10 to 25); resets when the day advances; excess gift value gives no delta
+O23,GIFT-04,gift,stage=hostile AND hostile_unlock=1 AND gift given to a befriended individual bandit outside the boss room,,hostile,,EXPERIMENTAL,v3: half value: delta = floor(gift_value_gold/20) subject to GIFT-02; GIFT-03 and GIFT-05; never delivered to the boss; befriending mechanism and bandit placement OPEN (TBD)
+O24,GIFT-05,gift,any gift delta applied,,threatening;neutral;friendly;allied,,EXPERIMENTAL,v3: gift_score_ceiling=79 (tunable 70 to 79): applied delta = max(0; min(delta; gift_score_ceiling-score)); a gift never lowers the score and never raises it above the ceiling; allied only via negotiation; quests or daily assessment
+O25,FIGHT-05,fight,entering boss room AND stage=hostile,,hostile,,GDD,Boss attacks on sight: combat starts; no toll dialogue and no boss dialogue in that visit
+O26,FLEE-04,flee,flee succeeds AND stage=hostile at entry,,hostile,,EXPERIMENTAL,Hostile_unlock timing: hostile_unlock=1 once day_count>=flee_day+hostile_unlock_days; hostile_unlock_days=3 (tunable 2 to 5); evaluated at each day advance; cleared when stage is no longer hostile
+O27,XP-01,negotiate,faction stage rises above highest_stage_xp_awarded for this character and group (any cause),,hostile;threatening;neutral;friendly,,PROPOSAL,Stage-change XP once per character and group at highest stage reached; each step above the record pays stage_xp_placeholder once then record=new stage; falls never lower the record so down-and-up repeats pay nothing; amount stage_xp_placeholder=10 is a PROPOSAL placeholder only (XP TBD per GDD)

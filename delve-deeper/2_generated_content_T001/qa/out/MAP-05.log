@@ -1,0 +1,6 @@
+$ work/T001/build/map_check validate work/T001/qa/fixtures/map_bad_door.json
+exit: 1
+--- output ---
+FAIL BAD_DOOR_TYPE: edge e03 illegal door type iron
+  also NO_OPEN_ROUTE: no plain-door route from town_entrance to puzzle_clue_site
+  also NO_OPEN_ROUTE: no plain-door route from town_entrance to puzzle_controls_site

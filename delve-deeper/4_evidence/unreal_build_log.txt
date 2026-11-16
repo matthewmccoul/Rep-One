@@ -1,0 +1,28 @@
+﻿Using bundled DotNet SDK version: 10.0 win-x64
+Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" DelveDeeperTestEditor Win64 Development "-Project=C:\Users\matth\Documents\Unreal Projects\DelveDeeperTest\DelveDeeperTest.uproject" -WaitMutex -NoHotReload
+Log file: C:\Users\matth\AppData\Local\UnrealBuildTool\Log.txt
+Determining max actions to execute in parallel (24 physical cores, 32 logical cores)
+  Executing up to 24 processes, one per physical core
+  Requested 1.5 GB memory per action, 29.71 GB available: limiting max parallel actions to 19
+UbaServer - Listening on 0.0.0.0:1345
+Building DelveDeeperTestEditor...
+===== Toolchain Information =====
+Using ISPC compiler (C:\Program Files\Epic Games\UE_5.8\Engine\Source\ThirdParty\Intel\ISPC\bin\Windows\ispc.exe)
+  Intel(r) Implicit SPMD Program Compiler (Intel(r) ISPC), 1.24.0 (build commit  @ 20250404, LLVM 18.1.2) 
+Using Visual Studio 14.44.35229 toolchain (C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207) and Windows 10.0.26100.0 SDK (C:\Program Files (x86)\Windows Kits\10).
+=================================
+Using Unreal Build Accelerator local executor to run 4 action(s)
+  CPU 24 physical cores, 32 logical cores
+  Memory 29.71 GB physical, 29.83 GB/46.71 GB committed
+  UBA Storage capacity 40 GB
+[1/4] Compile [x64] DDDemoDirector.cpp
+[2/4] Link [x64] UnrealEditor-DelveDeeperTest.lib
+[3/4] Link [x64] UnrealEditor-DelveDeeperTest.dll
+[4/4] WriteMetadata DelveDeeperTestEditor.target [NoUba]
+
+Total time in Unreal Build Accelerator local executor: 7.81 seconds
+Output binary: C:\Program Files\Epic Games\UE_5.8\Engine\Binaries\Win64\UnrealEditor.exe
+
+Result: Succeeded
+Total execution time: 9.86 seconds
+Trace written to file C:\Users\matth\AppData\Local\UnrealBuildTool\Trace.uba with size 5.9kb

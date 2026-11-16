@@ -1,0 +1,4 @@
+$ work/T001/build/puzzle_check bypass work/T001/puzzle/storeroom_puzzle.json kick
+exit: 1
+--- output ---
+FAIL UNKNOWN_ROUTE: kick

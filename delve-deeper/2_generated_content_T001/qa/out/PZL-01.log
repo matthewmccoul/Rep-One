@@ -1,0 +1,4 @@
+$ work/T001/build/puzzle_check validate work/T001/puzzle/storeroom_puzzle.json work/T001/map/floor1_map.json
+exit: 0
+--- output ---
+OK puzzle controls=3 solution=3

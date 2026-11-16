@@ -1,0 +1,7 @@
+$ work/T001/build/puzzle_check seq work/T001/puzzle/storeroom_puzzle.json ctl_furnace ctl_pick ctl_cart
+exit: 0
+--- output ---
+ctl_furnace wrong_reset str.use.wrong
+ctl_pick step_ok str.use.step_1
+ctl_cart step_ok str.use.step_2
+state=partial door_open=0 opened_via=none wrong=1 progress=ctl_pick,ctl_cart

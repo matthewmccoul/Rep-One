@@ -1,0 +1,20 @@
+{
+  "_comment": "Per-agent --allowedTools for headless runs. Grants only; no permission-mode override. Owner: definition-software-engineer. Demo grants for development-producer/-systems-designer/-narrative-designer/-qa-tester added 2026-11-04 for the bandit-encounter demo (staged runs only). Grants for all ten development roles present as of the ten-agent workflow test (2026-11-04). 2026-11-11: compilers (g++ gcc clang clang++ cmake make ninja ctest) for the Software Engineer and QA; WebFetch for the Systems Designer; orchestration/run_check.sh (prints EXIT=<code>) for every role that has python3; the Critic gets its own entry.",
+  "definition-producer": "Read Write Edit Glob Grep Bash(orchestration/invoke_agent.sh:*) Bash(python3:*) Bash(ls:*) Bash(sha256sum:*) Bash(wc:*) Bash(orchestration/run_check.sh:*)",
+  "definition-development-systems-analyst": "Read Write Edit Glob Grep WebSearch",
+  "definition-software-engineer": "Read Write Edit Glob Grep WebSearch Bash(python3:*) Bash(ls:*) Bash(wc:*) Bash(sha256sum:*) Bash(diff:*) Bash(orchestration/invoke_agent.sh:*) Bash(chmod:*) Bash(mkdir:*) Bash(cp:*) Bash(orchestration/run_check.sh:*)",
+  "definition-qa-tester": "Read Write Edit Glob Grep Bash(python3:*) Bash(ls:*) Bash(wc:*) Bash(sha256sum:*) Bash(diff:*) Bash(grep:*) Bash(orchestration/run_check.sh:*)",
+  "_staged_default": "Read Write Edit Glob Grep WebSearch Bash(python3:*) Bash(ls:*) Bash(wc:*) Bash(orchestration/run_check.sh:*)",
+  "_test_default": "Read Write Glob Grep",
+  "development-producer": "Read Write Edit Glob Grep WebSearch Bash(orchestration/invoke_agent.sh:*) Bash(ls:*) Bash(wc:*) Bash(sha256sum:*)",
+  "development-systems-designer": "Read Write Edit Glob Grep WebSearch Bash(python3:*) Bash(orchestration/run_check.sh:*) WebFetch",
+  "development-narrative-designer": "Read Write Edit Glob Grep WebSearch Bash(python3:*) Bash(orchestration/run_check.sh:*)",
+  "development-qa-tester": "Read Write Edit Glob Grep WebSearch Bash(python3:*) Bash(ls:*) Bash(wc:*) Bash(sha256sum:*) Bash(diff:*) Bash(orchestration/run_check.sh:*) Bash(g++:*) Bash(gcc:*) Bash(clang:*) Bash(clang++:*) Bash(cmake:*) Bash(make:*) Bash(ninja:*) Bash(ctest:*)",
+  "development-development-systems-analyst": "Read Write Edit Glob Grep WebSearch Bash(python3:*) Bash(orchestration/run_check.sh:*)",
+  "development-world-designer": "Read Write Edit Glob Grep WebSearch Bash(python3:*) Bash(orchestration/run_check.sh:*)",
+  "development-ui-ux-designer": "Read Write Edit Glob Grep WebSearch Bash(python3:*) Bash(orchestration/run_check.sh:*)",
+  "development-asset-curator": "Read Write Edit Glob Grep WebSearch Bash(python3:*) Bash(orchestration/run_check.sh:*)",
+  "development-ai-integration-engineer": "Read Write Edit Glob Grep WebSearch Bash(python3:*) Bash(orchestration/run_check.sh:*)",
+  "development-software-engineer": "Read Write Edit Glob Grep WebSearch Bash(python3:*) Bash(node:*) Bash(git status:*) Bash(git diff:*) Bash(orchestration/run_check.sh:*) Bash(g++:*) Bash(gcc:*) Bash(clang:*) Bash(clang++:*) Bash(cmake:*) Bash(make:*) Bash(ninja:*) Bash(ctest:*)",
+  "development-critic": "Read Write Edit Glob Grep Bash(python3:*) Bash(ls:*) Bash(wc:*) Bash(orchestration/run_check.sh:*)"
+}

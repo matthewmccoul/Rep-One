@@ -1,0 +1,88 @@
+[OUTPUT] 
+Internal ctest changing into directory: /home/user/content_pipeline/work/T001/build
+
+[HANDLER_OUTPUT] 
+Test project /home/user/content_pipeline/work/T001/build
+
+      Start  1: unr_core_purity
+ 1/39 Test  #1: unr_core_purity ..................   Passed    0.04 sec
+      Start  2: unr_cmake_no_unreal
+ 2/39 Test  #2: unr_cmake_no_unreal ..............   Passed    0.02 sec
+      Start  3: com_json_valid_real_files
+ 3/39 Test  #3: com_json_valid_real_files ........   Passed    0.00 sec
+      Start  4: com_json_escapes
+ 4/39 Test  #4: com_json_escapes .................   Passed    0.00 sec
+      Start  5: com_json_numbers_literals
+ 5/39 Test  #5: com_json_numbers_literals ........   Passed    0.00 sec
+      Start  6: com_json_trailing_comma
+ 6/39 Test  #6: com_json_trailing_comma ..........   Passed    0.00 sec
+      Start  7: com_json_truncated
+ 7/39 Test  #7: com_json_truncated ...............   Passed    0.00 sec
+      Start  8: com_json_dup_key
+ 8/39 Test  #8: com_json_dup_key .................   Passed    0.00 sec
+      Start  9: com_json_nonstrict
+ 9/39 Test  #9: com_json_nonstrict ...............   Passed    0.00 sec
+      Start 10: com_json_empty
+10/39 Test #10: com_json_empty ...................   Passed    0.00 sec
+      Start 11: com_json_depth
+11/39 Test #11: com_json_depth ...................   Passed    0.00 sec
+      Start 12: com_json_error_paths
+12/39 Test #12: com_json_error_paths .............   Passed    0.00 sec
+      Start 13: com_cli_json_exit_codes
+13/39 Test #13: com_cli_json_exit_codes ..........   Passed    0.00 sec
+      Start 14: com_csv_valid_real
+14/39 Test #14: com_csv_valid_real ...............   Passed    0.00 sec
+      Start 15: com_csv_quoted_fields
+15/39 Test #15: com_csv_quoted_fields ............   Passed    0.00 sec
+      Start 16: com_csv_ragged
+16/39 Test #16: com_csv_ragged ...................   Passed    0.00 sec
+      Start 17: com_csv_open_quote
+17/39 Test #17: com_csv_open_quote ...............   Passed    0.00 sec
+      Start 18: com_csv_header_rules
+18/39 Test #18: com_csv_header_rules .............   Passed    0.00 sec
+      Start 19: map_real_validates
+19/39 Test #19: map_real_validates ...............   Passed    0.00 sec
+      Start 20: map_dup_ids
+20/39 Test #20: map_dup_ids ......................   Passed    0.00 sec
+      Start 21: map_bad_door_type
+21/39 Test #21: map_bad_door_type ................   Passed    0.00 sec
+      Start 22: map_unknown_refs
+22/39 Test #22: map_unknown_refs .................   Passed    0.00 sec
+      Start 23: map_locked_door_rules
+23/39 Test #23: map_locked_door_rules ............   Passed    0.00 sec
+      Start 24: map_stuck_door_rules
+24/39 Test #24: map_stuck_door_rules .............   Passed    0.00 sec
+      Start 25: map_secret_door_rules
+25/39 Test #25: map_secret_door_rules ............   Passed    0.00 sec
+      Start 26: map_descent_rules
+26/39 Test #26: map_descent_rules ................   Passed    0.00 sec
+      Start 27: map_orphan_rooms
+27/39 Test #27: map_orphan_rooms .................   Passed    0.00 sec
+      Start 28: map_puzzle_rules
+28/39 Test #28: map_puzzle_rules .................   Passed    0.00 sec
+      Start 29: map_count_rules
+29/39 Test #29: map_count_rules ..................   Passed    0.00 sec
+      Start 30: map_cell_clash
+30/39 Test #30: map_cell_clash ...................   Passed    0.00 sec
+      Start 31: map_cells
+31/39 Test #31: map_cells ........................   Passed    0.00 sec
+      Start 32: map_neighbours
+32/39 Test #32: map_neighbours ...................   Passed    0.00 sec
+      Start 33: map_door_ways
+33/39 Test #33: map_door_ways ....................   Passed    0.00 sec
+      Start 34: map_reach
+34/39 Test #34: map_reach ........................   Passed    0.00 sec
+      Start 35: map_cli_failures
+35/39 Test #35: map_cli_failures .................   Passed    0.00 sec
+      Start 36: map_schema_errors
+36/39 Test #36: map_schema_errors ................   Passed    0.00 sec
+      Start 37: com_cli_real_map
+37/39 Test #37: com_cli_real_map .................   Passed    0.00 sec
+      Start 38: com_cli_real_csv
+38/39 Test #38: com_cli_real_csv .................   Passed    0.00 sec
+      Start 39: map_cli_real_validate
+39/39 Test #39: map_cli_real_validate ............   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 39
+
+Total Test time (real) =   0.18 sec

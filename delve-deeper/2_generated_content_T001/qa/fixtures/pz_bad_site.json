@@ -1,0 +1,123 @@
+{
+ "version": "Version 2 (revision 1 of 2)",
+ "task": "T001-s005-systems",
+ "status": "Use on the three controls: approved by the user (reply: \"Approve Use\"). Everything else: PROPOSAL (not approved)",
+ "puzzle_id": "puzzle_storeroom",
+ "clue_site": "puzzle_clue_site",
+ "clue_room": "foreman_office",
+ "controls_site": "smelter_room",
+ "controls_room": "smelter_hall",
+ "controls": [
+  "ctl_pick",
+  "ctl_cart",
+  "ctl_furnace"
+ ],
+ "solution": [
+  "ctl_pick",
+  "ctl_cart",
+  "ctl_furnace"
+ ],
+ "opens_edge": "e08",
+ "opens_room": "storeroom",
+ "interaction_rule": "select object, then 'use'. Approved by the user (reply: \"Approve Use\") for ctl_pick, ctl_cart and ctl_furnace only; it approves nothing else.",
+ "wrong_response": {
+  "effect": "reset_progress_only",
+  "penalty": "none (PROPOSAL); no damage, no lockout, no cost",
+  "retry": "immediate, unlimited"
+ },
+ "other_routes": [
+  "magic_key",
+  "pick_lock",
+  "break"
+ ],
+ "other_routes_effect": "door e08 opens; controls become inert; state bypassed; opened_via is the route string; no puzzle XP",
+ "break_route": {
+  "status": "PROPOSAL behaviour",
+  "noise_damage_or_cost": "TBD (no numbers invented)"
+ },
+ "persistence": {
+  "scope": "per world (PROPOSAL)",
+  "fields": [
+   "progress",
+   "solved",
+   "door_open",
+   "opened_via",
+   "wrong_count",
+   "xp_awarded"
+  ],
+  "opened_via_values": [
+   "puzzle",
+   "magic_key",
+   "pick_lock",
+   "break",
+   null
+  ]
+ },
+ "xp_class": "puzzle_solve",
+ "xp_amount": "TBD (XP table is TBD in GDD)",
+ "xp_rule": "PROPOSAL for the user: whether solving earns XP at all is open (GDD names traps and searches as XP sources, not puzzles). If awarded: at most once for the solve, never for a bypass.",
+ "objects": {
+  "obj_carving": {
+   "id": "obj_carving",
+   "site": "puzzle_clue_site",
+   "kind": "readable",
+   "states": [
+    "unread",
+    "read"
+   ],
+   "note": "visible, no Search needed; reading is repeatable"
+  },
+  "ctl_pick": {
+   "id": "ctl_pick",
+   "site": "puzzle_controls_site",
+   "kind": "control",
+   "label_key": "str.label.pick",
+   "states": [
+    "ready",
+    "set",
+    "inert"
+   ]
+  },
+  "ctl_cart": {
+   "id": "ctl_cart",
+   "site": "puzzle_controls_site",
+   "kind": "control",
+   "label_key": "str.label.cart",
+   "states": [
+    "ready",
+    "set",
+    "inert"
+   ]
+  },
+  "ctl_furnace": {
+   "id": "ctl_furnace",
+   "site": "puzzle_controls_site",
+   "kind": "control",
+   "label_key": "str.label.furnace",
+   "states": [
+    "ready",
+    "set",
+    "inert"
+   ]
+  }
+ },
+ "storeroom_contents_proposal": {
+  "note": "PROPOSAL, GDD item types only; slots exist in map",
+  "trap_store": "needle_lock chest trap (map placeholder; effects TBD)",
+  "loot_store_1": "healing potion (consumable)",
+  "loot_store_2": "mana crystal (consumable)",
+  "optional_third": "one unnamed weapon or armor piece, authored by Narrative/Systems"
+ },
+ "strings": {
+  "str.carving.text": "Three tools keep the mine alive. First the pick bites the stone. Then the cart bears it away. Last the fire makes it fit to keep. Do the work in its order and the store will open.",
+  "str.label.pick": "Pick rack",
+  "str.label.cart": "Ore cart",
+  "str.label.furnace": "Furnace",
+  "str.use.step_1": "The pick rack rattles. Something in the wall clicks once.",
+  "str.use.step_2": "The cart rolls a short way and stops. A second click.",
+  "str.use.solved": "The furnace flares. A bolt slides back in the storeroom door and it swings loose.",
+  "str.use.wrong": "A grinding noise. The clicks fall back and the controls go quiet. Nothing is harmed.",
+  "str.use.inert": "It no longer responds. The storeroom door is open.",
+  "str.log.door_other": "The storeroom door is open. The controls are idle."
+ }
+}

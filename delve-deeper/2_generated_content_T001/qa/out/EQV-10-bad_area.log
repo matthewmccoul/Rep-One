@@ -1,0 +1,5 @@
+$ python3 -I work/T001/map/validate_map.py work/T001/qa/fixtures/map_bad_area.json
+exit: 1
+--- output ---
+FAIL
+ - node boss_room unknown area

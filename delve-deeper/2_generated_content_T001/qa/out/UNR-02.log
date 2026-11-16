@@ -1,0 +1,6 @@
+$ python3 -I work/T001/code/tools/check_no_unreal.py work/T001/qa/fixtures/unr_core_leak
+exit: 1
+--- output ---
+VIOLATION map/src/map.cpp:446: Unreal include: #include "CoreMinimal.h"
+10 core files scanned, 1 violation(s)
+RESULT FAIL

@@ -1,0 +1,30 @@
+$ work/T001/build/eqv_check work/T001/qa/out/golden_changed.json
+exit: 1
+--- output ---
+MISMATCH seq-001: op 0 (use) ctl_pick: result expected=wrong_reset got=step_ok
+MISMATCH seq-003: op 0 (use) ctl_furnace: result expected=step_ok got=wrong_reset
+MISMATCH seq-004: op 0 (use) ctl_pick: result expected=wrong_reset got=step_ok
+MISMATCH seq-005: op 0 (use) ctl_pick: result expected=wrong_reset got=step_ok
+MISMATCH seq-006: op 0 (use) ctl_pick: result expected=wrong_reset got=step_ok
+MISMATCH seq-007: op 1 (use) ctl_pick: result expected=wrong_reset got=step_ok
+MISMATCH seq-009: op 1 (use) ctl_furnace: result expected=step_ok got=wrong_reset
+MISMATCH seq-010: op 0 (use) ctl_furnace: result expected=step_ok got=wrong_reset
+MISMATCH seq-011: op 0 (use) ctl_furnace: result expected=step_ok got=wrong_reset
+MISMATCH seq-012: op 0 (use) ctl_furnace: result expected=step_ok got=wrong_reset
+MISMATCH seq-013: op 0 (use) ctl_pick: result expected=wrong_reset got=step_ok
+MISMATCH seq-014: op 0 (use) ctl_pick: result expected=wrong_reset got=step_ok
+MISMATCH seq-015: op 0 (use) ctl_pick: result expected=wrong_reset got=step_ok
+MISMATCH seq-016: op 0 (use) ctl_pick: result expected=wrong_reset got=step_ok
+MISMATCH seq-017: op 0 (use) ctl_pick: result expected=wrong_reset got=step_ok
+MISMATCH seq-018: op 0 (use) ctl_pick: result expected=wrong_reset got=step_ok
+MISMATCH seq-019: op 0 (use) ctl_pick: result expected=wrong_reset got=step_ok
+MISMATCH seq-020: op 0 (use) ctl_pick: result expected=wrong_reset got=step_ok
+MISMATCH seq-021: op 0 (use) ctl_pick: result expected=wrong_reset got=step_ok
+MISMATCH seq-022: op 1 (use) ctl_pick: result expected=wrong_reset got=step_ok
+MISMATCH seq-023: op 1 (use) ctl_pick: result expected=wrong_reset got=step_ok
+MISMATCH seq-024: op 1 (use) ctl_pick: result expected=wrong_reset got=step_ok
+MISMATCH seq-025: op 2 (use) ctl_pick: result expected=wrong_reset got=step_ok
+MISMATCH seq-027: op 2 (use) ctl_furnace: result expected=step_ok got=wrong_reset
+MISMATCH seq-028: op 1 (use) ctl_furnace: result expected=step_ok got=wrong_reset
+... 290 more mismatches not shown
+331 vectors, 315 mismatches

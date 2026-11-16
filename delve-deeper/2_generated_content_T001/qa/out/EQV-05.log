@@ -1,0 +1,4 @@
+$ work/T001/build/eqv_check work/T001/qa/out/golden.json
+exit: 0
+--- output ---
+331 vectors, 0 mismatches

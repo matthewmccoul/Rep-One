@@ -1,0 +1,7 @@
+$ work/T001/build/quest_check run work/T001/quest/figure_ore_lift_quest.json work/T001/quest/figure_ore_lift_strings.csv work/T001/map/floor1_map.json offer@-2 accept
+exit: 0
+--- output ---
+offer@-2 ok key=fig_offer_refused refused=1 state=not_offered
+  fig_offer_refused: *The eyes narrow. The arms withdraw into the dark.* Not you. Not today.
+accept rejected refused state=not_offered
+state=not_offered chain=none reward_rolled=0 rolls=0

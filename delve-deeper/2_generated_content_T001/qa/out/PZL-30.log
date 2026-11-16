@@ -1,0 +1,4 @@
+$ python3 -I work/T001/code/tools/check_text_guard.py work/T001/puzzle/storeroom_puzzle.json
+exit: 0
+--- output ---
+OK text guard: no listed word in any str.* string

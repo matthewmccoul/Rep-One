@@ -1,0 +1,206 @@
+LogInit: Display: Running engine for game: DelveDeeperTest
+LogCore: Display: Requested channels: 'cpu,gpu,frame,log,bookmark,screenshot,region'
+LogTrace: Display: Control listening on port 1985
+LogCsvProfiler: Display: Metadata set : platform="Windows"
+LogCsvProfiler: Display: Metadata set : config="Development"
+LogCsvProfiler: Display: Metadata set : buildversion="++UE5+Release-5.8-CL-58210709"
+LogCsvProfiler: Display: Metadata set : engineversion="5.8.3-58210709+++UE5+Release-5.8"
+LogCsvProfiler: Display: Metadata set : enginereleaseversion="5.8.3"
+LogCsvProfiler: Display: Metadata set : os="Windows 11 (25H2) [10.0.26200.9711] "
+LogCsvProfiler: Display: Metadata set : cpu="GenuineIntel|13th Gen Intel(R) Core(TM) i9-13980HX"
+LogCsvProfiler: Display: Metadata set : pgoenabled="0"
+LogCsvProfiler: Display: Metadata set : pgoprofilingenabled="0"
+LogCsvProfiler: Display: Metadata set : ltoenabled="0"
+LogCsvProfiler: Display: Metadata set : asan="0"
+LogCsvProfiler: Display: Metadata set : mergedmodules="0"
+LogCsvProfiler: Display: Metadata set : compacttset="0"
+LogCsvProfiler: Display: Metadata set : commandline="" "C:\Users\matth\Documents\Unreal Projects\DelveDeeperTest\DelveDeeperTest.uproject" -game -nullrhi -unattended -nosplash -stdout -log=demo_game.log""
+LogCsvProfiler: Display: Metadata set : loginid="85cc5f0645c8950b014e34a2c64ccbb6"
+LogCsvProfiler: Display: Metadata set : llm="0"
+LogCsvProfiler: Display: Metadata set : zenstreaming="0"
+LogCsvProfiler: Display: Metadata set : systemresolution.resx="1280"
+LogCsvProfiler: Display: Metadata set : systemresolution.resy="720"
+LogAudio: Display: Pre-Initializing Audio Device Manager...
+LogAudio: Display: AudioInfo: 'OPUS' Registered
+LogAudioDebug: Display: Lib vorbis DLL was dynamically loaded.
+LogAudio: Display: AudioInfo: 'OGG' Registered
+LogAudio: Display: AudioInfo: 'ADPCM' Registered
+LogAudio: Display: AudioInfo: 'PCM' Registered
+LogAudio: Display: AudioInfo: 'BINKA' Registered
+LogAudio: Display: AudioInfo: 'RADA' Registered
+LogAudio: Display: Audio Device Manager Pre-Initialized
+LogConfig: Display: Loading VulkanPC ini files took 0.12 seconds
+LogConfig: Display: Loading Android ini files took 0.13 seconds
+LogConfig: Display: Loading IOS ini files took 0.13 seconds
+LogConfig: Display: Loading Mac ini files took 0.13 seconds
+LogConfig: Display: Loading Unix ini files took 0.15 seconds
+LogConfig: Display: Loading TVOS ini files took 0.15 seconds
+LogConfig: Display: Loading Windows ini files took 0.15 seconds
+LogConfig: Display: Loading VisionOS ini files took 0.16 seconds
+LogConfig: Display: Loading Linux ini files took 0.17 seconds
+LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+RenderDocPlugin: Display: RenderDoc plugin will not be loaded. Use '-AttachRenderDoc' on the cmd line or enable 'renderdoc.AutoAttach' in the plugin settings.
+LogAsyncCompilation: Display: MemorySharingInfo: UsedMemory=334MiB, MaxMemoryAvailable=47828MiB
+LogStreaming: Display: AsyncLoading2 - Created: Async Loading Thread: false, Async Post Load: false, Multithreaded: false
+[2026.11.12-22.04.41:747][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resx="1536"
+[2026.11.12-22.04.41:748][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resy="960"
+[2026.11.12-22.04.41:750][  0]LogHAL: Display: Platform has ~ 30 GB [31898689536 / 34359738368 / 30], which maps to Larger [LargestMinGB=32, LargerMinGB=12, DefaultMinGB=8, SmallerMinGB=6, SmallestMinGB=0)
+[2026.11.12-22.04.41:856][  0]LogCsvProfiler: Display: Metadata set : extradevelopmentmemorymb="0"
+[2026.11.12-22.04.41:858][  0]LogObj: Display: Attempting to load config data for Default__DownlinkBandwidthManagerConfig before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+[2026.11.12-22.04.42:501][  0]LogWindowsTouchpad: Display: CacheForceMaxTouchpadSensitivityMode SetMaxTouchpadSensitivity
+[2026.11.12-22.04.42:505][  0]LogObj: Display: Attempting to load config data for Default__SlateThemeManager before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+[2026.11.12-22.04.42:580][  0]LogCsvProfiler: Display: Metadata set : verbatimrhiname="Null"
+[2026.11.12-22.04.42:582][  0]LogCsvProfiler: Display: Metadata set : rhiname="Null"
+[2026.11.12-22.04.42:582][  0]LogCsvProfiler: Display: Metadata set : rhifeaturelevel="SM6"
+[2026.11.12-22.04.42:583][  0]LogCsvProfiler: Display: Metadata set : shaderplatform="PCD3D_SM6"
+[2026.11.12-22.04.42:583][  0]LogCsvProfiler: Display: Metadata set : gpu=""
+[2026.11.12-22.04.42:583][  0]LogCsvProfiler: Display: Metadata set : gpudriver=""
+Using bundled DotNet SDK version: 10.0 win-x64
+Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" -Mode=ValidatePlatforms -OutputSDKs  -AllPlatforms  -project="C:/Users/matth/Documents/Unreal Projects/DelveDeeperTest/DelveDeeperTest.uproject" -log="C:/Users/matth/Documents/Unreal Projects/DelveDeeperTest/Saved/Logs/AutoSDKInfo.txt" -verbose -timestamps
+Log file: C:\Users\matth\Documents\Unreal Projects\DelveDeeperTest\Saved\Logs\AutoSDKInfo.txt
+##PlatformValidate: Win64 VALID 10.0.22621.0
+##PlatformValidate: Mac INVALID 26.1.1
+##PlatformValidate: IOS INVALID 26.1.1
+##PlatformValidate: Android INVALID r27c
+##PlatformValidate: Linux INVALID v26_clang-20.1.8-rockylinux8
+##PlatformValidate: LinuxArm64 INVALID <UNKNOWN>
+##PlatformValidate: TVOS INVALID 26.1.1
+##PlatformValidate: VisionOS INVALID <UNKNOWN>
+Unable to find required SDK version 'MainVersion' for platform LinuxArm64. Check your SDK.json files
+Unable to find required SDK version 'MainVersion' for platform VisionOS. Check your SDK.json files
+Trace written to file C:\Users\matth\AppData\Local\UnrealBuildTool\Trace.uba with size 313b
+[2026.11.12-22.04.43:542][  0]LogTextureFormatASTC: Display: ASTCEnc version 5.0.1 library loaded
+[2026.11.12-22.04.43:543][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatASTC
+[2026.11.12-22.04.43:543][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatDXT
+[2026.11.12-22.04.43:543][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatETC2
+[2026.11.12-22.04.43:544][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatIntelISPCTexComp
+[2026.11.12-22.04.43:544][  0]LogTextureFormatOodle: Display: Oodle Texture TFO init; latest sdk version = 2.9.16
+[2026.11.12-22.04.43:544][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.16.dll
+[2026.11.12-22.04.43:544][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatOodle
+[2026.11.12-22.04.43:544][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatUncompressed
+[2026.11.12-22.04.43:609][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Windows'
+[2026.11.12-22.04.43:610][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsEditor'
+[2026.11.12-22.04.43:610][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsServer'
+[2026.11.12-22.04.43:611][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsClient'
+[2026.11.12-22.04.43:611][  0]LogTargetPlatformManager: Display: Building Assets For WindowsEditor
+[2026.11.12-22.04.44:141][  0]LogDerivedDataCache: Display: ../../../Engine/DerivedDataCache/Compressed.ddp: Opened pak cache for reading. (1670 MiB)
+[2026.11.12-22.04.44:143][  0]LogZenServiceInstance: Display: Launching zen utility 'C:/Program Files/Epic Games/UE_5.8/Engine/Binaries/Win64/zen.exe service status'.
+[2026.11.12-22.04.44:556][  0]LogZenServiceInstance: Display: Writing plugin version info to 'C:/Users/matth/AppData/Local/UnrealEngine/Common/Zen/Install/zen_plugin_versions.json'
+[2026.11.12-22.04.44:558][  0]LogZenServiceInstance: Display: Read zen version cache file from 'C:/Users/matth/AppData/Local/UnrealEngine/5.8/Saved/Zen/zen.version', version: '5.8.13-202605190912-windows-x64-release-094f62c2'
+[2026.11.12-22.04.44:558][  0]LogZenServiceInstance: Display: Read zen version cache file from 'C:/Users/matth/AppData/Local/UnrealEngine/Common/Zen/Install/zen.version', version: '5.8.13-202605190912-windows-x64-release-094f62c2'
+[2026.11.12-22.04.44:558][  0]LogZenServiceInstance: Display: Installed service at 'C:/Users/matth/AppData/Local/UnrealEngine/Common/Zen/Install/zenserver.exe' is up to date
+[2026.11.12-22.04.44:559][  0]LogZenServiceInstance: Display: Launching executable 'C:/Users/matth/AppData/Local/UnrealEngine/Common/Zen/Install/zenserver.exe', working dir 'C:/Users/matth/AppData/Local/UnrealEngine/Common/Zen/Install', data dir 'C:/Users/matth/AppData/Local/UnrealEngine/Common/Zen/Data', args '--port 8558 --data-dir C:\Users\matth\AppData\Local\UnrealEngine\Common\Zen\Data --http asio --gc-cache-duration-seconds 1209600 --gc-interval-seconds 21600 --gc-low-diskspace-threshold 2147483648 --cache-bucket-limit-overwrites --quiet --restrict-content-types --allow-external-oidctoken-exe=false --plugins-config "C:/Users/matth/AppData/Local/UnrealEngine/Common/Zen/Install/zen_plugins_v1.json" --security-config-path "C:/Users/matth/AppData/Local/UnrealEngine/Common/Zen/Install/security-config.json" --owner-pid 28580  --child-id Zen_28580_Startup'
+[2026.11.12-22.04.44:783][  0]LogZenServiceInstance: Display: Unreal Zen Storage Server HTTP service at http://[::1]:8558 status: OK!.
+[2026.11.12-22.04.44:795][  0]LogDerivedDataCache: Display: ZenLocal: Using ZenServer HTTP service at [::1] with namespace ue.ddc. Status: OK!.
+[2026.11.12-22.04.44:809][  0]LogDerivedDataCache: Display: C:/Users/matth/AppData/Local/UnrealEngine/Common/DerivedDataCache: Performance: Latency=0.07ms. RandomReadSpeed=390.33MBs, RandomWriteSpeed=95.65MBs. Assigned SpeedClass 'Local'
+[2026.11.12-22.04.44:813][  0]LogShaderCompilers: Display: No distributed shader compiler controller found
+[2026.11.12-22.04.44:813][  0]LogShaderCompilers: Display: Using 16 local workers for shader compilation
+[2026.11.12-22.04.44:827][  0]LogShaderCompilers: Display: Compiling shader autogen file: ../../../../../../Users/matth/Documents/Unreal Projects/DelveDeeperTest/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush
+[2026.11.12-22.04.44:827][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2026.11.12-22.04.46:258][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64Editor not found.
+[2026.11.12-22.04.46:261][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64 not found.
+[2026.11.12-22.04.46:340][  0]LogCsvProfiler: Display: Metadata set : deviceprofile="WindowsEditor"
+[2026.11.12-22.04.46:345][  0]LogStreaming: Display: FlushAsyncLoading(1): 1 QueuedPackages, 0 AsyncPackages
+[2026.11.12-22.04.46:396][  0]LogTextureEncodingSettings: Display: Texture Encode Speed: Final (cook).
+[2026.11.12-22.04.46:397][  0]LogTextureEncodingSettings: Display: Oodle Texture Encode Speed settings: Fast: RDO Off Lambda=0, Effort=Normal Final: RDO Off Lambda=0, Effort=Normal
+[2026.11.12-22.04.46:397][  0]LogTextureEncodingSettings: Display: Shared linear texture encoding: Disabled
+[2026.11.12-22.04.46:478][  0]LogMeshReduction: Display: Using QuadricMeshReduction for automatic static mesh reduction
+[2026.11.12-22.04.46:479][  0]LogMeshReduction: Display: Using SkeletalMeshReduction for automatic skeletal mesh reduction
+[2026.11.12-22.04.46:479][  0]LogMeshReduction: Display: Using ProxyLODMeshReduction for automatic mesh merging
+[2026.11.12-22.04.46:479][  0]LogMeshReduction: Display: No distributed automatic mesh merging module available
+[2026.11.12-22.04.47:336][  0]LogShaderCompilers: Display: Compiling shader autogen file: ../../../../../../Users/matth/Documents/Unreal Projects/DelveDeeperTest/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush
+[2026.11.12-22.04.47:338][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2026.11.12-22.04.47:338][  0]LogVirtualization: Display: VirtualizationSystem name found in ini file: None
+[2026.11.12-22.04.47:338][  0]LogVirtualization: Display: FNullVirtualizationSystem mounted, virtualization will be disabled
+[2026.11.12-22.04.47:419][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize started...
+[2026.11.12-22.04.47:422][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize took 3.274 ms
+[2026.11.12-22.04.48:120][  0]LogMetaSound: Display: MetaSound Page Target Initialized to 'Default'
+[2026.11.12-22.04.48:125][  0]LogAudio: Display: Registering Engine Module Parameter Interfaces...
+[2026.11.12-22.04.48:544][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.11.12-22.04.48:545][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.11.12-22.04.49:704][  0]LogAudio: Display: Initializing Audio Device Manager...
+[2026.11.12-22.04.49:722][  0]LogAudio: Display: Loading Default Audio Settings Objects...
+[2026.11.12-22.04.49:731][  0]LogAudio: Display: No default SoundConcurrencyObject specified (or failed to load).
+[2026.11.12-22.04.49:732][  0]LogAudio: Display: Audio Device Manager Initialized
+[2026.11.12-22.04.49:732][  0]LogAudio: Display: Creating Audio Device:                 Id: 1, Scope: Shared, Realtime: True
+[2026.11.12-22.04.49:733][  0]LogAudioMixer: Display: bUseRenderScheduler set to true.
+[2026.11.12-22.04.49:733][  0]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2026.11.12-22.04.49:733][  0]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2026.11.12-22.04.49:733][  0]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2026.11.12-22.04.49:734][  0]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2026.11.12-22.04.49:734][  0]LogAudioMixer: Display: 	Number of buffers to queue:			  1
+[2026.11.12-22.04.49:734][  0]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2026.11.12-22.04.49:734][  0]LogAudioMixer: Display: 	Number of Async Source Workers:		  4
+[2026.11.12-22.04.49:734][  0]LogAudio: Display: AudioDevice MaxSources: 32
+[2026.11.12-22.04.49:734][  0]LogAudio: Display: Audio Spatialization Plugin: None (built-in).
+[2026.11.12-22.04.49:734][  0]LogAudio: Display: Audio Reverb Plugin: None (built-in).
+[2026.11.12-22.04.49:735][  0]LogAudio: Display: Audio Occlusion Plugin: None (built-in).
+[2026.11.12-22.04.50:041][  0]LogAudioEnumeration: Display: Refreshing FWindowsMMDeviceCache
+[2026.11.12-22.04.50:066][  0]LogAudioEnumeration: Display: FWindowsMMDeviceCache: Default Render Role='Console', Device='Speakers (2- Realtek(R) Audio)'
+[2026.11.12-22.04.50:068][  0]LogAudioEnumeration: Display: FWindowsMMDeviceCache: Default Capture Role='Console', Device='Microphone Array (2- Intel® Smart Sound Technology for Digital Microphones)'
+[2026.11.12-22.04.50:072][  0]LogAudioEnumeration: Display: FWindowsMMDeviceCache: Default Render Role='Multimedia', Device='Speakers (2- Realtek(R) Audio)'
+[2026.11.12-22.04.50:074][  0]LogAudioEnumeration: Display: FWindowsMMDeviceCache: Default Capture Role='Multimedia', Device='Microphone Array (2- Intel® Smart Sound Technology for Digital Microphones)'
+[2026.11.12-22.04.50:078][  0]LogAudioEnumeration: Display: FWindowsMMDeviceCache: Default Render Role='Communications', Device='Speakers (2- Realtek(R) Audio)'
+[2026.11.12-22.04.50:080][  0]LogAudioEnumeration: Display: FWindowsMMDeviceCache: Default Capture Role='Communications', Device='Microphone Array (2- Intel® Smart Sound Technology for Digital Microphones)'
+[2026.11.12-22.04.50:086][  0]LogAudioMixerWasapi: Display: FWasapiServiceWatcher started.
+[2026.11.12-22.04.50:086][  0]LogAudioMixer: Display: Initializing audio mixer using platform API: 'WASAPIMixer'
+[2026.11.12-22.04.50:086][  0]LogAudioMixerWasapi: Display: FWasapiServiceWatcher initial state: Audiosrv=RUNNING, AudioEndpointBuilder=RUNNING
+[2026.11.12-22.04.50:144][  0]LogAudioMixerWasapi: Display: FAudioMixerWasapiRenderStream::InitializeHardware audio mixer requested num channels: 2, Wasapi render stream hardware supports num channels: 2
+[2026.11.12-22.04.50:145][  0]LogAudioMixerWasapi: Display: FAudioMixerWasapiRenderStream::InitializeHardware succeeded with sample rate: 48000, buffer period: 1024
+[2026.11.12-22.04.50:145][  0]LogAudioMixer: Display: FAudioMixerWasapi initialized: SampleRate=48000 NumChannels=2 NumDirectOutChannels=0 bIsAggregateDevice=0 StreamParams.Num()=1
+[2026.11.12-22.04.50:145][  0]LogAudioMixer: Display: Using Audio Hardware Device Speakers (2- Realtek(R) Audio)
+[2026.11.12-22.04.50:145][  0]LogAudioMixer: Display: Initializing Sound Submixes...
+[2026.11.12-22.04.50:185][  0]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2026.11.12-22.04.50:186][  0]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2026.11.12-22.04.50:188][  0]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048, InstanceID=1
+[2026.11.12-22.04.50:191][  0]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal(), InstanceID=1
+[2026.11.12-22.04.50:202][  0]LogCsvProfiler: Display: Metadata set : largeworldcoordinates="1"
+[2026.11.12-22.04.50:215][  0]LogAudio: Display: Audio Device (ID: 1) registered with world 'Untitled'.
+[2026.11.12-22.04.50:220][  0]LogInit: Display: Game Engine Initialized.
+[2026.11.12-22.04.50:309][  0]LogPython: Display: No pip-enabled plugins with python dependencies found, skipping
+[2026.11.12-22.04.50:717][  0]LogCsvProfiler: Display: Metadata set : raytracing="0"
+[2026.11.12-22.04.50:762][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'ActorLayersWidgetConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:763][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'AlertWidgetConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:763][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'AlertHeaderWidgetConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:763][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'UObjectLabelWidgetConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:763][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'FolderCompatibilityWidgetConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:764][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'DiskSizeWidgetConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:764][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'AssetDataItemTypeWidgetConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:764][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'AssetDataLabelWidgetConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:764][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'AssetDataVirtualPathWidgetConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:764][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'AssetNameWidgetConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:764][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'DynamicAssetDataColumnBaseWidgetConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:764][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'DynamicAssetDataColumnBaseWidgetConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:764][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'DynamicAssetDataColumnBaseWidgetConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:765][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'DynamicAssetDataColumnBaseWidgetConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:765][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'DynamicAssetDataColumnBaseWidgetConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:765][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'StaticMeshTrianglesWidgetConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:765][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'OutlinerUnsavedWidgetConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:765][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'OutlinerUnsavedHeaderConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:766][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'SocketWidgetConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:766][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'TypeInfoWidgetConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:766][  0]LogEditorDataStorageUI: Warning: Unable to register widget factory 'VisibilityWidgetConstructor' as purpose '0' isn't registered.
+[2026.11.12-22.04.50:766][  0]LogInit: Display: Starting Game.
+[2026.11.12-22.04.50:801][  0]LogAudio: Display: Audio Device unregistered from world 'Untitled'.
+[2026.11.12-22.04.50:834][  0]LogAudio: Display: Audio Device (ID: 1) registered with world 'DemoLevel'.
+[2026.11.12-22.04.50:841][  0]LogStaticMesh: Display: Waiting on static mesh StaticMesh /Engine/EngineSky/SM_SkySphere.SM_SkySphere being ready before playing
+[2026.11.12-22.04.50:884][  0]LogDDFloor: Display: Build Floor: 17 places, 15 doors, 44 pieces spawned around V(0)
+[2026.11.12-22.04.50:920][  0]LogTemp: Display: [Demo] Demo: Floor 1, the storeroom puzzle and the Mysterious Figure quest, running through the DelveDeeperContent plugin.
+[2026.11.12-22.04.51:039][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles (PreLoad): 1 .ref files found, 1 referenced binaries
+[2026.11.12-22.04.51:040][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles: 1 total binaries, 1 referenced (kept), 0 old-style pre-migration (kept), 0 orphans deleted, 0 orphans locked (kept)
+[2026.11.12-22.04.51:040][  0]LogAssetRegistry: Display: FindShardedCacheFiles: 1 via .ref, 0 via migration fallback, 1 total
+[2026.11.12-22.04.51:040][  0]LogAssetRegistry: Display: LoadCacheFiles: loading 1 cache files, memory-mapping=enabled
+[2026.11.12-22.04.51:194][  0]LogAssetRegistry: Display: Asset registry cache read as 118.4 MiB from ../../../../../../Users/matth/Documents/Unreal Projects/DelveDeeperTest/Intermediate/CachedAssetRegistry/CachedAssetRegistry_0_5DFD965E45FE67F582B345ABEC550536.bin (memory-mapped=yes)
+[2026.11.12-22.04.51:195][  0]LogAssetRegistry: Display: AssetDataGatherer spent 0.156s loading caches from ../../../../../../Users/matth/Documents/Unreal Projects/DelveDeeperTest/Intermediate/CachedAssetRegistry.
+[2026.11.12-22.04.51:322][  0]LogAssetRegistry: Display: Starting OnFilesLoaded.Broadcast
+[2026.11.12-22.04.51:428][  0]LogAssetRegistry: Display: Completed OnFilesLoaded.Broadcast: 0.105s
+[2026.11.12-22.04.51:568][  0]LogInit: Display: Engine is initialized. Leaving FEngineLoop::Init()
+[2026.11.12-22.04.51:577][  0]LogStaticMesh: Display: Waiting on static mesh StaticMesh /Engine/BasicShapes/Cube.Cube being ready before playing
+[2026.11.12-22.04.51:577][  0]LogStaticMesh: Display: Waiting on static mesh StaticMesh /Engine/BasicShapes/Sphere.Sphere being ready before playing
+[2026.11.12-22.04.51:577][  0]LogStaticMesh: Display: Waiting on static mesh StaticMesh /Engine/BasicShapes/Cylinder.Cylinder being ready before playing
+[2026.11.12-22.04.51:581][  0]LogPython: Display: Running start-up script C:/Program Files/Epic Games/UE_5.8/Engine/Plugins/Animation/IKRig/Content/Python/init_unreal.py... started...
+[2026.11.12-22.04.51:596][  0]LogPython: Display: Running start-up script C:/Program Files/Epic Games/UE_5.8/Engine/Plugins/Animation/IKRig/Content/Python/init_unreal.py... took 15.566 ms
+[2026.11.12-22.04.51:597][  0]LogPython: Display: Running start-up script C:/Program Files/Epic Games/UE_5.8/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py... started...
+[2026.11.12-22.04.51:627][  0]LogPython: Display: Running start-up script C:/Program Files/Epic Games/UE_5.8/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py... took 30.483 ms (total: 46.049 ms)

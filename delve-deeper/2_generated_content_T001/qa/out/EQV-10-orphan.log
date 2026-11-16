@@ -1,0 +1,11 @@
+$ python3 -I work/T001/map/validate_map.py work/T001/qa/fixtures/map_orphan.json
+exit: 1
+--- output ---
+FAIL
+ - boss_room not reachable from town_entrance
+ - descent not reachable from town_entrance
+ - ore_lift not reachable from town_entrance
+ - boss_room needs non-plain door
+ - descent needs non-plain door
+ - ore_lift needs non-plain door
+ - door types used ['locked', 'plain', 'secret']

@@ -1,0 +1,5 @@
+$ python3 -I work/T001/map/validate_map.py work/T001/qa/fixtures/map_four_traps.json
+exit: 1
+--- output ---
+FAIL
+ - traps != 3: 4

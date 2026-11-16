@@ -1,0 +1,4 @@
+$ work/T001/build/com_check json work/T001/qa/fixtures/com_truncated.json
+exit: 1
+--- output ---
+FAIL JSON_TRUNCATED: input ends unexpectedly while reading an object (line 30, column 115)

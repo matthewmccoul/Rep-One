@@ -1,0 +1,5 @@
+$ python3 -I work/T001/map/validate_map.py work/T001/qa/fixtures/map_bad_monster.json
+exit: 1
+--- output ---
+FAIL
+ - monster types != 3: {'mon_type_1', 'mon_type_3', 'mon_type_9'}

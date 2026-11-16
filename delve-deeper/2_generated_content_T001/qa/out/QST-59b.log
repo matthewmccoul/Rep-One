@@ -1,0 +1,5 @@
+$ work/T001/build/quest_check validate work/T001/quest/figure_ore_lift_quest.json work/T001/qa/fixtures/q_cov_offer_cold_hostile.csv work/T001/map/floor1_map.json
+exit: 1
+--- output ---
+FAIL STAGE_COVERAGE fig_offer_cold (only fig_offer_refused may offer at -2)
+  also STAGE_OVERLAP fig_offer_cold and fig_offer_refused

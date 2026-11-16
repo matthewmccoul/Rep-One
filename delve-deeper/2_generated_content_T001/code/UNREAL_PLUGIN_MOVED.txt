@@ -1,0 +1,1 @@
+﻿The Unreal plugin that was here (never compiled) has been replaced by the compiled, tested version in 3_unreal_project/DelveDeeperTest/Plugins/DelveDeeperContent. See 3_unreal_project/DelveDeeperTest/TEST_REPORT.md for the 5 fixes.

@@ -1,0 +1,6 @@
+$ work/T001/build/puzzle_check bypass work/T001/puzzle/storeroom_puzzle.json pick_lock
+exit: 0
+--- output ---
+route pick_lock applied
+ctl_pick inert str.use.inert
+state=bypassed door_open=1 opened_via=pick_lock wrong=0 progress=

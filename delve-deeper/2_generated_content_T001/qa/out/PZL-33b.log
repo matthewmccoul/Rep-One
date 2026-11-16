@@ -1,0 +1,139 @@
+[OUTPUT] 
+Internal ctest changing into directory: /home/user/content_pipeline/work/T001/qa/build_mut/puzzle_noreset
+
+[HANDLER_OUTPUT] 
+Test project /home/user/content_pipeline/work/T001/qa/build_mut/puzzle_noreset
+
+      Start  37: pzl_data_real
+ 1/37 Test  #37: pzl_data_real ....................***Failed    0.00 sec
+      Start  38: pzl_data_errors
+ 2/37 Test  #38: pzl_data_errors ..................***Failed    0.00 sec
+      Start  39: pzl_map_cross_real
+ 3/37 Test  #39: pzl_map_cross_real ...............***Failed    0.00 sec
+      Start  40: pzl_map_cross_broken
+ 4/37 Test  #40: pzl_map_cross_broken .............***Failed    0.00 sec
+      Start  41: pzl_all_orderings
+ 5/37 Test  #41: pzl_all_orderings ................***Failed    0.00 sec
+      Start  42: pzl_oracle_sequences
+ 6/37 Test  #42: pzl_oracle_sequences .............***Failed    0.00 sec
+      Start  43: pzl_repeat_and_reset
+ 7/37 Test  #43: pzl_repeat_and_reset .............***Failed    0.00 sec
+      Start  44: pzl_solve
+ 8/37 Test  #44: pzl_solve ........................***Failed    0.00 sec
+      Start  45: pzl_no_lockout
+ 9/37 Test  #45: pzl_no_lockout ...................***Failed    0.00 sec
+      Start  46: pzl_unknown_control
+10/37 Test  #46: pzl_unknown_control ..............***Failed    0.00 sec
+      Start  47: pzl_bypass_routes
+11/37 Test  #47: pzl_bypass_routes ................***Failed    0.00 sec
+      Start  48: pzl_bypass_after_progress
+12/37 Test  #48: pzl_bypass_after_progress ........***Failed    0.00 sec
+      Start  49: pzl_second_open
+13/37 Test  #49: pzl_second_open ..................***Failed    0.00 sec
+      Start  50: pzl_solve_after_bypass
+14/37 Test  #50: pzl_solve_after_bypass ...........***Failed    0.00 sec
+      Start  51: pzl_roundtrip_prefixes
+15/37 Test  #51: pzl_roundtrip_prefixes ...........***Failed    0.00 sec
+      Start  52: pzl_roundtrip_bypass
+16/37 Test  #52: pzl_roundtrip_bypass .............***Failed    0.00 sec
+      Start  53: pzl_persist_open
+17/37 Test  #53: pzl_persist_open .................***Failed    0.00 sec
+      Start  54: pzl_xp_claim
+18/37 Test  #54: pzl_xp_claim .....................***Failed    0.00 sec
+      Start  55: pzl_bad_state_text
+19/37 Test  #55: pzl_bad_state_text ...............***Failed    0.00 sec
+      Start  56: pzl_state_fixtures
+20/37 Test  #56: pzl_state_fixtures ...............***Failed    0.00 sec
+      Start  57: pzl_load_keeps_state_on_reject
+21/37 Test  #57: pzl_load_keeps_state_on_reject ...***Failed    0.00 sec
+      Start  58: pzl_ref_python_cases
+22/37 Test  #58: pzl_ref_python_cases .............***Failed    0.00 sec
+      Start  59: pzl_strings_exist
+23/37 Test  #59: pzl_strings_exist ................***Failed    0.00 sec
+      Start  60: pzl_cli_functions
+24/37 Test  #60: pzl_cli_functions ................***Failed    0.00 sec
+      Start  66: pzl_exe_validate
+25/37 Test  #66: pzl_exe_validate .................***Failed  Required regular expression not found. Regex=[OK puzzle controls=3 solution=3
+]  0.00 sec
+      Start  67: pzl_exe_seq_solve
+26/37 Test  #67: pzl_exe_seq_solve ................***Failed  Required regular expression not found. Regex=[state=solved door_open=1 opened_via=puzzle wrong=0 progress=ctl_pick,ctl_cart,ctl_furnace
+$
+]  0.00 sec
+      Start  68: pzl_exe_seq_wrong
+27/37 Test  #68: pzl_exe_seq_wrong ................***Failed  Required regular expression not found. Regex=[state=idle door_open=0 opened_via=none wrong=2 progress=
+$
+]  0.00 sec
+      Start  69: pzl_exe_bypass
+28/37 Test  #69: pzl_exe_bypass ...................***Failed  Required regular expression not found. Regex=[ctl_pick inert str.use.inert
+state=bypassed door_open=1 opened_via=magic_key wrong=0 progress=
+$
+]  0.00 sec
+      Start  70: pzl_exe_roundtrip
+29/37 Test  #70: pzl_exe_roundtrip ................***Failed  Required regular expression not found. Regex=[state=partial door_open=0 opened_via=none wrong=0 progress=ctl_pick,ctl_cart
+$
+]  0.01 sec
+      Start  71: pzl_exe_load
+30/37 Test  #71: pzl_exe_load .....................***Failed  Required regular expression not found. Regex=[OK load
+]  0.00 sec
+      Start  72: pzl_exe_bad_unknown_control
+31/37 Test  #72: pzl_exe_bad_unknown_control ......***Failed    0.01 sec
+      Start  73: pzl_exe_bad_unknown_route
+32/37 Test  #73: pzl_exe_bad_unknown_route ........***Failed    0.01 sec
+      Start  74: pzl_exe_bad_save_missing
+33/37 Test  #74: pzl_exe_bad_save_missing .........***Failed    0.01 sec
+      Start  75: pzl_exe_bad_save_inconsistent
+34/37 Test  #75: pzl_exe_bad_save_inconsistent ....***Failed    0.01 sec
+      Start  76: pzl_exe_bad_save_value
+35/37 Test  #76: pzl_exe_bad_save_value ...........***Failed    0.01 sec
+      Start  77: pzl_exe_bad_edge
+36/37 Test  #77: pzl_exe_bad_edge .................***Failed    0.01 sec
+      Start 113: eqv_pzl_text_guard_real
+37/37 Test #113: eqv_pzl_text_guard_real ..........***Failed    0.02 sec
+
+0% tests passed, 37 tests failed out of 37
+
+Total Test time (real) =   0.18 sec
+
+The following tests FAILED:
+	 37 - pzl_data_real (Failed)
+	 38 - pzl_data_errors (Failed)
+	 39 - pzl_map_cross_real (Failed)
+	 40 - pzl_map_cross_broken (Failed)
+	 41 - pzl_all_orderings (Failed)
+	 42 - pzl_oracle_sequences (Failed)
+	 43 - pzl_repeat_and_reset (Failed)
+	 44 - pzl_solve (Failed)
+	 45 - pzl_no_lockout (Failed)
+	 46 - pzl_unknown_control (Failed)
+	 47 - pzl_bypass_routes (Failed)
+	 48 - pzl_bypass_after_progress (Failed)
+	 49 - pzl_second_open (Failed)
+	 50 - pzl_solve_after_bypass (Failed)
+	 51 - pzl_roundtrip_prefixes (Failed)
+	 52 - pzl_roundtrip_bypass (Failed)
+	 53 - pzl_persist_open (Failed)
+	 54 - pzl_xp_claim (Failed)
+	 55 - pzl_bad_state_text (Failed)
+	 56 - pzl_state_fixtures (Failed)
+	 57 - pzl_load_keeps_state_on_reject (Failed)
+	 58 - pzl_ref_python_cases (Failed)
+	 59 - pzl_strings_exist (Failed)
+	 60 - pzl_cli_functions (Failed)
+	 66 - pzl_exe_validate (Failed)
+	 67 - pzl_exe_seq_solve (Failed)
+	 68 - pzl_exe_seq_wrong (Failed)
+	 69 - pzl_exe_bypass (Failed)
+	 70 - pzl_exe_roundtrip (Failed)
+	 71 - pzl_exe_load (Failed)
+	 72 - pzl_exe_bad_unknown_control (Failed)
+	 73 - pzl_exe_bad_unknown_route (Failed)
+	 74 - pzl_exe_bad_save_missing (Failed)
+	 75 - pzl_exe_bad_save_inconsistent (Failed)
+	 76 - pzl_exe_bad_save_value (Failed)
+	 77 - pzl_exe_bad_edge (Failed)
+	113 - eqv_pzl_text_guard_real (Failed)
+[ERROR_MESSAGE] 
+Errors while running CTest
+
+Output from these tests are in: /home/user/content_pipeline/work/T001/qa/build_mut/puzzle_noreset/Testing/Temporary/LastTest.log
+Use "--rerun-failed --output-on-failure" to re-run the failed cases verbosely.

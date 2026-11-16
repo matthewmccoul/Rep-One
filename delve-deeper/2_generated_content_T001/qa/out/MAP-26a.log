@@ -1,0 +1,4 @@
+$ work/T001/build/map_check door work/T001/map/floor1_map.json e08
+exit: 0
+--- output ---
+locked

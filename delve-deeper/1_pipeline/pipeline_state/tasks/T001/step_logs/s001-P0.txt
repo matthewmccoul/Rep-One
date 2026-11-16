@@ -1,0 +1,23 @@
+[T001-s001-producer] agent=development-producer exit=0 error=False turns=13 cost_usd=0.2068624 staged=True permission_denials=0
+cket, and nothing else is left to do in this box. Nothing was run or tested; the evidence is STATIC (inspection only).
+
+The "mordor combat research" isn't in the project folder, so design work shouldn't start until you supply it. I searched for "mordor", "avatar", "plato" and for combat file names, and only your request text matched.
+
+**Proposed first task (T001-A):** the Systems Designer writes a combat rules spec and data schema. Both are generic, with no creatures, spells or names. Every rule traces back to the research or stays TBD. Where the research differs from the GDD's real-time, timer-driven combat, the spec lists it as an open decision for you.
+
+**Proposed milestones:**
+- M1: rules spec and data tables.
+- M2: Unreal combat component(s).
+- M3: tests.
+- M4: combat feedback and UI, only if you want it. It isn't funded in the budget below.
+
+**Proposed budget:** 8.00 USD for the whole task, with a 2-round revision limit.
+
+STATUS: done
+OUTPUTS: work/T001/packets/s001-packet.md, work/T001/step_results/s001-P0.json
+ISSUES (all for the user):
+- Where is the mordor combat research? This blocks T001-A.
+- Do you approve T001-A as the first task, or want it revised?
+- Do you approve the 8.00 USD budget and the 2-round limit?
+- Should combat be built in C++, Blueprints or data tables, and how will agents access Unreal? Unreal is NOT RUN here (it needs your machine and licence). M2 and in-engine testing can't start until this is decided.
+- Is M4 (combat feedback and UI) in scope?

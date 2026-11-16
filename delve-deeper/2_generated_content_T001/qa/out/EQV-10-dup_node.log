@@ -1,0 +1,8 @@
+$ python3 -I work/T001/map/validate_map.py work/T001/qa/fixtures/map_dup_node.json
+exit: 1
+--- output ---
+FAIL
+ - duplicate node ids
+ - edge e02 endpoint missing: entry_hall
+ - edge e03 endpoint missing: entry_hall
+ - edge e04 endpoint missing: entry_hall

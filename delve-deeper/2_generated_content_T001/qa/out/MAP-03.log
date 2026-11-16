@@ -1,0 +1,29 @@
+$ work/T001/build/map_check validate work/T001/qa/fixtures/map_dup_node.json
+exit: 1
+--- output ---
+FAIL DUP_ID: duplicate node id mess_hall
+  also UNKNOWN_NODE: edge e02 endpoint missing: entry_hall
+  also UNKNOWN_NODE: edge e03 endpoint missing: entry_hall
+  also UNKNOWN_NODE: edge e04 endpoint missing: entry_hall
+  also UNREACHABLE_NODE: node mess_hall not reachable from town_entrance
+  also UNREACHABLE_NODE: node mess_hall not reachable from town_entrance
+  also UNREACHABLE_NODE: node foreman_office not reachable from town_entrance
+  also UNREACHABLE_NODE: node puzzle_clue_site not reachable from town_entrance
+  also UNREACHABLE_NODE: node slag_passage not reachable from town_entrance
+  also UNREACHABLE_NODE: node smelter_hall not reachable from town_entrance
+  also UNREACHABLE_NODE: node puzzle_controls_site not reachable from town_entrance
+  also UNREACHABLE_NODE: node storeroom not reachable from town_entrance
+  also UNREACHABLE_NODE: node hidden_cache not reachable from town_entrance
+  also UNREACHABLE_NODE: node collapsed_gallery not reachable from town_entrance
+  also UNREACHABLE_NODE: node ore_lift not reachable from town_entrance
+  also UNREACHABLE_NODE: node barracks not reachable from town_entrance
+  also UNREACHABLE_NODE: node toll_hall not reachable from town_entrance
+  also UNREACHABLE_NODE: node boss_room not reachable from town_entrance
+  also UNREACHABLE_NODE: node descent not reachable from town_entrance
+  also PUZZLE_CLUE_BEHIND_DOOR: puzzle clue site unreachable while e08 is closed
+  also PUZZLE_CONTROLS_BEHIND_DOOR: puzzle controls site unreachable while e08 is closed
+  also NO_OPEN_ROUTE: no plain-door route from town_entrance to ore_lift
+  also NO_OPEN_ROUTE: no plain-door route from town_entrance to puzzle_clue_site
+  also NO_OPEN_ROUTE: no plain-door route from town_entrance to puzzle_controls_site
+  also NO_OPEN_ROUTE_TO_DESCENT: no plain-door route from town_entrance to boss_room
+  also NO_OPEN_ROUTE_TO_DESCENT: no plain-door route from town_entrance to descent

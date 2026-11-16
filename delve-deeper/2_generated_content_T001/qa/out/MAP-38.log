@@ -1,0 +1,11 @@
+$ ctest --test-dir work/T001/build --output-on-failure -R map_cells
+exit: 0
+--- output ---
+Internal ctest changing into directory: /home/user/content_pipeline/work/T001/build
+Test project /home/user/content_pipeline/work/T001/build
+    Start 31: map_cells
+1/1 Test #31: map_cells ........................   Passed    0.01 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.01 sec

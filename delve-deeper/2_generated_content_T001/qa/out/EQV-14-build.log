@@ -1,0 +1,28 @@
+$ cmake --build work/T001/qa/build_mut/qst_extra_row --target quest_tests quest_check -j 4
+exit: 0
+--- output ---
+[  7%] Building CXX object common/CMakeFiles/dd_common.dir/src/csv.cpp.o
+[ 14%] Building CXX object common/CMakeFiles/dd_common.dir/src/json.cpp.o
+[ 21%] Linking CXX static library libdd_common.a
+[ 21%] Built target dd_common
+[ 28%] Building CXX object map/CMakeFiles/dd_map.dir/src/map.cpp.o
+[ 35%] Linking CXX static library libdd_map.a
+[ 35%] Built target dd_map
+[ 42%] Building CXX object cli/CMakeFiles/dd_cli.dir/src/fileio.cpp.o
+[ 50%] Building CXX object cli/CMakeFiles/dd_cli.dir/src/map_cli.cpp.o
+[ 57%] Building CXX object quest/CMakeFiles/dd_quest.dir/src/quest.cpp.o
+[ 64%] Linking CXX static library libdd_cli.a
+[ 64%] Built target dd_cli
+[ 71%] Linking CXX static library libdd_quest.a
+[ 71%] Built target dd_quest
+[ 78%] Building CXX object quest/CMakeFiles/quest_check.dir/__/cli/src/quest_check_main.cpp.o
+[ 85%] Linking CXX executable ../quest_check
+[ 85%] Built target quest_check
+[ 92%] Building CXX object quest/CMakeFiles/quest_tests.dir/__/tests/quest/test_quest.cpp.o
+[100%] Linking CXX executable ../quest_tests
+[100%] Built target quest_tests
+[ 25%] Built target dd_common
+[ 41%] Built target dd_map
+[ 66%] Built target dd_cli
+[ 83%] Built target dd_quest
+[100%] Built target quest_check

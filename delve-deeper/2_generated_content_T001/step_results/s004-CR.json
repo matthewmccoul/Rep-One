@@ -1,0 +1,18 @@
+{
+ "status": "done",
+ "summary": "Dispatched development-critic once with all 14 new content files, the GDD, work/lore.md and the defects directory. It reported Verdict: CONTRADICTIONS: one BLOCKING (locked door e08 lacks a break option, GDD door rule) and one MAJOR (puzzle needs a 'Use' action the GDD does not list), plus four minor items. Shared IDs tie across map, puzzle and quest; the Figure's reason stays hidden. Defects filed as DEF-T001-1 and DEF-T001-2. Routed back to C1 for revision. Evidence STATIC; Unreal not run.",
+ "outputs": [
+  "work/T001/briefs/s004-development-critic.md",
+  "work/T001/critic/critic_report.md",
+  "work/T001/defects/DEF-T001-1.md",
+  "work/T001/defects/DEF-T001-2.md",
+  "work/T001/step_results/s004-CR.json"
+ ],
+ "questions_for_user": [
+  "Do you approve a 'Use' action on selected objects for the puzzle controls? Alternatives are in work/T001/puzzle/storeroom_puzzle_spec.md lines 8-9.",
+  "Should locked door e08 allow breaking (as the GDD door rule says), or do you approve an exception?",
+  "Is the Figure's sewer drain in town or on the dungeon side of the entrance?"
+ ],
+ "critic_report": "work/T001/critic/critic_report.md",
+ "next": "Contradictions found"
+}

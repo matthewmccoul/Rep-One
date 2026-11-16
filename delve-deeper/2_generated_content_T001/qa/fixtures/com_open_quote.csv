@@ -1,0 +1,26 @@
+key,speaker,stage_min,stage_max,text,blanks
+fig_offer_cold,mysterious_figure,-1,0,"*Eyes flare behind the bars. A green finger points.* You. The old ore lift. Is the chain still on the drum? Go. Look. Come back and say.",
+fig_offer_warm,mysterious_figure,1,2,"*The eyes tilt, almost pleased. A long finger beckons.* You again. The old miners' ore lift. Is the chain still on the drum? Look for me. Come back and say.,
+fig_offer_refused,mysterious_figure,-2,-2,"*The eyes narrow. The arms withdraw into the dark.* Not you. Not today.",
+fig_choice_accept,player,-1,2,"I'll look.",
+fig_choice_decline,player,-1,2,"Not interested.",
+fig_accept_ack,mysterious_figure,-2,2,"*A finger points the way.* Down the entry hall. Past the gallery. The lift.",
+fig_decline_reply,mysterious_figure,-2,2,"*The eyes dim.* Then go.",
+fig_report_not_yet,mysterious_figure,-2,2,"*The eyes wait.* The lift. The chain. You have not looked. Go.",
+fig_report_nothing,mysterious_figure,-2,2,"*Pointed fingers drum the bars.* {days_since} days. Nothing to tell me? Then the work is not done.",{days_since}
+fig_report_no_offer,mysterious_figure,-2,2,"*A finger lifts.* I asked nothing of you. Yet.",
+fig_report_present_cold,mysterious_figure,-2,0,"*A long pause.* The chain is on the drum. Good. Good. {reward_line}","{reward_line}"
+fig_report_present_warm,mysterious_figure,1,2,"*The eyes brighten.* On the drum, still. You saw it yourself. {reward_line}","{reward_line}"
+fig_report_gone_cold,mysterious_figure,-2,0,"*The arms go still.* The drum is bare. Gone. Hm. {reward_line}","{reward_line}"
+fig_report_gone_warm,mysterious_figure,1,2,"*A hiss through the bars.* Gone from the drum. You are sure. You saw the bare drum. {reward_line}","{reward_line}"
+fig_reward_none,mysterious_figure,-2,2,"There is still much work to be done.",
+fig_reward_item,mysterious_figure,-2,2,"*A green hand pushes something through the bars.* Take this. {reward_item}. Do not ask.","{reward_item}"
+fig_repeat_done,mysterious_figure,-2,2,"*The eyes blink slowly.* You told me already. Day {day}. Enough.","{day}"
+lift_arrival_present,narration,-2,2,"The old ore lift. A heavy chain still hangs from the iron drum, rusted but whole.",
+lift_arrival_gone,narration,-2,2,"The old ore lift. The iron drum is bare. Where the chain hung, only a pale scar of rust is left.",
+log_quest_accepted,message_log,-2,2,"The figure behind the grate wants to know if the chain is still on the drum of the old ore lift. ({node_name})","{node_name}"
+log_lift_observed_present,message_log,-2,2,"You note it: the chain is still on the drum. Day {day}.","{day}"
+log_lift_observed_gone,message_log,-2,2,"You note it: the drum is bare, the chain is gone. Day {day}.","{day}"
+log_quest_done,message_log,-2,2,"You told the figure what you saw at the {node_name}.","{node_name}"
+log_reward_item,message_log,-2,2,"The figure gave you {reward_item}.","{reward_item}"
+log_reward_none,message_log,-2,2,"The figure gave you nothing.",

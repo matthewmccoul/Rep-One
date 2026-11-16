@@ -1,0 +1,4 @@
+$ work/T001/build/map_check validate work/T001/qa/fixtures/map_bad_quest_dest.json
+exit: 1
+--- output ---
+FAIL UNKNOWN_NODE: quest destination figure_task_destination unknown node: ore_cellar

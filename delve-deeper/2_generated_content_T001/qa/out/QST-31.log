@@ -1,0 +1,10 @@
+$ work/T001/build/quest_check run work/T001/quest/figure_ore_lift_quest.json work/T001/quest/figure_ore_lift_strings.csv work/T001/map/floor1_map.json offer@0 accept arrive@collapsed_gallery
+exit: 0
+--- output ---
+offer@0 ok key=fig_offer_cold state=not_offered
+  fig_offer_cold: *Eyes flare behind the bars. A green finger points.* You. The old ore lift. Is the chain still on the drum? Go. Look. Come back and say.
+accept ok key=fig_accept_ack log=log_quest_accepted state=active
+  fig_accept_ack: *A finger points the way.* Down the entry hall. Past the gallery. The lift.
+  log_quest_accepted: The figure behind the grate wants to know if the chain is still on the drum of the old ore lift. (Old ore lift (chain and drum))
+arrive@collapsed_gallery rejected not_observing state=active
+state=active chain=none reward_rolled=0 rolls=0

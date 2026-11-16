@@ -1,0 +1,5 @@
+$ work/T001/build/quest_check validate work/T001/quest/figure_ore_lift_quest.json work/T001/qa/fixtures/q_bad_blank.csv work/T001/map/floor1_map.json
+exit: 1
+--- output ---
+FAIL BAD_BLANK fig_report_nothing {gold}
+  also BLANK_MISMATCH fig_report_nothing

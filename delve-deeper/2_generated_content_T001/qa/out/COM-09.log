@@ -1,0 +1,4 @@
+$ work/T001/build/com_check csv work/T001/quest/figure_ore_lift_strings.csv
+exit: 0
+--- output ---
+OK csv columns=6 rows=25

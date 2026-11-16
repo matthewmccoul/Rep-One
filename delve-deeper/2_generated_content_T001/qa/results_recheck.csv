@@ -1,0 +1,18 @@
+check_id,result,label,command,exit_code,log_path,defect_id,note
+QST-17,pass,EXECUTED,python3 -I work/T001/code/tools/check_text_guard.py work/T001/quest/figure_ore_lift_strings.csv,0,work/T001/qa/out/QST-17.log,DEF-T001-3,real CSV clean
+QST-18,pass,EXECUTED,python3 -I work/T001/code/tools/check_text_guard.py work/T001/qa/fixtures/q_reason.csv,1,work/T001/qa/out/QST-18.log,DEF-T001-3,expected exit 1; names fig_offer_cold (because)
+QST-16,pass,EXECUTED,quest_check validate on q_reason.csv,1,work/T001/qa/out/QST-16.log,DEF-T001-3,expected exit 1 BANNED_PHRASE
+PZL-30,pass,EXECUTED,check_text_guard.py storeroom_puzzle.json,0,work/T001/qa/out/PZL-30.log,,regression
+PZL-31,pass,EXECUTED,check_text_guard.py pz_text_leak.json,1,work/T001/qa/out/PZL-31.log,,expected exit 1 names str.carving.text
+EQV-13,pass,EXECUTED,ctest -R quest_transition_table (real table),0,work/T001/qa/out/EQV-13.log,DEF-T001-4,both tests pass
+EQV-14,pass,EXECUTED,env DD_QUEST_JSON=<abs>/q_extra_transition.json ctest -R quest_transition_table,8,work/T001/qa/out/EQV-14.log,DEF-T001-4,expected non-zero; test Failed naming the disagreement (first try with a relative path failed for the wrong reason and was discarded)
+EQV-14b-target,pass,EXECUTED,env DD_QUEST_JSON=<abs>/q_changed_target.json ctest -R quest_transition_table,8,work/T001/qa/out/EQV-14b-target.log,DEF-T001-4,expected non-zero; changed target observed_gone report->active detected
+QST-71,pass,EXECUTED,ctest on mutation build qa/build_mut/qst_hostile_noline2 -R quest_hostile,8,work/T001/qa/out/QST-71.log,DEF-T001-4,both hostile tests Failed cleanly; no SEGFAULT (first run had a wrong repo root in my mutation copy; fixed and rerun)
+MAP-01,pass,EXECUTED,map_check validate floor1_map.json,0,work/T001/qa/out/MAP-01.log,,nodes=17 edges=15
+MAP-02,pass,EXECUTED,validate_map.py floor1_map.json,0,work/T001/qa/out/MAP-02.log,,no validate_map.log rewritten by an argument run (file mtime unchanged)
+EQV-09,pass,EXECUTED,MAP-01 plus MAP-02 both exit 0,0,work/T001/qa/out/MAP-01.log;work/T001/qa/out/MAP-02.log,,
+EQV-10,pass,EXECUTED,validate_map.py map_e08_no_break.json,1,work/T001/qa/out/EQV-10.log,,Python exit 1 and C++ exit 1 (out/EQV-10-cpp.log). Note: the fixture is a copy of the old map so Python also reports parentheses in names; e08 error still shown
+QST-01,pass,EXECUTED,quest_check validate real files,0,work/T001/qa/out/QST-01.log,,rows=25 route=5
+QST-02,pass,EXECUTED,validate_quest.py ... --log,0,work/T001/qa/out/QST-02.log,,PASS
+REGRESSION-ctest,pass,EXECUTED,ctest --test-dir work/T001/build,0,work/T001/qa/out/REGRESSION-ctest.log,,123 of 123 passed; ctest log work/T001/qa/out/REGRESSION-ctest.ctest.log
+SPEC-nodename-grep,pass,STATIC,grep "Old ore lift|chain and drum" in check_spec.md,0,,,no spec line mentions the renamed node; no expectation text to update

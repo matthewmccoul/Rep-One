@@ -1,0 +1,6 @@
+$ python3 -I work/T001/code/tools/check_no_unreal.py work/T001/qa/fixtures/unr_empty
+exit: 1
+--- output ---
+0 core files scanned, 0 violation(s)
+FAIL: 0 files scanned (a check that scans nothing does not pass)
+RESULT FAIL

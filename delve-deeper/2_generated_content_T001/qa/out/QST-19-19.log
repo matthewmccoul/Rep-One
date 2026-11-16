@@ -1,0 +1,4 @@
+$ work/T001/build/quest_check stage 19
+exit: 0
+--- output ---
+-2

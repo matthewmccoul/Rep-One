@@ -1,0 +1,5 @@
+KNOWN GAP (decided by the user, 2026-11-11, hard-coded so it is not forgotten): two files of the mordor combat research are NOT in `work/inputs/` and are missing on purpose for now.
+- `Mordor-Original-Manual.pdf` (9,742,019 bytes) and `Mordor-Recovered-Community-Archive.zip` (6,046,213 bytes), both in the user's Google Drive folder "Mordor Combat Research".
+- Why: the Drive connector available to the chat session drops its connection on files this large (it returns the whole file as one message, and a message of about 13 MB and 8 MB was too large). The files were not copied and nothing was guessed about their contents.
+- What it means: the original printed manual and the 2,591 recovered community text records are unread. Any rule that rests on them is unverified. Cite only what is in `work/inputs/`; list anything that needed those two files as a gap in your packet, never fill it from memory.
+- Not forgotten means: it is re-offered to the user at the start of each task until they supply the files (they can place them in `work/inputs/` themselves) or say to stop.

@@ -1,0 +1,4 @@
+$ python3 -I work/T001/code/tools/check_text_guard.py work/T001/qa/fixtures/pz_text_leak.json
+exit: 1
+--- output ---
+FAIL TEXT_LEAK: str.carving.text: contains 'dwarves'

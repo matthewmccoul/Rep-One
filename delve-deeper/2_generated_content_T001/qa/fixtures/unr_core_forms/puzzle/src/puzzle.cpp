@@ -1,0 +1,346 @@
+#include "dd/puzzle.h"
+
+#include <algorithm>
+#include <cstddef>
+
+namespace dd {
+namespace puzzle {
+
+namespace {
+
+bool contains(const std::vector<std::string>& v, const std::string& s) {
+    return std::find(v.begin(), v.end(), s) != v.end();
+}
+
+bool schemaFail(Issue& err, const std::string& detail) {
+    err.code = "SCHEMA";
+    err.detail = detail;
+    return false;
+}
+
+// Required string member.
+bool getString(const json::Value& obj, const char* key, std::string& out, Issue& err) {
+    const json::Value* v = obj.find(key);
+    if (!v) return schemaFail(err, std::string("missing field: ") + key);
+    if (!v->isString()) return schemaFail(err, std::string("field must be a string: ") + key);
+    out = v->string;
+    return true;
+}
+
+bool getStringList(const json::Value& obj, const char* key, std::vector<std::string>& out, Issue& err) {
+    const json::Value* v = obj.find(key);
+    if (!v) return schemaFail(err, std::string("missing field: ") + key);
+    if (!v->isArray()) return schemaFail(err, std::string("field must be an array of strings: ") + key);
+    out.clear();
+    for (const json::Value& i : v->items) {
+        if (!i.isString()) return schemaFail(err, std::string("field must be an array of strings: ") + key);
+        out.push_back(i.string);
+    }
+    return true;
+}
+
+std::string quote(const std::string& s) {
+    std::string r = "\"";
+    for (char c : s) {
+        if (c == '"') r += "\\\"";
+        else if (c == '\\') r += "\\\\";
+        else if (static_cast<unsigned char>(c) < 0x20) r += ' ';
+        else r += c;
+    }
+    return r + "\"";
+}
+
+bool saveFail(Issue& err, const char* code, const std::string& detail) {
+    err.code = code;
+    err.detail = detail;
+    return false;
+}
+
+}  // namespace
+
+bool Data::hasControl(const std::string& id) const { return contains(controls, id); }
+bool Data::hasRoute(const std::string& route) const { return contains(otherRoutes, route); }
+const std::string* Data::text(const std::string& key) const {
+    for (const auto& kv : strings)
+        if (kv.first == key) return &kv.second;
+    return nullptr;
+}
+
+bool dataFromText(const std::string& text, Data& out, Issue& err) {
+    json::Value root;
+    json::Error je;
+    if (!json::parse(text, root, je)) {
+        err.code = je.code;
+        err.detail = je.describe();
+        return false;
+    }
+    if (!root.isObject()) return schemaFail(err, "top level must be an object");
+    Data d;
+    if (!getString(root, "puzzle_id", d.puzzleId, err)) return false;
+    if (!getString(root, "clue_site", d.clueSite, err)) return false;
+    if (!getString(root, "clue_room", d.clueRoom, err)) return false;
+    if (!getString(root, "controls_site", d.controlsSite, err)) return false;
+    if (!getString(root, "controls_room", d.controlsRoom, err)) return false;
+    if (!getString(root, "opens_edge", d.opensEdge, err)) return false;
+    if (!getString(root, "opens_room", d.opensRoom, err)) return false;
+    if (!getString(root, "xp_class", d.xpClass, err)) return false;
+    if (!getStringList(root, "controls", d.controls, err)) return false;
+    if (!getStringList(root, "solution", d.solution, err)) return false;
+    if (!getStringList(root, "other_routes", d.otherRoutes, err)) return false;
+    const json::Value* st = root.find("strings");
+    if (!st) return schemaFail(err, "missing field: strings");
+    if (!st->isObject()) return schemaFail(err, "field must be an object: strings");
+    for (std::size_t i = 0; i < st->items.size(); ++i) {
+        if (!st->items[i].isString()) return schemaFail(err, "strings values must be strings: " + st->keys[i]);
+        d.strings.emplace_back(st->keys[i], st->items[i].string);
+    }
+
+    if (d.controls.empty()) {
+        err.code = "NO_CONTROLS";
+        err.detail = "controls is empty";
+        return false;
+    }
+    for (std::size_t i = 0; i < d.controls.size(); ++i)
+        for (std::size_t j = i + 1; j < d.controls.size(); ++j)
+            if (d.controls[i] == d.controls[j]) {
+                err.code = "DUP_CONTROL";
+                err.detail = d.controls[i];
+                return false;
+            }
+    if (d.solution.empty()) {
+        err.code = "BAD_SOLUTION";
+        err.detail = "solution is empty";
+        return false;
+    }
+    for (const std::string& s : d.solution)
+        if (!d.hasControl(s)) {
+            err.code = "BAD_SOLUTION";
+            err.detail = "solution names a control not in controls: " + s;
+            return false;
+        }
+    // Every string key the machine can return must exist.
+    std::vector<std::string> keys = {"str.use.solved", "str.use.wrong", "str.use.inert"};
+    for (std::size_t n = 1; n < d.solution.size(); ++n) keys.push_back("str.use.step_" + std::to_string(n));
+    for (const std::string& k : keys)
+        if (!d.text(k)) {
+            err.code = "MISSING_STRING";
+            err.detail = k;
+            return false;
+        }
+    out = d;
+    return true;
+}
+
+std::vector<Issue> validateAgainstMap(const Data& d, const map::FloorMap& m) {
+    std::vector<Issue> is;
+    const std::pair<const char*, const std::string*> sites[] = {
+        {"clue_site", &d.clueSite}, {"controls_site", &d.controlsSite}, {"clue_room", &d.clueRoom},
+        {"controls_room", &d.controlsRoom}, {"opens_room", &d.opensRoom}};
+    for (const auto& s : sites)
+        if (!m.node(*s.second)) is.push_back({"UNKNOWN_NODE", std::string(s.first) + " not in map: " + *s.second});
+
+    const map::Edge* e = m.edge(d.opensEdge);
+    if (!e) {
+        is.push_back({"PUZZLE_EDGE", "opens_edge not in map: " + d.opensEdge});
+    } else {
+        if (e->door != "locked") is.push_back({"PUZZLE_EDGE", "opens_edge is not a locked door: " + d.opensEdge});
+        if (!contains(e->solutions, "puzzle"))
+            is.push_back({"PUZZLE_EDGE", "opens_edge does not list the puzzle as a solution: " + d.opensEdge});
+        if (e->from != d.opensRoom && e->to != d.opensRoom)
+            is.push_back({"PUZZLE_EDGE", "opens_edge does not lead to opens_room: " + d.opensEdge});
+        std::vector<std::string> mapRoutes;
+        for (const std::string& s : e->solutions)
+            if (s != "puzzle") mapRoutes.push_back(s);
+        std::vector<std::string> mine = d.otherRoutes;
+        std::sort(mapRoutes.begin(), mapRoutes.end());
+        std::sort(mine.begin(), mine.end());
+        if (mapRoutes != mine)
+            is.push_back({"ROUTES_MISMATCH", "other_routes differ from the map's " + d.opensEdge + " solutions minus puzzle"});
+    }
+
+    if (m.puzzle.id != d.puzzleId) is.push_back({"PUZZLE_REF", "map puzzle id differs: " + m.puzzle.id});
+    if (m.puzzle.clue != d.clueSite) is.push_back({"PUZZLE_REF", "map puzzle clue differs: " + m.puzzle.clue});
+    if (m.puzzle.controls != d.controlsSite) is.push_back({"PUZZLE_REF", "map puzzle controls site differs: " + m.puzzle.controls});
+    if (m.puzzle.opensEdge != d.opensEdge) is.push_back({"PUZZLE_REF", "map puzzle opens_edge differs: " + m.puzzle.opensEdge});
+    const map::Node* cs = m.node(d.controlsSite);
+    if (cs && cs->controls != d.controls)
+        is.push_back({"CONTROLS_MISMATCH", "controls differ from the map node " + d.controlsSite});
+    return is;
+}
+
+bool Puzzle::fromText(const std::string& text, Puzzle& out, Issue& err) {
+    Data d;
+    if (!dataFromText(text, d, err)) return false;
+    out = Puzzle(d);
+    return true;
+}
+
+State Puzzle::state() const {
+    if (solved_) return State::Solved;
+    if (!openedVia_.empty()) return State::Bypassed;
+    return progress_.empty() ? State::Idle : State::Partial;
+}
+
+const char* Puzzle::stateName(State s) {
+    switch (s) {
+        case State::Idle: return "idle";
+        case State::Partial: return "partial";
+        case State::Solved: return "solved";
+        case State::Bypassed: return "bypassed";
+    }
+    return "idle";
+}
+
+UseOutcome Puzzle::use(const std::string& control) {
+    UseOutcome o;
+    if (!data_.hasControl(control)) return o;  // UnknownControl, nothing changes
+    if (solved_ || !openedVia_.empty()) {
+        o.result = UseResult::Inert;
+        o.resultKey = "inert";
+        o.stringKey = "str.use.inert";
+        return o;
+    }
+    if (control == data_.solution[progress_.size()]) {
+        progress_.push_back(control);
+        if (progress_.size() == data_.solution.size()) {
+            solved_ = true;
+            doorOpen_ = true;
+            openedVia_ = "puzzle";
+            o.result = UseResult::Solved;
+            o.resultKey = "solved";
+            o.stringKey = "str.use.solved";
+            return o;
+        }
+        o.result = UseResult::StepOk;
+        o.resultKey = "step_ok";
+        o.stringKey = "str.use.step_" + std::to_string(progress_.size());
+        return o;
+    }
+    // Wrong: controls reset, nothing else lost; never blocks a retry.
+    progress_.clear();
+    ++wrongCount_;
+    o.result = UseResult::WrongReset;
+    o.resultKey = "wrong_reset";
+    o.stringKey = "str.use.wrong";
+    return o;
+}
+
+BypassResult Puzzle::openOther(const std::string& route) {
+    if (!data_.hasRoute(route)) return BypassResult::UnknownRoute;
+    if (doorOpen_) return BypassResult::NotApplied;
+    doorOpen_ = true;
+    openedVia_ = route;
+    progress_.clear();
+    return BypassResult::Applied;
+}
+
+std::string Puzzle::claimXp() {
+    if (solved_ && !xpAwarded_) {
+        xpAwarded_ = true;
+        return data_.xpClass;
+    }
+    return std::string();
+}
+
+void Puzzle::reset() {
+    if (!(solved_ || !openedVia_.empty())) progress_.clear();
+}
+
+std::string Puzzle::summary() const {
+    std::string s = std::string("state=") + stateName(state()) + " door_open=" + (doorOpen_ ? "1" : "0") +
+                    " opened_via=" + (openedVia_.empty() ? "none" : openedVia_) +
+                    " wrong=" + std::to_string(wrongCount_) + " progress=";
+    for (std::size_t i = 0; i < progress_.size(); ++i) s += (i ? "," : "") + progress_[i];
+    return s;
+}
+
+std::string Puzzle::toJson() const {
+    std::string s = "{\"progress\":[";
+    for (std::size_t i = 0; i < progress_.size(); ++i) s += (i ? "," : "") + quote(progress_[i]);
+    s += "],\"solved\":";
+    s += solved_ ? "true" : "false";
+    s += ",\"door_open\":";
+    s += doorOpen_ ? "true" : "false";
+    s += ",\"opened_via\":";
+    s += openedVia_.empty() ? "null" : quote(openedVia_);
+    s += ",\"wrong_count\":" + std::to_string(wrongCount_);
+    s += ",\"xp_awarded\":";
+    s += xpAwarded_ ? "true" : "false";
+    return s + "}";
+}
+
+bool Puzzle::loadState(const std::string& text, Issue& err) {
+    json::Value root;
+    json::Error je;
+    if (!json::parse(text, root, je)) {
+        err.code = je.code;
+        err.detail = je.describe();
+        return false;
+    }
+    if (!root.isObject()) return saveFail(err, "SAVE_FIELD", "state must be a JSON object");
+
+    // 1. Fields: exactly the six, right types.
+    static const char* const kFields[] = {"progress", "solved", "door_open", "opened_via", "wrong_count", "xp_awarded"};
+    for (const char* f : kFields)
+        if (!root.find(f)) return saveFail(err, "SAVE_FIELD", std::string("missing field: ") + f);
+    for (const std::string& k : root.keys) {
+        bool known = false;
+        for (const char* f : kFields) known = known || k == f;
+        if (!known) return saveFail(err, "SAVE_FIELD", "unknown field: " + k);
+    }
+    const json::Value& jp = *root.find("progress");
+    const json::Value& js = *root.find("solved");
+    const json::Value& jd = *root.find("door_open");
+    const json::Value& jo = *root.find("opened_via");
+    const json::Value& jw = *root.find("wrong_count");
+    const json::Value& jx = *root.find("xp_awarded");
+    if (!jp.isArray()) return saveFail(err, "SAVE_FIELD", "progress must be an array");
+    for (const json::Value& i : jp.items)
+        if (!i.isString()) return saveFail(err, "SAVE_FIELD", "progress entries must be strings");
+    if (!js.isBool()) return saveFail(err, "SAVE_FIELD", "solved must be a boolean");
+    if (!jd.isBool()) return saveFail(err, "SAVE_FIELD", "door_open must be a boolean");
+    if (!jo.isNull() && !jo.isString()) return saveFail(err, "SAVE_FIELD", "opened_via must be a string or null");
+    if (!jw.isNumber() || !jw.isInteger) return saveFail(err, "SAVE_FIELD", "wrong_count must be an integer");
+    if (!jx.isBool()) return saveFail(err, "SAVE_FIELD", "xp_awarded must be a boolean");
+
+    // 2. Values.
+    std::vector<std::string> progress;
+    for (const json::Value& i : jp.items) progress.push_back(i.string);
+    if (progress.size() > data_.solution.size())
+        return saveFail(err, "SAVE_VALUE", "progress is longer than the solution");
+    for (const std::string& c : progress)
+        if (!data_.hasControl(c)) return saveFail(err, "SAVE_VALUE", "progress names an unknown control: " + c);
+    std::string via;
+    if (jo.isString()) {
+        via = jo.string;
+        if (via != "puzzle" && !data_.hasRoute(via)) return saveFail(err, "SAVE_VALUE", "unknown opened_via: " + via);
+    }
+    if (jw.integer < 0) return saveFail(err, "SAVE_VALUE", "wrong_count is negative");
+
+    // 3. Consistency with the rules.
+    const bool solved = js.boolean, open = jd.boolean, xp = jx.boolean;
+    if (open != jo.isString()) return saveFail(err, "SAVE_STATE", "door_open and opened_via disagree");
+    if (solved != (via == "puzzle")) return saveFail(err, "SAVE_STATE", "solved and opened_via=puzzle disagree");
+    if (solved) {
+        if (progress != data_.solution) return saveFail(err, "SAVE_STATE", "solved but progress is not the full solution");
+    } else if (open) {
+        if (!progress.empty()) return saveFail(err, "SAVE_STATE", "bypassed but progress is not empty");
+    } else {
+        if (progress.size() >= data_.solution.size())
+            return saveFail(err, "SAVE_STATE", "full progress but not solved");
+        for (std::size_t i = 0; i < progress.size(); ++i)
+            if (progress[i] != data_.solution[i]) return saveFail(err, "SAVE_STATE", "progress is not a prefix of the solution");
+    }
+    if (xp && !solved) return saveFail(err, "SAVE_STATE", "xp_awarded without a puzzle solve");
+
+    progress_ = progress;
+    solved_ = solved;
+    doorOpen_ = open;
+    openedVia_ = via;
+    wrongCount_ = jw.integer;
+    xpAwarded_ = xp;
+    return true;
+}
+
+}  // namespace puzzle
+}  // namespace dd

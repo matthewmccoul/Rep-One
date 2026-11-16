@@ -1,0 +1,5 @@
+$ python3 -I work/T001/map/validate_map.py work/T001/qa/fixtures/map_e08_no_break.json
+exit: 1
+--- output ---
+FAIL
+ - locked edge e08 missing solution break

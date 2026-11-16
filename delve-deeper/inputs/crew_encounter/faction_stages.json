@@ -1,0 +1,7 @@
+[
+  {"stage": "hostile", "favor": -2, "score_min": 0, "score_max": 19, "boss_behavior": "attacks on sight; no toll offered and no boss dialogue (toll_gold null means no toll is offered, NOT zero)", "toll_gold": null, "status": "GDD"},
+  {"stage": "threatening", "favor": -1, "score_min": 20, "score_max": 39, "boss_behavior": "demands full toll (starting stage); may be negotiated, paid, gifted to, fled from, or fought", "toll_gold": 100, "status": "EXPERIMENTAL"},
+  {"stage": "neutral", "favor": 0, "score_min": 40, "score_max": 59, "boss_behavior": "demands a lower toll", "toll_gold": 50, "status": "EXPERIMENTAL"},
+  {"stage": "friendly", "favor": 1, "score_min": 60, "score_max": 79, "boss_behavior": "demands a lower toll still", "toll_gold": 20, "status": "EXPERIMENTAL"},
+  {"stage": "allied", "favor": 2, "score_min": 80, "score_max": 100, "boss_behavior": "lets the adventurer through; toll 0 means free passage with no payment step", "toll_gold": 0, "status": "EXPERIMENTAL"}
+]

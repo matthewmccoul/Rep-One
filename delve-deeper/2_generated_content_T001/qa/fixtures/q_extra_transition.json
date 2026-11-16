@@ -1,0 +1,171 @@
+{
+  "version": "Version 3 (revision 2 of 2)",
+  "task": "T001-s003-narrative",
+  "status": "PROPOSAL (not approved by user)",
+  "quest_id": "quest_figure_ore_lift",
+  "giver": {
+    "node": "sewer_grate",
+    "npc": "mysterious_figure"
+  },
+  "destination": {
+    "node": "ore_lift",
+    "map_key": "quest_destinations.figure_task_destination"
+  },
+  "route": [
+    "sewer_grate",
+    "town_entrance",
+    "entry_hall",
+    "collapsed_gallery",
+    "ore_lift"
+  ],
+  "route_edges": [
+    "e01",
+    "e02",
+    "e04",
+    "e10"
+  ],
+  "discovery": {
+    "method": "arrival",
+    "note": "Seen on first arrival at ore_lift; no Search roll. Records chain_state in the message log. Observation is stored per character (relationships are per character).",
+    "chain_state_flag": "chain_state",
+    "chain_state_values": [
+      "present",
+      "gone"
+    ],
+    "default_chain_state": "present",
+    "default_note": "PROPOSAL: authored world fact. Whether it can change (e.g. a creature or bandits take it) is Systems/World, TBD."
+  },
+  "blanks_allowed": [
+    "{node_name}",
+    "{day}",
+    "{days_since}",
+    "{item}",
+    "{reward_item}",
+    "{reward_line}"
+  ],
+  "states": [
+    "not_offered",
+    "declined",
+    "active",
+    "observed_present",
+    "observed_gone",
+    "completed"
+  ],
+  "transitions": [
+    {
+      "from": "not_offered",
+      "event": "accept",
+      "to": "active"
+    },
+    {
+      "from": "not_offered",
+      "event": "decline",
+      "to": "declined"
+    },
+    {
+      "from": "declined",
+      "event": "accept",
+      "to": "active"
+    },
+    {
+      "from": "active",
+      "event": "arrive_ore_lift_chain_present",
+      "to": "observed_present"
+    },
+    {
+      "from": "active",
+      "event": "arrive_ore_lift_chain_gone",
+      "to": "observed_gone"
+    },
+    {
+      "from": "observed_present",
+      "event": "report",
+      "to": "completed"
+    },
+    {
+      "from": "observed_gone",
+      "event": "report",
+      "to": "completed"
+    },
+    {
+      "from": "not_offered",
+      "event": "report",
+      "to": "completed"
+    }
+  ],
+  "completion_condition": "state is observed_present or observed_gone (the accepting character has arrived at node ore_lift while the quest was active) AND the character then talks to the Figure at node sewer_grate and reports. Either chain state completes it.",
+  "report_variants": {
+    "not_offered": "fig_report_no_offer",
+    "declined": "fig_report_no_offer",
+    "active_recent": "fig_report_not_yet",
+    "active_long": "fig_report_nothing",
+    "active_long_threshold": "TBD (Systems; days since accept)",
+    "observed_present": [
+      "fig_report_present_cold",
+      "fig_report_present_warm"
+    ],
+    "observed_gone": [
+      "fig_report_gone_cold",
+      "fig_report_gone_warm"
+    ],
+    "completed": "fig_repeat_done"
+  },
+  "stage_rule": {
+    "scale": "-2 hostile, -1 threatening, 0 neutral, 1 friendly, 2 allied (GDD stages)",
+    "hostile": "applies only to making a NEW offer: fig_offer_refused at -2 is the only offer line at -2; PROPOSAL. Once the quest has been offered (accepted or declined), accept, decline, report and reward lines still work at -2.",
+    "cold_variants": "stages -2..0 once the quest has been offered (offer lines: -1..0 only)",
+    "warm_variants": "stages 1..2",
+    "note": "Stage selects wording only; no mechanics are added."
+  },
+  "reward": {
+    "default": "none; line fig_reward_none",
+    "rare_item": {
+      "chance": "TBD (Systems)",
+      "item": "{reward_item} chosen by the game from authored rare items (Systems)",
+      "line": "fig_reward_item"
+    },
+    "note": "GDD: usually no reward, rarely a rare item."
+  },
+  "relationship_hook": "PROPOSAL: quest accepted, ore_lift observed and reported are recorded actions that may appear in the Figure's daily action record. Counts and weights are Systems/AI Integration; none invented here.",
+  "strings": {
+    "offer": [
+      "fig_offer_cold",
+      "fig_offer_warm",
+      "fig_offer_refused"
+    ],
+    "choices": [
+      "fig_choice_accept",
+      "fig_choice_decline"
+    ],
+    "replies": [
+      "fig_accept_ack",
+      "fig_decline_reply"
+    ],
+    "report": [
+      "fig_report_not_yet",
+      "fig_report_nothing",
+      "fig_report_no_offer",
+      "fig_report_present_cold",
+      "fig_report_present_warm",
+      "fig_report_gone_cold",
+      "fig_report_gone_warm",
+      "fig_repeat_done"
+    ],
+    "reward": [
+      "fig_reward_none",
+      "fig_reward_item"
+    ],
+    "arrival_text": [
+      "lift_arrival_present",
+      "lift_arrival_gone"
+    ],
+    "log": [
+      "log_quest_accepted",
+      "log_lift_observed_present",
+      "log_lift_observed_gone",
+      "log_quest_done",
+      "log_reward_item",
+      "log_reward_none"
+    ]
+  }
+}

@@ -1,0 +1,51 @@
+check_id,result,label,command,exit_code,log_path,defect_id,note
+MAP-01,pass,EXECUTED,work/T001/build/map_check validate work/T001/map/floor1_map.json,0,work/T001/qa/out/MAP-01.log,,prints OK map nodes=17 edges=15
+MAP-02,pass,EXECUTED,python3 -I work/T001/map/validate_map.py work/T001/map/floor1_map.json,0,work/T001/qa/out/MAP-02.log,,run last after all broken copies
+MAP-03,pass,EXECUTED,work/T001/build/map_check validate work/T001/qa/fixtures/map_dup_node.json,1,work/T001/qa/out/MAP-03.log,,B; first line FAIL DUP_ID; edit: entry_hall id renamed mess_hall
+MAP-04,pass,EXECUTED,work/T001/build/map_check validate work/T001/qa/fixtures/map_dup_edge.json,1,work/T001/qa/out/MAP-04.log,,B; FAIL DUP_ID; edit: e15 id renamed e14
+MAP-05,pass,EXECUTED,work/T001/build/map_check validate work/T001/qa/fixtures/map_bad_door.json,1,work/T001/qa/out/MAP-05.log,,B; FAIL BAD_DOOR_TYPE; edit: e03 door=iron
+MAP-06,pass,EXECUTED,work/T001/build/map_check validate work/T001/qa/fixtures/map_bad_endpoint.json,1,work/T001/qa/out/MAP-06.log,,B; FAIL UNKNOWN_NODE; edit: e11 to=barrack
+MAP-07,pass,EXECUTED,work/T001/build/map_check validate work/T001/qa/fixtures/map_e08_no_break.json,1,work/T001/qa/out/MAP-07.log,,B; FAIL LOCKED_NEEDS_BREAK; edit: e08 solutions without break; verifies DEF-T001-2
+MAP-08,pass,EXECUTED,work/T001/build/map_check validate work/T001/qa/fixtures/map_e08_no_pick.json,1,work/T001/qa/out/MAP-08.log,,B; FAIL LOCKED_ROUTES; edit: e08 solutions [puzzle break]
+MAP-09,pass,EXECUTED,work/T001/build/map_check validate work/T001/qa/fixtures/map_stuck_pick.json,1,work/T001/qa/out/MAP-09.log,,B; FAIL STUCK_BREAK_ONLY; edit: e13 solutions [break pick_lock]
+MAP-10,pass,EXECUTED,work/T001/build/map_check validate work/T001/qa/fixtures/map_secret_nobase.json,1,work/T001/qa/out/MAP-10.log,,B; FAIL SECRET_BASE; edit: e09 base removed; Python reference ACCEPTS this (see EQV-10)
+MAP-11,not-run,NOT RUN,n/a,,,,TBD in GDD/content: not testable; no C++ check exists (README confirms MAP-11 not implemented)
+MAP-12,pass,EXECUTED,work/T001/build/map_check validate work/T001/qa/fixtures/map_descent_bypass.json,1,work/T001/qa/out/MAP-12.log,,B; FAIL DESCENT_NOT_VIA_BOSS; edit: added e16 toll_hall->descent plain
+MAP-13,pass,EXECUTED,work/T001/build/map_check validate work/T001/qa/fixtures/map_descent_cut.json,1,work/T001/qa/out/MAP-13.log,,B; FAIL NO_OPEN_ROUTE_TO_DESCENT; edit: e14 locked solutions [magic_key pick_lock break]
+MAP-14,pass,EXECUTED,work/T001/build/map_check validate work/T001/qa/fixtures/map_orphan.json,1,work/T001/qa/out/MAP-14.log,,B; FAIL UNREACHABLE_NODE; edit: e04 e10 e13 removed
+MAP-15,pass,EXECUTED,work/T001/build/map_check validate work/T001/qa/fixtures/map_clue_behind_e08.json,1,work/T001/qa/out/MAP-15.log,,B; FAIL PUZZLE_CLUE_BEHIND_DOOR; edit: puzzle_clue_site inside_room=storeroom
+MAP-16,pass,EXECUTED,work/T001/build/map_check validate work/T001/qa/fixtures/map_controls_behind_e08.json,1,work/T001/qa/out/MAP-16.log,,B; FAIL PUZZLE_CONTROLS_BEHIND_DOOR; edit: controls inside_room=storeroom x=0 y=4
+MAP-17,pass,EXECUTED,work/T001/build/map_check validate work/T001/qa/fixtures/map_opens_edge.json,1,work/T001/qa/out/MAP-17.log,,B; FAIL PUZZLE_EDGE; edit: opens_edge=e03
+MAP-18,pass,EXECUTED,work/T001/build/map_check validate work/T001/qa/fixtures/map_bad_quest_dest.json,1,work/T001/qa/out/MAP-18.log,,B; FAIL UNKNOWN_NODE; edit: figure_task_destination=ore_cellar
+MAP-19,pass,EXECUTED,work/T001/build/map_check validate work/T001/qa/fixtures/map_four_traps.json,1,work/T001/qa/out/MAP-19.log,,B; FAIL TRAP_COUNT; edit: trap_extra added to entry_hall
+MAP-20,pass,EXECUTED,work/T001/build/map_check validate work/T001/qa/fixtures/map_two_monsters.json,1,work/T001/qa/out/MAP-20.log,,B; FAIL MONSTER_TYPES; edit: mon_type_3 removed from monster_types
+MAP-21,pass,EXECUTED,work/T001/build/map_check validate work/T001/qa/fixtures/map_bad_monster.json,1,work/T001/qa/out/MAP-21.log,,B; FAIL UNKNOWN_MONSTER_TYPE; edit: enc_gallery_1 monster_type=mon_type_9
+MAP-22,pass,EXECUTED,work/T001/build/map_check validate work/T001/qa/fixtures/map_bad_area.json,1,work/T001/qa/out/MAP-22.log,,B; FAIL UNKNOWN_AREA; edit: boss_room area=area_x
+MAP-23,pass,EXECUTED,work/T001/build/map_check neighbours work/T001/map/floor1_map.json entry_hall,0,work/T001/qa/out/MAP-23.log,,set equals collapsed_gallery mess_hall town_entrance
+MAP-24,pass,EXECUTED,work/T001/build/map_check neighbours work/T001/map/floor1_map.json descent,0,work/T001/qa/out/MAP-24.log,,boss_room only
+MAP-25,pass,EXECUTED,work/T001/build/map_check neighbours work/T001/map/floor1_map.json nowhere,1,work/T001/qa/out/MAP-25.log,,B; FAIL UNKNOWN_NODE
+MAP-26a,pass,EXECUTED,work/T001/build/map_check door work/T001/map/floor1_map.json e08,0,work/T001/qa/out/MAP-26a.log,,locked
+MAP-26b,pass,EXECUTED,work/T001/build/map_check door work/T001/map/floor1_map.json e09,0,work/T001/qa/out/MAP-26b.log,,secret
+MAP-26c,pass,EXECUTED,work/T001/build/map_check door work/T001/map/floor1_map.json e13,0,work/T001/qa/out/MAP-26c.log,,stuck
+MAP-26d,pass,EXECUTED,work/T001/build/map_check door work/T001/map/floor1_map.json e03,0,work/T001/qa/out/MAP-26d.log,,plain
+MAP-27a,pass,EXECUTED,work/T001/build/map_check ways work/T001/map/floor1_map.json e08,0,work/T001/qa/out/MAP-27a.log,,puzzle magic_key pick_lock break
+MAP-27b,pass,EXECUTED,work/T001/build/map_check ways work/T001/map/floor1_map.json e09,0,work/T001/qa/out/MAP-27b.log,,search magic
+MAP-27c,pass,EXECUTED,work/T001/build/map_check ways work/T001/map/floor1_map.json e13,0,work/T001/qa/out/MAP-27c.log,,break
+MAP-28,pass,EXECUTED,work/T001/build/map_check ways work/T001/map/floor1_map.json e99,1,work/T001/qa/out/MAP-28.log,,B; FAIL UNKNOWN_EDGE
+MAP-29,pass,EXECUTED,work/T001/build/map_check reach work/T001/map/floor1_map.json town_entrance descent,0,work/T001/qa/out/MAP-29.log,,reachable
+MAP-30,pass,EXECUTED,work/T001/build/map_check reach work/T001/map/floor1_map.json town_entrance descent e14,0,work/T001/qa/out/MAP-30.log,,unreachable
+MAP-31a,pass,EXECUTED,work/T001/build/map_check reach work/T001/map/floor1_map.json town_entrance storeroom e08,0,work/T001/qa/out/MAP-31a.log,,unreachable
+MAP-31b,pass,EXECUTED,work/T001/build/map_check reach work/T001/map/floor1_map.json town_entrance puzzle_clue_site e08,0,work/T001/qa/out/MAP-31b.log,,reachable
+MAP-31c,pass,EXECUTED,work/T001/build/map_check reach work/T001/map/floor1_map.json town_entrance puzzle_controls_site e08,0,work/T001/qa/out/MAP-31c.log,,reachable
+MAP-31d,pass,EXECUTED,work/T001/build/map_check reach work/T001/map/floor1_map.json town_entrance foreman_office e08,0,work/T001/qa/out/MAP-31d.log,,reachable
+MAP-31e,pass,EXECUTED,work/T001/build/map_check reach work/T001/map/floor1_map.json town_entrance smelter_hall e08,0,work/T001/qa/out/MAP-31e.log,,reachable
+MAP-32,pass,EXECUTED,work/T001/build/map_check reach work/T001/map/floor1_map.json town_entrance ore_lift e04,0,work/T001/qa/out/MAP-32.log,,reachable
+MAP-33,pass,EXECUTED,work/T001/build/map_check reach work/T001/map/floor1_map.json town_entrance ore_lift e04 e09,0,work/T001/qa/out/MAP-33.log,,unreachable
+MAP-34,pass,EXECUTED,work/T001/build/map_check reach work/T001/map/floor1_map.json town_entrance descent e99,1,work/T001/qa/out/MAP-34.log,,B; FAIL UNKNOWN_EDGE
+MAP-35,pass,EXECUTED,work/T001/build/map_check reach work/T001/map/floor1_map.json sewer_grate ore_lift e08 e09 e13,0,work/T001/qa/out/MAP-35.log,,reachable
+MAP-36,pass,EXECUTED,ctest --test-dir work/T001/build --output-on-failure -R map_,0,work/T001/qa/out/MAP-36.log,,100% passed 21 of 21 (map_ pattern also matches pzl_map_cross_* and map_cli_real_validate)
+MAP-37,pass,EXECUTED,ctest --test-dir work/T001/qa/build_mut/map_reach --output-on-failure -R map_ --output-log work/T001/qa/out/MAP-37_ctest.log,8,work/T001/qa/out/MAP-37.log,,B; mutation: blocked-edge check removed in reachability; map_reach and map_puzzle_rules Failed. Build logs MAP-37-cfg.log MAP-37-build.log. Copy's CMakeLists DD_REPO_ROOT pinned to repo root (plumbing edit so tests find the real map; not part of the mutation)
+MAP-38,pass,EXECUTED,ctest --test-dir work/T001/build --output-on-failure -R map_cells,0,work/T001/qa/out/MAP-38.log,,1 test passed
+MAP-39,pass,EXECUTED,work/T001/build/map_check validate work/T001/qa/fixtures/map_cell_clash.json,1,work/T001/qa/out/MAP-39.log,,B; FAIL CELL_CLASH; edit: barracks x y set to toll_hall; Python reference ACCEPTS this (see EQV-10)
+EQV-09,pass,EXECUTED,map_check validate + validate_map.py on real map,0,work/T001/qa/out/MAP-01.log;work/T001/qa/out/MAP-02.log,,both exit 0
+EQV-10,pass,EXECUTED,python3 -I work/T001/map/validate_map.py <fixture> (20 fixtures; per-fixture logs work/T001/qa/out/EQV-10-<name>.log),1 (18 fixtures); 0 (2 fixtures),work/T001/qa/out/EQV-10-e08_no_break.log,,named five (03 05 07 12 15) both exit 1. Disagreements recorded: map_secret_nobase (MAP-10) and map_cell_clash (MAP-39): Python exit 0 (EQV-10-secret_nobase.log EQV-10-cell_clash.log) and C++ exit 1; Python lacks those rules (spec said it may). C++ is stricter as the spec requires. Not a C++ defect. Other 18 agree on reject; error codes differ in wording only

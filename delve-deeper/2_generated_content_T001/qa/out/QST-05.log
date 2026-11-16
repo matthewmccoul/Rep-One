@@ -1,0 +1,5 @@
+$ work/T001/build/quest_check validate work/T001/qa/fixtures/q_bad_giver.json work/T001/quest/figure_ore_lift_strings.csv work/T001/map/floor1_map.json
+exit: 1
+--- output ---
+FAIL UNKNOWN_NODE drain
+  also ROUTE_ENDS route must run from the giver node to the destination node

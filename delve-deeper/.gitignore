@@ -1,0 +1,9 @@
+# Unreal build output (rebuilt on the grader's machine)
+**/Binaries/
+**/Intermediate/
+**/Saved/
+**/DerivedDataCache/
+**/.vs/
+*.sln
+# agent scratch
+**/__pycache__/

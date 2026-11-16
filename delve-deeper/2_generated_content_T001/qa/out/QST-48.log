@@ -1,0 +1,4 @@
+$ work/T001/build/quest_check fill work/T001/quest/figure_ore_lift_strings.csv fig_repeat_done 0
+exit: 1
+--- output ---
+FAIL UNFILLED_BLANK day

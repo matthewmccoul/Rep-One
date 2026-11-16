@@ -1,0 +1,13 @@
+$ cmake -S work/T001/qa/mut/qst_hostile_noline2 -B work/T001/qa/build_mut/qst_hostile_noline2
+exit: 0
+--- output ---
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found Python3: /usr/local/bin/python3 (found version "3.13.18") found components: Interpreter 
+-- Configuring done (0.6s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/user/content_pipeline/work/T001/qa/build_mut/qst_hostile_noline2

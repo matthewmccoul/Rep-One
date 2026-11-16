@@ -1,0 +1,5 @@
+$ python3 -I work/T001/map/validate_map.py work/T001/qa/fixtures/map_stuck_pick.json
+exit: 1
+--- output ---
+FAIL
+ - stuck edge e13 solutions must be exactly [break]

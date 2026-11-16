@@ -1,0 +1,24 @@
+$ env DD_QUEST_JSON=/home/user/content_pipeline/work/T001/qa/fixtures/q_extra_transition.json ctest --test-dir work/T001/build --output-on-failure -R quest_transition_table
+exit: 8
+--- output ---
+Internal ctest changing into directory: /home/user/content_pipeline/work/T001/build
+Test project /home/user/content_pipeline/work/T001/build
+    Start  97: qst_quest_transition_table
+1/2 Test  #97: qst_quest_transition_table .............***Failed    0.00 sec
+engine(real file): DISAGREE not_offered --report--> engine gives not_offered, table says completed (listed)
+/home/user/content_pipeline/work/T001/code/tests/quest/test_quest.cpp:916: CHECK failed: badA == 0 (got [1] vs [0])
+engine(file under test): DISAGREE not_offered --report--> engine gives not_offered, table says completed (listed)
+/home/user/content_pipeline/work/T001/code/tests/quest/test_quest.cpp:919: CHECK failed: badB == 0 (got [1] vs [0])
+  FAIL quest_transition_table
+
+    Start 103: qst_quest_transition_table_extra_row
+2/2 Test #103: qst_quest_transition_table_extra_row ...   Passed    0.00 sec
+
+50% tests passed, 1 tests failed out of 2
+
+Total Test time (real) =   0.01 sec
+
+The following tests FAILED:
+	 97 - qst_quest_transition_table (Failed)
+[stderr]
+Errors while running CTest

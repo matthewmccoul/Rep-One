@@ -1,0 +1,4 @@
+$ work/T001/build/puzzle_check load work/T001/puzzle/storeroom_puzzle.json work/T001/qa/fixtures/pz_save_long.json
+exit: 1
+--- output ---
+FAIL SAVE_VALUE: progress is longer than the solution

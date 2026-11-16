@@ -1,0 +1,30 @@
+{
+ "status": "done",
+ "summary": "Dispatched World Designer (map v0), then Systems Designer (storeroom puzzle) and Narrative Designer (Figure ore-lift quest); all three returned done and files exist. Map JSON, puzzle and quest data tie to shared IDs, each with a Python validator or tests. Map v1 and Asset Curator were skipped as unneeded. Puzzle and quest logs were hand-copied from console output because redirection was blocked, so they are not tool-captured. Unreal code and maps are NOT RUN. Cost about 0.87 USD this box.",
+ "outputs": [
+  "work/T001/briefs/s003-world-designer.md",
+  "work/T001/briefs/s003-systems-designer.md",
+  "work/T001/briefs/s003-narrative-designer.md",
+  "work/T001/map/floor1_layout.md",
+  "work/T001/map/floor1_map.json",
+  "work/T001/map/validate_map.py",
+  "work/T001/map/validate_map.log",
+  "work/T001/puzzle/storeroom_puzzle_spec.md",
+  "work/T001/puzzle/storeroom_puzzle.json",
+  "work/T001/puzzle/puzzle_state_machine.py",
+  "work/T001/puzzle/test_puzzle.py",
+  "work/T001/puzzle/test_puzzle.log",
+  "work/T001/quest/figure_ore_lift_quest.md",
+  "work/T001/quest/figure_ore_lift_strings.csv",
+  "work/T001/quest/figure_ore_lift_quest.json",
+  "work/T001/quest/validate_quest.py",
+  "work/T001/quest/validate_quest.log",
+  "work/T001/step_results/s003-C1.json"
+ ],
+ "questions_for_user": [
+  "Approve treating the three puzzle controls as selectable objects with a 'use' action (not in the GDD)?",
+  "Should the sewer grate be in town (GDD drain) rather than on the dungeon side of the entrance? A town map would then be needed.",
+  "Puzzle wrong-attempt penalty (none proposed), puzzle XP, Figure rare-item chance and list: accept proposals or set values?",
+  "Should the puzzle state be per world or per character (proposed per world)?"
+ ]
+}

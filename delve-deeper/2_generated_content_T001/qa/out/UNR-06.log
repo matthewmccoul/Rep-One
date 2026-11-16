@@ -1,0 +1,5 @@
+$ python3 -I work/T001/code/tools/check_no_unreal.py --cmake work/T001/code
+exit: 0
+--- output ---
+8 CMake files scanned, 0 violation(s)
+RESULT PASS

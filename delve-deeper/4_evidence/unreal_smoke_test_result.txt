@@ -1,0 +1,31 @@
+PASS ValidateFloor  | problems=[]
+PASS LoadFloor  | nodes=17 edges=15 err=
+PASS FindReachable from town_entrance  | 17 reachable: ['barracks', 'boss_room', 'collapsed_gallery', 'descent', 'entry_hall', 'foreman_office', 'hidden_cache', 'mess_hall', 'ore_lift', 'puzzle_clue_site', 'puzzle_controls_site', 'sewer_grate', 'slag_passage', 'smelter_hall', 'storeroom', 'toll_hall', 'town_entrance']
+PASS FindReachable with e08 blocked excludes storeroom  | 16 reachable
+PASS Spawn DDFloorMapActor
+  MapFile default = 'floor1_map.json', CellSize = 600.0
+PASS BuildFloor spawned pieces  | 44 pieces, tag counts {'DDId': 44, 'DDDoor': 15, 'DDType': 17, 'DDSlot': 12}
+PASS ClearFloor removed pieces  | 0
+  PuzzleFile='storeroom_puzzle.json' MapFile='floor1_map.json'
+PASS LoadPuzzle  | out=('', <Array object at 0x0000022483907C30>)
+  state=idle summary=state=idle door_open=0 opened_via=none wrong=0 progress=
+  use ctl_cart -> <Struct 'DDUseOutcome' (0x0000022482455F80) {result: WrongReset, result_key: "wrong_reset", string_key: "str.use.wrong", text: "A grinding noise. The clicks fall back and the controls go quiet. Nothing is harmed."}>
+PASS Wrong control does not open door  | idle
+  use ctl_pick -> <Struct 'DDUseOutcome' (0x0000022482455080) {result: StepOk, result_key: "step_ok", string_key: "str.use.step_1", text: "The pick rack rattles. Something in the wall clicks once."}>
+  use ctl_cart -> <Struct 'DDUseOutcome' (0x0000022482455A00) {result: StepOk, result_key: "step_ok", string_key: "str.use.step_2", text: "The cart rolls a short way and stops. A second click."}>
+  use ctl_furnace -> <Struct 'DDUseOutcome' (0x0000022482455980) {result: Solved, result_key: "solved", string_key: "str.use.solved", text: "The furnace flares. A bolt slides back in the storeroom door and it swings loose."}>
+PASS Correct order opens door  | via=puzzle state=solved
+PASS ClaimXp once only  | first='puzzle_solve' second=''
+  saved state: {"progress":["ctl_pick","ctl_cart","ctl_furnace"],"solved":true,"door_open":true,"opened_via":"puzzle","wrong_count":1,"xp_awarded":true}
+PASS Save/LoadStateText round trip  | out=
+PASS Bypass pick_lock opens door, no XP  | result=<DDBypassResult.APPLIED: 0> via=pick_lock
+PASS LoadQuest  | out=('', <Array object at 0x0000022483907C30>)
+PASS StageFromScore(50)  | 0
+  Offer -> <Struct 'DDQuestStep' (0x0000022463BE00C0) {ok: True, fatal: False, refused: False, code: "", detail: "", state_before: "not_offered", state_after: "not_offered", lines: ((Kind="figure",Key="fig_offer_cold",Text="*Eyes flare behind the bars. A green finger points.* You. The old ore lift. Is the chain still on the drum? Go. Look. Come back and say.")), reward_rolled: False}>
+  Accept -> <Struct 'DDQuestStep' (0x0000022463BE0A80) {ok: True, fatal: False, refused: False, code: "", detail: "", state_before: "not_offered", state_after: "active", lines: ((Kind="figure",Key="fig_accept_ack",Text="*A finger points the way.* Down the entry hall. Past the gallery. The lift."),(Kind="log",Key="log_quest_accepted",Text="The figure behind the grate wants to know if the chain is still on the drum of the old ore lift. (Old ore lift, chain and drum)")), reward_rolled: False}>
+  Observe ore_lift -> <Struct 'DDQuestStep' (0x0000022463BE0780) {ok: True, fatal: False, refused: False, code: "", detail: "", state_before: "active", state_after: "observed_present", lines: ((Kind="narration",Key="lift_arrival_present",Text="The old ore lift. A heavy chain still hangs from the iron drum, rusted but whole."),(Kind="log",Key="log_lift_observed_present",Text="You note it: the chain is still on the drum. Day 2.")), reward_rolled: False}>
+  Report sewer_grate -> <Struct 'DDQuestStep' (0x0000022463BE0EA0) {ok: True, fatal: False, refused: False, code: "", detail: "", state_before: "observed_present", state_after: "completed", lines: ((Kind="figure",Key="fig_report_present_cold",Text="*A long pause.* The chain is on the drum. Good. Good. There is still much work to be done."),(Kind="log",Key="log_quest_done",Text="You told the figure what you saw at the Old ore lift, chain and drum."),(Kind="log",Key="log_reward_none",Text="The figure gave you nothing.")), reward_rolled: True}>
+  record: <Struct 'DDQuestRecord' (0x0000022482455480) {state: "completed", offered: True, refused: False, chain: "present", reward_rolled: True, reward_item: ""}>
+PASS Quest reached completed
+PASS Quest Save/Restore round trip  | out=
+DONE: 0 failure(s)

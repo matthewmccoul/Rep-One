@@ -1,0 +1,4 @@
+$ work/T001/build/quest_check line work/T001/quest/figure_ore_lift_strings.csv fig_report_no_offer -2
+exit: 0
+--- output ---
+*A finger lifts.* I asked nothing of you. Yet.

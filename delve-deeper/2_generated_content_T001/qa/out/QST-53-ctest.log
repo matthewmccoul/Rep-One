@@ -1,0 +1,86 @@
+[OUTPUT] 
+Internal ctest changing into directory: /home/user/content_pipeline/work/T001/qa/build_mut/qst_noobs
+
+[HANDLER_OUTPUT] 
+Test project /home/user/content_pipeline/work/T001/qa/build_mut/qst_noobs
+
+      Start  78: qst_quest_real_validates
+ 1/26 Test  #78: qst_quest_real_validates .........   Passed    0.00 sec
+      Start  79: qst_quest_stage_bands
+ 2/26 Test  #79: qst_quest_stage_bands ............   Passed    0.00 sec
+      Start  80: qst_quest_dialogue_agrees_csv
+ 3/26 Test  #80: qst_quest_dialogue_agrees_csv ....   Passed    0.00 sec
+      Start  81: qst_quest_fill_all
+ 4/26 Test  #81: qst_quest_fill_all ...............   Passed    0.00 sec
+      Start  82: qst_quest_fill_rules
+ 5/26 Test  #82: qst_quest_fill_rules .............   Passed    0.00 sec
+      Start  83: qst_quest_offer_variants
+ 6/26 Test  #83: qst_quest_offer_variants .........   Passed    0.00 sec
+      Start  84: qst_quest_accept_decline
+ 7/26 Test  #84: qst_quest_accept_decline .........   Passed    0.00 sec
+      Start  85: qst_quest_arrive_variants
+ 8/26 Test  #85: qst_quest_arrive_variants ........   Passed    0.00 sec
+      Start  86: qst_quest_report_variants
+ 9/26 Test  #86: qst_quest_report_variants ........***Failed    0.00 sec
+/home/user/content_pipeline/work/T001/qa/mut/qst_noobs/tests/quest/test_quest.cpp:409: CHECK failed: keyOf(s) == std::string("fig_report_not_yet") (got [fig_report_present_cold] vs [fig_report_not_yet])
+/home/user/content_pipeline/work/T001/qa/mut/qst_noobs/tests/quest/test_quest.cpp:410: CHECK failed: std::string(stateOf(e, "A")) == std::string("active") (got [completed] vs [active])
+/home/user/content_pipeline/work/T001/qa/mut/qst_noobs/tests/quest/test_quest.cpp:411: CHECK failed: !s.rewardRolled
+  FAIL quest_report_variants
+
+      Start  87: qst_quest_per_character
+10/26 Test  #87: qst_quest_per_character ..........   Passed    0.00 sec
+      Start  88: qst_quest_hostile_midquest
+11/26 Test  #88: qst_quest_hostile_midquest .......***Failed    0.00 sec
+/home/user/content_pipeline/work/T001/qa/mut/qst_noobs/tests/quest/test_quest.cpp:480: CHECK failed: keyOf(s) == std::string("fig_report_not_yet") (got [fig_report_present_cold] vs [fig_report_not_yet])
+/home/user/content_pipeline/work/T001/qa/mut/qst_noobs/tests/quest/test_quest.cpp:481: CHECK failed: std::string(stateOf(e, "A")) == std::string("active") (got [completed] vs [active])
+  FAIL quest_hostile_midquest
+
+      Start  89: qst_quest_hostile_reward
+12/26 Test  #89: qst_quest_hostile_reward .........   Passed    0.00 sec
+      Start  90: qst_quest_reward_once
+13/26 Test  #90: qst_quest_reward_once ............   Passed    0.00 sec
+      Start  91: qst_quest_reward_roll
+14/26 Test  #91: qst_quest_reward_roll ............   Passed    0.00 sec
+      Start  92: qst_quest_roundtrip
+15/26 Test  #92: qst_quest_roundtrip ..............   Passed    0.00 sec
+      Start  93: qst_quest_load_invalid
+16/26 Test  #93: qst_quest_load_invalid ...........   Passed    0.00 sec
+      Start  94: qst_quest_id_checks
+17/26 Test  #94: qst_quest_id_checks ..............   Passed    0.01 sec
+      Start  95: qst_quest_csv_rules
+18/26 Test  #95: qst_quest_csv_rules ..............   Passed    0.01 sec
+      Start  96: qst_quest_coverage_rule
+19/26 Test  #96: qst_quest_coverage_rule ..........   Passed    0.01 sec
+      Start  97: qst_quest_transition_table
+20/26 Test  #97: qst_quest_transition_table .......   Passed    0.00 sec
+      Start  98: qst_quest_cli_validate
+21/26 Test  #98: qst_quest_cli_validate ...........   Passed    0.02 sec
+      Start  99: qst_quest_cli_stage_line_fill
+22/26 Test  #99: qst_quest_cli_stage_line_fill ....   Passed    0.07 sec
+      Start 100: qst_quest_cli_run
+23/26 Test #100: qst_quest_cli_run ................***Failed    0.07 sec
+/home/user/content_pipeline/work/T001/qa/mut/qst_noobs/tests/quest/test_quest.cpp:974: CHECK failed: has(c, "key=fig_report_not_yet") && has(c, "state=active chain=none")
+  FAIL quest_cli_run
+
+      Start 101: qst_quest_cli_hostile
+24/26 Test #101: qst_quest_cli_hostile ............***Failed    0.04 sec
+/home/user/content_pipeline/work/T001/qa/mut/qst_noobs/tests/quest/test_quest.cpp:1001: CHECK failed: has(c, "key=fig_report_not_yet") && has(c, "state=active")
+  FAIL quest_cli_hostile
+
+      Start 102: qst_quest_cli_reward
+25/26 Test #102: qst_quest_cli_reward .............   Passed    0.05 sec
+      Start 103: qst_quest_python_reference
+26/26 Test #103: qst_quest_python_reference .......   Passed    0.03 sec
+
+85% tests passed, 4 tests failed out of 26
+
+Total Test time (real) =   0.37 sec
+
+The following tests FAILED:
+	 86 - qst_quest_report_variants (Failed)
+	 88 - qst_quest_hostile_midquest (Failed)
+	100 - qst_quest_cli_run (Failed)
+	101 - qst_quest_cli_hostile (Failed)
+[ERROR_MESSAGE] 
+Errors while running CTest
+

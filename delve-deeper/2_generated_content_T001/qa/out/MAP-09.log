@@ -1,0 +1,4 @@
+$ work/T001/build/map_check validate work/T001/qa/fixtures/map_stuck_pick.json
+exit: 1
+--- output ---
+FAIL STUCK_BREAK_ONLY: stuck edge e13 solutions must be exactly [break]

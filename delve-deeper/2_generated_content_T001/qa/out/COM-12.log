@@ -1,0 +1,4 @@
+$ work/T001/build/com_check csv work/T001/qa/fixtures/com_no_text_col.csv
+exit: 1
+--- output ---
+FAIL CSV_MISSING_COLUMN: line 1: required header column 'text' is missing

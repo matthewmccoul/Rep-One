@@ -1,0 +1,4 @@
+$ python3 -I work/T001/code/tools/check_text_guard.py work/T001/qa/fixtures/q_reason.csv
+exit: 1
+--- output ---
+FAIL TEXT_LEAK: fig_offer_cold: contains 'because'

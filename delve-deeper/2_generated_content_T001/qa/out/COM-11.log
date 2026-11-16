@@ -1,0 +1,4 @@
+$ work/T001/build/com_check csv work/T001/qa/fixtures/com_open_quote.csv
+exit: 1
+--- output ---
+FAIL CSV_BAD_QUOTE: line 4: text after closing quote

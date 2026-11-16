@@ -1,0 +1,6 @@
+$ python3 -I work/T001/map/validate_map.py work/T001/qa/fixtures/map_opens_edge.json
+exit: 1
+--- output ---
+FAIL
+ - puzzle opens_edge is not a locked/stuck edge
+ - storeroom door has no magic_key solution

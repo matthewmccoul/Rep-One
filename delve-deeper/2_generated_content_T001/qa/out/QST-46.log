@@ -1,0 +1,4 @@
+$ work/T001/build/quest_check fill work/T001/quest/figure_ore_lift_strings.csv fig_report_present_cold 0 reward_line=@fig_reward_item reward_item=Brass_Key
+exit: 0
+--- output ---
+*A long pause.* The chain is on the drum. Good. Good. *A green hand pushes something through the bars.* Take this. Brass_Key. Do not ask.

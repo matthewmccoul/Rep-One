@@ -1,0 +1,38 @@
+$ ctest --test-dir work/T001/qa/build_mut/qst_hostile_noline2 --output-on-failure -R quest_hostile
+exit: 8
+--- output ---
+Internal ctest changing into directory: /home/user/content_pipeline/work/T001/qa/build_mut/qst_hostile_noline2
+Test project /home/user/content_pipeline/work/T001/qa/build_mut/qst_hostile_noline2
+    Start 88: qst_quest_hostile_midquest
+1/2 Test #88: qst_quest_hostile_midquest .......***Failed    0.00 sec
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline2/tests/quest/test_quest.cpp:468: CHECK failed: s.ok && !s.fatal
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline2/tests/quest/test_quest.cpp:469: CHECK failed: keyOf(s, 0) == std::string("fig_report_present_cold") (got [<none>] vs [fig_report_present_cold])
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline2/tests/quest/test_quest.cpp:470: CHECK failed: keyOf(s, 1) == std::string("log_quest_done") (got [<none>] vs [log_quest_done])
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline2/tests/quest/test_quest.cpp:471: CHECK failed: std::string(stateOf(e, "A")) == std::string("completed") (got [observed_present] vs [completed])
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline2/tests/quest/test_quest.cpp:477: CHECK failed: keyOf(s, 0) == std::string("fig_report_gone_cold") (got [<none>] vs [fig_report_gone_cold])
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline2/tests/quest/test_quest.cpp:478: CHECK failed: std::string(stateOf(e, "A")) == std::string("completed") (got [observed_gone] vs [completed])
+  FAIL quest_hostile_midquest
+
+    Start 89: qst_quest_hostile_reward
+2/2 Test #89: qst_quest_hostile_reward .........***Failed    0.00 sec
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline2/tests/quest/test_quest.cpp:568: CHECK failed: s.ok
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline2/tests/quest/test_quest.cpp:569: CHECK failed: keyOf(s, 2) == std::string(pass == 0 ? "log_reward_item" : "log_reward_none") (got [<none>] vs [log_reward_item])
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline2/tests/quest/test_quest.cpp:570: CHECK failed: textOf(s, 0).find(pass == 0 ? "Take this. Brass_Key. Do not ask." : "There is still much work to be done.") != std::string::npos
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline2/tests/quest/test_quest.cpp:571: CHECK failed: en.record("A").rewardItem == std::string(pass == 0 ? "Brass_Key" : "") (got [] vs [Brass_Key])
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline2/tests/quest/test_quest.cpp:573: CHECK failed: src.calls == 1 (got [0] vs [1])
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline2/tests/quest/test_quest.cpp:568: CHECK failed: s.ok
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline2/tests/quest/test_quest.cpp:569: CHECK failed: keyOf(s, 2) == std::string(pass == 0 ? "log_reward_item" : "log_reward_none") (got [<none>] vs [log_reward_none])
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline2/tests/quest/test_quest.cpp:570: CHECK failed: textOf(s, 0).find(pass == 0 ? "Take this. Brass_Key. Do not ask." : "There is still much work to be done.") != std::string::npos
+/home/user/content_pipeline/work/T001/qa/mut/qst_hostile_noline2/tests/quest/test_quest.cpp:573: CHECK failed: src.calls == 1 (got [0] vs [1])
+  FAIL quest_hostile_reward
+
+
+0% tests passed, 2 tests failed out of 2
+
+Total Test time (real) =   0.01 sec
+
+The following tests FAILED:
+	 88 - qst_quest_hostile_midquest (Failed)
+	 89 - qst_quest_hostile_reward (Failed)
+[stderr]
+Errors while running CTest

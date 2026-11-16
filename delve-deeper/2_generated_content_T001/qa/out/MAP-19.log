@@ -1,0 +1,4 @@
+$ work/T001/build/map_check validate work/T001/qa/fixtures/map_four_traps.json
+exit: 1
+--- output ---
+FAIL TRAP_COUNT: trap count 4, expected 3

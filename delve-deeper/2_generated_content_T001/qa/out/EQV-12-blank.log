@@ -1,0 +1,10 @@
+$ python3 -I work/T001/quest/validate_quest.py work/T001/qa/fixtures/q_bad_blank_dir work/T001/map/floor1_map.json
+exit: 1
+--- output ---
+validate_quest.py Version 3 (revision 2 of 2)
+log: none (not a no-argument run and no --log)
+rows=25 keys_json=25 tests=10
+FAIL: undeclared blank in fig_report_nothing
+FAIL: blanks column mismatch in fig_report_nothing
+RESULT: FAIL
+exit code 1

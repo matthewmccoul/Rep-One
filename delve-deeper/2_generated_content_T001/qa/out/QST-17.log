@@ -1,0 +1,4 @@
+$ python3 -I work/T001/code/tools/check_text_guard.py work/T001/quest/figure_ore_lift_strings.csv
+exit: 0
+--- output ---
+OK text guard: no listed word in the text column of any row

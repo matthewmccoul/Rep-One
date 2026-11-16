@@ -1,0 +1,5 @@
+$ work/T001/build/quest_check validate work/T001/qa/fixtures/q_dest_mismatch.json work/T001/quest/figure_ore_lift_strings.csv work/T001/map/floor1_map.json
+exit: 1
+--- output ---
+FAIL DEST_MISMATCH barracks (map key figure_task_destination)
+  also ROUTE_ENDS route must run from the giver node to the destination node

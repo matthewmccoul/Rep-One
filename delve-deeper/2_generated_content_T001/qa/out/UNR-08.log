@@ -1,0 +1,45 @@
+$ python3 -I work/T001/code/tools/check_unreal_wrapper.py work/T001/code/unreal
+exit: 0
+--- output ---
+12 wrapper files scanned (generated Core copies skipped)
+CLASS ADDFloorMapActor (DelveDeeperContent/Source/DelveDeeperContent/Public/DDFloorMapActor.h, DelveDeeperContent/Source/DelveDeeperContent/Private/DDFloorMapActor.cpp): 4 core call(s)
+    .node                                    x2
+    dd::map::fromText                        x1
+    dd::map::validate                        x1
+CLASS UDDMapLibrary (DelveDeeperContent/Source/DelveDeeperContent/Public/DDMapLibrary.h, DelveDeeperContent/Source/DelveDeeperContent/Private/DDMapLibrary.cpp): 3 core call(s)
+    .reachable                               x1
+    dd::map::fromText                        x1
+    dd::map::validate                        x1
+CLASS UDDPuzzleComponent (DelveDeeperContent/Source/DelveDeeperContent/Public/DDPuzzleComponent.h, DelveDeeperContent/Source/DelveDeeperContent/Private/DDPuzzleComponent.cpp): 21 core call(s)
+    .claimXp                                 x1
+    .doorOpen                                x5
+    .loadState                               x1
+    .openOther                               x1
+    .openedVia                               x3
+    .progress                                x1
+    .state                                   x1
+    .summary                                 x1
+    .text                                    x1
+    .toJson                                  x1
+    .use                                     x1
+    dd::map::fromText                        x1
+    dd::puzzle::Puzzle::fromText             x1
+    dd::puzzle::Puzzle::stateName            x1
+    dd::puzzle::validateAgainstMap           x1
+CLASS UDDQuestComponent (DelveDeeperContent/Source/DelveDeeperContent/Public/DDQuestComponent.h, DelveDeeperContent/Source/DelveDeeperContent/Private/DDQuestComponent.cpp): 16 core call(s)
+    .accept                                  x1
+    .arrive                                  x1
+    .decline                                 x1
+    .offer                                   x1
+    .record                                  x1
+    .report                                  x1
+    .restore                                 x1
+    .save                                    x1
+    .setRewardConfig                         x1
+    dd::map::fromText                        x1
+    dd::quest::load                          x1
+    dd::quest::stageFromScore                x1
+    dd::quest::stateName                     x3
+    dd::quest::validate                      x1
+4 class(es), 0 violation(s)
+RESULT PASS

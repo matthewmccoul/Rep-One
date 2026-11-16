@@ -1,0 +1,4 @@
+$ work/T001/build/map_check validate work/T001/qa/fixtures/map_bad_area.json
+exit: 1
+--- output ---
+FAIL UNKNOWN_AREA: node boss_room has unknown area area_x

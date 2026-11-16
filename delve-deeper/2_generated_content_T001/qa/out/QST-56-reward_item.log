@@ -1,0 +1,4 @@
+$ work/T001/build/quest_check line work/T001/quest/figure_ore_lift_strings.csv fig_reward_item -2
+exit: 0
+--- output ---
+*A green hand pushes something through the bars.* Take this. {reward_item}. Do not ask.

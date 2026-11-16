@@ -1,0 +1,20 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "0.1.0-proposal",
+  "FriendlyName": "Delve Deeper Content",
+  "Description": "Thin Unreal wrappers (map, storeroom puzzle, Mysterious Figure quest) around the engine-neutral C++17 core. PROPOSAL: not compiled or run (Unreal missing).",
+  "Category": "Gameplay",
+  "CreatedBy": "Delve Deeper development crew",
+  "CanContainContent": true,
+  "IsBetaVersion": true,
+  "Installed": false,
+  "EngineVersion": "5.4.0",
+  "Modules": [
+    {
+      "Name": "DelveDeeperContent",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    }
+  ]
+}

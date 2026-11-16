@@ -1,0 +1,4 @@
+$ work/T001/build/com_check csv work/T001/qa/fixtures/com_ragged.csv
+exit: 1
+--- output ---
+FAIL CSV_RAGGED: line 2: row has 5 fields, header has 6

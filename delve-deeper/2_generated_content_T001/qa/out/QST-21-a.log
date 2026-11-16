@@ -1,0 +1,4 @@
+$ work/T001/build/quest_check line work/T001/quest/figure_ore_lift_strings.csv fig_offer_refused -2
+exit: 0
+--- output ---
+*The eyes narrow. The arms withdraw into the dark.* Not you. Not today.

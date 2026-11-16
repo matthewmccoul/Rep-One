@@ -1,0 +1,53 @@
+flowchart TD
+    G["GDD and current project state"] --> P0["Producer: recommend starting task, scope and budget"]
+    P0 --> H0{"You approve the starting brief?"}
+    H0 -->|Revise recommendation| P0
+    H0 -->|Approved brief| P["Producer: route and coordinate"]
+
+    subgraph D["1. Mechanics design and tweaking"]
+        D1["Systems Designer: research, propose and revise"]
+        D2["Relevant specialists and QA: review"]
+        D3{"You approve design or experiment?"}
+        D1 -->|Sources, rules and alternatives| D2
+        D2 -->|Recommendation and test criteria| D3
+        D3 -->|Revise| D1
+    end
+
+    subgraph I["2. Implementation"]
+        I1["Software and AI Integration: implement as needed"]
+        I2["QA tests and your playtest"]
+        I3{"Feature accepted?"}
+        I1 -->|Working candidate| I2
+        I2 -->|Evidence and behavior| I3
+        I3 -->|Bug or implementation revision| I1
+    end
+
+    subgraph C["3. Content generation"]
+        C1["World, Systems, Narrative and Assets: create"]
+        C2["World and Software: assemble; QA: test"]
+        C3{"You accept content?"}
+        CR["Critic: check new content against the GDD and lore"]
+        C1 -->|Compatible content package| CR
+        CR -->|Consistent with GDD and lore| C2
+        CR -->|Contradictions found| C1
+        C2 -->|Playable result and evidence| C3
+        C3 -->|Content revision| C1
+    end
+
+    P -->|Rules unresolved| D1
+    P -->|Approved capability needs building| I1
+    P -->|Required systems accepted| C1
+    P -->|Interface work needed| U["UI/UX Designer: controls and feedback"]
+    U -->|Requirements and review| D2
+    U -->|Interface specifications| I1
+    U -->|Content presentation| C2
+    D3 -->|Approved specification| I1
+    I3 -->|Rule problem or experimental findings| D1
+    I3 -->|Accepted capabilities and formats| C1
+    C3 -->|Implementation defect| I1
+    C3 -->|Mechanics problem or new design needed| D1
+    C3 -->|Accepted package| K["Versioned game and content catalogue"]
+    K -->|Next task within approved scope| P
+    K -->|New goal or changed boundaries| P0
+    P -. Results, costs and recurring failures .-> A["Development Systems Analyst"]
+    A -. Process recommendations .-> P
