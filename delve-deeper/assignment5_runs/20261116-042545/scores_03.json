@@ -1,0 +1,37 @@
+{
+  "selected": {
+    "id": "DD-TOLL-01",
+    "score": 18,
+    "impact": 3,
+    "urgency": 3,
+    "unblocks": 3,
+    "score_reason": "The boss is central to the milestone (GDD 385-387). The remaining gap is the pay prompt, which is small and blocks the pay step in DD-TOLL-02."
+  },
+  "candidates": [
+    {
+      "id": "DD-TOLL-01",
+      "score": 18,
+      "impact": 3,
+      "urgency": 3,
+      "unblocks": 3,
+      "score_reason": "The boss is central to the milestone (GDD 385-387). The remaining gap is the pay prompt, which is small and blocks the pay step in DD-TOLL-02."
+    }
+  ],
+  "waiting": [
+    {
+      "id": "DD-TOLL-02",
+      "waiting_on": [
+        "DD-TOLL-01"
+      ],
+      "why": "dependencies not implemented yet"
+    },
+    {
+      "id": "DD-DESC-01",
+      "waiting_on": [
+        "DD-TOLL-02"
+      ],
+      "why": "dependencies not implemented yet"
+    }
+  ],
+  "skipped": []
+}

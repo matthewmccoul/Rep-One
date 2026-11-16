@@ -1,0 +1,21 @@
+--- a/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp
++++ b/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp
+@@ -345,7 +345,8 @@
+     case EDDDemoKind::Purse:
+         return bPurseTaken ? FString() : TEXT("E  Take the gold purse");
+     case EDDDemoKind::Boss:
+-        return FString::Printf(TEXT("E  Speak to the bandit boss (toll: %d gold)"), TollGold);
++        // Q is the pay key (crew rule TOLL-03); the Q handler itself is DD-TOLL-02. Toll is a demo value.
++        return FString::Printf(TEXT("E  Speak to the bandit boss      Q  Pay the toll (%d gold)"), TollGold);
+     case EDDDemoKind::Figure:
+     {
+         const FString State = Quest->GetRecord(Hero).State;
+@@ -409,6 +410,8 @@
+         if (!bAlt)
+         {
+             AddMessage(TEXT("Bandit boss"), BossLine(TEXT("bandit_boss_stage_threatening_01")));
++            // Tell the player how to pay (Q while facing the boss; demo toll value from faction_stages.json).
++            AddMessage(TEXT("Demo"), FString::Printf(TEXT("Press Q facing the boss to pay the toll (%d gold)."), TollGold));
+         }
+         break;
+ 

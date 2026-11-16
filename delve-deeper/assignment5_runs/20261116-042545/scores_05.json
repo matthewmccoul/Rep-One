@@ -1,0 +1,22 @@
+{
+  "selected": {
+    "id": "DD-DESC-01",
+    "score": 15,
+    "impact": 3,
+    "urgency": 3,
+    "unblocks": 0,
+    "score_reason": "GDD lines 44-45 and 390 make going down the descent the win condition, and the milestone cannot be played to its end without it. It is the only missing requirement, with dependencies GOLD-01, TOLL-01 and TOLL-02 already implemented, so it is ready to build. Nothing else depends on it."
+  },
+  "candidates": [
+    {
+      "id": "DD-DESC-01",
+      "score": 15,
+      "impact": 3,
+      "urgency": 3,
+      "unblocks": 0,
+      "score_reason": "GDD lines 44-45 and 390 make going down the descent the win condition, and the milestone cannot be played to its end without it. It is the only missing requirement, with dependencies GOLD-01, TOLL-01 and TOLL-02 already implemented, so it is ready to build. Nothing else depends on it."
+    }
+  ],
+  "waiting": [],
+  "skipped": []
+}

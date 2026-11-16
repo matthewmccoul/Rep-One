@@ -1,0 +1,37 @@
+{
+  "selected": {
+    "id": "DD-TOLL-01",
+    "score": 18,
+    "impact": 3,
+    "urgency": 3,
+    "unblocks": 3,
+    "score_reason": "The boss is the center of the GDD boss encounter (lines 385-387). Both the toll payment and the descent depend on it, and none of it exists in the director."
+  },
+  "candidates": [
+    {
+      "id": "DD-TOLL-01",
+      "score": 18,
+      "impact": 3,
+      "urgency": 3,
+      "unblocks": 3,
+      "score_reason": "The boss is the center of the GDD boss encounter (lines 385-387). Both the toll payment and the descent depend on it, and none of it exists in the director."
+    }
+  ],
+  "waiting": [
+    {
+      "id": "DD-TOLL-02",
+      "waiting_on": [
+        "DD-TOLL-01"
+      ],
+      "why": "dependencies not implemented yet"
+    },
+    {
+      "id": "DD-DESC-01",
+      "waiting_on": [
+        "DD-TOLL-02"
+      ],
+      "why": "dependencies not implemented yet"
+    }
+  ],
+  "skipped": []
+}

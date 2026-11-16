@@ -83,6 +83,16 @@ void ADDDemoHUD::DrawHUD()
         }
     }
 
+    // Win banner, stays up once the demo is over (DD-DESC-01).
+    if (Director && Director->IsDemoOver())
+    {
+        const FString Banner = TEXT("YOU WIN - You went down the descent. The demo is over.");
+        float W = 0.f, H = 0.f;
+        GetTextSize(Banner, W, H, Font, Scale * 2.f);
+        DrawRect(FLinearColor(0.f, 0.f, 0.f, 0.75f), CX - W * 0.5f - 20.f, CY - 140.f, W + 40.f, H + 24.f);
+        DrawText(Banner, FLinearColor(1.f, 0.85f, 0.3f), CX - W * 0.5f, CY - 128.f, Font, Scale * 2.f);
+    }
+
     // Recent lines, bottom left (newest at the bottom).
     if (Director)
     {

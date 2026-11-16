@@ -1,0 +1,41 @@
+{
+  "requirement": "DD-TOLL-01",
+  "model_output": {
+    "summary": "Added a bandit boss interactable at boss_room. On interact it shows bandit_boss_stage_threatening_01 with {toll_amount} filled from faction_stages.json (threatening toll_gold, 100) and {adventurer_name} filled with the placeholder \"adventurer\". The prompt shows \"E Speak to the bandit boss (toll: 100 gold)\". Added EDDDemoKind::Boss. ADDDemoDirector gets LoadBanditData() (parses bandit_strings.csv with a quote-aware splitter, reads the toll from faction_stages.json via UDDMapLibrary::ReadDataFile) and BossLine(). Both data files are copied into the plugin's Content/Data/. The gold purse and the Gold status line already existed, so I left them alone. Paying is not implemented, since that is DD-TOLL-02. The prompt shows the toll amount only and offers no pay action, so \"the player sees how to pay\" is met only by the boss line (\"Pay it...\") and the toll amount, not by a pay control.",
+    "files_changed": [
+      "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoInteractable.h",
+      "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h",
+      "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+      "3_unreal_project/DelveDeeperTest/Plugins/DelveDeeperContent/Content/Data/bandit_strings.csv",
+      "3_unreal_project/DelveDeeperTest/Plugins/DelveDeeperContent/Content/Data/faction_stages.json"
+    ],
+    "connection": "ADDDemoDirector::BeginPlay (spawned by the demo level) calls LoadBanditData() and spawns the Boss ADDDemoInteractable at node boss_room. The existing player interact path calls ADDDemoInteractable::Interact, which calls Director->HandleInteract, which handles the new Boss case. The prompt comes from PromptFor, and the message goes through AddMessage into the HUD message log.",
+    "unverified": "I did not build. I did not play the level. I did not check that DDText::LoadDataFile finds the two copied files in Content/Data (it should, since it loads the existing map and puzzle files the same way). I did not check where the boss sits in boss_room or whether the player can reach him. The JSON array overload of FJsonSerializer::Deserialize and the Dom/JsonValue.h include are written from memory of the UE API. The adventurer name is a placeholder because the demo has no player name."
+  },
+  "changes": [
+    {
+      "path": "3_unreal_project/DelveDeeperTest/Plugins/DelveDeeperContent/Content/Data/bandit_strings.csv",
+      "kind": "added"
+    },
+    {
+      "path": "3_unreal_project/DelveDeeperTest/Plugins/DelveDeeperContent/Content/Data/faction_stages.json",
+      "kind": "added"
+    },
+    {
+      "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+      "kind": "modified"
+    },
+    {
+      "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h",
+      "kind": "modified"
+    },
+    {
+      "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoInteractable.h",
+      "kind": "modified"
+    }
+  ],
+  "cost_usd": 0.32239779999999996,
+  "models": [
+    "claude-sonnet-5-5"
+  ]
+}

@@ -17,7 +17,10 @@ enum class EDDDemoKind : uint8
     Carving,
     Control,
     Figure,
-    StoreroomDoor
+    StoreroomDoor,
+    Purse,
+    Boss,
+    Descent
 };
 
 UCLASS()

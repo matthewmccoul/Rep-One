@@ -1,0 +1,46 @@
+{
+  "selected": {
+    "id": "DD-GOLD-01",
+    "score": 18,
+    "impact": 3,
+    "urgency": 3,
+    "unblocks": 3,
+    "score_reason": "Gold is the currency (GDD line 319) and DD-TOLL-02 cannot be paid or tested without it. It has no dependencies, and the code has no gold state at all."
+  },
+  "candidates": [
+    {
+      "id": "DD-GOLD-01",
+      "score": 18,
+      "impact": 3,
+      "urgency": 3,
+      "unblocks": 3,
+      "score_reason": "Gold is the currency (GDD line 319) and DD-TOLL-02 cannot be paid or tested without it. It has no dependencies, and the code has no gold state at all."
+    },
+    {
+      "id": "DD-TOLL-01",
+      "score": 18,
+      "impact": 3,
+      "urgency": 3,
+      "unblocks": 3,
+      "score_reason": "The boss is the centre of the toll encounter (GDD lines 385-387). DD-TOLL-02 and DD-DESC-01 depend on it, and it has no dependencies. Nothing in the code exists yet, and it also needs a CSV and JSON loader for the crew inputs."
+    }
+  ],
+  "waiting": [
+    {
+      "id": "DD-TOLL-02",
+      "waiting_on": [
+        "DD-GOLD-01",
+        "DD-TOLL-01"
+      ],
+      "why": "dependencies not implemented yet"
+    },
+    {
+      "id": "DD-DESC-01",
+      "waiting_on": [
+        "DD-TOLL-02"
+      ],
+      "why": "dependencies not implemented yet"
+    }
+  ],
+  "skipped": []
+}

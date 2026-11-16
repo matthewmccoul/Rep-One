@@ -1,0 +1,196 @@
+{
+  "model_output": {
+    "results": [
+      {
+        "id": "DD-GOLD-01",
+        "status": "missing",
+        "summary": "The player has no gold balance, the status text has no gold line, and no gold purse is spawned in the barracks. Only the map data defines a barracks node.",
+        "evidence": [
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "GetStatusLines",
+            "note": "searched 'gold', 'purse', 'barracks' across Source/DelveDeeperTest; no hits. Status lines show only puzzle, quest and location."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoInteractable.h",
+            "symbol": "EDDDemoKind",
+            "note": "enum has Carving, Control, Figure, StoreroomDoor only; no purse kind."
+          }
+        ],
+        "impact": 3,
+        "urgency": 3,
+        "unblocks": 3,
+        "score_reason": "Gold is the currency (GDD line 319) and DD-TOLL-02 cannot be paid or tested without it. It has no dependencies, and the code has no gold state at all."
+      },
+      {
+        "id": "DD-TOLL-01",
+        "status": "missing",
+        "summary": "No bandit boss interactable exists. Nothing is spawned at boss_room, nothing reads bandit_strings.csv or faction_stages.json, and there is no toll prompt. The map defines boss_room, and Tick only tracks arrival at nodes.",
+        "evidence": [
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "BeginPlay",
+            "note": "searched 'boss', 'toll', 'bandit', 'boss_room', 'adventurer_name'; no hits. BeginPlay spawns only carving, controls, figure and storeroom door."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "PromptFor",
+            "note": "switch handles only the four existing kinds, so there is no boss prompt or pay hint."
+          }
+        ],
+        "impact": 3,
+        "urgency": 3,
+        "unblocks": 3,
+        "score_reason": "The boss is the centre of the toll encounter (GDD lines 385-387). DD-TOLL-02 and DD-DESC-01 depend on it, and it has no dependencies. Nothing in the code exists yet, and it also needs a CSV and JSON loader for the crew inputs."
+      },
+      {
+        "id": "DD-TOLL-02",
+        "status": "missing",
+        "summary": "There is no pay action, no toll-paid state, and no cannot-pay or toll-paid strings. HandleInteract has no boss case, and Q (alt interact) is already routed to the director for use as pay. It is blocked by the unbuilt gold and boss requirements.",
+        "evidence": [
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "HandleInteract",
+            "note": "searched 'toll_paid', 'cannot_pay', 'bandit_boss_toll_paid_01', 'Pay'; no hits. The bAlt parameter exists and could carry pay."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h",
+            "symbol": "bOfferHeard",
+            "note": "run-state flags live in the director; no bTollPaid or gold member exists."
+          }
+        ],
+        "impact": 3,
+        "urgency": 2,
+        "unblocks": 3,
+        "score_reason": "Paying is the core of the milestone and DD-DESC-01 needs it (GDD 385-390). It cannot be built until DD-GOLD-01 and DD-TOLL-01 are implemented, so urgency is a notch lower, and the code has nothing for it."
+      },
+      {
+        "id": "DD-DESC-01",
+        "status": "missing",
+        "summary": "No descent interactable exists and nothing ends the demo or shows a win message. The map has a descent node and the floor builds it as a walkable slab, but no code at all handles it.",
+        "evidence": [
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "BeginPlay",
+            "note": "searched 'descent', 'win', 'victory', 'barred'; no hits. Nothing is spawned at the descent node."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoHUD.cpp",
+            "symbol": "Status",
+            "note": "HUD draws only status lines and messages; there is no win banner and no input-stop logic in DDDemoCharacter."
+          }
+        ],
+        "impact": 3,
+        "urgency": 2,
+        "unblocks": 0,
+        "score_reason": "The win and descent are the demo's ending (GDD 44-45, 390) and central to the milestone. It depends on DD-TOLL-02, so it cannot start first, and nothing depends on it."
+      }
+    ]
+  },
+  "verified": {
+    "DD-GOLD-01": {
+      "status": "missing",
+      "model_status": "missing",
+      "summary": "The player has no gold balance, the status text has no gold line, and no gold purse is spawned in the barracks. Only the map data defines a barracks node.",
+      "evidence": [
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "GetStatusLines",
+          "note": "searched 'gold', 'purse', 'barracks' across Source/DelveDeeperTest; no hits. Status lines show only puzzle, quest and location.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoInteractable.h",
+          "symbol": "EDDDemoKind",
+          "note": "enum has Carving, Control, Figure, StoreroomDoor only; no purse kind.",
+          "verified": true,
+          "check": "symbol found"
+        }
+      ],
+      "impact": 3,
+      "urgency": 3,
+      "unblocks": 3,
+      "score_reason": "Gold is the currency (GDD line 319) and DD-TOLL-02 cannot be paid or tested without it. It has no dependencies, and the code has no gold state at all."
+    },
+    "DD-TOLL-01": {
+      "status": "missing",
+      "model_status": "missing",
+      "summary": "No bandit boss interactable exists. Nothing is spawned at boss_room, nothing reads bandit_strings.csv or faction_stages.json, and there is no toll prompt. The map defines boss_room, and Tick only tracks arrival at nodes.",
+      "evidence": [
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "BeginPlay",
+          "note": "searched 'boss', 'toll', 'bandit', 'boss_room', 'adventurer_name'; no hits. BeginPlay spawns only carving, controls, figure and storeroom door.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "PromptFor",
+          "note": "switch handles only the four existing kinds, so there is no boss prompt or pay hint.",
+          "verified": true,
+          "check": "symbol found"
+        }
+      ],
+      "impact": 3,
+      "urgency": 3,
+      "unblocks": 3,
+      "score_reason": "The boss is the centre of the toll encounter (GDD lines 385-387). DD-TOLL-02 and DD-DESC-01 depend on it, and it has no dependencies. Nothing in the code exists yet, and it also needs a CSV and JSON loader for the crew inputs."
+    },
+    "DD-TOLL-02": {
+      "status": "missing",
+      "model_status": "missing",
+      "summary": "There is no pay action, no toll-paid state, and no cannot-pay or toll-paid strings. HandleInteract has no boss case, and Q (alt interact) is already routed to the director for use as pay. It is blocked by the unbuilt gold and boss requirements.",
+      "evidence": [
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "HandleInteract",
+          "note": "searched 'toll_paid', 'cannot_pay', 'bandit_boss_toll_paid_01', 'Pay'; no hits. The bAlt parameter exists and could carry pay.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h",
+          "symbol": "bOfferHeard",
+          "note": "run-state flags live in the director; no bTollPaid or gold member exists.",
+          "verified": true,
+          "check": "symbol found"
+        }
+      ],
+      "impact": 3,
+      "urgency": 2,
+      "unblocks": 3,
+      "score_reason": "Paying is the core of the milestone and DD-DESC-01 needs it (GDD 385-390). It cannot be built until DD-GOLD-01 and DD-TOLL-01 are implemented, so urgency is a notch lower, and the code has nothing for it."
+    },
+    "DD-DESC-01": {
+      "status": "missing",
+      "model_status": "missing",
+      "summary": "No descent interactable exists and nothing ends the demo or shows a win message. The map has a descent node and the floor builds it as a walkable slab, but no code at all handles it.",
+      "evidence": [
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "BeginPlay",
+          "note": "searched 'descent', 'win', 'victory', 'barred'; no hits. Nothing is spawned at the descent node.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoHUD.cpp",
+          "symbol": "Status",
+          "note": "HUD draws only status lines and messages; there is no win banner and no input-stop logic in DDDemoCharacter.",
+          "verified": true,
+          "check": "symbol found"
+        }
+      ],
+      "impact": 3,
+      "urgency": 2,
+      "unblocks": 0,
+      "score_reason": "The win and descent are the demo's ending (GDD 44-45, 390) and central to the milestone. It depends on DD-TOLL-02, so it cannot start first, and nothing depends on it."
+    }
+  },
+  "cost_usd": 0.1569872,
+  "models": [
+    "claude-sonnet-5-5"
+  ]
+}

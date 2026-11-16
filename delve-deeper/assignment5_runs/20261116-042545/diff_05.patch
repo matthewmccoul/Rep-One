@@ -1,0 +1,116 @@
+--- a/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp
++++ b/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp
+@@ -121,6 +121,11 @@
+     Boss = SpawnInteractable(EDDDemoKind::Boss, TEXT("bandit_boss"), TEXT("Bandit boss"),
+                              NodeLocation(TEXT("boss_room")) + FVector(0.f, -120.f, 100.f), CylinderPath,
+                              FVector(0.8f, 0.8f, 2.0f), FLinearColor(0.5f, 0.05f, 0.05f));
++
++    // Descent at node "descent" (DD-DESC-01), placed in the descent cell, off the boss room's centre.
++    Descent = SpawnInteractable(EDDDemoKind::Descent, TEXT("descent"), TEXT("Descent"),
++                                NodeLocation(TEXT("descent")) + FVector(0.f, 0.f, 60.f), CubePath,
++                                FVector(1.5f, 1.5f, 1.2f), FLinearColor(0.05f, 0.05f, 0.08f));
+ 
+     // Storeroom: sealed until the puzzle (or a bypass) opens door e08.
+     const FVector Store = NodeLocation(TEXT("storeroom"));
+@@ -351,6 +356,12 @@
+             return TEXT("E  Speak to the bandit boss (toll paid)");
+         }
+         return FString::Printf(TEXT("E  Speak to the bandit boss      Q  Pay the toll (%d gold)"), TollGold);
++    case EDDDemoKind::Descent:
++        if (bDemoOver)
++        {
++            return FString();
++        }
++        return bTollPaid ? TEXT("E  Go down the descent") : TEXT("E  Go down the descent (barred)");
+     case EDDDemoKind::Figure:
+     {
+         const FString State = Quest->GetRecord(Hero).State;
+@@ -370,8 +381,35 @@
+ 
+ void ADDDemoDirector::HandleInteract(ADDDemoInteractable* Target, bool bAlt)
+ {
++    if (bDemoOver)
++    {
++        return;
++    }
+     switch (Target->Kind)
+     {
++    case EDDDemoKind::Descent:
++        if (!bAlt)
++        {
++            if (!bTollPaid)
++            {
++                AddMessage(TEXT("Demo"), TEXT("The bandit boss bars the way down. Pay his toll first."));
++            }
++            else
++            {
++                // Going down wins the demo however the boss was passed (GDD line 390). Input stops; HUD keeps the banner.
++                bDemoOver = true;
++                AddMessage(TEXT("Demo"), TEXT("You go down the descent. YOU WIN - the demo is over."));
++                if (APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0))
++                {
++                    if (APawn* Pawn = PC->GetPawn())
++                    {
++                        Pawn->DisableInput(PC);
++                    }
++                }
++            }
++        }
++        break;
++
+     case EDDDemoKind::Carving:
+         if (!bAlt)
+         {
+--- a/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h
++++ b/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h
+@@ -36,6 +36,8 @@
+ 
+     const TArray<FDDDemoMessage>& GetMessages() const { return Messages; }
+     TArray<FString> GetStatusLines() const;
++    // True once the player has gone down the open descent (GDD Win, lines 44-45); the HUD shows the win banner.
++    bool IsDemoOver() const { return bDemoOver; }
+ 
+ protected:
+     virtual void BeginPlay() override;
+@@ -98,5 +100,10 @@
+     // True once the toll is paid for this run (crew rule TOLL-03). Read by the descent in DD-DESC-01.
+     bool bTollPaid = false;
+ 
++    // Descent at node "descent" (GDD Win lines 44-45, Winning line 390). Using it with the toll paid ends the demo.
++    UPROPERTY()
++    TObjectPtr<ADDDemoInteractable> Descent;
++    bool bDemoOver = false;
++
+     static constexpr const TCHAR* Hero = TEXT("hero");
+ };
+--- a/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoHUD.cpp
++++ b/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoHUD.cpp
+@@ -83,6 +83,16 @@
+         }
+     }
+ 
++    // Win banner, stays up once the demo is over (DD-DESC-01).
++    if (Director && Director->IsDemoOver())
++    {
++        const FString Banner = TEXT("YOU WIN - You went down the descent. The demo is over.");
++        float W = 0.f, H = 0.f;
++        GetTextSize(Banner, W, H, Font, Scale * 2.f);
++        DrawRect(FLinearColor(0.f, 0.f, 0.f, 0.75f), CX - W * 0.5f - 20.f, CY - 140.f, W + 40.f, H + 24.f);
++        DrawText(Banner, FLinearColor(1.f, 0.85f, 0.3f), CX - W * 0.5f, CY - 128.f, Font, Scale * 2.f);
++    }
++
+     // Recent lines, bottom left (newest at the bottom).
+     if (Director)
+     {
+--- a/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoInteractable.h
++++ b/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoInteractable.h
+@@ -19,7 +19,8 @@
+     Figure,
+     StoreroomDoor,
+     Purse,
+-    Boss
++    Boss,
++    Descent
+ };
+ 
+ UCLASS()

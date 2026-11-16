@@ -1,0 +1,244 @@
+--- /dev/null
++++ b/3_unreal_project/DelveDeeperTest/Plugins/DelveDeeperContent/Content/Data/bandit_strings.csv
+@@ -0,0 +1,54 @@
++string_id,speaker,context,text,status
++bandit_boss_stage_hostile_01,bandit_boss,"boss, hostile stage (attacks on sight, no toll offered)","No toll for you, {adventurer_name}. We're past talking. Hope the dark treats you kinder than we will.",PROPOSAL
++bandit_boss_stage_threatening_01,bandit_boss,"boss, threatening stage (starting stage, full toll demanded)","Well now, {adventurer_name}. The way down costs {toll_amount} gold. Pay it, and we'll pretend we never met.",PROPOSAL
++bandit_boss_stage_neutral_01,bandit_boss,"boss, neutral stage (lower toll)","Ah, {adventurer_name}. Business is business. {toll_amount} gold and the road is yours.",PROPOSAL
++bandit_boss_stage_friendly_01,bandit_boss,"boss, friendly stage (lower toll still)","Friend of the crew! Mind, even friends pay. {toll_amount} gold, and I'll say it's a bargain.",PROPOSAL
++bandit_boss_stage_allied_01,bandit_boss,"boss, allied stage (free passage, no payment step)","{adventurer_name}, you've earned the crew's good word. Go on through. No toll for a partner.",PROPOSAL
++bandit_boss_toll_paid_01,bandit_boss,"toll paid in full; descent opens","Pleasure doing business, {adventurer_name}. Mind your step down there. We don't refund the dead.",PROPOSAL
++bandit_boss_cannot_pay_01,bandit_boss,"adventurer cannot pay and cannot barter enough; no penalty, other options remain","Short of {toll_amount} gold? Then you're short of a way down. Come back richer, or find another way to persuade me.",PROPOSAL
++bandit_boss_barter_01,bandit_boss,"adventurer lacks gold but offers items toward the toll","Not enough coin, but that {item} might do. I'll take it toward what you owe.",PROPOSAL
++bandit_boss_offer_too_low_01,bandit_boss,"offered payment below the toll; failed request, no penalty","That's not {toll_amount}, and we both know it. Try again with something that jingles.",PROPOSAL
++bandit_boss_gift_accepted_01,bandit_boss,"boss accepts a gift","A {item}? You do know how to talk to a man in my line of work, {adventurer_name}.",PROPOSAL
++bandit_boss_hostile_return_01,bandit,"individual bandit speaks (not the boss) after the adventurer fled and hostile_unlock days have passed; self-interest, not forgiveness; boss stays silent","Still breathing, {adventurer_name}? The boss won't see you, but I might hear you out. Dead customers don't pay. If you've something worth our while, say so quick.",PROPOSAL
++bandit_boss_quest_offered_01,bandit_boss,"boss sets a quest at a stage where he is willing to deal","Do the crew a favor: deal with {quest_target}. It's bad for business. Do that and we'll talk about your toll.",PROPOSAL
++bandit_boss_negotiate_success_01,bandit_boss,"negotiation succeeds","Hm. You argue well for someone I could rob. Fine, I'll count that in your favor.",PROPOSAL
++bandit_boss_negotiate_fail_01,bandit_boss,"negotiation fails (normal severity)","Nice try, {adventurer_name}. It didn't land. Don't push your luck.",PROPOSAL
++bandit_boss_negotiate_refused_01,bandit_boss,"negotiate unavailable: already tried today","I've heard enough from you for now. Ask me again when I've stopped being annoyed.",PROPOSAL
++bandit_gift_accepted_01,bandit,"rank-and-file bandit accepts a gift","Ha! A {item}. You're all right, {adventurer_name}. I'll put in a word with the boss.",PROPOSAL
++bandit_quest_offered_01,bandit,"bandit offers a small quest","Psst. {quest_target} has been costing us coin. Take care of it and the crew will remember.",PROPOSAL
++bandit_attacked_01,bandit,"bandit is attacked by the adventurer","You'll regret that, {adventurer_name}! Blades out, lads!",PROPOSAL
++bandit_flee_01,bandit,"adventurer flees the bandits","Run along, {adventurer_name}. The toll will still be here when you come back.",PROPOSAL
++bandit_boss_negotiate_failed_severe_01,bandit_boss,"negotiation fails badly (severe failure); must read as clearly worse than the normal failure","That was an insult, {adventurer_name}, and I don't take those lightly. Open your mouth like that again and we'll be done talking.",PROPOSAL
++bandit_boss_negotiate_unavailable_hostile_01,bandit,"negotiate attempted while the boss is hostile and NEG-06 blocks it; an individual bandit answers, boss silent","The boss isn't hearing you, {adventurer_name}, and neither am I. Words won't help you now.",PROPOSAL
++bandit_boss_gift_enough_01,bandit_boss,"gift offered after the boss has had enough for now; refusal by demeanor, item kept","Keep your {item}. You've been generous enough for now, and I don't want you thinking I can be bought by the armful.",PROPOSAL
++bandit_boss_gift_hostile_refused_01,bandit,"gift offered while the boss is hostile and not yet unlocked; an individual bandit refuses, boss silent","Put your {item} away, {adventurer_name}. The crew's still sore. A present won't un-ring that bell, not yet.",PROPOSAL
++log_toll_dialogue_open,system,"message log; toll dialogue opened (optional)","You face the bandit boss at the way down.",PROPOSAL
++log_toll_paid,system,"message log; toll paid in full","You paid the bandit boss {toll_amount} gold. The way down is open.",PROPOSAL
++log_toll_refused,system,"message log; adventurer cannot pay the toll; no penalty","You could not pay the toll. The boss turned you down.",PROPOSAL
++log_barter,system,"message log; item offered toward the toll","You offered {item} toward the toll.",PROPOSAL
++log_gift_accepted,system,"message log; a gift is accepted","The bandits accepted your gift: {item}.",PROPOSAL
++log_negotiate_success,system,"message log; negotiation with the boss succeeded","Your words found favor with the bandit boss.",PROPOSAL
++log_negotiate_fail,system,"message log; negotiation with the boss failed (normal)","The bandit boss was unmoved by your words.",PROPOSAL
++log_negotiate_fail_severe,system,"message log; negotiation with the boss failed badly","You gravely offended the bandit boss.",PROPOSAL
++log_negotiate_refused,system,"message log; boss refused to negotiate again for now","The bandit boss will not talk with you right now.",PROPOSAL
++log_quest_offered,system,"message log; the bandits offered work","The bandits asked you to deal with {quest_target}.",PROPOSAL
++log_passage_granted,system,"message log; passage granted without payment","The bandits let you through to the way down.",PROPOSAL
++log_flee_result,system,"message log; outcome of fleeing the bandits","You fled from the bandits.",PROPOSAL
++log_free_attack_taken,system,"message log; a bandit strikes the fleeing adventurer","A bandit struck you as you ran.",PROPOSAL
++log_boss_hostile,system,"message log; boss turned hostile","The bandit boss is hostile and attacks.",PROPOSAL
++ui_option_pay,ui,"option label; pay the toll","Pay toll",PROPOSAL
++ui_option_negotiate,ui,"option label; negotiate","Negotiate",PROPOSAL
++ui_option_gift,ui,"option label; give a gift","Give gift",PROPOSAL
++ui_option_quest,ui,"option label; ask for work","Ask for work",PROPOSAL
++ui_option_fight,ui,"option label; fight","Fight",PROPOSAL
++ui_option_leave,ui,"option label; leave","Leave",PROPOSAL
++ui_option_go_through,ui,"option label; allied passage","Go through",PROPOSAL
++ui_toll_label,ui,"number label; toll amount (layout shows the gold figure)","Toll",PROPOSAL
++ui_your_gold,ui,"number label; adventurer's gold (layout shows the figure)","Your gold",PROPOSAL
++ui_still_owed,ui,"number label; remaining debt in barter picker (layout shows the figure)","Still owed",PROPOSAL
++ui_shortfall_hint,ui,"hint on Pay toll row when gold is short","You are {shortfall} gold short.",PROPOSAL
++ui_fight_confirm,ui,"fight confirm title","Attack?",PROPOSAL
++ui_fight_confirm_body,ui,"fight confirm body; consequence by demeanor, no numbers","Strike the crew and they will turn on you. The bandits will remember this.",PROPOSAL
++ui_reaction_cue,ui,"optional short reaction text after gift or negotiation","The boss's expression shifts.",PROPOSAL
++ui_no_items,ui,"reason shown when the item picker is empty","You have nothing to offer.",PROPOSAL
++bandit_boss_gift_ceiling_01,bandit_boss,"gift refused because it would add nothing more to the boss's regard; refusal by demeanor, item kept","Hold on to that {item}, {adventurer_name}. I like you well enough as it is, and another present won't change my mind. Save it for a rainy day.",PROPOSAL
+--- /dev/null
++++ b/3_unreal_project/DelveDeeperTest/Plugins/DelveDeeperContent/Content/Data/faction_stages.json
+@@ -0,0 +1,7 @@
++[
++  {"stage": "hostile", "favor": -2, "score_min": 0, "score_max": 19, "boss_behavior": "attacks on sight; no toll offered and no boss dialogue (toll_gold null means no toll is offered, NOT zero)", "toll_gold": null, "status": "GDD"},
++  {"stage": "threatening", "favor": -1, "score_min": 20, "score_max": 39, "boss_behavior": "demands full toll (starting stage); may be negotiated, paid, gifted to, fled from, or fought", "toll_gold": 100, "status": "EXPERIMENTAL"},
++  {"stage": "neutral", "favor": 0, "score_min": 40, "score_max": 59, "boss_behavior": "demands a lower toll", "toll_gold": 50, "status": "EXPERIMENTAL"},
++  {"stage": "friendly", "favor": 1, "score_min": 60, "score_max": 79, "boss_behavior": "demands a lower toll still", "toll_gold": 20, "status": "EXPERIMENTAL"},
++  {"stage": "allied", "favor": 2, "score_min": 80, "score_max": 100, "boss_behavior": "lets the adventurer through; toll 0 means free passage with no payment step", "toll_gold": 0, "status": "EXPERIMENTAL"}
++]
+--- a/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp
++++ b/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp
+@@ -15,6 +15,7 @@
+ #include "Kismet/GameplayStatics.h"
+ #include "Materials/MaterialInstanceDynamic.h"
+ #include "Materials/MaterialInterface.h"
++#include "Dom/JsonValue.h"
+ #include "Serialization/JsonReader.h"
+ #include "Serialization/JsonSerializer.h"
+ 
+@@ -115,6 +116,12 @@
+                                   NodeLocation(TEXT("barracks")) + FVector(0.f, -120.f, 40.f), CubePath,
+                                   FVector(0.3f, 0.3f, 0.25f), FLinearColor(0.9f, 0.7f, 0.1f));
+ 
++    // Bandit boss at boss_room (DD-TOLL-01).
++    LoadBanditData();
++    Boss = SpawnInteractable(EDDDemoKind::Boss, TEXT("bandit_boss"), TEXT("Bandit boss"),
++                             NodeLocation(TEXT("boss_room")) + FVector(0.f, -120.f, 100.f), CylinderPath,
++                             FVector(0.8f, 0.8f, 2.0f), FLinearColor(0.5f, 0.05f, 0.05f));
++
+     // Storeroom: sealed until the puzzle (or a bypass) opens door e08.
+     const FVector Store = NodeLocation(TEXT("storeroom"));
+     if (UStaticMesh* Cube = LoadObject<UStaticMesh>(nullptr, CubePath))
+@@ -191,6 +198,92 @@
+         return Origin + FVector(Cell->X * CellSize, Cell->Y * CellSize, 0.f);
+     }
+     return Origin;
++}
++
++void ADDDemoDirector::LoadBanditData()
++{
++    FString Text;
++    FString Error;
++    // Strings: bandit_strings.csv, columns string_id,speaker,context,text,status (quoted fields may hold commas).
++    if (UDDMapLibrary::ReadDataFile(TEXT("bandit_strings.csv"), Text, Error))
++    {
++        TArray<FString> Lines;
++        Text.ParseIntoArrayLines(Lines);
++        for (int32 i = 1; i < Lines.Num(); ++i)
++        {
++            TArray<FString> Fields;
++            FString Current;
++            bool bQuoted = false;
++            const FString& Line = Lines[i];
++            for (int32 k = 0; k < Line.Len(); ++k)
++            {
++                const TCHAR Ch = Line[k];
++                if (Ch == TEXT('"'))
++                {
++                    if (bQuoted && k + 1 < Line.Len() && Line[k + 1] == TEXT('"'))
++                    {
++                        Current.AppendChar(TEXT('"'));
++                        ++k;
++                    }
++                    else
++                    {
++                        bQuoted = !bQuoted;
++                    }
++                }
++                else if (Ch == TEXT(',') && !bQuoted)
++                {
++                    Fields.Add(Current);
++                    Current.Reset();
++                }
++                else
++                {
++                    Current.AppendChar(Ch);
++                }
++            }
++            Fields.Add(Current);
++            if (Fields.Num() >= 4)
++            {
++                BanditStrings.Add(Fields[0], Fields[3]);
++            }
++        }
++    }
++    else
++    {
++        AddMessage(TEXT("Error"), TEXT("Bandit strings load failed: ") + Error);
++    }
++
++    // Toll: toll_gold of the "threatening" stage (the starting stage).
++    if (UDDMapLibrary::ReadDataFile(TEXT("faction_stages.json"), Text, Error))
++    {
++        TArray<TSharedPtr<FJsonValue>> Stages;
++        if (FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text), Stages))
++        {
++            for (const TSharedPtr<FJsonValue>& V : Stages)
++            {
++                const TSharedPtr<FJsonObject> Obj = V.IsValid() ? V->AsObject() : nullptr;
++                if (Obj.IsValid() && Obj->GetStringField(TEXT("stage")) == TEXT("threatening"))
++                {
++                    TollGold = static_cast<int32>(Obj->GetNumberField(TEXT("toll_gold")));
++                }
++            }
++        }
++    }
++    else
++    {
++        AddMessage(TEXT("Error"), TEXT("Faction stages load failed: ") + Error);
++    }
++}
++
++FString ADDDemoDirector::BossLine(const FString& StringId) const
++{
++    const FString* Found = BanditStrings.Find(StringId);
++    if (!Found)
++    {
++        return FString();
++    }
++    // Demo value: the adventurer has no name yet in the demo, so the generic "adventurer" is used.
++    return Found->Replace(TEXT("{adventurer_name}"), TEXT("adventurer"))
++        .Replace(TEXT("{toll_amount}"), *FString::FromInt(TollGold));
+ }
+ 
+ FString ADDDemoDirector::PuzzleString(const FString& Key) const
+@@ -251,6 +344,8 @@
+         return Puzzle->IsDoorOpen() ? FString() : TEXT("Storeroom door (locked)      Q  Pick the lock (bypass)");
+     case EDDDemoKind::Purse:
+         return bPurseTaken ? FString() : TEXT("E  Take the gold purse");
++    case EDDDemoKind::Boss:
++        return FString::Printf(TEXT("E  Speak to the bandit boss (toll: %d gold)"), TollGold);
+     case EDDDemoKind::Figure:
+     {
+         const FString State = Quest->GetRecord(Hero).State;
+@@ -306,6 +401,14 @@
+                 GoldPurse->Destroy();
+                 GoldPurse = nullptr;
+             }
++        }
++        break;
++
++    case EDDDemoKind::Boss:
++        // Starting (threatening) stage only; paying is a later requirement (DD-TOLL-02).
++        if (!bAlt)
++        {
++            AddMessage(TEXT("Bandit boss"), BossLine(TEXT("bandit_boss_stage_threatening_01")));
+         }
+         break;
+ 
+--- a/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h
++++ b/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h
+@@ -63,6 +63,9 @@
+     void AddQuestStep(const FDDQuestStep& Step);
+     FVector NodeLocation(const FString& NodeId) const;
+     FString PuzzleString(const FString& Key) const;
++    // Crew encounter data (DD-TOLL-01): strings from bandit_strings.csv, toll from faction_stages.json.
++    void LoadBanditData();
++    FString BossLine(const FString& StringId) const;
+     ADDDemoInteractable* SpawnInteractable(EDDDemoKind Kind, const FString& Id, const FString& Name,
+                                            const FVector& Location, const TCHAR* MeshPath, const FVector& Scale,
+                                            const FLinearColor& Color);
+@@ -86,5 +89,12 @@
+     // Demo value: 100 is the crew's EXPERIMENTAL toll value (faction_stages.json), not approved design.
+     static constexpr int32 PurseGold = 100;
+ 
++    // Bandit boss (Boss Encounter, GDD lines 385-387). Starts at the threatening stage.
++    UPROPERTY()
++    TObjectPtr<ADDDemoInteractable> Boss;
++    TMap<FString, FString> BanditStrings;
++    // Toll for the threatening stage, read from faction_stages.json. Demo value 100 (crew EXPERIMENTAL, not approved).
++    int32 TollGold = 0;
++
+     static constexpr const TCHAR* Hero = TEXT("hero");
+ };
+--- a/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoInteractable.h
++++ b/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoInteractable.h
+@@ -18,7 +18,8 @@
+     Control,
+     Figure,
+     StoreroomDoor,
+-    Purse
++    Purse,
++    Boss
+ };
+ 
+ UCLASS()

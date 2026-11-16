@@ -1,0 +1,220 @@
+{
+  "model_output": {
+    "results": [
+      {
+        "id": "DD-GOLD-01",
+        "status": "implemented",
+        "summary": "The director holds a Gold balance that starts at 0 and shows it in the status lines the HUD draws. It spawns a gold purse at the barracks, and interacting adds 100 once (bPurseTaken guard, purse destroyed, prompt empties). I did not run the game; I confirmed the call chain by reading the code only.",
+        "evidence": [
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "EDDDemoKind::Purse",
+            "note": "Purse spawned at node barracks in BeginPlay. The HandleInteract Purse case adds PurseGold once, guarded by bPurseTaken."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "Gold: %d",
+            "note": "GetStatusLines adds the gold line"
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoHUD.cpp",
+            "symbol": "GetStatusLines",
+            "note": "The HUD calls it to draw the status text"
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoGameMode.cpp",
+            "symbol": "SpawnActor<ADDDemoDirector>",
+            "note": "The game mode spawns the director, so the game reaches this code"
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoCharacter.cpp",
+            "symbol": "Interact(false)",
+            "note": "The interact key calls the interactable, which calls Director->HandleInteract"
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h",
+            "symbol": "PurseGold",
+            "note": "Constant 100, labelled as a demo value"
+          }
+        ],
+        "impact": 2,
+        "urgency": 3,
+        "unblocks": 3,
+        "score_reason": "Gold already exists, so there is little left to build. The toll payment (DD-TOLL-02) depends on it, so unblocks is high. Impact is middling because gold alone is not the milestone ending."
+      },
+      {
+        "id": "DD-TOLL-01",
+        "status": "missing",
+        "summary": "No boss interactable, boss kind, boss_room placement or bandit_strings.csv loading exists in the source. EDDDemoKind has only Carving, Control, Figure, StoreroomDoor and Purse.",
+        "evidence": [
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoInteractable.h",
+            "symbol": "EDDDemoKind",
+            "note": "Searched the Source tree for boss, toll, bandit_boss and boss_room. There were no matches, and the enum has no boss kind."
+          },
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "SpawnInteractable",
+            "note": "Searched for boss_room and bandit_boss_stage_threatening_01. Nothing spawns or voices a boss."
+          }
+        ],
+        "impact": 3,
+        "urgency": 3,
+        "unblocks": 3,
+        "score_reason": "The boss is the center of the GDD boss encounter (lines 385-387). Both the toll payment and the descent depend on it, and none of it exists in the director."
+      },
+      {
+        "id": "DD-TOLL-02",
+        "status": "missing",
+        "summary": "There is no toll state, no pay action and no bandit_boss_toll_paid_01 or bandit_boss_cannot_pay_01 text. Gold is only added, never spent.",
+        "evidence": [
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h",
+            "symbol": "Gold",
+            "note": "Searched for toll, bTollPaid, cannot_pay and toll_paid. No matches. Gold is only increased in the purse case."
+          }
+        ],
+        "impact": 3,
+        "urgency": 2,
+        "unblocks": 2,
+        "score_reason": "Paying the toll is the central mechanic of the milestone. It cannot be built before the boss exists (DD-TOLL-01), and the descent depends on it. Urgency is lower because gold is ready but the boss is not."
+      },
+      {
+        "id": "DD-DESC-01",
+        "status": "missing",
+        "summary": "There is no descent interactable at node descent, no barred message, no win message and no end-of-demo state. The map nodes are built as slabs only.",
+        "evidence": [
+          {
+            "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+            "symbol": "NodeLocation",
+            "note": "Searched for descent, win, barred and bDemoOver. Nothing spawns or handles a descent interactable. The HUD has no win banner."
+          }
+        ],
+        "impact": 3,
+        "urgency": 1,
+        "unblocks": 0,
+        "score_reason": "Going down the descent is the win condition (GDD lines 44-45, 390), so impact is high. It is last in the dependency chain, so it cannot start yet and nothing waits on it."
+      }
+    ]
+  },
+  "verified": {
+    "DD-GOLD-01": {
+      "status": "implemented",
+      "model_status": "implemented",
+      "summary": "The director holds a Gold balance that starts at 0 and shows it in the status lines the HUD draws. It spawns a gold purse at the barracks, and interacting adds 100 once (bPurseTaken guard, purse destroyed, prompt empties). I did not run the game; I confirmed the call chain by reading the code only.",
+      "evidence": [
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "EDDDemoKind::Purse",
+          "note": "Purse spawned at node barracks in BeginPlay. The HandleInteract Purse case adds PurseGold once, guarded by bPurseTaken.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "Gold: %d",
+          "note": "GetStatusLines adds the gold line",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoHUD.cpp",
+          "symbol": "GetStatusLines",
+          "note": "The HUD calls it to draw the status text",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoGameMode.cpp",
+          "symbol": "SpawnActor<ADDDemoDirector>",
+          "note": "The game mode spawns the director, so the game reaches this code",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoCharacter.cpp",
+          "symbol": "Interact(false)",
+          "note": "The interact key calls the interactable, which calls Director->HandleInteract",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h",
+          "symbol": "PurseGold",
+          "note": "Constant 100, labelled as a demo value",
+          "verified": true,
+          "check": "symbol found"
+        }
+      ],
+      "impact": 2,
+      "urgency": 3,
+      "unblocks": 3,
+      "score_reason": "Gold already exists, so there is little left to build. The toll payment (DD-TOLL-02) depends on it, so unblocks is high. Impact is middling because gold alone is not the milestone ending."
+    },
+    "DD-TOLL-01": {
+      "status": "missing",
+      "model_status": "missing",
+      "summary": "No boss interactable, boss kind, boss_room placement or bandit_strings.csv loading exists in the source. EDDDemoKind has only Carving, Control, Figure, StoreroomDoor and Purse.",
+      "evidence": [
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoInteractable.h",
+          "symbol": "EDDDemoKind",
+          "note": "Searched the Source tree for boss, toll, bandit_boss and boss_room. There were no matches, and the enum has no boss kind.",
+          "verified": true,
+          "check": "symbol found"
+        },
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "SpawnInteractable",
+          "note": "Searched for boss_room and bandit_boss_stage_threatening_01. Nothing spawns or voices a boss.",
+          "verified": true,
+          "check": "symbol found"
+        }
+      ],
+      "impact": 3,
+      "urgency": 3,
+      "unblocks": 3,
+      "score_reason": "The boss is the center of the GDD boss encounter (lines 385-387). Both the toll payment and the descent depend on it, and none of it exists in the director."
+    },
+    "DD-TOLL-02": {
+      "status": "missing",
+      "model_status": "missing",
+      "summary": "There is no toll state, no pay action and no bandit_boss_toll_paid_01 or bandit_boss_cannot_pay_01 text. Gold is only added, never spent.",
+      "evidence": [
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h",
+          "symbol": "Gold",
+          "note": "Searched for toll, bTollPaid, cannot_pay and toll_paid. No matches. Gold is only increased in the purse case.",
+          "verified": true,
+          "check": "symbol found"
+        }
+      ],
+      "impact": 3,
+      "urgency": 2,
+      "unblocks": 2,
+      "score_reason": "Paying the toll is the central mechanic of the milestone. It cannot be built before the boss exists (DD-TOLL-01), and the descent depends on it. Urgency is lower because gold is ready but the boss is not."
+    },
+    "DD-DESC-01": {
+      "status": "missing",
+      "model_status": "missing",
+      "summary": "There is no descent interactable at node descent, no barred message, no win message and no end-of-demo state. The map nodes are built as slabs only.",
+      "evidence": [
+        {
+          "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+          "symbol": "NodeLocation",
+          "note": "Searched for descent, win, barred and bDemoOver. Nothing spawns or handles a descent interactable. The HUD has no win banner.",
+          "verified": true,
+          "check": "symbol found"
+        }
+      ],
+      "impact": 3,
+      "urgency": 1,
+      "unblocks": 0,
+      "score_reason": "Going down the descent is the win condition (GDD lines 44-45, 390), so impact is high. It is last in the dependency chain, so it cannot start yet and nothing waits on it."
+    }
+  },
+  "cost_usd": 0.1471808,
+  "models": [
+    "claude-sonnet-5-5"
+  ]
+}

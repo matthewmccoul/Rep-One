@@ -1,0 +1,80 @@
+--- a/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp
++++ b/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp
+@@ -110,6 +110,11 @@
+                       NodeLocation(TEXT("sewer_grate")) + FVector(0.f, -120.f, 100.f), CylinderPath,
+                       FVector(0.6f, 0.6f, 1.8f), FLinearColor(0.1f, 0.45f, 0.15f));
+ 
++    // Gold purse in the bandit barracks (demo fixture, DD-GOLD-01).
++    GoldPurse = SpawnInteractable(EDDDemoKind::Purse, TEXT("gold_purse"), TEXT("Gold purse"),
++                                  NodeLocation(TEXT("barracks")) + FVector(0.f, -120.f, 40.f), CubePath,
++                                  FVector(0.3f, 0.3f, 0.25f), FLinearColor(0.9f, 0.7f, 0.1f));
++
+     // Storeroom: sealed until the puzzle (or a bypass) opens door e08.
+     const FVector Store = NodeLocation(TEXT("storeroom"));
+     if (UStaticMesh* Cube = LoadObject<UStaticMesh>(nullptr, CubePath))
+@@ -244,6 +249,8 @@
+         return TEXT("E  Use ") + Target->DisplayName;
+     case EDDDemoKind::StoreroomDoor:
+         return Puzzle->IsDoorOpen() ? FString() : TEXT("Storeroom door (locked)      Q  Pick the lock (bypass)");
++    case EDDDemoKind::Purse:
++        return bPurseTaken ? FString() : TEXT("E  Take the gold purse");
+     case EDDDemoKind::Figure:
+     {
+         const FString State = Quest->GetRecord(Hero).State;
+@@ -284,6 +291,20 @@
+                 {
+                     AddMessage(TEXT("XP"), FString::Printf(TEXT("%s awarded once (amount TBD in the GDD)"), *Xp));
+                 }
++            }
++        }
++        break;
++
++    case EDDDemoKind::Purse:
++        if (!bAlt && !bPurseTaken)
++        {
++            bPurseTaken = true;
++            Gold += PurseGold;
++            AddMessage(TEXT("Loot"), FString::Printf(TEXT("You take %d gold. Gold: %d."), PurseGold, Gold));
++            if (GoldPurse)
++            {
++                GoldPurse->Destroy();
++                GoldPurse = nullptr;
+             }
+         }
+         break;
+@@ -359,6 +380,7 @@
+             break;
+         }
+     }
++    Lines.Add(FString::Printf(TEXT("Gold: %d"), Gold));
+     Lines.Add(TEXT("Location: ") + Where);
+     return Lines;
+ }
+--- a/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h
++++ b/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h
+@@ -78,5 +78,13 @@
+     bool bOfferHeard = false;
+     FVector SafeLocation = FVector::ZeroVector;
+ 
++    // Demo gold (GDD "Currency: Gold", line 319). Balance starts at 0.
++    UPROPERTY()
++    TObjectPtr<ADDDemoInteractable> GoldPurse;
++    int32 Gold = 0;
++    bool bPurseTaken = false;
++    // Demo value: 100 is the crew's EXPERIMENTAL toll value (faction_stages.json), not approved design.
++    static constexpr int32 PurseGold = 100;
++
+     static constexpr const TCHAR* Hero = TEXT("hero");
+ };
+--- a/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoInteractable.h
++++ b/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoInteractable.h
+@@ -17,7 +17,8 @@
+     Carving,
+     Control,
+     Figure,
+-    StoreroomDoor
++    StoreroomDoor,
++    Purse
+ };
+ 
+ UCLASS()

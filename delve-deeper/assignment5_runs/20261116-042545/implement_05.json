@@ -1,0 +1,36 @@
+{
+  "requirement": "DD-DESC-01",
+  "model_output": {
+    "summary": "Added a Descent interactable at node `descent` and an end-of-demo state. Before the toll is paid, E on the descent shows \"The bandit boss bars the way down. Pay his toll first.\" and the demo continues. After the toll is paid, E sets `bDemoOver`, adds a win message and disables pawn input. `HandleInteract` ignores all interaction once the demo is over, and the HUD draws a persistent \"YOU WIN\" banner. The barred and win texts are labeled demo text because bandit_strings.csv has no suitable string.",
+    "files_changed": [
+      "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoInteractable.h",
+      "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h",
+      "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+      "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoHUD.cpp"
+    ],
+    "connection": "`ADDDemoDirector::BeginPlay` (spawned by the demo level) calls `SpawnInteractable(EDDDemoKind::Descent, ...)` at `NodeLocation(\"descent\")`. The player's E key calls `ADDDemoCharacter::Interact`, then `ADDDemoInteractable::Interact`, then `ADDDemoDirector::HandleInteract`, which handles the new Descent case. `ADDDemoDirector::PromptFor` supplies the prompt. `ADDDemoHUD::DrawHUD` finds the director and draws the banner when `IsDemoOver()` is true.",
+    "unverified": "Nothing was built or played. I did not confirm that the map has a node with id `descent` (the scope says it does). The cube's placement and visibility at that node and its distance from the boss are unchecked. `Pawn->DisableInput(PC)` stopping Enhanced Input movement and look is unconfirmed. The HUD banner's size and position are untested. The barred and win messages are demo text, not from bandit_strings.csv."
+  },
+  "changes": [
+    {
+      "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+      "kind": "modified"
+    },
+    {
+      "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h",
+      "kind": "modified"
+    },
+    {
+      "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoHUD.cpp",
+      "kind": "modified"
+    },
+    {
+      "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoInteractable.h",
+      "kind": "modified"
+    }
+  ],
+  "cost_usd": 0.23186479999999998,
+  "models": [
+    "claude-sonnet-5-5"
+  ]
+}

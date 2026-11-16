@@ -1,0 +1,58 @@
+--- a/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp
++++ b/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp
+@@ -346,6 +346,10 @@
+         return bPurseTaken ? FString() : TEXT("E  Take the gold purse");
+     case EDDDemoKind::Boss:
+         // Q is the pay key (crew rule TOLL-03); the Q handler itself is DD-TOLL-02. Toll is a demo value.
++        if (bTollPaid)
++        {
++            return TEXT("E  Speak to the bandit boss (toll paid)");
++        }
+         return FString::Printf(TEXT("E  Speak to the bandit boss      Q  Pay the toll (%d gold)"), TollGold);
+     case EDDDemoKind::Figure:
+     {
+@@ -406,8 +410,31 @@
+         break;
+ 
+     case EDDDemoKind::Boss:
+-        // Starting (threatening) stage only; paying is a later requirement (DD-TOLL-02).
+-        if (!bAlt)
++        // Threatening stage only. Q pays the toll (crew rule TOLL-03); demo toll value from faction_stages.json.
++        if (bAlt)
++        {
++            if (bTollPaid)
++            {
++                AddMessage(TEXT("Bandit boss"), TEXT("You have already paid. The way is open."));
++            }
++            else if (Gold >= TollGold)
++            {
++                Gold -= TollGold;
++                bTollPaid = true;
++                // Paying changes no faction favor.
++                AddMessage(TEXT("Bandit boss"), BossLine(TEXT("bandit_boss_toll_paid_01")));
++                AddMessage(TEXT("Log"), BossLine(TEXT("log_toll_paid")));
++            }
++            else
++            {
++                AddMessage(TEXT("Bandit boss"), BossLine(TEXT("bandit_boss_cannot_pay_01")));
++            }
++        }
++        else if (bTollPaid)
++        {
++            AddMessage(TEXT("Bandit boss"), TEXT("Toll's paid. Go on down."));
++        }
++        else
+         {
+             AddMessage(TEXT("Bandit boss"), BossLine(TEXT("bandit_boss_stage_threatening_01")));
+             // Tell the player how to pay (Q while facing the boss; demo toll value from faction_stages.json).
+--- a/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h
++++ b/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h
+@@ -95,6 +95,8 @@
+     TMap<FString, FString> BanditStrings;
+     // Toll for the threatening stage, read from faction_stages.json. Demo value 100 (crew EXPERIMENTAL, not approved).
+     int32 TollGold = 0;
++    // True once the toll is paid for this run (crew rule TOLL-03). Read by the descent in DD-DESC-01.
++    bool bTollPaid = false;
+ 
+     static constexpr const TCHAR* Hero = TEXT("hero");
+ };

@@ -1,0 +1,30 @@
+{
+  "selected": {
+    "id": "DD-TOLL-02",
+    "score": 18,
+    "impact": 3,
+    "urgency": 3,
+    "unblocks": 3,
+    "score_reason": "Paying is the central gameplay of M1 (GDD 385-387). Acceptance checks 2 and 3 cannot run without it. DD-DESC-01 depends on it. Both of its dependencies are implemented, so it can be built now."
+  },
+  "candidates": [
+    {
+      "id": "DD-TOLL-02",
+      "score": 18,
+      "impact": 3,
+      "urgency": 3,
+      "unblocks": 3,
+      "score_reason": "Paying is the central gameplay of M1 (GDD 385-387). Acceptance checks 2 and 3 cannot run without it. DD-DESC-01 depends on it. Both of its dependencies are implemented, so it can be built now."
+    }
+  ],
+  "waiting": [
+    {
+      "id": "DD-DESC-01",
+      "waiting_on": [
+        "DD-TOLL-02"
+      ],
+      "why": "dependencies not implemented yet"
+    }
+  ],
+  "skipped": []
+}

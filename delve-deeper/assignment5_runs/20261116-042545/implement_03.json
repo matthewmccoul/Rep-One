@@ -1,0 +1,21 @@
+{
+  "requirement": "DD-TOLL-01",
+  "model_output": {
+    "summary": "The boss already spawned at boss_room and showed bandit_boss_stage_threatening_01 with the toll filled in. The one gap was that the player wasn't told how to pay. I changed the boss prompt to \"E Speak to the bandit boss      Q  Pay the toll (N gold)\". Speaking to the boss now also adds a message, \"Press Q facing the boss to pay the toll (N gold).\" N is TollGold, loaded from faction_stages.json. I did not add a pay handler, because that is DD-TOLL-02.",
+    "files_changed": [
+      "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp"
+    ],
+    "connection": "The prompt and message are in ADDDemoDirector::PromptFor and HandleInteract (case Boss). The existing boss interactable spawned in the floor build (SpawnInteractable(EDDDemoKind::Boss)) reaches them through the E key. Q is already mapped to AltAction, which calls Interact(true) and then HandleInteract(Target, true).",
+    "unverified": "I did not build or play. Q is advertised, but pressing it on the boss does nothing until DD-TOLL-02 adds the handler, so that gap is deliberate for now. The strings and toll are loaded at BeginPlay. I did not confirm that the faction_stages.json load succeeds at runtime, that the boss spawns at the right place in DemoLevel, or that the message log shows the new line."
+  },
+  "changes": [
+    {
+      "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+      "kind": "modified"
+    }
+  ],
+  "cost_usd": 0.1263686,
+  "models": [
+    "claude-sonnet-5-5"
+  ]
+}

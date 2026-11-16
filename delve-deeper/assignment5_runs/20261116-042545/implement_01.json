@@ -1,0 +1,31 @@
+{
+  "requirement": "DD-GOLD-01",
+  "model_output": {
+    "summary": "Added a gold balance (starts at 0) to ADDDemoDirector and a Purse interactable kind. A gold purse spawns at node barracks. Interacting with it once adds 100 gold (demo value, the crew's EXPERIMENTAL toll value) and logs a message. The purse is then destroyed, and a bPurseTaken flag blocks a second pickup. GetStatusLines now has a \"Gold: N\" line, which the HUD already draws. I did not check the prompt-empty path in DDDemoHUD or DDDemoCharacter; the existing StoreroomDoor case returns an empty prompt the same way.",
+    "files_changed": [
+      "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoInteractable.h",
+      "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h",
+      "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp"
+    ],
+    "connection": "ADDDemoDirector::BeginPlay spawns the purse through SpawnInteractable at NodeLocation(\"barracks\"). The player's interact key goes through ADDDemoInteractable::Interact to ADDDemoDirector::HandleInteract, which has a new Purse case. PromptFor has a Purse case. ADDDemoHUD already calls GetStatusLines, which now includes the Gold line.",
+    "unverified": "I have not built the project or played it. I did not check that the purse sits on the barracks slab and can be reached and targeted by the player's interact trace. I did not check that the HUD handles an empty prompt cleanly. Gold is kept in the director, not on ADDDemoCharacter. The later toll requirements will read the balance from the director."
+  },
+  "changes": [
+    {
+      "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.cpp",
+      "kind": "modified"
+    },
+    {
+      "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoDirector.h",
+      "kind": "modified"
+    },
+    {
+      "path": "3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/DDDemoInteractable.h",
+      "kind": "modified"
+    }
+  ],
+  "cost_usd": 0.29450469999999995,
+  "models": [
+    "claude-sonnet-5-5"
+  ]
+}

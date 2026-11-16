@@ -15,6 +15,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Materials/MaterialInterface.h"
+#include "Dom/JsonValue.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
 
@@ -110,6 +111,22 @@ void ADDDemoDirector::BeginPlay()
                       NodeLocation(TEXT("sewer_grate")) + FVector(0.f, -120.f, 100.f), CylinderPath,
                       FVector(0.6f, 0.6f, 1.8f), FLinearColor(0.1f, 0.45f, 0.15f));
 
+    // Gold purse in the bandit barracks (demo fixture, DD-GOLD-01).
+    GoldPurse = SpawnInteractable(EDDDemoKind::Purse, TEXT("gold_purse"), TEXT("Gold purse"),
+                                  NodeLocation(TEXT("barracks")) + FVector(0.f, -120.f, 40.f), CubePath,
+                                  FVector(0.3f, 0.3f, 0.25f), FLinearColor(0.9f, 0.7f, 0.1f));
+
+    // Bandit boss at boss_room (DD-TOLL-01).
+    LoadBanditData();
+    Boss = SpawnInteractable(EDDDemoKind::Boss, TEXT("bandit_boss"), TEXT("Bandit boss"),
+                             NodeLocation(TEXT("boss_room")) + FVector(0.f, -120.f, 100.f), CylinderPath,
+                             FVector(0.8f, 0.8f, 2.0f), FLinearColor(0.5f, 0.05f, 0.05f));
+
+    // Descent at node "descent" (DD-DESC-01), placed in the descent cell, off the boss room's centre.
+    Descent = SpawnInteractable(EDDDemoKind::Descent, TEXT("descent"), TEXT("Descent"),
+                                NodeLocation(TEXT("descent")) + FVector(0.f, 0.f, 60.f), CubePath,
+                                FVector(1.5f, 1.5f, 1.2f), FLinearColor(0.05f, 0.05f, 0.08f));
+
     // Storeroom: sealed until the puzzle (or a bypass) opens door e08.
     const FVector Store = NodeLocation(TEXT("storeroom"));
     if (UStaticMesh* Cube = LoadObject<UStaticMesh>(nullptr, CubePath))
@@ -188,6 +205,92 @@ FVector ADDDemoDirector::NodeLocation(const FString& NodeId) const
     return Origin;
 }
 
+void ADDDemoDirector::LoadBanditData()
+{
+    FString Text;
+    FString Error;
+    // Strings: bandit_strings.csv, columns string_id,speaker,context,text,status (quoted fields may hold commas).
+    if (UDDMapLibrary::ReadDataFile(TEXT("bandit_strings.csv"), Text, Error))
+    {
+        TArray<FString> Lines;
+        Text.ParseIntoArrayLines(Lines);
+        for (int32 i = 1; i < Lines.Num(); ++i)
+        {
+            TArray<FString> Fields;
+            FString Current;
+            bool bQuoted = false;
+            const FString& Line = Lines[i];
+            for (int32 k = 0; k < Line.Len(); ++k)
+            {
+                const TCHAR Ch = Line[k];
+                if (Ch == TEXT('"'))
+                {
+                    if (bQuoted && k + 1 < Line.Len() && Line[k + 1] == TEXT('"'))
+                    {
+                        Current.AppendChar(TEXT('"'));
+                        ++k;
+                    }
+                    else
+                    {
+                        bQuoted = !bQuoted;
+                    }
+                }
+                else if (Ch == TEXT(',') && !bQuoted)
+                {
+                    Fields.Add(Current);
+                    Current.Reset();
+                }
+                else
+                {
+                    Current.AppendChar(Ch);
+                }
+            }
+            Fields.Add(Current);
+            if (Fields.Num() >= 4)
+            {
+                BanditStrings.Add(Fields[0], Fields[3]);
+            }
+        }
+    }
+    else
+    {
+        AddMessage(TEXT("Error"), TEXT("Bandit strings load failed: ") + Error);
+    }
+
+    // Toll: toll_gold of the "threatening" stage (the starting stage).
+    if (UDDMapLibrary::ReadDataFile(TEXT("faction_stages.json"), Text, Error))
+    {
+        TArray<TSharedPtr<FJsonValue>> Stages;
+        if (FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text), Stages))
+        {
+            for (const TSharedPtr<FJsonValue>& V : Stages)
+            {
+                const TSharedPtr<FJsonObject> Obj = V.IsValid() ? V->AsObject() : nullptr;
+                if (Obj.IsValid() && Obj->GetStringField(TEXT("stage")) == TEXT("threatening"))
+                {
+                    TollGold = static_cast<int32>(Obj->GetNumberField(TEXT("toll_gold")));
+                }
+            }
+        }
+    }
+    else
+    {
+        AddMessage(TEXT("Error"), TEXT("Faction stages load failed: ") + Error);
+    }
+}
+
+FString ADDDemoDirector::BossLine(const FString& StringId) const
+{
+    const FString* Found = BanditStrings.Find(StringId);
+    if (!Found)
+    {
+        return FString();
+    }
+    // Demo value: the adventurer has no name yet in the demo, so the generic "adventurer" is used.
+    return Found->Replace(TEXT("{adventurer_name}"), TEXT("adventurer"))
+        .Replace(TEXT("{toll_amount}"), *FString::FromInt(TollGold));
+}
+
 FString ADDDemoDirector::PuzzleString(const FString& Key) const
 {
     const FString* Found = PuzzleStrings.Find(Key);
@@ -244,6 +347,21 @@ FString ADDDemoDirector::PromptFor(const ADDDemoInteractable* Target) const
         return TEXT("E  Use ") + Target->DisplayName;
     case EDDDemoKind::StoreroomDoor:
         return Puzzle->IsDoorOpen() ? FString() : TEXT("Storeroom door (locked)      Q  Pick the lock (bypass)");
+    case EDDDemoKind::Purse:
+        return bPurseTaken ? FString() : TEXT("E  Take the gold purse");
+    case EDDDemoKind::Boss:
+        // Q is the pay key (crew rule TOLL-03); the Q handler itself is DD-TOLL-02. Toll is a demo value.
+        if (bTollPaid)
+        {
+            return TEXT("E  Speak to the bandit boss (toll paid)");
+        }
+        return FString::Printf(TEXT("E  Speak to the bandit boss      Q  Pay the toll (%d gold)"), TollGold);
+    case EDDDemoKind::Descent:
+        if (bDemoOver)
+        {
+            return FString();
+        }
+        return bTollPaid ? TEXT("E  Go down the descent") : TEXT("E  Go down the descent (barred)");
     case EDDDemoKind::Figure:
     {
         const FString State = Quest->GetRecord(Hero).State;
@@ -263,8 +381,35 @@ FString ADDDemoDirector::PromptFor(const ADDDemoInteractable* Target) const
 
 void ADDDemoDirector::HandleInteract(ADDDemoInteractable* Target, bool bAlt)
 {
+    if (bDemoOver)
+    {
+        return;
+    }
     switch (Target->Kind)
     {
+    case EDDDemoKind::Descent:
+        if (!bAlt)
+        {
+            if (!bTollPaid)
+            {
+                AddMessage(TEXT("Demo"), TEXT("The bandit boss bars the way down. Pay his toll first."));
+            }
+            else
+            {
+                // Going down wins the demo however the boss was passed (GDD line 390). Input stops; HUD keeps the banner.
+                bDemoOver = true;
+                AddMessage(TEXT("Demo"), TEXT("You go down the descent. YOU WIN - the demo is over."));
+                if (APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0))
+                {
+                    if (APawn* Pawn = PC->GetPawn())
+                    {
+                        Pawn->DisableInput(PC);
+                    }
+                }
+            }
+        }
+        break;
+
     case EDDDemoKind::Carving:
         if (!bAlt)
         {
@@ -285,6 +430,53 @@ void ADDDemoDirector::HandleInteract(ADDDemoInteractable* Target, bool bAlt)
                     AddMessage(TEXT("XP"), FString::Printf(TEXT("%s awarded once (amount TBD in the GDD)"), *Xp));
                 }
             }
+        }
+        break;
+
+    case EDDDemoKind::Purse:
+        if (!bAlt && !bPurseTaken)
+        {
+            bPurseTaken = true;
+            Gold += PurseGold;
+            AddMessage(TEXT("Loot"), FString::Printf(TEXT("You take %d gold. Gold: %d."), PurseGold, Gold));
+            if (GoldPurse)
+            {
+                GoldPurse->Destroy();
+                GoldPurse = nullptr;
+            }
+        }
+        break;
+
+    case EDDDemoKind::Boss:
+        // Threatening stage only. Q pays the toll (crew rule TOLL-03); demo toll value from faction_stages.json.
+        if (bAlt)
+        {
+            if (bTollPaid)
+            {
+                AddMessage(TEXT("Bandit boss"), TEXT("You have already paid. The way is open."));
+            }
+            else if (Gold >= TollGold)
+            {
+                Gold -= TollGold;
+                bTollPaid = true;
+                // Paying changes no faction favor.
+                AddMessage(TEXT("Bandit boss"), BossLine(TEXT("bandit_boss_toll_paid_01")));
+                AddMessage(TEXT("Log"), BossLine(TEXT("log_toll_paid")));
+            }
+            else
+            {
+                AddMessage(TEXT("Bandit boss"), BossLine(TEXT("bandit_boss_cannot_pay_01")));
+            }
+        }
+        else if (bTollPaid)
+        {
+            AddMessage(TEXT("Bandit boss"), TEXT("Toll's paid. Go on down."));
+        }
+        else
+        {
+            AddMessage(TEXT("Bandit boss"), BossLine(TEXT("bandit_boss_stage_threatening_01")));
+            // Tell the player how to pay (Q while facing the boss; demo toll value from faction_stages.json).
+            AddMessage(TEXT("Demo"), FString::Printf(TEXT("Press Q facing the boss to pay the toll (%d gold)."), TollGold));
         }
         break;
 
@@ -359,6 +551,7 @@ TArray<FString> ADDDemoDirector::GetStatusLines() const
             break;
         }
     }
+    Lines.Add(FString::Printf(TEXT("Gold: %d"), Gold));
     Lines.Add(TEXT("Location: ") + Where);
     return Lines;
 }
