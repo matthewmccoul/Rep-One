@@ -1,0 +1,13 @@
+{
+  "run_id": "20261116-002643",
+  "started": "2026-11-16T05:26:43Z",
+  "milestone": "M1 first-floor ending",
+  "iterations": [],
+  "scans": [],
+  "claude_calls": [],
+  "ended": "2026-11-16T05:26:48Z",
+  "result": "STAGE FAILED",
+  "exit_code": 1,
+  "why": "claude exited 1: Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.\nError: Input must be provided either through stdin or as a prompt argument when using --print",
+  "total_cost_usd": 0.0
+}

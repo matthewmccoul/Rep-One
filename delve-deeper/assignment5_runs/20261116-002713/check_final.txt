@@ -1,0 +1,50 @@
+Using bundled DotNet SDK version: 10.0 win-x64
+Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" DelveDeeperTestEditor Win64 Development -Project="C:\src\Rep-One\delve-deeper\tools\assignment5\..\..\3_unreal_project\DelveDeeperTest\DelveDeeperTest.uproject" -WaitMutex
+Log file: C:\Users\matth\AppData\Local\UnrealBuildTool\Log.txt
+Determining max actions to execute in parallel (24 physical cores, 32 logical cores)
+  Executing up to 24 processes, one per physical core
+  Requested 1.5 GB memory per action, 29.71 GB available: limiting max parallel actions to 19
+Creating makefile for DelveDeeperTestEditor (.uproject file is newer)
+UbaServer - Listening on 0.0.0.0:1345
+UHT compiled-in object format Default
+Building DelveDeeperTestEditor...
+===== Toolchain Information =====
+Using ISPC compiler (C:\Program Files\Epic Games\UE_5.8\Engine\Source\ThirdParty\Intel\ISPC\bin\Windows\ispc.exe)
+  Intel(r) Implicit SPMD Program Compiler (Intel(r) ISPC), 1.24.0 (build commit  @ 20250404, LLVM 18.1.2) 
+Using Visual Studio 14.44.35229 toolchain (C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207) and Windows 10.0.26100.0 SDK (C:\Program Files (x86)\Windows Kits\10).
+=================================
+Using Unreal Build Accelerator local executor to run 24 action(s)
+  CPU 24 physical cores, 32 logical cores
+  Memory 29.71 GB physical, 35.72 GB/46.71 GB committed
+  UBA Storage capacity 40 GB
+[1/24] Compile [x64] DDFloorMapActor.cpp
+[2/24] Compile [x64] DDMapLibrary.cpp
+[3/24] Compile [x64] DDPuzzleComponent.cpp
+[4/24] Compile [x64] DDQuestComponent.cpp
+[5/24] Compile [x64] DDText.cpp
+[6/24] Compile [x64] DelveDeeperContent.cpp
+[7/24] Compile [x64] Module.DelveDeeperContent.gen.cpp
+[8/24] Compile [x64] csv.cpp
+[9/24] Compile [x64] json.cpp
+[10/24] Compile [x64] map.cpp
+[11/24] Compile [x64] puzzle.cpp
+[12/24] Compile [x64] quest.cpp
+[13/24] Link [x64] UnrealEditor-DelveDeeperContent.lib
+[14/24] Link [x64] UnrealEditor-DelveDeeperContent.dll
+[15/24] Compile [x64] DDDemoCharacter.cpp
+[16/24] Compile [x64] DDDemoDirector.cpp
+[17/24] Compile [x64] DDDemoGameMode.cpp
+[18/24] Compile [x64] DDDemoHUD.cpp
+[19/24] Compile [x64] DDDemoInteractable.cpp
+[20/24] Compile [x64] DelveDeeperTest.cpp
+[21/24] Compile [x64] Module.DelveDeeperTest.gen.cpp
+[22/24] Link [x64] UnrealEditor-DelveDeeperTest.lib
+[23/24] Link [x64] UnrealEditor-DelveDeeperTest.dll
+[24/24] WriteMetadata DelveDeeperTestEditor.target [NoUba]
+
+Total time in Unreal Build Accelerator local executor: 89.22 seconds
+Output binary: C:\Program Files\Epic Games\UE_5.8\Engine\Binaries\Win64\UnrealEditor.exe
+
+Result: Succeeded
+Total execution time: 98.74 seconds
+Trace written to file C:\Users\matth\AppData\Local\UnrealBuildTool\Trace.uba with size 17.5kb

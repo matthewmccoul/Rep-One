@@ -4,10 +4,11 @@
 |---|---|
 | Agent source | [`delve-deeper/tools/assignment5/`](delve-deeper/tools/assignment5/): `run_agent.py` (runner and `priority_score()`), `prompts.md`, `scope.md`, `tests/` |
 | Feature the agent built | The first-floor ending: gold, the bandit boss's toll, and the descent that wins the demo. Code in [`delve-deeper/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/`](delve-deeper/3_unreal_project/DelveDeeperTest/Source/DelveDeeperTest/) (commit "Add the Assignment 5 feature written by the agent") |
-| Run logs | [`delve-deeper/assignment5_runs/20261116-042545/`](delve-deeper/assignment5_runs/20261116-042545/RUN_LOG.md) (the run that wrote the feature), [`20261116-043146/`](delve-deeper/assignment5_runs/20261116-043146/RUN_LOG.md) (the second run, which found nothing to do) |
+| Run logs | [`delve-deeper/assignment5_runs/20261116-042545/`](delve-deeper/assignment5_runs/20261116-042545/RUN_LOG.md) (the run that wrote the feature), [`20261116-043146/`](delve-deeper/assignment5_runs/20261116-043146/RUN_LOG.md) (the second run, which found nothing to do). On Windows: [`20261116-002713/`](delve-deeper/assignment5_runs/20261116-002713/RUN_LOG.md) (run with the build, exit 0), [`20261116-002643/`](delve-deeper/assignment5_runs/20261116-002643/RUN_LOG.md) (first attempt, failed on text encoding before any model call), [`windows_20261116/build_01.log`](delve-deeper/assignment5_runs/windows_20261116/build_01.log) (the standalone UE build) |
 
-**Status, stated plainly:** the agent ran and wrote the feature. The Unreal build and the in-game playtest have **not**
-been done yet. They need UE 5.8 on Windows, and the sandbox that ran the agent has no Unreal Engine. See "What is verified".
+**Status, stated plainly:** the agent ran and wrote the feature. On Windows with UE 5.8.3 the feature **built** with no code
+changes and the headless smoke test passed (17 of 17). The in-game playtest has **not** been done: it needs a person to play
+`DemoLevel`. See "What is verified".
 
 ## What the agent did
 
@@ -38,8 +39,15 @@ evidence. The ranking worked, but it did not discriminate between them here.
 | Starting scan, five steps, five rescans, with real model calls (11 calls, $2.24) | Done |
 | Second run on the finished code | Found all four implemented, wrote nothing (code hash identical before and after), cost $0.24 |
 | Static checks on every changed file (balanced braces, JSON and CSV parse, `.generated.h` last) | Pass |
-| **Unreal build (UE 5.8)** | **Not run** |
-| **Playing `DemoLevel`** | **Not run** |
+| Unreal build (UE 5.8.3, Windows, Visual Studio Build Tools 2022, MSVC 14.44) with `build_ue.bat` | **Pass.** `Result: Succeeded`, 29 compile and link steps, 0 errors, 172 s ([`build_01.log`](delve-deeper/assignment5_runs/windows_20261116/build_01.log)). No code was changed to make it build |
+| Headless smoke test (17 checks: floor map, storeroom puzzle, quest) | **Pass.** 17 PASS, 0 FAIL, "DONE: 0 failure(s)" ([`smoke_result.txt`](delve-deeper/3_unreal_project/DelveDeeperTest/Tests/smoke_result.txt)). It does not cover the boss, gold or descent |
+| Agent run on Windows with the build (`20261116-002713`) | Exit code 0, "SUCCESS". All four requirements scanned as implemented, nothing was written (`git status` showed no change to any source file), the build check passed (99 s), one model call, cost $0.34 |
+| **Playing `DemoLevel`** | **Not run.** The boss, gold, toll and descent behaviour is untested in play until someone does the steps below |
+
+**Windows notes.** The first attempt at that run (`20261116-002643`) failed with exit code 1 before any model call ($0.00): the
+runner sends its prompt to `claude` in the Windows default encoding (cp1252), which cannot encode the "●" character in the prompt.
+Setting `PYTHONUTF8=1` fixed it with no code change, and `run_agent.py` itself was not edited. `claude` was not on the PATH on this
+machine, so the run used the Claude desktop app's bundled `claude.exe` through `--claude-bin`.
 
 The runner exits with code 3, "IMPLEMENTED, BUILD UNVERIFIED", when every requirement scans as implemented but no build ran.
 It reports success (exit 0) only after a passing build. The agent also listed what it could not confirm without a build, in
@@ -69,7 +77,9 @@ On Windows with UE 5.8, add the build so a compile error is fed back to the agen
 py -3 delve-deeper/tools/assignment5/run_agent.py --build-cmd "tools\assignment5\build_ue.bat"
 ```
 
-`build_ue.bat` wraps the UE 5.8 build (set `UE_ROOT` if Unreal is not in `C:\Program Files\Epic Games\UE_5.8`). It has **not been run yet**.
+`build_ue.bat` wraps the UE 5.8 build (set `UE_ROOT` if Unreal is not in `C:\Program Files\Epic Games\UE_5.8`). It ran on 2026-11-16 and succeeded.
+On Windows, if the run fails with `UnicodeEncodeError`, set `PYTHONUTF8=1` first (PowerShell: `$env:PYTHONUTF8 = "1"`). If `claude` is not
+on your PATH, add `--claude-bin "<forward-slash path to claude.exe>"`.
 Use `--scan-only` to scan and score without writing. Run the tests with `python3 delve-deeper/tools/assignment5/tests/test_agent.py`.
 
 ## See the feature in the game (needs Windows and UE 5.8)
