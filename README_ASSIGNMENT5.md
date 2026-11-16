@@ -35,7 +35,7 @@ evidence. The ranking worked, but it did not discriminate between them here.
 
 | Check | Result |
 |---|---|
-| Runner logic tests (`tests/test_agent.py`, 21 tests): score formula, dependency order, tie-break, stop on failed build, no rewrite of finished work, evidence checks | Pass in the Linux sandbox. **On Windows 18 of 21 pass.** Only 12 passed before the backslash-path fix in `run_agent.py`. The 3 that still fail (`AgentLoop`: `test_builds_in_dependency_order_not_in_score_order`, `test_completed_work_is_not_rewritten`, `test_success_is_not_reported_when_the_build_fails`) pass POSIX shell build commands (`true`, `echo '...'; exit 1`) that `cmd.exe` runs differently, so they are test problems, not runner bugs. With a `true` command on the PATH the first two pass. The tests themselves are unchanged |
+| Runner logic tests (`tests/test_agent.py`, 21 tests): score formula, dependency order, tie-break, stop on failed build, no rewrite of finished work, evidence checks | Pass in the Linux sandbox. **On Windows 21 of 21 pass** (checked with `PYTHONUTF8` unset). As first run on Windows only 12 passed: the backslash-path bug in `run_agent.py` took it to 18, and making the tests' build commands work under `cmd.exe` took it to 21 (see "Manual changes"). Not re-run on Linux after those changes |
 | Starting scan, five steps, five rescans, with real model calls (11 calls, $2.24) | Done |
 | Second run on the finished code | Found all four implemented, wrote nothing (code hash identical before and after), cost $0.24 |
 | Static checks on every changed file (balanced braces, JSON and CSV parse, `.generated.h` last) | Pass |
@@ -66,6 +66,7 @@ its own commit with the reason.
 
 - `delve-deeper/tools/assignment5/run_agent.py` (commit `b7fb70e`): added `encoding="utf-8", errors="replace"` to the two `subprocess.run` calls (`call_claude`, `run_build`). On Windows they used cp1252 and the first run failed on the "●" in the prompt. This is runner code, not feature code.
 - `delve-deeper/tools/assignment5/run_agent.py` (commit `2c95e1e`): new `split_command()` so `--claude-bin` keeps the backslashes of a Windows path (POSIX `shlex.split` had dropped them), and new `console_print()` so a run-log line with a character outside cp1252 no longer raises `UnicodeEncodeError` on a redirected console. Runner code, not feature code.
+- `delve-deeper/tools/assignment5/tests/test_agent.py` (commit `92955ba`): the build commands the tests pass were POSIX shell strings (`true`, `echo '...'; exit 1`), which `cmd.exe` runs differently, so 3 tests failed on Windows. They now use `BUILD_OK` and `BUILD_FAIL`, which run the current Python. Test code, not feature code or runner code.
 
 ## Run the agent
 
